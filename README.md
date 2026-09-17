@@ -32,6 +32,12 @@ deutschwelt-site/
 │   │   └── index.html                → leseforståelse: Lukas' helg i Berlin
 │   └── wer-hat-den-kuchen-gegessen/
 │       └── index.html                → leseforståelse: mysterium i klasse 8b
+├── hoeren/
+│   ├── index.html                    → hub-side: velg lyttevideo
+│   ├── nicos-weg-hallo/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 1 (Hallo!)
+│   └── nicos-weg-kein-problem/
+│       └── index.html                → video + oppgaver: Nicos Weg, Folge 2 (Kein Problem!)
 └── sprechen/
     └── cafe/
         └── index.html                → "Du bist dran!" — Im Café
@@ -42,12 +48,24 @@ blir ren og kort (f.eks. `.../staedte/berlin/` i stedet for
 `.../staedte/berlin/index.html`).
 
 **Mønster for hub-sider:** så snart en seksjon har to eller flere
-undersider (som `staedte/`, `geschichte/`, `grammatikk/` og `lesen/` nå
-har), får den en egen `index.html` som viser et lite kortgalleri med
-lenker videre — akkurat som forsiden, bare smalere. `sprechen/` har
-foreløpig bare én underside, så navigasjonsmenyen peker rett dit; når du
-legger til nummer to der, lag en tilsvarende hub-side og pek menyen dit i
-stedet (se steg 4 under).
+undersider (som `staedte/`, `geschichte/`, `grammatikk/`, `lesen/` og
+`hoeren/` nå har), får den en egen `index.html` som viser et lite
+kortgalleri med lenker videre — akkurat som forsiden, bare smalere.
+`sprechen/` har foreløpig bare én underside, så navigasjonsmenyen peker
+rett dit; når du legger til nummer to der, lag en tilsvarende hub-side og
+pek menyen dit i stedet (se steg 4 under).
+
+**Om Hören-seksjonen:** videoene er bygget inn fra YouTube
+(`youtube-nocookie.com/embed/<video-ID>`) og hentet fra **Nicos Weg**, en
+gratis A1-serie laget av Deutsche Welle (DW) spesielt for nybegynnere.
+Hver side har en "Se videoen direkte på YouTube"-lenke som fallback i
+tilfelle skolens nettverk blokkerer innebygde videoer. Under videoen er
+det en enkel, ikke-poengsatt avkrysningsliste (`dwListenWords`) der
+elevene krysser av ord de hører — en lett måte å holde dem aktive under
+selve avspillingen, siden vi ikke har tilgang til eksakt transkripsjon å
+poengsette mot. Den faktiske poengsatte forståelsesquizen (`dwQuiz`)
+kommer etter videoen og er basert på handlingen i episoden, ikke eksakte
+sitater.
 
 ## Slik legger du til en ny seksjon
 
@@ -59,12 +77,17 @@ stedet (se steg 4 under).
      `geschichte/kaiserreich/`.
    - En ny lesetekst → kopier `lesen/wer-hat-den-kuchen-gegessen/` til
      f.eks. `lesen/der-verlorene-rucksack/`.
+   - En ny lyttevideo (f.eks. Nicos Weg Folge 3) → kopier
+     `hoeren/nicos-weg-kein-problem/` til f.eks. `hoeren/nicos-weg-folge-3/`,
+     og bytt video-ID-en i `<iframe src="https://www.youtube-nocookie.com/embed/…">`
+     (finn video-ID-en i YouTube-lenken, delen etter `watch?v=`).
    - En ny samtalesituasjon (f.eks. Am Bahnhof) → kopier `sprechen/cafe/`
      til `sprechen/bahnhof/` (NB: da må `sprechen/` også få en egen
      hub-`index.html`, se mønsteret over).
 2. **Bytt ut innholdet** i den nye `index.html` — tekst, emoji, ordliste
-   (`dwWords`), spørsmål (`dwQuiz`), dialog (`dwNodes`) eller tidslinje
-   (`dwTimeline`), avhengig av hvilken mal du brukte.
+   (`dwWords`), spørsmål (`dwQuiz`), dialog (`dwNodes`), tidslinje
+   (`dwTimeline`) eller video-ID og lytteord (`dwListenWords`), avhengig av
+   hvilken mal du brukte.
 3. **Sjekk stien til `assets/style.css`** øverst i filen — den må ha like
    mange `../` som mappen ligger dypt under rotmappen (se de andre filene
    for eksempel).
@@ -105,10 +128,10 @@ verdt å samle mer av den delte stilen i `assets/style.css` også.
 
 ## Kjente begrensninger
 
-- **Hören-seksjonen** krever ekte lydopptak, som ikke kan lages i dette
-  verktøyet. Den bør bygges rundt kuraterte, innebygde videoer (f.eks.
-  Easy German, Nicos Weg fra DW) med egne før/under/etter-oppgaver, i
-  stedet for original lyd.
+- **Hören-videoene er avhengig av YouTube.** Hvis skolens nettverk
+  blokkerer YouTube helt (både innebygging og direktelenke), fungerer
+  ikke denne seksjonen uten videre — da må videoene evt. lastes ned og
+  vises lokalt av læreren i stedet.
 - **Personlig fremgang på tvers av økter** (f.eks. en "Mein Deutsch"-side
   som husker hver elevs resultater) og en **lærerdel** med innsending og
   oversikt over elevsvar krever en database/backend — dette er utenfor

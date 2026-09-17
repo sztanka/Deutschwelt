@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <!--
-  DEUTSCHWELT — Lesen: "Wer hat den Kuchen gegessen?"
-  For 8. trinn (A1). Mysterie-lesetekst i "Lesen wie ein Detektiv"-mønsteret:
-  Wer? Wo? Wann? Was passiert? + quiz om detaljer/hint + åpent spådomsspørsmål
-  om hvem eleven tror gjorde det.
-  Se README.md i rotmappen for hvordan du legger til flere lesetekster.
+  DEUTSCHWELT — Hören: "Nicos Weg – A1 – Folge 1: Hallo!"
+  For 8. trinn (A1). Video fra Deutsche Welle (DW) sin gratis A1-serie
+  Nicos Weg, bygget inn via YouTube-embed (youtube-nocookie.com).
+  Video-ID: dC6ZGLzdaTs (offisiell DW-kanal "Deutsch lernen mit der DW").
+  Kan brukes som mal for flere lytteoppgaver — kopier denne mappen,
+  bytt ut video-ID-en i <iframe> og innholdet i dwListenWords/dwQuiz.
+  Se README.md i rotmappen for detaljer.
 -->
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wer hat den Kuchen gegessen? · Deutschwelt</title>
+<title>Nicos Weg – Hallo! · Deutschwelt</title>
 <link rel="stylesheet" href="../../assets/style.css">
 <style>
   :root{
@@ -39,27 +41,36 @@
   .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
   .dw-crumb a:hover{text-decoration:underline;}
 
-  .dw-detective{
-    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
-    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
-  }
-  .dw-detective h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
-  .dw-detective ul{margin:0;padding-left:20px;}
-
   .dw-section{
     background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
     box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
   }
   .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
-  .dw-section p{margin:0 0 10px;line-height:1.7;}
+  .dw-section p{margin:0 0 10px;line-height:1.65;}
   .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-video-wrap{
+    position:relative;width:100%;padding-bottom:56.25%;height:0;
+    border-radius:12px;overflow:hidden;background:#000;margin-bottom:10px;
+  }
+  .dw-video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+  .dw-video-fallback{font-size:.85rem;text-align:center;}
+  .dw-video-fallback a{color:var(--dw-primary);font-weight:600;}
 
   .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
   .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
   .dw-vocab b{color:var(--dw-primary);}
 
+  .dw-listen-list{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
+  .dw-listen-item{
+    display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f4f1e8;border-radius:10px;cursor:pointer;
+  }
+  .dw-listen-item input{width:18px;height:18px;}
+  .dw-listen-item span{font-size:.95rem;}
+  #dw-listen-counter{font-weight:700;color:var(--dw-primary);margin-top:10px;display:block;}
+
   textarea.dw-plan{
-    width:100%;min-height:110px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    width:100%;min-height:100px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
     font-family:inherit;resize:vertical;
   }
   .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
@@ -91,8 +102,8 @@
       <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
       <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
       <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
-      <a class="dw-nav-link dw-nav-active" href="../">📖 Lesen</a>
-      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link dw-nav-active" href="../">🎧 Hören</a>
       <a class="dw-nav-link" href="../../sprechen/cafe/">☕ Café</a>
     </div>
   </nav>
@@ -100,57 +111,58 @@
 
 <div class="dw-wrap">
 
-  <p class="dw-crumb"><a href="../">📖 Lesen</a> → Wer hat den Kuchen gegessen?</p>
+  <p class="dw-crumb"><a href="../">🎧 Hören</a> → Nicos Weg – Folge 1: Hallo!</p>
 
   <div class="dw-header">
-    <h1>🍰 Wer hat den Kuchen gegessen?</h1>
-    <p>Ein kleines Rätsel aus der Klasse 8b</p>
-  </div>
-
-  <div class="dw-detective">
-    <h2>🔍 Lies wie ein Detektiv</h2>
-    <p>Mens du leser, prøv å svare på disse fire spørsmålene i hodet ditt — og se etter <strong>hint (Hinweise)</strong> som kan hjelpe deg finne ut hvem som spiste kaken!</p>
-    <ul>
-      <li><strong>Wer?</strong> — Hvem handler teksten om?</li>
-      <li><strong>Wo?</strong> — Hvor skjer det?</li>
-      <li><strong>Wann?</strong> — Når skjer det?</li>
-      <li><strong>Was passiert?</strong> — Hva skjer?</li>
-    </ul>
+    <h1>👋 Nicos Weg – Folge 1: Hallo!</h1>
+    <p>Nico kommer til Tyskland og møter Emma. Se videoen og løs oppgavene!</p>
   </div>
 
   <div class="dw-section">
-    <h2>📖 Die Geschichte</h2>
-    <p>Es ist Montagmorgen in der Klasse 8b. Anna hat heute Geburtstag, und ihre Mutter hat einen großen Schokoladenkuchen für die Pause gebacken. Anna stellt den Kuchen auf den Tisch im Klassenzimmer und geht zum Sportunterricht.</p>
-    <p>Nach dem Sport kommt die Klasse zurück. Der Kuchen ist weg! Nur ein paar Krümel liegen auf dem Tisch. Anna ist sehr traurig.</p>
-    <p>Die Lehrerin, Frau Berger, fragt: „Wer war in der Pause im Klassenzimmer?" Drei Schüler melden sich.</p>
-    <p><strong>Lena</strong> sagt: „Ich war kurz da, aber nur, um meine Jacke zu holen. Ich hatte keine Zeit für Kuchen."</p>
-    <p><strong>Tom</strong> sagt: „Ich hatte Hunger und bin ins Klassenzimmer gegangen. Aber ich habe nur eine Banane gegessen — sieh mal, hier ist die Schale."</p>
-    <p><strong>Max</strong> sagt nichts. Er hat Schokolade am Mund und sieht nervös aus.</p>
-    <p>Frau Berger lächelt. „Max, hast du etwas zu sagen?"</p>
+    <h2>📋 Vor dem Hören</h2>
+    <p>Nico er fra Spania og har akkurat kommet til Tyskland. Han møter en tysk jente som heter Emma, og hun lærer ham å hilse på tysk.</p>
+    <p class="dw-note">Tenk gjennom før du ser videoen: Hvilke tyske hilsener kan du allerede? Skriv gjerne ett eller to i hodet før du starter.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>▶️ Das Video</h2>
+    <div class="dw-video-wrap">
+      <iframe src="https://www.youtube-nocookie.com/embed/dC6ZGLzdaTs" title="Nicos Weg – A1 – Folge 1: Hallo! (Deutsche Welle)" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <p class="dw-video-fallback">Ser du ikke videoen? <a href="https://www.youtube.com/watch?v=dC6ZGLzdaTs" target="_blank" rel="noopener">Se videoen direkte på YouTube ↗</a></p>
+  </div>
+
+  <div class="dw-section">
+    <h2>👂 Während des Hörens</h2>
+    <p class="dw-note">Se videoen (den er kort — bare rundt 1,5 minutt!). Kryss av ordene under etter hvert som du hører dem.</p>
+    <div class="dw-listen-list" id="dw-listen-list"></div>
+    <span id="dw-listen-counter">0 av 6 ord funnet</span>
   </div>
 
   <div class="dw-section">
     <h2>🧠 Wortschatz</h2>
     <div class="dw-vocab">
-      <div><b>der Krümel</b><br>smule</div>
-      <div><b>sich melden</b><br>melde seg / rekke opp hånden</div>
-      <div><b>die Schale</b><br>skrell</div>
-      <div><b>nervös</b><br>nervøs</div>
-      <div><b>der Hinweis</b><br>hint / spor</div>
-      <div><b>traurig</b><br>trist</div>
+      <div><b>Hallo!</b><br>Hei!</div>
+      <div><b>Guten Tag!</b><br>God dag!</div>
+      <div><b>Ich heiße …</b><br>Jeg heter …</div>
+      <div><b>Wie heißt du?</b><br>Hva heter du?</div>
+      <div><b>Woher kommst du?</b><br>Hvor kommer du fra?</div>
+      <div><b>Ich komme aus …</b><br>Jeg kommer fra …</div>
+      <div><b>Auf Wiedersehen!</b><br>Ha det! (formelt)</div>
+      <div><b>Tschüss!</b><br>Ha det! (uformelt)</div>
     </div>
   </div>
 
   <div class="dw-section">
-    <h2>✅ Teste dich selbst</h2>
+    <h2>✅ Nach dem Hören</h2>
     <div id="dw-quiz"></div>
     <div id="dw-quiz-score"></div>
   </div>
 
   <div class="dw-section">
-    <h2>🔮 Was glaubst du?</h2>
-    <p class="dw-note">Wer, glaubst du, hat den Kuchen gegessen — und warum? Schreib 2–4 Sätze auf Deutsch. Benutze mindestens einen Hinweis (clue) aus der Geschichte, z. B. <em>„Ich glaube, Max hat den Kuchen gegessen, weil …"</em></p>
-    <textarea class="dw-plan" id="dw-plan" placeholder="Ich glaube, … hat den Kuchen gegessen, weil …"></textarea>
+    <h2>✍️ Stell dich vor!</h2>
+    <p class="dw-note">Skriv en kort presentasjon av deg selv på tysk — akkurat slik Nico og Emma gjorde. Bruk minst 3 uttrykk fra ordlisten over.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Hallo! Ich heiße … Ich komme aus …"></textarea>
     <div class="dw-plan-tools">
       <span id="dw-wordcount">0 Wörter</span>
       <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
@@ -160,13 +172,36 @@
 </div>
 
 <script>
+  /* ---------- Aktiv lytteoppgave (selvsjekk, ikke poengsatt) ---------- */
+  var dwListenWords = ["Hallo", "Guten Tag", "Ich heiße", "Wie heißt du?", "Woher kommst du?", "Tschüss"];
+
+  function dwRenderListenList(){
+    var wrap = document.getElementById('dw-listen-list');
+    wrap.innerHTML = '';
+    dwListenWords.forEach(function(word, i){
+      var label = document.createElement('label');
+      label.className = 'dw-listen-item';
+      label.innerHTML = '<input type="checkbox" onchange="dwUpdateListenCounter()" id="dw-lw-'+i+'">' +
+        '<span>' + word + '</span>';
+      wrap.appendChild(label);
+    });
+  }
+
+  function dwUpdateListenCounter(){
+    var count = 0;
+    dwListenWords.forEach(function(_, i){
+      if(document.getElementById('dw-lw-'+i).checked) count++;
+    });
+    document.getElementById('dw-listen-counter').textContent = count + ' av ' + dwListenWords.length + ' ord funnet';
+  }
+  dwRenderListenList();
+
   /* ---------- Quiz ---------- */
   var dwQuiz = [
-    {q:"Wessen Geburtstag ist es?", opts:["Lena","Anna","Max"], correct:1},
-    {q:"Was hat Annas Mutter gebacken?", opts:["Einen Apfelkuchen","Einen Schokoladenkuchen","Kekse"], correct:1},
-    {q:"Warum war Lena im Klassenzimmer?", opts:["Um Kuchen zu essen","Um ihre Jacke zu holen","Um mit der Lehrerin zu sprechen"], correct:1},
-    {q:"Was hat Tom gegessen?", opts:["Kuchen","Eine Banane","Nichts"], correct:1},
-    {q:"Welcher Hinweis bei Max ist verdächtig?", opts:["Er hat Hunger","Er hat Schokolade am Mund","Er ist spät gekommen"], correct:1}
+    {q:"Woher kommt Nico?", opts:["Spanien","Frankreich","Italien"], correct:0},
+    {q:"Wen trifft Nico in der Episode?", opts:["Einen Lehrer","Emma","Seine Mutter"], correct:1},
+    {q:"Was lernt Nico von Emma?", opts:["Zahlen","Begrüßungen","Kochen"], correct:1},
+    {q:"Wie sagt man „Hei“ auf Deutsch?", opts:["Tschüss","Hallo","Danke"], correct:1}
   ];
   var dwQuizScore = 0;
   var dwQuizAnswered = 0;
@@ -202,7 +237,7 @@
   }
   dwRenderQuiz();
 
-  /* ---------- Spådoms-tekstfelt ---------- */
+  /* ---------- Skrivefelt ---------- */
   var dwPlanEl = document.getElementById('dw-plan');
   dwPlanEl.addEventListener('input', function(){
     var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;

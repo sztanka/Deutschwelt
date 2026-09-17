@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <!--
-  DEUTSCHWELT — Geschichte (hub-side for historietemaer)
-  Se README.md i rotmappen for hvordan du legger til et nytt historietema.
+  DEUTSCHWELT — Hören (hub-side for lytteoppgaver)
+  Se README.md i rotmappen for hvordan du legger til en ny lytteoppgave/video.
 -->
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Geschichte · Deutschwelt</title>
+<title>Hören · Deutschwelt</title>
 <link rel="stylesheet" href="../assets/style.css">
 <style>
   :root{
@@ -25,10 +25,15 @@
   .dw-wrap{max-width:820px;margin:0 auto;padding:0 16px 60px;}
   .dw-header{
     background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
-    color:#fff;border-radius:var(--dw-radius);padding:32px 26px;text-align:center;margin-bottom:24px;
+    color:#fff;border-radius:var(--dw-radius);padding:32px 26px;text-align:center;margin-bottom:16px;
   }
   .dw-header h1{margin:0 0 6px;font-size:1.8rem;}
   .dw-header p{margin:0;opacity:.95;}
+  .dw-source-note{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:14px 20px;margin-bottom:24px;font-size:.86rem;line-height:1.55;color:var(--dw-text);
+  }
+  .dw-source-note a{color:var(--dw-primary);font-weight:600;}
   .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
   .dw-card{
     background:var(--dw-card);border-radius:var(--dw-radius);padding:22px;text-decoration:none;color:var(--dw-text);
@@ -50,9 +55,9 @@
       <a class="dw-nav-link" href="../">🏠 Forside</a>
       <a class="dw-nav-link" href="../grammatikk/">🧩 Grammatik</a>
       <a class="dw-nav-link" href="../staedte/">🏙️ Städte</a>
-      <a class="dw-nav-link dw-nav-active" href="./">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../geschichte/">🕰️ Geschichte</a>
       <a class="dw-nav-link" href="../lesen/">📖 Lesen</a>
-      <a class="dw-nav-link" href="../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link dw-nav-active" href="./">🎧 Hören</a>
       <a class="dw-nav-link" href="../sprechen/cafe/">☕ Café</a>
     </div>
   </nav>
@@ -61,26 +66,33 @@
 <div class="dw-wrap">
 
   <div class="dw-header">
-    <h1>🕰️ Geschichte</h1>
-    <p>Reise durch die deutsche Geschichte — ein Thema nach dem anderen</p>
+    <h1>🎧 Deutsch hören</h1>
+    <p>Se korte videoer på tysk og løs oppgaver før, under og etter</p>
+  </div>
+
+  <div class="dw-source-note">
+    🎬 Videoene er hentet fra <strong>Nicos Weg</strong>, en gratis A1-serie laget av
+    <a href="https://www.dw.com/de/deutsch-lernen/nicos-weg/s-31736" target="_blank" rel="noopener">Deutsche Welle (DW)</a> spesielt for nybegynnere i tysk.
+    De vises direkte fra YouTube. <strong>Merk:</strong> hvis skolens nettverk
+    blokkerer YouTube, kan lærer bruke lenken "Se videoen direkte på YouTube"
+    på hver side, eller vise videoen fra egen enhet.
   </div>
 
   <div class="dw-grid">
-    <a class="dw-card" href="berliner-mauer/">
-      <span class="dw-icon">🧱</span>
-      <h2>Die Berliner Mauer</h2>
-      <p>1961–1989: eine geteilte Stadt. Lies, denk nach und schreib deinen eigenen Tagebucheintrag.</p>
+    <a class="dw-card" href="nicos-weg-hallo/">
+      <span class="dw-icon">👋</span>
+      <h2>Nicos Weg – Folge 1: Hallo!</h2>
+      <p>Nico kommer til Tyskland og møter Emma. Lær å hilse på tysk!</p>
+    </a>
+    <a class="dw-card" href="nicos-weg-kein-problem/">
+      <span class="dw-icon">🧳</span>
+      <h2>Nicos Weg – Folge 2: Kein Problem!</h2>
+      <p>Noe går galt med Nicos koffer. Lær å be om hjelp på tysk!</p>
     </a>
     <a class="dw-card dw-soon" href="#">
-      <span class="dw-icon">👑</span>
-      <h2>Deutsches Kaiserreich</h2>
-      <p>1871</p>
-      <span class="dw-soon-tag">🔜 Kommer snart</span>
-    </a>
-    <a class="dw-card dw-soon" href="#">
-      <span class="dw-icon">⚔️</span>
-      <h2>Zweiter Weltkrieg</h2>
-      <p>1939–1945</p>
+      <span class="dw-icon">🚉</span>
+      <h2>Nicos Weg – Folge 3</h2>
+      <p>Kommer snart</p>
       <span class="dw-soon-tag">🔜 Kommer snart</span>
     </a>
   </div>
