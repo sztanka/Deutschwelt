@@ -11,7 +11,11 @@ deutschwelt-site/
 ├── assets/
 │   └── style.css                     → delt navigasjonsstil (brukes av alle sider)
 ├── grammatikk/
-│   └── index.html                    → "Der Artikel-Detektiv" (der/die/das)
+│   ├── index.html                    → hub-side: velg grammatikktema
+│   ├── nominativ/
+│   │   └── index.html                → "Der Artikel-Detektiv" (der/die/das)
+│   └── akkusativ/
+│       └── index.html                → "Die Akkusativ-Jagd" (den/die/das)
 ├── staedte/
 │   ├── index.html                    → hub-side: velg by
 │   ├── berlin/
@@ -22,6 +26,12 @@ deutschwelt-site/
 │   ├── index.html                    → hub-side: velg historietema
 │   └── berliner-mauer/
 │       └── index.html                → "Die Berliner Mauer" (tidslinje + lese/skrive/muntlig-opplegg)
+├── lesen/
+│   ├── index.html                    → hub-side: velg lesetekst
+│   ├── ein-wochenende-in-berlin/
+│   │   └── index.html                → leseforståelse: Lukas' helg i Berlin
+│   └── wer-hat-den-kuchen-gegessen/
+│       └── index.html                → leseforståelse: mysterium i klasse 8b
 └── sprechen/
     └── cafe/
         └── index.html                → "Du bist dran!" — Im Café
@@ -32,24 +42,26 @@ blir ren og kort (f.eks. `.../staedte/berlin/` i stedet for
 `.../staedte/berlin/index.html`).
 
 **Mønster for hub-sider:** så snart en seksjon har to eller flere
-undersider (som `staedte/` og `geschichte/` nå har), får den en egen
-`index.html` som viser et lite kortgalleri med lenker videre — akkurat som
-forsiden, bare smalere. `grammatikk/` og `sprechen/` har foreløpig bare én
-underside hver, så navigasjonsmenyen peker rett dit; når du legger til
-nummer to i en av dem, lag en tilsvarende hub-side og pek menyen dit i
+undersider (som `staedte/`, `geschichte/`, `grammatikk/` og `lesen/` nå
+har), får den en egen `index.html` som viser et lite kortgalleri med
+lenker videre — akkurat som forsiden, bare smalere. `sprechen/` har
+foreløpig bare én underside, så navigasjonsmenyen peker rett dit; når du
+legger til nummer to der, lag en tilsvarende hub-side og pek menyen dit i
 stedet (se steg 4 under).
 
 ## Slik legger du til en ny seksjon
 
 1. **Kopier den mappen som ligner mest** på det du skal lage:
    - En ny by (f.eks. Zürich) → kopier `staedte/wien/` til `staedte/zuerich/`.
-   - Et nytt grammatikktema (f.eks. Akkusativ) → kopier `grammatikk/` til en
-     ny mappe, f.eks. `grammatikk/akkusativ/` (NB: da må `grammatikk/`
-     også få en egen hub-`index.html`, se mønsteret over).
+   - Et nytt grammatikktema (f.eks. Dativ) → kopier `grammatikk/akkusativ/`
+     til f.eks. `grammatikk/dativ/`.
    - Et nytt historietema → kopier `geschichte/berliner-mauer/` til f.eks.
      `geschichte/kaiserreich/`.
+   - En ny lesetekst → kopier `lesen/wer-hat-den-kuchen-gegessen/` til
+     f.eks. `lesen/der-verlorene-rucksack/`.
    - En ny samtalesituasjon (f.eks. Am Bahnhof) → kopier `sprechen/cafe/`
-     til `sprechen/bahnhof/` (samme NB som grammatikk).
+     til `sprechen/bahnhof/` (NB: da må `sprechen/` også få en egen
+     hub-`index.html`, se mønsteret over).
 2. **Bytt ut innholdet** i den nye `index.html` — tekst, emoji, ordliste
    (`dwWords`), spørsmål (`dwQuiz`), dialog (`dwNodes`) eller tidslinje
    (`dwTimeline`), avhengig av hvilken mal du brukte.

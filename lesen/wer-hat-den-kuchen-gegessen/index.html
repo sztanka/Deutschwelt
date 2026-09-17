@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Lesen: "Wer hat den Kuchen gegessen?"
+  For 8. trinn (A1). Mysterie-lesetekst i "Lesen wie ein Detektiv"-mønsteret:
+  Wer? Wo? Wann? Was passiert? + quiz om detaljer/hint + åpent spådomsspørsmål
+  om hvem eleven tror gjorde det.
+  Se README.md i rotmappen for hvordan du legger til flere lesetekster.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wer hat den Kuchen gegessen? · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.6rem;}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-detective{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-detective h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+  .dw-detective ul{margin:0;padding-left:20px;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 10px;line-height:1.7;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  textarea.dw-plan{
+    width:100%;min-height:110px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../sprechen/cafe/">☕ Café</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../">📖 Lesen</a> → Wer hat den Kuchen gegessen?</p>
+
+  <div class="dw-header">
+    <h1>🍰 Wer hat den Kuchen gegessen?</h1>
+    <p>Ein kleines Rätsel aus der Klasse 8b</p>
+  </div>
+
+  <div class="dw-detective">
+    <h2>🔍 Lies wie ein Detektiv</h2>
+    <p>Mens du leser, prøv å svare på disse fire spørsmålene i hodet ditt — og se etter <strong>hint (Hinweise)</strong> som kan hjelpe deg finne ut hvem som spiste kaken!</p>
+    <ul>
+      <li><strong>Wer?</strong> — Hvem handler teksten om?</li>
+      <li><strong>Wo?</strong> — Hvor skjer det?</li>
+      <li><strong>Wann?</strong> — Når skjer det?</li>
+      <li><strong>Was passiert?</strong> — Hva skjer?</li>
+    </ul>
+  </div>
+
+  <div class="dw-section">
+    <h2>📖 Die Geschichte</h2>
+    <p>Es ist Montagmorgen in der Klasse 8b. Anna hat heute Geburtstag, und ihre Mutter hat einen großen Schokoladenkuchen für die Pause gebacken. Anna stellt den Kuchen auf den Tisch im Klassenzimmer und geht zum Sportunterricht.</p>
+    <p>Nach dem Sport kommt die Klasse zurück. Der Kuchen ist weg! Nur ein paar Krümel liegen auf dem Tisch. Anna ist sehr traurig.</p>
+    <p>Die Lehrerin, Frau Berger, fragt: „Wer war in der Pause im Klassenzimmer?" Drei Schüler melden sich.</p>
+    <p><strong>Lena</strong> sagt: „Ich war kurz da, aber nur, um meine Jacke zu holen. Ich hatte keine Zeit für Kuchen."</p>
+    <p><strong>Tom</strong> sagt: „Ich hatte Hunger und bin ins Klassenzimmer gegangen. Aber ich habe nur eine Banane gegessen — sieh mal, hier ist die Schale."</p>
+    <p><strong>Max</strong> sagt nichts. Er hat Schokolade am Mund und sieht nervös aus.</p>
+    <p>Frau Berger lächelt. „Max, hast du etwas zu sagen?"</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🧠 Wortschatz</h2>
+    <div class="dw-vocab">
+      <div><b>der Krümel</b><br>smule</div>
+      <div><b>sich melden</b><br>melde seg / rekke opp hånden</div>
+      <div><b>die Schale</b><br>skrell</div>
+      <div><b>nervös</b><br>nervøs</div>
+      <div><b>der Hinweis</b><br>hint / spor</div>
+      <div><b>traurig</b><br>trist</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Teste dich selbst</h2>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>🔮 Was glaubst du?</h2>
+    <p class="dw-note">Wer, glaubst du, hat den Kuchen gegessen — und warum? Schreib 2–4 Sätze auf Deutsch. Benutze mindestens einen Hinweis (clue) aus der Geschichte, z. B. <em>„Ich glaube, Max hat den Kuchen gegessen, weil …"</em></p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Ich glaube, … hat den Kuchen gegessen, weil …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Quiz ---------- */
+  var dwQuiz = [
+    {q:"Wessen Geburtstag ist es?", opts:["Lena","Anna","Max"], correct:1},
+    {q:"Was hat Annas Mutter gebacken?", opts:["Einen Apfelkuchen","Einen Schokoladenkuchen","Kekse"], correct:1},
+    {q:"Warum war Lena im Klassenzimmer?", opts:["Um Kuchen zu essen","Um ihre Jacke zu holen","Um mit der Lehrerin zu sprechen"], correct:1},
+    {q:"Was hat Tom gegessen?", opts:["Kuchen","Eine Banane","Nichts"], correct:1},
+    {q:"Welcher Hinweis bei Max ist verdächtig?", opts:["Er hat Hunger","Er hat Schokolade am Mund","Er ist spät gekommen"], correct:1}
+  ];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  /* ---------- Spådoms-tekstfelt ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

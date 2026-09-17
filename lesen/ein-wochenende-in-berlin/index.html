@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Lesen: "Ein Wochenende in Berlin"
+  For 8. trinn (A1). Leseforståelsestekst i "Lesen wie ein Detektiv"-mønsteret:
+  Wer? Wo? Wann? Was passiert? + quiz + åpent spådoms-spørsmål.
+  Kan brukes som mal for flere lesetekster — kopier lesen/ein-wochenende-in-berlin/-
+  mappen og bytt ut historien, ordlisten (dwQuiz) og spådomsspørsmålet.
+  Se README.md i rotmappen for detaljer.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ein Wochenende in Berlin · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.7rem;}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-detective{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-detective h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+  .dw-detective ul{margin:0;padding-left:20px;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 10px;line-height:1.7;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  textarea.dw-plan{
+    width:100%;min-height:110px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../sprechen/cafe/">☕ Café</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../">📖 Lesen</a> → Ein Wochenende in Berlin</p>
+
+  <div class="dw-header">
+    <h1>🧳 Ein Wochenende in Berlin</h1>
+    <p>Eine kurze Geschichte über Lukas' ersten Besuch in der Hauptstadt</p>
+  </div>
+
+  <div class="dw-detective">
+    <h2>🔍 Lies wie ein Detektiv</h2>
+    <p>Mens du leser, prøv å svare på disse fire spørsmålene i hodet ditt:</p>
+    <ul>
+      <li><strong>Wer?</strong> — Hvem handler teksten om?</li>
+      <li><strong>Wo?</strong> — Hvor skjer det?</li>
+      <li><strong>Wann?</strong> — Når skjer det?</li>
+      <li><strong>Was passiert?</strong> — Hva skjer?</li>
+    </ul>
+  </div>
+
+  <div class="dw-section">
+    <h2>📖 Die Geschichte</h2>
+    <p>Lukas ist 13 Jahre alt und wohnt in Norwegen. Am Freitag fliegt er mit seiner Familie nach Berlin. Es ist sein erster Besuch in der Hauptstadt von Deutschland!</p>
+    <p>Am Samstagmorgen fahren Lukas und seine Familie mit der U-Bahn zum Alexanderplatz. Dort sehen sie den Fernsehturm. Er ist sehr hoch — 368 Meter! Lukas findet das fantastisch.</p>
+    <p>Am Mittag isst die Familie Currywurst an einem kleinen Imbiss. Lukas mag das Essen sehr. Danach gehen sie zum Brandenburger Tor und machen viele Fotos.</p>
+    <p>Am Nachmittag regnet es. Die Familie geht in ein Museum auf der Museumsinsel. Lukas findet die alten Sachen interessant, aber er ist auch ein bisschen müde.</p>
+    <p>Am Abend sitzt Lukas im Hotelzimmer und schreibt eine Nachricht an seinen besten Freund in Norwegen: <em>„Berlin ist super! Morgen besuchen wir die East Side Gallery. Ich habe schon viele Fotos für dich!"</em></p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🧠 Wortschatz</h2>
+    <div class="dw-vocab">
+      <div><b>der Besuch</b><br>besøk</div>
+      <div><b>der Imbiss</b><br>gatekjøkken</div>
+      <div><b>die Nachricht</b><br>melding</div>
+      <div><b>müde</b><br>trøtt</div>
+      <div><b>hoch</b><br>høy</div>
+      <div><b>regnen</b><br>regne</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Teste dich selbst</h2>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>🔮 Was glaubst du passiert danach?</h2>
+    <p class="dw-note">Lukas will am Sonntag die East Side Gallery besuchen. Schreib 2–4 Sätze auf Deutsch: Was glaubst du, was am Sonntag passiert?</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Ich glaube, am Sonntag …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Quiz ---------- */
+  var dwQuiz = [
+    {q:"Wer ist die Hauptperson in der Geschichte?", opts:["Lukas","Anna","Lukas' Vater"], correct:0},
+    {q:"Wo wohnt Lukas?", opts:["In Berlin","In Norwegen","In Wien"], correct:1},
+    {q:"Was sehen Lukas und seine Familie am Alexanderplatz?", opts:["Den Fernsehturm","Das Brandenburger Tor","Die East Side Gallery"], correct:0},
+    {q:"Was isst die Familie zum Mittag?", opts:["Döner","Currywurst","Pizza"], correct:1},
+    {q:"Warum geht die Familie am Nachmittag ins Museum?", opts:["Es regnet","Sie sind müde","Es ist Montag"], correct:0}
+  ];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  /* ---------- Spådoms-tekstfelt ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>
