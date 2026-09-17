@@ -38,6 +38,12 @@ deutschwelt-site/
 │   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 1 (Hallo!)
 │   └── nicos-weg-kein-problem/
 │       └── index.html                → video + oppgaver: Nicos Weg, Folge 2 (Kein Problem!)
+├── schreiben/
+│   ├── index.html                    → hub-side: velg skriveoppgave
+│   ├── sms-chat/
+│   │   └── index.html                → "SMS-Chat" — eleven skriver begge sider av en chat
+│   └── wortkiste/
+│       └── index.html                → "Die Wortkiste" — skriv med tilfeldig trukne ord
 └── sprechen/
     └── cafe/
         └── index.html                → "Du bist dran!" — Im Café
@@ -48,12 +54,12 @@ blir ren og kort (f.eks. `.../staedte/berlin/` i stedet for
 `.../staedte/berlin/index.html`).
 
 **Mønster for hub-sider:** så snart en seksjon har to eller flere
-undersider (som `staedte/`, `geschichte/`, `grammatikk/`, `lesen/` og
-`hoeren/` nå har), får den en egen `index.html` som viser et lite
-kortgalleri med lenker videre — akkurat som forsiden, bare smalere.
-`sprechen/` har foreløpig bare én underside, så navigasjonsmenyen peker
-rett dit; når du legger til nummer to der, lag en tilsvarende hub-side og
-pek menyen dit i stedet (se steg 4 under).
+undersider (som `staedte/`, `geschichte/`, `grammatikk/`, `lesen/`,
+`hoeren/` og `schreiben/` nå har), får den en egen `index.html` som viser
+et lite kortgalleri med lenker videre — akkurat som forsiden, bare
+smalere. `sprechen/` har foreløpig bare én underside, så navigasjonsmenyen
+peker rett dit; når du legger til nummer to der, lag en tilsvarende
+hub-side og pek menyen dit i stedet (se steg 4 under).
 
 **Om Hören-seksjonen:** videoene er bygget inn fra YouTube
 (`youtube-nocookie.com/embed/<video-ID>`) og hentet fra **Nicos Weg**, en
@@ -66,6 +72,19 @@ selve avspillingen, siden vi ikke har tilgang til eksakt transkripsjon å
 poengsette mot. Den faktiske poengsatte forståelsesquizen (`dwQuiz`)
 kommer etter videoen og er basert på handlingen i episoden, ikke eksakte
 sitater.
+
+**Om Schreiben-seksjonen:** skriveoppgavene er bevisst designet som noe
+mer enn en tom tekstboks. **SMS-Chat** gjenbruker chat-boble-designet fra
+`sprechen/cafe/`, men her forfatter eleven selv begge sider av samtalen —
+en avsender-bryter (`dwCurrentSender`) styrer om neste melding legges inn
+som "deg" eller "vennen", og hele samtalen (`dwMessages`) kan kopieres som
+formatert tekst til slutt. **Die Wortkiste** trekker 8 tilfeldige ord fra
+en større ordpool (`dwWordPool`, fargekodet etter ordklasse: substantiv/
+verb/adjektiv) som eleven skal veve inn i en egen tekst — en "Neue
+Wörter!"-knapp gir nytt trekk når som helst. Begge sider avsluttes med en
+enkel, ikke-poengsatt egenvurderings-sjekkliste (`dwCheckItems`) eleven
+går gjennom selv før de kopierer teksten videre til læreren — dette
+mønsteret bør gjenbrukes på fremtidige skriveoppgaver også.
 
 ## Slik legger du til en ny seksjon
 
@@ -84,10 +103,15 @@ sitater.
    - En ny samtalesituasjon (f.eks. Am Bahnhof) → kopier `sprechen/cafe/`
      til `sprechen/bahnhof/` (NB: da må `sprechen/` også få en egen
      hub-`index.html`, se mønsteret over).
+   - En ny skriveoppgave → kopier `schreiben/sms-chat/` (for et nytt
+     samtalescenario, bytt `dwScenario`) eller `schreiben/wortkiste/` (for
+     en ny ordpool, bytt `dwWordPool`) — begge har allerede
+     egenvurderings-sjekklisten (`dwCheckItems`) klar til å tilpasses.
 2. **Bytt ut innholdet** i den nye `index.html` — tekst, emoji, ordliste
    (`dwWords`), spørsmål (`dwQuiz`), dialog (`dwNodes`), tidslinje
-   (`dwTimeline`) eller video-ID og lytteord (`dwListenWords`), avhengig av
-   hvilken mal du brukte.
+   (`dwTimeline`), video-ID og lytteord (`dwListenWords`), eller
+   chat-scenario/ordpool og sjekkliste (`dwScenario`/`dwWordPool`/
+   `dwCheckItems`), avhengig av hvilken mal du brukte.
 3. **Sjekk stien til `assets/style.css`** øverst i filen — den må ha like
    mange `../` som mappen ligger dypt under rotmappen (se de andre filene
    for eksempel).

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Schreiben: "Die Wortkiste"
+  For 8. trinn (A1). Eleven trekker 8 tilfeldige ord fra en ordpool
+  (substantiv/verb/adjektiv, hentet fra ord som allerede brukes andre
+  steder på nettstedet) og skriver en kort tekst som bruker minst 4 av dem.
+  Ordene kan trekkes på nytt når som helst med "Neue Wörter!"-knappen.
+  Se README.md i rotmappen for hvordan du legger til flere skriveoppgaver.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Die Wortkiste · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-good:#2e7d32;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:700px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:26px 24px;text-align:center;margin-bottom:16px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.6rem;}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 8px;line-height:1.55;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--dw-muted);margin-bottom:12px;}
+  .dw-legend span{display:inline-flex;align-items:center;gap:5px;}
+  .dw-dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+  .dw-dot.dw-n{background:var(--dw-primary);}
+  .dw-dot.dw-v{background:var(--dw-good);}
+  .dw-dot.dw-a{background:var(--dw-accent);}
+
+  .dw-chip-grid{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;}
+  .dw-chip{
+    border-radius:12px;padding:10px 16px;text-align:center;min-width:90px;
+    border:2px solid transparent;color:#fff;
+  }
+  .dw-chip.dw-n{background:var(--dw-primary);}
+  .dw-chip.dw-v{background:var(--dw-good);}
+  .dw-chip.dw-a{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-chip b{display:block;font-size:1rem;}
+  .dw-chip small{display:block;font-size:.75rem;opacity:.9;margin-top:2px;}
+
+  .dw-reroll-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:12px 22px;border-radius:999px;
+    font-size:.95rem;font-weight:700;cursor:pointer;
+  }
+  .dw-reroll-btn:hover{background:var(--dw-primary-light);}
+
+  textarea.dw-plan{
+    width:100%;min-height:130px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-check-list{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
+  .dw-check-item{
+    display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f4f1e8;border-radius:10px;cursor:pointer;
+  }
+  .dw-check-item input{width:18px;height:18px;}
+  .dw-check-item span{font-size:.92rem;}
+  #dw-check-counter{font-weight:700;color:var(--dw-primary);margin-top:10px;display:block;}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link dw-nav-active" href="../">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../sprechen/cafe/">☕ Café</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../">✍️ Schreiben</a> → Die Wortkiste</p>
+
+  <div class="dw-header">
+    <h1>🎲 Die Wortkiste</h1>
+    <p>Trekk tilfeldige ord og bygg en tekst rundt dem!</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🎯 Deine Aufgabe</h2>
+    <p>Trykk på "Neue Wörter!" for å trekke 8 tilfeldige ord fra kassen. Skriv en kort tekst (<strong>minst 4 setninger</strong>) som bruker <strong>minst 4 av ordene</strong>. Ikke fornøyd med ordene? Trekk gjerne på nytt!</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>📦 Deine Wörter</h2>
+    <div class="dw-legend">
+      <span><i class="dw-dot dw-n"></i> Nomen (substantiv)</span>
+      <span><i class="dw-dot dw-v"></i> Verb</span>
+      <span><i class="dw-dot dw-a"></i> Adjektiv</span>
+    </div>
+    <div class="dw-chip-grid" id="dw-chip-grid"></div>
+    <button class="dw-reroll-btn" onclick="dwPickWords()">🎲 Neue Wörter!</button>
+  </div>
+
+  <div class="dw-section">
+    <h2>✍️ Deine Geschichte</h2>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Es war einmal …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Sjekk deg selv</h2>
+    <p class="dw-note">Gå gjennom listen før du kopierer teksten til læreren din:</p>
+    <div class="dw-check-list" id="dw-check-list"></div>
+    <span id="dw-check-counter">0 av 5 sjekket</span>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Ordpool — hentet fra ord som brukes andre steder på nettstedet ---------- */
+  var dwWordPool = [
+    {word:"der Bahnhof", trans:"jernbanestasjonen", type:"n"},
+    {word:"der Park", trans:"parken", type:"n"},
+    {word:"die Schule", trans:"skolen", type:"n"},
+    {word:"das Auto", trans:"bilen", type:"n"},
+    {word:"das Kino", trans:"kinoen", type:"n"},
+    {word:"die Straße", trans:"gaten", type:"n"},
+    {word:"der Kaffee", trans:"kaffen", type:"n"},
+    {word:"das Museum", trans:"museet", type:"n"},
+    {word:"der Freund", trans:"vennen (gutt)", type:"n"},
+    {word:"die Freundin", trans:"venninnen", type:"n"},
+    {word:"die Stadt", trans:"byen", type:"n"},
+    {word:"der Kuchen", trans:"kaken", type:"n"},
+    {word:"trinken", trans:"å drikke", type:"v"},
+    {word:"essen", trans:"å spise", type:"v"},
+    {word:"gehen", trans:"å gå", type:"v"},
+    {word:"sehen", trans:"å se", type:"v"},
+    {word:"kaufen", trans:"å kjøpe", type:"v"},
+    {word:"spielen", trans:"å spille/leke", type:"v"},
+    {word:"lernen", trans:"å lære", type:"v"},
+    {word:"wohnen", trans:"å bo", type:"v"},
+    {word:"kommen", trans:"å komme", type:"v"},
+    {word:"machen", trans:"å gjøre/lage", type:"v"},
+    {word:"finden", trans:"å finne/synes", type:"v"},
+    {word:"groß", trans:"stor", type:"a"},
+    {word:"klein", trans:"liten", type:"a"},
+    {word:"schön", trans:"pen/fin", type:"a"},
+    {word:"alt", trans:"gammel", type:"a"},
+    {word:"neu", trans:"ny", type:"a"},
+    {word:"lustig", trans:"morsom", type:"a"},
+    {word:"schnell", trans:"rask", type:"a"},
+    {word:"interessant", trans:"interessant", type:"a"},
+    {word:"müde", trans:"trøtt", type:"a"}
+  ];
+
+  function dwShuffle(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
+    }
+    return a;
+  }
+
+  function dwPickWords(){
+    var picked = dwShuffle(dwWordPool).slice(0, 8);
+    var wrap = document.getElementById('dw-chip-grid');
+    wrap.innerHTML = '';
+    picked.forEach(function(w){
+      var chip = document.createElement('div');
+      chip.className = 'dw-chip dw-' + w.type;
+      chip.innerHTML = '<b>' + w.word + '</b><small>' + w.trans + '</small>';
+      wrap.appendChild(chip);
+    });
+  }
+  dwPickWords();
+
+  /* ---------- Skrivefelt ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+
+  /* ---------- Egenvurderings-sjekkliste (selvsjekk, ikke poengsatt) ---------- */
+  var dwCheckItems = [
+    "Jeg har skrevet minst 4 setninger",
+    "Jeg har brukt minst 4 ord fra kassen",
+    "Jeg har stor forbokstav og punktum riktig",
+    "Jeg har brukt minst ett verb i presens",
+    "Jeg har lest gjennom teksten min én gang til"
+  ];
+
+  function dwRenderCheckList(){
+    var wrap = document.getElementById('dw-check-list');
+    wrap.innerHTML = '';
+    dwCheckItems.forEach(function(item, i){
+      var label = document.createElement('label');
+      label.className = 'dw-check-item';
+      label.innerHTML = '<input type="checkbox" onchange="dwUpdateCheckCounter()" id="dw-ci-'+i+'">' +
+        '<span>' + item + '</span>';
+      wrap.appendChild(label);
+    });
+  }
+
+  function dwUpdateCheckCounter(){
+    var count = 0;
+    dwCheckItems.forEach(function(_, i){
+      if(document.getElementById('dw-ci-'+i).checked) count++;
+    });
+    document.getElementById('dw-check-counter').textContent = count + ' av ' + dwCheckItems.length + ' sjekket';
+  }
+  dwRenderCheckList();
+</script>
+</body>
+</html>
