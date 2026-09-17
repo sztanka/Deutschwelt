@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Forside
+  Del av det statiske Deutschwelt-nettstedet. Se README.md i rotmappen
+  for hvordan du legger til flere sider/seksjoner etter samme mønster.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutschwelt</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-danger:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--dw-bg);
+    color:var(--dw-text);
+  }
+  .dw-wrap{max-width:1000px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;
+    border-radius:var(--dw-radius);
+    padding:36px 28px;
+    text-align:center;
+    margin-bottom:28px;
+  }
+  .dw-header h1{
+    margin:0 0 6px;
+    font-size:clamp(1.6rem,4vw,2.4rem);
+    letter-spacing:.5px;
+  }
+  .dw-header p.dw-sub{
+    margin:0;
+    font-size:1.1rem;
+    opacity:.95;
+  }
+  .dw-header p.dw-no{
+    margin:14px 0 0;
+    font-size:.95rem;
+    color:var(--dw-accent);
+    font-weight:600;
+  }
+  .dw-search{
+    display:flex;
+    gap:8px;
+    max-width:520px;
+    margin:20px auto 0;
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.35);
+    border-radius:999px;
+    padding:6px 6px 6px 18px;
+  }
+  .dw-search input{
+    flex:1;
+    border:none;
+    background:transparent;
+    outline:none;
+    color:#fff;
+    font-size:1rem;
+    padding:8px 0;
+  }
+  .dw-search input::placeholder{color:rgba(255,255,255,.75);}
+  .dw-search button{
+    border:none;
+    background:var(--dw-accent);
+    color:#1a1a1a;
+    font-weight:700;
+    padding:8px 18px;
+    border-radius:999px;
+    cursor:pointer;
+    font-size:.95rem;
+  }
+  .dw-search button:hover{filter:brightness(1.05);}
+  #dw-search-result{
+    max-width:520px;
+    margin:10px auto 0;
+    text-align:center;
+    font-size:.9rem;
+    color:#fff;
+    min-height:1.2em;
+  }
+  #dw-search-result a{color:var(--dw-accent);font-weight:700;}
+
+  .dw-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:16px;
+  }
+  .dw-card{
+    background:var(--dw-card);
+    border-radius:var(--dw-radius);
+    padding:20px;
+    text-decoration:none;
+    color:var(--dw-text);
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+    border:1px solid #ece8df;
+    transition:transform .15s ease, box-shadow .15s ease;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .dw-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 10px 20px rgba(30,58,95,.14);
+    border-color:var(--dw-accent);
+  }
+  .dw-card .dw-icon{font-size:2.1rem;line-height:1;}
+  .dw-card h2{
+    margin:4px 0 0;
+    font-size:1.05rem;
+    color:var(--dw-primary);
+  }
+  .dw-card p{
+    margin:0;
+    font-size:.88rem;
+    color:var(--dw-muted);
+  }
+  .dw-footer{
+    text-align:center;
+    margin-top:36px;
+    font-size:.85rem;
+    color:var(--dw-muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="./">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link dw-nav-active" href="./">🏠 Forside</a>
+      <a class="dw-nav-link" href="grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="staedte/berlin/">🏙️ Berlin</a>
+      <a class="dw-nav-link" href="sprechen/cafe/">☕ Café</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>🇩🇪 DEUTSCHWELT</h1>
+    <p class="dw-sub">Was möchtest du heute machen?</p>
+    <p class="dw-no">Velg et kort under og bli med inn i den tyske verdenen!</p>
+
+    <div class="dw-search">
+      <input type="text" id="dw-search-input" placeholder="Ich suche etwas … (skriv f.eks. Berlin, Café, Akkusativ)">
+      <button onclick="dwSearch()">Suchen</button>
+    </div>
+    <div id="dw-search-result"></div>
+  </div>
+
+  <div class="dw-grid">
+    <a class="dw-card dw-soon" href="#">
+      <span class="dw-icon">🗺️</span>
+      <h2>Eine Reise machen</h2>
+      <p>Utforsk Tyskland, Østerrike og Sveits</p>
+      <span class="dw-soon-tag">🔜 Kommer snart</span>
+    </a>
+    <a class="dw-card" href="sprechen/cafe/" id="card-sprechen">
+      <span class="dw-icon">🗣️</span>
+      <h2>Deutsch sprechen</h2>
+      <p>Snakk, uttal og øv på dialoger</p>
+    </a>
+    <a class="dw-card dw-soon" href="#">
+      <span class="dw-icon">🎧</span>
+      <h2>Deutsch hören</h2>
+      <p>Lytt til ekte og tilpasset tysk</p>
+      <span class="dw-soon-tag">🔜 Kommer snart</span>
+    </a>
+    <a class="dw-card dw-soon" href="#">
+      <span class="dw-icon">📖</span>
+      <h2>Deutsch lesen</h2>
+      <p>Les historier, artikler og korte tekster</p>
+      <span class="dw-soon-tag">🔜 Kommer snart</span>
+    </a>
+    <a class="dw-card dw-soon" href="#">
+      <span class="dw-icon">✍️</span>
+      <h2>Deutsch schreiben</h2>
+      <p>Skriv meldinger, historier, anmeldelser</p>
+      <span class="dw-soon-tag">🔜 Kommer snart</span>
+    </a>
+    <a class="dw-card" href="grammatikk/" id="card-grammatikk">
+      <span class="dw-icon">🧩</span>
+      <h2>Grammatik trainieren</h2>
+      <p>Lær og øv grammatikk gjennom spill</p>
+    </a>
+    <a class="dw-card" href="staedte/berlin/" id="card-berlin">
+      <span class="dw-icon">🏙️</span>
+      <h2>Städte entdecken</h2>
+      <p>Utforsk byer som Berlin, Wien og Zürich</p>
+    </a>
+    <a class="dw-card dw-soon" href="#">
+      <span class="dw-icon">🎬</span>
+      <h2>Filme &amp; Serien</h2>
+      <p>Tysk film, serier og klipp</p>
+      <span class="dw-soon-tag">🔜 Kommer snart</span>
+    </a>
+    <a class="dw-card dw-soon" href="#">
+      <span class="dw-icon">🏆</span>
+      <h2>Challenges</h2>
+      <p>Små utfordringer og oppdrag</p>
+      <span class="dw-soon-tag">🔜 Kommer snart</span>
+    </a>
+  </div>
+
+  <p class="dw-footer">Deutschwelt · Deutsch entdecken. Deutsch erleben. Deutsch sprechen.</p>
+</div>
+
+<script>
+  // Enkelt, "fuzzy nok" søk som peker eleven videre til riktig side.
+  var dwIndex = [
+    {keys:["berlin","hovedstad","hauptstadt","brandenburger","mauer"], target:"staedte/berlin/", label:"🏙️ Städte entdecken – Berlin", built:true},
+    {keys:["café","cafe","kellner","bestellen","restaurant","essen bestellen"], target:"sprechen/cafe/", label:"🗣️ Deutsch sprechen", built:true},
+    {keys:["akkusativ","nominativ","artikel","der die das","grammatikk","grammatik"], target:"grammatikk/", label:"🧩 Grammatik trainieren", built:true},
+    {keys:["wien","österreich","zürich","schweiz"], target:"#", label:"🗺️ Eine Reise machen", built:false}
+  ];
+
+  function dwSearch(){
+    var q = document.getElementById('dw-search-input').value.trim().toLowerCase();
+    var out = document.getElementById('dw-search-result');
+    if(!q){ out.innerHTML = ""; return; }
+    var hit = dwIndex.find(function(item){
+      return item.keys.some(function(k){ return q.indexOf(k) !== -1 || k.indexOf(q) !== -1; });
+    });
+    if(hit && hit.built){
+      out.innerHTML = 'Vielleicht hier: <a href="'+hit.target+'">'+hit.label+'</a>';
+    } else if(hit && !hit.built){
+      out.textContent = hit.label + ' finnes i planen, men er ikke bygget ennå.';
+    } else {
+      out.textContent = "Ingen direkte treff ennå — prøv et kort under, f.eks. 🧩 Grammatik.";
+    }
+  }
+
+  document.getElementById('dw-search-input').addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ dwSearch(); }
+  });
+</script>
+</body>
+</html>
