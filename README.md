@@ -14,8 +14,12 @@ deutschwelt-site/
 │   ├── index.html                    → hub-side: velg grammatikktema
 │   ├── nominativ/
 │   │   └── index.html                → "Der Artikel-Detektiv" (der/die/das)
-│   └── akkusativ/
-│       └── index.html                → "Die Akkusativ-Jagd" (den/die/das)
+│   ├── akkusativ/
+│   │   └── index.html                → "Die Akkusativ-Jagd" (den/die/das)
+│   ├── verben-regelmaessig/
+│   │   └── index.html                → "Verb-Werkstatt": presens av regelrette verb
+│   └── verben-unregelmaessig/
+│       └── index.html                → "Verb-Werkstatt": presens av sein, haben m.fl.
 ├── staedte/
 │   ├── index.html                    → hub-side: velg by
 │   ├── berlin/
@@ -72,6 +76,17 @@ selve avspillingen, siden vi ikke har tilgang til eksakt transkripsjon å
 poengsette mot. Den faktiske poengsatte forståelsesquizen (`dwQuiz`)
 kommer etter videoen og er basert på handlingen i episoden, ikke eksakte
 sitater.
+
+**Om verbspillene:** `verben-regelmaessig/` og `verben-unregelmaessig/` bruker
+samme spillmotor som Nominativ/Akkusativ (`dwWords`, poeng, hint), men med
+en variant der svaralternativene bygges dynamisk for hver runde
+(`dwLoad()` lager knappene fra `w.choices` i stedet for faste der/die/das-
+knapper), siden hvert verb har egne bøyningsformer som alternativer. Begge
+sider bruker flervalg (ikke fritekst-skriving) med vilje — det unngår
+friksjonen med å skrive tyske spesialtegn (ä/ö/ü) på et norsk tastatur.
+Disse to sidene erstattet den opprinnelige "Verben im Präsens"
+plassholderen i grammatikk-huben, etter ønske om separate opplegg for
+regelrette og uregelrette verb (i stedet for ett kombinert spill).
 
 **Om Schreiben-seksjonen:** skriveoppgavene er bevisst designet som noe
 mer enn en tom tekstboks. **SMS-Chat** gjenbruker chat-boble-designet fra
