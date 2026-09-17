@@ -7,47 +7,70 @@ Statisk nettsted — ren HTML/CSS/JavaScript, ingen server eller database nødve
 
 ```
 deutschwelt-site/
-├── index.html                    → forsiden ("Was möchtest du heute machen?")
+├── index.html                        → forsiden ("Was möchtest du heute machen?")
 ├── assets/
-│   └── style.css                 → delt navigasjonsstil (brukes av alle sider)
+│   └── style.css                     → delt navigasjonsstil (brukes av alle sider)
 ├── grammatikk/
-│   └── index.html                → "Der Artikel-Detektiv" (der/die/das)
+│   └── index.html                    → "Der Artikel-Detektiv" (der/die/das)
 ├── staedte/
-│   └── berlin/
-│       └── index.html            → byportrett: Berlin
+│   ├── index.html                    → hub-side: velg by
+│   ├── berlin/
+│   │   └── index.html                → byportrett: Berlin
+│   └── wien/
+│       └── index.html                → byportrett: Wien
+├── geschichte/
+│   ├── index.html                    → hub-side: velg historietema
+│   └── berliner-mauer/
+│       └── index.html                → "Die Berliner Mauer" (tidslinje + lese/skrive/muntlig-opplegg)
 └── sprechen/
     └── cafe/
-        └── index.html            → "Du bist dran!" — Im Café
+        └── index.html                → "Du bist dran!" — Im Café
 ```
 
 Hver seksjon ligger i sin egen mappe med en `index.html`, slik at adressen
 blir ren og kort (f.eks. `.../staedte/berlin/` i stedet for
 `.../staedte/berlin/index.html`).
 
+**Mønster for hub-sider:** så snart en seksjon har to eller flere
+undersider (som `staedte/` og `geschichte/` nå har), får den en egen
+`index.html` som viser et lite kortgalleri med lenker videre — akkurat som
+forsiden, bare smalere. `grammatikk/` og `sprechen/` har foreløpig bare én
+underside hver, så navigasjonsmenyen peker rett dit; når du legger til
+nummer to i en av dem, lag en tilsvarende hub-side og pek menyen dit i
+stedet (se steg 4 under).
+
 ## Slik legger du til en ny seksjon
 
 1. **Kopier den mappen som ligner mest** på det du skal lage:
-   - En ny by (f.eks. Wien) → kopier `staedte/berlin/` til `staedte/wien/`.
+   - En ny by (f.eks. Zürich) → kopier `staedte/wien/` til `staedte/zuerich/`.
    - Et nytt grammatikktema (f.eks. Akkusativ) → kopier `grammatikk/` til en
-     ny mappe, f.eks. `grammatikk/akkusativ/`.
+     ny mappe, f.eks. `grammatikk/akkusativ/` (NB: da må `grammatikk/`
+     også få en egen hub-`index.html`, se mønsteret over).
+   - Et nytt historietema → kopier `geschichte/berliner-mauer/` til f.eks.
+     `geschichte/kaiserreich/`.
    - En ny samtalesituasjon (f.eks. Am Bahnhof) → kopier `sprechen/cafe/`
-     til `sprechen/bahnhof/`.
+     til `sprechen/bahnhof/` (samme NB som grammatikk).
 2. **Bytt ut innholdet** i den nye `index.html` — tekst, emoji, ordliste
-   (`dwWords`), spørsmål (`dwQuiz`) eller dialog (`dwNodes`), avhengig av
-   hvilken mal du brukte.
+   (`dwWords`), spørsmål (`dwQuiz`), dialog (`dwNodes`) eller tidslinje
+   (`dwTimeline`), avhengig av hvilken mal du brukte.
 3. **Sjekk stien til `assets/style.css`** øverst i filen — den må ha like
    mange `../` som mappen ligger dypt under rotmappen (se de andre filene
    for eksempel).
-4. **Oppdater navigasjonsmenyen** (`<nav class="dw-nav">`) øverst i alle
-   filer, slik at den nye siden vises der du vil ha den.
-5. **Koble til fra forsiden** (`index.html`): finn kortet for seksjonen i
-   `<div class="dw-grid">`, fjern `class="dw-soon"` og `href="#"`, og sett
-   riktig relativ lenke (f.eks. `href="staedte/wien/"`).
+4. **Oppdater navigasjonsmenyen** (`<nav class="dw-nav">`) øverst i *alle*
+   filer i hele nettstedet, slik at den nye siden er nåbar samme vei fra
+   alle sider.
+5. **Koble til fra forsiden eller riktig hub-side**: finn eller lag kortet
+   for seksjonen i `<div class="dw-grid">`, fjern `class="dw-soon"` og
+   `href="#"` hvis det var en "kommer snart"-plassholder, og sett riktig
+   relativ lenke.
+6. **Legg gjerne til søkeord** i `dwIndex`-listen i `index.html` sitt
+   `<script>`, slik at søkefeltet på forsiden finner den nye siden.
 
 ## Publisere med GitHub Pages
 
 1. Opprett et nytt repository på GitHub og last opp *innholdet* i denne
-   mappen (ikke selve zip-filen — pakk den ut først).
+   mappen (ikke selve zip-filen — pakk den ut først). Last opp mappe for
+   mappe (drag-and-drop) for å være sikker på at strukturen bevares.
 2. Gå til **Settings → Pages** i repositoryet.
 3. Under **Source**, velg **Deploy from a branch**, velg branch `main` og
    mappe `/ (root)`, og trykk **Save**.
@@ -64,6 +87,18 @@ karakterer eller annen personlig informasjon — bare undervisningsinnhold.
 Alle sider deler samme fargepalett og komponentmønster (klasser som
 `dw-header`, `dw-card`, `dw-section`) slik at nye seksjoner ser ut som en
 naturlig del av samme nettsted. `assets/style.css` inneholder foreløpig
-kun navigasjonsbaren — resten av stilen ligger fortsatt i hver enkelt
-side. Hvis nettstedet vokser mye, kan det være verdt å samle mer av den
-delte stilen i `assets/style.css` også.
+kun navigasjonsbaren og "kommer snart"-stilen — resten av stilen ligger
+fortsatt i hver enkelt side. Hvis nettstedet vokser mye, kan det være
+verdt å samle mer av den delte stilen i `assets/style.css` også.
+
+## Kjente begrensninger
+
+- **Hören-seksjonen** krever ekte lydopptak, som ikke kan lages i dette
+  verktøyet. Den bør bygges rundt kuraterte, innebygde videoer (f.eks.
+  Easy German, Nicos Weg fra DW) med egne før/under/etter-oppgaver, i
+  stedet for original lyd.
+- **Personlig fremgang på tvers av økter** (f.eks. en "Mein Deutsch"-side
+  som husker hver elevs resultater) og en **lærerdel** med innsending og
+  oversikt over elevsvar krever en database/backend — dette er utenfor
+  hva et rent statisk nettsted kan gjøre, og må eventuelt løses med en
+  enkel tilleggstjeneste senere.

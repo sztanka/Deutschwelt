@@ -145,7 +145,8 @@
     <div class="dw-nav-links">
       <a class="dw-nav-link dw-nav-active" href="./">🏠 Forside</a>
       <a class="dw-nav-link" href="grammatikk/">🧩 Grammatik</a>
-      <a class="dw-nav-link" href="staedte/berlin/">🏙️ Berlin</a>
+      <a class="dw-nav-link" href="staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="geschichte/">🕰️ Geschichte</a>
       <a class="dw-nav-link" href="sprechen/cafe/">☕ Café</a>
     </div>
   </nav>
@@ -200,10 +201,15 @@
       <h2>Grammatik trainieren</h2>
       <p>Lær og øv grammatikk gjennom spill</p>
     </a>
-    <a class="dw-card" href="staedte/berlin/" id="card-berlin">
+    <a class="dw-card" href="staedte/" id="card-berlin">
       <span class="dw-icon">🏙️</span>
       <h2>Städte entdecken</h2>
-      <p>Utforsk byer som Berlin, Wien og Zürich</p>
+      <p>Utforsk byer som Berlin og Wien</p>
+    </a>
+    <a class="dw-card" href="geschichte/" id="card-geschichte">
+      <span class="dw-icon">🕰️</span>
+      <h2>Geschichte</h2>
+      <p>Reis gjennom historien — start med Berlinmuren</p>
     </a>
     <a class="dw-card dw-soon" href="#">
       <span class="dw-icon">🎬</span>
@@ -225,10 +231,12 @@
 <script>
   // Enkelt, "fuzzy nok" søk som peker eleven videre til riktig side.
   var dwIndex = [
-    {keys:["berlin","hovedstad","hauptstadt","brandenburger","mauer"], target:"staedte/berlin/", label:"🏙️ Städte entdecken – Berlin", built:true},
+    {keys:["berlin","hovedstad","hauptstadt","brandenburger"], target:"staedte/berlin/", label:"🏙️ Städte entdecken – Berlin", built:true},
+    {keys:["wien","österreich","mozart","kaffeehaus"], target:"staedte/wien/", label:"🎼 Städte entdecken – Wien", built:true},
+    {keys:["mauer","berliner mauer","ddr","kennedy","mauerfall","wiedervereinigung"], target:"geschichte/berliner-mauer/", label:"🧱 Geschichte – Die Berliner Mauer", built:true},
     {keys:["café","cafe","kellner","bestellen","restaurant","essen bestellen"], target:"sprechen/cafe/", label:"🗣️ Deutsch sprechen", built:true},
     {keys:["akkusativ","nominativ","artikel","der die das","grammatikk","grammatik"], target:"grammatikk/", label:"🧩 Grammatik trainieren", built:true},
-    {keys:["wien","österreich","zürich","schweiz"], target:"#", label:"🗺️ Eine Reise machen", built:false}
+    {keys:["zürich","schweiz","schweizerdeutsch"], target:"#", label:"🗺️ Eine Reise machen", built:false}
   ];
 
   function dwSearch(){
