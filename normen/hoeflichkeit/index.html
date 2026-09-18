@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Normen & Regeln: "Höflichkeit in Deutschland"
+  For 8. trinn (A1). Første side i en ny seksjon om tyske normer og
+  regler — foreløpig kun denne ene siden (samme mønster som
+  sprechen/cafe/ og filme-serien/: toppnavigasjonen peker rett hit).
+  Hvis flere norm-temaer legges til senere (f.eks. punktlighet,
+  resirkulering), kopier denne mappen til f.eks. normen/punktlichkeit/
+  og lag samtidig normen/index.html som hub — se README.md.
+  Ingen eksterne bilder — "illustrasjonene" er bygget med ren
+  CSS/emoji, i tråd med resten av nettstedet.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Höflichkeit in Deutschland · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:20px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.7rem;}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 10px;line-height:1.65;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  /* --- Illustrasjon: du vs. Sie sammenligning --- */
+  .dw-compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+  @media (max-width:520px){.dw-compare{grid-template-columns:1fr;}}
+  .dw-compare-col{border-radius:12px;padding:16px;text-align:center;}
+  .dw-compare-col.dw-du{background:#eef1f6;border:2px solid var(--dw-primary-light);}
+  .dw-compare-col.dw-sie{background:#fdf3e0;border:2px solid var(--dw-accent);}
+  .dw-compare-col .dw-compare-title{font-size:1.3rem;font-weight:800;color:var(--dw-primary);margin-bottom:8px;}
+  .dw-compare-col ul{list-style:none;margin:0;padding:0;text-align:left;}
+  .dw-compare-col li{padding:6px 0;font-size:.92rem;display:flex;align-items:center;gap:8px;}
+
+  .dw-rule{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:16px;font-size:.92rem;line-height:1.6;
+  }
+  .dw-rule h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;display:flex;align-items:center;gap:8px;}
+  .dw-rule table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.9rem;}
+  .dw-rule td, .dw-rule th{padding:5px 8px;text-align:left;}
+  .dw-rule th{color:var(--dw-muted);font-weight:600;border-bottom:1px solid #f0dca8;}
+
+  /* --- Quiz-motor (samme mønster som Grammatik-spillene) --- */
+  .dw-progress-wrap{background:#e4e0d5;border-radius:999px;height:10px;overflow:hidden;margin:16px 0 6px;}
+  .dw-progress-bar{height:100%;background:var(--dw-accent);width:0%;transition:width .3s ease;}
+  .dw-meta{display:flex;justify-content:space-between;font-size:.82rem;color:var(--dw-muted);margin-bottom:16px;}
+
+  .dw-game-card{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:26px 22px;text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.07);border:1px solid #ece8df;margin-bottom:16px;
+  }
+  .dw-g-emoji{font-size:2.6rem;margin-bottom:8px;}
+  .dw-g-situation{font-size:1rem;color:var(--dw-text);margin:4px 0 18px;line-height:1.5;}
+
+  .dw-choices{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;}
+  .dw-choice{
+    padding:12px 16px;font-size:.98rem;font-weight:600;border-radius:12px;
+    border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;
+    font-family:inherit;text-align:left;
+  }
+  .dw-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-choice:disabled{cursor:default;opacity:.7;}
+  .dw-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+
+  .dw-explain{
+    min-height:1.4em;font-size:.88rem;color:var(--dw-muted);background:#f4f1e8;border-radius:10px;
+    padding:10px 14px;margin:10px 0 16px;display:none;text-align:left;
+  }
+  .dw-explain.dw-show{display:block;}
+
+  .dw-next-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:12px 26px;border-radius:999px;
+    font-size:1rem;font-weight:600;cursor:pointer;display:none;
+  }
+  .dw-next-btn.dw-show{display:inline-block;}
+  .dw-next-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-result{display:none;text-align:center;}
+  .dw-result.dw-show{display:block;}
+  .dw-result h2{color:var(--dw-primary);margin:0 0 4px;}
+  .dw-score{font-size:2.2rem;font-weight:800;color:var(--dw-accent);margin:8px 0;}
+  .dw-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:14px 18px;margin:18px 0;font-size:.9rem;}
+  .dw-review li{margin-bottom:6px;}
+  .dw-restart-btn{
+    background:var(--dw-accent);color:#1a1a1a;border:none;padding:12px 26px;border-radius:999px;
+    font-size:1rem;font-weight:700;cursor:pointer;
+  }
+
+  /* --- Flere høflighetsvaner: korte kort --- */
+  .dw-tip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:12px;}
+  .dw-tip-card{background:#f4f1e8;border-radius:12px;padding:14px 16px;}
+  .dw-tip-card .dw-tip-emoji{font-size:1.5rem;margin-bottom:4px;}
+  .dw-tip-card h3{margin:0 0 4px;font-size:.95rem;color:var(--dw-primary);}
+  .dw-tip-card p{margin:0;font-size:.85rem;line-height:1.5;color:var(--dw-text);}
+
+  textarea.dw-plan{
+    width:100%;min-height:100px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link dw-nav-active" href="./">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../sprechen/cafe/">☕ Café</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>🎩 Höflichkeit in Deutschland</h1>
+    <p>Hvorfor sier tyskere «du» til noen og «Sie» til andre? Og hva bør du ellers vite?</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>📋 Hvorfor er ikke alt «du» i Tyskland?</h2>
+    <p>I Norge sier vi «du» til nesten alle — læreren, legen, til og med kongen. Sånn er det ikke i Tyskland! Tysk har to ord for «du»: det uformelle <strong>du</strong> og det høflige <strong>Sie</strong>. Hvilket ord du velger, og hvordan du bøyer verbet, forteller noe om hvor godt du kjenner personen — og det er noe tyskere tenker på hele tiden, uten at det er ment som noe rart eller distansert.</p>
+    <p class="dw-note">Dette er trolig den største høflighetsforskjellen du vil møte som norsk ungdom i Tyskland — så la oss se nærmere på den.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🙋🤝 Du eller Sie?</h2>
+    <p>Tommelfingerregelen: bruk <strong>du</strong> med folk du kjenner godt eller som er på din egen alder, og <strong>Sie</strong> med voksne du ikke kjenner.</p>
+    <div class="dw-compare">
+      <div class="dw-compare-col dw-du">
+        <div class="dw-compare-title">🙋 du</div>
+        <ul>
+          <li>👫 Venner og klassekamerater</li>
+          <li>👨‍👩‍👧 Familie</li>
+          <li>🐶 Kjæledyr</li>
+          <li>🧒 Andre barn og ungdommer</li>
+        </ul>
+      </div>
+      <div class="dw-compare-col dw-sie">
+        <div class="dw-compare-title">🤝 Sie</div>
+        <ul>
+          <li>🧑‍⚕️ Legen, tannlegen osv.</li>
+          <li>🛍️ Ansatte i butikker</li>
+          <li>🚶 Voksne fremmede på gaten</li>
+          <li>👔 Sjefer og ukjente kollegaer</li>
+        </ul>
+      </div>
+    </div>
+    <p class="dw-note">🎁 Kulturtips: Tyskere «tilbyr» ofte å bytte fra Sie til du — man sier gjerne «Wir können uns duzen» («Vi kan si du til hverandre»). Man bytter ikke selv til du med en voksen før man er invitert til det!</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>🧠 Grammatikk: Sie bøyes som «de»</h2>
+    <p>Det gode nyheten: <strong>Sie</strong>-formen av verbet er alltid lik <strong>sie</strong> (de)-formen — bare med stor S! Sammenlign:</p>
+    <table>
+      <tr><th>Form</th><th>machen</th><th>heißen</th><th>haben</th></tr>
+      <tr><td>du (uformell, én person)</td><td>du machst</td><td>du heißt</td><td>du hast</td></tr>
+      <tr><td>ihr (uformell, flere personer)</td><td>ihr macht</td><td>ihr heißt</td><td>ihr habt</td></tr>
+      <tr><td>Sie (høflig, én <em>eller</em> flere personer)</td><td>Sie machen</td><td>Sie heißen</td><td>Sie haben</td></tr>
+    </table>
+    <p class="dw-note">Husk: <strong>Sie</strong>, <strong>Ihnen</strong> og <strong>Ihr</strong> (i betydningen «Deres») skrives <em>alltid</em> med stor forbokstav når de betyr den høflige «du/deg/din» — det skiller dem fra <em>sie</em> (hun/de) og <em>ihr</em> (dere/hennes) som skrives med liten forbokstav.</p>
+  </div>
+
+  <div class="dw-progress-wrap"><div class="dw-progress-bar" id="dw-bar"></div></div>
+  <div class="dw-meta">
+    <span id="dw-count">Oppgave 1 av 8</span>
+    <span id="dw-score-live">Poeng: 0</span>
+  </div>
+
+  <div class="dw-game-card" id="dw-game">
+    <div class="dw-g-emoji" id="dw-g-emoji">👫</div>
+    <div class="dw-g-situation" id="dw-g-situation"></div>
+
+    <div class="dw-choices" id="dw-choices"></div>
+
+    <div class="dw-explain" id="dw-explain"></div>
+    <button class="dw-next-btn" id="dw-next" onclick="dwNext()">Weiter →</button>
+  </div>
+
+  <div class="dw-game-card dw-result" id="dw-result">
+    <h2>Geschafft! 🎉</h2>
+    <div class="dw-score" id="dw-final-score">0 / 8</div>
+    <p id="dw-final-msg"></p>
+    <div class="dw-review" id="dw-review"></div>
+    <button class="dw-restart-btn" onclick="dwRestart()">🔁 Nochmal spielen</button>
+  </div>
+
+  <div class="dw-section">
+    <h2>🌍 Noen flere høflighetsvaner</h2>
+    <div class="dw-tip-grid">
+      <div class="dw-tip-card">
+        <div class="dw-tip-emoji">🤝</div>
+        <h3>Hils med håndtrykk</h3>
+        <p>Et fast håndtrykk og øyekontakt er vanlig når man hilser på voksne — også blant ungdommer i mer formelle situasjoner.</p>
+      </div>
+      <div class="dw-tip-card">
+        <div class="dw-tip-emoji">⏰</div>
+        <h3>Pünktlichkeit</h3>
+        <p>Punktlighet tas svært alvorlig i Tyskland. Kommer du for sent uten å si ifra, kan det oppfattes som lite høflig.</p>
+      </div>
+      <div class="dw-tip-card">
+        <div class="dw-tip-emoji">💬</div>
+        <h3>Direkte, ikke frekt</h3>
+        <p>Tyskere sier ofte rett ut hva de mener. Det er ikke ment uhøflig — det regnes som ærlig og tydelig kommunikasjon.</p>
+      </div>
+      <div class="dw-tip-card">
+        <div class="dw-tip-emoji">👋</div>
+        <h3>«Hallo» vs. «Guten Tag»</h3>
+        <p>«Hallo» er uformelt og passer til venner. I mer formelle møter sier man «Guten Tag» eller «Guten Morgen».</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✍️ Zwei Begrüßungen</h2>
+    <p class="dw-note">Skriv to korte hilsener på tysk: én du ville brukt overfor bestevennen din, og én du ville brukt overfor en voksen du nettopp har møtt. Bruk «du» i den ene og «Sie» i den andre.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="An einen Freund: Hallo! Wie geht's dir?&#10;An einen Erwachsenen: Guten Tag! Wie geht es Ihnen?"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Quiz: du eller Sie? ---------- */
+  var dwScenarios = [
+    {emoji:"👫", situation:"Du prater med bestevennen din og spør hvordan det går.", correct:"Wie geht's dir?", choices:["Wie geht's dir?", "Wie geht es Ihnen?", "Wie geht's euch?"], hint:"Bestevenner = du-form. «dir» er du-formen av «for deg»."},
+    {emoji:"🧓", situation:"Du møter bestemoren til en venn for aller første gang.", correct:"Wie geht es Ihnen?", choices:["Wie geht's dir?", "Wie geht es Ihnen?", "Wie geht's euch?"], hint:"Voksne du ikke kjenner = Sie-form. «Ihnen» er den høflige formen av «for deg/dere»."},
+    {emoji:"🙋", situation:"Du spør en ny medelev på din egen alder hva han/hun heter.", correct:"Wie heißt du?", choices:["Wie heißt du?", "Wie heißen Sie?", "Wie heißt ihr?"], hint:"Medelever på din egen alder = du-form."},
+    {emoji:"🛍️", situation:"Du spør en voksen ansatt i en butikk hva han/hun heter, høflig.", correct:"Wie heißen Sie?", choices:["Wie heißt du?", "Wie heißen Sie?", "Wie heißt ihr?"], hint:"Voksne fremmede = Sie-form. Sie-formen av verbet er lik infinitiv/de-formen: heißen."},
+    {emoji:"🧑‍⚕️", situation:"Du spør legen din høflig om hun/han har tid.", correct:"Haben Sie Zeit?", choices:["Hast du Zeit?", "Haben Sie Zeit?", "Habt ihr Zeit?"], hint:"Legen din = en voksen du ikke er venn med → Sie-form."},
+    {emoji:"👨‍👩‍👧", situation:"Du spør lillesøsteren din om hun blir med.", correct:"Kommst du?", choices:["Kommst du?", "Kommen Sie?", "Kommt ihr?"], hint:"Familie = du-form."},
+    {emoji:"🛒", situation:"Du spør en butikkmedarbeider høflig om han/hun kan hjelpe deg.", correct:"Können Sie mir helfen?", choices:["Kannst du mir helfen?", "Können Sie mir helfen?", "Könnt ihr mir helfen?"], hint:"Ukjente voksne på jobb = Sie-form."},
+    {emoji:"⚽", situation:"Du spør vennene dine i fotballaget (flere personer du kjenner) om de spiller i morgen.", correct:"Spielt ihr morgen?", choices:["Spielst du morgen?", "Spielen Sie morgen?", "Spielt ihr morgen?"], hint:"Flere venner samtidig = ihr-form — det uformelle flertallsordet for «du». NB: dette er IKKE Sie!"}
+  ];
+
+  var dwOrder = [];
+  var dwIndex = 0;
+  var dwScore = 0;
+  var dwWrong = [];
+  var dwAnswered = false;
+
+  function dwShuffle(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
+    }
+    return a;
+  }
+
+  function dwInit(){
+    dwOrder = dwShuffle(dwScenarios.map(function(_,i){return i;}));
+    dwIndex = 0; dwScore = 0; dwWrong = [];
+    document.getElementById('dw-result').classList.remove('dw-show');
+    document.getElementById('dw-game').style.display = '';
+    dwLoad();
+  }
+
+  function dwLoad(){
+    dwAnswered = false;
+    var s = dwScenarios[dwOrder[dwIndex]];
+    document.getElementById('dw-g-emoji').textContent = s.emoji;
+    document.getElementById('dw-g-situation').textContent = s.situation;
+
+    var choicesShuffled = dwShuffle(s.choices);
+    var choicesWrap = document.getElementById('dw-choices');
+    choicesWrap.innerHTML = '';
+    choicesShuffled.forEach(function(choice){
+      var btn = document.createElement('button');
+      btn.className = 'dw-choice';
+      btn.dataset.a = choice;
+      btn.textContent = choice;
+      btn.onclick = function(){ dwAnswer(choice); };
+      choicesWrap.appendChild(btn);
+    });
+
+    document.getElementById('dw-explain').classList.remove('dw-show');
+    document.getElementById('dw-explain').textContent = '';
+    document.getElementById('dw-next').classList.remove('dw-show');
+    document.getElementById('dw-count').textContent = 'Oppgave ' + (dwIndex+1) + ' av ' + dwScenarios.length;
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-bar').style.width = Math.round((dwIndex/dwScenarios.length)*100) + '%';
+  }
+
+  function dwAnswer(choice){
+    if(dwAnswered) return;
+    dwAnswered = true;
+    var s = dwScenarios[dwOrder[dwIndex]];
+    var btns = document.querySelectorAll('.dw-choice');
+    btns.forEach(function(b){
+      b.disabled = true;
+      if(b.dataset.a === s.correct) b.classList.add('dw-correct');
+      else if(b.dataset.a === choice) b.classList.add('dw-wrong');
+    });
+    document.getElementById('dw-explain').textContent = s.hint;
+    document.getElementById('dw-explain').classList.add('dw-show');
+    if(choice === s.correct){
+      dwScore++;
+    } else {
+      dwWrong.push(s);
+    }
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-next').classList.add('dw-show');
+  }
+
+  function dwNext(){
+    dwIndex++;
+    if(dwIndex >= dwScenarios.length){
+      dwFinish();
+    } else {
+      dwLoad();
+    }
+  }
+
+  function dwFinish(){
+    document.getElementById('dw-bar').style.width = '100%';
+    document.getElementById('dw-game').style.display = 'none';
+    document.getElementById('dw-result').classList.add('dw-show');
+    document.getElementById('dw-final-score').textContent = dwScore + ' / ' + dwScenarios.length;
+    var msg;
+    if(dwScore === dwScenarios.length) msg = "Perfekt! Du har full kontroll på du og Sie! 🏅";
+    else if(dwScore >= dwScenarios.length*0.7) msg = "Sehr gut! Du forstår de fleste situasjonene allerede.";
+    else msg = "Guter Versuch! Se på reglene øverst en gang til, og prøv igjen.";
+    document.getElementById('dw-final-msg').textContent = msg;
+
+    var reviewEl = document.getElementById('dw-review');
+    if(dwWrong.length === 0){
+      reviewEl.innerHTML = '<strong>Ingenting å øve mer på akkurat nå — bra jobbet!</strong>';
+    } else {
+      var html = '<strong>Disse kan du øve litt ekstra på:</strong><ul>';
+      dwWrong.forEach(function(s){
+        html += '<li>' + s.emoji + ' ' + s.situation + ' → <strong>' + s.correct + '</strong></li>';
+      });
+      html += '</ul>';
+      reviewEl.innerHTML = html;
+    }
+  }
+
+  function dwRestart(){ dwInit(); }
+
+  dwInit();
+
+  /* ---------- Skrivefelt ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

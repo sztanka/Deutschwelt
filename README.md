@@ -72,6 +72,9 @@ deutschwelt-site/
 │       └── index.html                → "Der verschlossene Klassenraum" — fire gåter gir en kode
 ├── filme-serien/
 │   └── index.html                    → "Filme & Serien" — 11 filmer + 5 serier med trailerlenker
+├── normen/
+│   └── hoeflichkeit/
+│       └── index.html                → "Höflichkeit in Deutschland" — du/Sie, illustrasjoner, grammatikkspill
 └── sprechen/
     └── cafe/
         └── index.html                → "Du bist dran!" — Im Café
@@ -89,13 +92,15 @@ som forsiden, bare smalere. `sprechen/` har foreløpig bare én underside, så
 navigasjonsmenyen peker rett dit; når du legger til nummer to der, lag en
 tilsvarende hub-side og pek menyen dit i stedet (se steg 4 under).
 
-**Om toppnavigasjonen:** den har nå 11 punkter (🏠 Forside · 🧩 Grammatik ·
+**Om toppnavigasjonen:** den har nå 12 punkter (🏠 Forside · 🧩 Grammatik ·
 🏙️ Städte · 🕰️ Geschichte · 📖 Lesen · 🎧 Hören · ✍️ Schreiben · 🗺️ Reise ·
-🏆 Challenges · 🎬 Filme & Serien · ☕ Café) og bruker `flex-wrap` i
-`assets/style.css`, så den bryter fint til to-tre linjer på smale skjermer.
-`filme-serien/` og `sprechen/cafe/` er unntak fra hub-mønsteret — de har
-bare én side hver, så navigasjonen peker rett dit i stedet for til en
-hub-side.
+🏆 Challenges · 🎬 Filme & Serien · 🎩 Normen & Regeln · ☕ Café) og bruker
+`flex-wrap` i `assets/style.css`, så den bryter fint til to-tre linjer på
+smale skjermer. `filme-serien/`, `sprechen/cafe/` og `normen/hoeflichkeit/`
+er unntak fra hub-mønsteret — de har bare én side hver, så navigasjonen
+peker rett dit i stedet for til en hub-side. Hvis `normen/` får en side til
+(f.eks. punktlighet eller resirkulering), lag `normen/index.html` som hub
+og pek menyen dit i stedet — akkurat som beskrevet for `sprechen/` over.
 
 **Om Hören-seksjonen:** videoene er bygget inn fra YouTube
 (`youtube-nocookie.com/embed/<video-ID>`) og hentet fra **Nicos Weg**, en
@@ -195,6 +200,10 @@ listen til elevene.
    - En ny samtalesituasjon (f.eks. Am Bahnhof) → kopier `sprechen/cafe/`
      til `sprechen/bahnhof/` (NB: da må `sprechen/` også få en egen
      hub-`index.html`, se mønsteret over).
+   - Et nytt norm-/regeltema (f.eks. Pünktlichkeit eller Mülltrennung) →
+     kopier `normen/hoeflichkeit/` til f.eks. `normen/puenktlichkeit/`
+     (NB: da må `normen/` også få en egen hub-`index.html`, se mønsteret
+     over).
    - En ny skriveoppgave → kopier `schreiben/sms-chat/` (for et nytt
      samtalescenario, bytt `dwScenario`) eller `schreiben/wortkiste/` (for
      en ny ordpool, bytt `dwWordPool`) — begge har allerede
