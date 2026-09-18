@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Grammatik: "Der Satz-Detektiv" (Satzanalyse)
+  For 8. trinn (A1). Eleven identifiserer Subjekt/Verb/Objekt/Adverbial i
+  korte, håndlagde tyske setninger (dwSentences nederst i <script>-delen).
+  Hver runde trekker DW_ROUND_SIZE tilfeldige, ulike setninger fra poolen —
+  ikke en fri tekstgenerator (det ville risikert grammatisk feil enighet i
+  kjønn/kasus/bøying). Lengre/mer avanserte setninger (leddsetninger,
+  verb-sist-regel) er bevisst spart til en senere, mer avansert side for
+  9./10. trinn — se README.md.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Der Satz-Detektiv · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:720px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:28px 24px;text-align:center;margin-bottom:20px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.6rem;}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:20px 22px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.15rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 10px;line-height:1.6;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-rule{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:16px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-rule h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;display:flex;align-items:center;gap:8px;}
+  .dw-rule-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px;}
+  .dw-rule-chip{border-radius:10px;padding:10px 12px;font-size:.85rem;}
+  .dw-rule-chip b{display:block;margin-bottom:2px;}
+  .dw-rule-chip.dw-r-subjekt{background:#eef1f6;color:var(--dw-primary);}
+  .dw-rule-chip.dw-r-verb{background:#fdf3e0;color:#8a5a00;}
+  .dw-rule-chip.dw-r-objekt{background:#fdecea;color:var(--dw-bad);}
+  .dw-rule-chip.dw-r-adverbial{background:#e8f5e9;color:var(--dw-good);}
+
+  .dw-progress-wrap{background:#e4e0d5;border-radius:999px;height:10px;overflow:hidden;margin:16px 0 6px;}
+  .dw-progress-bar{height:100%;background:var(--dw-accent);width:0%;transition:width .3s ease;}
+  .dw-meta{display:flex;justify-content:space-between;font-size:.82rem;color:var(--dw-muted);margin-bottom:16px;}
+
+  .dw-game-card{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:26px 22px;text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.07);border:1px solid #ece8df;margin-bottom:16px;
+  }
+  .dw-sentence-display{font-size:1.25rem;font-weight:700;line-height:2.6;color:var(--dw-primary);margin-bottom:6px;}
+  .dw-chunk{
+    display:inline-block;padding:3px 8px;margin:2px 3px;border-radius:8px;border:2px solid transparent;
+    transition:all .15s ease;
+  }
+  .dw-chunk.dw-pending{color:var(--dw-text);}
+  .dw-chunk.dw-active{background:#fff3d6;border-color:var(--dw-accent);}
+  .dw-chunk.dw-correct{background:var(--dw-good);color:#fff;}
+  .dw-chunk.dw-wrong{background:var(--dw-bad);color:#fff;}
+  .dw-chunk .dw-role-label{display:block;font-size:.6rem;font-weight:500;margin-top:1px;opacity:.9;text-transform:uppercase;letter-spacing:.03em;}
+
+  .dw-translation-btn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-size:.85rem;margin:10px 0 4px;}
+  .dw-translation{
+    min-height:1.2em;font-size:.88rem;color:var(--dw-muted);background:#f4f1e8;border-radius:10px;
+    padding:8px 14px;margin:6px 0 16px;display:none;
+  }
+  .dw-translation.dw-show{display:block;}
+
+  .dw-role-buttons{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:14px 0 6px;}
+  .dw-role-btn{
+    flex:1 1 130px;max-width:160px;padding:12px 6px;font-size:.92rem;font-weight:700;border-radius:12px;
+    border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;
+  }
+  .dw-role-btn:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-role-btn:disabled{cursor:default;opacity:.4;}
+
+  .dw-next-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:12px 26px;border-radius:999px;
+    font-size:1rem;font-weight:600;cursor:pointer;display:none;margin-top:10px;
+  }
+  .dw-next-btn.dw-show{display:inline-block;}
+  .dw-next-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-result{display:none;text-align:center;}
+  .dw-result.dw-show{display:block;}
+  .dw-result h2{color:var(--dw-primary);margin:0 0 4px;}
+  .dw-score{font-size:2.2rem;font-weight:800;color:var(--dw-accent);margin:8px 0;}
+  .dw-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:14px 18px;margin:18px 0;font-size:.88rem;}
+  .dw-review li{margin-bottom:6px;}
+  .dw-restart-btn{
+    background:var(--dw-accent);color:#1a1a1a;border:none;padding:12px 26px;border-radius:999px;
+    font-size:1rem;font-weight:700;cursor:pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../sprechen/cafe/">☕ Café</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../">🧩 Grammatik</a> → Der Satz-Detektiv</p>
+
+  <div class="dw-header">
+    <h1>🔍 Der Satz-Detektiv</h1>
+    <p>Finn Subjekt, Verb, Objekt og Adverbial i korte tyske setninger!</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🤔 Hvorfor er dette nyttig?</h2>
+    <p>Å analysere en setning betyr å finne ut hvilken jobb hvert ord/ledd har. Det høres kanskje kjedelig ut, men det gir deg superkrefter på tysk:</p>
+    <p>Du forstår <strong>ordstillingen</strong> — på tysk står det bøyde verbet (nesten) alltid på plass nummer to. Du vet <strong>når du skal bruke Akkusativ</strong> — det er objektet som ofte forandrer artikkel (husk Akkusativ-Jagd!). Og du blir en <strong>bedre leser og skribent</strong>, fordi du raskt ser hvem som gjør hva med hva. Dette er også grunnmuren for mer avansert grammatikk (leddsetninger, verb-sist-regelen) som kommer i 9. og 10. trinn.</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>📌 De fire byggeklossene</h2>
+    <div class="dw-rule-grid">
+      <div class="dw-rule-chip dw-r-subjekt"><b>🧑 Subjekt</b>Hvem/hva gjør noe? Står i Nominativ.</div>
+      <div class="dw-rule-chip dw-r-verb"><b>🏃 Verb</b>Hva skjer? Det bøyde verbet — på plass 2!</div>
+      <div class="dw-rule-chip dw-r-objekt"><b>🎯 Objekt</b>Hvem/hva blir påvirket? Står ofte i Akkusativ.</div>
+      <div class="dw-rule-chip dw-r-adverbial"><b>🕒📍 Adverbial</b>Når, hvor eller hvordan?</div>
+    </div>
+    <p class="dw-note">Du kjenner allerede Nominativ og Akkusativ fra de andre grammatikk-sidene — her skal du bruke det til å analysere hele setninger!</p>
+  </div>
+
+  <div class="dw-progress-wrap"><div class="dw-progress-bar" id="dw-bar"></div></div>
+  <div class="dw-meta">
+    <span id="dw-count">Setning 1 av 8</span>
+    <span id="dw-score-live">Poeng: 0</span>
+  </div>
+
+  <div class="dw-game-card" id="dw-game">
+    <div class="dw-sentence-display" id="dw-sentence"></div>
+    <button class="dw-translation-btn" onclick="dwToggleTranslation()">🇳🇴 Vis norsk oversettelse</button>
+    <div class="dw-translation" id="dw-translation"></div>
+
+    <div class="dw-role-buttons" id="dw-role-buttons">
+      <button class="dw-role-btn" onclick="dwAnswer('subjekt')">🧑 Subjekt</button>
+      <button class="dw-role-btn" onclick="dwAnswer('verb')">🏃 Verb</button>
+      <button class="dw-role-btn" onclick="dwAnswer('objekt')">🎯 Objekt</button>
+      <button class="dw-role-btn" onclick="dwAnswer('adverbial')">🕒📍 Adverbial</button>
+    </div>
+
+    <button class="dw-next-btn" id="dw-next" onclick="dwNext()">Weiter →</button>
+  </div>
+
+  <div class="dw-game-card dw-result" id="dw-result">
+    <h2>Geschafft! 🎉</h2>
+    <div class="dw-score" id="dw-final-score">0 / 0</div>
+    <p id="dw-final-msg"></p>
+    <div class="dw-review" id="dw-review"></div>
+    <button class="dw-restart-btn" onclick="dwRestart()">🔁 Neue Runde</button>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Setningsbank — hver setning er ferdig delt opp i ledd med fasit ---------- */
+  var dwSentences = [
+    {parts:[{text:"Der Hund", role:"subjekt"},{text:"schläft", role:"verb"}], no:"Hunden sover."},
+    {parts:[{text:"Ich", role:"subjekt"},{text:"trinke", role:"verb"},{text:"Wasser", role:"objekt"}], no:"Jeg drikker vann."},
+    {parts:[{text:"Du", role:"subjekt"},{text:"liest", role:"verb"},{text:"ein Buch", role:"objekt"}], no:"Du leser en bok."},
+    {parts:[{text:"Wir", role:"subjekt"},{text:"spielen", role:"verb"},{text:"Fußball", role:"objekt"}], no:"Vi spiller fotball."},
+    {parts:[{text:"Die Lehrerin", role:"subjekt"},{text:"kommt", role:"verb"},{text:"heute", role:"adverbial"}], no:"Læreren kommer i dag."},
+    {parts:[{text:"Er", role:"subjekt"},{text:"isst", role:"verb"},{text:"einen Apfel", role:"objekt"}], no:"Han spiser et eple."},
+    {parts:[{text:"Die Kinder", role:"subjekt"},{text:"spielen", role:"verb"},{text:"im Park", role:"adverbial"}], no:"Barna leker i parken."},
+    {parts:[{text:"Ich", role:"subjekt"},{text:"wohne", role:"verb"},{text:"in Berlin", role:"adverbial"}], no:"Jeg bor i Berlin."},
+    {parts:[{text:"Meine Mutter", role:"subjekt"},{text:"kocht", role:"verb"},{text:"Suppe", role:"objekt"}], no:"Moren min lager suppe."},
+    {parts:[{text:"Der Zug", role:"subjekt"},{text:"fährt", role:"verb"},{text:"schnell", role:"adverbial"}], no:"Toget kjører fort."},
+    {parts:[{text:"Mein Bruder", role:"subjekt"},{text:"mag", role:"verb"},{text:"Pizza", role:"objekt"}], no:"Broren min liker pizza."},
+    {parts:[{text:"Sie", role:"subjekt"},{text:"singt", role:"verb"},{text:"gern", role:"adverbial"}], no:"Hun synger gjerne."},
+    {parts:[{text:"Die Katze", role:"subjekt"},{text:"schläft", role:"verb"},{text:"auf dem Sofa", role:"adverbial"}], no:"Katten sover på sofaen."},
+    {parts:[{text:"Wir", role:"subjekt"},{text:"besuchen", role:"verb"},{text:"unsere Oma", role:"objekt"}], no:"Vi besøker bestemoren vår."},
+    {parts:[{text:"Du", role:"subjekt"},{text:"machst", role:"verb"},{text:"deine Hausaufgaben", role:"objekt"}], no:"Du gjør leksene dine."},
+    {parts:[{text:"Der Film", role:"subjekt"},{text:"beginnt", role:"verb"},{text:"um acht Uhr", role:"adverbial"}], no:"Filmen begynner klokken åtte."},
+    {parts:[{text:"Ich", role:"subjekt"},{text:"sehe", role:"verb"},{text:"meinen Freund", role:"objekt"}], no:"Jeg ser vennen min."},
+    {parts:[{text:"Ihr", role:"subjekt"},{text:"trinkt", role:"verb"},{text:"Kaffee", role:"objekt"},{text:"am Morgen", role:"adverbial"}], no:"Dere drikker kaffe om morgenen."}
+  ];
+
+  var dwRoleNames = {subjekt:"Subjekt", verb:"Verb", objekt:"Objekt", adverbial:"Adverbial"};
+  var DW_ROUND_SIZE = 8;
+
+  var dwRound = [];
+  var dwSentIndex = 0;
+  var dwParts = [];
+  var dwActivePart = 0;
+  var dwScore = 0;
+  var dwTotalChunks = 0;
+  var dwWrong = [];
+
+  function dwShuffle(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
+    }
+    return a;
+  }
+
+  function dwInit(){
+    var order = dwShuffle(dwSentences.map(function(_,i){return i;}));
+    dwRound = order.slice(0, Math.min(DW_ROUND_SIZE, dwSentences.length));
+    dwSentIndex = 0; dwScore = 0; dwTotalChunks = 0; dwWrong = [];
+    document.getElementById('dw-result').classList.remove('dw-show');
+    document.getElementById('dw-game').style.display = '';
+    dwLoadSentence();
+  }
+
+  function dwLoadSentence(){
+    var s = dwSentences[dwRound[dwSentIndex]];
+    dwParts = s.parts.map(function(p){ return {text:p.text, role:p.role, answered:false, correct:null}; });
+    dwActivePart = 0;
+
+    document.getElementById('dw-translation').classList.remove('dw-show');
+    document.getElementById('dw-translation').textContent = s.no;
+    document.getElementById('dw-next').classList.remove('dw-show');
+    document.getElementById('dw-count').textContent = 'Setning ' + (dwSentIndex+1) + ' av ' + dwRound.length;
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-bar').style.width = Math.round((dwSentIndex/dwRound.length)*100) + '%';
+    dwEnableRoleButtons(true);
+    dwRenderSentence();
+  }
+
+  function dwRenderSentence(){
+    var wrap = document.getElementById('dw-sentence');
+    wrap.innerHTML = '';
+    dwParts.forEach(function(part, i){
+      var span = document.createElement('span');
+      span.className = 'dw-chunk ';
+      if(!part.answered){
+        span.className += (i === dwActivePart) ? 'dw-active' : 'dw-pending';
+        span.textContent = part.text;
+      } else {
+        span.className += part.correct ? 'dw-correct' : 'dw-wrong';
+        span.innerHTML = part.text + '<span class="dw-role-label">' + dwRoleNames[part.role] + '</span>';
+      }
+      wrap.appendChild(span);
+      wrap.appendChild(document.createTextNode(' '));
+    });
+  }
+
+  function dwEnableRoleButtons(enabled){
+    document.querySelectorAll('.dw-role-btn').forEach(function(b){ b.disabled = !enabled; });
+  }
+
+  function dwToggleTranslation(){
+    document.getElementById('dw-translation').classList.toggle('dw-show');
+  }
+
+  function dwAnswer(chosenRole){
+    if(dwActivePart >= dwParts.length) return;
+    var part = dwParts[dwActivePart];
+    part.answered = true;
+    part.correct = (chosenRole === part.role);
+    dwTotalChunks++;
+    if(part.correct){
+      dwScore++;
+    } else {
+      dwWrong.push({sentence: dwParts.map(function(p){return p.text;}).join(' '), chunk: part.text, correctRole: dwRoleNames[part.role], chosenRole: dwRoleNames[chosenRole]});
+    }
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+
+    dwActivePart++;
+    if(dwActivePart >= dwParts.length){
+      dwEnableRoleButtons(false);
+      document.getElementById('dw-next').classList.add('dw-show');
+    }
+    dwRenderSentence();
+  }
+
+  function dwNext(){
+    dwSentIndex++;
+    if(dwSentIndex >= dwRound.length){
+      dwFinish();
+    } else {
+      dwLoadSentence();
+    }
+  }
+
+  function dwFinish(){
+    document.getElementById('dw-bar').style.width = '100%';
+    document.getElementById('dw-game').style.display = 'none';
+    document.getElementById('dw-result').classList.add('dw-show');
+    document.getElementById('dw-final-score').textContent = dwScore + ' / ' + dwTotalChunks;
+    var pct = dwTotalChunks ? dwScore/dwTotalChunks : 0;
+    var msg;
+    if(pct === 1) msg = "Perfekt! Du er en ekte Satz-Detektiv! 🏅";
+    else if(pct >= 0.7) msg = "Sehr gut! Du kjenner de fleste setningsleddene allerede.";
+    else msg = "Guter Versuch! Se på byggeklossene øverst en gang til, og prøv igjen.";
+    document.getElementById('dw-final-msg').textContent = msg;
+
+    var reviewEl = document.getElementById('dw-review');
+    if(dwWrong.length === 0){
+      reviewEl.innerHTML = '<strong>Ingenting å øve mer på akkurat nå — bra jobbet!</strong>';
+    } else {
+      var html = '<strong>Disse leddene kan du øve litt ekstra på:</strong><ul>';
+      dwWrong.forEach(function(w){
+        html += '<li>„' + w.sentence + '“ — <strong>' + w.chunk + '</strong> er ' + w.correctRole + ' (du svarte ' + w.chosenRole + ')</li>';
+      });
+      html += '</ul>';
+      reviewEl.innerHTML = html;
+    }
+  }
+
+  function dwRestart(){ dwInit(); }
+
+  dwInit();
+</script>
+</body>
+</html>

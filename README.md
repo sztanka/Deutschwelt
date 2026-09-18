@@ -18,8 +18,10 @@ deutschwelt-site/
 │   │   └── index.html                → "Die Akkusativ-Jagd" (den/die/das)
 │   ├── verben-regelmaessig/
 │   │   └── index.html                → "Verb-Werkstatt": presens av regelrette verb
-│   └── verben-unregelmaessig/
-│       └── index.html                → "Verb-Werkstatt": presens av sein, haben m.fl.
+│   ├── verben-unregelmaessig/
+│   │   └── index.html                → "Verb-Werkstatt": presens av sein, haben m.fl.
+│   └── satzanalyse/
+│       └── index.html                → "Der Satz-Detektiv": finn Subjekt/Verb/Objekt/Adverbial
 ├── staedte/
 │   ├── index.html                    → hub-side: velg by
 │   ├── berlin/
@@ -186,8 +188,16 @@ listen til elevene.
 
 1. **Kopier den mappen som ligner mest** på det du skal lage:
    - En ny by (f.eks. Zürich) → kopier `staedte/wien/` til `staedte/zuerich/`.
-   - Et nytt grammatikktema (f.eks. Dativ) → kopier `grammatikk/akkusativ/`
-     til f.eks. `grammatikk/dativ/`.
+   - Et nytt grammatikktema med samme spillmotor som Nominativ/Akkusativ/
+     Verben (ett spørsmål, ett svar) → kopier `grammatikk/akkusativ/` til
+     f.eks. `grammatikk/dativ/`.
+   - Et nytt "analyser hele setningen"-tema (samme motor som
+     Satz-Detektiv, der flere ledd i én setning skal kategoriseres etter
+     hverandre) → kopier `grammatikk/satzanalyse/` og bytt ut `dwSentences`.
+     Husk å holde setningene korte og grammatisk 100 % sikre — poolen er
+     håndskrevet, ikke generert, nettopp for å unngå feil bøying/kasus.
+     Lengre/mer avanserte setninger (leddsetninger, verb-sist-regelen)
+     passer bedre som en egen, mer avansert side for 9./10. trinn.
    - Et nytt historietema → kopier `geschichte/berliner-mauer/` til f.eks.
      `geschichte/kaiserreich/`.
    - En ny lesetekst → kopier `lesen/wer-hat-den-kuchen-gegessen/` til
