@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Deutsch im echten Leben (hub-side)
+  Nettstedets "autentiske tysk"-seksjon: viser eleven hvordan tysk faktisk
+  brukes av folk (særlig ungdom) utenfor læreboka — i chat, med venner,
+  på skolen og i hverdagssituasjoner. De andre seksjonene lærer eleven
+  tysk; denne viser hvordan tysken faktisk ser ut i virkeligheten.
+  Se README.md i rotmappen for hvordan du legger til et nytt tema her.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch im echten Leben · Deutschwelt</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:820px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:32px 26px;text-align:center;margin-bottom:16px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.8rem;}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-source-note{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:14px 20px;margin-bottom:24px;font-size:.88rem;line-height:1.6;color:var(--dw-text);
+  }
+  .dw-source-note strong{color:var(--dw-primary);}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+  .dw-card{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px;text-decoration:none;color:var(--dw-text);
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;
+    display:flex;flex-direction:column;gap:6px;
+  }
+  .dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  .dw-card .dw-icon{font-size:2.2rem;line-height:1;}
+  .dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary);}
+  .dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link dw-nav-active" href="./">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../sprechen/cafe/">☕ Café</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>📱 Deutsch im echten Leben</h1>
+    <p>Deutsch, wie es wirklich benutzt wird – in der Schule, im Chat, beim Einkaufen und mit Freunden.</p>
+  </div>
+
+  <div class="dw-source-note">
+    De andre delene av Deutschwelt lærer deg tysk. Denne delen viser deg hvordan tysken faktisk <em>ser ut</em> når læreboka er lagt bort — slik venner, medelever og folk du møter faktisk snakker. Et eksempel: i læreboka lærer du kanskje <strong>«Ich möchte gerne mit dir ins Kino gehen.»</strong> — men en tysk ungdom ville nok heller sagt <strong>«Hast du Bock auf Kino?»</strong> Begge er riktig tysk, men de passer i helt ulike situasjoner. Det handler ikke bare om grammatikk — det handler om hvem du snakker med, og hvor uformell du kan være.
+  </div>
+
+  <div class="dw-grid">
+    <a class="dw-card" href="alltagssprache/">
+      <span class="dw-icon">💬</span>
+      <h2>Alltagssprache & «Was bedeutet das?»</h2>
+      <p>Uttrykk du faktisk hører — og forskjellen mellom Schulbuch-Deutsch og Alltags-Deutsch</p>
+    </a>
+    <a class="dw-card" href="chat/">
+      <span class="dw-icon">📱</span>
+      <h2>Chat & Social Media</h2>
+      <p>Emojis, forkortelser og korte meldinger — og du skal skrive et svar selv</p>
+    </a>
+    <a class="dw-card" href="jugendwoerter/">
+      <span class="dw-icon">🗣️</span>
+      <h2>Jugendwörter</h2>
+      <p>En liten ordbok med tyske ungdomsuttrykk, forklart med eksempler</p>
+    </a>
+    <a class="dw-card" href="schule/">
+      <span class="dw-icon">🧑‍🎓</span>
+      <h2>Jugend & Schule</h2>
+      <p>Skolehverdagen i Tyskland, Østerrike og Sveits — og hva som er annerledes enn i Norge</p>
+    </a>
+    <a class="dw-card dw-soon" href="#">
+      <span class="dw-icon">🎮</span>
+      <h2>Gaming & Internet</h2>
+      <p>Kommer snart</p>
+      <span class="dw-soon-tag">🔜 Kommer snart</span>
+    </a>
+    <a class="dw-card dw-soon" href="#">
+      <span class="dw-icon">🛒</span>
+      <h2>Alltagssituationen</h2>
+      <p>Kommer snart</p>
+      <span class="dw-soon-tag">🔜 Kommer snart</span>
+    </a>
+    <a class="dw-card dw-soon" href="#">
+      <span class="dw-icon">🇩🇪🇦🇹🇨🇭</span>
+      <h2>Gleiches Wort, andere Welt</h2>
+      <p>Kommer snart</p>
+      <span class="dw-soon-tag">🔜 Kommer snart</span>
+    </a>
+  </div>
+
+</div>
+</body>
+</html>

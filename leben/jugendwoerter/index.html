@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Deutsch im echten Leben: "Jugendwörter"
+  For 8. trinn (A1/A2-grensen). En liten, håndplukket ordbok med vanlige
+  tyske ungdomsuttrykk — ikke bundet til et bestemt års offisielle
+  "Jugendwort des Jahres" (den listen endrer seg hvert år), men uttrykk
+  som er godt etablerte og mye brukt blant tysktalende ungdom over tid.
+  Referansekortene er skrevet rett i HTML (statisk innhold); quizen
+  nederst bruker samme spillmotor-mønster som resten av nettstedet
+  (dwWords, poeng, hint) med et eget lite utvalg fyll-inn-setninger.
+  Se README.md i rotmappen for hvordan du legger til flere ord.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jugendwörter · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:820px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:28px 24px;text-align:center;margin-bottom:16px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.7rem;}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 8px;line-height:1.6;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-word-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:6px;}
+  .dw-word-card{
+    background:#f4f1e8;border-radius:14px;padding:16px 18px;position:relative;
+  }
+  .dw-word-card h3{margin:0 0 4px;font-size:1.05rem;color:var(--dw-primary);}
+  .dw-word-meaning{font-weight:700;color:var(--dw-text);margin:0 0 8px;font-size:.92rem;}
+  .dw-word-example{font-size:.86rem;line-height:1.55;color:var(--dw-text);margin:0;}
+  .dw-word-example em{color:var(--dw-muted);font-style:normal;display:block;margin-top:2px;}
+  .dw-word-tag{
+    display:inline-block;margin-top:8px;font-size:.68rem;font-weight:700;color:#fff;
+    background:var(--dw-primary-light);padding:2px 9px;border-radius:999px;
+  }
+
+  /* --- Quiz-motor --- */
+  .dw-progress-wrap{background:#e4e0d5;border-radius:999px;height:10px;overflow:hidden;margin:16px 0 6px;}
+  .dw-progress-bar{height:100%;background:var(--dw-accent);width:0%;transition:width .3s ease;}
+  .dw-meta{display:flex;justify-content:space-between;font-size:.82rem;color:var(--dw-muted);margin-bottom:16px;}
+
+  .dw-game-card{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:26px 22px;text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.07);border:1px solid #ece8df;margin-bottom:16px;
+  }
+  .dw-g-sentence{font-size:1.05rem;color:var(--dw-text);margin:4px 0 18px;line-height:1.6;font-weight:600;}
+  .dw-g-blank{color:var(--dw-primary);}
+
+  .dw-choices{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;}
+  .dw-choice{
+    padding:12px 16px;font-size:.98rem;font-weight:600;border-radius:12px;
+    border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;
+    font-family:inherit;text-align:left;
+  }
+  .dw-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-choice:disabled{cursor:default;opacity:.7;}
+  .dw-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+
+  .dw-explain{
+    min-height:1.4em;font-size:.88rem;color:var(--dw-muted);background:#f4f1e8;border-radius:10px;
+    padding:10px 14px;margin:10px 0 16px;display:none;text-align:left;
+  }
+  .dw-explain.dw-show{display:block;}
+
+  .dw-next-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:12px 26px;border-radius:999px;
+    font-size:1rem;font-weight:600;cursor:pointer;display:none;
+  }
+  .dw-next-btn.dw-show{display:inline-block;}
+  .dw-next-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-result{display:none;text-align:center;}
+  .dw-result.dw-show{display:block;}
+  .dw-result h2{color:var(--dw-primary);margin:0 0 4px;}
+  .dw-score{font-size:2.2rem;font-weight:800;color:var(--dw-accent);margin:8px 0;}
+  .dw-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:14px 18px;margin:18px 0;font-size:.9rem;}
+  .dw-review li{margin-bottom:6px;}
+  .dw-restart-btn{
+    background:var(--dw-accent);color:#1a1a1a;border:none;padding:12px 26px;border-radius:999px;
+    font-size:1rem;font-weight:700;cursor:pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link dw-nav-active" href="../">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/cafe/">☕ Café</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../">📱 Deutsch im echten Leben</a> → Jugendwörter</p>
+
+  <div class="dw-header">
+    <h1>🗣️ Jugendwörter</h1>
+    <p>Ord og uttrykk du hører blant tysktalende ungdom — men sjelden i læreboka</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>👀 Legg merke til noe?</h2>
+    <p>Mange av disse ordene kommer opprinnelig fra <strong>engelsk</strong> — akkurat som norsk ungdomsspråk låner mye fra engelsk («cringe», «chille», «safe»)! Det er ikke tilfeldig: engelsk påvirker ungdomsspråk over hele Europa, også tysk. Slike ord er uformelle — bruk dem med venner, ikke i en formell tekst eller til læreren.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>📖 Ordliste</h2>
+    <div class="dw-word-grid">
+      <div class="dw-word-card">
+        <h3>Digga / Alter</h3>
+        <p class="dw-word-meaning">kompis, "mann" (tiltaleform)</p>
+        <p class="dw-word-example">«Digga, warte mal!» <em>→ Kompis, vent litt!</em></p>
+      </div>
+      <div class="dw-word-card">
+        <h3>krass</h3>
+        <p class="dw-word-meaning">heftig, sinnssykt (bra ELLER dårlig)</p>
+        <p class="dw-word-example">«Das ist ja krass!» <em>→ Det er jo heftig!</em></p>
+      </div>
+      <div class="dw-word-card">
+        <h3>geil</h3>
+        <p class="dw-word-meaning">kult, awesome</p>
+        <p class="dw-word-example">«Deine neuen Schuhe sind geil!» <em>→ De nye skoene dine er kule!</em></p>
+      </div>
+      <div class="dw-word-card">
+        <h3>Bock haben (auf etwas)</h3>
+        <p class="dw-word-meaning">å ha lyst på noe</p>
+        <p class="dw-word-example">«Ich habe keinen Bock auf Mathe.» <em>→ Jeg har ikke lyst på matte.</em></p>
+      </div>
+      <div class="dw-word-card">
+        <h3>chillen</h3>
+        <p class="dw-word-meaning">å slappe av</p>
+        <p class="dw-word-example">«Wir chillen einfach zu Hause.» <em>→ Vi slapper bare av hjemme.</em></p>
+        <span class="dw-word-tag">engelsk lånord</span>
+      </div>
+      <div class="dw-word-card">
+        <h3>cringe</h3>
+        <p class="dw-word-meaning">flaut, pinlig</p>
+        <p class="dw-word-example">«Das war so cringe!» <em>→ Det var så flaut!</em></p>
+        <span class="dw-word-tag">engelsk lånord</span>
+      </div>
+      <div class="dw-word-card">
+        <h3>flexen</h3>
+        <p class="dw-word-meaning">å skryte, vise frem noe</p>
+        <p class="dw-word-example">«Er flext mit seinem neuen Handy.» <em>→ Han skryter med den nye mobilen sin.</em></p>
+        <span class="dw-word-tag">engelsk lånord</span>
+      </div>
+      <div class="dw-word-card">
+        <h3>safe</h3>
+        <p class="dw-word-meaning">garantert, sikkert</p>
+        <p class="dw-word-example">«Ich komme safe um 18 Uhr.» <em>→ Jeg kommer garantert kl. 18.</em></p>
+        <span class="dw-word-tag">engelsk lånord</span>
+      </div>
+      <div class="dw-word-card">
+        <h3>Läuft bei dir!</h3>
+        <p class="dw-word-meaning">Det går bra for deg! / Du er flink!</p>
+        <p class="dw-word-example">«Note 1 in Mathe? Läuft bei dir!» <em>→ Karakter 1 i matte? Det går bra for deg!</em></p>
+      </div>
+      <div class="dw-word-card">
+        <h3>Was geht?</h3>
+        <p class="dw-word-meaning">Hva skjer? (uformell hilsen)</p>
+        <p class="dw-word-example">«Hey, was geht?» <em>→ Hei, hva skjer?</em></p>
+      </div>
+      <div class="dw-word-card">
+        <h3>abgefahren</h3>
+        <p class="dw-word-meaning">vill, fantastisk (positiv overraskelse)</p>
+        <p class="dw-word-example">«Das Konzert war abgefahren!» <em>→ Konserten var helt vill!</em></p>
+      </div>
+      <div class="dw-word-card">
+        <h3>lost sein</h3>
+        <p class="dw-word-meaning">å være forvirret / henge etter</p>
+        <p class="dw-word-example">«Ich bin total lost in Mathe.» <em>→ Jeg er helt lost i matte.</em></p>
+        <span class="dw-word-tag">engelsk lånord</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>🎮 Test deg selv</h2>
+    <p class="dw-note">Fyll inn riktig ord i setningen — trykk på det alternativet du tror passer best.</p>
+  </div>
+
+  <div class="dw-progress-wrap"><div class="dw-progress-bar" id="dw-bar"></div></div>
+  <div class="dw-meta">
+    <span id="dw-count">Oppgave 1 av 6</span>
+    <span id="dw-score-live">Poeng: 0</span>
+  </div>
+
+  <div class="dw-game-card" id="dw-game">
+    <div class="dw-g-sentence" id="dw-g-sentence"></div>
+
+    <div class="dw-choices" id="dw-choices"></div>
+
+    <div class="dw-explain" id="dw-explain"></div>
+    <button class="dw-next-btn" id="dw-next" onclick="dwNext()">Weiter →</button>
+  </div>
+
+  <div class="dw-game-card dw-result" id="dw-result">
+    <h2>Geschafft! 🎉</h2>
+    <div class="dw-score" id="dw-final-score">0 / 6</div>
+    <p id="dw-final-msg"></p>
+    <div class="dw-review" id="dw-review"></div>
+    <button class="dw-restart-btn" onclick="dwRestart()">🔁 Nochmal spielen</button>
+  </div>
+
+</div>
+
+<script>
+  var dwQuiz = [
+    {sentence:"Ich habe keinen ___ auf Hausaufgaben.", correct:"Bock", choices:["Bock","Krass","Chillen"], hint:"«keinen Bock haben (auf etwas)» = ikke ha lyst på noe."},
+    {sentence:"Alter, das war richtig ___!", correct:"krass", choices:["krass","chillen","safe"], hint:"«krass» beskriver noe ekstremt — kan være bra eller dårlig, avhenger av sammenhengen."},
+    {sentence:"Lass uns heute Abend einfach ___.", correct:"chillen", choices:["chillen","flexen","lost sein"], hint:"«chillen» = å slappe av (engelsk lånord)."},
+    {sentence:"Er wollte mit seinem neuen Handy ___.", correct:"flexen", choices:["flexen","chillen","cringe sein"], hint:"«flexen» = å skryte eller vise frem noe (fra engelsk «flex»)."},
+    {sentence:"Ich komme ___ um 18 Uhr.", correct:"safe", choices:["safe","krass","lost"], hint:"«safe» brukes som «garantert/sikkert» — et lånord fra engelsk."},
+    {sentence:"Sein Tanzvideo war so ___, ich musste wegschauen.", correct:"cringe", choices:["cringe","geil","abgefahren"], hint:"«cringe» = flaut/pinlig å se på."}
+  ];
+
+  var dwOrder = [];
+  var dwIdx = 0;
+  var dwScore = 0;
+  var dwWrong = [];
+  var dwAnswered = false;
+
+  function dwShuffle(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
+    }
+    return a;
+  }
+
+  function dwInit(){
+    dwOrder = dwShuffle(dwQuiz.map(function(_,i){return i;}));
+    dwIdx = 0; dwScore = 0; dwWrong = [];
+    document.getElementById('dw-result').classList.remove('dw-show');
+    document.getElementById('dw-game').style.display = '';
+    dwLoad();
+  }
+
+  function dwLoad(){
+    dwAnswered = false;
+    var q = dwQuiz[dwOrder[dwIdx]];
+    document.getElementById('dw-g-sentence').innerHTML = q.sentence.replace('___', '<span class="dw-g-blank">___</span>');
+
+    var choicesShuffled = dwShuffle(q.choices);
+    var choicesWrap = document.getElementById('dw-choices');
+    choicesWrap.innerHTML = '';
+    choicesShuffled.forEach(function(choice){
+      var btn = document.createElement('button');
+      btn.className = 'dw-choice';
+      btn.dataset.a = choice;
+      btn.textContent = choice;
+      btn.onclick = function(){ dwAnswer(choice); };
+      choicesWrap.appendChild(btn);
+    });
+
+    document.getElementById('dw-explain').classList.remove('dw-show');
+    document.getElementById('dw-explain').textContent = '';
+    document.getElementById('dw-next').classList.remove('dw-show');
+    document.getElementById('dw-count').textContent = 'Oppgave ' + (dwIdx+1) + ' av ' + dwQuiz.length;
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-bar').style.width = Math.round((dwIdx/dwQuiz.length)*100) + '%';
+  }
+
+  function dwAnswer(choice){
+    if(dwAnswered) return;
+    dwAnswered = true;
+    var q = dwQuiz[dwOrder[dwIdx]];
+    var btns = document.querySelectorAll('.dw-choice');
+    btns.forEach(function(b){
+      b.disabled = true;
+      if(b.dataset.a === q.correct) b.classList.add('dw-correct');
+      else if(b.dataset.a === choice) b.classList.add('dw-wrong');
+    });
+    document.getElementById('dw-explain').textContent = q.hint;
+    document.getElementById('dw-explain').classList.add('dw-show');
+    if(choice === q.correct){
+      dwScore++;
+    } else {
+      dwWrong.push(q);
+    }
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-next').classList.add('dw-show');
+  }
+
+  function dwNext(){
+    dwIdx++;
+    if(dwIdx >= dwQuiz.length){
+      dwFinish();
+    } else {
+      dwLoad();
+    }
+  }
+
+  function dwFinish(){
+    document.getElementById('dw-bar').style.width = '100%';
+    document.getElementById('dw-game').style.display = 'none';
+    document.getElementById('dw-result').classList.add('dw-show');
+    document.getElementById('dw-final-score').textContent = dwScore + ' / ' + dwQuiz.length;
+    var msg;
+    if(dwScore === dwQuiz.length) msg = "Perfekt! Du kan Jugendwörtern schon richtig gut! 🏅";
+    else if(dwScore >= dwQuiz.length*0.6) msg = "Sehr gut! Du forstår de fleste av uttrykkene allerede.";
+    else msg = "Guter Versuch! Se en gang til på ordlisten øverst, og prøv igjen.";
+    document.getElementById('dw-final-msg').textContent = msg;
+
+    var reviewEl = document.getElementById('dw-review');
+    if(dwWrong.length === 0){
+      reviewEl.innerHTML = '<strong>Ingenting å øve mer på akkurat nå — bra jobbet!</strong>';
+    } else {
+      var html = '<strong>Disse kan du øve litt ekstra på:</strong><ul>';
+      dwWrong.forEach(function(q){
+        html += '<li>' + q.sentence.replace('___', q.correct) + '</li>';
+      });
+      html += '</ul>';
+      reviewEl.innerHTML = html;
+    }
+  }
+
+  function dwRestart(){ dwInit(); }
+
+  dwInit();
+</script>
+</body>
+</html>

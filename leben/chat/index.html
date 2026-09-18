@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <!--
-  DEUTSCHWELT — Schreiben: "SMS-Chat"
-  For 8. trinn (A1). Eleven skriver BEGGE sider av en tekstmeldingssamtale
-  selv (velger avsender med en bryter, skriver og sender meldinger som
-  legges til i chatten). Gjenbruker chat-boble-designet fra sprechen/cafe/,
-  men her er det eleven som forfatter innholdet, ikke en forhåndsskrevet
-  dialog.
-  Kan brukes som mal for flere scenarioer — kopier denne mappen og bytt ut
-  dwScenario nederst i <script>-delen.
+  DEUTSCHWELT — Deutsch im echten Leben: "Chat & Social Media"
+  For 8. trinn (A1). Eleven leser en ferdigskrevet innkommende meldingstråd
+  (fra "Mia") og skriver SITT EGET svar — motsatt av schreiben/sms-chat/,
+  der eleven skriver BEGGE sider av samtalen. Her er poenget å øve på å
+  lese og skrive i en uformell chat-stil (emojis, forkortelser), ikke å
+  dikte opp hele samtalen selv.
+  Gjenbruker chat-boble-designet fra sprechen/cafe/ og schreiben/sms-chat/.
   Se README.md i rotmappen for detaljer.
 -->
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SMS-Chat · Deutschwelt</title>
+<title>Chat & Social Media · Deutschwelt</title>
 <link rel="stylesheet" href="../../assets/style.css">
 <style>
   :root{
@@ -50,32 +49,23 @@
   .dw-section p{margin:0 0 8px;line-height:1.55;}
   .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
 
-  .dw-phrases{
-    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
-    padding:14px 18px;margin-bottom:16px;font-size:.88rem;
-  }
-  .dw-phrases summary{cursor:pointer;font-weight:700;color:var(--dw-primary);}
-  .dw-phrases ul{margin:10px 0 0;padding-left:18px;line-height:1.7;}
+  .dw-abbr-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:.88rem;}
+  .dw-abbr-table td, .dw-abbr-table th{padding:6px 8px;text-align:left;border-bottom:1px solid #ece8df;}
+  .dw-abbr-table th{color:var(--dw-muted);font-weight:600;}
+  .dw-abbr-table td:first-child{font-weight:700;color:var(--dw-primary);white-space:nowrap;}
 
   .dw-chat{
     background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;
     box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;margin-bottom:12px;
-    min-height:140px;max-height:420px;overflow-y:auto;
+    min-height:100px;max-height:420px;overflow-y:auto;
   }
   .dw-bubble-row{display:flex;margin-bottom:12px;}
   .dw-bubble-row.dw-right{justify-content:flex-end;}
   .dw-bubble{max-width:78%;padding:10px 14px;border-radius:16px;line-height:1.45;font-size:.95rem;}
   .dw-bubble.dw-friend{background:#eef1f6;color:var(--dw-text);border-bottom-left-radius:4px;}
-  .dw-bubble.dw-friend::before{content:"👤 Freund/in: ";font-weight:700;display:block;font-size:.75rem;color:var(--dw-primary);margin-bottom:2px;}
+  .dw-bubble.dw-friend::before{content:"👤 Mia: ";font-weight:700;display:block;font-size:.75rem;color:var(--dw-primary);margin-bottom:2px;}
   .dw-bubble.dw-du{background:var(--dw-primary);color:#fff;border-bottom-right-radius:4px;}
   .dw-bubble.dw-du::before{content:"🙋 Du: ";font-weight:700;display:block;font-size:.75rem;color:var(--dw-accent);margin-bottom:2px;}
-
-  .dw-sender-toggle{display:flex;gap:8px;margin-bottom:8px;}
-  .dw-sender-btn{
-    flex:1;padding:10px;border-radius:10px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);
-    font-weight:600;cursor:pointer;font-size:.9rem;
-  }
-  .dw-sender-btn.dw-active{background:var(--dw-primary);color:#fff;}
 
   .dw-input-row{display:flex;gap:8px;}
   .dw-input-row input{
@@ -100,6 +90,29 @@
   .dw-check-item input{width:18px;height:18px;}
   .dw-check-item span{font-size:.92rem;}
   #dw-check-counter{font-weight:700;color:var(--dw-primary);margin-top:10px;display:block;}
+
+  /* --- Bonus: Instagram-lignende innlegg --- */
+  .dw-post{
+    background:var(--dw-card);border-radius:var(--dw-radius);border:1px solid #ece8df;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:hidden;margin-bottom:12px;
+  }
+  .dw-post-head{display:flex;align-items:center;gap:8px;padding:12px 16px;font-weight:700;color:var(--dw-primary);font-size:.9rem;}
+  .dw-post-img{
+    background:linear-gradient(135deg,#ffd97d 0%,#ff9d76 50%,#3d9bd6 100%);
+    height:160px;display:flex;align-items:center;justify-content:center;font-size:3rem;
+  }
+  .dw-post-caption{padding:12px 16px 16px;font-size:.92rem;line-height:1.5;}
+  .dw-post-caption strong{color:var(--dw-primary);}
+
+  textarea.dw-plan{
+    width:100%;min-height:70px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
 </style>
 </head>
 <body>
@@ -114,12 +127,12 @@
       <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
       <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
       <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
-      <a class="dw-nav-link dw-nav-active" href="../">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
       <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
       <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
       <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
       <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
-      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link dw-nav-active" href="../">📱 Deutsch im echten Leben</a>
       <a class="dw-nav-link" href="../../sprechen/cafe/">☕ Café</a>
     </div>
   </nav>
@@ -127,40 +140,42 @@
 
 <div class="dw-wrap">
 
-  <p class="dw-crumb"><a href="../">✍️ Schreiben</a> → SMS-Chat</p>
+  <p class="dw-crumb"><a href="../">📱 Deutsch im echten Leben</a> → Chat & Social Media</p>
 
   <div class="dw-header">
-    <h1>💬 SMS-Chat</h1>
-    <p>Du skriver BEGGE sider av samtalen — velg hvem som "sender" hver melding!</p>
+    <h1>📱 Chat & Social Media</h1>
+    <p>Korte meldinger, emojis og forkortelser — slik skriver tyske ungdommer faktisk</p>
   </div>
 
   <div class="dw-section">
-    <h2>🎯 Deine Aufgabe</h2>
-    <p>Din venn/venninne fra Tyskland skriver til deg og vil avtale å møtes på kafé. Fortsett samtalen! Bytt mellom å skrive som <strong>deg selv</strong> og som <strong>vennen din</strong> med knappene under chatten. Skriv minst <strong>5 nye meldinger</strong> totalt.</p>
+    <h2>💡 Litt annerledes enn skoletysk</h2>
+    <p>I chat og på sosiale medier skriver man ofte kort, bruker emojis i stedet for hele setninger, og forkorter ord. Det er ikke "feil tysk" — det er en egen, uformell skrivestil som passer i chat, akkurat som du selv nok skriver kortere og med flere emojis til venner enn i en skoleoppgave.</p>
   </div>
 
-  <details class="dw-phrases">
-    <summary>💬 Nützliche Phrasen (klikk for å vise/skjule)</summary>
-    <ul>
-      <li><strong>Hast du heute Zeit?</strong> — Har du tid i dag?</li>
-      <li><strong>Wann treffen wir uns?</strong> — Når møtes vi?</li>
-      <li><strong>Wo treffen wir uns?</strong> — Hvor møtes vi?</li>
-      <li><strong>Ich habe Lust auf …</strong> — Jeg har lyst på …</li>
-      <li><strong>Bis später!</strong> — Ses senere!</li>
-      <li><strong>Klingt gut!</strong> — Høres bra ut!</li>
-    </ul>
-  </details>
+  <div class="dw-section">
+    <h2>🔤 Vanlige forkortelser</h2>
+    <table class="dw-abbr-table">
+      <tr><th>Forkortelse</th><th>Fullt ord</th><th>Betyr</th></tr>
+      <tr><td>LG</td><td>Liebe Grüße</td><td>kjærlig hilsen</td></tr>
+      <tr><td>HDL</td><td>Hab dich lieb</td><td>er glad i deg</td></tr>
+      <tr><td>np</td><td>kein Problem</td><td>ikke noe problem</td></tr>
+      <tr><td>k</td><td>okay</td><td>ok, greit</td></tr>
+      <tr><td>vlt</td><td>vielleicht</td><td>kanskje</td></tr>
+      <tr><td>wg</td><td>wegen</td><td>på grunn av</td></tr>
+      <tr><td>lol</td><td>(engelsk)</td><td>samme som på norsk</td></tr>
+      <tr><td>omg</td><td>(engelsk)</td><td>samme som på norsk</td></tr>
+      <tr><td>btw</td><td>übrigens</td><td>forresten</td></tr>
+      <tr><td>cu</td><td>(wir sehen uns)</td><td>vi sees</td></tr>
+    </table>
+    <p class="dw-note">Disse brukes i uformell chat mellom venner — ikke i en formell e-post eller til en lærer.</p>
+  </div>
 
   <div class="dw-section">
-    <h2>📱 Der Chat</h2>
+    <h2>💬 Mia skriver til deg</h2>
     <div class="dw-chat" id="dw-chat"></div>
 
-    <div class="dw-sender-toggle">
-      <button class="dw-sender-btn dw-active" id="dw-btn-du" onclick="dwSetSender('du')">🙋 Skriv som deg</button>
-      <button class="dw-sender-btn" id="dw-btn-friend" onclick="dwSetSender('friend')">👤 Skriv som vennen</button>
-    </div>
     <div class="dw-input-row">
-      <input type="text" id="dw-msg-input" placeholder="Skriv meldingen din på tysk …" maxlength="200">
+      <input type="text" id="dw-msg-input" placeholder="Skriv svaret ditt på tysk …" maxlength="200">
       <button class="dw-send-btn" onclick="dwSendMessage()">Senden</button>
     </div>
     <div class="dw-chat-tools">
@@ -175,22 +190,38 @@
 
   <div class="dw-section">
     <h2>✅ Sjekk deg selv</h2>
-    <p class="dw-note">Gå gjennom listen før du kopierer samtalen til læreren din:</p>
+    <p class="dw-note">Gå gjennom listen før du kopierer svaret til læreren din:</p>
     <div class="dw-check-list" id="dw-check-list"></div>
-    <span id="dw-check-counter">0 av 5 sjekket</span>
+    <span id="dw-check-counter">0 av 4 sjekket</span>
+  </div>
+
+  <div class="dw-section">
+    <h2>📸 Bonus: Skriv en kommentar</h2>
+    <p class="dw-note">Lea har lagt ut et bilde. Skriv en kort, hyggelig kommentar på tysk — gjerne med en emoji!</p>
+    <div class="dw-post">
+      <div class="dw-post-head">👤 Lea_98</div>
+      <div class="dw-post-img">🏖️</div>
+      <div class="dw-post-caption"><strong>Lea_98:</strong> Endlich Ferien! ☀️🏖️</div>
+    </div>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Schöne Ferien! Wo bist du? 😄"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
   </div>
 
 </div>
 
 <script>
-  /* ---------- Scenario-oppsett (bytt ut for et nytt scenario) ---------- */
-  var dwScenario = {
-    starter: {text: "Hey! Hast du heute Zeit? Ich habe Lust auf einen Kaffee! ☕", who: "friend"}
-  };
+  /* ---------- Innkommende meldinger (faste, ikke redigerbare) ---------- */
+  var dwStarterMessages = [
+    {text: "Hey! 😄 Was geht?", who: "friend"},
+    {text: "Ich geh nachher ins Kino 🎬 Hast du Bock mitzukommen?", who: "friend"},
+    {text: "Der Film fängt um 18 Uhr an ⏰", who: "friend"},
+    {text: "Sag einfach kurz Bescheid, np wenn nicht 👍", who: "friend"}
+  ];
 
-  /* ---------- Chat ---------- */
   var dwMessages = [];
-  var dwCurrentSender = "du";
   var dwNewMessageCount = 0;
 
   function dwChatEl(){ return document.getElementById('dw-chat'); }
@@ -210,17 +241,11 @@
     wrap.scrollTop = wrap.scrollHeight;
   }
 
-  function dwSetSender(who){
-    dwCurrentSender = who;
-    document.getElementById('dw-btn-du').classList.toggle('dw-active', who === 'du');
-    document.getElementById('dw-btn-friend').classList.toggle('dw-active', who === 'friend');
-  }
-
   function dwSendMessage(){
     var input = document.getElementById('dw-msg-input');
     var txt = input.value.trim();
     if(!txt) return;
-    dwMessages.push({text: txt, who: dwCurrentSender});
+    dwMessages.push({text: txt, who: 'du'});
     dwNewMessageCount++;
     input.value = '';
     dwRenderChat();
@@ -229,9 +254,9 @@
   }
 
   function dwUndoMessage(){
-    if(dwMessages.length <= 1) return; // ikke slett starter-meldingen
+    if(dwNewMessageCount <= 0) return;
     dwMessages.pop();
-    if(dwNewMessageCount > 0) dwNewMessageCount--;
+    dwNewMessageCount--;
     dwRenderChat();
     dwUpdateMsgCount();
   }
@@ -241,18 +266,16 @@
   }
 
   function dwResetChat(){
-    dwMessages = [dwScenario.starter];
+    dwMessages = dwStarterMessages.slice();
     dwNewMessageCount = 0;
-    dwCurrentSender = 'du';
-    dwSetSender('du');
     dwRenderChat();
     dwUpdateMsgCount();
   }
 
   function dwCopyChat(){
-    if(dwMessages.length <= 1){ alert('Skriv noen meldinger først!'); return; }
+    if(dwNewMessageCount === 0){ alert('Skriv minst ett svar først!'); return; }
     var lines = dwMessages.map(function(m){
-      return (m.who === 'du' ? 'Du' : 'Freund/in') + ': ' + m.text;
+      return (m.who === 'du' ? 'Du' : 'Mia') + ': ' + m.text;
     });
     var txt = lines.join('\n');
     if(navigator.clipboard && navigator.clipboard.writeText){
@@ -272,13 +295,12 @@
 
   dwResetChat();
 
-  /* ---------- Egenvurderings-sjekkliste (selvsjekk, ikke poengsatt) ---------- */
+  /* ---------- Egenvurderings-sjekkliste ---------- */
   var dwCheckItems = [
-    "Jeg har skrevet minst 5 nye meldinger",
-    "Jeg har brukt minst 2 uttrykk fra fraselisten",
-    "Jeg har stilt minst ett spørsmål",
-    "Jeg har svart på vennens spørsmål",
-    "Jeg har avsluttet samtalen på en naturlig måte (f.eks. Bis später!)"
+    "Jeg har svart på om jeg blir med på kino",
+    "Jeg har brukt minst én emoji",
+    "Jeg har brukt minst én forkortelse fra listen (f.eks. np, k, vlt)",
+    "Meldingen min er skrevet på tysk"
   ];
 
   function dwRenderCheckList(){
@@ -301,6 +323,28 @@
     document.getElementById('dw-check-counter').textContent = count + ' av ' + dwCheckItems.length + ' sjekket';
   }
   dwRenderCheckList();
+
+  /* ---------- Bonus: kommentarfelt ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
 </script>
 </body>
 </html>

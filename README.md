@@ -77,6 +77,16 @@ deutschwelt-site/
 ├── normen/
 │   └── hoeflichkeit/
 │       └── index.html                → "Höflichkeit in Deutschland" — du/Sie, illustrasjoner, grammatikkspill
+├── leben/
+│   ├── index.html                    → hub-side: "Deutsch im echten Leben" (autentisk tysk-seksjonen)
+│   ├── alltagssprache/
+│   │   └── index.html                → fraseliste + Schulbuch-vs-Alltag + "Was bedeutet das?"-quiz
+│   ├── chat/
+│   │   └── index.html                → "Chat & Social Media" — forkortelser, innkommende chat, skriv et svar
+│   ├── jugendwoerter/
+│   │   └── index.html                → liten ordbok med tyske ungdomsuttrykk + testquiz
+│   └── schule/
+│       └── index.html                → "Jugend & Schule" — skolehverdag i Tyskland vs. Norge
 └── sprechen/
     └── cafe/
         └── index.html                → "Du bist dran!" — Im Café
@@ -88,21 +98,23 @@ blir ren og kort (f.eks. `.../staedte/berlin/` i stedet for
 
 **Mønster for hub-sider:** så snart en seksjon har to eller flere
 undersider (som `staedte/`, `geschichte/`, `grammatikk/`, `lesen/`,
-`hoeren/`, `schreiben/`, `reise/` og `challenges/` nå har), får den en
-egen `index.html` som viser et lite kortgalleri med lenker videre — akkurat
-som forsiden, bare smalere. `sprechen/` har foreløpig bare én underside, så
-navigasjonsmenyen peker rett dit; når du legger til nummer to der, lag en
-tilsvarende hub-side og pek menyen dit i stedet (se steg 4 under).
+`hoeren/`, `schreiben/`, `reise/`, `challenges/` og nå `leben/` har), får
+den en egen `index.html` som viser et lite kortgalleri med lenker videre —
+akkurat som forsiden, bare smalere. `sprechen/` har foreløpig bare én
+underside, så navigasjonsmenyen peker rett dit; når du legger til nummer
+to der, lag en tilsvarende hub-side og pek menyen dit i stedet (se steg 4
+under).
 
-**Om toppnavigasjonen:** den har nå 12 punkter (🏠 Forside · 🧩 Grammatik ·
+**Om toppnavigasjonen:** den har nå 13 punkter (🏠 Forside · 🧩 Grammatik ·
 🏙️ Städte · 🕰️ Geschichte · 📖 Lesen · 🎧 Hören · ✍️ Schreiben · 🗺️ Reise ·
-🏆 Challenges · 🎬 Filme & Serien · 🎩 Normen & Regeln · ☕ Café) og bruker
-`flex-wrap` i `assets/style.css`, så den bryter fint til to-tre linjer på
-smale skjermer. `filme-serien/`, `sprechen/cafe/` og `normen/hoeflichkeit/`
-er unntak fra hub-mønsteret — de har bare én side hver, så navigasjonen
-peker rett dit i stedet for til en hub-side. Hvis `normen/` får en side til
-(f.eks. punktlighet eller resirkulering), lag `normen/index.html` som hub
-og pek menyen dit i stedet — akkurat som beskrevet for `sprechen/` over.
+🏆 Challenges · 🎬 Filme & Serien · 🎩 Normen & Regeln ·
+📱 Deutsch im echten Leben · ☕ Café) og bruker `flex-wrap` i
+`assets/style.css`, så den bryter fint til to-tre linjer på smale skjermer.
+`filme-serien/`, `sprechen/cafe/` og `normen/hoeflichkeit/` er unntak fra
+hub-mønsteret — de har bare én side hver, så navigasjonen peker rett dit i
+stedet for til en hub-side. Hvis `normen/` får en side til (f.eks.
+punktlighet eller resirkulering), lag `normen/index.html` som hub og pek
+menyen dit i stedet — akkurat som beskrevet for `sprechen/` over.
 
 **Om Hören-seksjonen:** videoene er bygget inn fra YouTube
 (`youtube-nocookie.com/embed/<video-ID>`) og hentet fra **Nicos Weg**, en
@@ -184,6 +196,29 @@ oppleves tyngre enn den offisielle aldersgrensen skulle tilsi — dette er
 ment som informasjon til lærer/foresatte, ikke en advarsel mot å vise
 listen til elevene.
 
+**Om «Deutsch im echten Leben»-seksjonen:** dette er nettstedets
+"autentiske tysk"-seksjon — mens de andre delene lærer eleven tysk, viser
+denne hvordan tysk faktisk brukes av folk (særlig ungdom) utenfor
+læreboka. `leben/index.html` er en hub med 7 kort: 4 er bygget ut
+(`alltagssprache/`, `chat/`, `jugendwoerter/`, `schule/`) og 3 er
+`dw-soon`-plassholdere (Gaming & Internet, Alltagssituationen, Gleiches
+Wort andere Welt) som venter på fremtidige runder. **Alltagssprache**
+kombinerer to av de opprinnelige idétemaene (hverdagsuttrykk +
+"Was bedeutet das?") til én side, med en egen `.dw-pair`-sammenligning av
+Schulbuch-Deutsch mot Alltags-Deutsch og en gjett-betydningen-quiz
+(samme spillmotor som resten av nettstedet). **Chat & Social Media**
+gjenbruker chat-boble-designet fra `schreiben/sms-chat/`, men her er
+meldingene fra "Mia" faste (ikke redigerbare) og eleven skriver bare SIN
+EGEN respons — motsatt av SMS-Chat, der eleven skriver begge sider selv.
+**Jugendwörter** er en håndplukket ordliste (ikke bundet til et bestemt
+års offisielle "Jugendwort des Jahres", siden den listen endrer seg hvert
+år) med en liten testquiz til slutt. **Jugend & Schule** sammenligner
+skolehverdagen i Tyskland (særlig det motsatte karaktersystemet — 1 er
+best i Tyskland, 6 er best i Norge og i tysktalende Sveits!) med Norge.
+Dypere Tyskland/Østerrike/Sveits-sammenligninger er bevisst spart til den
+fremtidige "Gleiches Wort, andere Welt"-siden i stedet for å blandes inn
+her.
+
 ## Slik legger du til en ny seksjon
 
 1. **Kopier den mappen som ligner mest** på det du skal lage:
@@ -214,6 +249,15 @@ listen til elevene.
      kopier `normen/hoeflichkeit/` til f.eks. `normen/puenktlichkeit/`
      (NB: da må `normen/` også få en egen hub-`index.html`, se mønsteret
      over).
+   - Et nytt tema i «Deutsch im echten Leben» (f.eks. Gaming & Internet,
+     Alltagssituationen eller Gleiches Wort andere Welt — de tre
+     `dw-soon`-plassholderne som allerede ligger i `leben/index.html`) →
+     kopier den av `leben/alltagssprache/` (quiz + sammenligning),
+     `leben/chat/` (innkommende chat + skriv-et-svar) eller
+     `leben/jugendwoerter/` (referansekort + testquiz) som ligner mest,
+     bytt ut innholdet, og fjern `class="dw-soon"`/`href="#"` fra kortet
+     i `leben/index.html` (`leben/` har allerede sin egen hub, så ingen
+     endring i toppnavigasjonen trengs).
    - En ny skriveoppgave → kopier `schreiben/sms-chat/` (for et nytt
      samtalescenario, bytt `dwScenario`) eller `schreiben/wortkiste/` (for
      en ny ordpool, bytt `dwWordPool`) — begge har allerede
