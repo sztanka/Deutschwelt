@@ -150,6 +150,8 @@
       <a class="dw-nav-link" href="lesen/">📖 Lesen</a>
       <a class="dw-nav-link" href="hoeren/">🎧 Hören</a>
       <a class="dw-nav-link" href="schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="challenges/">🏆 Challenges</a>
       <a class="dw-nav-link" href="sprechen/cafe/">☕ Café</a>
     </div>
   </nav>
@@ -170,11 +172,10 @@
   </div>
 
   <div class="dw-grid">
-    <a class="dw-card dw-soon" href="#">
+    <a class="dw-card" href="reise/" id="card-reise">
       <span class="dw-icon">🗺️</span>
       <h2>Eine Reise machen</h2>
-      <p>Utforsk Tyskland, Østerrike og Sveits</p>
-      <span class="dw-soon-tag">🔜 Kommer snart</span>
+      <p>Planlegg, pakk og skriv dagbok fra en reise til Berlin eller Wien</p>
     </a>
     <a class="dw-card" href="sprechen/cafe/" id="card-sprechen">
       <span class="dw-icon">🗣️</span>
@@ -217,11 +218,10 @@
       <p>Tysk film, serier og klipp</p>
       <span class="dw-soon-tag">🔜 Kommer snart</span>
     </a>
-    <a class="dw-card dw-soon" href="#">
+    <a class="dw-card" href="challenges/" id="card-challenges">
       <span class="dw-icon">🏆</span>
       <h2>Challenges</h2>
-      <p>Små utfordringer og oppdrag</p>
-      <span class="dw-soon-tag">🔜 Kommer snart</span>
+      <p>Tilfeldige oppgaver, et memory-spill og en escape-room-gåte</p>
     </a>
   </div>
 
@@ -241,9 +241,16 @@
     {keys:["verb","verben","konjugieren","konjugasjon","präsens","presens","regelmessig","spielen","lernen"], target:"grammatikk/verben-regelmaessig/", label:"⚙️ Grammatik – Verben: regelrette", built:true},
     {keys:["grammatikk","grammatik"], target:"grammatikk/", label:"🧩 Grammatik trainieren", built:true},
     {keys:["lesen","lukas","wochenende","kuchen","rätsel","detektiv","lese"], target:"lesen/", label:"📖 Deutsch lesen", built:true},
-    {keys:["hallo","nico","emma","hören","höre","video","hilfe","koffer","kein problem"], target:"hoeren/", label:"🎧 Deutsch hören", built:true},
+    {keys:["hallo","nico","emma","hören","höre","video","hilfe","kein problem"], target:"hoeren/", label:"🎧 Deutsch hören", built:true},
     {keys:["sms","chat","schreiben","nachricht","wortkiste","würfel","schreib"], target:"schreiben/", label:"✍️ Deutsch schreiben", built:true},
-    {keys:["zürich","schweiz","schweizerdeutsch"], target:"#", label:"🗺️ Eine Reise machen", built:false}
+    {keys:["reiseplaner","reiseplanlegger","budsjett reise","transport reise"], target:"reise/reiseplanlegger/", label:"🧭 Reise – Der Reiseplaner", built:true},
+    {keys:["koffer","pakke","packen","wetter reise"], target:"reise/koffer/", label:"🧳 Reise – Packe deinen Koffer", built:true},
+    {keys:["reisetagebuch","dagbok","tagebuch"], target:"reise/reisetagebuch/", label:"📔 Reise – Reisetagebuch", built:true},
+    {keys:["reise","reisen","eine reise machen","zürich","schweiz"], target:"reise/", label:"🗺️ Eine Reise machen", built:true},
+    {keys:["tägliche herausforderung","daglig utfordring","mini-oppgave"], target:"challenges/taegliche-herausforderung/", label:"🎯 Challenges – Tägliche Herausforderung", built:true},
+    {keys:["wortschatz-jagd","memory","ordjakt","matchespill"], target:"challenges/wortschatz-jagd/", label:"🧠 Challenges – Wortschatz-Jagd", built:true},
+    {keys:["escape-room","escape room","klassenraum","kode","gåte"], target:"challenges/escape-room/", label:"🔐 Challenges – Der verschlossene Klassenraum", built:true},
+    {keys:["challenge","challenges","utfordring"], target:"challenges/", label:"🏆 Challenges", built:true}
   ];
 
   function dwSearch(){

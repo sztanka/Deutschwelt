@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Reise: "Der Reiseplaner"
+  For 8. trinn (A1). Eleven velger by (Berlin/Wien), transportmiddel og
+  én aktivitet per dag i tre dager. En reiseoppsummering og budsjettlinje
+  oppdateres live basert på valgene. Se README.md for hvordan du legger
+  til flere byer eller aktiviteter (dwCities/dwTransport).
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Der Reiseplaner · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:28px 24px;text-align:center;margin-bottom:16px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.7rem;}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.15rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 8px;line-height:1.55;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-choice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;}
+  .dw-choice-card{
+    border:2px solid #ddd7c8;border-radius:12px;padding:14px;cursor:pointer;background:#fff;text-align:center;
+  }
+  .dw-choice-card:hover{border-color:var(--dw-primary-light);}
+  .dw-choice-card.dw-selected{border-color:var(--dw-primary);background:#eef2f7;}
+  .dw-choice-card .dw-ch-emoji{font-size:1.6rem;display:block;margin-bottom:4px;}
+  .dw-choice-card b{display:block;color:var(--dw-primary);}
+  .dw-choice-card small{color:var(--dw-muted);}
+
+  .dw-day-row{margin-bottom:12px;}
+  .dw-day-row label{display:block;font-weight:700;color:var(--dw-primary);margin-bottom:4px;font-size:.92rem;}
+  .dw-day-row select{
+    width:100%;padding:10px 12px;border-radius:10px;border:1px solid #d8d3c4;font-size:.92rem;font-family:inherit;background:#fff;
+  }
+
+  .dw-budget-bar-wrap{background:#e4e0d5;border-radius:999px;height:16px;overflow:hidden;margin:14px 0 4px;}
+  .dw-budget-bar{height:100%;background:var(--dw-primary);width:0%;transition:width .25s ease;}
+  .dw-budget-txt{display:flex;justify-content:space-between;font-size:.9rem;font-weight:600;color:var(--dw-primary);}
+  .dw-budget-txt.dw-over{color:var(--dw-bad);}
+
+  .dw-summary-box{
+    background:#f4f1e8;border-radius:12px;padding:16px 18px;font-size:.92rem;line-height:1.7;white-space:pre-line;
+  }
+
+  textarea.dw-plan{
+    width:100%;min-height:100px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-check-list{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
+  .dw-check-item{
+    display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f4f1e8;border-radius:10px;cursor:pointer;
+  }
+  .dw-check-item input{width:18px;height:18px;}
+  .dw-check-item span{font-size:.92rem;}
+  #dw-check-counter{font-weight:700;color:var(--dw-primary);margin-top:10px;display:block;}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link dw-nav-active" href="../">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../sprechen/cafe/">☕ Café</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../">🗺️ Reise</a> → Der Reiseplaner</p>
+
+  <div class="dw-header">
+    <h1>🧭 Der Reiseplaner</h1>
+    <p>Plane din egen reise steg for steg — by, transport og program</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>1️⃣ Wohin reist du?</h2>
+    <div class="dw-choice-grid" id="dw-city-grid"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>2️⃣ Wie reist du dorthin?</h2>
+    <div class="dw-choice-grid" id="dw-transport-grid"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>3️⃣ Was machst du an jedem Tag?</h2>
+    <div id="dw-day-rows"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💶 Dein Budget</h2>
+    <p class="dw-note">Du har <strong>250 €</strong> til transport og aktiviteter. Velg klokt!</p>
+    <div class="dw-budget-bar-wrap"><div class="dw-budget-bar" id="dw-bbar"></div></div>
+    <div class="dw-budget-txt" id="dw-btxt">0 € von 250 € benutzt</div>
+  </div>
+
+  <div class="dw-section">
+    <h2>🗓️ Deine Reise</h2>
+    <div class="dw-summary-box" id="dw-summary"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✍️ Warum diese Wahl?</h2>
+    <p class="dw-note">Skriv 2–3 setninger på tysk: Hvorfor valgte du denne byen og disse aktivitetene?</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Ich reise nach … , weil …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyAll()">📋 Reise + Text kopieren</button>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Sjekk deg selv</h2>
+    <div class="dw-check-list" id="dw-check-list"></div>
+    <span id="dw-check-counter">0 av 4 sjekket</span>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Data ---------- */
+  var dwCities = {
+    berlin: {
+      label:"Berlin", emoji:"🏙️",
+      activities: [
+        {name:"🗼 Fernsehturm besuchen", price:23},
+        {name:"🚴 Fahrradtour durch die Stadt", price:15},
+        {name:"🖼️ Museumsinsel besuchen", price:12},
+        {name:"🎨 East Side Gallery ansehen", price:0},
+        {name:"🏛️ Brandenburger Tor ansehen", price:0},
+        {name:"🌭 Currywurst probieren", price:6}
+      ]
+    },
+    wien: {
+      label:"Wien", emoji:"🎼",
+      activities: [
+        {name:"🏰 Schloss Schönbrunn besuchen", price:24},
+        {name:"🎡 Riesenrad im Prater fahren", price:14},
+        {name:"🎻 Konzert besuchen", price:45},
+        {name:"☕ Im Kaffeehaus sitzen (Melange + Kuchen)", price:12},
+        {name:"⛪ Stephansdom ansehen", price:0},
+        {name:"🚶 Stadtführung machen", price:15}
+      ]
+    }
+  };
+
+  var dwTransport = [
+    {key:"zug", label:"Zug", emoji:"🚆", price:120, time:"ca. 8 Stunden"},
+    {key:"bus", label:"Bus", emoji:"🚌", price:60, time:"ca. 12 Stunden"},
+    {key:"flugzeug", label:"Flugzeug", emoji:"✈️", price:180, time:"ca. 1,5 Stunden"}
+  ];
+
+  var dwBudget = 250;
+  var dwState = {
+    city: "berlin",
+    transportKey: null,
+    days: [null, null, null]
+  };
+
+  /* ---------- Rendering ---------- */
+  function dwRenderCityCards(){
+    var wrap = document.getElementById('dw-city-grid');
+    wrap.innerHTML = '';
+    Object.keys(dwCities).forEach(function(key){
+      var c = dwCities[key];
+      var card = document.createElement('div');
+      card.className = 'dw-choice-card' + (dwState.city === key ? ' dw-selected' : '');
+      card.innerHTML = '<span class="dw-ch-emoji">' + c.emoji + '</span><b>' + c.label + '</b>';
+      card.onclick = function(){
+        dwState.city = key;
+        dwState.days = [null, null, null];
+        dwRenderCityCards();
+        dwRenderDayRows();
+        dwUpdateAll();
+      };
+      wrap.appendChild(card);
+    });
+  }
+
+  function dwRenderTransportCards(){
+    var wrap = document.getElementById('dw-transport-grid');
+    wrap.innerHTML = '';
+    dwTransport.forEach(function(t){
+      var card = document.createElement('div');
+      card.className = 'dw-choice-card' + (dwState.transportKey === t.key ? ' dw-selected' : '');
+      card.innerHTML = '<span class="dw-ch-emoji">' + t.emoji + '</span><b>' + t.label + '</b><small>' + t.price + ' € · ' + t.time + '</small>';
+      card.onclick = function(){
+        dwState.transportKey = t.key;
+        dwRenderTransportCards();
+        dwUpdateAll();
+      };
+      wrap.appendChild(card);
+    });
+  }
+
+  function dwRenderDayRows(){
+    var wrap = document.getElementById('dw-day-rows');
+    wrap.innerHTML = '';
+    var acts = dwCities[dwState.city].activities;
+    for(var d = 0; d < 3; d++){
+      (function(dayIndex){
+        var row = document.createElement('div');
+        row.className = 'dw-day-row';
+        var select = document.createElement('select');
+        select.innerHTML = '<option value="">— wähle eine Aktivität —</option>' +
+          acts.map(function(a, i){ return '<option value="' + i + '">' + a.name + ' (' + a.price + ' €)</option>'; }).join('');
+        select.value = dwState.days[dayIndex] === null ? "" : dwState.days[dayIndex];
+        select.onchange = function(){
+          dwState.days[dayIndex] = this.value === "" ? null : parseInt(this.value, 10);
+          dwUpdateAll();
+        };
+        var label = document.createElement('label');
+        label.textContent = 'Tag ' + (dayIndex + 1);
+        row.appendChild(label);
+        row.appendChild(select);
+        wrap.appendChild(row);
+      })(d);
+    }
+  }
+
+  function dwUpdateAll(){
+    var city = dwCities[dwState.city];
+    var transport = dwTransport.find(function(t){ return t.key === dwState.transportKey; });
+    var total = (transport ? transport.price : 0);
+    var dayLines = [];
+    dwState.days.forEach(function(idx, i){
+      if(idx !== null){
+        var act = city.activities[idx];
+        total += act.price;
+        dayLines.push('📅 Tag ' + (i+1) + ': ' + act.name + ' (' + act.price + ' €)');
+      } else {
+        dayLines.push('📅 Tag ' + (i+1) + ': — noch nicht gewählt —');
+      }
+    });
+
+    var pct = Math.min(100, Math.round((total/dwBudget)*100));
+    var bar = document.getElementById('dw-bbar');
+    var txt = document.getElementById('dw-btxt');
+    bar.style.width = pct + '%';
+    txt.textContent = total + ' € von ' + dwBudget + ' € benutzt';
+    if(total > dwBudget){
+      txt.classList.add('dw-over');
+      bar.style.background = 'var(--dw-bad)';
+      txt.textContent += ' — zu teuer! Wähle etwas Billigeres.';
+    } else {
+      txt.classList.remove('dw-over');
+      bar.style.background = 'var(--dw-primary)';
+    }
+
+    var summary = '🧭 Reiseziel: ' + city.emoji + ' ' + city.label + '\n' +
+      '🚉 Transport: ' + (transport ? transport.emoji + ' ' + transport.label + ' (' + transport.price + ' €, ' + transport.time + ')' : '— noch nicht gewählt —') + '\n' +
+      dayLines.join('\n') + '\n' +
+      '💶 Gesamtkosten: ' + total + ' €';
+    document.getElementById('dw-summary').textContent = summary;
+  }
+
+  dwRenderCityCards();
+  dwRenderTransportCards();
+  dwRenderDayRows();
+  dwUpdateAll();
+
+  /* ---------- Skrivefelt ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyAll(){
+    var txt = document.getElementById('dw-summary').textContent + '\n\n' + dwPlanEl.value;
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Reise og tekst kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        alert('Kunne ikke kopiere automatisk — marker teksten manuelt.');
+      });
+    } else {
+      alert('Nettleseren støtter ikke automatisk kopiering — marker teksten manuelt.');
+    }
+  }
+
+  /* ---------- Egenvurderings-sjekkliste ---------- */
+  var dwCheckItems = [
+    "Jeg har valgt by, transport og alle tre dager",
+    "Jeg har holdt meg innenfor budsjettet (250 €)",
+    "Jeg har skrevet minst 2 setninger på tysk",
+    "Jeg har lest gjennom teksten min én gang til"
+  ];
+
+  function dwRenderCheckList(){
+    var wrap = document.getElementById('dw-check-list');
+    wrap.innerHTML = '';
+    dwCheckItems.forEach(function(item, i){
+      var label = document.createElement('label');
+      label.className = 'dw-check-item';
+      label.innerHTML = '<input type="checkbox" onchange="dwUpdateCheckCounter()" id="dw-ci-'+i+'">' +
+        '<span>' + item + '</span>';
+      wrap.appendChild(label);
+    });
+  }
+
+  function dwUpdateCheckCounter(){
+    var count = 0;
+    dwCheckItems.forEach(function(_, i){
+      if(document.getElementById('dw-ci-'+i).checked) count++;
+    });
+    document.getElementById('dw-check-counter').textContent = count + ' av ' + dwCheckItems.length + ' sjekket';
+  }
+  dwRenderCheckList();
+</script>
+</body>
+</html>

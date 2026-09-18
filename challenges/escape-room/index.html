@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Challenges: "Der verschlossene Klassenraum" (Escape-Room)
+  For 8. trinn (A1). Fire gåter (dwClues) hentet fra ulike deler av
+  nettstedet (grammatikk, ordforråd, lesing, verb) — hver riktig løsning
+  avslører ett siffer. Til slutt skriver eleven inn firesifferkoden (de
+  fire sifrene i den rekkefølgen de ble funnet) for å "åpne døren".
+  Se README.md for hvordan du bytter ut gåtene eller legger til flere.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Der verschlossene Klassenraum · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:700px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:28px 24px;text-align:center;margin-bottom:16px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.6rem;}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.15rem;}
+  .dw-section p{margin:0 0 8px;line-height:1.55;}
+
+  .dw-progress-row{display:flex;justify-content:center;gap:8px;margin-bottom:14px;}
+  .dw-progress-dot{width:14px;height:14px;border-radius:50%;background:#ddd7c8;}
+  .dw-progress-dot.dw-done{background:var(--dw-good);}
+  .dw-progress-dot.dw-active{background:var(--dw-accent);}
+
+  .dw-clue-card{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-clue-label{font-size:.8rem;font-weight:700;color:var(--dw-accent);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+  .dw-clue-text{font-size:1.05rem;font-weight:600;margin:0 0 16px;line-height:1.5;}
+  .dw-clue-context{background:#f4f1e8;border-radius:10px;padding:12px 14px;font-size:.9rem;margin-bottom:14px;line-height:1.55;}
+
+  .dw-choice-btn{
+    display:block;width:100%;text-align:left;padding:12px 16px;margin-bottom:8px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.95rem;
+  }
+  .dw-choice-btn:hover{border-color:var(--dw-primary);}
+  .dw-choice-btn.dw-wrong-flash{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+
+  .dw-unlock-box{
+    background:#e8f5e9;border:2px solid var(--dw-good);border-radius:12px;padding:16px 18px;margin-top:10px;
+  }
+  .dw-unlock-box p{margin:0 0 10px;color:var(--dw-good);font-weight:700;}
+  .dw-next-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:10px 20px;border-radius:999px;
+    font-size:.9rem;font-weight:700;cursor:pointer;
+  }
+  .dw-next-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-digits-found{
+    display:flex;gap:10px;justify-content:center;margin-bottom:16px;flex-wrap:wrap;
+  }
+  .dw-digit-chip{
+    background:var(--dw-primary);color:#fff;border-radius:10px;padding:10px 16px;font-size:1.2rem;font-weight:800;
+  }
+
+  .dw-code-input-row{display:flex;gap:10px;justify-content:center;margin-top:10px;flex-wrap:wrap;}
+  .dw-code-input{
+    width:140px;padding:12px;border-radius:10px;border:1px solid #d8d3c4;font-size:1.1rem;text-align:center;
+    letter-spacing:.2em;font-family:inherit;
+  }
+  .dw-unlock-btn{
+    background:var(--dw-good);color:#fff;border:none;padding:12px 22px;border-radius:999px;
+    font-size:.95rem;font-weight:700;cursor:pointer;
+  }
+  .dw-unlock-btn:hover{filter:brightness(1.08);}
+
+  #dw-code-feedback{text-align:center;margin-top:12px;font-weight:700;}
+  #dw-code-feedback.dw-bad{color:var(--dw-bad);}
+  #dw-code-feedback.dw-good{color:var(--dw-good);}
+
+  .dw-restart-btn{
+    display:block;margin:16px auto 0;background:var(--dw-primary);color:#fff;border:none;padding:10px 20px;border-radius:999px;
+    font-size:.9rem;font-weight:700;cursor:pointer;
+  }
+  .dw-restart-btn:hover{background:var(--dw-primary-light);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link dw-nav-active" href="../">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../sprechen/cafe/">☕ Café</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../">🏆 Challenges</a> → Der verschlossene Klassenraum</p>
+
+  <div class="dw-header">
+    <h1>🔐 Der verschlossene Klassenraum</h1>
+    <p>Løs fire gåter og finn firesifferkoden som åpner døren</p>
+  </div>
+
+  <div class="dw-section" id="dw-intro-section">
+    <h2>🚪 Die Situation</h2>
+    <p>Klassen din er låst inne! Døren har en kodelås med fire sifre. For hver gåte du løser riktig, finner du ett av sifrene. Løs alle fire, og skriv inn koden i riktig rekkefølge for å åpne døren.</p>
+  </div>
+
+  <div class="dw-progress-row" id="dw-progress-row"></div>
+
+  <div id="dw-game-area"></div>
+
+</div>
+
+<script>
+  /* ---------- Gåtene ---------- */
+  var dwClues = [
+    {
+      label:"Rätsel 1 · Grammatik",
+      context:null,
+      q:"Welches Wort passt? „Ich sehe ___ Hund.“",
+      choices:["der","den","dem"],
+      correct:"den",
+      explain:"Richtig! Im Akkusativ wird aus «der» → «den».",
+      digit:"7"
+    },
+    {
+      label:"Rätsel 2 · Wortschatz",
+      context:null,
+      q:"Wie sagt man «ha det» auf Deutsch?",
+      choices:["Hallo","Bitte","Tschüss"],
+      correct:"Tschüss",
+      explain:"Richtig! «Tschüss» sagt man, wenn man sich verabschiedet.",
+      digit:"3"
+    },
+    {
+      label:"Rätsel 3 · Lesen",
+      context:"Berlin ist die Hauptstadt von Deutschland. In Berlin leben etwa 3,8 Millionen Menschen. Die Stadt war nach dem Zweiten Weltkrieg geteilt — erst 1989 ist die Berliner Mauer gefallen.",
+      q:"In welchem Jahr ist die Berliner Mauer gefallen?",
+      choices:["1961","1990","1989"],
+      correct:"1989",
+      explain:"Richtig! Am 9. November 1989 ist die Mauer gefallen.",
+      digit:"9"
+    },
+    {
+      label:"Rätsel 4 · Verben",
+      context:null,
+      q:"Was passt? „Du ___ (lernen) Deutsch.“",
+      choices:["lerne","lernst","lernt"],
+      correct:"lernst",
+      explain:"Richtig! Die du-Form endet auf -st.",
+      digit:"4"
+    }
+  ];
+
+  var dwClueIndex = 0;
+  var dwFoundDigits = [];
+  var dwPhase = "clues"; // "clues" | "unlock" | "solved"
+
+  function dwRenderProgress(){
+    var wrap = document.getElementById('dw-progress-row');
+    wrap.innerHTML = '';
+    for(var i = 0; i < dwClues.length; i++){
+      var dot = document.createElement('span');
+      dot.className = 'dw-progress-dot' + (i < dwFoundDigits.length ? ' dw-done' : (i === dwClueIndex && dwPhase === 'clues' ? ' dw-active' : ''));
+      wrap.appendChild(dot);
+    }
+  }
+
+  function dwRenderGame(){
+    dwRenderProgress();
+    var area = document.getElementById('dw-game-area');
+    area.innerHTML = '';
+
+    if(dwPhase === 'clues'){
+      var clue = dwClues[dwClueIndex];
+      var card = document.createElement('div');
+      card.className = 'dw-clue-card';
+      var html = '<div class="dw-clue-label">' + clue.label + '</div>';
+      if(clue.context){
+        html += '<div class="dw-clue-context">' + clue.context + '</div>';
+      }
+      html += '<p class="dw-clue-text">' + clue.q + '</p>';
+      html += '<div id="dw-choices"></div>';
+      html += '<div id="dw-unlock-msg"></div>';
+      card.innerHTML = html;
+      area.appendChild(card);
+
+      var choicesWrap = card.querySelector('#dw-choices');
+      clue.choices.forEach(function(choice){
+        var btn = document.createElement('button');
+        btn.className = 'dw-choice-btn';
+        btn.textContent = choice;
+        btn.onclick = function(){ dwAnswerClue(choice, btn); };
+        choicesWrap.appendChild(btn);
+      });
+    } else if(dwPhase === 'unlock'){
+      var box = document.createElement('div');
+      box.className = 'dw-section';
+      var digitsHtml = dwFoundDigits.map(function(d){ return '<span class="dw-digit-chip">' + d + '</span>'; }).join('');
+      box.innerHTML =
+        '<h2>🔢 Deine gefundenen Zahlen</h2>' +
+        '<div class="dw-digits-found">' + digitsHtml + '</div>' +
+        '<p>Skriv inn alle fire sifrene i rekkefølgen du fant dem, og trykk «Tür öffnen».</p>' +
+        '<div class="dw-code-input-row">' +
+        '<input type="text" class="dw-code-input" id="dw-code-input" maxlength="4" placeholder="____">' +
+        '<button class="dw-unlock-btn" onclick="dwTryUnlock()">🔓 Tür öffnen</button>' +
+        '</div>' +
+        '<div id="dw-code-feedback"></div>';
+      area.appendChild(box);
+    } else if(dwPhase === 'solved'){
+      var win = document.createElement('div');
+      win.className = 'dw-section';
+      win.innerHTML =
+        '<h2>🎉 Die Tür ist offen!</h2>' +
+        '<p>Gratulerer — du løste alle fire gåtene og fant riktig kode: <strong>' + dwFoundDigits.join('') + '</strong>. Klassen er fri!</p>' +
+        '<button class="dw-restart-btn" onclick="dwRestart()">🔁 Nochmal spielen</button>';
+      area.appendChild(win);
+    }
+  }
+
+  function dwAnswerClue(choice, btn){
+    var clue = dwClues[dwClueIndex];
+    if(choice === clue.correct){
+      var card = btn.closest('.dw-clue-card');
+      card.querySelectorAll('.dw-choice-btn').forEach(function(b){ b.disabled = true; });
+      dwFoundDigits.push(clue.digit);
+      var msgWrap = card.querySelector('#dw-unlock-msg');
+      msgWrap.innerHTML =
+        '<div class="dw-unlock-box"><p>' + clue.explain + ' 🔓 Du hast die Zahl gefunden: <strong>' + clue.digit + '</strong></p>' +
+        '<button class="dw-next-btn" onclick="dwNextClue()">Weiter →</button></div>';
+    } else {
+      btn.classList.add('dw-wrong-flash');
+      setTimeout(function(){ btn.classList.remove('dw-wrong-flash'); }, 500);
+    }
+  }
+
+  function dwNextClue(){
+    dwClueIndex++;
+    if(dwClueIndex >= dwClues.length){
+      dwPhase = 'unlock';
+    }
+    dwRenderGame();
+  }
+
+  function dwTryUnlock(){
+    var input = document.getElementById('dw-code-input');
+    var val = input.value.trim();
+    var correctCode = dwFoundDigits.join('');
+    var feedback = document.getElementById('dw-code-feedback');
+    if(val === correctCode){
+      dwPhase = 'solved';
+      dwRenderGame();
+    } else {
+      feedback.textContent = 'Das ist nicht der richtige Code — schau dir deine gefundenen Zahlen noch einmal an.';
+      feedback.className = 'dw-bad';
+    }
+  }
+
+  function dwRestart(){
+    dwClueIndex = 0;
+    dwFoundDigits = [];
+    dwPhase = 'clues';
+    dwRenderGame();
+  }
+
+  dwRenderGame();
+</script>
+</body>
+</html>

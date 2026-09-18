@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Challenges: "Wortschatz-Jagd"
+  For 8. trinn (A1). Memory-spill: 8 tysk/norsk ordpar (16 kort, hentet fra
+  ord som allerede brukes andre steder på nettstedet) skal matches. Timer
+  teller sekunder, trekkteller teller forsøk. "Neustart" bygger nytt
+  shufflet brett og nullstiller klokken. Se README.md for hvordan du
+  legger til/bytter ordpar (dwPairs).
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wortschatz-Jagd · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-good:#2e7d32;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:700px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:28px 24px;text-align:center;margin-bottom:16px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.7rem;}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.15rem;}
+  .dw-section p{margin:0 0 8px;line-height:1.55;}
+
+  .dw-stats-row{display:flex;justify-content:center;gap:24px;font-weight:700;color:var(--dw-primary);margin-bottom:14px;font-size:.95rem;}
+
+  .dw-board{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px;
+  }
+  .dw-card-btn{
+    aspect-ratio:1/1;border-radius:10px;border:2px solid #ddd7c8;background:var(--dw-primary);color:#fff;
+    font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:4px;text-align:center;
+  }
+  .dw-card-btn.dw-flipped{background:#fff;color:var(--dw-text);font-size:.78rem;font-weight:700;border-color:var(--dw-primary-light);}
+  .dw-card-btn.dw-matched{background:#e8f5e9;color:var(--dw-good);border-color:var(--dw-good);font-size:.78rem;font-weight:700;cursor:default;}
+  .dw-card-btn:disabled{cursor:default;}
+
+  .dw-restart-btn{
+    display:block;margin:0 auto;background:var(--dw-primary);color:#fff;border:none;padding:12px 22px;border-radius:999px;
+    font-size:.95rem;font-weight:700;cursor:pointer;
+  }
+  .dw-restart-btn:hover{background:var(--dw-primary-light);}
+
+  #dw-win-msg{text-align:center;font-weight:700;color:var(--dw-good);margin-top:14px;font-size:1.05rem;}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link dw-nav-active" href="../">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../sprechen/cafe/">☕ Café</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../">🏆 Challenges</a> → Wortschatz-Jagd</p>
+
+  <div class="dw-header">
+    <h1>🧠 Wortschatz-Jagd</h1>
+    <p>Finn de åtte ordparene — tysk og norsk — så raskt du kan!</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🎯 Slik fungerer det</h2>
+    <p>Klikk på to kort for å snu dem. Er det et tysk ord og dets norske oversettelse, matcher de og blir liggende åpne. Er det feil, snus de tilbake. Finn alle 8 parene!</p>
+  </div>
+
+  <div class="dw-stats-row">
+    <span id="dw-timer">⏱️ 0 s</span>
+    <span id="dw-moves">🔁 0 forsøk</span>
+  </div>
+
+  <div class="dw-board" id="dw-board"></div>
+
+  <button class="dw-restart-btn" onclick="dwInitGame()">🔁 Neustart</button>
+  <div id="dw-win-msg"></div>
+
+</div>
+
+<script>
+  /* ---------- Ordpar — hentet fra ord som brukes andre steder på nettstedet ---------- */
+  var dwPairs = [
+    {de:"der Bahnhof", no:"jernbanestasjonen"},
+    {de:"die Schule", no:"skolen"},
+    {de:"das Kino", no:"kinoen"},
+    {de:"der Freund", no:"vennen (gutt)"},
+    {de:"trinken", no:"å drikke"},
+    {de:"essen", no:"å spise"},
+    {de:"groß", no:"stor"},
+    {de:"schön", no:"pen/fin"}
+  ];
+
+  var dwCards = [];
+  var dwFlipped = [];
+  var dwMatchedCount = 0;
+  var dwMoves = 0;
+  var dwLocked = false;
+  var dwSeconds = 0;
+  var dwTimerHandle = null;
+
+  function dwShuffle(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
+    }
+    return a;
+  }
+
+  function dwInitGame(){
+    if(dwTimerHandle) clearInterval(dwTimerHandle);
+    dwCards = [];
+    dwPairs.forEach(function(p, i){
+      dwCards.push({pairId:i, text:p.de, matched:false});
+      dwCards.push({pairId:i, text:p.no, matched:false});
+    });
+    dwCards = dwShuffle(dwCards);
+    dwFlipped = [];
+    dwMatchedCount = 0;
+    dwMoves = 0;
+    dwLocked = false;
+    dwSeconds = 0;
+    document.getElementById('dw-moves').textContent = '🔁 0 forsøk';
+    document.getElementById('dw-timer').textContent = '⏱️ 0 s';
+    document.getElementById('dw-win-msg').textContent = '';
+    dwRenderBoard();
+    dwTimerHandle = setInterval(function(){
+      dwSeconds++;
+      document.getElementById('dw-timer').textContent = '⏱️ ' + dwSeconds + ' s';
+    }, 1000);
+  }
+
+  function dwRenderBoard(){
+    var wrap = document.getElementById('dw-board');
+    wrap.innerHTML = '';
+    dwCards.forEach(function(card, i){
+      var btn = document.createElement('button');
+      btn.className = 'dw-card-btn';
+      btn.textContent = '❓';
+      btn.onclick = function(){ dwFlipCard(i); };
+      wrap.appendChild(btn);
+    });
+  }
+
+  function dwFlipCard(i){
+    if(dwLocked) return;
+    var card = dwCards[i];
+    if(card.matched) return;
+    if(dwFlipped.indexOf(i) !== -1) return;
+    if(dwFlipped.length >= 2) return;
+
+    var buttons = document.querySelectorAll('.dw-card-btn');
+    buttons[i].textContent = card.text;
+    buttons[i].classList.add('dw-flipped');
+    dwFlipped.push(i);
+
+    if(dwFlipped.length === 2){
+      dwMoves++;
+      document.getElementById('dw-moves').textContent = '🔁 ' + dwMoves + ' forsøk';
+      var a = dwCards[dwFlipped[0]], b = dwCards[dwFlipped[1]];
+      if(a.pairId === b.pairId){
+        a.matched = true; b.matched = true;
+        buttons[dwFlipped[0]].classList.add('dw-matched');
+        buttons[dwFlipped[1]].classList.add('dw-matched');
+        buttons[dwFlipped[0]].disabled = true;
+        buttons[dwFlipped[1]].disabled = true;
+        dwFlipped = [];
+        dwMatchedCount++;
+        if(dwMatchedCount === dwPairs.length){
+          clearInterval(dwTimerHandle);
+          document.getElementById('dw-win-msg').textContent = '🎉 Fertig! Du hast alle Paare in ' + dwSeconds + ' Sekunden und ' + dwMoves + ' Versuchen gefunden.';
+        }
+      } else {
+        dwLocked = true;
+        setTimeout(function(){
+          buttons[dwFlipped[0]].textContent = '❓';
+          buttons[dwFlipped[0]].classList.remove('dw-flipped');
+          buttons[dwFlipped[1]].textContent = '❓';
+          buttons[dwFlipped[1]].classList.remove('dw-flipped');
+          dwFlipped = [];
+          dwLocked = false;
+        }, 800);
+      }
+    }
+  }
+
+  dwInitGame();
+</script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Challenges: "Tägliche Herausforderung"
+  For 8. trinn (A1). Trekker én tilfeldig mini-oppgave fra en pool
+  (dwChallengePool) med variert type (sprechen/schreiben/hören/wortschatz)
+  og vanskelighetsgrad. Gjenbruker reroll-mønsteret fra Wortkiste, pluss
+  en enkel selvrapportert "ferdig"-teller (kun in-memory, nullstilles ved
+  ny sideinnlasting). Se README.md for hvordan du legger til flere.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tägliche Herausforderung · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-good:#2e7d32;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:700px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:28px 24px;text-align:center;margin-bottom:16px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.7rem;}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.15rem;}
+  .dw-section p{margin:0 0 8px;line-height:1.55;}
+
+  .dw-challenge-card{
+    background:linear-gradient(135deg,var(--dw-accent) 0%,#f2c168 100%);
+    color:#1a1a1a;border-radius:var(--dw-radius);padding:26px 24px;text-align:center;margin-bottom:16px;
+  }
+  .dw-challenge-badges{display:flex;justify-content:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+  .dw-badge{
+    background:rgba(255,255,255,.55);border-radius:999px;padding:4px 12px;font-size:.78rem;font-weight:700;
+  }
+  .dw-challenge-text{font-size:1.15rem;font-weight:600;line-height:1.5;margin:0;}
+
+  .dw-btn-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px;}
+  .dw-reroll-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:12px 22px;border-radius:999px;
+    font-size:.95rem;font-weight:700;cursor:pointer;
+  }
+  .dw-reroll-btn:hover{background:var(--dw-primary-light);}
+  .dw-done-btn{
+    background:var(--dw-good);color:#fff;border:none;padding:12px 22px;border-radius:999px;
+    font-size:.95rem;font-weight:700;cursor:pointer;
+  }
+  .dw-done-btn:hover{filter:brightness(1.08);}
+
+  #dw-done-counter{text-align:center;font-weight:700;color:var(--dw-primary);margin-top:4px;display:block;}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link dw-nav-active" href="../">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../sprechen/cafe/">☕ Café</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../">🏆 Challenges</a> → Tägliche Herausforderung</p>
+
+  <div class="dw-header">
+    <h1>🎯 Tägliche Herausforderung</h1>
+    <p>Trekk en tilfeldig mini-oppgave og test deg selv</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🎲 Slik fungerer det</h2>
+    <p>Trykk "Neue Herausforderung!" for å trekke en tilfeldig oppgave. Løs den — alene, med en medelev, eller sammen med læreren — og trykk "Ich habe es geschafft!" når du er ferdig. Ikke fornøyd med oppgaven? Trekk gjerne en ny!</p>
+  </div>
+
+  <div class="dw-challenge-card">
+    <div class="dw-challenge-badges">
+      <span class="dw-badge" id="dw-badge-type"></span>
+      <span class="dw-badge" id="dw-badge-level"></span>
+    </div>
+    <p class="dw-challenge-text" id="dw-challenge-text"></p>
+    <div class="dw-btn-row">
+      <button class="dw-reroll-btn" onclick="dwNewChallenge()">🎲 Neue Herausforderung!</button>
+      <button class="dw-done-btn" onclick="dwMarkDone()">✅ Ich habe es geschafft!</button>
+    </div>
+  </div>
+
+  <span id="dw-done-counter">0 Herausforderungen heute geschafft</span>
+
+</div>
+
+<script>
+  /* ---------- Oppgavepool ---------- */
+  var dwChallengePool = [
+    {emoji:"🗣️", type:"Sprechen", level:"Leicht", text:"Beskriv rommet du sitter i nå — på tysk! Bruk minst 5 setninger."},
+    {emoji:"✍️", type:"Schreiben", level:"Leicht", text:"Skriv en SMS til en tysk venn og spør hvordan hen har det."},
+    {emoji:"🗣️", type:"Sprechen", level:"Leicht", text:"Tell høyt fra 1 til 20 på tysk, så raskt du kan."},
+    {emoji:"🎧", type:"Hören", level:"Mittel", text:"Finn en tysk sang på YouTube og skriv ned 5 ord du kjenner igjen i teksten."},
+    {emoji:"🧠", type:"Wortschatz", level:"Mittel", text:"Skriv ned 10 tyske ord som starter på bokstaven «S» — uten å slå opp!"},
+    {emoji:"🗣️", type:"Sprechen", level:"Leicht", text:"Presenter deg selv på tysk for en medelev: navn, alder, hvor du bor, hobbyer."},
+    {emoji:"✍️", type:"Schreiben", level:"Mittel", text:"Skriv fem setninger om hva du gjorde i helgen — på tysk."},
+    {emoji:"🎧", type:"Hören", level:"Schwer", text:"Se en episode av Nicos Weg uten undertekster og skriv ned handlingen med egne ord."},
+    {emoji:"🧠", type:"Wortschatz", level:"Mittel", text:"Lag fem setninger der du bruker akkusativ riktig."},
+    {emoji:"🗣️", type:"Sprechen", level:"Mittel", text:"Bestill mat på en tysk restaurant — øv med en medelev og bruk frasene fra Café-siden."},
+    {emoji:"✍️", type:"Schreiben", level:"Mittel", text:"Skriv et kort dagboksinnlegg om en fantasireise til Berlin."},
+    {emoji:"🧠", type:"Wortschatz", level:"Leicht", text:"Konjuger verbet «haben» i presens — uten å se på tabellen."},
+    {emoji:"🗣️", type:"Sprechen", level:"Leicht", text:"Fortell en medelev om favorittmaten din på tysk."},
+    {emoji:"✍️", type:"Schreiben", level:"Mittel", text:"Skriv 5 spørsmål du ville stilt en tysk utvekslingsstudent."},
+    {emoji:"🧠", type:"Wortschatz", level:"Leicht", text:"Skriv ned alle fargene du kan på tysk."},
+    {emoji:"🗣️", type:"Sprechen", level:"Mittel", text:"Beskriv familien din på tysk — bruk minst tre familiemedlemmer."},
+    {emoji:"🎧", type:"Hören", level:"Leicht", text:"Se Nicos Weg Folge 2 igjen og skriv ned tre nye ord du la merke til."},
+    {emoji:"✍️", type:"Schreiben", level:"Schwer", text:"Skriv en kort tekst om drømmereisen din — hvor og hvorfor."}
+  ];
+
+  var dwLastIndex = -1;
+  var dwDoneCount = 0;
+
+  function dwShuffle(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
+    }
+    return a;
+  }
+
+  function dwNewChallenge(){
+    var idx;
+    do {
+      idx = Math.floor(Math.random() * dwChallengePool.length);
+    } while(idx === dwLastIndex && dwChallengePool.length > 1);
+    dwLastIndex = idx;
+    var c = dwChallengePool[idx];
+    document.getElementById('dw-badge-type').textContent = c.emoji + ' ' + c.type;
+    document.getElementById('dw-badge-level').textContent = c.level;
+    document.getElementById('dw-challenge-text').textContent = c.text;
+  }
+
+  function dwMarkDone(){
+    dwDoneCount++;
+    document.getElementById('dw-done-counter').textContent = dwDoneCount + ' Herausforderung' + (dwDoneCount === 1 ? '' : 'en') + ' heute geschafft';
+  }
+
+  dwNewChallenge();
+</script>
+</body>
+</html>

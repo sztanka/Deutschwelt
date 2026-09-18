@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Reise: "Packe deinen Koffer"
+  For 8. trinn (A1). Et tilfeldig reisemål/årstid trekkes (dwScenarios).
+  Eleven klikker på ting fra en ordpool (dwItemPool) for å "pakke" dem i
+  kofferten. Ved "Fertig gepackt!" sjekkes valgene mot hva som passer til
+  årstiden (item.seasons), med forklaring på hva som var riktig/feil/glemt.
+  Se README.md for hvordan du legger til flere reisemål eller gjenstander.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Packe deinen Koffer · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:28px 24px;text-align:center;margin-bottom:16px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.7rem;}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.15rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 8px;line-height:1.55;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-scenario-box{
+    background:linear-gradient(135deg,var(--dw-accent) 0%,#f2c168 100%);
+    color:#1a1a1a;border-radius:var(--dw-radius);padding:18px 22px;margin-bottom:16px;
+  }
+  .dw-scenario-box h2{margin:0 0 6px;color:#1a1a1a;}
+  .dw-reroll-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:10px 20px;border-radius:999px;
+    font-size:.9rem;font-weight:700;cursor:pointer;margin-top:10px;
+  }
+  .dw-reroll-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-item-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;}
+  .dw-item-btn{
+    border:2px solid #ddd7c8;border-radius:12px;padding:12px 10px;background:#fff;cursor:pointer;text-align:center;font-size:.88rem;
+  }
+  .dw-item-btn .dw-item-emoji{font-size:1.5rem;display:block;margin-bottom:4px;}
+  .dw-item-btn:hover{border-color:var(--dw-primary-light);}
+  .dw-item-btn.dw-packed{border-color:var(--dw-primary);background:#eef2f7;}
+  .dw-item-btn.dw-fb-good{border-color:var(--dw-good);background:#e8f5e9;}
+  .dw-item-btn.dw-fb-bad{border-color:var(--dw-bad);background:#fdecea;}
+  .dw-item-btn.dw-fb-missed{border-color:var(--dw-accent);background:#fdf3e0;}
+  .dw-item-btn:disabled{cursor:default;}
+
+  .dw-koffer-count{font-weight:700;color:var(--dw-primary);margin-bottom:12px;display:block;}
+
+  .dw-check-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:12px 22px;border-radius:999px;
+    font-size:.95rem;font-weight:700;cursor:pointer;margin-top:14px;
+  }
+  .dw-check-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--dw-muted);margin-top:12px;}
+  .dw-legend span{display:inline-flex;align-items:center;gap:5px;}
+  .dw-dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+  .dw-dot.dw-good{background:var(--dw-good);}
+  .dw-dot.dw-bad{background:var(--dw-bad);}
+  .dw-dot.dw-missed{background:var(--dw-accent);}
+
+  #dw-result-msg{font-weight:700;color:var(--dw-primary);margin-top:14px;}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link dw-nav-active" href="../">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../sprechen/cafe/">☕ Café</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../">🗺️ Reise</a> → Packe deinen Koffer</p>
+
+  <div class="dw-header">
+    <h1>🧳 Packe deinen Koffer</h1>
+    <p>Velg riktige ting til reisemålet og årstiden</p>
+  </div>
+
+  <div class="dw-scenario-box">
+    <h2 id="dw-scenario-title">🏙️ Reiseziel</h2>
+    <p id="dw-scenario-desc"></p>
+    <button class="dw-reroll-btn" onclick="dwNewScenario()">🎲 Neues Ziel!</button>
+  </div>
+
+  <div class="dw-section">
+    <h2>🎒 Was packst du ein?</h2>
+    <p class="dw-note">Klikk på tingene du vil pakke — klikk igjen for å ta dem ut. Trykk "Fertig gepackt!" når du er ferdig.</p>
+    <span class="dw-koffer-count" id="dw-koffer-count">0 Dinge im Koffer</span>
+    <div class="dw-item-grid" id="dw-item-grid"></div>
+    <button class="dw-check-btn" id="dw-check-btn" onclick="dwCheckPacking()">✅ Fertig gepackt!</button>
+    <div id="dw-result-msg"></div>
+    <div class="dw-legend" id="dw-legend" style="display:none;">
+      <span><i class="dw-dot dw-good"></i> Riktig pakket</span>
+      <span><i class="dw-dot dw-bad"></i> Passer ikke til været</span>
+      <span><i class="dw-dot dw-missed"></i> Du glemte denne</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Data ---------- */
+  var dwScenarios = [
+    {label:"Berlin im Winter", emoji:"❄️", desc:"Es ist kalt (0 °C) und es schneit manchmal.", season:"winter"},
+    {label:"Wien im Sommer", emoji:"☀️", desc:"Es ist warm (28 °C) und die Sonne scheint.", season:"sommer"},
+    {label:"Berlin im Herbst", emoji:"🍂", desc:"Es ist kühl (12 °C) und es regnet oft.", season:"herbst"},
+    {label:"Wien im Frühling", emoji:"🌸", desc:"Es ist mild (16 °C), aber am Abend noch etwas kühl.", season:"fruehling"}
+  ];
+
+  var dwItemPool = [
+    {name:"die Winterjacke", emoji:"🧥", seasons:["winter"]},
+    {name:"die Mütze", emoji:"🧢", seasons:["winter"]},
+    {name:"die Handschuhe", emoji:"🧤", seasons:["winter"]},
+    {name:"die Skier", emoji:"🎿", seasons:["winter"]},
+    {name:"der Schal", emoji:"🧣", seasons:["winter","herbst"]},
+    {name:"der Pullover", emoji:"🧶", seasons:["winter","herbst","fruehling"]},
+    {name:"der Regenschirm", emoji:"☂️", seasons:["herbst","fruehling"]},
+    {name:"die Regenjacke", emoji:"🌧️", seasons:["herbst","fruehling"]},
+    {name:"die Sonnenbrille", emoji:"🕶️", seasons:["sommer"]},
+    {name:"die Badesachen", emoji:"🩱", seasons:["sommer"]},
+    {name:"die Sandalen", emoji:"👡", seasons:["sommer"]},
+    {name:"die kurze Hose", emoji:"🩳", seasons:["sommer"]},
+    {name:"die Sonnencreme", emoji:"🧴", seasons:["sommer"]},
+    {name:"die Sportschuhe", emoji:"👟", seasons:["sommer","fruehling","herbst"]},
+    {name:"der Reisepass", emoji:"🛂", seasons:["all"]},
+    {name:"die Zahnbürste", emoji:"🪥", seasons:["all"]},
+    {name:"das Ladegerät", emoji:"🔌", seasons:["all"]},
+    {name:"das Buch", emoji:"📖", seasons:["all"]}
+  ];
+
+  var dwCurrentScenario = null;
+  var dwPacked = {}; // index -> true/false
+  var dwChecked = false;
+
+  function dwShuffle(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
+    }
+    return a;
+  }
+
+  function dwNewScenario(){
+    var choices = dwScenarios.filter(function(s){ return !dwCurrentScenario || s.label !== dwCurrentScenario.label; });
+    dwCurrentScenario = dwShuffle(choices)[0];
+    document.getElementById('dw-scenario-title').textContent = dwCurrentScenario.emoji + ' ' + dwCurrentScenario.label;
+    document.getElementById('dw-scenario-desc').textContent = dwCurrentScenario.desc;
+    dwPacked = {};
+    dwChecked = false;
+    document.getElementById('dw-result-msg').textContent = '';
+    document.getElementById('dw-legend').style.display = 'none';
+    document.getElementById('dw-check-btn').style.display = '';
+    dwRenderItems();
+    dwUpdateCount();
+  }
+
+  function dwRenderItems(){
+    var wrap = document.getElementById('dw-item-grid');
+    wrap.innerHTML = '';
+    dwItemPool.forEach(function(item, i){
+      var btn = document.createElement('button');
+      btn.className = 'dw-item-btn' + (dwPacked[i] ? ' dw-packed' : '');
+      btn.innerHTML = '<span class="dw-item-emoji">' + item.emoji + '</span>' + item.name;
+      btn.onclick = function(){
+        if(dwChecked) return;
+        dwPacked[i] = !dwPacked[i];
+        dwRenderItems();
+        dwUpdateCount();
+      };
+      wrap.appendChild(btn);
+    });
+  }
+
+  function dwUpdateCount(){
+    var n = Object.keys(dwPacked).filter(function(k){ return dwPacked[k]; }).length;
+    document.getElementById('dw-koffer-count').textContent = n + ' Dinge im Koffer';
+  }
+
+  function dwCheckPacking(){
+    dwChecked = true;
+    var correct = 0, wrong = 0, missed = 0;
+    var buttons = document.querySelectorAll('.dw-item-btn');
+    dwItemPool.forEach(function(item, i){
+      var shouldPack = item.seasons.indexOf('all') !== -1 || item.seasons.indexOf(dwCurrentScenario.season) !== -1;
+      var isPacked = !!dwPacked[i];
+      var btn = buttons[i];
+      btn.disabled = true;
+      btn.classList.remove('dw-packed');
+      if(shouldPack && isPacked){ btn.classList.add('dw-fb-good'); correct++; }
+      else if(!shouldPack && isPacked){ btn.classList.add('dw-fb-bad'); wrong++; }
+      else if(shouldPack && !isPacked){ btn.classList.add('dw-fb-missed'); missed++; }
+    });
+    document.getElementById('dw-legend').style.display = 'flex';
+    document.getElementById('dw-check-btn').style.display = 'none';
+    var total = correct + wrong + missed;
+    var msg;
+    if(wrong === 0 && missed === 0) msg = '🏅 Perfekt gepackt! Du hast an alles Richtige gedacht.';
+    else if(correct >= total*0.7) msg = '👍 Gut gemacht! ' + correct + ' richtig, ' + wrong + ' passt nicht zum Wetter, ' + missed + ' vergessen.';
+    else msg = 'Guter Versuch! ' + correct + ' richtig, ' + wrong + ' passt nicht zum Wetter, ' + missed + ' vergessen. Schau dir das Wetter noch einmal an.';
+    document.getElementById('dw-result-msg').textContent = msg;
+  }
+
+  dwNewScenario();
+</script>
+</body>
+</html>
