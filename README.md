@@ -64,6 +64,8 @@ deutschwelt-site/
 │   │   └── index.html                → memory-spill: match tysk/norske ordpar mot klokken
 │   └── escape-room/
 │       └── index.html                → "Der verschlossene Klassenraum" — fire gåter gir en kode
+├── filme-serien/
+│   └── index.html                    → "Filme & Serien" — 10 filmer + 5 serier med trailerlenker
 └── sprechen/
     └── cafe/
         └── index.html                → "Du bist dran!" — Im Café
@@ -81,12 +83,13 @@ som forsiden, bare smalere. `sprechen/` har foreløpig bare én underside, så
 navigasjonsmenyen peker rett dit; når du legger til nummer to der, lag en
 tilsvarende hub-side og pek menyen dit i stedet (se steg 4 under).
 
-**Om toppnavigasjonen:** den har nå 10 punkter (🏠 Forside · 🧩 Grammatik ·
+**Om toppnavigasjonen:** den har nå 11 punkter (🏠 Forside · 🧩 Grammatik ·
 🏙️ Städte · 🕰️ Geschichte · 📖 Lesen · 🎧 Hören · ✍️ Schreiben · 🗺️ Reise ·
-🏆 Challenges · ☕ Café) og bruker `flex-wrap` i `assets/style.css`, så den
-bryter fint til to linjer på smale skjermer. Kun seksjoner med egen
-hub-side (2+ undersider) får plass i toppnavigasjonen — `sprechen/` er
-fortsatt et unntak siden den bare har én side.
+🏆 Challenges · 🎬 Filme & Serien · ☕ Café) og bruker `flex-wrap` i
+`assets/style.css`, så den bryter fint til to-tre linjer på smale skjermer.
+`filme-serien/` og `sprechen/cafe/` er unntak fra hub-mønsteret — de har
+bare én side hver, så navigasjonen peker rett dit i stedet for til en
+hub-side.
 
 **Om Hören-seksjonen:** videoene er bygget inn fra YouTube
 (`youtube-nocookie.com/embed/<video-ID>`) og hentet fra **Nicos Weg**, en
@@ -152,6 +155,22 @@ riktig svar; når alle fire er funnet, skriver eleven inn firesifferkoden
 i riktig rekkefølge for å "åpne døren". Ingen straff for feil svar
 underveis — eleven kan prøve på nytt til hun finner riktig løsning.
 
+**Om Filme & Serien-siden:** en ren informasjonsside uten spill eller
+`<script>` — 10 filmkort og 5 seriekort, hver med tittel, år/sjanger/regi,
+en FSK-aldersmerking (fargekodet chip), en kort norsk beskrivelse, og en
+knapp som lenker ut til en offisiell trailer på YouTube (`target="_blank"`,
+åpnes i ny fane — ingen video er bygget inn på selve siden). Alle 15
+video-ID-ene ble verifisert ekte (sjekket tittel/kanal mot YouTubes
+oEmbed-endepunkt) før publisering, slik at ingen lenker er gjettet. To av
+seriene (Druck, Die Pfefferkörner) har ingen formell FSK-klassifisering
+siden FSK kun klassifiserer kino-/videoutgivelser, ikke kringkastings-
+eller nettserier — det er markert tydelig med en alternativ
+aldersanbefaling i stedet for å dikte opp et FSK-tall. Noen titler
+(Baader Meinhof Komplex, Dark) har en ekstra merknad om at innholdet
+oppleves tyngre enn den offisielle aldersgrensen skulle tilsi — dette er
+ment som informasjon til lærer/foresatte, ikke en advarsel mot å vise
+listen til elevene.
+
 ## Slik legger du til en ny seksjon
 
 1. **Kopier den mappen som ligner mest** på det du skal lage:
@@ -182,6 +201,14 @@ underveis — eleven kan prøve på nytt til hun finner riktig løsning.
      `dwPairs`) eller `challenges/escape-room/` (bytt `dwClues` — husk at
      `digit`-verdiene bare trenger å være ulike sifre, ikke i noen
      bestemt rekkefølge).
+   - En ny film/serie på Filme & Serien-siden → kopier ett av
+     `<div class="dw-media-card">`-blokkene i `filme-serien/index.html`
+     og bytt tittel, år/sjanger/regi, FSK-chip
+     (`dw-fsk-low`/`dw-fsk-mid`/`dw-fsk-high`/`dw-fsk-none`), beskrivelse
+     og trailer-lenke. **Verifiser alltid at video-ID-en i YouTube-lenken
+     faktisk eksisterer** før du publiserer — enkleste måte er å sjekke
+     `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=<ID>&format=json`
+     og se at tittelen som kommer tilbake stemmer med filmen/serien.
 2. **Bytt ut innholdet** i den nye `index.html` — tekst, emoji, ordliste
    (`dwWords`), spørsmål (`dwQuiz`), dialog (`dwNodes`), tidslinje
    (`dwTimeline`), video-ID og lytteord (`dwListenWords`), eller

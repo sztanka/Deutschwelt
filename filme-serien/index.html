@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Filme & Serien
+  For 8. trinn (A1) og deres foresatte. Ren informasjonsside — ingen
+  interaktive elementer bortsett fra eksterne lenker til YouTube-trailere
+  (åpnes i ny fane, target="_blank" rel="noopener"). Alle video-ID-er er
+  verifisert ekte (sjekket mot YouTubes oEmbed-endepunkt før publisering).
+  FSK-aldersgrensene er hentet fra fsk.de/filmstarts.de der de finnes; to
+  TV/nettserier (Druck, Die Pfefferkörner) har ikke formell FSK-klassifisering
+  siden FSK kun klassifiserer kino/video-utgivelser, ikke kringkastings-/
+  nettserier — det er markert tydelig i stedet for å dikte opp et tall.
+  Se README.md for hvordan du bytter ut eller legger til flere titler.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filme & Serien · Deutschwelt</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:900px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:28px 24px;text-align:center;margin-bottom:16px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.7rem;}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:20px 24px;margin-bottom:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 8px;line-height:1.6;}
+  .dw-note{font-size:.85rem;color:var(--dw-muted);}
+
+  .dw-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+  .dw-legend-chip{border-radius:999px;padding:4px 12px;font-size:.78rem;font-weight:700;}
+  .dw-legend-chip.dw-fsk-low{background:#e8f5e9;color:var(--dw-good);}
+  .dw-legend-chip.dw-fsk-mid{background:#fdf3e0;color:#8a5a00;}
+  .dw-legend-chip.dw-fsk-high{background:#fdecea;color:var(--dw-bad);}
+  .dw-legend-chip.dw-fsk-none{background:#eef1f6;color:var(--dw-primary);}
+
+  h2.dw-group-title{color:var(--dw-primary);font-size:1.35rem;margin:28px 0 14px;display:flex;align-items:center;gap:8px;}
+
+  .dw-media-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:8px;}
+  .dw-media-card{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:18px 20px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;display:flex;flex-direction:column;gap:8px;
+  }
+  .dw-media-title{margin:0;font-size:1.05rem;color:var(--dw-primary);}
+  .dw-media-meta{font-size:.8rem;color:var(--dw-muted);}
+  .dw-fsk-badge{
+    display:inline-block;border-radius:999px;padding:3px 10px;font-size:.72rem;font-weight:800;
+    align-self:flex-start;
+  }
+  .dw-fsk-badge.dw-fsk-low{background:#e8f5e9;color:var(--dw-good);}
+  .dw-fsk-badge.dw-fsk-mid{background:#fdf3e0;color:#8a5a00;}
+  .dw-fsk-badge.dw-fsk-high{background:#fdecea;color:var(--dw-bad);}
+  .dw-fsk-badge.dw-fsk-none{background:#eef1f6;color:var(--dw-primary);}
+  .dw-media-desc{font-size:.9rem;line-height:1.55;margin:0;flex:1;}
+  .dw-media-extra{font-size:.78rem;color:var(--dw-muted);margin:0;font-style:italic;}
+  .dw-trailer-btn{
+    align-self:flex-start;background:var(--dw-primary);color:#fff;text-decoration:none;
+    padding:8px 16px;border-radius:999px;font-size:.85rem;font-weight:700;
+  }
+  .dw-trailer-btn:hover{background:var(--dw-primary-light);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link dw-nav-active" href="./">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../sprechen/cafe/">☕ Café</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>🎬 Filme &amp; Serien</h1>
+    <p>10 filmer og 5 serier fra den tyskspråklige verdenen</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>ℹ️ Om denne listen</h2>
+    <p>Dette er en samling av noen av de mest kjente tyske filmene og seriene — gode utgangspunkt for å oppleve tysk språk og kultur utenfor klasserommet. Trailerne lenker til YouTube og åpnes i en ny fane. Se gjerne sammen med foresatte, spesielt der aldersgrensen er høyere.</p>
+    <p class="dw-note">Aldersgrensene er FSK — det tyske systemet for filmklassifisering (tilsvarer aldersgrensene du kjenner fra norske kinoer/Medietilsynet). To av seriene er TV-/nettserier uten formell FSK-klassifisering — det er markert med en egen anbefaling i stedet.</p>
+    <div class="dw-legend">
+      <span class="dw-legend-chip dw-fsk-low">FSK 0/6 — for alle</span>
+      <span class="dw-legend-chip dw-fsk-mid">FSK 12 — fra 12 år</span>
+      <span class="dw-legend-chip dw-fsk-high">FSK 16 — fra 16 år</span>
+      <span class="dw-legend-chip dw-fsk-none">Ikke FSK-klassifisert</span>
+    </div>
+  </div>
+
+  <h2 class="dw-group-title">🎥 Filme</h2>
+  <div class="dw-media-grid">
+
+    <div class="dw-media-card">
+      <h3 class="dw-media-title">Die Welle</h3>
+      <span class="dw-media-meta">2008 · Drama/thriller · Regie: Dennis Gansel</span>
+      <span class="dw-fsk-badge dw-fsk-mid">FSK 12</span>
+      <p class="dw-media-desc">En lærer starter et klasseromseksperiment for å vise elevene hvordan fascisme kan oppstå — med strenge regler, uniform og gruppetilhørighet under navnet «Die Welle». Det som begynner som en leksjon i autoritært lederskap, sprer seg raskt og ender i tragedie.</p>
+      <a class="dw-trailer-btn" href="https://www.youtube.com/watch?v=GEw-KKHZ6a8" target="_blank" rel="noopener">▶️ Trailer på YouTube</a>
+    </div>
+
+    <div class="dw-media-card">
+      <h3 class="dw-media-title">Fack ju Göhte</h3>
+      <span class="dw-media-meta">2013 · Komedie · Regie: Bora Dağtekin</span>
+      <span class="dw-fsk-badge dw-fsk-mid">FSK 12</span>
+      <p class="dw-media-desc">Den tidligere kriminelle Zeki blir feilaktig ansatt som vikarlærer for å kunne grave frem penger han gjemte før fengselsoppholdet. Han takler den vanskelige klassen på sin egen måte — og havner i konflikt, og etter hvert samarbeid, med den idealistiske læreren Lisi.</p>
+      <a class="dw-trailer-btn" href="https://www.youtube.com/watch?v=YtDoJoRCMkc" target="_blank" rel="noopener">▶️ Trailer på YouTube</a>
+    </div>
+
+    <div class="dw-media-card">
+      <h3 class="dw-media-title">Lola rennt <span style="font-weight:400;color:var(--dw-muted);">(Løp Lola løp)</span></h3>
+      <span class="dw-media-meta">1998 · Thriller · Regie: Tom Tykwer</span>
+      <span class="dw-fsk-badge dw-fsk-mid">FSK 12</span>
+      <p class="dw-media-desc">Lola har 20 minutter på seg til å skaffe 100 000 mark for å redde kjæresten Manni. Filmen viser tre ulike versjoner av de samme 20 minuttene, der små forskjeller i timing forandrer alt — stilsikker og fartsfylt.</p>
+      <a class="dw-trailer-btn" href="https://www.youtube.com/watch?v=ZCYnsUdO6H0" target="_blank" rel="noopener">▶️ Trailer på YouTube</a>
+    </div>
+
+    <div class="dw-media-card">
+      <h3 class="dw-media-title">Crazy</h3>
+      <span class="dw-media-meta">2000 · Coming-of-age-drama · Regie: Hans-Christian Schmid</span>
+      <span class="dw-fsk-badge dw-fsk-mid">FSK 12</span>
+      <p class="dw-media-desc">16 år gamle Benjamin, som har en halvsidig lammelse, begynner på kostskole etter å ha slitt faglig andre steder. Der finner han vennskap og opplever sin første forelskelse. Basert på den selvbiografiske romanen av Benjamin Lebert.</p>
+      <p class="dw-media-extra">Merk: mange kilder oppgir 2001, men originalpremieren var i 2000.</p>
+      <a class="dw-trailer-btn" href="https://www.youtube.com/watch?v=ueIq1ehcCwQ" target="_blank" rel="noopener">▶️ Trailer på YouTube</a>
+    </div>
+
+    <div class="dw-media-card">
+      <h3 class="dw-media-title">Der Untergang</h3>
+      <span class="dw-media-meta">2004 · Historisk drama · Regie: Oliver Hirschbiegel</span>
+      <span class="dw-fsk-badge dw-fsk-mid">FSK 12</span>
+      <p class="dw-media-desc">Skildrer Hitlers siste dager i bunkeren i Berlin i april 1945, sett delvis gjennom øynene til sekretæren hans, Traudl Junge. En intens og velkjent film om nazistyrets sammenbrudd — mye brukt i historieundervisning.</p>
+      <a class="dw-trailer-btn" href="https://www.youtube.com/watch?v=uFG9a1NgfZA" target="_blank" rel="noopener">▶️ Trailer på YouTube</a>
+    </div>
+
+    <div class="dw-media-card">
+      <h3 class="dw-media-title">Der Baader Meinhof Komplex</h3>
+      <span class="dw-media-meta">2008 · Historisk thriller · Regie: Uli Edel</span>
+      <span class="dw-fsk-badge dw-fsk-mid">FSK 12</span>
+      <p class="dw-media-desc">Følger den venstreekstreme terrorgruppen RAF («Rote Armee Fraktion») fra protest til vold på 1960- og 70-tallet, og statens jakt på dem. Viktig, men krevende historisk stoff.</p>
+      <p class="dw-media-extra">Merk: innholdet (vold, terror) oppleves tyngre enn FSK 12 skulle tilsi — vurder å se filmen selv først.</p>
+      <a class="dw-trailer-btn" href="https://www.youtube.com/watch?v=TCIZ6KbBw44" target="_blank" rel="noopener">▶️ Trailer på YouTube</a>
+    </div>
+
+    <div class="dw-media-card">
+      <h3 class="dw-media-title">Stereo</h3>
+      <span class="dw-media-meta">2014 · Psykologisk thriller · Regie: Maximilian Erlenwein</span>
+      <span class="dw-fsk-badge dw-fsk-high">FSK 16</span>
+      <p class="dw-media-desc">Erik prøver å legge en voldelig fortid bak seg, men en truende skikkelse bare han kan se, begynner å følge etter ham. En intens og til dels voldelig psykologisk thriller.</p>
+      <p class="dw-media-extra">Aldersgrense 16 — passer best for eldre elever, ikke hele 8. trinn.</p>
+      <a class="dw-trailer-btn" href="https://www.youtube.com/watch?v=wNk89riZRs4" target="_blank" rel="noopener">▶️ Trailer på YouTube</a>
+    </div>
+
+    <div class="dw-media-card">
+      <h3 class="dw-media-title">Soul Kitchen</h3>
+      <span class="dw-media-meta">2009 · Komedie/drama · Regie: Fatih Akin</span>
+      <span class="dw-fsk-badge dw-fsk-mid">FSK 12</span>
+      <p class="dw-media-desc">Zinos driver en enkel gresk restaurant i Hamburg som sliter økonomisk. Da en ny kokk snur alt på hodet og broren hans kommer ut av fengsel, settes restauranten på spill. En varm og morsom film om familie, mat og Hamburgs arbeiderklassemiljø.</p>
+      <a class="dw-trailer-btn" href="https://www.youtube.com/watch?v=PqKcHkrK5cw" target="_blank" rel="noopener">▶️ Trailer på YouTube</a>
+    </div>
+
+    <div class="dw-media-card">
+      <h3 class="dw-media-title">Good Bye, Lenin!</h3>
+      <span class="dw-media-meta">2003 · Tragikomedie · Regie: Wolfgang Becker</span>
+      <span class="dw-fsk-badge dw-fsk-low">FSK 6</span>
+      <p class="dw-media-desc">Alex' mor, en overbevist sosialist i Øst-Berlin, faller i koma rett før Berlinmuren faller. Når hun våkner igjen, later Alex som om DDR fortsatt eksisterer for å skåne henne. En varm og morsom inngang til gjenforeningshistorien.</p>
+      <p class="dw-media-extra">Passer perfekt sammen med Geschichte-delen om Berlinmuren!</p>
+      <a class="dw-trailer-btn" href="https://www.youtube.com/watch?v=9E7lY0mIo7I" target="_blank" rel="noopener">▶️ Trailer på YouTube</a>
+    </div>
+
+    <div class="dw-media-card">
+      <h3 class="dw-media-title">Die unendliche Geschichte</h3>
+      <span class="dw-media-meta">1984 · Fantasy · Regie: Wolfgang Petersen</span>
+      <span class="dw-fsk-badge dw-fsk-low">FSK 6</span>
+      <p class="dw-media-desc">Den ensomme gutten Bastian gjemmer seg på skoleloftet og leser en magisk bok om fantasiverdenen Fantasia, som holder på å bli fortært av «Intet». Han følger krigeren Atreyus jakt på å redde den barnlige keiserinnen. En elsket tysk fantasyklassiker.</p>
+      <a class="dw-trailer-btn" href="https://www.youtube.com/watch?v=6fg8MDZ-HX0" target="_blank" rel="noopener">▶️ Trailer på YouTube</a>
+    </div>
+
+  </div>
+
+  <h2 class="dw-group-title">📺 Serien</h2>
+  <div class="dw-media-grid">
+
+    <div class="dw-media-card">
+      <h3 class="dw-media-title">Unsere Mütter, unsere Väter</h3>
+      <span class="dw-media-meta">2013 · Krigsdrama (miniserie) · ZDF</span>
+      <span class="dw-fsk-badge dw-fsk-mid">FSK 12</span>
+      <p class="dw-media-desc">Følger fem tyske venner i 20-årene fra 1941 til krigens slutt — to brødre ved østfronten, en sykepleier, en sanger og en jødisk skredder som må skjule sin identitet. En sterk og krevende miniserie om hvordan krigen forandrer mennesker.</p>
+      <a class="dw-trailer-btn" href="https://www.youtube.com/watch?v=h-EwPrqAMQs" target="_blank" rel="noopener">▶️ Trailer på YouTube</a>
+    </div>
+
+    <div class="dw-media-card">
+      <h3 class="dw-media-title">Druck</h3>
+      <span class="dw-media-meta">2018– · Ungdomsdrama (nettserie) · funk/ZDFneo</span>
+      <span class="dw-fsk-badge dw-fsk-none">Ikke FSK-klassifisert · anbefalt 14+</span>
+      <p class="dw-media-desc">Den tyske versjonen av NRKs «SKAM», om en vennegjeng på en Berlin-skole. Hver sesong følger en ny hovedperson og tema som forelskelse, å stå fram og psykisk helse.</p>
+      <p class="dw-media-extra">Ekstra gøy for elever som allerede kjenner den norske originalen! Innholdet er ærlig og modent — se gjerne en sesong selv først.</p>
+      <a class="dw-trailer-btn" href="https://www.youtube.com/watch?v=2K4vK4iIHOs" target="_blank" rel="noopener">▶️ Teaser på YouTube</a>
+    </div>
+
+    <div class="dw-media-card">
+      <h3 class="dw-media-title">Die Pfefferkörner</h3>
+      <span class="dw-media-meta">1999– · Ungdomskrim · KiKA</span>
+      <span class="dw-fsk-badge dw-fsk-none">Ikke FSK-klassifisert · anbefalt 7+</span>
+      <p class="dw-media-desc">En gjeng barn i Hamburgs havnedistrikt løser mysterier og små forbrytelser sammen. En trygg og velkjent tysk ungdomsserie, i gang siden 1999.</p>
+      <p class="dw-media-extra">Trailer-lenken går til spinoff-filmen «Die Pfefferkörner und der Schatz der Tiefsee» (2022), som bruker de samme figurene — selve TV-serien har ingen egen trailer siden den er løpende TV.</p>
+      <a class="dw-trailer-btn" href="https://www.youtube.com/watch?v=WNf-9cgkji4" target="_blank" rel="noopener">▶️ Trailer på YouTube</a>
+    </div>
+
+    <div class="dw-media-card">
+      <h3 class="dw-media-title">Bibi &amp; Tina – Die Serie</h3>
+      <span class="dw-media-meta">2020 · Familie/eventyr · Prime Video/KiKA</span>
+      <span class="dw-fsk-badge dw-fsk-low">FSK 0</span>
+      <p class="dw-media-desc">Bestevenninnene Bibi (en ung heks) og Tina (hesteinteressert) opplever hverdagsmysterier og eventyr på hestegården Martinshof. En av Tysklands mest elskede familiefranchiser.</p>
+      <a class="dw-trailer-btn" href="https://www.youtube.com/watch?v=gdZo_WKxXpQ" target="_blank" rel="noopener">▶️ Trailer på YouTube</a>
+    </div>
+
+    <div class="dw-media-card">
+      <h3 class="dw-media-title">Dark</h3>
+      <span class="dw-media-meta">2017–2020 · Sci-fi-mysterium · Netflix</span>
+      <span class="dw-fsk-badge dw-fsk-mid">FSK 12</span>
+      <p class="dw-media-desc">Barn forsvinner i den lille tyske byen Winden, og etterforskningen avdekker et tidsreise-mysterium som strekker seg over generasjoner. Internasjonalt den mest kjente tyske Netflix-serien noensinne.</p>
+      <p class="dw-media-extra">Merk: stemningen er mørkere og mer skremmende enn FSK 12 skulle tilsi — passer best for de eldste/mest interesserte elevene.</p>
+      <a class="dw-trailer-btn" href="https://www.youtube.com/watch?v=Vxduc1dSi8M" target="_blank" rel="noopener">▶️ Trailer på YouTube</a>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>
