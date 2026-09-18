@@ -40,8 +40,14 @@ deutschwelt-site/
 │   ├── index.html                    → hub-side: velg lyttevideo
 │   ├── nicos-weg-hallo/
 │   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 1 (Hallo!)
-│   └── nicos-weg-kein-problem/
-│       └── index.html                → video + oppgaver: Nicos Weg, Folge 2 (Kein Problem!)
+│   ├── nicos-weg-kein-problem/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 2 (Kein Problem!)
+│   ├── nicos-weg-tschuess/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 3 (Tschüss!)
+│   ├── nicos-weg-von-a-bis-z/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 4 (Von A bis Z)
+│   └── nicos-weg-ich-heisse-emma/
+│       └── index.html                → video + oppgaver: Nicos Weg, Folge 5 (Ich heiße Emma)
 ├── schreiben/
 │   ├── index.html                    → hub-side: velg skriveoppgave
 │   ├── sms-chat/
@@ -65,7 +71,7 @@ deutschwelt-site/
 │   └── escape-room/
 │       └── index.html                → "Der verschlossene Klassenraum" — fire gåter gir en kode
 ├── filme-serien/
-│   └── index.html                    → "Filme & Serien" — 10 filmer + 5 serier med trailerlenker
+│   └── index.html                    → "Filme & Serien" — 11 filmer + 5 serier med trailerlenker
 └── sprechen/
     └── cafe/
         └── index.html                → "Du bist dran!" — Im Café
@@ -181,10 +187,11 @@ listen til elevene.
      `geschichte/kaiserreich/`.
    - En ny lesetekst → kopier `lesen/wer-hat-den-kuchen-gegessen/` til
      f.eks. `lesen/der-verlorene-rucksack/`.
-   - En ny lyttevideo (f.eks. Nicos Weg Folge 3) → kopier
-     `hoeren/nicos-weg-kein-problem/` til f.eks. `hoeren/nicos-weg-folge-3/`,
+   - En ny lyttevideo (f.eks. Nicos Weg Folge 6) → kopier
+     `hoeren/nicos-weg-ich-heisse-emma/` til f.eks. `hoeren/nicos-weg-folge-6/`,
      og bytt video-ID-en i `<iframe src="https://www.youtube-nocookie.com/embed/…">`
-     (finn video-ID-en i YouTube-lenken, delen etter `watch?v=`).
+     (finn video-ID-en i YouTube-lenken, delen etter `watch?v=` — sjekk alltid
+     at ID-en er ekte, f.eks. via YouTubes oEmbed-endepunkt, før du publiserer).
    - En ny samtalesituasjon (f.eks. Am Bahnhof) → kopier `sprechen/cafe/`
      til `sprechen/bahnhof/` (NB: da må `sprechen/` også få en egen
      hub-`index.html`, se mønsteret over).
