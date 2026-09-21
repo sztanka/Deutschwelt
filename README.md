@@ -73,11 +73,21 @@ deutschwelt-site/
 │   └── nicos-weg-ich-heisse-emma/
 │       └── index.html                → video + oppgaver: Nicos Weg, Folge 5 (Ich heiße Emma)
 ├── schreiben/
-│   ├── index.html                    → hub-side: velg skriveoppgave
+│   ├── index.html                    → hub-side: velg skriveoppgave (8 kort, 1 «kommer snart»)
 │   ├── sms-chat/
 │   │   └── index.html                → "SMS-Chat" — eleven skriver begge sider av en chat
-│   └── wortkiste/
-│       └── index.html                → "Die Wortkiste" — skriv med tilfeldig trukne ord
+│   ├── wortkiste/
+│   │   └── index.html                → "Die Wortkiste" — skriv med tilfeldig trukne ord
+│   ├── personenbeschreibung/
+│   │   └── index.html                → skriveramme: beskriv en person (utseende + personlighet)
+│   ├── praesentation/
+│   │   └── index.html                → skriveramme: bygg en presentasjon (Einleitung/Hauptteil/Schluss)
+│   ├── ort-beschreiben/
+│   │   └── index.html                → skriveramme: beskriv en by/et sted
+│   ├── mein-tag/
+│   │   └── index.html                → skriveramme: beskriv en vanlig dag (fokus: trennbare Verben)
+│   └── wo-ist-was/
+│       └── index.html                → skriveramme: forklar hvor ting er (fokus: stedspreposisjoner + Dativ)
 ├── reise/
 │   ├── index.html                    → hub-side: velg reiseoppgave
 │   ├── reiseplanlegger/
@@ -354,6 +364,43 @@ alene ble bevisst UNNGÅTT for den nye siden (siden det allerede peker til
 `schreiben/`), til fordel for mer spesifikke ord som «zahlendreher» og
 «geheimnisvolle nachricht».
 
+**Om Schreiben-utvidelsen (fem nye skriverammer):** Teach ba om å utvide
+Schreiben med fem konkrete, navngitte skrivetemaer (Personbeskrivelse,
+Presentasjon, By/plass, Mein Tag, Wo ist was?), og ønsket eksplisitt
+skriverammer med setningsstartere OG grammatikk-tips — «hva en må passe
+på i forhold til grammatiske ting». Claude stilte to avklaringsspørsmål
+først (AskUserQuestion): (1) om «presentasjon» betydde å presentere seg
+selv, eller å bygge opp en presentasjon om et valgfritt tema — Teach
+valgte det siste; (2) om alle fem skulle bygges nå, eller færre av
+gangen — Teach valgte alle fem. `schreiben/` gikk fra 2 til 7 bygde sider
+(pluss den uendrede «Postkarte aus Berlin»-plassholderen). Alle fem
+gjenbruker samme skriveramme-motor som `reise/reisetagebuch/`
+(`dwStarters`-klikkbare chips per tekstfelt, ordtelling, kopier-knapp,
+`dwCheckItems`-egenvurdering), men fikk i tillegg et helt nytt,
+gjenbrukbart element denne runden: en **alltid synlig**
+`.dw-grammar`-boks (til forskjell fra den skjulte/valgfrie
+`.dw-phrases`-boksen) med konkrete, elevrettede advarsler om typiske
+feil for akkurat det temaet:
+   - **Personenbeschreibung** — adjektiv uten endelse etter «sein», men
+     MED endelse foran substantiv (attributivt), og «hat blaue Augen»-
+     mønsteret.
+   - **Eine Präsentation halten** — verb-på-plass-2-regelen når setningen
+     starter med «Zuerst/Dann/Zum Schluss», og modalverb+infinitiv til
+     slutt.
+   - **Einen Ort beschreiben** — «es gibt» + Akkusativ, «man kann» +
+     infinitiv til slutt, og weil-setninger med verbet helt til slutt.
+   - **Mein Tag** — trennbare Verben (aufstehen → «Ich stehe … auf»), en
+     kjent fallgruve for nybegynnere, pluss «um … Uhr» / «am …».
+   - **Wo ist was?** — stedspreposisjoner (Wechselpräpositionen) med
+     Dativ for Wo?-spørsmål, støttet av en egen kompakt referansetabell
+     (`.dw-table`, ny CSS-klasse denne runden) siden en fullverdig
+     Dativ-grammatikkside ikke er bygget ennå (den nevnte tabellen dekker
+     kun det eleven trenger for akkurat denne oppgaven, ikke hele
+     kasuset). Søkeindeksen fikk 5 nye spesifikke oppføringer (plassert
+     før den generiske «schreiben»-fangsten), uten kollisjoner med
+     eksisterende nøkler (dobbeltsjekket bl.a. at «mein tag» ikke krysser
+     «tagebuch»-nøkkelet fra Reisetagebuch).
+
 ## Slik legger du til en ny seksjon
 
 1. **Kopier den mappen som ligner mest** på det du skal lage:
@@ -420,6 +467,17 @@ alene ble bevisst UNNGÅTT for den nye siden (siden det allerede peker til
      samtalescenario, bytt `dwScenario`) eller `schreiben/wortkiste/` (for
      en ny ordpool, bytt `dwWordPool`) — begge har allerede
      egenvurderings-sjekklisten (`dwCheckItems`) klar til å tilpasses.
+   - En ny skriveramme med setningsstartere (som Personenbeschreibung,
+     Präsentation, Einen Ort beschreiben, Mein Tag, Wo ist was?) → kopier
+     den som ligner mest (én tekstfelt-seksjon vs. flere), bytt ut
+     `dwStarters` (én array per tekstfelt) og `dwCheckItems`. Legg gjerne
+     til en `.dw-grammar`-boks (alltid synlig, ikke `<details>` — brukes
+     for grammatikkpunkter eleven MÅ passe på, til forskjell fra
+     `.dw-phrases`-boksen som er valgfri/skjult og brukes til nyttige
+     fraser). Se `schreiben/wo-ist-was/` for hvordan en kompakt
+     referansetabell (`.dw-table`) kan legges til når temaet trenger det
+     (der ble den brukt som en lettvekts erstatning for en egen
+     Dativ-grammatikkside, som ikke er bygget ennå).
    - En ny reiseoppgave → kopier den av `reise/reiseplanlegger/`,
      `reise/koffer/` eller `reise/reisetagebuch/` som ligner mest, og bytt
      ut `dwCities`/`dwScenarios`+`dwItemPool`/`dwStarters` etter hvilken

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Schreiben: "Einen Ort beschreiben"
+  For 8. trinn (A1). Skriveramme for å beskrive en by/plass (kan gjenbruke
+  fakta fra staedte/, eller elevens egen hjemby), med klikkbare
+  setningsstartere (dwStarters), en alltid synlig grammatikk-tips-boks
+  (dw-grammar), og egenvurderings-sjekkliste (dwCheckItems). Samme motor
+  som schreiben/personenbeschreibung/ og schreiben/praesentation/.
+  Se README.md i rotmappen for detaljer.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Einen Ort beschreiben · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-good:#2e7d32;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:28px 24px;text-align:center;margin-bottom:16px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.7rem;}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.15rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 8px;line-height:1.55;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-grammar{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:16px;font-size:.88rem;line-height:1.65;
+  }
+  .dw-grammar h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+  .dw-grammar ul{margin:0;padding-left:20px;}
+  .dw-grammar li{margin-bottom:6px;}
+  .dw-grammar b{color:var(--dw-primary);}
+
+  .dw-starter-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+  .dw-starter-chip{
+    background:#f4f1e8;border:1px solid #ddd7c8;border-radius:999px;padding:6px 12px;font-size:.82rem;
+    cursor:pointer;color:var(--dw-primary);
+  }
+  .dw-starter-chip:hover{background:#eef2f7;border-color:var(--dw-primary-light);}
+
+  textarea.dw-plan{
+    width:100%;min-height:100px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-day-wordcount{font-size:.8rem;color:var(--dw-muted);margin-top:6px;display:block;}
+
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:.85rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:9px 18px;border-radius:999px;font-size:.88rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-check-list{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
+  .dw-check-item{
+    display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f4f1e8;border-radius:10px;cursor:pointer;
+  }
+  .dw-check-item input{width:18px;height:18px;}
+  .dw-check-item span{font-size:.92rem;}
+  #dw-check-counter{font-weight:700;color:var(--dw-primary);margin-top:10px;display:block;}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link dw-nav-active" href="../">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../">✍️ Schreiben</a> → Einen Ort beschreiben</p>
+
+  <div class="dw-header">
+    <h1>🏙️ Einen Ort beschreiben</h1>
+    <p>Skriv om en by eller et sted — ekte eller ditt eget hjemsted</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🎯 Deine Aufgabe</h2>
+    <p>Velg et sted du vil skrive om — det kan være en by du har lært om under <a href="../../staedte/">🏙️ Städte</a> (f.eks. Berlin, Wien, Zürich), eller ditt eget hjemsted. Skriv om <strong>fakta og severdigheter</strong>, og gi din <strong>mening</strong> om stedet.</p>
+  </div>
+
+  <div class="dw-grammar">
+    <h2>⚠️ Grammatikk å passe på</h2>
+    <ul>
+      <li><b>es gibt + Akkusativ:</b> <i>In Berlin gibt es einen Fernsehturm.</i> (der Turm → <b>einen</b> Turm)</li>
+      <li><b>man kann + infinitiv til slutt:</b> <i>Man kann dort schwimmen.</i> (kann = plass 2, schwimmen = helt til slutt)</li>
+      <li><b>weil-setninger har verbet HELT til slutt:</b> <i>Ich mag die Stadt, weil sie sehr grün ist.</i> (ikke <s>weil sie ist grün</s>)</li>
+      <li><b>liegt in / liegt an:</b> <i>Die Stadt liegt in Deutschland. Hamburg liegt an der Elbe.</i></li>
+    </ul>
+  </div>
+
+  <div class="dw-section">
+    <h2>1️⃣ Fakten und Sehenswürdigkeiten</h2>
+    <p class="dw-note">Hvor ligger stedet? Hvor mange bor der? Hva kan man se og gjøre der?</p>
+    <div class="dw-starter-chips" id="dw-chips-0"></div>
+    <textarea class="dw-plan" id="dw-day-0" placeholder="… liegt in … Die Stadt hat … Einwohner. Es gibt …"></textarea>
+    <span class="dw-day-wordcount" id="dw-wc-0">0 Wörter</span>
+  </div>
+
+  <div class="dw-section">
+    <h2>2️⃣ Meine Meinung</h2>
+    <p class="dw-note">Hva synes du om stedet? Vil du reise dit? Hvorfor/hvorfor ikke?</p>
+    <div class="dw-starter-chips" id="dw-chips-1"></div>
+    <textarea class="dw-plan" id="dw-day-1" placeholder="Ich finde die Stadt …, weil …"></textarea>
+    <span class="dw-day-wordcount" id="dw-wc-1">0 Wörter</span>
+  </div>
+
+  <div class="dw-section">
+    <div class="dw-plan-tools">
+      <span id="dw-total-wordcount">Totalt: 0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyAll()">📋 Beide Teile kopieren</button>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Sjekk deg selv</h2>
+    <div class="dw-check-list" id="dw-check-list"></div>
+    <span id="dw-check-counter">0 av 5 sjekket</span>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Setningsstartere ---------- */
+  var dwStarters = [
+    ["… liegt in …", "Die Stadt hat … Einwohner.", "Es gibt …", "Man kann dort … besichtigen.", "Man kann dort auch … machen."],
+    ["Ich finde die Stadt …, weil …", "Ich möchte dorthin reisen, weil …", "Am besten gefällt mir …, weil …", "Ich würde gerne … sehen."]
+  ];
+
+  function dwRenderChips(){
+    dwStarters.forEach(function(list, day){
+      var wrap = document.getElementById('dw-chips-' + day);
+      wrap.innerHTML = '';
+      list.forEach(function(starter){
+        var chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'dw-starter-chip';
+        chip.textContent = starter;
+        chip.onclick = function(){ dwInsertStarter(day, starter); };
+        wrap.appendChild(chip);
+      });
+    });
+  }
+
+  function dwInsertStarter(day, text){
+    var ta = document.getElementById('dw-day-' + day);
+    var sep = ta.value.trim().length ? ' ' : '';
+    ta.value = ta.value + sep + text + ' ';
+    ta.focus();
+    dwUpdateWordcounts();
+  }
+
+  function dwCountWords(txt){
+    return txt.trim().length ? txt.trim().split(/\s+/).length : 0;
+  }
+
+  function dwUpdateWordcounts(){
+    var total = 0;
+    for(var i = 0; i < 2; i++){
+      var val = document.getElementById('dw-day-' + i).value;
+      var n = dwCountWords(val);
+      total += n;
+      document.getElementById('dw-wc-' + i).textContent = n + ' Wörter';
+    }
+    document.getElementById('dw-total-wordcount').textContent = 'Totalt: ' + total + ' Wörter';
+  }
+
+  for(var d = 0; d < 2; d++){
+    document.getElementById('dw-day-' + d).addEventListener('input', dwUpdateWordcounts);
+  }
+  dwRenderChips();
+
+  function dwCopyAll(){
+    var labels = ['Fakten und Sehenswürdigkeiten', 'Meine Meinung'];
+    var out = [];
+    for(var i = 0; i < 2; i++){
+      var val = document.getElementById('dw-day-' + i).value.trim();
+      out.push(labels[i] + '\n' + (val || '(noch nichts geschrieben)'));
+    }
+    var txt = out.join('\n\n');
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Tekst kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        alert('Kunne ikke kopiere automatisk — marker teksten manuelt.');
+      });
+    } else {
+      alert('Nettleseren støtter ikke automatisk kopiering — marker teksten manuelt.');
+    }
+  }
+
+  /* ---------- Egenvurderings-sjekkliste ---------- */
+  var dwCheckItems = [
+    "Jeg har nevnt hvor stedet ligger",
+    "Jeg har nevnt minst to severdigheter eller aktiviteter",
+    "Jeg har brukt 'es gibt' med riktig Akkusativ-form",
+    "Jeg har skrevet en weil-setning med verbet til slutt",
+    "Jeg har gitt min egen mening om stedet"
+  ];
+
+  function dwRenderCheckList(){
+    var wrap = document.getElementById('dw-check-list');
+    wrap.innerHTML = '';
+    dwCheckItems.forEach(function(item, i){
+      var label = document.createElement('label');
+      label.className = 'dw-check-item';
+      label.innerHTML = '<input type="checkbox" onchange="dwUpdateCheckCounter()" id="dw-ci-'+i+'">' +
+        '<span>' + item + '</span>';
+      wrap.appendChild(label);
+    });
+  }
+
+  function dwUpdateCheckCounter(){
+    var count = 0;
+    dwCheckItems.forEach(function(_, i){
+      if(document.getElementById('dw-ci-'+i).checked) count++;
+    });
+    document.getElementById('dw-check-counter').textContent = count + ' av ' + dwCheckItems.length + ' sjekket';
+  }
+  dwRenderCheckList();
+</script>
+</body>
+</html>
