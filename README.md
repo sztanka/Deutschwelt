@@ -30,6 +30,10 @@ deutschwelt-site/
 │       └── index.html                → byportrett: Wien
 ├── geschichte/
 │   ├── index.html                    → hub-side: velg historietema
+│   ├── kaiserreich/
+│   │   └── index.html                → "Deutsches Kaiserreich" (1871–1918, tidslinje + lese/skrive/muntlig-opplegg)
+│   ├── zweiter-weltkrieg/
+│   │   └── index.html                → "Zweiter Weltkrieg" (1939–1945, med norsk vinkling — 9. april 1940)
 │   └── berliner-mauer/
 │       └── index.html                → "Die Berliner Mauer" (tidslinje + lese/skrive/muntlig-opplegg)
 ├── lesen/
@@ -251,6 +255,25 @@ og "essen bestellen" pekte tidligere feilaktig til Café-siden (fra før
 Restaurant fantes som egen side) og er nå flyttet til den nye
 Restaurant-siden.
 
+**Om Geschichte-utvidelsen:** `geschichte/` fikk to nye historietema ved
+siden av Berlinmuren, begge bygget etter samme mal (`dwTimeline` med
+klikkbare årstall, en lesetekst, "Denk nach"-spørsmål, en muntlig
+diskusjonsoppgave, en skriveoppgave med tekstfelt, og en poengsatt quiz).
+**Deutsches Kaiserreich** (1871–1918) dekker rikssamlingen under Wilhelm I.
+og Bismarck, "Dreikaiserjahr" 1888, Bismarcks avskjed 1890, og slutten i
+1918 — med en muntlig oppgave som knytter det historiske keiserdømmet til
+dagens Norge (også et monarki, men et demokratisk et). **Zweiter
+Weltkrieg** (1939–1945) er bevisst skrevet med et norsk perspektiv:
+lesetekst-dagboken er fra 9. april 1940 (den tyske invasjonen av Norge,
+ikke et tysk ståsted), og tidslinjen har en egen norsk vinkling
+(okkupasjonen, kong Haakon VIIs flukt og retur). Holocaust er nevnt i en
+egen, kort faktaboks («🕯️ Wichtig zu wissen») — faktabasert og uten
+grafiske detaljer, slik det gjøres i norske lærebøker for ungdomsskolen,
+med en tydelig NB-merknad i timeline-seksjonen om at temaet er alvorlig.
+Begge sidene er hub-barn av `geschichte/` (ingen endring i toppnavigasjonen
+var nødvendig, siden Geschichte allerede lå der) — kun `geschichte/
+index.html` og forsidens kort/søkeindeks måtte oppdateres.
+
 ## Slik legger du til en ny seksjon
 
 1. **Kopier den mappen som ligner mest** på det du skal lage:
@@ -265,8 +288,12 @@ Restaurant-siden.
      håndskrevet, ikke generert, nettopp for å unngå feil bøying/kasus.
      Lengre/mer avanserte setninger (leddsetninger, verb-sist-regelen)
      passer bedre som en egen, mer avansert side for 9./10. trinn.
-   - Et nytt historietema → kopier `geschichte/berliner-mauer/` til f.eks.
-     `geschichte/kaiserreich/`.
+   - Et nytt historietema → kopier den av `geschichte/berliner-mauer/`,
+     `geschichte/kaiserreich/` eller `geschichte/zweiter-weltkrieg/` som
+     ligner mest, til f.eks. `geschichte/kalter-krieg/`. NB: alvorlige tema
+     (som Holocaust) bør omtales faktabasert og kortfattet, slik det gjøres
+     i norske lærebøker — se merknaden øverst i
+     `geschichte/zweiter-weltkrieg/index.html`.
    - En ny lesetekst → kopier `lesen/wer-hat-den-kuchen-gegessen/` til
      f.eks. `lesen/der-verlorene-rucksack/`.
    - En ny lyttevideo (f.eks. Nicos Weg Folge 6) → kopier

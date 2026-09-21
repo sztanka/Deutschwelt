@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Geschichte: Deutsches Kaiserreich (1871-1918)
+  For 8. trinn (A1). Tverrfaglig opplegg: lesing + skriving + muntlighet +
+  historie, etter samme mønster som geschichte/berliner-mauer/.
+  Se README.md i rotmappen for hvordan du legger til flere historietemaer.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsches Kaiserreich · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.7rem;}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.15rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 8px;line-height:1.55;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  /* Tidslinje */
+  .dw-timeline-btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+  .dw-year-btn{
+    flex:1 1 90px;padding:12px 8px;border-radius:12px;border:2px solid var(--dw-primary);
+    background:#fff;color:var(--dw-primary);font-weight:700;font-size:1rem;cursor:pointer;
+  }
+  .dw-year-btn:hover{background:#eef1f6;}
+  .dw-year-btn.dw-active-year{background:var(--dw-primary);color:#fff;}
+  .dw-timeline-panel{
+    background:#f4f1e8;border-radius:12px;padding:16px 18px;font-size:.95rem;line-height:1.6;min-height:5em;
+  }
+  .dw-timeline-panel h3{margin:0 0 6px;color:var(--dw-primary);}
+
+  /* Tagebuch / lesing */
+  .dw-diary{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:16px 18px;font-style:italic;line-height:1.7;
+  }
+  .dw-diary p{margin:0 0 8px;}
+  .dw-diary p:last-child{margin-bottom:0;}
+
+  /* Denk nach quiz-lignende */
+  .dw-think-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-think-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-think-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-think-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-think-opt:disabled{cursor:default;}
+  .dw-think-explain{
+    margin-top:10px;font-size:.88rem;color:var(--dw-muted);background:#f4f1e8;border-radius:10px;padding:10px 14px;
+    display:none;
+  }
+  .dw-think-explain.dw-show{display:block;}
+
+  /* Sprich */
+  .dw-speak-box{
+    background:#eef1f6;border-radius:12px;padding:16px 18px;font-size:.95rem;line-height:1.6;
+  }
+
+  /* Schreib */
+  textarea.dw-plan{
+    width:100%;min-height:120px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  /* Quiz */
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link dw-nav-active" href="../">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>👑 Deutsches Kaiserreich</h1>
+    <p>Wie 25 kleine Staaten zu einem Land wurden — 1871 bis 1918</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🕰️ Die Zeitlinie</h2>
+    <p class="dw-note">Klikk på et årstall for å lese hva som skjedde.</p>
+    <div class="dw-timeline-btns" id="dw-years"></div>
+    <div class="dw-timeline-panel" id="dw-panel"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>📖 Lies: Ein Brief</h2>
+    <p class="dw-note">En gutt i Berlin skriver til bestefaren sin, januar 1871, om feiringen etter at det nye Kaiserreich ble utropt.</p>
+    <div class="dw-diary">
+      <p>„Lieber Opa,</p>
+      <p>heute ist ein großer Tag! In Versailles wurde unser neuer Kaiser ausgerufen: Wilhelm I.!</p>
+      <p>Alle Straßen hier in Berlin sind voller Fahnen. Die Menschen singen und feiern.</p>
+      <p>Papa sagt, jetzt sind endlich alle deutschen Staaten ein einziges Land. Das gab es noch nie!</p>
+      <p>Ich frage mich, wie das Leben jetzt anders sein wird.“</p>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>🧠 Denk nach</h2>
+    <p class="dw-q-text" style="font-weight:600;">Warum wollte Otto von Bismarck die deutschen Staaten vereinen?</p>
+    <div id="dw-think"></div>
+    <div class="dw-think-explain" id="dw-think-explain"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>🗣️ Sprich</h2>
+    <div class="dw-speak-box">
+      <p>Snakk sammen to og to på tysk:</p>
+      <p><strong>„Norwegen hat einen König, so wie das Deutsche Kaiserreich einen Kaiser hatte. Was ist heute anders? Ist Norwegen eine Demokratie oder eine Monarchie — oder beides?“</strong></p>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✍️ Schreib</h2>
+    <p class="dw-note">Skriv en kort tekst: enten et brev som gutten i Berlin januar 1871, eller en sammenligning mellom Kaiserreich og dagens Norge (konge, men også demokrati).</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Lieber Opa, heute …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Teste dich selbst</h2>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Tidslinje ---------- */
+  var dwTimeline = [
+    {year:"1871", title:"Die Reichsgründung", text:"Am 18. Januar 1871 wird Wilhelm I. im Spiegelsaal von Versailles zum deutschen Kaiser ausgerufen. Zum ersten Mal sind fast alle deutschen Staaten ein einziges Land — das Deutsche Kaiserreich."},
+    {year:"1888", title:"Das Dreikaiserjahr", text:"1888 sterben zwei Kaiser kurz nacheinander: Wilhelm I. und Friedrich III. Am Ende des Jahres wird der junge Wilhelm II. neuer Kaiser."},
+    {year:"1890", title:"Bismarck geht", text:"Kaiser Wilhelm II. entlässt den mächtigen Reichskanzler Otto von Bismarck, der das Kaiserreich mitgegründet hat. Ein Zeitungskarikaturist nennt das: „Der Lotse geht von Bord“."},
+    {year:"1914", title:"Der Erste Weltkrieg beginnt", text:"1914 beginnt der Erste Weltkrieg. Das Deutsche Kaiserreich kämpft gegen viele andere Länder in Europa. Der Krieg dauert vier Jahre und kostet Millionen Menschenleben."},
+    {year:"1918", title:"Das Ende des Kaiserreichs", text:"Nach der Niederlage im Krieg dankt Kaiser Wilhelm II. im November 1918 ab. Das Deutsche Kaiserreich endet — Deutschland wird eine Republik."}
+  ];
+  var dwActiveYear = 0;
+
+  function dwRenderTimeline(){
+    var btnWrap = document.getElementById('dw-years');
+    btnWrap.innerHTML = '';
+    dwTimeline.forEach(function(item, i){
+      var b = document.createElement('button');
+      b.className = 'dw-year-btn' + (i === dwActiveYear ? ' dw-active-year' : '');
+      b.textContent = item.year;
+      b.onclick = function(){ dwActiveYear = i; dwRenderTimeline(); };
+      btnWrap.appendChild(b);
+    });
+    var item = dwTimeline[dwActiveYear];
+    document.getElementById('dw-panel').innerHTML =
+      '<h3>' + item.year + ' — ' + item.title + '</h3><p>' + item.text + '</p>';
+  }
+  dwRenderTimeline();
+
+  /* ---------- Denk nach ---------- */
+  var dwThinkOpts = [
+    {text:"Damit die vielen deutschen Staaten wirtschaftlich und militärisch stärker sind", correct:true},
+    {text:"Weil er einen längeren Urlaub wollte", correct:false},
+    {text:"Weil das Wetter in allen Staaten gleich sein sollte", correct:false}
+  ];
+  function dwRenderThink(){
+    var wrap = document.getElementById('dw-think');
+    wrap.innerHTML = '';
+    dwThinkOpts.forEach(function(opt){
+      var b = document.createElement('button');
+      b.className = 'dw-think-opt';
+      b.textContent = opt.text;
+      b.onclick = function(){ dwAnswerThink(opt, wrap); };
+      wrap.appendChild(b);
+    });
+  }
+  function dwAnswerThink(chosen, wrap){
+    var btns = wrap.querySelectorAll('.dw-think-opt');
+    btns.forEach(function(b){
+      b.disabled = true;
+      var opt = dwThinkOpts[[].indexOf.call(btns, b)];
+      if(opt.correct) b.classList.add('dw-correct');
+      else if(opt === chosen) b.classList.add('dw-wrong');
+    });
+    var explain = document.getElementById('dw-think-explain');
+    explain.textContent = "Vorher bestand Deutschland aus vielen kleinen Staaten (z. B. Preußen, Bayern, Sachsen). Bismarck wollte sie zu einem starken Land vereinen — mit einer Wirtschaft, einer Armee und einer Politik.";
+    explain.classList.add('dw-show');
+  }
+  dwRenderThink();
+
+  /* ---------- Schreib ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+
+  /* ---------- Quiz ---------- */
+  var dwQuiz = [
+    {q:"Wann wurde das Deutsche Kaiserreich gegründet?", opts:["1848","1871","1914"], correct:1},
+    {q:"Wer wurde 1871 der erste deutsche Kaiser?", opts:["Wilhelm I.","Wilhelm II.","Otto von Bismarck"], correct:0},
+    {q:"Wie hieß der erste Reichskanzler?", opts:["Friedrich III.","Otto von Bismarck","Wilhelm II."], correct:1},
+    {q:"Wann endete das Deutsche Kaiserreich?", opts:["1900","1939","1918"], correct:2}
+  ];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+</script>
+</body>
+</html>
