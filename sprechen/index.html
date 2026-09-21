@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <!--
-  DEUTSCHWELT — Lesen (hub-side for lesetekster)
-  Se README.md i rotmappen for hvordan du legger til en ny lesetekst.
+  DEUTSCHWELT — Sprechen (hub-side for samtalesituasjoner)
+  Se README.md i rotmappen for hvordan du legger til en ny samtalesituasjon.
 -->
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lesen · Deutschwelt</title>
+<title>Sprechen · Deutschwelt</title>
 <link rel="stylesheet" href="../assets/style.css">
 <style>
   :root{
@@ -25,7 +25,7 @@
   .dw-wrap{max-width:820px;margin:0 auto;padding:0 16px 60px;}
   .dw-header{
     background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
-    color:#fff;border-radius:var(--dw-radius);padding:32px 26px;text-align:center;margin-bottom:24px;
+    color:#fff;border-radius:var(--dw-radius);padding:32px 26px;text-align:center;margin-bottom:16px;
   }
   .dw-header h1{margin:0 0 6px;font-size:1.8rem;}
   .dw-header p{margin:0;opacity:.95;}
@@ -51,7 +51,7 @@
       <a class="dw-nav-link" href="../grammatikk/">🧩 Grammatik</a>
       <a class="dw-nav-link" href="../staedte/">🏙️ Städte</a>
       <a class="dw-nav-link" href="../geschichte/">🕰️ Geschichte</a>
-      <a class="dw-nav-link dw-nav-active" href="./">📖 Lesen</a>
+      <a class="dw-nav-link" href="../lesen/">📖 Lesen</a>
       <a class="dw-nav-link" href="../hoeren/">🎧 Hören</a>
       <a class="dw-nav-link" href="../schreiben/">✍️ Schreiben</a>
       <a class="dw-nav-link" href="../reise/">🗺️ Reise</a>
@@ -59,7 +59,7 @@
       <a class="dw-nav-link" href="../filme-serien/">🎬 Filme &amp; Serien</a>
       <a class="dw-nav-link" href="../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
       <a class="dw-nav-link" href="../leben/">📱 Deutsch im echten Leben</a>
-      <a class="dw-nav-link" href="../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link dw-nav-active" href="./">🗣️ Sprechen</a>
     </div>
   </nav>
 </div>
@@ -67,26 +67,35 @@
 <div class="dw-wrap">
 
   <div class="dw-header">
-    <h1>📖 Deutsch lesen</h1>
-    <p>Kurze Geschichten für Detektive — lies, denk nach und rate, was als Nächstes passiert</p>
+    <h1>🗣️ Deutsch sprechen</h1>
+    <p>Du bist dran! Velg en situasjon og snakk deg gjennom den på tysk</p>
   </div>
 
   <div class="dw-grid">
-    <a class="dw-card" href="ein-wochenende-in-berlin/">
-      <span class="dw-icon">🧳</span>
-      <h2>Ein Wochenende in Berlin</h2>
-      <p>Lukas besucht Berlin zum ersten Mal. Was erlebt er?</p>
+    <a class="dw-card" href="cafe/">
+      <span class="dw-icon">☕</span>
+      <h2>Im Café</h2>
+      <p>Bestill drikke og noe å spise, og betal regningen</p>
     </a>
-    <a class="dw-card" href="wer-hat-den-kuchen-gegessen/">
-      <span class="dw-icon">🍰</span>
-      <h2>Wer hat den Kuchen gegessen?</h2>
-      <p>Ein kleines Rätsel aus der Klasse 8b — finde die Hinweise!</p>
+    <a class="dw-card" href="restaurant/">
+      <span class="dw-icon">🍽️</span>
+      <h2>Im Restaurant</h2>
+      <p>Reserver bord, bestill middag og dessert, og betal</p>
     </a>
-    <a class="dw-card dw-soon" href="#">
-      <span class="dw-icon">🎒</span>
-      <h2>Der verlorene Rucksack</h2>
-      <p>Kommer snart</p>
-      <span class="dw-soon-tag">🔜 Kommer snart</span>
+    <a class="dw-card" href="butikken/">
+      <span class="dw-icon">👕</span>
+      <h2>Im Kleidungsgeschäft</h2>
+      <p>Finn riktig størrelse og farge, prøv og kjøp klær</p>
+    </a>
+    <a class="dw-card" href="hotell/">
+      <span class="dw-icon">🏨</span>
+      <h2>An der Rezeption</h2>
+      <p>Sjekk inn på hotellet, velg rom og frokost</p>
+    </a>
+    <a class="dw-card" href="taxi/">
+      <span class="dw-icon">🚕</span>
+      <h2>Im Taxi</h2>
+      <p>Fortell hvor du skal, og betal for turen</p>
     </a>
   </div>
 

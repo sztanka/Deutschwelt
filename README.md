@@ -88,8 +88,17 @@ deutschwelt-site/
 │   └── schule/
 │       └── index.html                → "Jugend & Schule" — skolehverdag i Tyskland vs. Norge
 └── sprechen/
-    └── cafe/
-        └── index.html                → "Du bist dran!" — Im Café
+    ├── index.html                    → hub-side: velg samtalesituasjon
+    ├── cafe/
+    │   └── index.html                → "Du bist dran!" — Im Café
+    ├── restaurant/
+    │   └── index.html                → "Du bist dran!" — Im Restaurant
+    ├── butikken/
+    │   └── index.html                → "Du bist dran!" — Im Kleidungsgeschäft
+    ├── hotell/
+    │   └── index.html                → "Du bist dran!" — An der Rezeption
+    └── taxi/
+        └── index.html                → "Du bist dran!" — Im Taxi
 ```
 
 Hver seksjon ligger i sin egen mappe med en `index.html`, slik at adressen
@@ -98,23 +107,23 @@ blir ren og kort (f.eks. `.../staedte/berlin/` i stedet for
 
 **Mønster for hub-sider:** så snart en seksjon har to eller flere
 undersider (som `staedte/`, `geschichte/`, `grammatikk/`, `lesen/`,
-`hoeren/`, `schreiben/`, `reise/`, `challenges/` og nå `leben/` har), får
-den en egen `index.html` som viser et lite kortgalleri med lenker videre —
-akkurat som forsiden, bare smalere. `sprechen/` har foreløpig bare én
-underside, så navigasjonsmenyen peker rett dit; når du legger til nummer
-to der, lag en tilsvarende hub-side og pek menyen dit i stedet (se steg 4
-under).
+`hoeren/`, `schreiben/`, `reise/`, `challenges/`, `leben/` og nå `sprechen/`
+har), får den en egen `index.html` som viser et lite kortgalleri med lenker
+videre — akkurat som forsiden, bare smalere.
 
-**Om toppnavigasjonen:** den har nå 13 punkter (🏠 Forside · 🧩 Grammatik ·
-🏙️ Städte · 🕰️ Geschichte · 📖 Lesen · 🎧 Hören · ✍️ Schreiben · 🗺️ Reise ·
-🏆 Challenges · 🎬 Filme & Serien · 🎩 Normen & Regeln ·
-📱 Deutsch im echten Leben · ☕ Café) og bruker `flex-wrap` i
+**Om toppnavigasjonen:** den har fortsatt 13 punkter (🏠 Forside ·
+🧩 Grammatik · 🏙️ Städte · 🕰️ Geschichte · 📖 Lesen · 🎧 Hören · ✍️ Schreiben ·
+🗺️ Reise · 🏆 Challenges · 🎬 Filme & Serien · 🎩 Normen & Regeln ·
+📱 Deutsch im echten Leben · 🗣️ Sprechen) og bruker `flex-wrap` i
 `assets/style.css`, så den bryter fint til to-tre linjer på smale skjermer.
-`filme-serien/`, `sprechen/cafe/` og `normen/hoeflichkeit/` er unntak fra
-hub-mønsteret — de har bare én side hver, så navigasjonen peker rett dit i
-stedet for til en hub-side. Hvis `normen/` får en side til (f.eks.
-punktlighet eller resirkulering), lag `normen/index.html` som hub og pek
-menyen dit i stedet — akkurat som beskrevet for `sprechen/` over.
+Punktet som pekte rett til `sprechen/cafe/` (☕ Café) peker nå til
+`sprechen/` (🗣️ Sprechen) i stedet, siden `sprechen/` gikk fra én side til
+en hub denne runden — se "Om Sprechen-seksjonen" under. `filme-serien/` og
+`normen/hoeflichkeit/` er fortsatt unntak fra hub-mønsteret — de har bare
+én side hver, så navigasjonen peker rett dit i stedet for til en hub-side.
+Hvis `normen/` får en side til (f.eks. punktlighet eller resirkulering),
+lag `normen/index.html` som hub og pek menyen dit i stedet — akkurat som
+`sprechen/` nettopp fikk.
 
 **Om Hören-seksjonen:** videoene er bygget inn fra YouTube
 (`youtube-nocookie.com/embed/<video-ID>`) og hentet fra **Nicos Weg**, en
@@ -219,6 +228,29 @@ Dypere Tyskland/Østerrike/Sveits-sammenligninger er bevisst spart til den
 fremtidige "Gleiches Wort, andere Welt"-siden i stedet for å blandes inn
 her.
 
+**Om Sprechen-seksjonen:** `sprechen/` gikk denne runden fra én
+enkeltside (`cafe/`) til en hub med fem samtalesituasjoner — `cafe/`,
+`restaurant/`, `butikken/`, `hotell/` og `taxi/` — alle bygget med samme
+forgrenede dialog-motor (`dwNodes`) som den opprinnelige Café-siden: en
+NPC (kellner/servitør/selger/resepsjonist/sjåfør) stiller spørsmål,
+eleven velger blant 2–3 svaralternativer, og valgene (drikke/mat/
+størrelse/rom/reisemål) bygges opp i `dwState` og oppsummeres i en
+poengsum/pris til slutt, med et avsluttende muntlig opptaksoppdrag.
+**Im Restaurant** legger til et ekstra forgreningssteg (valgfri dessert)
+sammenlignet med Café. **Im Kleidungsgeschäft** har en egen "jeg bare
+ser meg om"-gren som leder til en kort, annerledes avslutning i stedet
+for kjøp. **An der Rezeption** lar eleven velge romtype og eventuelt
+frokost, med pris som legges sammen. **Im Taxi** bruker reisemål til å
+sette både pris og reisetid. Fordi `sprechen/` nå er en hub, måtte
+navigasjonsmenyen oppdateres i alle øvrige HTML-filer (bytte lenke/
+etikett fra `sprechen/cafe/`/☕ Café til `sprechen/`/🗣️ Sprechen), og
+`sprechen/cafe/index.html` selv fikk brødsmulesti og "aktiv hub"-lenke
+lagt til, akkurat som andre hub-barn (se `grammatikk/nominativ/` for
+samme mønster). Søkeindeksen ble også ryddet opp i: nøklene "restaurant"
+og "essen bestellen" pekte tidligere feilaktig til Café-siden (fra før
+Restaurant fantes som egen side) og er nå flyttet til den nye
+Restaurant-siden.
+
 ## Slik legger du til en ny seksjon
 
 1. **Kopier den mappen som ligner mest** på det du skal lage:
@@ -242,9 +274,12 @@ her.
      og bytt video-ID-en i `<iframe src="https://www.youtube-nocookie.com/embed/…">`
      (finn video-ID-en i YouTube-lenken, delen etter `watch?v=` — sjekk alltid
      at ID-en er ekte, f.eks. via YouTubes oEmbed-endepunkt, før du publiserer).
-   - En ny samtalesituasjon (f.eks. Am Bahnhof) → kopier `sprechen/cafe/`
-     til `sprechen/bahnhof/` (NB: da må `sprechen/` også få en egen
-     hub-`index.html`, se mønsteret over).
+   - En ny samtalesituasjon (f.eks. Am Flughafen) → kopier den av
+     `sprechen/cafe/`, `sprechen/restaurant/`, `sprechen/butikken/`,
+     `sprechen/hotell/` eller `sprechen/taxi/` som ligner mest, bytt ut
+     `dwNodes` med en ny forgrenet dialog, og legg til kortet i
+     `sprechen/index.html` (`sprechen/` har allerede sin egen hub, så
+     ingen endring i toppnavigasjonen trengs).
    - Et nytt norm-/regeltema (f.eks. Pünktlichkeit eller Mülltrennung) →
      kopier `normen/hoeflichkeit/` til f.eks. `normen/puenktlichkeit/`
      (NB: da må `normen/` også få en egen hub-`index.html`, se mønsteret

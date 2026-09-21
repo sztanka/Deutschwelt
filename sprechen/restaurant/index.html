@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <!--
-  DEUTSCHWELT — Deutsch sprechen: "Du bist dran! Im Café"
-  Forgrenet dialog for 8. trinn (A1). Kan brukes som mal for flere
-  situasjoner — kopier sprechen/cafe/-mappen til f.eks. sprechen/bahnhof/
-  og bytt ut teksten i dwNodes nederst i <script>-delen.
-  Se README.md i rotmappen for detaljer.
+  DEUTSCHWELT — Sprechen: "Du bist dran! Im Restaurant"
+  Forgrenet dialog for 8. trinn (A1). Kopiert fra sprechen/cafe/-malen —
+  se README.md i rotmappen for detaljer om mønsteret.
 -->
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Im Café · Deutschwelt</title>
+<title>Im Restaurant · Deutschwelt</title>
 <link rel="stylesheet" href="../../assets/style.css">
 <style>
   :root{
@@ -54,8 +52,8 @@
   .dw-bubble{
     max-width:78%;padding:10px 14px;border-radius:16px;line-height:1.45;font-size:.95rem;
   }
-  .dw-bubble.dw-kellner{background:#eef1f6;color:var(--dw-text);border-bottom-left-radius:4px;}
-  .dw-bubble.dw-kellner::before{content:"👨‍🍳 Kellner: ";font-weight:700;display:block;font-size:.75rem;color:var(--dw-primary);margin-bottom:2px;}
+  .dw-bubble.dw-npc{background:#eef1f6;color:var(--dw-text);border-bottom-left-radius:4px;}
+  .dw-bubble.dw-npc::before{content:"👩‍🍳 Kellnerin: ";font-weight:700;display:block;font-size:.75rem;color:var(--dw-primary);margin-bottom:2px;}
   .dw-bubble.dw-du{background:var(--dw-primary);color:#fff;border-bottom-right-radius:4px;}
   .dw-bubble.dw-du::before{content:"🙋 Du: ";font-weight:700;display:block;font-size:.75rem;color:var(--dw-accent);margin-bottom:2px;}
 
@@ -109,21 +107,21 @@
 
 <div class="dw-wrap">
 
-  <p class="dw-crumb"><a href="../">🗣️ Sprechen</a> → Im Café</p>
+  <p class="dw-crumb"><a href="../">🗣️ Sprechen</a> → Im Restaurant</p>
 
   <div class="dw-header">
-    <h1>☕ Du bist dran! Im Café</h1>
-    <p>Du bist in einem Café in Berlin. Wähle, was du sagen möchtest!</p>
+    <h1>🍽️ Du bist dran! Im Restaurant</h1>
+    <p>Du bist in einem Restaurant in München. Wähle, was du sagen möchtest!</p>
   </div>
 
   <details class="dw-phrases">
     <summary>💬 Nützliche Phrasen (klikk for å vise/skjule)</summary>
     <ul>
-      <li><strong>Ich möchte …, bitte.</strong> — Jeg vil gjerne ha …</li>
-      <li><strong>Was kostet das?</strong> — Hva koster det?</li>
+      <li><strong>Haben Sie einen Tisch frei?</strong> — Har dere et ledig bord?</li>
+      <li><strong>Ich hätte gerne …</strong> — Jeg vil gjerne ha …</li>
+      <li><strong>Was empfehlen Sie?</strong> — Hva anbefaler du/dere?</li>
       <li><strong>Die Rechnung, bitte.</strong> — Regningen, takk.</li>
-      <li><strong>Kann ich mit Karte zahlen?</strong> — Kan jeg betale med kort?</li>
-      <li><strong>Das schmeckt gut!</strong> — Det smaker godt!</li>
+      <li><strong>Guten Appetit!</strong> — God appetitt!</li>
     </ul>
   </details>
 
@@ -131,14 +129,14 @@
 
   <div class="dw-badge-box" id="dw-badge">
     <div class="dw-badge-icon">🏅</div>
-    <h2>Café-Profi!</h2>
+    <h2>Restaurant-Profi!</h2>
     <p id="dw-summary"></p>
     <button class="dw-restart-btn" onclick="dwRestart()">🔁 Nochmal versuchen</button>
   </div>
 
   <div class="dw-challenge">
     <h2>🎤 Jetzt bist du dran!</h2>
-    <p>Nimm dich selbst auf (bruk telefonen din) og bestill noe i en tenkt kafé — høyt, på tysk! Bruk minst <strong>3 nye ord eller uttrykk</strong> fra denne siden. Si f.eks. hva du vil drikke, hva du vil spise, og spør om prisen.</p>
+    <p>Nimm dich selbst auf (bruk telefonen din) og bestill middag på en tenkt restaurant — høyt, på tysk! Bruk minst <strong>3 nye ord eller uttrykk</strong> fra denne siden. Si f.eks. hva du vil ha til hovedrett, om du vil ha dessert, og be om regningen.</p>
   </div>
 
 </div>
@@ -146,24 +144,38 @@
 <script>
   var dwNodes = {
     start: {
-      kellner: "Guten Tag! Was möchtest du trinken?",
+      kellner: "Guten Abend! Haben Sie einen Tisch reserviert?",
       options: [
-        {text:"Ich möchte einen Kaffee, bitte.", next:"food", set:{drinkName:"einen Kaffee", drinkPrice:2.80}},
-        {text:"Ich möchte einen Tee, bitte.", next:"food", set:{drinkName:"einen Tee", drinkPrice:2.50}},
-        {text:"Ich möchte eine Limonade, bitte.", next:"food", set:{drinkName:"eine Limonade", drinkPrice:3.20}}
+        {text:"Ja, für zwei Personen.", next:"drink"},
+        {text:"Nein, haben Sie einen Tisch frei?", next:"drink"}
+      ]
+    },
+    drink: {
+      kellner: "Sehr gut, folgen Sie mir bitte. Was möchten Sie trinken?",
+      options: [
+        {text:"Ein Wasser, bitte.", next:"food", set:{drinkName:"ein Wasser", drinkPrice:2.50}},
+        {text:"Einen Apfelsaft, bitte.", next:"food", set:{drinkName:"einen Apfelsaft", drinkPrice:3.00}},
+        {text:"Eine Cola, bitte.", next:"food", set:{drinkName:"eine Cola", drinkPrice:3.20}}
       ]
     },
     food: {
-      kellner: function(s){ return "Gerne, " + s.drinkName + ". Und möchtest du auch etwas essen?"; },
+      kellner: function(s){ return "Gerne, " + s.drinkName + ". Und was möchten Sie essen?"; },
       options: [
-        {text:"Ja, ein Stück Kuchen, bitte.", next:"pay", set:{foodName:"ein Stück Kuchen", foodPrice:3.50}},
-        {text:"Ja, ein Brötchen, bitte.", next:"pay", set:{foodName:"ein Brötchen", foodPrice:2.20}},
-        {text:"Nein, danke.", next:"pay", set:{foodName:null, foodPrice:0}}
+        {text:"Ich hätte gerne eine Pizza.", next:"dessert", set:{foodName:"eine Pizza", foodPrice:8.50}},
+        {text:"Ich hätte gerne ein Schnitzel mit Pommes.", next:"dessert", set:{foodName:"ein Schnitzel mit Pommes", foodPrice:12.00}},
+        {text:"Ich hätte gerne einen Salat.", next:"dessert", set:{foodName:"einen Salat", foodPrice:7.00}}
+      ]
+    },
+    dessert: {
+      kellner: "Sehr gerne! Möchten Sie auch ein Dessert?",
+      options: [
+        {text:"Ja, ein Eis, bitte.", next:"pay", set:{dessertName:"ein Eis", dessertPrice:3.50}},
+        {text:"Nein, danke.", next:"pay", set:{dessertName:null, dessertPrice:0}}
       ]
     },
     pay: {
       kellner: function(s){
-        var total = (s.drinkPrice + s.foodPrice).toFixed(2).replace('.', ',');
+        var total = (s.drinkPrice + s.foodPrice + s.dessertPrice).toFixed(2).replace('.', ',');
         s.total = total;
         return "Alles klar! Das macht zusammen " + total + " Euro.";
       },
@@ -173,13 +185,13 @@
       ]
     },
     card: {
-      kellner: "Ja, klar! Hier ist das Kartenlesegerät.",
+      kellner: "Ja, natürlich! Hier ist das Kartenlesegerät.",
       options: [
         {text:"Danke schön!", next:"end", set:{payMethod:"Karte"}}
       ]
     },
     end: {
-      kellner: "Danke schön! Auf Wiedersehen! 👋",
+      kellner: "Vielen Dank für Ihren Besuch! Auf Wiedersehen! 👋",
       options: []
     }
   };
@@ -193,7 +205,7 @@
     var row = document.createElement('div');
     row.className = 'dw-bubble-row' + (who === 'du' ? ' dw-right' : '');
     var b = document.createElement('div');
-    b.className = 'dw-bubble ' + (who === 'du' ? 'dw-du' : 'dw-kellner');
+    b.className = 'dw-bubble ' + (who === 'du' ? 'dw-du' : 'dw-npc');
     b.textContent = text;
     row.appendChild(b);
     dwChatEl().appendChild(row);
@@ -203,7 +215,7 @@
   function dwRenderNode(){
     var node = dwNodes[dwCurrent];
     var line = (typeof node.kellner === 'function') ? node.kellner(dwState) : node.kellner;
-    dwAddBubble(line, 'kellner');
+    dwAddBubble(line, 'npc');
 
     var oldOpts = document.getElementById('dw-opts');
     if(oldOpts) oldOpts.remove();
@@ -240,10 +252,10 @@
   function dwFinish(){
     var box = document.getElementById('dw-badge');
     box.classList.add('dw-show');
-    var foodTxt = dwState.foodName ? (" und " + dwState.foodName) : "";
+    var dessertTxt = dwState.dessertName ? (" und " + dwState.dessertName) : "";
     var payTxt = dwState.payMethod === 'Karte' ? "mit Karte" : "bar";
     document.getElementById('dw-summary').textContent =
-      "Du hast " + dwState.drinkName + foodTxt + " bestellt und " + payTxt + " bezahlt (" + dwState.total + " €). Gut gemacht!";
+      "Du hast " + dwState.drinkName + ", " + dwState.foodName + dessertTxt + " bestellt und " + payTxt + " bezahlt (" + dwState.total + " €). Gut gemacht!";
   }
 
   function dwRestart(){

@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <!--
-  DEUTSCHWELT — Deutsch sprechen: "Du bist dran! Im Café"
-  Forgrenet dialog for 8. trinn (A1). Kan brukes som mal for flere
-  situasjoner — kopier sprechen/cafe/-mappen til f.eks. sprechen/bahnhof/
-  og bytt ut teksten i dwNodes nederst i <script>-delen.
-  Se README.md i rotmappen for detaljer.
+  DEUTSCHWELT — Sprechen: "Du bist dran! Im Taxi"
+  Forgrenet dialog for 8. trinn (A1). Kopiert fra sprechen/cafe/-malen —
+  se README.md i rotmappen for detaljer om mønsteret.
 -->
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Im Café · Deutschwelt</title>
+<title>Im Taxi · Deutschwelt</title>
 <link rel="stylesheet" href="../../assets/style.css">
 <style>
   :root{
@@ -54,8 +52,8 @@
   .dw-bubble{
     max-width:78%;padding:10px 14px;border-radius:16px;line-height:1.45;font-size:.95rem;
   }
-  .dw-bubble.dw-kellner{background:#eef1f6;color:var(--dw-text);border-bottom-left-radius:4px;}
-  .dw-bubble.dw-kellner::before{content:"👨‍🍳 Kellner: ";font-weight:700;display:block;font-size:.75rem;color:var(--dw-primary);margin-bottom:2px;}
+  .dw-bubble.dw-npc{background:#eef1f6;color:var(--dw-text);border-bottom-left-radius:4px;}
+  .dw-bubble.dw-npc::before{content:"🚕 Taxifahrer/in: ";font-weight:700;display:block;font-size:.75rem;color:var(--dw-primary);margin-bottom:2px;}
   .dw-bubble.dw-du{background:var(--dw-primary);color:#fff;border-bottom-right-radius:4px;}
   .dw-bubble.dw-du::before{content:"🙋 Du: ";font-weight:700;display:block;font-size:.75rem;color:var(--dw-accent);margin-bottom:2px;}
 
@@ -109,21 +107,21 @@
 
 <div class="dw-wrap">
 
-  <p class="dw-crumb"><a href="../">🗣️ Sprechen</a> → Im Café</p>
+  <p class="dw-crumb"><a href="../">🗣️ Sprechen</a> → Im Taxi</p>
 
   <div class="dw-header">
-    <h1>☕ Du bist dran! Im Café</h1>
-    <p>Du bist in einem Café in Berlin. Wähle, was du sagen möchtest!</p>
+    <h1>🚕 Du bist dran! Im Taxi</h1>
+    <p>Du steigst in ein Taxi in Frankfurt. Wähle, was du sagen möchtest!</p>
   </div>
 
   <details class="dw-phrases">
     <summary>💬 Nützliche Phrasen (klikk for å vise/skjule)</summary>
     <ul>
-      <li><strong>Ich möchte …, bitte.</strong> — Jeg vil gjerne ha …</li>
+      <li><strong>Zum Bahnhof, bitte.</strong> — Til stasjonen, takk.</li>
+      <li><strong>Wie lange dauert die Fahrt?</strong> — Hvor lang tid tar turen?</li>
       <li><strong>Was kostet das?</strong> — Hva koster det?</li>
-      <li><strong>Die Rechnung, bitte.</strong> — Regningen, takk.</li>
-      <li><strong>Kann ich mit Karte zahlen?</strong> — Kan jeg betale med kort?</li>
-      <li><strong>Das schmeckt gut!</strong> — Det smaker godt!</li>
+      <li><strong>Halten Sie hier, bitte.</strong> — Stopp her, takk.</li>
+      <li><strong>Hier ist Ihr Geld.</strong> — Her er pengene dine.</li>
     </ul>
   </details>
 
@@ -131,14 +129,14 @@
 
   <div class="dw-badge-box" id="dw-badge">
     <div class="dw-badge-icon">🏅</div>
-    <h2>Café-Profi!</h2>
+    <h2>Taxi-Profi!</h2>
     <p id="dw-summary"></p>
     <button class="dw-restart-btn" onclick="dwRestart()">🔁 Nochmal versuchen</button>
   </div>
 
   <div class="dw-challenge">
     <h2>🎤 Jetzt bist du dran!</h2>
-    <p>Nimm dich selbst auf (bruk telefonen din) og bestill noe i en tenkt kafé — høyt, på tysk! Bruk minst <strong>3 nye ord eller uttrykk</strong> fra denne siden. Si f.eks. hva du vil drikke, hva du vil spise, og spør om prisen.</p>
+    <p>Nimm dich selbst auf (bruk telefonen din) og ta en tenkt taxitur — høyt, på tysk! Bruk minst <strong>3 nye ord eller uttrykk</strong> fra denne siden. Si f.eks. hvor du skal, spør om prisen, og be sjåføren stoppe.</p>
   </div>
 
 </div>
@@ -146,26 +144,24 @@
 <script>
   var dwNodes = {
     start: {
-      kellner: "Guten Tag! Was möchtest du trinken?",
+      kellner: "Guten Tag! Wohin möchten Sie fahren?",
       options: [
-        {text:"Ich möchte einen Kaffee, bitte.", next:"food", set:{drinkName:"einen Kaffee", drinkPrice:2.80}},
-        {text:"Ich möchte einen Tee, bitte.", next:"food", set:{drinkName:"einen Tee", drinkPrice:2.50}},
-        {text:"Ich möchte eine Limonade, bitte.", next:"food", set:{drinkName:"eine Limonade", drinkPrice:3.20}}
+        {text:"Zum Bahnhof, bitte.", next:"duration", set:{destName:"zum Bahnhof", price:12.50, minutes:10}},
+        {text:"Zum Flughafen, bitte.", next:"duration", set:{destName:"zum Flughafen", price:28.00, minutes:25}},
+        {text:"Zur Innenstadt, bitte.", next:"duration", set:{destName:"zur Innenstadt", price:9.00, minutes:8}}
       ]
     },
-    food: {
-      kellner: function(s){ return "Gerne, " + s.drinkName + ". Und möchtest du auch etwas essen?"; },
+    duration: {
+      kellner: function(s){ return "Kein Problem, " + s.destName + "! Das dauert ungefähr " + s.minutes + " Minuten."; },
       options: [
-        {text:"Ja, ein Stück Kuchen, bitte.", next:"pay", set:{foodName:"ein Stück Kuchen", foodPrice:3.50}},
-        {text:"Ja, ein Brötchen, bitte.", next:"pay", set:{foodName:"ein Brötchen", foodPrice:2.20}},
-        {text:"Nein, danke.", next:"pay", set:{foodName:null, foodPrice:0}}
+        {text:"Wie viel wird das kosten?", next:"arrival"}
       ]
     },
-    pay: {
+    arrival: {
       kellner: function(s){
-        var total = (s.drinkPrice + s.foodPrice).toFixed(2).replace('.', ',');
+        var total = s.price.toFixed(2).replace('.', ',');
         s.total = total;
-        return "Alles klar! Das macht zusammen " + total + " Euro.";
+        return "Wir sind gleich da! Das macht " + total + " Euro.";
       },
       options: [
         {text:"Hier bitte. (Bargeld)", next:"end", set:{payMethod:"bar"}},
@@ -173,13 +169,13 @@
       ]
     },
     card: {
-      kellner: "Ja, klar! Hier ist das Kartenlesegerät.",
+      kellner: "Ja, natürlich! Hier ist das Kartenlesegerät.",
       options: [
         {text:"Danke schön!", next:"end", set:{payMethod:"Karte"}}
       ]
     },
     end: {
-      kellner: "Danke schön! Auf Wiedersehen! 👋",
+      kellner: "Vielen Dank! Einen schönen Tag noch! 👋",
       options: []
     }
   };
@@ -193,7 +189,7 @@
     var row = document.createElement('div');
     row.className = 'dw-bubble-row' + (who === 'du' ? ' dw-right' : '');
     var b = document.createElement('div');
-    b.className = 'dw-bubble ' + (who === 'du' ? 'dw-du' : 'dw-kellner');
+    b.className = 'dw-bubble ' + (who === 'du' ? 'dw-du' : 'dw-npc');
     b.textContent = text;
     row.appendChild(b);
     dwChatEl().appendChild(row);
@@ -203,7 +199,7 @@
   function dwRenderNode(){
     var node = dwNodes[dwCurrent];
     var line = (typeof node.kellner === 'function') ? node.kellner(dwState) : node.kellner;
-    dwAddBubble(line, 'kellner');
+    dwAddBubble(line, 'npc');
 
     var oldOpts = document.getElementById('dw-opts');
     if(oldOpts) oldOpts.remove();
@@ -240,10 +236,9 @@
   function dwFinish(){
     var box = document.getElementById('dw-badge');
     box.classList.add('dw-show');
-    var foodTxt = dwState.foodName ? (" und " + dwState.foodName) : "";
     var payTxt = dwState.payMethod === 'Karte' ? "mit Karte" : "bar";
     document.getElementById('dw-summary').textContent =
-      "Du hast " + dwState.drinkName + foodTxt + " bestellt und " + payTxt + " bezahlt (" + dwState.total + " €). Gut gemacht!";
+      "Du bist " + dwState.destName + " gefahren und hast " + payTxt + " bezahlt (" + dwState.total + " €). Gut gemacht!";
   }
 
   function dwRestart(){
