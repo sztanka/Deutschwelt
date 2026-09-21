@@ -47,6 +47,12 @@
   .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
   .dw-vocab b{color:var(--dw-primary);}
 
+  .dw-people-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
+  .dw-person-card{background:#f4f1e8;border-radius:12px;padding:14px 16px;}
+  .dw-person-card .dw-person-icon{font-size:1.6rem;line-height:1;}
+  .dw-person-card h3{margin:6px 0 4px;color:var(--dw-primary);font-size:1rem;}
+  .dw-person-card p{margin:0;font-size:.85rem;line-height:1.5;color:var(--dw-text);}
+
   .dw-mission-head{
     background:linear-gradient(135deg,var(--dw-accent) 0%,#f2c168 100%);
     color:#1a1a1a;border-radius:var(--dw-radius);padding:20px 24px;margin-bottom:16px;
@@ -171,6 +177,28 @@
   <div class="dw-section">
     <h2>🕰️ Welche Geschichte hat die Stadt?</h2>
     <p>Nach dem Zweiten Weltkrieg war Berlin geteilt: West-Berlin und Ost-Berlin. 1961 hat die DDR die <strong>Berliner Mauer</strong> gebaut. Die Mauer hat die Stadt fast 30 Jahre lang geteilt. Am 9. November 1989 ist die Mauer gefallen. 1990 wurde Deutschland wieder ein Land — die <strong>Wiedervereinigung</strong>.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🌟 Berühmte Personen</h2>
+    <p class="dw-note">Menschen, die eng mit Berlin verbunden sind.</p>
+    <div class="dw-people-grid">
+      <div class="dw-person-card">
+        <span class="dw-person-icon">🎬</span>
+        <h3>Marlene Dietrich (1901–1992)</h3>
+        <p>Schauspielerin und Sängerin, geboren in Berlin. Wurde in Hollywood weltberühmt, blieb aber zeitlebens mit ihrer Heimatstadt verbunden.</p>
+      </div>
+      <div class="dw-person-card">
+        <span class="dw-person-icon">🎭</span>
+        <h3>Bertolt Brecht (1898–1956)</h3>
+        <p>Dramatiker und Regisseur. Gründete in Berlin das berühmte Theater „Berliner Ensemble“, das es bis heute gibt.</p>
+      </div>
+      <div class="dw-person-card">
+        <span class="dw-person-icon">🎸</span>
+        <h3>David Bowie (1947–2016)</h3>
+        <p>Britischer Musiker. Lebte 1976–1978 in Berlin und nahm dort seine berühmte „Berlin-Trilogie“ auf.</p>
+      </div>
+    </div>
   </div>
 
   <div class="dw-section">

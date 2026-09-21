@@ -23,11 +23,21 @@ deutschwelt-site/
 │   └── satzanalyse/
 │       └── index.html                → "Der Satz-Detektiv": finn Subjekt/Verb/Objekt/Adverbial
 ├── staedte/
-│   ├── index.html                    → hub-side: velg by
+│   ├── index.html                    → hub-side: velg by (7 kort)
 │   ├── berlin/
 │   │   └── index.html                → byportrett: Berlin
-│   └── wien/
-│       └── index.html                → byportrett: Wien
+│   ├── wien/
+│   │   └── index.html                → byportrett: Wien
+│   ├── zuerich/
+│   │   └── index.html                → byportrett: Zürich (budsjett i sveitserfranc, CHF)
+│   ├── hamburg/
+│   │   └── index.html                → byportrett: Hamburg
+│   ├── muenchen/
+│   │   └── index.html                → byportrett: München
+│   ├── koeln/
+│   │   └── index.html                → byportrett: Köln
+│   └── frankfurt/
+│       └── index.html                → byportrett: Frankfurt am Main
 ├── geschichte/
 │   ├── index.html                    → hub-side: velg historietema
 │   ├── kaiserreich/
@@ -166,7 +176,10 @@ går gjennom selv før de kopierer teksten videre til læreren — dette
 mønsteret bør gjenbrukes på fremtidige skriveoppgaver også.
 
 **Om Reise-seksjonen:** **Der Reiseplaner** lar eleven velge by (Berlin
-eller Wien — de to byene som allerede har et byportrett under `staedte/`),
+eller Wien — de to byene som hadde et byportrett under `staedte/` da denne
+siden ble bygget; nå er det 5 til — Zürich, Hamburg, München, Köln og
+Frankfurt — som Reiseplaneren kunne utvides med i en fremtidig runde,
+men det er ikke gjort ennå),
 transportmiddel og én aktivitet per dag i tre dager, med et budsjett
 (`dwBudget`) og en live oppsummeringstekst som oppdateres for hvert valg
 (`dwUpdateAll()`), pluss et kort refleksjonsfelt og egenvurderings-
@@ -274,10 +287,42 @@ Begge sidene er hub-barn av `geschichte/` (ingen endring i toppnavigasjonen
 var nødvendig, siden Geschichte allerede lå der) — kun `geschichte/
 index.html` og forsidens kort/søkeindeks måtte oppdateres.
 
+**Om Städte-utvidelsen (Zürich, Hamburg, München, Köln, Frankfurt + Berühmte
+Personen):** `staedte/` gikk fra 2 byer til 7, alle bygget etter nøyaktig
+samme mal som Berlin/Wien (posisjon, folketall, «Was ist typisch?»,
+severdigheter, aktiviteter, mat, historie, ordforråd, budsjett-oppdrag,
+skriveoppgave og quiz). Samtidig fikk ALLE 7 byer (også Berlin og Wien, med
+tilbakevirkende kraft, som Teach ba om) en ny seksjon: **🌟 Berühmte
+Personen**, et lite kortgalleri (`.dw-people-grid`/`.dw-person-card`, samme
+CSS/emoji-mønster som resten av nettstedet — ingen eksterne bilder) med
+2–3 personer per by. Alle fakta (fødeby/-år, eller en tydelig «bodde/
+arbeidet der»-tilknytning for de som ikke er født i byen, som Carl Gustav
+Jung i Zürich eller David Bowie i Berlin) ble verifisert med websøk før
+publisering, i tråd med samme prinsipp som video-ID-verifiseringen i
+Filme & Serien-runden — ingen navn eller årstall er gjettet. To bevisste
+valg ble tatt for å holde innholdet aldersriktig: (1) ingen alkoholholdige
+drikker (Kölsch i Köln, Apfelwein i Frankfurt) ble lagt inn som
+budsjett-oppdragets kjøpbare/spiselige valg, selv om de nevnes som
+kulturfakta i løpende tekst; (2) **Zürich** har et eget avvik i
+budsjett-skriptet: siden Sveits ikke bruker euro, har `dwItems`/
+`dwUpdateBudget()` en `dwCurrency`-variabel (satt til `"CHF"`) som settes
+inn i stedet for det hardkodede €-tegnet de andre byene bruker — med en
+egen merknad i oppdragsteksten om at Sveits har sin egen valuta. Søkeindeksen
+fikk 6 nye oppføringer (5 byer + en generisk «städte»-fangst), og en
+utdatert kollisjon ble samtidig ryddet opp: nøklene «zürich» og «schweiz» lå
+fra før i Reise-seksjonens generiske oppføring (fra før Zürich hadde egen
+side) og pekte dermed feil — de er nå fjernet derfra siden Zürich har sin
+egen dedikerte side.
+
 ## Slik legger du til en ny seksjon
 
 1. **Kopier den mappen som ligner mest** på det du skal lage:
-   - En ny by (f.eks. Zürich) → kopier `staedte/wien/` til `staedte/zuerich/`.
+   - En ny by → kopier en av de eksisterende `staedte/`-mappene til f.eks.
+     `staedte/salzburg/`. Husk «Berühmte Personen»-seksjonen (samme
+     `.dw-people-grid`-mønster på alle 7 byer nå) — 2–3 personer med ekte,
+     verifiserte fakta (fødested/år ELLER en klar «bodde/arbeidet der»-
+     tilknytning), ikke oppdiktede. Sjekk også om byen bruker euro eller en
+     annen valuta (Zürich bruker CHF, se `dwCurrency`-mønsteret der).
    - Et nytt grammatikktema med samme spillmotor som Nominativ/Akkusativ/
      Verben (ett spørsmål, ett svar) → kopier `grammatikk/akkusativ/` til
      f.eks. `grammatikk/dativ/`.
