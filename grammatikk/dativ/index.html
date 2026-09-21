@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <!--
-  DEUTSCHWELT — Grammatik-verksted: "Der Artikel-Detektiv"
-  Nominativ: der / die / das — for 8. trinn (A1).
-  Ordlisten og forklaringene kan endres nederst i <script>-delen (dwWords).
-  Se README.md i rotmappen for hvordan du legger til flere grammatikk-sider.
+  DEUTSCHWELT — Grammatik-verksted: "Der Dativ-Kompass"
+  Dativ: dem / der — for 9.-10. trinn (A2/B1). Første side i den nye
+  "9.-10. trinn"-nivået (se fortgeschritten/ for samlingspunktet).
+  Bygger videre på Nominativ/Akkusativ-sidene (samme ordliste), men nå med
+  preposisjonen "zu" (som alltid styrer Dativ) og "den" som bevisst
+  feil-svar-mulighet, siden det er en vanlig forveksling med Akkusativ.
+  Samme spillmotor som grammatikk/akkusativ/ (dwWords/dwOrder/dwAnswer).
+  Se README.md i rotmappen for hvordan du legger til flere grammatikk- og
+  nivå 2-sider.
 -->
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Der Artikel-Detektiv · Deutschwelt</title>
+<title>Der Dativ-Kompass · Deutschwelt</title>
 <link rel="stylesheet" href="../../assets/style.css">
 <style>
   :root{
@@ -45,10 +50,22 @@
 
   .dw-crumb{
     font-size:.85rem;
-    margin:0 0 14px;
+    margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
   }
   .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
   .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-rule{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.92rem;line-height:1.6;
+  }
+  .dw-rule h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+  .dw-rule table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.9rem;}
+  .dw-rule td, .dw-rule th{padding:5px 8px;text-align:left;}
+  .dw-rule th{color:var(--dw-muted);font-weight:600;border-bottom:1px solid #f0dca8;}
+  .dw-rule td.dw-arrow{color:var(--dw-accent);font-weight:800;text-align:center;}
+  .dw-rule .dw-note{font-size:.85rem;color:var(--dw-muted);margin-top:10px;}
 
   .dw-progress-wrap{
     background:#e4e0d5;
@@ -198,11 +215,23 @@
 
 <div class="dw-wrap">
 
-  <p class="dw-crumb"><a href="../">🧩 Grammatik</a> → Nominativ</p>
+  <p class="dw-crumb"><a href="../">🧩 Grammatik</a> → Dativ <span class="dw-level-tag">🎓 9.–10. trinn</span></p>
 
   <div class="dw-header">
-    <h1>🕵️ Der Artikel-Detektiv</h1>
-    <p>Du gehst durch die Stadt. Finde den richtigen Artikel: <strong>der, die</strong> oder <strong>das</strong>!</p>
+    <h1>🧭 Der Dativ-Kompass</h1>
+    <p>Du gehst zu verschiedenen Orten in der Stadt. Finde den richtigen Artikel im Dativ!</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>📌 Regel: Nominativ → Dativ</h2>
+    <p>Dativ bruker du blant annet etter preposisjoner som <strong>zu, mit, bei, nach, von, aus, seit</strong>, og med indirekte objekt (den du hjelper, takker eller gir noe til: <i>helfen, danken, gefallen</i> + Dativ).</p>
+    <table>
+      <tr><th>Nominativ</th><th></th><th>Dativ</th><th>Eksempel</th></tr>
+      <tr><td><strong>der</strong> Bahnhof</td><td class="dw-arrow">→</td><td><strong>dem</strong> Bahnhof</td><td>Ich gehe zu dem Bahnhof.</td></tr>
+      <tr><td><strong>die</strong> Straße</td><td class="dw-arrow">→</td><td><strong>der</strong> Straße</td><td>Ich gehe zu der Straße.</td></tr>
+      <tr><td><strong>das</strong> Auto</td><td class="dw-arrow">→</td><td><strong>dem</strong> Auto</td><td>Ich gehe zu dem Auto.</td></tr>
+    </table>
+    <p class="dw-note">Pass på: <strong>der</strong> og <strong>das</strong> blir BEGGE <strong>dem</strong> i Dativ — ikke <em>den</em> (det er Akkusativ)! I vanlig tale forkortes ofte <i>zu dem → zum</i> og <i>zu der → zur</i>.</p>
   </div>
 
   <div class="dw-progress-wrap"><div class="dw-progress-bar" id="dw-bar"></div></div>
@@ -213,12 +242,12 @@
 
   <div class="dw-card" id="dw-game">
     <div class="dw-emoji" id="dw-emoji">🚉</div>
-    <div class="dw-sentence" id="dw-sentence">Das ist <span class="dw-blank" id="dw-blank">___</span> Bahnhof.</div>
+    <div class="dw-sentence" id="dw-sentence">Ich gehe zu <span class="dw-blank" id="dw-blank">___</span> Bahnhof.</div>
 
     <div class="dw-choices" id="dw-choices">
+      <button class="dw-choice" data-a="dem" onclick="dwAnswer('dem')">dem</button>
       <button class="dw-choice" data-a="der" onclick="dwAnswer('der')">der</button>
-      <button class="dw-choice" data-a="die" onclick="dwAnswer('die')">die</button>
-      <button class="dw-choice" data-a="das" onclick="dwAnswer('das')">das</button>
+      <button class="dw-choice" data-a="den" onclick="dwAnswer('den')">den</button>
     </div>
 
     <button class="dw-hint-btn" onclick="dwToggleHint()">💡 Tipp anzeigen</button>
@@ -238,18 +267,20 @@
 </div>
 
 <script>
-  // Ordliste — bytt ut / legg til ord her ved behov.
+  // Ordliste — samme ord som Nominativ/Akkusativ-sidene, nå med Dativ-artikkel
+  // etter preposisjonen "zu". nom = artikkelen i nominativ (til hint-teksten),
+  // art = riktig svar i dativ (dem/der).
   var dwWords = [
-    {emoji:"🚉", noun:"Bahnhof",   art:"der", hint:"Ingen fast regel her — der Bahnhof, der Park og der Supermarkt må du bare pugge."},
-    {emoji:"🌳", noun:"Park",      art:"der", hint:"Ingen fast regel her — der Bahnhof, der Park og der Supermarkt må du bare pugge."},
-    {emoji:"🛒", noun:"Supermarkt",art:"der", hint:"Ingen fast regel her — der Bahnhof, der Park og der Supermarkt må du bare pugge."},
-    {emoji:"🛣️", noun:"Straße",    art:"die", hint:"Tips: Ord som ender på -e er ofte feminine (die Straße, die Schule, die Bäckerei)."},
-    {emoji:"🏫", noun:"Schule",    art:"die", hint:"Tips: Ord som ender på -e er ofte feminine (die Straße, die Schule, die Bäckerei)."},
-    {emoji:"🥖", noun:"Bäckerei",  art:"die", hint:"Tips: Ord som ender på -ei er nesten alltid feminine (die Bäckerei, die Polizei)."},
-    {emoji:"⛪", noun:"Kirche",    art:"die", hint:"Tips: Ord som ender på -e er ofte feminine (die Kirche)."},
-    {emoji:"🚗", noun:"Auto",      art:"das", hint:"Tips: Mange importord (lånord) er intetkjønn: das Auto, das Kino, das Museum."},
-    {emoji:"🎬", noun:"Kino",      art:"das", hint:"Tips: Mange importord (lånord) er intetkjønn: das Auto, das Kino, das Museum."},
-    {emoji:"🖼️", noun:"Museum",    art:"das", hint:"Tips: Mange importord (lånord) er intetkjønn: das Auto, das Kino, das Museum."}
+    {emoji:"🚉", noun:"Bahnhof",   nom:"der", art:"dem", hint:"der → dem: Bahnhof er hankjønn. I Dativ blir hankjønn OG intetkjønn til dem — ikke den!"},
+    {emoji:"🌳", noun:"Park",      nom:"der", art:"dem", hint:"der → dem: Park er hankjønn, og i Dativ blir det dem."},
+    {emoji:"🛒", noun:"Supermarkt",nom:"der", art:"dem", hint:"der → dem: Supermarkt er hankjønn, og i Dativ blir det dem."},
+    {emoji:"🛣️", noun:"Straße",    nom:"die", art:"der", hint:"die → der: Straße er hunkjønn, og i Dativ blir die alltid til der."},
+    {emoji:"🏫", noun:"Schule",    nom:"die", art:"der", hint:"die → der: Schule er hunkjønn, og i Dativ blir die alltid til der."},
+    {emoji:"🥖", noun:"Bäckerei",  nom:"die", art:"der", hint:"die → der: Bäckerei er hunkjønn, og i Dativ blir die alltid til der."},
+    {emoji:"⛪", noun:"Kirche",    nom:"die", art:"der", hint:"die → der: Kirche er hunkjønn, og i Dativ blir die alltid til der."},
+    {emoji:"🚗", noun:"Auto",      nom:"das", art:"dem", hint:"das → dem: Auto er intetkjønn. I Dativ blir hankjønn OG intetkjønn til dem."},
+    {emoji:"🎬", noun:"Kino",      nom:"das", art:"dem", hint:"das → dem: Kino er intetkjønn, og i Dativ blir det dem."},
+    {emoji:"🖼️", noun:"Museum",    nom:"das", art:"dem", hint:"das → dem: Museum er intetkjønn, og i Dativ blir det dem."}
   ];
 
   var dwOrder = [];
@@ -279,7 +310,7 @@
     dwAnswered = false;
     var w = dwWords[dwOrder[dwIndex]];
     document.getElementById('dw-emoji').textContent = w.emoji;
-    document.getElementById('dw-sentence').innerHTML = 'Das ist <span class="dw-blank" id="dw-blank">___</span> ' + w.noun + '.';
+    document.getElementById('dw-sentence').innerHTML = 'Ich gehe zu <span class="dw-blank" id="dw-blank">___</span> ' + w.noun + '.';
     document.getElementById('dw-explain').classList.remove('dw-show');
     document.getElementById('dw-explain').textContent = w.hint;
     document.getElementById('dw-next').classList.remove('dw-show');
@@ -333,9 +364,9 @@
     document.getElementById('dw-result').classList.add('dw-show');
     document.getElementById('dw-final-score').textContent = dwScore + ' / ' + dwWords.length;
     var msg;
-    if(dwScore === dwWords.length) msg = "Perfekt! Du bist ein echter Artikel-Detektiv! 🏅";
-    else if(dwScore >= dwWords.length*0.7) msg = "Sehr gut! Du kan die meisten Artikel schon gut.";
-    else msg = "Guter Versuch! Øv litt til, så sitter det snart.";
+    if(dwScore === dwWords.length) msg = "Perfekt! Du hast den Dativ voll im Griff! 🏅";
+    else if(dwScore >= dwWords.length*0.7) msg = "Sehr gut! Husk: der og das blir begge dem — ikke den.";
+    else msg = "Guter Versuch! Se på regelen øverst en gang til, og prøv igjen.";
     document.getElementById('dw-final-msg').textContent = msg;
 
     var reviewEl = document.getElementById('dw-review');

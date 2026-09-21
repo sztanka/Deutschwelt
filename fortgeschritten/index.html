@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <!--
-  DEUTSCHWELT — Grammatik (hub-side for grammatikktemaer)
-  Se README.md i rotmappen for hvordan du legger til et nytt grammatikktema.
+  DEUTSCHWELT — 9.-10. trinn (A2/B1): samlingspunkt for mer avansert innhold
+  Dette er en "hub av huber" — selve oppgavene/sidene bor i sin naturlige
+  seksjon (f.eks. grammatikk/dativ/), men lenkes samlet her med
+  .dw-level-tag-merket, slik at elever og lærere lett finner alt som
+  hører til det høyere nivået på ett sted.
+  Se README.md i rotmappen for hvordan du legger til nytt innhold her.
 -->
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Grammatik · Deutschwelt</title>
+<title>9.–10. trinn · Deutschwelt</title>
 <link rel="stylesheet" href="../assets/style.css">
 <style>
   :root{
@@ -29,6 +33,15 @@
   }
   .dw-header h1{margin:0 0 6px;font-size:1.8rem;}
   .dw-header p{margin:0;opacity:.95;}
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:18px 22px;margin-bottom:24px;font-size:.94rem;line-height:1.55;
+  }
+  .dw-intro strong{color:var(--dw-primary);}
+  .dw-section-label{
+    font-size:.8rem;font-weight:700;color:var(--dw-muted);text-transform:uppercase;
+    letter-spacing:.04em;margin:26px 2px 10px;
+  }
   .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
   .dw-card{
     background:var(--dw-card);border-radius:var(--dw-radius);padding:22px;text-decoration:none;color:var(--dw-text);
@@ -39,6 +52,7 @@
   .dw-card .dw-icon{font-size:2.2rem;line-height:1;}
   .dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary);}
   .dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-card .dw-from{margin-top:auto;font-size:.76rem;color:var(--dw-muted);opacity:.8;}
 </style>
 </head>
 <body>
@@ -48,7 +62,7 @@
     <a class="dw-nav-logo" href="../">🇩🇪 Deutschwelt</a>
     <div class="dw-nav-links">
       <a class="dw-nav-link" href="../">🏠 Forside</a>
-      <a class="dw-nav-link dw-nav-active" href="./">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../grammatikk/">🧩 Grammatik</a>
       <a class="dw-nav-link" href="../staedte/">🏙️ Städte</a>
       <a class="dw-nav-link" href="../geschichte/">🕰️ Geschichte</a>
       <a class="dw-nav-link" href="../lesen/">📖 Lesen</a>
@@ -60,7 +74,7 @@
       <a class="dw-nav-link" href="../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
       <a class="dw-nav-link" href="../leben/">📱 Deutsch im echten Leben</a>
       <a class="dw-nav-link" href="../sprechen/">🗣️ Sprechen</a>
-      <a class="dw-nav-link" href="../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link dw-nav-active" href="./">🎓 9.–10. trinn</a>
     </div>
   </nav>
 </div>
@@ -68,41 +82,42 @@
 <div class="dw-wrap">
 
   <div class="dw-header">
-    <h1>🧩 Grammatik</h1>
-    <p>Øv på tysk grammatikk gjennom spill — ett tema om gangen</p>
+    <h1>🎓 9.–10. trinn</h1>
+    <p>Mer avansert tysk — for deg som er klar for A2/B1-nivå</p>
   </div>
 
+  <div class="dw-intro">
+    <strong>Hva er dette?</strong> Her samler vi oppgaver og sider som går litt dypere enn
+    grunnnivået — nye grammatikk-temaer, vanskeligere ordforråd og tekster som passer bedre for
+    9. og 10. trinn. Sidene ligger fortsatt i sin vanlige seksjon (f.eks. Dativ i Grammatik), men
+    du finner alle sammen samlet her, merket med <span class="dw-level-tag">🎓 9.–10. trinn</span>.
+  </div>
+
+  <p class="dw-section-label">🧩 Grammatik</p>
   <div class="dw-grid">
-    <a class="dw-card" href="nominativ/">
-      <span class="dw-icon">🕵️</span>
-      <h2>Der Artikel-Detektiv</h2>
-      <p>Nominativ: finn riktig artikkel — der, die eller das.</p>
-    </a>
-    <a class="dw-card" href="akkusativ/">
-      <span class="dw-icon">🎯</span>
-      <h2>Die Akkusativ-Jagd</h2>
-      <p>Akkusativ: hva skjer med artikkelen når ordet blir et objekt?</p>
-    </a>
-    <a class="dw-card" href="dativ/">
+    <a class="dw-card" href="../grammatikk/dativ/">
       <span class="dw-icon">🧭</span>
       <h2>Der Dativ-Kompass</h2>
       <p>Dativ: dem eller der? Og pass på — den er en felle her.</p>
-      <span class="dw-level-tag">🎓 9.–10. trinn</span>
+      <span class="dw-from">📍 Grammatik</span>
     </a>
-    <a class="dw-card" href="verben-regelmaessig/">
-      <span class="dw-icon">⚙️</span>
-      <h2>Verben: regelrette</h2>
-      <p>Presens av regelrette verb — spielen, lernen, wohnen …</p>
+    <a class="dw-card dw-soon" href="#">
+      <span class="dw-icon">🔀</span>
+      <h2>Wechselpräpositionen</h2>
+      <p>Kommer snart</p>
+      <span class="dw-soon-tag">🔜 Kommer snart</span>
     </a>
-    <a class="dw-card" href="verben-unregelmaessig/">
-      <span class="dw-icon">🌀</span>
-      <h2>Verben: uregelrette</h2>
-      <p>Presens av sein, haben og andre uregelrette verb</p>
+    <a class="dw-card dw-soon" href="#">
+      <span class="dw-icon">⏳</span>
+      <h2>Perfekt — haben oder sein?</h2>
+      <p>Kommer snart</p>
+      <span class="dw-soon-tag">🔜 Kommer snart</span>
     </a>
-    <a class="dw-card" href="satzanalyse/">
-      <span class="dw-icon">🔍</span>
-      <h2>Der Satz-Detektiv</h2>
-      <p>Finn Subjekt, Verb, Objekt og Adverbial i tilfeldige, korte setninger</p>
+    <a class="dw-card dw-soon" href="#">
+      <span class="dw-icon">🔗</span>
+      <h2>Nebensätze: weil &amp; dass</h2>
+      <p>Kommer snart</p>
+      <span class="dw-soon-tag">🔜 Kommer snart</span>
     </a>
   </div>
 

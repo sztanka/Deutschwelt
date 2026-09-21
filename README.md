@@ -16,6 +16,8 @@ deutschwelt-site/
 │   │   └── index.html                → "Der Artikel-Detektiv" (der/die/das)
 │   ├── akkusativ/
 │   │   └── index.html                → "Die Akkusativ-Jagd" (den/die/das)
+│   ├── dativ/
+│   │   └── index.html                → "Der Dativ-Kompass" (dem/der) — 🎓 9.–10. trinn (A2/B1)
 │   ├── verben-regelmaessig/
 │   │   └── index.html                → "Verb-Werkstatt": presens av regelrette verb
 │   ├── verben-unregelmaessig/
@@ -131,7 +133,15 @@ deutschwelt-site/
     │   └── index.html                → "Du bist dran!" — An der Rezeption
     └── taxi/
         └── index.html                → "Du bist dran!" — Im Taxi
+fortgeschritten/
+└── index.html                        → hub av huber: samlingspunkt for alt innhold på
+                                         9.–10. trinn-nivå (A2/B1) — selve sidene bor i
+                                         sin naturlige seksjon (f.eks. grammatikk/dativ/),
+                                         og lenkes hit med .dw-level-tag-merket
 ```
+
+`grammatikk/dativ/` (🧭 Der Dativ-Kompass) er det første ferdigbygde temaet på
+9.–10. trinn-nivået — se «Om 9.–10. trinn-nivået» lenger ned.
 
 Hver seksjon ligger i sin egen mappe med en `index.html`, slik at adressen
 blir ren og kort (f.eks. `.../staedte/berlin/` i stedet for
@@ -143,10 +153,11 @@ undersider (som `staedte/`, `geschichte/`, `grammatikk/`, `lesen/`,
 har), får den en egen `index.html` som viser et lite kortgalleri med lenker
 videre — akkurat som forsiden, bare smalere.
 
-**Om toppnavigasjonen:** den har fortsatt 13 punkter (🏠 Forside ·
+**Om toppnavigasjonen:** den har nå 14 punkter (🏠 Forside ·
 🧩 Grammatik · 🏙️ Städte · 🕰️ Geschichte · 📖 Lesen · 🎧 Hören · ✍️ Schreiben ·
 🗺️ Reise · 🏆 Challenges · 🎬 Filme & Serien · 🎩 Normen & Regeln ·
-📱 Deutsch im echten Leben · 🗣️ Sprechen) og bruker `flex-wrap` i
+📱 Deutsch im echten Leben · 🗣️ Sprechen · 🎓 9.–10. trinn — sistnevnte er ny,
+se «Om 9.–10. trinn-nivået» lenger ned) og bruker `flex-wrap` i
 `assets/style.css`, så den bryter fint til to-tre linjer på smale skjermer.
 Punktet som pekte rett til `sprechen/cafe/` (☕ Café) peker nå til
 `sprechen/` (🗣️ Sprechen) i stedet, siden `sprechen/` gikk fra én side til
@@ -401,6 +412,35 @@ feil for akkurat det temaet:
      eksisterende nøkler (dobbeltsjekket bl.a. at «mein tag» ikke krysser
      «tagebuch»-nøkkelet fra Reisetagebuch).
 
+**Om 9.–10. trinn-nivået (`fortgeschritten/`):** Teach spurte hvordan
+nettstedet mest sømløst kunne differensiere for høyere nivå (9./10. trinn,
+A2/B1) uten å bygge et helt parallelt nettsted. Claude la fram en hybrid-
+løsning og avklarte to arkitekturvalg med AskUserQuestion før bygging: (1)
+samlingspunktet skulle være et eget punkt i toppmenyen (🎓 9.–10. trinn),
+ikke bare en seksjon på forsiden eller noe som utsettes — Teach valgte
+toppmeny; (2) merket på kortene skulle si «9.–10. trinn» (trinnbasert),
+ikke CEFR-nivå «A2/B1» eller begge deler — Teach valgte trinnbasert.
+Prinsippet: **selve innholdet bor i sin naturlige hjemme-hub** (pedagogisk
+sømløst — eleven ser progresjonen i sammenheng, f.eks. Dativ rett etter
+Akkusativ i `grammatikk/`), **men lenkes i tillegg samlet** i
+`fortgeschritten/index.html`, en «hub av huber» merket med den nye
+`.dw-level-tag`-CSS-klassen (definert i `assets/style.css`, blå kapsel —
+brukes både som en liten merkelapp på kort og inline i brødsmulestien).
+Piloten for hele mønsteret er **Der Dativ-Kompass**
+(`grammatikk/dativ/`), bygget med nøyaktig samme spillmotor som
+Nominativ/Akkusativ, men med tre svaralternativer i stedet for to — «den»
+er tatt med som en bevisst distraktor, siden Akkusativ/Dativ-forveksling
+(den vs. dem) er en kjent fallgruve når elever lærer Dativ rett etter
+Akkusativ. `fortgeschritten/index.html` har foreløpig ett bygget kort
+(Dativ) og tre `dw-soon`-plassholdere som viser veien videre
+(Wechselpräpositionen, Perfekt — haben oder sein?, Nebensätze: weil &
+dass) — samme «kommer snart»-mønster som resten av nettstedet bruker for
+planlagt, ikke-bygget innhold. Søkeindeksen i `index.html` fikk to nye
+oppføringer: én spesifikk for Dativ (plassert før den generiske
+«grammatikk»-fangsten) og én generisk for selve 9.–10. trinn-huben
+(nøkler som «fortgeschritten», «avansert», «a2 b1») — begge uten
+kollisjoner med eksisterende nøkler ved full gjennomgang.
+
 ## Slik legger du til en ny seksjon
 
 1. **Kopier den mappen som ligner mest** på det du skal lage:
@@ -411,8 +451,11 @@ feil for akkurat det temaet:
      tilknytning), ikke oppdiktede. Sjekk også om byen bruker euro eller en
      annen valuta (Zürich bruker CHF, se `dwCurrency`-mønsteret der).
    - Et nytt grammatikktema med samme spillmotor som Nominativ/Akkusativ/
-     Verben (ett spørsmål, ett svar) → kopier `grammatikk/akkusativ/` til
-     f.eks. `grammatikk/dativ/`.
+     Dativ/Verben (ett spørsmål, ett svar) → kopier `grammatikk/dativ/` til
+     f.eks. `grammatikk/genitiv/`. Hører temaet naturlig til 9.–10. trinn
+     (A2/B1) → legg `.dw-level-tag`-merket på kortet i `grammatikk/index.html`
+     og lenk siden inn fra `fortgeschritten/index.html` også — se «Om
+     9.–10. trinn-nivået» lenger ned.
    - Et nytt "analyser hele setningen"-tema (samme motor som
      Satz-Detektiv, der flere ledd i én setning skal kategoriseres etter
      hverandre) → kopier `grammatikk/satzanalyse/` og bytt ut `dwSentences`.
@@ -477,7 +520,8 @@ feil for akkurat det temaet:
      fraser). Se `schreiben/wo-ist-was/` for hvordan en kompakt
      referansetabell (`.dw-table`) kan legges til når temaet trenger det
      (der ble den brukt som en lettvekts erstatning for en egen
-     Dativ-grammatikkside, som ikke er bygget ennå).
+     Dativ-grammatikkside, den gangen `grammatikk/dativ/` ikke var bygget
+     ennå — nå finnes den, se «Om 9.–10. trinn-nivået» lenger ned).
    - En ny reiseoppgave → kopier den av `reise/reiseplanlegger/`,
      `reise/koffer/` eller `reise/reisetagebuch/` som ligner mest, og bytt
      ut `dwCities`/`dwScenarios`+`dwItemPool`/`dwStarters` etter hvilken

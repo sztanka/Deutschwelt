@@ -64,3 +64,23 @@
   font-weight:700;
   color:var(--dw-accent, #e8a33d);
 }
+
+/* Merke for innhold på 9.-10. trinn-nivå (A2/B1) — på kort og i brødsmulesti */
+.dw-level-tag{
+  display:inline-block;
+  margin-left:6px;
+  padding:2px 10px;
+  font-size:.68rem;
+  font-weight:700;
+  letter-spacing:.02em;
+  color:#fff;
+  background:var(--dw-primary-light, #2c5382);
+  border-radius:999px;
+  vertical-align:middle;
+}
+.dw-card .dw-level-tag{
+  display:block;
+  margin-top:6px;
+  margin-left:0;
+  width:fit-content;
+}
