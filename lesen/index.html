@@ -29,7 +29,8 @@
   }
   .dw-header h1{margin:0 0 6px;font-size:1.8rem;}
   .dw-header p{margin:0;opacity:.95;}
-  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:26px;}
+  .dw-group-h{font-size:1.05rem;color:var(--dw-primary);margin:0 0 12px;}
   .dw-card{
     background:var(--dw-card);border-radius:var(--dw-radius);padding:22px;text-decoration:none;color:var(--dw-text);
     box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;
@@ -68,9 +69,10 @@
 
   <div class="dw-header">
     <h1>📖 Deutsch lesen</h1>
-    <p>Kurze Geschichten für Detektive — lies, denk nach und rate, was als Nächstes passiert</p>
+    <p>Kurze Geschichten für Detektive, blitzschnelle Flash Fiction und echte Literatur</p>
   </div>
 
+  <h2 class="dw-group-h">🔍 Lies wie ein Detektiv</h2>
   <div class="dw-grid">
     <a class="dw-card" href="ein-wochenende-in-berlin/">
       <span class="dw-icon">🧳</span>
@@ -82,11 +84,33 @@
       <h2>Wer hat den Kuchen gegessen?</h2>
       <p>Ein kleines Rätsel aus der Klasse 8b — finde die Hinweise!</p>
     </a>
-    <a class="dw-card dw-soon" href="#">
+    <a class="dw-card" href="der-verlorene-rucksack/">
       <span class="dw-icon">🎒</span>
       <h2>Der verlorene Rucksack</h2>
-      <p>Kommer snart</p>
-      <span class="dw-soon-tag">🔜 Kommer snart</span>
+      <p>Jonas' Rucksack ist nach dem Sport weg. Was ist passiert?</p>
+    </a>
+  </div>
+
+  <h2 class="dw-group-h">⚡ Flash Fiction — ganz kurze Geschichten</h2>
+  <div class="dw-grid">
+    <a class="dw-card" href="der-regenschirm/">
+      <span class="dw-icon">☂️</span>
+      <h2>Der Regenschirm</h2>
+      <p>Lisas Regenschirm verschwindet — mit einer kleinen Überraschung am Ende</p>
+    </a>
+    <a class="dw-card" href="die-sms/">
+      <span class="dw-icon">📱</span>
+      <h2>Die SMS</h2>
+      <p>Eine geheimnisvolle Nachricht auf Max' Handy — oder doch nicht so geheimnisvoll?</p>
+    </a>
+  </div>
+
+  <h2 class="dw-group-h">📜 Echte deutsche Literatur</h2>
+  <div class="dw-grid">
+    <a class="dw-card" href="kafka-parabeln/">
+      <span class="dw-icon">📜</span>
+      <h2>Zwei Parabeln von Franz Kafka</h2>
+      <p>Bonus: zwei ganz kurze, echte Texte eines berühmten Autors — mit norwegischer Übersetzung</p>
     </a>
   </div>
 

@@ -47,11 +47,19 @@ deutschwelt-site/
 │   └── berliner-mauer/
 │       └── index.html                → "Die Berliner Mauer" (tidslinje + lese/skrive/muntlig-opplegg)
 ├── lesen/
-│   ├── index.html                    → hub-side: velg lesetekst
+│   ├── index.html                    → hub-side: velg lesetekst (tre grupper: detektiv, flash fiction, ekte litteratur)
 │   ├── ein-wochenende-in-berlin/
 │   │   └── index.html                → leseforståelse: Lukas' helg i Berlin
-│   └── wer-hat-den-kuchen-gegessen/
-│       └── index.html                → leseforståelse: mysterium i klasse 8b
+│   ├── wer-hat-den-kuchen-gegessen/
+│   │   └── index.html                → leseforståelse: mysterium i klasse 8b
+│   ├── der-verlorene-rucksack/
+│   │   └── index.html                → leseforståelse: mysterium i garderoben (klasse 8a)
+│   ├── der-regenschirm/
+│   │   └── index.html                → original flash fiction, selvskrevet — med twist-refleksjon
+│   ├── die-sms/
+│   │   └── index.html                → original flash fiction, selvskrevet — med twist-refleksjon
+│   └── kafka-parabeln/
+│       └── index.html                → bonus: to ekte, gemeinfrie tekster av Franz Kafka + norsk oversettelse
 ├── hoeren/
 │   ├── index.html                    → hub-side: velg lyttevideo
 │   ├── nicos-weg-hallo/
@@ -314,6 +322,38 @@ fra før i Reise-seksjonens generiske oppføring (fra før Zürich hadde egen
 side) og pekte dermed feil — de er nå fjernet derfra siden Zürich har sin
 egen dedikerte side.
 
+**Om Lesen-utvidelsen (flash fiction + ekte litteratur):** Teach ba om at
+`lesen/` skulle utvides, og åpnet selv for to muligheter: ekte, autentiske
+flash fiction-tekster hvis mulig, ellers selvskrevne. Løsningen ble begge
+deler. `lesen/` gikk fra 2 til 6 tekster og fikk en ny hub-inndeling i tre
+grupper: **🔍 Lies wie ein Detektiv** (nå tre mysterier — den planlagte
+«Der verlorene Rucksack»-plassholderen ble bygget ut, med samme
+Wer/Wo/Wann/Was passiert-mal som «Wer hat den Kuchen gegessen?», denne
+gangen om en forbyttet ryggsekk i garderoben — ingen tyveri, bare en
+uskyldig forveksling, bevisst valgt for å holde tonen aldersriktig),
+**⚡ Flash Fiction** (to helt nye, selvskrevne A1-tekster, «Der
+Regenschirm» og «Die SMS», begge med en liten overraskelse på slutten og
+en egen refleksjonsboks «🎭 Was ist der Twist?» der eleven velger hvilken
+forklaring som stemmer) og **📜 Echte deutsche Literatur** (en
+bonusside med to ekte, ordrette tekster av Franz Kafka — «Kleine Fabel»
+og «Gibs auf!»). Ekte litteratur på ekte A1-nivå finnes strengt tatt ikke
+(selv Kafkas aller korteste tekster bruker mer avansert grammatikk og
+ordforråd enn 8. trinn har lært), så disse to ble valgt fordi de er
+ekstremt korte, svært kjente og trygt gemeinfrie: Kafka døde 1924, og
+etter 70-års-regelen i Tyskland/EU falt verkene hans i det fri 1. januar
+1995. Siden er derfor bevisst bygget som en frivillig «smak på ekte
+tekst»-opplevelse, ikke en vanlig øvingsside: en tydelig innledningsboks
+sier rett ut at eleven ikke vil forstå hvert ord, og at målet er
+hovedideen, ikke ordrett oversettelse. Hver tekst har en skjult norsk
+oversettelse (`.dw-translation`/`dwToggle()`, vis/skjul-knapp) som er
+tydelig merket som en uoffisiell oversettelse laget for nettstedet, ikke
+en offisiell utgivelse. Søkeindeksen fikk 4 nye spesifikke oppføringer
+(én per ny side, plassert før den generiske «lesen»-fangsten, samme
+rekkefølgesprinsipp som i Städte/Geschichte-rundene) — nøkkelordet «sms»
+alene ble bevisst UNNGÅTT for den nye siden (siden det allerede peker til
+`schreiben/`), til fordel for mer spesifikke ord som «zahlendreher» og
+«geheimnisvolle nachricht».
+
 ## Slik legger du til en ny seksjon
 
 1. **Kopier den mappen som ligner mest** på det du skal lage:
@@ -339,8 +379,19 @@ egen dedikerte side.
      (som Holocaust) bør omtales faktabasert og kortfattet, slik det gjøres
      i norske lærebøker — se merknaden øverst i
      `geschichte/zweiter-weltkrieg/index.html`.
-   - En ny lesetekst → kopier `lesen/wer-hat-den-kuchen-gegessen/` til
-     f.eks. `lesen/der-verlorene-rucksack/`.
+   - En ny detektiv-mysterie-lesetekst → kopier
+     `lesen/wer-hat-den-kuchen-gegessen/` eller `lesen/der-verlorene-rucksack/`
+     til f.eks. `lesen/den-hemmelige-dagbok/`.
+   - En ny flash fiction-tekst (kort historie, egen dikting, med "Was ist
+     der Twist?"-refleksjon) → kopier `lesen/der-regenschirm/` eller
+     `lesen/die-sms/`. Hold teksten på ekte A1-nivå (Präsens/Perfekt, korte
+     setninger, kjent ordforråd) — se merknaden øverst i filen.
+   - En ny "ekte litteratur"-bonustekst (offentlig eiendom / gemeinfri
+     tekst av en kjent forfatter) → kopier `lesen/kafka-parabeln/`-mønsteret
+     (original tysk tekst + skjult norsk oversettelse du kan vise/skjule +
+     gloseliste + hovedidé-spørsmål). Sjekk ALLTID opphavsrett først —
+     tommelfingerregel i Tyskland/EU: 70 år etter forfatterens dødsår. Ikke
+     bruk moderne, fortsatt opphavsrettsbeskyttede tekster.
    - En ny lyttevideo (f.eks. Nicos Weg Folge 6) → kopier
      `hoeren/nicos-weg-ich-heisse-emma/` til f.eks. `hoeren/nicos-weg-folge-6/`,
      og bytt video-ID-en i `<iframe src="https://www.youtube-nocookie.com/embed/…">`
