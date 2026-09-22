@@ -24,8 +24,10 @@ deutschwelt-site/
 │   │   └── index.html                → "Verb-Werkstatt": presens av regelrette verb
 │   ├── verben-unregelmaessig/
 │   │   └── index.html                → "Verb-Werkstatt": presens av sein, haben m.fl.
-│   └── satzanalyse/
-│       └── index.html                → "Der Satz-Detektiv": finn Subjekt/Verb/Objekt/Adverbial
+│   ├── satzanalyse/
+│   │   └── index.html                → "Der Satz-Detektiv": finn Subjekt/Verb/Objekt/Adverbial
+│   └── wortschatz-woche/
+│       └── index.html                → "Wortschatz der Woche": 498 høyfrekvente ord fordelt på 50 uker (10/uke), ordliste + dynamisk quiz — samme ukesdata som forsidens rulletekst
 ├── staedte/
 │   ├── index.html                    → hub-side: velg by (7 kort)
 │   ├── berlin/
@@ -473,6 +475,63 @@ Søkeindeksen fikk én ny oppføring (plassert før den generiske
 «nominativ»-fangsten, siden dette temaet logisk kommer aller først), uten
 kollisjoner ved full gjennomgang.
 
+**Om Wortschatz der Woche (500 høyfrekvente ord, ukentlig rulletekst):**
+Teach lastet opp en docx med 500 høyfrekvente tyske ord og spurte om ordene
+kunne deles opp i f.eks. 10 i uken, blandet i forhold til bokstavrekkefølge
+(ikke slik dokumentet selv var ordnet), og om ordene kunne vises som en
+rulletekst på forsiden og/eller som en egen del i huben. Claude stilte tre
+avklaringsspørsmål (AskUserQuestion) før bygging: (1) plassering — kun
+rulletekst, kun egen side, eller begge deler — Teach valgte begge deler; (2)
+hvordan uken skal styres — automatisk etter dagens dato, eller et manuelt
+valg — Teach valgte automatisk; (3) hva den egne siden skal inneholde — ren
+ordliste, eller ordliste + øvingsspill — Teach valgte begge deler.
+Docx-filen viste seg å inneholde noen få duplikater og uklarheter ved
+nærmere uttrekking (bl.a. et par ord som "Leben"/"leben" og "Weg"/"weg" som
+kun skiller seg på store/små bokstaver og betyr helt forskjellige ting —
+substantiv vs. verb/adverb), så ordene ble hentet ut ord-for-ord fra
+docx-ens 50 «10 ord per side»-tabeller (ikke fra dokumentets egen
+oppsummeringstabell til slutt, som viste seg å mangle noen få ord) og
+kvalitetssjekket for duplikater med store/små bokstaver bevart. Resultatet
+er **498 unike ord** (ærlig oppgitt som 498, ikke avrundet til 500) —
+Uke 50 har derfor 9 ord i stedet for 10. Ordene ble deretter sortert
+alfabetisk (med riktig tysk sortering: ä/ö/ü/ß behandlet som a/o/u/ss) og
+fordelt på 50 uker med et «hvert 50.-ord»-mønster (ord nr. 0, 50, 100, …
+havner alle i uke 1, ord nr. 1, 51, 101, … i uke 2, osv.) — dette sprer
+hver ukes 10 ord jevnt utover HELE alfabetet i stedet for å klumpe dem
+sammen etter forbokstav, akkurat slik Teach ba om. Fordelingen er bevisst
+deterministisk (ikke tilfeldig hver gang) slik at «Uke 12» alltid viser de
+samme ordene, uansett når eller på hvilken enhet man besøker siden.
+**Hvilken uke som vises bestemmes automatisk av dagens dato**
+(`dwCurrentWeek()`): mandag 21. september 2026 er satt som Uke 1, og
+telleren går videre én uke for hver mandag som passerer — etter Uke 50
+starter den automatisk på Uke 1 igjen, slik at funksjonen aldri "går tom".
+**Forsidens rulletekst** (`.dw-ticker`, ren CSS-animasjon med
+`@keyframes`, pause on hover) viser ukens 10 ord i en løkke rett under
+søkefeltet på `index.html`, med en lenke videre til hele oversikten.
+**Den egne siden** (`grammatikk/wortschatz-woche/`) har en fargekodet
+ordklasse-forklaring (substantiv/verb/adjektiv/adverb/preposisjon/
+konjunksjon/pronomen/artikkel/tall/interjeksjon), en ukevelger (50 valg,
+med antall ord per uke) og en "Gå til denne uken"-knapp, en ordliste for
+valgt uke, og et øvingsspill som bygges dynamisk for akkurat den uken som
+er valgt. Dette er et nytt spillmønster: i stedet for hånd-skrevne
+svaralternativer per spørsmål (som alle tidligere spill på nettstedet
+bruker), trekkes de to feilalternativene tilfeldig fra HELE 498-ords-poolen
+for hvert spørsmål (`dwBuildQuiz()`), siden en fast alternativ-liste ikke
+gir mening når hvilke 10 ord som spørres om endrer seg med uken/datoen.
+Fordi det ikke finnes noen delt/ekstern JS-fil på nettstedet (se prinsippet
+under «Design»), er hele 498-ords-datasettet (`dwWeeks`) bevisst lagt inn
+BÅDE i `index.html` (for rulleteksten) og i
+`grammatikk/wortschatz-woche/index.html` (for hele siden) — samme
+duplisering som resten av nettstedet allerede gjør konsekvent for hver
+enkelt sides egne data. Søkeindeksen fikk én ny oppføring — nøkkelordet
+"wortschatz" (og "wortschatz-woche") ble bevisst UNNGÅTT, siden det tysk
+sammensatte ordet skjuler substrengen "chat" (i "wort**schat**z"), som
+allerede er en søkenøkkel for `schreiben/sms-chat/`. Nøklene ble i stedet
+satt til «500 ord», «høyfrekvente ord», «ukens ord», «ordforråd» og «ord i
+uken» — samme type substreng-kollisjon som ble oppdaget og rettet i
+Schreiben-runden (der «beschreiben» skjulte «schreib»), nå bekreftet som et
+gjentakende mønster å være obs på for sammensatte tyske ord generelt.
+
 ## Slik legger du til en ny seksjon
 
 1. **Kopier den mappen som ligner mest** på det du skal lage:
@@ -496,6 +555,14 @@ kollisjoner ved full gjennomgang.
      se kommentaren øverst i filen for detaljer. Referanseseksjonene
      (`.dw-rule`/`.dw-section`) øverst på siden kan gjenbrukes for enhver
      side som trenger regler/tabeller før selve øvingsspillet.
+   - En ny ukentlig ordforråds-/rulletekst-type funksjon (data delt mellom
+     forsiden og en egen side, gruppert i "uker" eller lignende perioder) →
+     se `grammatikk/wortschatz-woche/` og ticker-koden i `index.html`
+     (`.dw-ticker`/`dwBuildTicker()`) for mønsteret: samme datasett
+     (`dwWeeks`) duplisert i begge filer, en dato-basert
+     `dwCurrentWeek()`-funksjon, og dynamisk quiz-bygging
+     (`dwBuildQuiz()`) som trekker feilalternativer tilfeldig fra hele
+     ordpoolen i stedet for faste `choices`-arrays.
    - Et nytt "analyser hele setningen"-tema (samme motor som
      Satz-Detektiv, der flere ledd i én setning skal kategoriseres etter
      hverandre) → kopier `grammatikk/satzanalyse/` og bytt ut `dwSentences`.

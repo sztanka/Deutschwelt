@@ -1,21 +1,42 @@
 <!DOCTYPE html>
 <!--
-  DEUTSCHWELT — Forside
-  Del av det statiske Deutschwelt-nettstedet. Se README.md i rotmappen
-  for hvordan du legger til flere sider/seksjoner etter samme mønster.
+  DEUTSCHWELT — "Wortschatz der Woche": 498 høyfrekvente tyske ord,
+  delt inn i 50 uker à ca. 10 ord. Bygget fra Teachs opplastede docx
+  (500_høyfrekvente_tyske_ord). Kildelisten hadde noen duplikater/avvik
+  fra "500" — se README.md for hvordan tallet 498 ble kvalitetssikret.
+
+  Ordene er IKKE delt inn alfabetisk uke for uke (det ville gitt "kun
+  A-ord i uke 1, kun Ö/Z-ord i uke 50") — i stedet er hele den
+  alfabetiske 498-ordslisten "vevd" på tvers, slik at hver uke får ord
+  spredt jevnt fra hele alfabetet: ord med alfabetisk indeks j havner i
+  uke (j % 50) + 1. Se README.md for detaljer om metoden.
+
+  Samme dwWeeks-datasett er duplisert i forsidens rulletekst (index.html)
+  — helt bevisst, siden nettstedet ikke har noen delt/ekstern JS-fil
+  (hver side er selvstendig, se README.md).
+
+  Ukenummer regnes automatisk ut fra dagens dato (dwCurrentWeek()), med
+  fast startdato mandag 21. september 2026 = Uke 1, og går i loop
+  tilbake til Uke 1 etter Uke 50. Elev/lærer kan uansett bla fritt til
+  hvilken som helst uke med nedtrekksmenyen.
+
+  Øvingsspillet bygger flervalgsspørsmål dynamisk (dwBuildQuiz) — riktig
+  norsk oversettelse + to tilfeldige feilsvar hentet fra resten av
+  498-ordslisten (dwAllWords), forskjellig for hver uke og hver omgang.
 -->
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Deutschwelt</title>
-<link rel="stylesheet" href="assets/style.css">
+<title>Wortschatz der Woche · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
 <style>
   :root{
     --dw-primary:#1e3a5f;
     --dw-primary-light:#2c5382;
     --dw-accent:#e8a33d;
-    --dw-danger:#c62828;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
     --dw-bg:#f7f5f0;
     --dw-card:#ffffff;
     --dw-text:#232323;
@@ -29,325 +50,217 @@
     background:var(--dw-bg);
     color:var(--dw-text);
   }
-  .dw-wrap{max-width:1000px;margin:0 auto;padding:0 16px 60px;}
+  .dw-wrap{max-width:780px;margin:0 auto;padding:0 16px 50px;}
   .dw-header{
     background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
     color:#fff;
     border-radius:var(--dw-radius);
-    padding:36px 28px;
+    padding:24px 22px;
     text-align:center;
-    margin-bottom:28px;
+    margin-bottom:20px;
   }
-  .dw-header h1{
-    margin:0 0 6px;
-    font-size:clamp(1.6rem,4vw,2.4rem);
-    letter-spacing:.5px;
-  }
-  .dw-header p.dw-sub{
-    margin:0;
-    font-size:1.1rem;
-    opacity:.95;
-  }
-  .dw-header p.dw-no{
-    margin:14px 0 0;
-    font-size:.95rem;
-    color:var(--dw-accent);
-    font-weight:600;
-  }
-  .dw-search{
-    display:flex;
-    gap:8px;
-    max-width:520px;
-    margin:20px auto 0;
-    background:rgba(255,255,255,.12);
-    border:1px solid rgba(255,255,255,.35);
-    border-radius:999px;
-    padding:6px 6px 6px 18px;
-  }
-  .dw-search input{
-    flex:1;
-    border:none;
-    background:transparent;
-    outline:none;
-    color:#fff;
-    font-size:1rem;
-    padding:8px 0;
-  }
-  .dw-search input::placeholder{color:rgba(255,255,255,.75);}
-  .dw-search button{
-    border:none;
-    background:var(--dw-accent);
-    color:#1a1a1a;
-    font-weight:700;
-    padding:8px 18px;
-    border-radius:999px;
-    cursor:pointer;
-    font-size:.95rem;
-  }
-  .dw-search button:hover{filter:brightness(1.05);}
-  #dw-search-result{
-    max-width:520px;
-    margin:10px auto 0;
-    text-align:center;
-    font-size:.9rem;
-    color:#fff;
-    min-height:1.2em;
-  }
-  #dw-search-result a{color:var(--dw-accent);font-weight:700;}
+  .dw-header h1{margin:0 0 4px;font-size:1.5rem;}
+  .dw-header p{margin:0;opacity:.95;font-size:.95rem;}
 
-  .dw-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-    gap:16px;
-  }
-  .dw-card{
-    background:var(--dw-card);
-    border-radius:var(--dw-radius);
-    padding:20px;
-    text-decoration:none;
-    color:var(--dw-text);
-    box-shadow:0 2px 8px rgba(0,0,0,.06);
-    border:1px solid #ece8df;
-    transition:transform .15s ease, box-shadow .15s ease;
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-  }
-  .dw-card:hover{
-    transform:translateY(-4px);
-    box-shadow:0 10px 20px rgba(30,58,95,.14);
-    border-color:var(--dw-accent);
-  }
-  .dw-card .dw-icon{font-size:2.1rem;line-height:1;}
-  .dw-card h2{
-    margin:4px 0 0;
-    font-size:1.05rem;
-    color:var(--dw-primary);
-  }
-  .dw-card p{
-    margin:0;
-    font-size:.88rem;
-    color:var(--dw-muted);
-  }
-  .dw-footer{
-    text-align:center;
-    margin-top:36px;
+  .dw-crumb{
     font-size:.85rem;
-    color:var(--dw-muted);
+    margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
   }
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
 
-  .dw-ticker{
-    background:var(--dw-card);border-radius:var(--dw-radius);padding:14px 18px;margin-bottom:24px;
-    border:1px solid #ece8df;box-shadow:0 2px 8px rgba(0,0,0,.06);
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:20px 22px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
   }
-  .dw-ticker-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;}
-  .dw-ticker-title{font-weight:700;color:var(--dw-primary);font-size:.92rem;}
-  .dw-ticker-title b{color:var(--dw-accent);}
-  .dw-ticker-link{color:var(--dw-accent);font-weight:700;text-decoration:none;font-size:.85rem;white-space:nowrap;}
-  .dw-ticker-link:hover{text-decoration:underline;}
-  .dw-ticker-viewport{overflow:hidden;position:relative;-webkit-mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent);}
-  .dw-ticker-track{display:flex;gap:28px;white-space:nowrap;width:max-content;animation:dw-scroll 34s linear infinite;}
-  .dw-ticker-viewport:hover .dw-ticker-track{animation-play-state:paused;}
-  .dw-ticker-item{display:inline-flex;align-items:baseline;gap:6px;font-size:.9rem;}
-  .dw-ticker-item b{color:var(--dw-primary);}
-  .dw-ticker-item span{color:var(--dw-muted);}
-  @keyframes dw-scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.1rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 8px;line-height:1.55;font-size:.92rem;}
+
+  .dw-legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+  .dw-chip{
+    display:inline-block;padding:3px 10px;border-radius:999px;font-size:.76rem;font-weight:700;
+  }
+  .dw-kl-Substantiv{background:#e3ecf7;color:#1e3a5f;}
+  .dw-kl-Verb{background:#fdecd2;color:#8a5a12;}
+  .dw-kl-Adjektiv{background:#e2f3e4;color:#2e7d32;}
+  .dw-kl-Adverb{background:#eae2f7;color:#5b3a8e;}
+  .dw-kl-Preposisjon{background:#fde2e2;color:#a33a3a;}
+  .dw-kl-Konjunksjon{background:#e2f7f3;color:#197a68;}
+  .dw-kl-Pronomen{background:#f7e2ef;color:#9c3a75;}
+  .dw-kl-Artikkel{background:#f0ece2;color:#6b4a2a;}
+  .dw-kl-Tall{background:#fff3d6;color:#9c6b12;}
+  .dw-kl-Interjeksjon{background:#f2e2f7;color:#7a3a9c;}
+
+  .dw-week-bar{
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;
+  }
+  .dw-week-bar select{
+    padding:9px 14px;border-radius:999px;border:2px solid var(--dw-primary);
+    font-size:.95rem;font-weight:700;color:var(--dw-primary);background:#fff;cursor:pointer;
+  }
+  .dw-week-now{
+    font-size:.82rem;color:var(--dw-muted);
+  }
+  .dw-week-now b{color:var(--dw-accent);}
+  .dw-jump-btn{
+    background:none;border:1px solid var(--dw-accent);color:var(--dw-accent);
+    padding:6px 12px;border-radius:999px;font-size:.8rem;font-weight:700;cursor:pointer;
+  }
+  .dw-jump-btn:hover{background:var(--dw-accent);color:#1a1a1a;}
+
+  .dw-word-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px;}
+  .dw-word-row{
+    background:#f4f1e8;border-radius:10px;padding:10px 12px;
+    display:flex;flex-direction:column;gap:3px;
+  }
+  .dw-word-de{font-weight:700;color:var(--dw-primary);font-size:.98rem;}
+  .dw-word-no{font-size:.85rem;color:var(--dw-muted);}
+
+  .dw-progress-wrap{
+    background:#e4e0d5;border-radius:999px;height:10px;overflow:hidden;margin:16px 0 6px;
+  }
+  .dw-progress-bar{height:100%;background:var(--dw-accent);width:0%;transition:width .3s ease;}
+  .dw-meta{display:flex;justify-content:space-between;font-size:.82rem;color:var(--dw-muted);margin-bottom:16px;}
+
+  .dw-card{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:28px 24px;text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.07);border:1px solid #ece8df;
+  }
+  .dw-emoji{font-size:2.6rem;margin-bottom:4px;}
+  .dw-qkl{font-size:.76rem;font-weight:700;color:var(--dw-accent);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;}
+  .dw-sentence{font-size:1.3rem;font-weight:700;color:var(--dw-primary);margin:4px 0 20px;}
+
+  .dw-choices{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;}
+  .dw-choice{
+    flex:1 1 140px;max-width:220px;padding:14px 10px;font-size:.98rem;font-weight:700;
+    border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);
+    cursor:pointer;transition:all .15s ease;
+  }
+  .dw-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-choice:disabled{cursor:default;opacity:.6;}
+  .dw-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+
+  .dw-explain{
+    min-height:1.2em;font-size:.9rem;color:var(--dw-muted);background:#f4f1e8;border-radius:10px;
+    padding:10px 14px;margin:10px 0 16px;display:none;
+  }
+  .dw-explain.dw-show{display:block;}
+
+  .dw-next-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:12px 26px;border-radius:999px;
+    font-size:1rem;font-weight:600;cursor:pointer;display:none;
+  }
+  .dw-next-btn.dw-show{display:inline-block;}
+  .dw-next-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-result{display:none;text-align:center;}
+  .dw-result.dw-show{display:block;}
+  .dw-result h2{color:var(--dw-primary);}
+  .dw-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:8px 0;}
+  .dw-restart-btn{
+    background:var(--dw-accent);color:#1a1a1a;border:none;padding:12px 26px;border-radius:999px;
+    font-size:1rem;font-weight:700;cursor:pointer;
+  }
 </style>
 </head>
 <body>
 
 <div class="dw-nav-bar">
   <nav class="dw-nav">
-    <a class="dw-nav-logo" href="./">🇩🇪 Deutschwelt</a>
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
     <div class="dw-nav-links">
-      <a class="dw-nav-link dw-nav-active" href="./">🏠 Forside</a>
-      <a class="dw-nav-link" href="grammatikk/">🧩 Grammatik</a>
-      <a class="dw-nav-link" href="staedte/">🏙️ Städte</a>
-      <a class="dw-nav-link" href="geschichte/">🕰️ Geschichte</a>
-      <a class="dw-nav-link" href="lesen/">📖 Lesen</a>
-      <a class="dw-nav-link" href="hoeren/">🎧 Hören</a>
-      <a class="dw-nav-link" href="schreiben/">✍️ Schreiben</a>
-      <a class="dw-nav-link" href="reise/">🗺️ Reise</a>
-      <a class="dw-nav-link" href="challenges/">🏆 Challenges</a>
-      <a class="dw-nav-link" href="filme-serien/">🎬 Filme &amp; Serien</a>
-      <a class="dw-nav-link" href="normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
-      <a class="dw-nav-link" href="leben/">📱 Deutsch im echten Leben</a>
-      <a class="dw-nav-link" href="sprechen/">🗣️ Sprechen</a>
-      <a class="dw-nav-link" href="fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
     </div>
   </nav>
 </div>
 
 <div class="dw-wrap">
 
+  <p class="dw-crumb"><a href="../">🧩 Grammatik</a> → Wortschatz der Woche</p>
+
   <div class="dw-header">
-    <h1>🇩🇪 DEUTSCHWELT</h1>
-    <p class="dw-sub">Was möchtest du heute machen?</p>
-    <p class="dw-no">Velg et kort under og bli med inn i den tyske verdenen!</p>
-
-    <div class="dw-search">
-      <input type="text" id="dw-search-input" placeholder="Ich suche etwas … (skriv f.eks. Berlin, Café, Akkusativ)">
-      <button onclick="dwSearch()">Suchen</button>
-    </div>
-    <div id="dw-search-result"></div>
+    <h1>📅 Wortschatz der Woche</h1>
+    <p>498 høyfrekvente tyske ord, delt inn i 50 uker — nye ord hver uke</p>
   </div>
 
-  <div class="dw-ticker">
-    <div class="dw-ticker-head">
-      <span class="dw-ticker-title">📅 Wortschatz der Woche — <b>Uke <span id="dw-ticker-week">1</span></b></span>
-      <a class="dw-ticker-link" href="grammatikk/wortschatz-woche/">Alle 500 ord →</a>
-    </div>
-    <div class="dw-ticker-viewport">
-      <div class="dw-ticker-track" id="dw-ticker-track"></div>
+  <div class="dw-section">
+    <h2>🗂️ Slik fungerer det</h2>
+    <p>Ordene er hentet fra en liste over de mest brukte tyske ordene, delt inn i 50 uker à ca. 10 ord. Ordene i hver uke er bevisst hentet fra <strong>hele alfabetet</strong> — ikke bare A-ord i uke 1 og Z-ord i uke 50 — slik at hver uke gir variasjon i både ordklasse og vanskelighetsgrad. Siden regner automatisk ut hvilken uke det er akkurat nå, men du kan bla fritt til hvilken som helst uke.</p>
+    <div class="dw-legend">
+      <span class="dw-chip dw-kl-Substantiv">Substantiv</span>
+      <span class="dw-chip dw-kl-Verb">Verb</span>
+      <span class="dw-chip dw-kl-Adjektiv">Adjektiv</span>
+      <span class="dw-chip dw-kl-Adverb">Adverb</span>
+      <span class="dw-chip dw-kl-Preposisjon">Preposisjon</span>
+      <span class="dw-chip dw-kl-Konjunksjon">Konjunksjon</span>
+      <span class="dw-chip dw-kl-Pronomen">Pronomen</span>
+      <span class="dw-chip dw-kl-Artikkel">Artikkel</span>
+      <span class="dw-chip dw-kl-Tall">Tall</span>
+      <span class="dw-chip dw-kl-Interjeksjon">Interjeksjon</span>
     </div>
   </div>
 
-  <div class="dw-grid">
-    <a class="dw-card" href="reise/" id="card-reise">
-      <span class="dw-icon">🗺️</span>
-      <h2>Eine Reise machen</h2>
-      <p>Planlegg, pakk og skriv dagbok fra en reise til Berlin eller Wien</p>
-    </a>
-    <a class="dw-card" href="sprechen/" id="card-sprechen">
-      <span class="dw-icon">🗣️</span>
-      <h2>Deutsch sprechen</h2>
-      <p>Café, restaurant, butikk, hotell og taxi — velg en situasjon og snakk!</p>
-    </a>
-    <a class="dw-card" href="hoeren/" id="card-hoeren">
-      <span class="dw-icon">🎧</span>
-      <h2>Deutsch hören</h2>
-      <p>Se korte videoer og løs oppgaver før, under og etter</p>
-    </a>
-    <a class="dw-card" href="lesen/" id="card-lesen">
-      <span class="dw-icon">📖</span>
-      <h2>Deutsch lesen</h2>
-      <p>Mysterier for detektiver, blitzkorte flash fiction og ekte tekster av Franz Kafka</p>
-    </a>
-    <a class="dw-card" href="schreiben/" id="card-schreiben">
-      <span class="dw-icon">✍️</span>
-      <h2>Deutsch schreiben</h2>
-      <p>SMS-chatter, personbeskrivelser, presentasjoner og fem andre skriverammer med grammatikk-tips</p>
-    </a>
-    <a class="dw-card" href="grammatikk/" id="card-grammatikk">
-      <span class="dw-icon">🧩</span>
-      <h2>Grammatik trainieren</h2>
-      <p>Lær og øv grammatikk gjennom spill</p>
-    </a>
-    <a class="dw-card" href="staedte/" id="card-berlin">
-      <span class="dw-icon">🏙️</span>
-      <h2>Städte entdecken</h2>
-      <p>Utforsk 7 byer — Berlin, Wien, Zürich, Hamburg, München, Köln og Frankfurt</p>
-    </a>
-    <a class="dw-card" href="geschichte/" id="card-geschichte">
-      <span class="dw-icon">🕰️</span>
-      <h2>Geschichte</h2>
-      <p>Reis gjennom historien — Kaiserreich, verdenskrigen og Berlinmuren</p>
-    </a>
-    <a class="dw-card" href="filme-serien/" id="card-filme">
-      <span class="dw-icon">🎬</span>
-      <h2>Filme &amp; Serien</h2>
-      <p>10 filmer og 5 serier med trailere og korte beskrivelser</p>
-    </a>
-    <a class="dw-card" href="challenges/" id="card-challenges">
-      <span class="dw-icon">🏆</span>
-      <h2>Challenges</h2>
-      <p>Tilfeldige oppgaver, et memory-spill og en escape-room-gåte</p>
-    </a>
-    <a class="dw-card" href="normen/hoeflichkeit/" id="card-normen">
-      <span class="dw-icon">🎩</span>
-      <h2>Normen &amp; Regeln</h2>
-      <p>Høflighet i Tyskland: du eller Sie? Med illustrasjoner og grammatikkspill</p>
-    </a>
-    <a class="dw-card" href="leben/" id="card-leben">
-      <span class="dw-icon">📱</span>
-      <h2>Deutsch im echten Leben</h2>
-      <p>Slik snakker tyske ungdommer faktisk — chat, slang og skolehverdag</p>
-    </a>
-    <a class="dw-card" href="fortgeschritten/" id="card-fortgeschritten">
-      <span class="dw-icon">🎓</span>
-      <h2>9.–10. trinn</h2>
-      <p>Mer avansert tysk — nye grammatikk-temaer og oppgaver på A2/B1-nivå</p>
-    </a>
+  <div class="dw-section">
+    <div class="dw-week-bar">
+      <label for="dw-week-select"><strong id="dw-week-heading">Uke 1</strong></label>
+      <select id="dw-week-select" onchange="dwSelectWeek(this.value)"></select>
+      <button class="dw-jump-btn" onclick="dwJumpToCurrentWeek()">📍 Gå til denne uken</button>
+      <span class="dw-week-now">I dag er det <b id="dw-now-week-label">Uke 1</b></span>
+    </div>
+    <div class="dw-word-list" id="dw-word-list"></div>
   </div>
 
-  <p class="dw-footer">Deutschwelt · Deutsch entdecken. Deutsch erleben. Deutsch sprechen.</p>
+  <div class="dw-section">
+    <h2>🎮 Øv på ukens ord</h2>
+    <p>Flervalgsspørsmål bygget fra ordene i uken du har valgt over.</p>
+  </div>
+
+  <div class="dw-progress-wrap"><div class="dw-progress-bar" id="dw-bar"></div></div>
+  <div class="dw-meta">
+    <span id="dw-count">Oppgave 1 av 10</span>
+    <span id="dw-score-live">Poeng: 0</span>
+  </div>
+
+  <div class="dw-card" id="dw-game">
+    <div class="dw-emoji">🇩🇪</div>
+    <div class="dw-qkl" id="dw-qkl">Substantiv</div>
+    <div class="dw-sentence" id="dw-sentence">…</div>
+
+    <div class="dw-choices" id="dw-choices"></div>
+
+    <div class="dw-explain" id="dw-explain"></div>
+
+    <button class="dw-next-btn" id="dw-next" onclick="dwNext()">Weiter →</button>
+  </div>
+
+  <div class="dw-card dw-result" id="dw-result">
+    <h2>Geschafft! 🎉</h2>
+    <div class="dw-score" id="dw-final-score">0 / 10</div>
+    <p id="dw-final-msg"></p>
+    <button class="dw-restart-btn" onclick="dwRestart()">🔁 Nochmal spielen</button>
+  </div>
+
 </div>
 
 <script>
-  // Enkelt, "fuzzy nok" søk som peker eleven videre til riktig side.
-  var dwIndex = [
-    {keys:["berlin","hovedstad","hauptstadt","brandenburger"], target:"staedte/berlin/", label:"🏙️ Städte entdecken – Berlin", built:true},
-    {keys:["wien","österreich","mozart","kaffeehaus"], target:"staedte/wien/", label:"🎼 Städte entdecken – Wien", built:true},
-    {keys:["mauer","berliner mauer","ddr","kennedy","mauerfall","wiedervereinigung"], target:"geschichte/berliner-mauer/", label:"🧱 Geschichte – Die Berliner Mauer", built:true},
-    {keys:["café","cafe","kellner","bestellen"], target:"sprechen/cafe/", label:"☕ Sprechen – Im Café", built:true},
-    {keys:["substantiv-abc","genus","kjønn på substantiv","hankjønn hunkjønn intetkjønn","pluralis","flertall tysk","ubestemt artikkel"], target:"grammatikk/substantiv-abc/", label:"📚 Grammatik – Das Substantiv-ABC (Genus, Artikel & Plural)", built:true},
-    {keys:["nominativ","artikel","der die das","artikel-detektiv"], target:"grammatikk/nominativ/", label:"🕵️ Grammatik – Der Artikel-Detektiv (Nominativ)", built:true},
-    {keys:["akkusativ","akkusativ-jagd"], target:"grammatikk/akkusativ/", label:"🎯 Grammatik – Die Akkusativ-Jagd (Akkusativ)", built:true},
-    {keys:["dativ","dem dativ","dativ-kompass","zu dem","zu der","zum zur"], target:"grammatikk/dativ/", label:"🧭 Grammatik – Der Dativ-Kompass (Dativ)", built:true},
-    {keys:["uregelrett","uregelrette","unregelmäßig","sein","haben","fahren","essen"], target:"grammatikk/verben-unregelmaessig/", label:"🌀 Grammatik – Verben: uregelrette", built:true},
-    {keys:["verb","verben","konjugieren","konjugasjon","präsens","presens","regelmessig","spielen","lernen"], target:"grammatikk/verben-regelmaessig/", label:"⚙️ Grammatik – Verben: regelrette", built:true},
-    {keys:["grammatikk","grammatik"], target:"grammatikk/", label:"🧩 Grammatik trainieren", built:true},
-    {keys:["verlorene rucksack","rucksack","umkleide"], target:"lesen/der-verlorene-rucksack/", label:"🎒 Lesen – Der verlorene Rucksack", built:true},
-    {keys:["regenschirm"], target:"lesen/der-regenschirm/", label:"☂️ Lesen – Der Regenschirm", built:true},
-    {keys:["zahlendreher","falsche nummer","vertippte nummer"], target:"lesen/die-sms/", label:"📱 Lesen – Die SMS", built:true},
-    {keys:["kafka","kleine fabel","gibs auf","parabel","parabeln","echte literatur"], target:"lesen/kafka-parabeln/", label:"📜 Lesen – Zwei Parabeln von Franz Kafka", built:true},
-    {keys:["lesen","lukas","wochenende","kuchen","rätsel","detektiv","lese","flash fiction"], target:"lesen/", label:"📖 Deutsch lesen", built:true},
-    {keys:["taxi","taxifahrer","zum bahnhof bitte"], target:"sprechen/taxi/", label:"🚕 Sprechen – Im Taxi", built:true},
-    {keys:["tschüss","taxi tasche"], target:"hoeren/nicos-weg-tschuess/", label:"👋 Hören – Nicos Weg Folge 3: Tschüss!", built:true},
-    {keys:["von a bis z","buchstabieren","stave tysk"], target:"hoeren/nicos-weg-von-a-bis-z/", label:"🔤 Hören – Nicos Weg Folge 4: Von A bis Z", built:true},
-    {keys:["ich heiße emma","wie heißt du","vorstellen","tankstelle"], target:"hoeren/nicos-weg-ich-heisse-emma/", label:"🙋 Hören – Nicos Weg Folge 5: Ich heiße Emma", built:true},
-    {keys:["hallo","nico","emma","hören","höre","video","hilfe","kein problem"], target:"hoeren/", label:"🎧 Deutsch hören", built:true},
-    {keys:["personbeskrivelse","utseende und charakter","aussehen und charakter"], target:"schreiben/personenbeschreibung/", label:"🧑 Schreiben – Personenbeschreibung", built:true},
-    {keys:["präsentation","praesentation","presentasjon halten"], target:"schreiben/praesentation/", label:"🎤 Schreiben – Eine Präsentation halten", built:true},
-    {keys:["einen ort","sted beskrive","stadt oder ort"], target:"schreiben/ort-beschreiben/", label:"🏙️ Schreiben – Einen Ort beschreiben", built:true},
-    {keys:["mein tag","aufstehen fernsehen","tagesablauf"], target:"schreiben/mein-tag/", label:"⏰ Schreiben – Mein Tag", built:true},
-    {keys:["wo ist was","wechselpräpositionen","ortspräpositionen"], target:"schreiben/wo-ist-was/", label:"📍 Schreiben – Wo ist was?", built:true},
-    {keys:["sms","chat","schreiben","nachricht","wortkiste","würfel","schreib"], target:"schreiben/", label:"✍️ Deutsch schreiben", built:true},
-    {keys:["reiseplaner","reiseplanlegger","budsjett reise","transport reise"], target:"reise/reiseplanlegger/", label:"🧭 Reise – Der Reiseplaner", built:true},
-    {keys:["koffer","pakke","packen","wetter reise"], target:"reise/koffer/", label:"🧳 Reise – Packe deinen Koffer", built:true},
-    {keys:["reisetagebuch","dagbok","tagebuch"], target:"reise/reisetagebuch/", label:"📔 Reise – Reisetagebuch", built:true},
-    {keys:["reise","reisen","eine reise machen"], target:"reise/", label:"🗺️ Eine Reise machen", built:true},
-    {keys:["tägliche herausforderung","daglig utfordring","mini-oppgave"], target:"challenges/taegliche-herausforderung/", label:"🎯 Challenges – Tägliche Herausforderung", built:true},
-    {keys:["wortschatz-jagd","memory","ordjakt","matchespill"], target:"challenges/wortschatz-jagd/", label:"🧠 Challenges – Wortschatz-Jagd", built:true},
-    {keys:["escape-room","escape room","klassenraum","kode","gåte"], target:"challenges/escape-room/", label:"🔐 Challenges – Der verschlossene Klassenraum", built:true},
-    {keys:["challenge","challenges","utfordring"], target:"challenges/", label:"🏆 Challenges", built:true},
-    {keys:["filme","serien","film","serie","kino","netflix","trailer"], target:"filme-serien/", label:"🎬 Filme & Serien", built:true},
-    {keys:["die welle","welle"], target:"filme-serien/", label:"🎬 Filme & Serien – Die Welle", built:true},
-    {keys:["fack ju","göhte","goethe film"], target:"filme-serien/", label:"🎬 Filme & Serien – Fack ju Göhte", built:true},
-    {keys:["lola rennt","løp lola løp"], target:"filme-serien/", label:"🎬 Filme & Serien – Lola rennt", built:true},
-    {keys:["good bye lenin","lenin"], target:"filme-serien/", label:"🎬 Filme & Serien – Good Bye, Lenin!", built:true},
-    {keys:["druck","skam"], target:"filme-serien/", label:"🎬 Filme & Serien – Druck", built:true},
-    {keys:["dark netflix"], target:"filme-serien/", label:"🎬 Filme & Serien – Dark", built:true},
-    {keys:["bibi und tina","bibi & tina","bibi tina"], target:"filme-serien/", label:"🎬 Filme & Serien – Bibi & Tina", built:true},
-    {keys:["høflighet","hoflighet","du oder sie","anrede","normen und regeln","normen"], target:"normen/hoeflichkeit/", label:"🎩 Normen & Regeln – Höflichkeit", built:true},
-    {keys:["setningsanalyse","satzanalyse","subjekt","objekt"], target:"grammatikk/satzanalyse/", label:"🔍 Grammatik – Der Satz-Detektiv", built:true},
-    {keys:["das experiment","experiment","stanford"], target:"filme-serien/", label:"🎬 Filme & Serien – Das Experiment", built:true},
-    {keys:["alltagssprache","hverdagsspråk","was bedeutet das","schulbuch","umgangssprache"], target:"leben/alltagssprache/", label:"💬 Deutsch im echten Leben – Alltagssprache & Was bedeutet das?", built:true},
-    {keys:["social media","socialmedia","instagram","emoji","forkortelser i meldinger","skriv en kommentar"], target:"leben/chat/", label:"📱 Deutsch im echten Leben – Chat & Social Media", built:true},
-    {keys:["jugendwörter","jugendworte","ungdomsord","ungdomsspråk","slang tysk","digga"], target:"leben/jugendwoerter/", label:"🗣️ Deutsch im echten Leben – Jugendwörter", built:true},
-    {keys:["skolehverdag tyskland","skole i tyskland","zeugnis","stundenplan","schulsystem","karaktersystem tyskland"], target:"leben/schule/", label:"🧑‍🎓 Deutsch im echten Leben – Jugend & Schule", built:true},
-    {keys:["deutsch im echten leben","echtes leben","alltag deutsch","authentisch","autentisk tysk"], target:"leben/", label:"📱 Deutsch im echten Leben", built:true},
-    {keys:["restaurant","tisch reservieren","hauptgericht"], target:"sprechen/restaurant/", label:"🍽️ Sprechen – Im Restaurant", built:true},
-    {keys:["kleidungsgeschäft","klesbutikk","klær kjøpe","anprobieren","größe"], target:"sprechen/butikken/", label:"👕 Sprechen – Im Kleidungsgeschäft", built:true},
-    {keys:["hotell","hotel","rezeption","einzelzimmer","doppelzimmer"], target:"sprechen/hotell/", label:"🏨 Sprechen – An der Rezeption", built:true},
-    {keys:["sprechen","deutsch sprechen","snakke tysk","muntlig tysk"], target:"sprechen/", label:"🗣️ Deutsch sprechen", built:true},
-    {keys:["kaiserreich","deutsches kaiserreich","bismarck","wilhelm","reichsgründung"], target:"geschichte/kaiserreich/", label:"👑 Geschichte – Deutsches Kaiserreich", built:true},
-    {keys:["weltkrieg","zweiter weltkrieg","2. weltkrieg","hitler","besetzung norwegen","9 april 1940"], target:"geschichte/zweiter-weltkrieg/", label:"⚔️ Geschichte – Zweiter Weltkrieg", built:true},
-    {keys:["geschichte","historie"], target:"geschichte/", label:"🕰️ Geschichte", built:true},
-    {keys:["zürich","zurich","zürichsee","schweizer franken"], target:"staedte/zuerich/", label:"🏔️ Städte entdecken – Zürich", built:true},
-    {keys:["hamburg","elbphilharmonie","speicherstadt"], target:"staedte/hamburg/", label:"⚓ Städte entdecken – Hamburg", built:true},
-    {keys:["münchen","munich","oktoberfest","marienplatz"], target:"staedte/muenchen/", label:"🍺 Städte entdecken – München", built:true},
-    {keys:["köln","koeln","kölner dom","karneval"], target:"staedte/koeln/", label:"⛪ Städte entdecken – Köln", built:true},
-    {keys:["frankfurt","mainhattan","goethe-haus"], target:"staedte/frankfurt/", label:"🌆 Städte entdecken – Frankfurt", built:true},
-    {keys:["städte","staedte","byer","stadtportrait"], target:"staedte/", label:"🏙️ Städte entdecken", built:true},
-    {keys:["9. trinn","10. trinn","9.-10. trinn","fortgeschritten","avansert","avansert nivå","a2 b1","a2/b1"], target:"fortgeschritten/", label:"🎓 9.–10. trinn", built:true},
-    {keys:["500 ord","høyfrekvente ord","ukens ord","ordforråd","ord i uken"], target:"grammatikk/wortschatz-woche/", label:"📅 Grammatik – Wortschatz der Woche", built:true}
-  ];
-
-  // dwWeeks: samme 498-ords/50-ukers datasett som grammatikk/wortschatz-woche/
-  // (duplisert bevisst — se README.md for hvorfor). Brukes kun her til å
-  // vise ukens 10 ord i rulleteksten under; selve øvingssiden ligger på
-  // den egne siden.
+  // dwWeeks: 498 ord fordelt på 50 uker (uke 49–50 har 9 ord siden
+  // 498 ikke er delelig med 10). Ord med alfabetisk indeks j havner i
+  // uke (j % 50) + 1 — se kommentaren øverst i filen for metoden.
   var dwWeeks = [
     [{de:"ab",no:"av/fra",kl:"Preposisjon"}, {de:"braun",no:"brun",kl:"Adjektiv"}, {de:"er",no:"han",kl:"Pronomen"}, {de:"gefährlich",no:"farlig",kl:"Adjektiv"}, {de:"hinein",no:"inn",kl:"Adverb"}, {de:"legen",no:"legge",kl:"Verb"}, {de:"nehmen",no:"ta",kl:"Verb"}, {de:"schnell",no:"rask",kl:"Adjektiv"}, {de:"Straße (f)",no:"gate",kl:"Substantiv"}, {de:"was",no:"hva",kl:"Pronomen"}], // Uke 1
     [{de:"Abend (m)",no:"kveld",kl:"Substantiv"}, {de:"Brief (m)",no:"brev",kl:"Substantiv"}, {de:"Erde (f)",no:"jord",kl:"Substantiv"}, {de:"gegen",no:"(i)mot",kl:"Preposisjon"}, {de:"hinter",no:"bak",kl:"Preposisjon"}, {de:"Lehrer (m)",no:"lærer",kl:"Substantiv"}, {de:"nennen",no:"nevne",kl:"Verb"}, {de:"schon",no:"allerede",kl:"Adverb"}, {de:"Stück (n)",no:"stykke",kl:"Substantiv"}, {de:"waschen",no:"vaske",kl:"Verb"}], // Uke 2
@@ -401,6 +314,8 @@
     [{de:"brauchen",no:"bruke",kl:"Verb"}, {de:"endlich",no:"endelig",kl:"Adverb"}, {de:"Geburtstag (m)",no:"bursdag",kl:"Substantiv"}, {de:"hin",no:"bort",kl:"Adverb"}, {de:"Leben (n)",no:"livet",kl:"Substantiv"}, {de:"neben",no:"ved siden av",kl:"Preposisjon"}, {de:"Schnee (m)",no:"snø",kl:"Substantiv"}, {de:"stellen",no:"stille",kl:"Verb"}, {de:"warum",no:"hvorfor",kl:"Adverb"}] // Uke 50
   ];
 
+  var dwAllWords = dwWeeks.reduce(function(a,wk){ return a.concat(wk); }, []);
+
   function dwCurrentWeek(){
     var start = new Date(2026, 8, 21); // mandag 21. sept. 2026 = Uke 1
     var now = new Date();
@@ -412,37 +327,135 @@
     return (weeksElapsed % 50) + 1;
   }
 
-  function dwBuildTicker(){
-    var wk = dwCurrentWeek();
-    document.getElementById('dw-ticker-week').textContent = wk;
-    var list = dwWeeks[wk-1];
-    var itemsHtml = list.map(function(w){
-      return '<span class="dw-ticker-item"><b>'+w.de+'</b><span>— '+w.no+'</span></span>';
-    }).join('');
-    document.getElementById('dw-ticker-track').innerHTML = itemsHtml + itemsHtml;
+  var dwSelectedWeek = 1;
+  var dwQuizItems = [];
+  var dwOrder = [];
+  var dwIndex = 0;
+  var dwScore = 0;
+  var dwAnswered = false;
+
+  function dwShuffle(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
+    }
+    return a;
   }
 
-  function dwSearch(){
-    var q = document.getElementById('dw-search-input').value.trim().toLowerCase();
-    var out = document.getElementById('dw-search-result');
-    if(!q){ out.innerHTML = ""; return; }
-    var hit = dwIndex.find(function(item){
-      return item.keys.some(function(k){ return q.indexOf(k) !== -1 || k.indexOf(q) !== -1; });
+  function dwPopulateWeekSelect(){
+    var sel = document.getElementById('dw-week-select');
+    var html = '';
+    for(var w=1; w<=50; w++){
+      html += '<option value="'+w+'">Uke '+w+' ('+dwWeeks[w-1].length+' ord)</option>';
+    }
+    sel.innerHTML = html;
+  }
+
+  function dwSelectWeek(w){
+    dwSelectedWeek = parseInt(w, 10);
+    document.getElementById('dw-week-select').value = dwSelectedWeek;
+    document.getElementById('dw-week-heading').textContent = 'Uke ' + dwSelectedWeek;
+    var list = dwWeeks[dwSelectedWeek-1];
+    var html = '';
+    list.forEach(function(item){
+      html += '<div class="dw-word-row"><span class="dw-word-de">' + item.de + '</span>' +
+        '<span class="dw-word-no">' + item.no + ' <span class="dw-chip dw-kl-' + item.kl + '">' + item.kl + '</span></span></div>';
     });
-    if(hit && hit.built){
-      out.innerHTML = 'Vielleicht hier: <a href="'+hit.target+'">'+hit.label+'</a>';
-    } else if(hit && !hit.built){
-      out.textContent = hit.label + ' finnes i planen, men er ikke bygget ennå.';
+    document.getElementById('dw-word-list').innerHTML = html;
+    dwBuildQuiz(list);
+  }
+
+  function dwJumpToCurrentWeek(){
+    dwSelectWeek(dwCurrentWeek());
+  }
+
+  function dwBuildQuiz(weekWords){
+    dwQuizItems = weekWords.map(function(item){
+      var pool = dwAllWords.filter(function(w){ return w.no !== item.no; });
+      var wrongs = dwShuffle(pool).slice(0,2).map(function(w){ return w.no; });
+      var choices = dwShuffle([item.no, wrongs[0], wrongs[1]]);
+      return {de:item.de, no:item.no, kl:item.kl, choices:choices};
+    });
+    dwInit();
+  }
+
+  function dwInit(){
+    dwOrder = dwShuffle(dwQuizItems.map(function(_,i){return i;}));
+    dwIndex = 0; dwScore = 0;
+    document.getElementById('dw-result').classList.remove('dw-show');
+    document.getElementById('dw-game').style.display = '';
+    dwLoad();
+  }
+
+  function dwLoad(){
+    dwAnswered = false;
+    var it = dwQuizItems[dwOrder[dwIndex]];
+    document.getElementById('dw-qkl').textContent = it.kl;
+    document.getElementById('dw-sentence').textContent = it.de;
+
+    var choicesEl = document.getElementById('dw-choices');
+    choicesEl.innerHTML = '';
+    it.choices.forEach(function(c){
+      var btn = document.createElement('button');
+      btn.className = 'dw-choice';
+      btn.dataset.a = c;
+      btn.textContent = c;
+      btn.onclick = function(){ dwAnswer(c); };
+      choicesEl.appendChild(btn);
+    });
+
+    document.getElementById('dw-explain').classList.remove('dw-show');
+    document.getElementById('dw-next').classList.remove('dw-show');
+    document.getElementById('dw-count').textContent = 'Oppgave ' + (dwIndex+1) + ' av ' + dwQuizItems.length;
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-bar').style.width = Math.round((dwIndex/dwQuizItems.length)*100) + '%';
+  }
+
+  function dwAnswer(choice){
+    if(dwAnswered) return;
+    dwAnswered = true;
+    var it = dwQuizItems[dwOrder[dwIndex]];
+    var btns = document.querySelectorAll('.dw-choice');
+    btns.forEach(function(b){
+      b.disabled = true;
+      if(b.dataset.a === it.no) b.classList.add('dw-correct');
+      else if(b.dataset.a === choice) b.classList.add('dw-wrong');
+    });
+    document.getElementById('dw-explain').textContent = it.de + ' = ' + it.no;
+    document.getElementById('dw-explain').classList.add('dw-show');
+    if(choice === it.no) dwScore++;
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-next').classList.add('dw-show');
+  }
+
+  function dwNext(){
+    dwIndex++;
+    if(dwIndex >= dwQuizItems.length){
+      dwFinish();
     } else {
-      out.textContent = "Ingen direkte treff ennå — prøv et kort under, f.eks. 🧩 Grammatik.";
+      dwLoad();
     }
   }
 
-  document.getElementById('dw-search-input').addEventListener('keydown', function(e){
-    if(e.key === 'Enter'){ dwSearch(); }
-  });
+  function dwFinish(){
+    document.getElementById('dw-bar').style.width = '100%';
+    document.getElementById('dw-game').style.display = 'none';
+    document.getElementById('dw-result').classList.add('dw-show');
+    document.getElementById('dw-final-score').textContent = dwScore + ' / ' + dwQuizItems.length;
+    var msg;
+    if(dwScore === dwQuizItems.length) msg = "Perfekt! Du kan alle ordene i uke " + dwSelectedWeek + "! 🏅";
+    else if(dwScore >= dwQuizItems.length*0.7) msg = "Sehr gut! Bare noen få å øve litt mer på.";
+    else msg = "Guter Versuch! Se på ordlisten over en gang til, og prøv igjen.";
+    document.getElementById('dw-final-msg').textContent = msg;
+  }
 
-  dwBuildTicker();
+  function dwRestart(){ dwBuildQuiz(dwWeeks[dwSelectedWeek-1]); }
+
+  dwPopulateWeekSelect();
+  var dwNow = dwCurrentWeek();
+  document.getElementById('dw-now-week-label').textContent = 'Uke ' + dwNow;
+  dwSelectWeek(dwNow);
 </script>
 </body>
 </html>
