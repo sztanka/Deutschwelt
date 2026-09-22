@@ -12,6 +12,8 @@ deutschwelt-site/
 │   └── style.css                     → delt navigasjonsstil (brukes av alle sider)
 ├── grammatikk/
 │   ├── index.html                    → hub-side: velg grammatikktema
+│   ├── substantiv-abc/
+│   │   └── index.html                → "Das Substantiv-ABC": kjønn, artikkel i alle kasus (Nominativ/Akkusativ/Dativ) og pluralformer — referanse + blandet øvingsspill
 │   ├── nominativ/
 │   │   └── index.html                → "Der Artikel-Detektiv" (der/die/das)
 │   ├── akkusativ/
@@ -441,6 +443,36 @@ oppføringer: én spesifikk for Dativ (plassert før den generiske
 (nøkler som «fortgeschritten», «avansert», «a2 b1») — begge uten
 kollisjoner med eksisterende nøkler ved full gjennomgang.
 
+**Om Das Substantiv-ABC (kjønn, artikkel i alle kasus, plural):** Teach ba
+om en side som forklarer substantiv-kjønn, bestemt/ubestemt artikkel i
+Nominativ/Akkusativ/Dativ og pluralformer, gjerne med huskeregler og
+eksempler. Claude stilte to avklaringsspørsmål (AskUserQuestion) før
+bygging: (1) én samlet side eller to separate — Teach valgte én samlet
+side, siden temaene henger tett sammen; (2) ren oppslagsside eller med
+øvingsdel — Teach valgte forklaring + øvingsspill. Siden ligger derfor
+bevisst FØRST i Grammatik-huben (før Nominativ), siden dette er grunnlaget
+de andre grammatikkspillene bygger videre på — ikke merket 9.–10. trinn,
+selv om artikkel-tabellen også viser Dativ, fordi hoveddelen (kjønn,
+Nominativ/Akkusativ, plural) er kjernestoff for alle trinn. Siden har fire
+referanseseksjoner øverst (`.dw-rule`/`.dw-section`): en kort «hvorfor
+kjønn»-intro, en tre-kolonners huskeregel-oversikt for der/die/das (endelser
+som -ung/-heit/-keit → die, -chen/-lein → das ALLTID uansett betydning,
+-er for yrker → der, osv.), en tabell for bestemt artikkel i alle tre
+kasus, en tilsvarende for ubestemt artikkel, og en tabell over de fem
+vanligste pluralmønstrene (-e, -er, -(e)n, -s, ingen endelse — alle med
+notat om når Umlaut er vanlig). Selve øvingsspillet (`dwQuiz`, 18
+oppgaver) er en generalisert versjon av spillmotoren fra
+Nominativ/Akkusativ/Dativ: hvert element har en `type`
+(`genus`/`kasus`/`plural`) som styrer hvordan `dwLoad()` bygger setningen
+og svaralternativene, i stedet for én fast setningsmal. En liten gul
+`.dw-qtype`-etikett øverst i hver oppgave viser eleven hva som testes
+(Kjønn / Nominativ / Akkusativ / Dativ / Ubestemt · Nominativ / Pluralis).
+Dette generaliserte mønsteret (`dwQuiz` med `type`-felt) bør gjenbrukes
+hvis en fremtidig side trenger å blande flere spørsmålstyper i ett spill.
+Søkeindeksen fikk én ny oppføring (plassert før den generiske
+«nominativ»-fangsten, siden dette temaet logisk kommer aller først), uten
+kollisjoner ved full gjennomgang.
+
 ## Slik legger du til en ny seksjon
 
 1. **Kopier den mappen som ligner mest** på det du skal lage:
@@ -456,6 +488,14 @@ kollisjoner med eksisterende nøkler ved full gjennomgang.
      (A2/B1) → legg `.dw-level-tag`-merket på kortet i `grammatikk/index.html`
      og lenk siden inn fra `fortgeschritten/index.html` også — se «Om
      9.–10. trinn-nivået» lenger ned.
+   - Et grammatikktema som trenger å blande FLERE spørsmålstyper i ett
+     spill (som «Das Substantiv-ABC» blander kjønn/kasus/plural) → kopier
+     `grammatikk/substantiv-abc/` og bytt ut `dwQuiz`-poolen. Hvert element
+     har et `type`-felt (legg gjerne til en ny type om nødvendig) som
+     `dwLoad()` sjekker for å vite hvordan setningen/valgene skal bygges —
+     se kommentaren øverst i filen for detaljer. Referanseseksjonene
+     (`.dw-rule`/`.dw-section`) øverst på siden kan gjenbrukes for enhver
+     side som trenger regler/tabeller før selve øvingsspillet.
    - Et nytt "analyser hele setningen"-tema (samme motor som
      Satz-Detektiv, der flere ledd i én setning skal kategoriseres etter
      hverandre) → kopier `grammatikk/satzanalyse/` og bytt ut `dwSentences`.
