@@ -116,6 +116,8 @@ deutschwelt-site/
 │       └── index.html                → "Der verschlossene Klassenraum" — fire gåter gir en kode
 ├── filme-serien/
 │   └── index.html                    → "Filme & Serien" — 11 filmer + 5 serier med trailerlenker
+├── musik/
+│   └── index.html                    → "Musik" — 27 tyske sanger med innebygd YouTube-spiller
 ├── normen/
 │   └── hoeflichkeit/
 │       └── index.html                → "Höflichkeit in Deutschland" — du/Sie, illustrasjoner, grammatikkspill
@@ -161,11 +163,11 @@ undersider (som `staedte/`, `geschichte/`, `grammatikk/`, `lesen/`,
 har), får den en egen `index.html` som viser et lite kortgalleri med lenker
 videre — akkurat som forsiden, bare smalere.
 
-**Om toppnavigasjonen:** den har nå 14 punkter (🏠 Forside ·
+**Om toppnavigasjonen:** den har nå 15 punkter (🏠 Forside ·
 🧩 Grammatik · 🏙️ Städte · 🕰️ Geschichte · 📖 Lesen · 🎧 Hören · ✍️ Schreiben ·
-🗺️ Reise · 🏆 Challenges · 🎬 Filme & Serien · 🎩 Normen & Regeln ·
-📱 Deutsch im echten Leben · 🗣️ Sprechen · 🎓 9.–10. trinn — sistnevnte er ny,
-se «Om 9.–10. trinn-nivået» lenger ned) og bruker `flex-wrap` i
+🗺️ Reise · 🏆 Challenges · 🎬 Filme & Serien · 🎵 Musik · 🎩 Normen & Regler ·
+📱 Deutsch im echten Leben · 🗣️ Sprechen · 🎓 9.–10. trinn — 🎵 Musik er nyest,
+se «Om Musik-siden» lenger ned) og bruker `flex-wrap` i
 `assets/style.css`, så den bryter fint til to-tre linjer på smale skjermer.
 Punktet som pekte rett til `sprechen/cafe/` (☕ Café) peker nå til
 `sprechen/` (🗣️ Sprechen) i stedet, siden `sprechen/` gikk fra én side til
@@ -258,6 +260,55 @@ aldersanbefaling i stedet for å dikte opp et FSK-tall. Noen titler
 oppleves tyngre enn den offisielle aldersgrensen skulle tilsi — dette er
 ment som informasjon til lærer/foresatte, ikke en advarsel mot å vise
 listen til elevene.
+
+**Om Musik-siden:** Teach ba om en egen musikkdel etter samme mal som
+Filme & Serien, men med musikkvideoen bygget INN på siden (ikke bare en
+utgående lenke) og litt info om hver sang (utgivelsesår, sjanger, kort om
+hva den handler om). Teach ga en liste på 20 sanger med år/sjanger, og 7
+til uten. Claude avklarte tre valg med AskUserQuestion før bygging: (1) én
+delt "nå spilles"-spiller øverst + en klikkbar sangliste under (i stedet
+for 27 separate innebygde spillere samtidig, av hensyn til sidevekt) —
+Teach valgte den delte spilleren; (2) eget nytt toppnavigasjonspunkt
+🎵 Musik — Teach valgte det; (3) om Claude skulle undersøke hver sang og
+legge på en merknad ved behov — Teach valgte research + merknad.
+
+Alle 27 video-ID-ene ble verifisert (nettsøk mot YouTube, samme prinsipp
+som Filme & Serien — aldri gjett en video-ID). Ett årstall ble rettet:
+Sportfreunde Stiller-sangen Teach oppga med tittelen «'54, '74, '90, 2010»
+og året 2006 er faktisk to forskjellige innspillinger — en fra 2006 (til
+VM det året) og en nyinnspilling fra 2010 (til VM 2010) med akkurat den
+tittelen. Siden viser derfor 2010 med en synlig, ikke-alarmerende merknad
+om at 2006 ofte oppgis, samme mønster som brukes for «Crazy»-året på
+Filme & Serien-siden.
+
+Musikkteksten på flere av de nyere hiphop-/rap-sangene inneholder tyngre
+innhold (rusreferanser, kriminalitet/våpen, seksuelt ladet språk, og for
+én sang — Samy Deluxe, «Weck mich auf» — et tema om seksuelle overgrep mot
+barn). Da Claudes egen research fant dette var mer alvorlig enn en generell
+"legg på merknad ved behov"-instruks dekket, ble Teach spurt en ekstra gang
+med AskUserQuestion, med de konkrete sangene og bekymringene navngitt
+direkte. Teach valgte å bygge dem inn med et tydelig varselmerke, samme
+prinsipp som FSK-fargekodingen på Filme & Serien. Løsningen: hver sang har
+et `tier`-felt (`none`/`note`/`warning`) som styrer en liten merkelapp på
+sangkortet OG en større, tydelig boks i "nå spilles"-panelet når sangen er
+valgt — amber for mildere merknader (4 sanger), rødt for de mest eksplisitte
+(3 sanger: Bonez MC & RAF Camora «Ohne mein Team», Bushido «Alles verloren»,
+Samy Deluxe «Weck mich auf»). Merkelappene er Claudes egen redaksjonelle
+vurdering, ikke en offisiell klassifisering (musikk har ingen FSK-ekvivalent),
+og er ment som informasjon til lærer, ikke en skjult sensur — alle 27 sanger
+er spillbare for alle elever.
+
+Teknisk: én delt `<iframe id="dw-player">` bytter `src` via `dwPlay(i)` når
+en elev klikker et sangkort (`<button>`, ikke `<a>`, siden det ikke er en
+navigasjon), i stedet for 27 samtidige embeds. Søkeindeksen fikk 28 nye
+oppføringer (27 sanger + én generisk «musik»-oppføring, 96 elementer
+totalt). Én kollisjon ble oppdaget og fikset før publisering: nøkkelen
+«chöre forster» (for Mark Forster – Chöre) inneholder bokstavrekken «höre»
+(c-**h-ö-r-e**), som er en eksisterende nøkkel for `hoeren/`-siden — samme
+type feil som «beschreiben» (inneholder «schreib») og «wortschatz»
+(inneholder «chat») tidligere i prosjektet. Løst ved å bruke «forster 2018»
+som nøkkel i stedet. Full kollisjonsskann etter publisering fant nøyaktig
+de samme 7 permanente, tidligere aksepterte kollisjonene — ingen nye.
 
 **Om «Deutsch im echten Leben»-seksjonen:** dette er nettstedets
 "autentiske tysk"-seksjon — mens de andre delene lærer eleven tysk, viser
@@ -716,6 +767,13 @@ tidligere aksepterte kollisjonene — ingen nye.
      faktisk eksisterer** før du publiserer — enkleste måte er å sjekke
      `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=<ID>&format=json`
      og se at tittelen som kommer tilbake stemmer med filmen/serien.
+   - En ny sang på Musik-siden → legg til et nytt objekt i `dwSongs`-arrayet
+     i `musik/index.html` (`artist`, `title`, `year`, `genre`, `id`,
+     `about`, `tier`: `"none"`/`"note"`/`"warning"`, valgfritt `note` og
+     `yearCorrected`). **Verifiser alltid video-ID-en** på samme måte som
+     for Filme & Serien over, og vurder innholdet ærlig — sett `tier` til
+     `"note"` eller `"warning"` hvis teksten har tyngre innhold (rus, vold,
+     seksuelt ladet språk), ikke bare `"none"` som standard.
 2. **Bytt ut innholdet** i den nye `index.html` — tekst, emoji, ordliste
    (`dwWords`), spørsmål (`dwQuiz`), dialog (`dwNodes`), tidslinje
    (`dwTimeline`), video-ID og lytteord (`dwListenWords`), eller

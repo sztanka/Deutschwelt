@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Musik
+  Ny toppnav-pilar (15. punkt). Ren informasjons-/lytteside, ingen quiz —
+  én "nå spiller"-video øverst som bytter innhold når eleven klikker på et
+  sangkort under, samme idé som Filme & Serien men med innebygd avspilling
+  (youtube-nocookie.com/embed/, som Hören-seksjonen) i stedet for utgående
+  trailer-lenker. Alle 27 video-ID-er er verifisert ekte (sjekket mot
+  YouTubes oEmbed-data og krysssjekket med websøk før publisering).
+  Noen sanger har tyngre innhold (grovt språk, rus/kriminalitetstematikk,
+  seksuelt ladet innhold) — disse er tydelig merket med et rødt
+  "🔞 Tyngre innhold"-merke (samme idé som FSK-merkingen på Filme & Serien),
+  etter avklaring med Teach: alle sanger hun ba om er med, men de fire
+  tyngste (Bushido, Bonez MC & RAF Camora, Samy Deluxe, Die Ärzte – Männer
+  sind Schweine) har fått denne tydelige varselmerkingen.
+  Se README.md for hvordan du legger til flere sanger.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Musik · Deutschwelt</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-warn:#8a5a00;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:900px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:28px 24px;text-align:center;margin-bottom:16px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.7rem;}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:20px 24px;margin-bottom:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 8px;line-height:1.6;}
+  .dw-note{font-size:.85rem;color:var(--dw-muted);}
+
+  .dw-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+  .dw-legend-chip{border-radius:999px;padding:4px 12px;font-size:.78rem;font-weight:700;}
+  .dw-legend-chip.dw-tier-note{background:#fdf3e0;color:var(--dw-warn);}
+  .dw-legend-chip.dw-tier-warning{background:#fdecea;color:var(--dw-bad);}
+  .dw-legend-chip.dw-tier-none{background:#eef1f6;color:var(--dw-primary);}
+
+  /* Now playing */
+  .dw-player-section{padding:0;overflow:hidden;}
+  .dw-video-wrap{position:relative;width:100%;padding-top:56.25%;background:#000;}
+  .dw-video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+  .dw-now-info{padding:18px 22px;}
+  .dw-now-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;}
+  .dw-now-title{margin:0;font-size:1.2rem;color:var(--dw-primary);}
+  .dw-now-artist{margin:2px 0 0;font-size:.95rem;color:var(--dw-muted);}
+  .dw-now-meta{font-size:.8rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-now-about{margin:10px 0 0;font-size:.92rem;line-height:1.55;}
+  .dw-now-warn{
+    margin-top:12px;border-radius:10px;padding:10px 14px;font-size:.85rem;line-height:1.5;display:none;
+  }
+  .dw-now-warn.dw-tier-note{display:block;background:#fdf3e0;color:var(--dw-warn);border:1px solid #f0dca8;}
+  .dw-now-warn.dw-tier-warning{display:block;background:#fdecea;color:var(--dw-bad);border:1px solid #f3c7c2;font-weight:600;}
+
+  /* Sangliste */
+  h2.dw-group-title{color:var(--dw-primary);font-size:1.35rem;margin:28px 0 14px;display:flex;align-items:center;gap:8px;}
+  .dw-song-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
+  .dw-song-card{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:16px 18px;text-align:left;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:2px solid #ece8df;display:flex;flex-direction:column;gap:6px;
+    cursor:pointer;font-family:inherit;transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+  }
+  .dw-song-card:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(30,58,95,.12);border-color:var(--dw-accent);}
+  .dw-song-card.dw-active{border-color:var(--dw-primary);background:#eef1f6;}
+  .dw-song-title{margin:0;font-size:1rem;color:var(--dw-primary);font-weight:700;}
+  .dw-song-artist{margin:0;font-size:.88rem;color:var(--dw-text);}
+  .dw-song-meta{font-size:.76rem;color:var(--dw-muted);}
+  .dw-song-badge{
+    display:inline-block;align-self:flex-start;border-radius:999px;padding:2px 10px;font-size:.68rem;font-weight:800;
+  }
+  .dw-song-badge.dw-tier-note{background:#fdf3e0;color:var(--dw-warn);}
+  .dw-song-badge.dw-tier-warning{background:#fdecea;color:var(--dw-bad);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link dw-nav-active" href="./">🎵 Musik</a>
+      <a class="dw-nav-link" href="../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>🎵 Musik</h1>
+    <p>27 kjente tyske sanger — fra Falco til Apache 207</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>ℹ️ Om denne listen</h2>
+    <p>Klikk på en sang i listen under for å spille musikkvideoen i spilleren øverst. Hver sang har artist, utgivelsesår, sjanger og en kort forklaring på hva sangen handler om.</p>
+    <p class="dw-note">Alle video-ID-er er sjekket mot YouTube før publisering. Noen sanger har tyngre innhold (grovt språk, rus- eller kriminalitetstematikk, seksuelt ladet innhold) — disse er tydelig merket, både i listen og i spilleren. Se gjerne sammen med en voksen der det er merket.</p>
+    <div class="dw-legend">
+      <span class="dw-legend-chip dw-tier-none">Ingen merknad</span>
+      <span class="dw-legend-chip dw-tier-note">⚠️ Merknad — verdt å vite</span>
+      <span class="dw-legend-chip dw-tier-warning">🔞 Tyngre innhold</span>
+    </div>
+  </div>
+
+  <div class="dw-section dw-player-section">
+    <div class="dw-video-wrap">
+      <iframe id="dw-player" src="" title="" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="dw-now-info">
+      <div class="dw-now-top">
+        <div>
+          <p class="dw-now-title" id="dw-now-title"></p>
+          <p class="dw-now-artist" id="dw-now-artist"></p>
+        </div>
+        <span class="dw-now-meta" id="dw-now-meta"></span>
+      </div>
+      <p class="dw-now-about" id="dw-now-about"></p>
+      <p class="dw-note" id="dw-now-extra" style="margin-top:4px;"></p>
+      <div class="dw-now-warn" id="dw-now-warn"></div>
+    </div>
+  </div>
+
+  <h2 class="dw-group-title">🎶 Alle sanger</h2>
+  <div class="dw-song-grid" id="dw-song-grid"></div>
+
+</div>
+
+<script>
+  var dwSongs = [
+    {artist:"Rammstein", title:"Du hast", year:1997, genre:"Rock / Neue Deutsche Härte", id:"W3q8Od5qJio",
+      about:"Sangen leker med tvetydigheten «du hast» (du har) / «du hasst» (du hater) — teksten er bygget som en bryllupsseremoni der løftet om troskap blir avvist.", tier:"none", note:""},
+    {artist:"Die Toten Hosen", title:"Tage wie diese", year:2012, genre:"Rock", id:"j09hpp3AxIE",
+      about:"En hymne om uforglemmelige, gode dager sammen med venner — om fellesskap og å leve i nuet.", tier:"none", note:""},
+    {artist:"Rammstein", title:"Sonne", year:2001, genre:"Rock / Metal", id:"StZcUAPRRac",
+      about:"Om solens kraft, opprinnelig laget som inngangsmusikk for bokseren Wladimir Klitschko. Musikkvideoen er inspirert av eventyret om Snøhvit.", tier:"none", note:""},
+    {artist:"Nena", title:"99 Luftballons", year:1983, genre:"Pop / Rock", id:"XHTMZX898mo",
+      about:"En antikrigssang om hvordan 99 ballonger som slippes fri mistolkes som en trussel og utløser en fiktiv atomkrig — en kommentar til den kalde krigen.", tier:"none", note:""},
+    {artist:"Apache 207", title:"Roller", year:2019, genre:"Hip-hop / Pop", id:"Fo3DAhiNKQo",
+      about:"Om å kjøre rundt på scooter i hjembyen Mannheim med vennegjengen — nostalgi og lokal stolthet.", tier:"none", note:""},
+    {artist:"Udo Lindenberg & Apache 207", title:"Komet", year:2023, genre:"Pop / Rock", id:"0nYDnTTJgFI",
+      about:"En hyllest til livet og til å skinne som en komet — et generasjonsmøte mellom rocklegenden Lindenberg og rapperen Apache 207.", tier:"none", note:""},
+    {artist:"Wir sind Helden", title:"Nur ein Wort", year:2003, genre:"Pop / Rock", id:"X5kmM98iklo",
+      about:"Om ønsket om å bli forstått og å kunne si tydelig nei — og bli respektert for det.", tier:"none", note:""},
+    {artist:"Sportfreunde Stiller", title:"'54, '74, '90, 2010", year:2010, genre:"Rock", id:"gosJRIPbw7k",
+      about:"Fotball-hymne laget sammen med det tyske landslaget, bygget på TV-sportens klassiske «'54, '74, '90»-jingel — håp om en ny VM-tittel i 2010.", tier:"none", note:"",
+      yearCorrected:"Utgitt 25. mai 2010 (ikke 2006, som ofte oppgis — det året kom en tidligere versjon med tittelen «…2006»)."},
+    {artist:"Juli", title:"Perfekte Welle", year:2004, genre:"Pop / Rock", id:"ad8ukI7Z-b8",
+      about:"En kjærlighetssang som bruker «den perfekte bølgen» som metafor for en sjelden, spesiell forelskelse.", tier:"none", note:""},
+    {artist:"Peter Fox", title:"Haus am See", year:2008, genre:"Reggae / Hip-hop", id:"cIfx8QiNXfs",
+      about:"Om å se tilbake på oppveksten mens man reflekterer over veien fra fattigdom til suksess — et hus ved sjøen som symbol på drømmen om ro.", tier:"none", note:""},
+    {artist:"Tokio Hotel", title:"Durch den Monsun", year:2005, genre:"Pop / Rock", id:"S_Sy5-sOodA",
+      about:"En kjærlighetserklæring der monsunen/stormen symboliserer å komme gjennom vanskeligheter sammen med noen man elsker.", tier:"none", note:""},
+    {artist:"Die Ärzte", title:"Junge", year:2007, genre:"Punk Rock", id:"iK-1oGphELM",
+      about:"En ironisk-kjærlig formaning fra en voksen til en ung person om å ta ansvar for eget liv.", tier:"none", note:""},
+    {artist:"Bausa", title:"Was du Liebe nennst", year:2017, genre:"Hip-hop / R&B", id:"TSkVVVBS9k8",
+      about:"Om å akseptere en uforpliktende form for nærhet for en natt, uten illusjoner om at det er ekte kjærlighet.", tier:"note", note:"Teksten inneholder rusreferanser og seksuelt ladede antydninger."},
+    {artist:"Juju feat. Henning May", title:"Vermissen", year:2019, genre:"Hip-hop / Pop", id:"YHbYAUs9JCo",
+      about:"En trist sang om å savne en ekspartner etter et brudd, og tvilen på om man skal ta kontakt igjen.", tier:"none", note:""},
+    {artist:"Silbermond", title:"Das Beste", year:2006, genre:"Pop / Rock", id:"LyYAQHDMqfA",
+      about:"Om ønsket om å være det beste som har skjedd i noens liv — en varm kjærlighetserklæring.", tier:"none", note:""},
+    {artist:"Helene Fischer", title:"Atemlos durch die Nacht", year:2013, genre:"Schlager / Pop", id:"haECT-SerHk",
+      about:"Om å danse pusteløst gjennom natten sammen med den man elsker — en av Tysklands mest kjente schlager-/dansehits.", tier:"none", note:""},
+    {artist:"Bonez MC & RAF Camora", title:"Ohne mein Team", year:2016, genre:"Hip-hop", id:"82NBsCOQoi4",
+      about:"Om lojalitet til crewet/vennegjengen og en hedonistisk festlivsstil på tvers av Hamburg, Berlin og Wien.", tier:"warning",
+      note:"Eksplisitt innhold: referanser til rusmidler, våpen/kriminalitet, seksuelle antydninger og grovt språk. Dette er IKKE en sensurert versjon."},
+    {artist:"Culcha Candela", title:"Hamma!", year:2007, genre:"Pop / Hip-hop", id:"CX01x81SmWQ",
+      about:"En feststemt hyllest til Berlins multikulturelle identitet og bandets egen stil.", tier:"none", note:""},
+    {artist:"Mark Forster", title:"Au Revoir", year:2014, genre:"Pop", id:"MtDPKJSsBgc",
+      about:"Om å bryte ut og ta kontroll over eget liv. Musikkvideoen viser en 16-åring som rømmer fra et strengt hjem.", tier:"note",
+      note:"Noe opprørsk språk og en høylytt konflikt med foreldre i musikkvideoen."},
+    {artist:"Kontra K", title:"Erfolg ist kein Glück", year:2015, genre:"Hip-hop", id:"Acgy-3d4P6o",
+      about:"Om at suksess kommer av hardt arbeid og utholdenhet, ikke flaks — en motivasjonssang om å stå på gjennom motgang.", tier:"none", note:""},
+    {artist:"Falco", title:"Rock Me Amadeus", year:1985, genre:"Pop / New Wave", id:"cVikZ8Oe_XA",
+      about:"En hyllest til Mozart fremstilt som en datidens rockestjerne — lekent og historisk.", tier:"none", note:""},
+    {artist:"Mark Forster", title:"Chöre", year:2018, genre:"Pop", id:"6Mwvi40VSDU",
+      about:"Om behovet for fellesskap og støtte fra andre («kor» som symbol) når livet blir tungt.", tier:"none", note:""},
+    {artist:"Beginner", title:"Ahnma", year:2016, genre:"Hip-hop", id:"C6_Uk_2rkQg",
+      about:"En hyllest til hjembyen Hamburg og byens betydning for tysk hiphop.", tier:"note",
+      note:"Et gjestevers gir en tøffere kant, men selve teksten inneholder ikke grov banning eller eksplisitt innhold."},
+    {artist:"Bushido", title:"Alles verloren", year:2007, genre:"Hip-hop (gangsterrap)", id:"kU_x44EhOSw",
+      about:"Om fattigdom, politivold/diskriminering og et liv i utenforskap i «ghettoen» — delvis selvbiografisk.", tier:"warning",
+      note:"Betydelig innhold å være obs på: referanser til narkotikasalg, fengsel og kriminalitet, samt gjennomgående sensurert/grovt språk."},
+    {artist:"Samy Deluxe", title:"Weck mich auf", year:2001, genre:"Hip-hop (samfunnskritisk)", id:"I-GUVYbSxgI",
+      about:"En samfunnskritisk sang om fremmedfrykt, korrupte politikere og hvordan unge flykter fra problemer gjennom dataspill og rus.", tier:"warning",
+      note:"Tar opp tung/mørk tematikk, inkludert seksuelle overgrep mot barn som ikke straffes hardt nok. Egner seg til diskusjon, men bør introduseres av lærer med kontekst."},
+    {artist:"Die Ärzte", title:"Männer sind Schweine", year:1998, genre:"Punk Rock", id:"404oPn6tudE",
+      about:"En ironisk, overdreven sang om at «alle menn bare er ute etter sex» — satire over macho-oppførsel.", tier:"warning",
+      note:"Grovt språk (bl.a. et banne-sample) og seksuelt ladet humor/satire gjennom hele teksten."},
+    {artist:"Oomph!", title:"Augen auf", year:2004, genre:"Rock / Metal", id:"X_YBqLcQQas",
+      about:"Bruker barnas gjemsel-lek («Eckstein, Eckstein… Augen auf, ich komme!») som metafor for en jeger/forfølger-dynamikk.", tier:"note",
+      note:"Ikke eksplisitt vold eller seksuelt innhold, men en mørk, skummel og «jaktende» stemning i både tekst og musikkvideo."}
+  ];
+
+  var dwActiveSong = 0;
+
+  function dwTierLabel(tier){
+    if(tier === "warning") return "🔞 Tyngre innhold";
+    if(tier === "note") return "⚠️ Merknad";
+    return "";
+  }
+
+  function dwRenderGrid(){
+    var grid = document.getElementById('dw-song-grid');
+    grid.innerHTML = '';
+    dwSongs.forEach(function(song, i){
+      var btn = document.createElement('button');
+      btn.className = 'dw-song-card' + (i === dwActiveSong ? ' dw-active' : '');
+      var badge = song.tier !== 'none' ? '<span class="dw-song-badge dw-tier-' + song.tier + '">' + dwTierLabel(song.tier) + '</span>' : '';
+      btn.innerHTML =
+        '<p class="dw-song-title">' + song.title + '</p>' +
+        '<p class="dw-song-artist">' + song.artist + '</p>' +
+        '<span class="dw-song-meta">' + song.year + ' · ' + song.genre + '</span>' +
+        badge;
+      btn.onclick = function(){ dwPlay(i); window.scrollTo({top: document.querySelector('.dw-player-section').offsetTop - 12, behavior:'smooth'}); };
+      grid.appendChild(btn);
+    });
+  }
+
+  function dwPlay(i){
+    dwActiveSong = i;
+    var song = dwSongs[i];
+    var player = document.getElementById('dw-player');
+    player.src = 'https://www.youtube-nocookie.com/embed/' + song.id;
+    player.title = song.artist + ' – ' + song.title;
+    document.getElementById('dw-now-title').textContent = song.title;
+    document.getElementById('dw-now-artist').textContent = song.artist;
+    document.getElementById('dw-now-meta').textContent = song.year + ' · ' + song.genre;
+    document.getElementById('dw-now-about').textContent = song.about;
+    document.getElementById('dw-now-extra').textContent = song.yearCorrected || '';
+    var warnEl = document.getElementById('dw-now-warn');
+    if(song.tier !== 'none'){
+      warnEl.className = 'dw-now-warn dw-tier-' + song.tier;
+      warnEl.textContent = dwTierLabel(song.tier) + ': ' + song.note;
+    } else {
+      warnEl.className = 'dw-now-warn';
+      warnEl.textContent = '';
+    }
+    dwRenderGrid();
+  }
+
+  dwPlay(0);
+</script>
+</body>
+</html>
