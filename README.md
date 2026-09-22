@@ -46,12 +46,16 @@ deutschwelt-site/
 │       └── index.html                → byportrett: Frankfurt am Main
 ├── geschichte/
 │   ├── index.html                    → hub-side: velg historietema
+│   ├── kleinstaaterei/
+│   │   └── index.html                → "Kleinstaaterei" (Tyskland før 1871 + hvorfor det fortsatt finnes adelsnavn i dag)
 │   ├── kaiserreich/
 │   │   └── index.html                → "Deutsches Kaiserreich" (1871–1918, tidslinje + lese/skrive/muntlig-opplegg)
 │   ├── zweiter-weltkrieg/
 │   │   └── index.html                → "Zweiter Weltkrieg" (1939–1945, med norsk vinkling — 9. april 1940)
-│   └── berliner-mauer/
-│       └── index.html                → "Die Berliner Mauer" (tidslinje + lese/skrive/muntlig-opplegg)
+│   ├── berliner-mauer/
+│   │   └── index.html                → "Die Berliner Mauer" (tidslinje + lese/skrive/muntlig-opplegg)
+│   └── kalter-krieg/
+│       └── index.html                → "Kalter Krieg: Ost- und Westdeutschland" (BRD vs. DDR, systemsammenligning) — 🎓 9.–10. trinn (A2/B1)
 ├── lesen/
 │   ├── index.html                    → hub-side: velg lesetekst (tre grupper: detektiv, flash fiction, ekte litteratur)
 │   ├── ein-wochenende-in-berlin/
@@ -532,6 +536,65 @@ uken» — samme type substreng-kollisjon som ble oppdaget og rettet i
 Schreiben-runden (der «beschreiben» skjulte «schreib»), nå bekreftet som et
 gjentakende mønster å være obs på for sammensatte tyske ord generelt.
 
+**Om Kleinstaaterei og Kalter Krieg (to nye historietema, ett av dem 9.–10. trinn):**
+Teach ba om et nytt historietema om hvordan det var før Tyskland ble et samlet
+land, gjerne med en forklaring på hvorfor det fortsatt finnes tyske adelsnavn
+i dag, og et eget, litt mer avansert (10. klasse-nivå) tema om forskjellen
+mellom Øst- og Vest-Tyskland under den kalde krigen. Claude avklarte tre valg
+med AskUserQuestion før bygging: (1) to separate sider eller én kombinert —
+Teach valgte to separate sider; (2) om Kalde krigen-siden skulle merkes og
+lenkes fra `fortgeschritten/` som Dativ-siden — Teach valgte ja; (3) om
+Kleinstaaterei-siden også skulle være avansert — Teach valgte vanlig
+8. trinn-nivå. Begge sider bygger på samme grunnmønster som
+`geschichte/kaiserreich/` (tidslinje, lesetekst, «Denk nach», muntlig
+oppgave, skriveoppgave, quiz), plassert kronologisk FØRST i Geschichte-huben
+(før Kaiserreich, siden temaet er «forhistorien» til 1871).
+
+**Kleinstaaterei** (`geschichte/kleinstaaterei/`) dekker perioden fra Karl den
+store (år 800) via Trettiårskrigen (1648, starten på selve
+«Kleinstaaterei»-begrepet), Napoleons oppløsning av Det tysk-romerske riket
+(1806) og Wienerkongressen (1815, «Deutscher Bund» med 39 stater), fram til
+1871-lenken videre til Kaiserreich-siden. Lesedelen er en oppdiktet, men
+realistisk reisedagbok fra en kjøpmann rundt år 1800 som møter tollgrenser og
+ulike valutaer på en kort reise — konkretiserer hvorfor «Kleinstaaterei» var
+upraktisk. En egen, ikke-quiz-basert faktaboks («👑 Warum gibt es heute noch
+Adelstitel?») forklarer at adel mistet sine juridiske særretter i 1919 med
+Weimar-grunnloven (Artikel 109), men at ord som «von», «zu», «Graf» og
+«Freiherr» siden da bare er en helt vanlig del av etternavnet — med Bismarck
+og den moderne politikeren Karl-Theodor Freiherr von und zu Guttenberg som
+eksempler. Alle fakta (Weimar-grunnlovens artikkel 109, Guttenbergs fulle
+navn) ble verifisert med websøk før publisering, i tråd med nettstedets
+etablerte prinsipp om aldri å gjette fakta. En liten norsk kobling er lagt
+inn i faktaboksen: Norge avskaffet sin adel enda tidligere, i 1821
+(Grunnloven § 108).
+
+**Kalter Krieg: Ost- und Westdeutschland** (`geschichte/kalter-krieg/`) er
+det andre nye, mer avanserte 9.–10. trinn-temaet i `fortgeschritten/`
+(sammen med Dativ). I stedet for bare tidslinje+lesetekst introduserer siden
+et nytt element: en fargekodet **systemsammenligningstabell** (BRD i blått
+vs. DDR i rødt — politikk, økonomi, reisefrihet, overvåking/Stasi,
+forbruksvarer, alliansetilhørighet) og en **to-perspektiv-lesing** — to
+korte, oppdiktede brev side om side fra en ungdom i Vest-Tyskland og en i
+Øst-Tyskland i 1985, som konkretiserer forskjellene fra tabellen. Diskusjons-
+oppgaven («Sprich») trekker inn en sammenligning med dagens Nord-/Sør-Korea
+for å knytte temaet til verden i dag — en type dypere, analytisk kobling som
+passer godt for 10. klasse-nivå. Siden dekker HELE delingsperioden
+(1949–1990: BRD/DDR-grunnleggelsen, Mauerbau, Mauerfall, Wiedervereinigung)
+uten å gjenta selve mur-historien i detalj, siden `geschichte/berliner-mauer/`
+allerede dekker den spesifikt — de to sidene utfyller hverandre i stedet for
+å overlappe. Merket med `.dw-level-tag` på kortet og i brødsmulestien, og
+lenket inn i en ny «🕰️ Geschichte»-seksjon i `fortgeschritten/index.html`
+(samme mønster som «🧩 Grammatik»-seksjonen der).
+
+Søkeindeksen fikk to nye oppføringer (68 elementer totalt). Én ting å merke
+seg: nøklene «ddr» og «wiedervereinigung» var allerede tatt av den eldre
+Berliner Mauer-oppføringen (fra før Kalter Krieg-siden fantes), så de ble
+bevisst IKKE brukt som nøkler for den nye, bredere Kalter Krieg-siden — i
+stedet ble mer spesifikke nøkler valgt («kalter krieg», «geteiltes
+deutschland», «ostdeutschland», «westdeutschland», «bundesrepublik», «brd»).
+Full kollisjonsskann etter publisering fant nøyaktig de samme 7 permanente,
+tidligere aksepterte kollisjonene — ingen nye.
+
 ## Slik legger du til en ny seksjon
 
 1. **Kopier den mappen som ligner mest** på det du skal lage:
@@ -571,11 +634,18 @@ gjentakende mønster å være obs på for sammensatte tyske ord generelt.
      Lengre/mer avanserte setninger (leddsetninger, verb-sist-regelen)
      passer bedre som en egen, mer avansert side for 9./10. trinn.
    - Et nytt historietema → kopier den av `geschichte/berliner-mauer/`,
-     `geschichte/kaiserreich/` eller `geschichte/zweiter-weltkrieg/` som
-     ligner mest, til f.eks. `geschichte/kalter-krieg/`. NB: alvorlige tema
-     (som Holocaust) bør omtales faktabasert og kortfattet, slik det gjøres
-     i norske lærebøker — se merknaden øverst i
-     `geschichte/zweiter-weltkrieg/index.html`.
+     `geschichte/kaiserreich/`, `geschichte/zweiter-weltkrieg/`,
+     `geschichte/kleinstaaterei/` eller `geschichte/kalter-krieg/` som
+     ligner mest, til f.eks. `geschichte/weimarer-republik/`. NB: alvorlige
+     tema (som Holocaust) bør omtales faktabasert og kortfattet, slik det
+     gjøres i norske lærebøker — se merknaden øverst i
+     `geschichte/zweiter-weltkrieg/index.html`. Hører temaet naturlig til
+     9.–10. trinn (dypere systemsammenligning, analyse eller kobling til
+     dagens verden, ikke bare et vanskeligere ordforråd) → legg
+     `.dw-level-tag`-merket på kortet i `geschichte/index.html` og lenk siden
+     inn fra en ny «🕰️ Geschichte»-seksjon i `fortgeschritten/index.html`
+     (se `geschichte/kalter-krieg/` for et eksempel med systemsammenlignings-
+     tabell og to-perspektiv-lesing i stedet for bare tidslinje+lesetekst).
    - En ny detektiv-mysterie-lesetekst → kopier
      `lesen/wer-hat-den-kuchen-gegessen/` eller `lesen/der-verlorene-rucksack/`
      til f.eks. `lesen/den-hemmelige-dagbok/`.

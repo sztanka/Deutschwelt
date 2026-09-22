@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Geschichte: Kalter Krieg — Ost- und Westdeutschland (1949-1990)
+  🎓 9.–10. trinn (A2/B1) — mer avansert enn resten av Geschichte-huben:
+  systemsammenligning (politikk/økonomi/hverdagsliv) i stedet for bare
+  tidslinje+lesetekst, og en tilkobling til dagens verden (Korea-sammenligning).
+  Bygger videre på geschichte/berliner-mauer/ (som dekker selve muren i detalj)
+  uten å gjenta den historien — denne siden er bredere: hele delingen av
+  Tyskland 1949-1990. Merket med .dw-level-tag og lenket fra fortgeschritten/.
+  Se README.md i rotmappen for hvordan du legger til flere historietemaer.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalter Krieg: Ost- und Westdeutschland · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-west:#2c5382;
+    --dw-ost:#8a3b3b;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:780px;margin:0 auto;padding:0 16px 60px;}
+  .dw-crumb{max-width:780px;margin:0 auto 14px;padding:0 16px;font-size:.85rem;color:var(--dw-muted);}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.7rem;}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.15rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 8px;line-height:1.55;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  /* Tidslinje */
+  .dw-timeline-btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+  .dw-year-btn{
+    flex:1 1 90px;padding:12px 8px;border-radius:12px;border:2px solid var(--dw-primary);
+    background:#fff;color:var(--dw-primary);font-weight:700;font-size:1rem;cursor:pointer;
+  }
+  .dw-year-btn:hover{background:#eef1f6;}
+  .dw-year-btn.dw-active-year{background:var(--dw-primary);color:#fff;}
+  .dw-timeline-panel{
+    background:#f4f1e8;border-radius:12px;padding:16px 18px;font-size:.95rem;line-height:1.6;min-height:5em;
+  }
+  .dw-timeline-panel h3{margin:0 0 6px;color:var(--dw-primary);}
+
+  /* Systemvergleich-Tabelle */
+  table.dw-compare{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:4px;}
+  table.dw-compare th, table.dw-compare td{text-align:left;padding:9px 10px;border-bottom:1px solid #ece8df;vertical-align:top;}
+  table.dw-compare th{color:#fff;font-size:.82rem;text-transform:uppercase;letter-spacing:.02em;}
+  table.dw-compare th.dw-th-brd{background:var(--dw-west);}
+  table.dw-compare th.dw-th-ddr{background:var(--dw-ost);}
+  table.dw-compare td.dw-bereich{font-weight:700;color:var(--dw-primary);white-space:nowrap;}
+
+  /* To-perspektiv-lesing */
+  .dw-two-col{display:grid;grid-template-columns:1fr;gap:14px;}
+  @media(min-width:600px){ .dw-two-col{grid-template-columns:1fr 1fr;} }
+  .dw-letter{border-radius:12px;padding:14px 16px;font-style:italic;line-height:1.65;font-size:.92rem;}
+  .dw-letter-west{background:#eaf0f8;border:1px solid #c9d8ec;}
+  .dw-letter-ost{background:#f8eaea;border:1px solid #ecc9c9;}
+  .dw-letter-label{display:block;font-style:normal;font-weight:700;margin-bottom:6px;color:var(--dw-primary);}
+  .dw-letter p{margin:0 0 6px;}
+  .dw-letter p:last-child{margin-bottom:0;}
+
+  /* Denk nach */
+  .dw-think-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-think-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-think-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-think-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-think-opt:disabled{cursor:default;}
+  .dw-think-explain{
+    margin-top:10px;font-size:.88rem;color:var(--dw-muted);background:#f4f1e8;border-radius:10px;padding:10px 14px;
+    display:none;
+  }
+  .dw-think-explain.dw-show{display:block;}
+
+  /* Sprich */
+  .dw-speak-box{
+    background:#eef1f6;border-radius:12px;padding:16px 18px;font-size:.95rem;line-height:1.6;
+  }
+
+  /* Schreib */
+  textarea.dw-plan{
+    width:100%;min-height:120px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  /* Quiz */
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link dw-nav-active" href="../">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<p class="dw-crumb"><a href="../">🕰️ Geschichte</a> → Kalter Krieg <span class="dw-level-tag">🎓 9.–10. trinn</span></p>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>🚧 Kalter Krieg: Zwei deutsche Staaten</h1>
+    <p>1949–1990: BRD und DDR — to land, to helt ulike systemer</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🕰️ Die Zeitlinie</h2>
+    <p class="dw-note">Klikk på et årstall. Vil du vite mer om selve muren og Berlin spesielt? Se «Die Berliner Mauer»-siden.</p>
+    <div class="dw-timeline-btns" id="dw-years"></div>
+    <div class="dw-timeline-panel" id="dw-panel"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>⚖️ BRD vs. DDR — zwei Systeme</h2>
+    <p class="dw-note">Etter 2. verdenskrig ble Tyskland delt mellom de fire seiersmaktene. I 1949 ble det to helt separate land, med helt ulike politiske og økonomiske systemer.</p>
+    <table class="dw-compare">
+      <tr><th></th><th class="dw-th-brd">🔵 BRD (Vest)</th><th class="dw-th-ddr">🔴 DDR (Øst)</th></tr>
+      <tr><td class="dw-bereich">Politik</td><td>Demokrati med flere partier og frie valg</td><td>Ettpartistat — kun SED-partiet hadde reell makt</td></tr>
+      <tr><td class="dw-bereich">Wirtschaft</td><td>Markedsøkonomi («Wirtschaftswunder» — rask vekst)</td><td>Planøkonomi — staten bestemte hva som skulle produseres</td></tr>
+      <tr><td class="dw-bereich">Reisen</td><td>Fri reise til de fleste land</td><td>Sterkt begrenset — de fleste fikk ikke reise til Vesten</td></tr>
+      <tr><td class="dw-bereich">Überwachung</td><td>Ingen hemmelig statspoliti av samme omfang</td><td>«Stasi» overvåket befolkningen svært tett</td></tr>
+      <tr><td class="dw-bereich">Konsum</td><td>Stort vareutvalg i butikkene</td><td>Mangelvarer — man kunne vente flere år på en Trabant-bil</td></tr>
+      <tr><td class="dw-bereich">Bündnis</td><td>NATO / Vesten (alliert med USA)</td><td>Warszawapakten (alliert med Sovjetunionen)</td></tr>
+    </table>
+  </div>
+
+  <div class="dw-section">
+    <h2>📖 Lies: Zwei Perspektiven</h2>
+    <p class="dw-note">To (oppdiktede, men realistiske) brev fra to unge mennesker i 1985 — én i Vest-Tyskland, én i Øst-Tyskland.</p>
+    <div class="dw-two-col">
+      <div class="dw-letter dw-letter-west">
+        <span class="dw-letter-label">🔵 Sabine, 16, aus München (BRD)</span>
+        <p>„Nächsten Sommer fahre ich mit meiner Familie nach Spanien in den Urlaub. Meine Eltern haben einfach die Flüge gebucht — kein Problem.“</p>
+        <p>„Im Fernsehen gibt es viele Kanäle, und in den Geschäften gibt es alles, was man sich wünscht. Manchmal ist die Auswahl fast zu groß!“</p>
+      </div>
+      <div class="dw-letter dw-letter-ost">
+        <span class="dw-letter-label">🔴 Jens, 16, aus Leipzig (DDR)</span>
+        <p>„Meine Eltern warten seit vier Jahren auf einen Trabant. Nach Spanien reisen? Das ist für uns nicht möglich — wir dürfen nicht einfach in den Westen fahren.“</p>
+        <p>„Ich muss aufpassen, was ich in der Schule sage. Man weiß nie genau, wer zuhört.“</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>🧠 Denk nach</h2>
+    <p class="dw-q-text" style="font-weight:600;">Warum wollten so viele Menschen aus der DDR in den Westen fliehen?</p>
+    <div id="dw-think"></div>
+    <div class="dw-think-explain" id="dw-think-explain"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>🗣️ Sprich</h2>
+    <div class="dw-speak-box">
+      <p>Diskuter sammen (2–4 personer):</p>
+      <p><strong>„Warum, glaubst du, war es für die USA und die Sowjetunion so wichtig, wie sich Deutschland nach dem Krieg entwickelte? Kennst du andere Länder, die heute noch geteilt sind — zum Beispiel Korea? Was ist ähnlich, was ist anders?“</strong></p>
+      <p class="dw-note">Sør- og Nord-Korea ble delt i 1948, tre år før Tyskland, og er fortsatt to land i dag — mens Tyskland ble gjenforent i 1990. Sammenlign gjerne de to situasjonene.</p>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✍️ Schreib</h2>
+    <p class="dw-note">Skriv en kort tekst: enten et svarbrev fra Sabine til Jens (eller omvendt), eller en sammenligning av hverdagslivet i BRD og DDR basert på tabellen over.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Liebe(r) …, danke für deinen Brief …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Teste dich selbst</h2>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Tidslinje ---------- */
+  var dwTimeline = [
+    {year:"1945", title:"Kriegsende & Besatzungszonen", text:"Nach dem Ende des Zweiten Weltkriegs teilen die vier Siegermächte (USA, Großbritannien, Frankreich und die Sowjetunion) Deutschland in vier Besatzungszonen auf."},
+    {year:"1949", title:"Zwei deutsche Staaten", text:"Aus den drei westlichen Zonen entsteht die Bundesrepublik Deutschland (BRD). Aus der sowjetischen Zone entsteht die Deutsche Demokratische Republik (DDR). Aus einem Land werden zwei — mit ganz unterschiedlichen Systemen."},
+    {year:"1961", title:"Der Mauerbau", text:"Weil so viele Menschen aus der DDR in den Westen flohen, baut die DDR-Regierung im August 1961 die Berliner Mauer. Mehr dazu auf der Berliner-Mauer-Seite."},
+    {year:"1989", title:"Der Mauerfall", text:"Nach großen Protesten in der DDR fällt die Mauer am 9. November 1989. Die Grenze zwischen Ost und West ist plötzlich offen."},
+    {year:"1990", title:"Die Wiedervereinigung", text:"Am 3. Oktober 1990 werden BRD und DDR wieder ein Land. Dieser Tag heißt heute „Tag der Deutschen Einheit“ und ist ein Feiertag in ganz Deutschland."}
+  ];
+  var dwActiveYear = 0;
+
+  function dwRenderTimeline(){
+    var btnWrap = document.getElementById('dw-years');
+    btnWrap.innerHTML = '';
+    dwTimeline.forEach(function(item, i){
+      var b = document.createElement('button');
+      b.className = 'dw-year-btn' + (i === dwActiveYear ? ' dw-active-year' : '');
+      b.textContent = item.year;
+      b.onclick = function(){ dwActiveYear = i; dwRenderTimeline(); };
+      btnWrap.appendChild(b);
+    });
+    var item = dwTimeline[dwActiveYear];
+    document.getElementById('dw-panel').innerHTML =
+      '<h3>' + item.year + ' — ' + item.title + '</h3><p>' + item.text + '</p>';
+  }
+  dwRenderTimeline();
+
+  /* ---------- Denk nach ---------- */
+  var dwThinkOpts = [
+    {text:"Wegen fehlender Reisefreiheit, wirtschaftlicher Probleme und Überwachung durch die Stasi", correct:true},
+    {text:"Weil es in der DDR keine Schulen gab", correct:false},
+    {text:"Weil man in der DDR kein Deutsch sprechen durfte", correct:false}
+  ];
+  function dwRenderThink(){
+    var wrap = document.getElementById('dw-think');
+    wrap.innerHTML = '';
+    dwThinkOpts.forEach(function(opt){
+      var b = document.createElement('button');
+      b.className = 'dw-think-opt';
+      b.textContent = opt.text;
+      b.onclick = function(){ dwAnswerThink(opt, wrap); };
+      wrap.appendChild(b);
+    });
+  }
+  function dwAnswerThink(chosen, wrap){
+    var btns = wrap.querySelectorAll('.dw-think-opt');
+    btns.forEach(function(b){
+      b.disabled = true;
+      var opt = dwThinkOpts[[].indexOf.call(btns, b)];
+      if(opt.correct) b.classList.add('dw-correct');
+      else if(opt === chosen) b.classList.add('dw-wrong');
+    });
+    var explain = document.getElementById('dw-think-explain');
+    explain.textContent = "Nettopp — mange i DDR opplevde begrenset reisefrihet, mangel på varer og tett overvåking fra det hemmelige politiet Stasi. Over 100 000 mennesker prøvde å flykte til Vest-Tyskland mellom 1961 og 1989, og flere hundre mistet livet ved grensen. Det var nettopp derfor muren ble bygget — for å stanse flukten.";
+    explain.classList.add('dw-show');
+  }
+  dwRenderThink();
+
+  /* ---------- Schreib ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+
+  /* ---------- Quiz ---------- */
+  var dwQuiz = [
+    {q:"Wann entstanden BRD und DDR als zwei getrennte Staaten?", opts:["1945","1949","1961"], correct:1},
+    {q:"Welches Wirtschaftssystem hatte die BRD?", opts:["Marktwirtschaft","Planwirtschaft","Kein Handel erlaubt"], correct:0},
+    {q:"Wie hieß der Geheimdienst der DDR, der die Bevölkerung überwachte?", opts:["NATO","Stasi","SED"], correct:1},
+    {q:"Wann fiel die Berliner Mauer?", opts:["1961","1989","1990"], correct:1},
+    {q:"Wann war die Wiedervereinigung (Tag der Deutschen Einheit)?", opts:["9. November 1989","3. Oktober 1990","1. Mai 1949"], correct:1}
+  ];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+</script>
+</body>
+</html>
