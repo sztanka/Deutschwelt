@@ -118,6 +118,8 @@ deutschwelt-site/
 │   └── index.html                    → "Filme & Serien" — 11 filmer + 5 serier med trailerlenker
 ├── musik/
 │   └── index.html                    → "Musik" — 27 tyske sanger med innebygd YouTube-spiller
+├── deutschland/
+│   └── index.html                    → "Deutschland" — kultur/tradisjon/fakta + interaktivt dra-og-slipp-kart (10 største byer)
 ├── normen/
 │   └── hoeflichkeit/
 │       └── index.html                → "Höflichkeit in Deutschland" — du/Sie, illustrasjoner, grammatikkspill
@@ -163,11 +165,11 @@ undersider (som `staedte/`, `geschichte/`, `grammatikk/`, `lesen/`,
 har), får den en egen `index.html` som viser et lite kortgalleri med lenker
 videre — akkurat som forsiden, bare smalere.
 
-**Om toppnavigasjonen:** den har nå 15 punkter (🏠 Forside ·
+**Om toppnavigasjonen:** den har nå 16 punkter (🏠 Forside ·
 🧩 Grammatik · 🏙️ Städte · 🕰️ Geschichte · 📖 Lesen · 🎧 Hören · ✍️ Schreiben ·
-🗺️ Reise · 🏆 Challenges · 🎬 Filme & Serien · 🎵 Musik · 🎩 Normen & Regler ·
-📱 Deutsch im echten Leben · 🗣️ Sprechen · 🎓 9.–10. trinn — 🎵 Musik er nyest,
-se «Om Musik-siden» lenger ned) og bruker `flex-wrap` i
+🗺️ Reise · 🏆 Challenges · 🎬 Filme & Serien · 🎵 Musik · 🇩🇪 Deutschland ·
+🎩 Normen & Regler · 📱 Deutsch im echten Leben · 🗣️ Sprechen · 🎓 9.–10. trinn —
+🇩🇪 Deutschland er nyest, se «Om Deutschland-siden» lenger ned) og bruker `flex-wrap` i
 `assets/style.css`, så den bryter fint til to-tre linjer på smale skjermer.
 Punktet som pekte rett til `sprechen/cafe/` (☕ Café) peker nå til
 `sprechen/` (🗣️ Sprechen) i stedet, siden `sprechen/` gikk fra én side til
@@ -309,6 +311,67 @@ type feil som «beschreiben» (inneholder «schreib») og «wortschatz»
 (inneholder «chat») tidligere i prosjektet. Løst ved å bruke «forster 2018»
 som nøkkel i stedet. Full kollisjonsskann etter publisering fant nøyaktig
 de samme 7 permanente, tidligere aksepterte kollisjonene — ingen nye.
+
+**Om Deutschland-siden:** Teach ba om en generell del om Tyskland, tysk
+kultur og tradisjon, med et interaktivt kart der de 10 største byene må
+plasseres riktig. Claude avklarte tre valg med AskUserQuestion før bygging:
+(1) plassering — helt ny toppnav-pilar (16. punkt) i stedet for en
+underside av Städte eller Geschichte — Teach valgte ny pilar; (2) hvilke
+kulturtemaer — Teach valgte alle fire foreslåtte (høytider/tradisjoner,
+nasjonalsymboler/fakta, mat/skikker, geografi/natur); (3) kartspillets
+interaksjonsform — dra-og-slipp på kartet, i stedet for klikk-og-velg —
+Teach valgte dra-og-slipp.
+
+Alle fakta er sjekket med websøk før publisering: de 10 største byene og
+innbyggertallene (WirtschaftsWoche/wiwo.de sin 2026-rangering — Berlin,
+Hamburg, München, Köln, Frankfurt am Main, Düsseldorf, Leipzig, Dortmund,
+Stuttgart, Essen), Bundesländer/naboland/areal/Zugspitze (tysk Wikipedia +
+destatis.de), nasjonalsangen (bundesregierung.de — kun tredje vers av
+Deutschlandlied er offisielt, siden nazistene misbrukte særlig første vers;
+besluttet 1952, bekreftet 1991), Oktoberfest-historien (engelsk Wikipedia —
+startet som et kongelig bryllup i 1810), Karneval/Fasching/Fastnacht sine
+regionale navn og datoer (zdfheute.de), Currywurst-oppfinnelsen (Tagesspiegel/
+DPMA — Herta Heuwer, Berlin, 1949) og den tyske Brotkultur-statusen som
+UNESCO immateriell kulturarv siden 2014 med over 3 200 registrerte
+brødsorter (brotinstitut.de/unesco.de).
+
+**Kartet** er en forenklet Tyskland-silhuett (fastland + Rügen), generert
+programmatisk fra åpne geografiske grensekoordinater (forenklet med
+Douglas-Peucker-algoritmen for et ryddig, men gjenkjennelig omriss) og
+projisert til et SVG-koordinatsystem — IKKE tegnet for hånd. Byenes
+posisjoner på kartet er regnet ut fra deres faktiske lengde-/breddegrad med
+akkurat samme projeksjon som selve landomrisset, slik at plasseringen deres
+relativt til hverandre og til kartformen er geografisk korrekt. Retting av
+kartspillet bruker en **«nærmeste by»-logikk** i stedet for en fast
+treffradius: et slipp regnes som riktig hvis punktet ligger nærmere byens
+faktiske posisjon enn noen av de 9 andre byenes posisjoner (en slags
+Voronoi-inndeling). Dette gir rettferdig retting uansett hvor tett byene
+ligger — viktig her siden fire av de ti byene (Köln, Düsseldorf, Dortmund,
+Essen) ligger tett sammen i Ruhrgebiet/Rheinland, for tett til at én fast
+radius ville fungert godt for alle ti byene samtidig. Ved feil slipp får
+eleven et hint om hvilken by punktet faktisk lå nærmest, uten å avsløre den
+riktige byens posisjon — pedagogisk tenkt som veiledning, ikke fasit.
+Dra-og-slipp er implementert med Pointer Events (`pointerdown`/`pointermove`/
+`pointerup` + `setPointerCapture`) i stedet for HTML5 sin native
+drag-and-drop-API, siden Pointer Events fungerer likt for mus, touch og
+penn — viktig for at spillet skal fungere på nettbrett/Chromebook, ikke bare
+med mus.
+
+Teksten om nasjonalsangens historie (kun tredje vers, på grunn av nazistenes
+misbruk av første vers) er bevisst holdt kort og faktabasert, med lenke
+videre til `geschichte/zweiter-weltkrieg/` for elever som vil lære mer — i
+tråd med nettstedets etablerte, forsiktige linje for alvorlige historiske
+tema. Navigasjonsmenyen ble oppdatert i alle 68 daværende HTML-filer med et
+Python-script (samme mønster som tidligere navigasjonsendrende runder),
+pluss et nytt Deutschland-kort på forsiden. Søkeindeksen fikk 11 nye
+oppføringer (nå 107 elementer). Én bevisst avveining ble gjort: ordene
+«oktoberfest» og «karneval» alene er allerede søkenøkler for
+`staedte/muenchen/` og `staedte/koeln/` fra tidligere runder, og disse ble
+IKKE gjenbrukt for den nye Deutschland-siden (som dekker begge temaene i
+mer dybde) — i stedet ble mer spesifikke nøkler valgt («fasching fastnacht
+rosenmontag» osv.), slik at de opprinnelige søkeordene fortsatt går til
+byportrettene som før. Full kollisjonsskann fant kun de samme 7 permanente,
+tidligere aksepterte kollisjonene — ingen nye.
 
 **Om «Deutsch im echten Leben»-seksjonen:** dette er nettstedets
 "autentiske tysk"-seksjon — mens de andre delene lærer eleven tysk, viser
@@ -774,6 +837,21 @@ tidligere aksepterte kollisjonene — ingen nye.
      for Filme & Serien over, og vurder innholdet ærlig — sett `tier` til
      `"note"` eller `"warning"` hvis teksten har tyngre innhold (rus, vold,
      seksuelt ladet språk), ikke bare `"none"` som standard.
+   - En ny by i kartspillet på Deutschland-siden → legg til et nytt objekt i
+     `dwCities`-arrayet i `deutschland/index.html` (`name`, `x`, `y`, `pop`,
+     `fact`). **Regn ALDRI `x`/`y` for hånd** — de må komme fra byens ekte
+     lengde-/breddegrad projisert med samme metode som kartomrisset (se
+     kommentaren øverst i filen og «Om Deutschland-siden» i denne README-en
+     for hvordan projeksjonen fungerer), ellers havner byen feil plassert på
+     kartet mens spillet fortsatt tror den er riktig. Siden rettingen bruker
+     «nærmeste by»-logikk (ikke en fast radius), trenger du ikke justere
+     noen toleranseverdi — det holder å legge til byen med korrekte
+     koordinater.
+   - Et nytt tema i kultur-/fakta-delen av Deutschland-siden (f.eks. en
+     egen seksjon om skolesystem, ferier eller musikk/film-kultur utover det
+     Filme & Serien/Musik allerede dekker) → kopier `.dw-section`-mønsteret
+     fra en av de fire eksisterende seksjonene, og sjekk alle fakta med
+     websøk før publisering — akkurat som resten av siden.
 2. **Bytt ut innholdet** i den nye `index.html` — tekst, emoji, ordliste
    (`dwWords`), spørsmål (`dwQuiz`), dialog (`dwNodes`), tidslinje
    (`dwTimeline`), video-ID og lytteord (`dwListenWords`), eller
