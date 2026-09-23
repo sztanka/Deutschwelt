@@ -341,21 +341,30 @@ Douglas-Peucker-algoritmen for et ryddig, men gjenkjennelig omriss) og
 projisert til et SVG-koordinatsystem — IKKE tegnet for hånd. Byenes
 posisjoner på kartet er regnet ut fra deres faktiske lengde-/breddegrad med
 akkurat samme projeksjon som selve landomrisset, slik at plasseringen deres
-relativt til hverandre og til kartformen er geografisk korrekt. Retting av
-kartspillet bruker en **«nærmeste by»-logikk** i stedet for en fast
-treffradius: et slipp regnes som riktig hvis punktet ligger nærmere byens
-faktiske posisjon enn noen av de 9 andre byenes posisjoner (en slags
-Voronoi-inndeling). Dette gir rettferdig retting uansett hvor tett byene
-ligger — viktig her siden fire av de ti byene (Köln, Düsseldorf, Dortmund,
-Essen) ligger tett sammen i Ruhrgebiet/Rheinland, for tett til at én fast
-radius ville fungert godt for alle ti byene samtidig. Ved feil slipp får
-eleven et hint om hvilken by punktet faktisk lå nærmest, uten å avsløre den
-riktige byens posisjon — pedagogisk tenkt som veiledning, ikke fasit.
-Dra-og-slipp er implementert med Pointer Events (`pointerdown`/`pointermove`/
-`pointerup` + `setPointerCapture`) i stedet for HTML5 sin native
-drag-and-drop-API, siden Pointer Events fungerer likt for mus, touch og
-penn — viktig for at spillet skal fungere på nettbrett/Chromebook, ikke bare
-med mus.
+relativt til hverandre og til kartformen er geografisk korrekt.
+**Røde prikker** (`#dw-targets`, tegnet FØR `#dw-pins` i SVG-en) viser alle
+10 byenes faktiske posisjon fra start — lagt til etter tilbakemelding fra
+Teach om at et helt tomt kart gjorde det for vanskelig å vite hvor
+bynavnene skulle dras, og at riktig plasserte bynavn burde bli stående på
+kartet for bedre læring. Retting av kartspillet bruker en
+**«nærmeste by»-logikk** i stedet for en fast treffradius: et slipp regnes
+som riktig hvis punktet ligger nærmere byens faktiske posisjon enn noen av
+de 9 andre byenes posisjoner (en slags Voronoi-inndeling). Dette gir
+rettferdig retting uansett hvor tett byene ligger — viktig her siden fire
+av de ti byene (Köln, Düsseldorf, Dortmund, Essen) ligger tett sammen i
+Ruhrgebiet/Rheinland, for tett til at én fast radius ville fungert godt for
+alle ti byene samtidig. Ved riktig slipp legges en grønn nål med bynavnet
+til i `#dw-pins` PÅ SAMME koordinat som den røde prikken — siden pin-gruppen
+tegnes etter target-gruppen i SVG-en, dekker den grønne nålen automatisk
+den røde prikken, og bynavnet blir stående synlig på kartet resten av
+økten (eller til «Start på nytt» trykkes, som tømmer `#dw-pins` men lar de
+røde prikkene i `#dw-targets` stå urørt). Ved feil slipp får eleven i
+tillegg et hint om hvilken by punktet faktisk lå nærmest, uten å avsløre
+selve fasiten. Dra-og-slipp er implementert med Pointer Events
+(`pointerdown`/`pointermove`/`pointerup` + `setPointerCapture`) i stedet
+for HTML5 sin native drag-and-drop-API, siden Pointer Events fungerer likt
+for mus, touch og penn — viktig for at spillet skal fungere på
+nettbrett/Chromebook, ikke bare med mus.
 
 Teksten om nasjonalsangens historie (kun tredje vers, på grunn av nazistenes
 misbruk av første vers) er bevisst holdt kort og faktabasert, med lenke

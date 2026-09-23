@@ -84,8 +84,9 @@
   .dw-pool-col{flex:1 1 220px;min-width:200px;}
   #dw-map-svg{width:100%;height:auto;display:block;background:var(--dw-map-sea);border-radius:12px;border:1px solid #dfe6ef;touch-action:none;}
   .dw-map-land{fill:var(--dw-map-land);stroke:var(--dw-primary);stroke-width:2;}
+  .dw-target-dot{fill:var(--dw-bad);stroke:#fff;stroke-width:1.5;opacity:.8;}
   .dw-pin-correct{fill:var(--dw-good);stroke:#fff;stroke-width:2;}
-  .dw-pin-wrong{fill:var(--dw-bad);stroke:#fff;stroke-width:2;opacity:.9;transition:opacity .7s ease;}
+  .dw-pin-wrong{fill:var(--dw-accent);stroke:#fff;stroke-width:2;opacity:.95;transition:opacity .7s ease;}
   .dw-pin-label{font-size:15px;font-weight:700;fill:var(--dw-primary);paint-order:stroke;stroke:#fff;stroke-width:3px;}
 
   .dw-city-pool{display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;min-height:60px;}
@@ -292,8 +293,9 @@
   <div class="dw-section">
     <h2>🗺️ Plasser de 10 største byene!</h2>
     <p>
-      Dra bynavnet fra listen og slipp det der du tror byen ligger på kartet.
-      Du får beskjed med én gang om det er riktig — og hvis det er feil, får
+      De røde prikkene på kartet viser hvor de 10 byene skal plasseres. Dra
+      riktig bynavn fra listen og slipp det på prikken du tror hører til.
+      Blir det riktig, blir bynavnet stående på kartet — blir det feil, får
       du et hint om hvilken by du faktisk landet nærmest. Du kan prøve så
       mange ganger du vil.
     </p>
@@ -302,6 +304,7 @@
         <svg id="dw-map-svg" viewBox="0 0 600 814" xmlns="http://www.w3.org/2000/svg">
           <path class="dw-map-land" d="M 166.1,1.3 L 162.6,9.3 L 167.6,18.7 L 192.7,14.6 L 233.5,28.0 L 245.2,18.9 L 267.6,28.9 L 272.3,52.9 L 260.0,61.6 L 283.5,62.8 L 279.1,77.9 L 291.4,64.9 L 316.7,78.5 L 344.4,69.6 L 339.9,73.4 L 342.2,89.7 L 319.9,104.7 L 328.9,115.0 L 347.8,108.8 L 365.8,120.8 L 367.7,113.7 L 360.8,110.7 L 368.1,113.7 L 380.7,94.4 L 409.7,94.7 L 435.6,59.8 L 464.6,64.7 L 446.3,67.9 L 454.6,74.3 L 468.4,64.5 L 474.0,81.0 L 497.0,100.9 L 512.7,92.4 L 527.0,118.5 L 521.1,124.4 L 528.5,120.0 L 526.4,111.5 L 535.4,116.5 L 532.8,106.6 L 547.1,117.7 L 546.8,124.5 L 519.9,125.2 L 551.2,137.7 L 546.7,141.5 L 562.0,187.6 L 540.6,231.6 L 574.5,258.8 L 567.3,278.0 L 581.2,311.7 L 571.1,337.8 L 581.0,354.2 L 578.4,365.5 L 593.8,373.5 L 600.0,391.5 L 593.6,424.8 L 579.2,442.0 L 565.5,418.5 L 551.9,418.2 L 548.8,426.7 L 558.9,429.9 L 557.0,435.5 L 503.1,453.8 L 497.6,466.0 L 491.6,461.1 L 465.6,485.1 L 435.4,486.6 L 423.0,509.6 L 414.3,494.6 L 407.2,501.7 L 437.4,536.0 L 428.0,554.0 L 444.9,587.7 L 469.3,600.6 L 493.4,634.5 L 508.4,638.0 L 521.9,656.4 L 514.3,683.4 L 500.0,675.0 L 494.0,697.9 L 450.9,725.1 L 467.2,752.8 L 461.3,765.4 L 474.0,775.1 L 468.0,793.2 L 454.0,783.2 L 452.8,771.2 L 434.7,776.1 L 418.2,764.5 L 413.0,768.8 L 415.3,779.0 L 377.7,779.3 L 354.0,801.0 L 334.5,800.5 L 328.4,785.6 L 298.8,780.7 L 298.9,802.3 L 281.6,813.6 L 285.4,800.8 L 276.8,804.8 L 268.6,784.3 L 250.1,785.0 L 207.9,755.8 L 219.5,772.0 L 204.4,763.7 L 197.9,773.4 L 176.7,756.8 L 165.9,770.8 L 179.2,771.2 L 177.8,779.1 L 117.8,785.7 L 107.5,769.1 L 114.7,740.1 L 111.8,724.7 L 128.7,671.1 L 154.4,635.9 L 115.5,627.2 L 103.1,613.6 L 93.1,620.8 L 77.7,621.1 L 69.0,609.6 L 56.7,615.7 L 43.5,587.5 L 31.6,584.3 L 43.0,548.4 L 28.8,545.6 L 14.8,522.1 L 19.5,503.7 L 35.1,493.6 L 30.0,476.8 L 19.7,470.8 L 26.6,464.0 L 6.0,445.3 L 13.8,432.0 L 0.0,419.3 L 19.6,407.9 L 13.5,398.3 L 23.6,385.6 L 22.8,370.7 L 6.1,337.7 L 18.8,329.3 L 35.7,337.6 L 57.1,329.9 L 63.1,319.9 L 54.3,311.7 L 78.5,294.4 L 74.3,270.3 L 58.5,270.8 L 53.2,261.3 L 58.7,260.3 L 57.1,251.8 L 77.3,252.9 L 80.1,230.9 L 91.0,215.1 L 90.2,180.4 L 73.8,177.1 L 84.3,149.3 L 140.5,140.6 L 150.7,156.9 L 144.3,166.3 L 156.0,173.2 L 157.3,151.2 L 176.8,160.7 L 171.1,142.3 L 179.3,123.1 L 211.5,124.7 L 193.2,108.1 L 203.8,105.5 L 192.4,92.3 L 201.8,77.7 L 177.5,78.6 L 184.4,73.1 L 179.3,70.0 L 198.0,67.3 L 204.3,56.1 L 192.3,61.2 L 197.8,48.5 L 178.1,17.9 L 166.7,21.9 L 159.8,19.0 L 157.8,31.8 L 159.0,15.4 L 166.1,1.3 Z"/>
           <path class="dw-map-land" d="M 496.3,50.2 L 511.6,51.6 L 504.4,62.1 L 517.3,74.7 L 514.6,81.8 L 509.4,79.4 L 513.2,76.3 L 507.1,77.4 L 511.8,73.9 L 505.1,73.5 L 490.2,82.2 L 494.5,83.8 L 492.9,87.3 L 486.1,84.1 L 489.0,81.3 L 476.2,80.9 L 479.2,78.9 L 474.6,75.7 L 475.4,71.6 L 484.2,70.4 L 476.9,65.6 L 484.6,60.3 L 477.5,57.7 L 476.5,53.3 L 487.1,56.7 L 486.6,52.7 L 491.2,49.9 L 489.2,53.1 L 491.8,52.0 L 494.1,58.8 L 500.3,60.1 L 500.0,53.1 L 496.3,50.2 Z"/>
+          <g id="dw-targets"></g>
           <g id="dw-pins"></g>
         </svg>
         <div id="dw-map-score">0 av 10 riktig plassert</div>
@@ -350,6 +353,19 @@
       var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
     }
     return a;
+  }
+
+  function dwRenderTargets(){
+    var targets = document.getElementById('dw-targets');
+    targets.innerHTML = '';
+    dwCities.forEach(function(c){
+      var dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      dot.setAttribute('class', 'dw-target-dot');
+      dot.setAttribute('cx', c.x);
+      dot.setAttribute('cy', c.y);
+      dot.setAttribute('r', 5);
+      targets.appendChild(dot);
+    });
   }
 
   function dwRenderPool(){
@@ -510,6 +526,7 @@
   }
 
   document.getElementById('dw-map-reset').addEventListener('click', dwResetMap);
+  dwRenderTargets();
   dwRenderPool();
 
   // Quiz
