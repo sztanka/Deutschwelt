@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <!--
-  DEUTSCHWELT — Deutsch im echten Leben (hub-side)
-  Nettstedets "autentiske tysk"-seksjon: viser eleven hvordan tysk faktisk
-  brukes av folk (særlig ungdom) utenfor læreboka — i chat, med venner,
-  på skolen og i hverdagssituasjoner. De andre seksjonene lærer eleven
-  tysk; denne viser hvordan tysken faktisk ser ut i virkeligheten.
-  Se README.md i rotmappen for hvordan du legger til et nytt tema her.
+  DEUTSCHWELT — Forside
+  Del av det statiske Deutschwelt-nettstedet. Se README.md i rotmappen
+  for hvordan du legger til flere sider/seksjoner etter samme mønster.
 -->
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Deutsch im echten Leben · Deutschwelt</title>
-<link rel="stylesheet" href="../assets/style.css">
+<title>Deutschwelt</title>
+<link rel="stylesheet" href="assets/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
@@ -21,6 +18,7 @@
     --dw-primary:#161616;
     --dw-primary-light:#9c1329;
     --dw-accent:#d9a91c;
+    --dw-danger:#c62828;
     --dw-bg:#f7f5f0;
     --dw-card:#ffffff;
     --dw-text:#232323;
@@ -28,55 +26,188 @@
     --dw-radius:16px;
   }
   *{box-sizing:border-box;}
-  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
-  .dw-wrap{max-width:820px;margin:0 auto;padding:0 16px 60px;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--dw-bg);
+    color:var(--dw-text);
+  }
+  .dw-wrap{max-width:1000px;margin:0 auto;padding:0 16px 60px;}
   .dw-header{
     background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
-    color:#fff;border-radius:var(--dw-radius);padding:32px 26px;text-align:center;margin-bottom:16px;
+    color:#fff;
+    border-radius:var(--dw-radius);
+    padding:44px 28px 36px;
+    text-align:center;
+    margin-bottom:28px;
   }
-  .dw-header h1{margin:0 0 6px;font-size:1.8rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
-  .dw-header p{margin:0;opacity:.95;}
-  .dw-source-note{
-    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
-    padding:14px 20px;margin-bottom:24px;font-size:.88rem;line-height:1.6;color:var(--dw-text);
+  .dw-header h1{
+    margin:0 0 8px;
+    font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-weight:800;
+    font-size:clamp(2.6rem,9vw,4.4rem);
+    letter-spacing:.5px;
+    text-shadow:0 3px 14px rgba(0,0,0,.3);
   }
-  .dw-source-note strong{color:var(--dw-primary);}
-  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
-  .dw-card{
-    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px;text-decoration:none;color:var(--dw-text);
-    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;
-    display:flex;flex-direction:column;gap:6px;
+  .dw-flags{display:flex;justify-content:center;gap:14px;margin:6px 0 4px;flex-wrap:wrap;}
+  .dw-flag{display:flex;flex-direction:column;align-items:center;gap:4px;}
+  .dw-flag-chip{width:38px;height:26px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.35);position:relative;overflow:hidden;}
+  .dw-flag-de .dw-flag-chip{background:linear-gradient(to bottom,#161616 0 33.34%,#d00 33.34% 66.67%,#ffce00 66.67% 100%);}
+  .dw-flag-at .dw-flag-chip{background:linear-gradient(to bottom,#ed2939 0 33.34%,#fff 33.34% 66.67%,#ed2939 66.67% 100%);}
+  .dw-flag-ch .dw-flag-chip{background:#d52b1e;}
+  .dw-flag-ch .dw-flag-chip::before,.dw-flag-ch .dw-flag-chip::after{content:"";position:absolute;background:#fff;}
+  .dw-flag-ch .dw-flag-chip::before{left:46%;top:22%;width:8%;height:56%;}
+  .dw-flag-ch .dw-flag-chip::after{left:29%;top:41%;width:42%;height:18%;}
+  .dw-flag span{font-size:.68rem;font-weight:700;color:rgba(255,255,255,.9);letter-spacing:.02em;}
+  .dw-header p.dw-sub{
+    margin:0;
+    font-size:1.1rem;
+    opacity:.95;
   }
-  .dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
-  .dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
-  .dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-header p.dw-no{
+    margin:14px 0 0;
+    font-size:.95rem;
+    color:var(--dw-accent);
+    font-weight:600;
+  }
+  .dw-search{
+    display:flex;
+    gap:8px;
+    max-width:520px;
+    margin:20px auto 0;
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.35);
+    border-radius:999px;
+    padding:6px 6px 6px 18px;
+  }
+  .dw-search input{
+    flex:1;
+    border:none;
+    background:transparent;
+    outline:none;
+    color:#fff;
+    font-size:1rem;
+    padding:8px 0;
+  }
+  .dw-search input::placeholder{color:rgba(255,255,255,.75);}
+  .dw-search button{
+    border:none;
+    background:var(--dw-accent);
+    color:#1a1a1a;
+    font-weight:700;
+    padding:8px 18px;
+    border-radius:999px;
+    cursor:pointer;
+    font-size:.95rem;
+  }
+  .dw-search button:hover{filter:brightness(1.05);}
+  #dw-search-result{
+    max-width:520px;
+    margin:10px auto 0;
+    text-align:center;
+    font-size:.9rem;
+    color:#fff;
+    min-height:1.2em;
+  }
+  #dw-search-result a{color:var(--dw-accent);font-weight:700;}
 
-  /* Tematisk kort-mønster (erstatter emoji) */
+  .dw-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:16px;
+  }
+  .dw-card{
+    background:var(--dw-card);
+    border-radius:var(--dw-radius);
+    padding:20px;
+    text-decoration:none;
+    color:var(--dw-text);
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+    border:1px solid #ece8df;
+    transition:transform .15s ease, box-shadow .15s ease;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .dw-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 10px 20px rgba(30,58,95,.14);
+    border-color:var(--dw-accent);
+  }
+  .dw-card h2{
+    margin:4px 0 0;
+    font-size:1.05rem;
+    color:var(--dw-primary-light);
+  }
+  .dw-card p{
+    margin:0;
+    font-size:.88rem;
+    color:var(--dw-muted);
+  }
+  .dw-footer{
+    text-align:center;
+    margin-top:36px;
+    font-size:.85rem;
+    color:var(--dw-muted);
+  }
+
+  .dw-ticker{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:14px 18px;margin-bottom:24px;
+    border:1px solid #ece8df;box-shadow:0 2px 8px rgba(0,0,0,.06);
+  }
+  .dw-ticker-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;}
+  .dw-ticker-title{font-weight:700;color:var(--dw-primary);font-size:.92rem;}
+  .dw-ticker-title b{color:var(--dw-accent);}
+  .dw-ticker-link{color:var(--dw-accent);font-weight:700;text-decoration:none;font-size:.85rem;white-space:nowrap;}
+  .dw-ticker-link:hover{text-decoration:underline;}
+  .dw-ticker-viewport{overflow:hidden;position:relative;-webkit-mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent);}
+  .dw-ticker-track{display:flex;gap:28px;white-space:nowrap;width:max-content;animation:dw-scroll 34s linear infinite;}
+  .dw-ticker-viewport:hover .dw-ticker-track{animation-play-state:paused;}
+  .dw-ticker-item{display:inline-flex;align-items:baseline;gap:6px;font-size:.9rem;}
+  .dw-ticker-item b{color:var(--dw-primary);}
+  .dw-ticker-item span{color:var(--dw-muted);}
+  @keyframes dw-scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* Tematiske kort-mønstre (erstatter emoji) */
+  .dw-card.dw-p-reise{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%2213%22%20y%3D%2219%22%20width%3D%2230%22%20height%3D%2221%22%20rx%3D%223%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3Crect%20x%3D%2222%22%20y%3D%2212%22%20width%3D%2212%22%20height%3D%228%22%20rx%3D%222%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-sprechen{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cpath%20d%3D%22M11%2013h34a4%204%200%20014%204v15a4%204%200%2001-4%204H24l-9%209v-9h-4a4%204%200%2001-4-4V17a4%204%200%20014-4z%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-hoeren{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%228%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3Crect%20x%3D%2217%22%20y%3D%2215%22%20width%3D%224%22%20height%3D%2228%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3Crect%20x%3D%2226%22%20y%3D%227%22%20width%3D%224%22%20height%3D%2244%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2216%22%20width%3D%224%22%20height%3D%2226%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3Crect%20x%3D%2244%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-lesen{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%2214%22%20y%3D%227%22%20width%3D%2228%22%20height%3D%2242%22%20rx%3D%222%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3Cline%20x1%3D%2219%22%20y1%3D%2218%22%20x2%3D%2237%22%20y2%3D%2218%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3Cline%20x1%3D%2219%22%20y1%3D%2227%22%20x2%3D%2237%22%20y2%3D%2227%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3Cline%20x1%3D%2219%22%20y1%3D%2236%22%20x2%3D%2230%22%20y2%3D%2236%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-schreiben{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%2224.5%22%20y%3D%226%22%20width%3D%227%22%20height%3D%2236%22%20rx%3D%222%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%20transform%3D%22rotate%2840%2028%2024%29%22%2F%3E%3Cpolygon%20points%3D%2220%2C44%2026%2C50%2014%2C52%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%20transform%3D%22rotate%2840%2028%2024%29%20translate%280%200%29%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-grammatikk{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cpath%20d%3D%22M14%2014h11a4%204%200%20108%200h11v11a4%204%200%20100%208v11H33a4%204%200%2010-8%200H14V33a4%204%200%20100-8z%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-staedte{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%227%22%20y%3D%2230%22%20width%3D%228%22%20height%3D%2218%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%2228%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3Crect%20x%3D%2229%22%20y%3D%2211%22%20width%3D%228%22%20height%3D%2237%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%2224%22%20width%3D%228%22%20height%3D%2224%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-geschichte{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%2219%22%20y%3D%2211%22%20width%3D%2218%22%20height%3D%224%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3Crect%20x%3D%2223%22%20y%3D%2215%22%20width%3D%2210%22%20height%3D%2227%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3Crect%20x%3D%2216%22%20y%3D%2242%22%20width%3D%2224%22%20height%3D%224%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-filme{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%229%22%20y%3D%2213%22%20width%3D%2238%22%20height%3D%2230%22%20rx%3D%223%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3Ccircle%20cx%3D%2215%22%20cy%3D%2213%22%20r%3D%222%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.12%22%2F%3E%3Ccircle%20cx%3D%2215%22%20cy%3D%2243%22%20r%3D%222%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.12%22%2F%3E%3Ccircle%20cx%3D%2241%22%20cy%3D%2213%22%20r%3D%222%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.12%22%2F%3E%3Ccircle%20cx%3D%2241%22%20cy%3D%2243%22%20r%3D%222%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.12%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-musik{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Ccircle%20cx%3D%2217%22%20cy%3D%2241%22%20r%3D%226.5%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3Crect%20x%3D%2222.5%22%20y%3D%2213%22%20width%3D%223%22%20height%3D%2228%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3Cpath%20d%3D%22M22.5%2013l16%204.5v7l-16-4.5z%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-deutschland{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%2213%22%20y%3D%2215%22%20width%3D%2230%22%20height%3D%2226%22%20rx%3D%222%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3Cline%20x1%3D%2213%22%20y1%3D%2223.7%22%20x2%3D%2243%22%20y2%3D%2223.7%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3Cline%20x1%3D%2213%22%20y1%3D%2232.3%22%20x2%3D%2243%22%20y2%3D%2232.3%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-challenges{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cpolygon%20points%3D%2228%2C7%2033.5%2C21.5%2049%2C21.5%2036.5%2C30.7%2041%2C46%2028%2C36.7%2015%2C46%2019.5%2C30.7%207%2C21.5%2022.5%2C21.5%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.11%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-normen{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Ccircle%20cx%3D%2228%22%20cy%3D%2228%22%20r%3D%2215%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M20%2028l5.5%205.5L37%2022%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.11%22%20stroke-width%3D%222.4%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
   .dw-card.dw-p-leben{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%2219%22%20y%3D%227%22%20width%3D%2218%22%20height%3D%2242%22%20rx%3D%223%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3Ccircle%20cx%3D%2224%22%20cy%3D%2226%22%20r%3D%221.8%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.14%22%2F%3E%3Ccircle%20cx%3D%2228%22%20cy%3D%2226%22%20r%3D%221.8%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.14%22%2F%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2226%22%20r%3D%221.8%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.14%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-fortgeschritten{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cpolygon%20points%3D%2228%2C13%2049%2C22%2028%2C31%207%2C22%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3Crect%20x%3D%2223%22%20y%3D%2231%22%20width%3D%2210%22%20height%3D%2211%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
 </style>
 </head>
 <body>
 
 <div class="dw-nav-bar">
   <nav class="dw-nav">
-    <a class="dw-nav-logo" href="../">🇩🇪 Deutschwelt</a>
+    <a class="dw-nav-logo" href="./">🇩🇪 Deutschwelt</a>
     <div class="dw-nav-links">
-      <a class="dw-nav-link" href="../">🏠 Forside</a>
-      <a class="dw-nav-link" href="../grammatikk/">🧩 Grammatik</a>
-      <a class="dw-nav-link" href="../staedte/">🏙️ Städte</a>
-      <a class="dw-nav-link" href="../geschichte/">🕰️ Geschichte</a>
-      <a class="dw-nav-link" href="../lesen/">📖 Lesen</a>
-      <a class="dw-nav-link" href="../hoeren/">🎧 Hören</a>
-      <a class="dw-nav-link" href="../schreiben/">✍️ Schreiben</a>
-      <a class="dw-nav-link" href="../reise/">🗺️ Reise</a>
-      <a class="dw-nav-link" href="../challenges/">🏆 Challenges</a>
-      <a class="dw-nav-link" href="../filme-serien/">🎬 Filme &amp; Serien</a>
-      <a class="dw-nav-link" href="../musik/">🎵 Musik</a>
-      <a class="dw-nav-link" href="../deutschland/">🇩🇪 Deutschland</a>
-      <a class="dw-nav-link" href="../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
-      <a class="dw-nav-link dw-nav-active" href="./">📱 Deutsch im echten Leben</a>
-      <a class="dw-nav-link" href="../sprechen/">🗣️ Sprechen</a>
-      <a class="dw-nav-link" href="../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link dw-nav-active" href="./">🏠 Forside</a>
+      <a class="dw-nav-link" href="grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="fortgeschritten/">🎓 9.–10. trinn</a>
     </div>
   </nav>
 </div>
@@ -84,48 +215,336 @@
 <div class="dw-wrap">
 
   <div class="dw-header">
-    <h1>Deutsch im echten Leben</h1>
-    <p>Deutsch, wie es wirklich benutzt wird – in der Schule, im Chat, beim Einkaufen und mit Freunden.</p>
+    <h1>DEUTSCHWELT</h1>
+    <p class="dw-sub">Was möchtest du heute machen?</p>
+    <p class="dw-no">Velg et kort under og bli med inn i den tyske verdenen!</p>
+    <div class="dw-flags">
+      <span class="dw-flag dw-flag-de"><span class="dw-flag-chip" role="img" aria-label="Tysklands flagg"></span><span>Deutschland</span></span>
+      <span class="dw-flag dw-flag-at"><span class="dw-flag-chip" role="img" aria-label="Østerrikes flagg"></span><span>Österreich</span></span>
+      <span class="dw-flag dw-flag-ch"><span class="dw-flag-chip" role="img" aria-label="Sveits' flagg"></span><span>Schweiz</span></span>
+    </div>
+
+    <div class="dw-search">
+      <input type="text" id="dw-search-input" placeholder="Ich suche etwas … (skriv f.eks. Berlin, Café, Akkusativ)">
+      <button onclick="dwSearch()">Suchen</button>
+    </div>
+    <div id="dw-search-result"></div>
   </div>
 
-  <div class="dw-source-note">
-    De andre delene av Deutschwelt lærer deg tysk. Denne delen viser deg hvordan tysken faktisk <em>ser ut</em> når læreboka er lagt bort — slik venner, medelever og folk du møter faktisk snakker. Et eksempel: i læreboka lærer du kanskje <strong>«Ich möchte gerne mit dir ins Kino gehen.»</strong> — men en tysk ungdom ville nok heller sagt <strong>«Hast du Bock auf Kino?»</strong> Begge er riktig tysk, men de passer i helt ulike situasjoner. Det handler ikke bare om grammatikk — det handler om hvem du snakker med, og hvor uformell du kan være.
+  <div class="dw-ticker">
+    <div class="dw-ticker-head">
+      <span class="dw-ticker-title">📅 Wortschatz der Woche — <b>Uke <span id="dw-ticker-week">1</span></b></span>
+      <a class="dw-ticker-link" href="grammatikk/wortschatz-woche/">Alle 500 ord →</a>
+    </div>
+    <div class="dw-ticker-viewport">
+      <div class="dw-ticker-track" id="dw-ticker-track"></div>
+    </div>
   </div>
 
   <div class="dw-grid">
-    <a class="dw-card dw-p-leben" href="alltagssprache/">
-      <h2>Alltagssprache & «Was bedeutet das?»</h2>
-      <p>Uttrykk du faktisk hører — og forskjellen mellom Schulbuch-Deutsch og Alltags-Deutsch</p>
+    <a class="dw-card dw-p-reise" href="reise/" id="card-reise">
+      <h2>Eine Reise machen</h2>
+      <p>Planlegg, pakk og skriv dagbok fra en reise til Berlin eller Wien</p>
     </a>
-    <a class="dw-card dw-p-leben" href="chat/">
-      <h2>Chat & Social Media</h2>
-      <p>Emojis, forkortelser og korte meldinger — og du skal skrive et svar selv</p>
+    <a class="dw-card dw-p-sprechen" href="sprechen/" id="card-sprechen">
+      <h2>Deutsch sprechen</h2>
+      <p>Café, restaurant, butikk, hotell og taxi — velg en situasjon og snakk!</p>
     </a>
-    <a class="dw-card dw-p-leben" href="jugendwoerter/">
-      <h2>Jugendwörter</h2>
-      <p>En liten ordbok med tyske ungdomsuttrykk, forklart med eksempler</p>
+    <a class="dw-card dw-p-hoeren" href="hoeren/" id="card-hoeren">
+      <h2>Deutsch hören</h2>
+      <p>Se korte videoer og løs oppgaver før, under og etter</p>
     </a>
-    <a class="dw-card dw-p-leben" href="schule/">
-      <h2>Jugend & Schule</h2>
-      <p>Skolehverdagen i Tyskland, Østerrike og Sveits — og hva som er annerledes enn i Norge</p>
+    <a class="dw-card dw-p-lesen" href="lesen/" id="card-lesen">
+      <h2>Deutsch lesen</h2>
+      <p>Mysterier for detektiver, blitzkorte flash fiction og ekte tekster av Franz Kafka</p>
     </a>
-    <a class="dw-card dw-p-leben dw-soon" href="#">
-      <h2>Gaming & Internet</h2>
-      <p>Kommer snart</p>
-      <span class="dw-soon-tag">🔜 Kommer snart</span>
+    <a class="dw-card dw-p-schreiben" href="schreiben/" id="card-schreiben">
+      <h2>Deutsch schreiben</h2>
+      <p>SMS-chatter, personbeskrivelser, presentasjoner og fem andre skriverammer med grammatikk-tips</p>
     </a>
-    <a class="dw-card dw-p-leben dw-soon" href="#">
-      <h2>Alltagssituationen</h2>
-      <p>Kommer snart</p>
-      <span class="dw-soon-tag">🔜 Kommer snart</span>
+    <a class="dw-card dw-p-grammatikk" href="grammatikk/" id="card-grammatikk">
+      <h2>Grammatik trainieren</h2>
+      <p>Lær og øv grammatikk gjennom spill</p>
     </a>
-    <a class="dw-card dw-p-leben dw-soon" href="#">
-      <h2>Gleiches Wort, andere Welt</h2>
-      <p>Kommer snart</p>
-      <span class="dw-soon-tag">🔜 Kommer snart</span>
+    <a class="dw-card dw-p-staedte" href="staedte/" id="card-berlin">
+      <h2>Städte entdecken</h2>
+      <p>Utforsk 7 byer — Berlin, Wien, Zürich, Hamburg, München, Köln og Frankfurt</p>
+    </a>
+    <a class="dw-card dw-p-geschichte" href="geschichte/" id="card-geschichte">
+      <h2>Geschichte</h2>
+      <p>Reis gjennom historien — fra småstater og Kaiserreich til verdenskrigen og delt Tyskland</p>
+    </a>
+    <a class="dw-card dw-p-filme" href="filme-serien/" id="card-filme">
+      <h2>Filme &amp; Serien</h2>
+      <p>10 filmer og 5 serier med trailere og korte beskrivelser</p>
+    </a>
+    <a class="dw-card dw-p-musik" href="musik/" id="card-musik">
+      <h2>Musik</h2>
+      <p>27 kjente tyske sanger — hør på musikkvideoen og les hva den handler om</p>
+    </a>
+    <a class="dw-card dw-p-deutschland" href="deutschland/" id="card-deutschland">
+      <h2>Deutschland</h2>
+      <p>Kultur, tradisjoner og fakta om landet — pluss et kart der du må plassere de 10 største byene</p>
+    </a>
+    <a class="dw-card dw-p-challenges" href="challenges/" id="card-challenges">
+      <h2>Challenges</h2>
+      <p>Tilfeldige oppgaver, et memory-spill og en escape-room-gåte</p>
+    </a>
+    <a class="dw-card dw-p-normen" href="normen/hoeflichkeit/" id="card-normen">
+      <h2>Normen &amp; Regeln</h2>
+      <p>Høflighet i Tyskland: du eller Sie? Med illustrasjoner og grammatikkspill</p>
+    </a>
+    <a class="dw-card dw-p-leben" href="leben/" id="card-leben">
+      <h2>Deutsch im echten Leben</h2>
+      <p>Slik snakker tyske ungdommer faktisk — chat, slang og skolehverdag</p>
+    </a>
+    <a class="dw-card dw-p-fortgeschritten" href="fortgeschritten/" id="card-fortgeschritten">
+      <h2>9.–10. trinn</h2>
+      <p>Mer avansert tysk — nye grammatikk-temaer og oppgaver på A2/B1-nivå</p>
     </a>
   </div>
 
+  <p class="dw-footer">Deutschwelt · Deutsch entdecken. Deutsch erleben. Deutsch sprechen.</p>
 </div>
+
+<script>
+  // Enkelt, "fuzzy nok" søk som peker eleven videre til riktig side.
+  var dwIndex = [
+    {keys:["berlin","hovedstad","hauptstadt","brandenburger"], target:"staedte/berlin/", label:"🏙️ Städte entdecken – Berlin", built:true},
+    {keys:["wien","österreich","mozart","kaffeehaus"], target:"staedte/wien/", label:"🎼 Städte entdecken – Wien", built:true},
+    {keys:["mauer","berliner mauer","ddr","kennedy","mauerfall","wiedervereinigung"], target:"geschichte/berliner-mauer/", label:"🧱 Geschichte – Die Berliner Mauer", built:true},
+    {keys:["café","cafe","kellner","bestellen"], target:"sprechen/cafe/", label:"☕ Sprechen – Im Café", built:true},
+    {keys:["substantiv-abc","genus","kjønn på substantiv","hankjønn hunkjønn intetkjønn","pluralis","flertall tysk","ubestemt artikkel"], target:"grammatikk/artikler/substantiv-abc/", label:"📚 Grammatik – Das Substantiv-ABC (Genus, Artikel & Plural)", built:true},
+    {keys:["nominativ","artikel","der die das","artikel-detektiv"], target:"grammatikk/artikler/nominativ/", label:"🕵️ Grammatik – Der Artikel-Detektiv (Nominativ)", built:true},
+    {keys:["akkusativ","akkusativ-jagd"], target:"grammatikk/artikler/akkusativ/", label:"🎯 Grammatik – Die Akkusativ-Jagd (Akkusativ)", built:true},
+    {keys:["dativ","dem dativ","dativ-kompass","zu dem","zu der","zum zur"], target:"grammatikk/artikler/dativ/", label:"🧭 Grammatik – Der Dativ-Kompass (Dativ)", built:true},
+    {keys:["uregelrett","uregelrette","unregelmäßig","sein","haben","fahren","essen"], target:"grammatikk/verb/praesens-unregelmaessig/", label:"🌀 Grammatik – Verben: uregelrette", built:true},
+    {keys:["verb","verben","konjugieren","konjugasjon","präsens","presens","regelmessig","spielen","lernen"], target:"grammatikk/verb/praesens-regelmaessig/", label:"⚙️ Grammatik – Verben: regelrette", built:true},
+    {keys:["grammatikk","grammatik"], target:"grammatikk/", label:"🧩 Grammatik trainieren", built:true},
+    {keys:["tekamolo"], target:"grammatikk/adverbial/", label:"🧭 Grammatik – Adverbial", built:true},
+    {keys:["adjektiv","adjektivbøying","gradbøying"], target:"grammatikk/adjektiv/", label:"🎨 Grammatik – Adjektiv", built:true},
+    {keys:["eiendomsord","possessivpronomen"], target:"grammatikk/eiendomsord/", label:"🔑 Grammatik – Eiendomsord", built:true},
+    {keys:["konjunksjoner","bindeord","weil dass nebensätze"], target:"grammatikk/konjunksjoner/", label:"🔗 Grammatik – Konjunksjoner", built:true},
+    {keys:["personlig pronomen","personlige pronomen"], target:"grammatikk/personlig-pronomen/", label:"🙋 Grammatik – Personlig pronomen", built:true},
+    {keys:["ich du er sie es"], target:"grammatikk/personlig-pronomen/nominativ/", label:"🙋 Grammatik – Personlige pronomen: Nominativ", built:true},
+    {keys:["mich dich ihn"], target:"grammatikk/personlig-pronomen/akkusativ/", label:"🎯 Grammatik – Personlige pronomen: Akkusativ", built:true},
+    {keys:["mir dir ihm"], target:"grammatikk/personlig-pronomen/dativ/", label:"🤝 Grammatik – Personlige pronomen: Dativ", built:true},
+    {keys:["preposisjoner"], target:"grammatikk/preposisjoner/", label:"📍 Grammatik – Preposisjoner", built:true},
+    {keys:["spørreord","w-fragen","wer was wann wo warum"], target:"grammatikk/sporreord/", label:"❓ Grammatik – Spørreord", built:true},
+    {keys:["tidsuttrykk","klokka på tysk","ukedager","årstider tysk"], target:"grammatikk/tidsuttrykk/", label:"⏰ Grammatik – Tidsuttrykk", built:true},
+    {keys:["verlorene rucksack","rucksack","umkleide"], target:"lesen/der-verlorene-rucksack/", label:"🎒 Lesen – Der verlorene Rucksack", built:true},
+    {keys:["regenschirm"], target:"lesen/der-regenschirm/", label:"☂️ Lesen – Der Regenschirm", built:true},
+    {keys:["zahlendreher","falsche nummer","vertippte nummer"], target:"lesen/die-sms/", label:"📱 Lesen – Die SMS", built:true},
+    {keys:["kafka","kleine fabel","gibs auf","parabel","parabeln","echte literatur"], target:"lesen/kafka-parabeln/", label:"📜 Lesen – Zwei Parabeln von Franz Kafka", built:true},
+    {keys:["klassikere","klassiker","avansert lesing","tysk litteratur","offentlig tilgjengelig","gemeinfrei"], target:"lesen/klassikere/", label:"🏛️ Lesen – Klassikere der deutschen Literatur", built:true},
+    {keys:["die verwandlung","verwandlung","gregor samsa","kafka insekt","ungeziefer"], target:"lesen/klassikere/verwandlung/", label:"🪲 Klassikere – Die Verwandlung (Kafka)", built:true},
+    {keys:["der sandmann","sandmann","hoffmann","coppelius","olimpia","nathanael"], target:"lesen/klassikere/sandmann/", label:"🌙 Klassikere – Der Sandmann (E.T.A. Hoffmann)", built:true},
+    {keys:["der schatz im silbersee","silbersee","karl may","old shatterhand","winnetou"], target:"lesen/klassikere/silbersee/", label:"🏔️ Klassikere – Der Schatz im Silbersee (Karl May)", built:true},
+    {keys:["max und moritz","wilhelm busch","streiche","bubengeschichte"], target:"lesen/klassikere/max-und-moritz/", label:"😈 Klassikere – Max und Moritz (Wilhelm Busch)", built:true},
+    {keys:["lesen","lukas","wochenende","kuchen","rätsel","detektiv","lese","flash fiction"], target:"lesen/", label:"📖 Deutsch lesen", built:true},
+    {keys:["taxi","taxifahrer","zum bahnhof bitte"], target:"sprechen/taxi/", label:"🚕 Sprechen – Im Taxi", built:true},
+    {keys:["tschüss","taxi tasche"], target:"hoeren/nicos-weg-tschuess/", label:"👋 Hören – Nicos Weg Folge 3: Tschüss!", built:true},
+    {keys:["von a bis z","buchstabieren","stave tysk"], target:"hoeren/nicos-weg-von-a-bis-z/", label:"🔤 Hören – Nicos Weg Folge 4: Von A bis Z", built:true},
+    {keys:["ich heiße emma","wie heißt du","vorstellen","tankstelle"], target:"hoeren/nicos-weg-ich-heisse-emma/", label:"🙋 Hören – Nicos Weg Folge 5: Ich heiße Emma", built:true},
+    {keys:["das ist mein freund","presentere en venn på tysk"], target:"hoeren/nicos-weg-das-ist-nico/", label:"👥 Hören – Nicos Weg Folge 6: Das ist Nico", built:true},
+    {keys:["woher kommst du","ich komme aus spanien"], target:"hoeren/nicos-weg-woher-kommst-du/", label:"🌍 Hören – Nicos Weg Folge 7: Woher kommst du?", built:true},
+    {keys:["lisas vater ist polizist","polizist hilft nico"], target:"hoeren/nicos-weg-nico-hat-ein-problem/", label:"👮 Hören – Nicos Weg Folge 8: Nico hat ein Problem", built:true},
+    {keys:["zahlen von 1 bis 100","telle på tysk 1-100"], target:"hoeren/nicos-weg-zahlen-1-bis-100/", label:"🔢 Hören – Nicos Weg Folge 9: Zahlen von 1 bis 100", built:true},
+    {keys:["wichtige telefonnummern tysk","nødnummer tysk"], target:"hoeren/nicos-weg-wichtige-nummern/", label:"☎️ Hören – Nicos Weg Folge 10: Wichtige Nummern", built:true},
+    {keys:["die adresse sagen tysk","radiosender anrufen"], target:"hoeren/nicos-weg-adressen/", label:"📻 Hören – Nicos Weg Folge 11: Adressen", built:true},
+    {keys:["auf dem amt","formular ausfüllen"], target:"hoeren/nicos-weg-auf-dem-amt/", label:"🏛️ Hören – Nicos Weg Folge 12: Auf dem Amt", built:true},
+    {keys:["was machst du hier","wohngemeinschaft mitbewohner"], target:"hoeren/nicos-weg-was-machst-du-hier/", label:"🏠 Hören – Nicos Weg Folge 13: Was machst du hier?", built:true},
+    {keys:["was trinkst du","foto av tanten deles på nett"], target:"hoeren/nicos-weg-was-trinkst-du/", label:"🥤 Hören – Nicos Weg Folge 14: Was trinkst du?", built:true},
+    {keys:["eine pizza bitte","endelig et svar på bildet"], target:"hoeren/nicos-weg-eine-pizza-bitte/", label:"🍕 Hören – Nicos Weg Folge 15: Eine Pizza, bitte!", built:true},
+    {keys:["hallo","nico","emma","hören","höre","video","hilfe","kein problem"], target:"hoeren/", label:"🎧 Deutsch hören", built:true},
+    {keys:["personbeskrivelse","utseende und charakter","aussehen und charakter"], target:"schreiben/personenbeschreibung/", label:"🧑 Schreiben – Personenbeschreibung", built:true},
+    {keys:["präsentation","praesentation","presentasjon halten"], target:"schreiben/praesentation/", label:"🎤 Schreiben – Eine Präsentation halten", built:true},
+    {keys:["einen ort","sted beskrive","stadt oder ort"], target:"schreiben/ort-beschreiben/", label:"🏙️ Schreiben – Einen Ort beschreiben", built:true},
+    {keys:["mein tag","aufstehen fernsehen","tagesablauf"], target:"schreiben/mein-tag/", label:"⏰ Schreiben – Mein Tag", built:true},
+    {keys:["wo ist was","wechselpräpositionen","ortspräpositionen"], target:"schreiben/wo-ist-was/", label:"📍 Schreiben – Wo ist was?", built:true},
+    {keys:["sms","chat","schreiben","nachricht","wortkiste","würfel","schreib"], target:"schreiben/", label:"✍️ Deutsch schreiben", built:true},
+    {keys:["reiseplaner","reiseplanlegger","budsjett reise","transport reise"], target:"reise/reiseplanlegger/", label:"🧭 Reise – Der Reiseplaner", built:true},
+    {keys:["koffer","pakke","packen","wetter reise"], target:"reise/koffer/", label:"🧳 Reise – Packe deinen Koffer", built:true},
+    {keys:["reisetagebuch","dagbok","tagebuch"], target:"reise/reisetagebuch/", label:"📔 Reise – Reisetagebuch", built:true},
+    {keys:["reise","reisen","eine reise machen"], target:"reise/", label:"🗺️ Eine Reise machen", built:true},
+    {keys:["tägliche herausforderung","daglig utfordring","mini-oppgave"], target:"challenges/taegliche-herausforderung/", label:"🎯 Challenges – Tägliche Herausforderung", built:true},
+    {keys:["wortschatz-jagd","memory","ordjakt","matchespill"], target:"challenges/wortschatz-jagd/", label:"🧠 Challenges – Wortschatz-Jagd", built:true},
+    {keys:["escape-room","escape room","klassenraum","kode","gåte"], target:"challenges/escape-room/", label:"🔐 Challenges – Der verschlossene Klassenraum", built:true},
+    {keys:["challenge","challenges","utfordring"], target:"challenges/", label:"🏆 Challenges", built:true},
+    {keys:["filme","serien","film","serie","kino","netflix","trailer"], target:"filme-serien/", label:"🎬 Filme & Serien", built:true},
+    {keys:["die welle","welle"], target:"filme-serien/", label:"🎬 Filme & Serien – Die Welle", built:true},
+    {keys:["fack ju","göhte","goethe film"], target:"filme-serien/", label:"🎬 Filme & Serien – Fack ju Göhte", built:true},
+    {keys:["lola rennt","løp lola løp"], target:"filme-serien/", label:"🎬 Filme & Serien – Lola rennt", built:true},
+    {keys:["good bye lenin","lenin"], target:"filme-serien/", label:"🎬 Filme & Serien – Good Bye, Lenin!", built:true},
+    {keys:["druck","skam"], target:"filme-serien/", label:"🎬 Filme & Serien – Druck", built:true},
+    {keys:["dark netflix"], target:"filme-serien/", label:"🎬 Filme & Serien – Dark", built:true},
+    {keys:["bibi und tina","bibi & tina","bibi tina"], target:"filme-serien/", label:"🎬 Filme & Serien – Bibi & Tina", built:true},
+    {keys:["høflighet","hoflighet","du oder sie","anrede","normen und regeln","normen"], target:"normen/hoeflichkeit/", label:"🎩 Normen & Regeln – Höflichkeit", built:true},
+    {keys:["setningsanalyse","satzanalyse","subjekt","objekt"], target:"grammatikk/analyse/satzanalyse/", label:"🔍 Grammatik – Der Satz-Detektiv", built:true},
+    {keys:["das experiment","experiment","stanford"], target:"filme-serien/", label:"🎬 Filme & Serien – Das Experiment", built:true},
+    {keys:["alltagssprache","hverdagsspråk","was bedeutet das","schulbuch","umgangssprache"], target:"leben/alltagssprache/", label:"💬 Deutsch im echten Leben – Alltagssprache & Was bedeutet das?", built:true},
+    {keys:["social media","socialmedia","instagram","emoji","forkortelser i meldinger","skriv en kommentar"], target:"leben/chat/", label:"📱 Deutsch im echten Leben – Chat & Social Media", built:true},
+    {keys:["jugendwörter","jugendworte","ungdomsord","ungdomsspråk","slang tysk","digga"], target:"leben/jugendwoerter/", label:"🗣️ Deutsch im echten Leben – Jugendwörter", built:true},
+    {keys:["sprichwörter","sprichwort","redewendungen","redewendung","ordtak tysk","faste uttrykk tysk","idiomer tysk"], target:"leben/sprichwoerter/", label:"📜 Deutsch im echten Leben – Sprichwörter und Redewendungen", built:true},
+    {keys:["skolehverdag tyskland","skole i tyskland","zeugnis","stundenplan","schulsystem","karaktersystem tyskland"], target:"leben/schule/", label:"🧑‍🎓 Deutsch im echten Leben – Jugend & Schule", built:true},
+    {keys:["deutsch im echten leben","echtes leben","alltag deutsch","authentisch","autentisk tysk"], target:"leben/", label:"📱 Deutsch im echten Leben", built:true},
+    {keys:["restaurant","tisch reservieren","hauptgericht"], target:"sprechen/restaurant/", label:"🍽️ Sprechen – Im Restaurant", built:true},
+    {keys:["kleidungsgeschäft","klesbutikk","klær kjøpe","anprobieren","größe"], target:"sprechen/butikken/", label:"👕 Sprechen – Im Kleidungsgeschäft", built:true},
+    {keys:["hotell","hotel","rezeption","einzelzimmer","doppelzimmer"], target:"sprechen/hotell/", label:"🏨 Sprechen – An der Rezeption", built:true},
+    {keys:["sprechen","deutsch sprechen","snakke tysk","muntlig tysk"], target:"sprechen/", label:"🗣️ Deutsch sprechen", built:true},
+    {keys:["kaiserreich","deutsches kaiserreich","bismarck","wilhelm","reichsgründung"], target:"geschichte/kaiserreich/", label:"👑 Geschichte – Deutsches Kaiserreich", built:true},
+    {keys:["weltkrieg","zweiter weltkrieg","2. weltkrieg","hitler","besetzung norwegen","9 april 1940"], target:"geschichte/zweiter-weltkrieg/", label:"⚔️ Geschichte – Zweiter Weltkrieg", built:true},
+    {keys:["kleinstaaterei","adelstitel","adelsnamen","heiliges römisches reich","tyskland før 1871","tyske småstater","fyrstedømmer"], target:"geschichte/kleinstaaterei/", label:"🏰 Geschichte – Kleinstaaterei", built:true},
+    {keys:["kalter krieg","geteiltes deutschland","ost-west-deutschland","ostdeutschland","westdeutschland","bundesrepublik","brd"], target:"geschichte/kalter-krieg/", label:"🚧 Geschichte – Kalter Krieg: Ost- und Westdeutschland", built:true},
+    {keys:["geschichte","historie"], target:"geschichte/", label:"🕰️ Geschichte", built:true},
+    {keys:["zürich","zurich","zürichsee","schweizer franken"], target:"staedte/zuerich/", label:"🏔️ Städte entdecken – Zürich", built:true},
+    {keys:["hamburg","elbphilharmonie","speicherstadt"], target:"staedte/hamburg/", label:"⚓ Städte entdecken – Hamburg", built:true},
+    {keys:["münchen","munich","oktoberfest","marienplatz"], target:"staedte/muenchen/", label:"🍺 Städte entdecken – München", built:true},
+    {keys:["köln","koeln","kölner dom","karneval"], target:"staedte/koeln/", label:"⛪ Städte entdecken – Köln", built:true},
+    {keys:["frankfurt","mainhattan","goethe-haus"], target:"staedte/frankfurt/", label:"🌆 Städte entdecken – Frankfurt", built:true},
+    {keys:["städte","staedte","byer","stadtportrait"], target:"staedte/", label:"🏙️ Städte entdecken", built:true},
+    {keys:["9. trinn","10. trinn","9.-10. trinn","fortgeschritten","avansert","avansert nivå","a2 b1","a2/b1"], target:"fortgeschritten/", label:"🎓 9.–10. trinn", built:true},
+    {keys:["500 ord","høyfrekvente ord","ukens ord","ordforråd","ord i uken"], target:"grammatikk/wortschatz-woche/", label:"📅 Grammatik – Wortschatz der Woche", built:true},
+    {keys:["du hast"], target:"musik/", label:"🎵 Musik – Rammstein: Du hast", built:true},
+    {keys:["tage wie diese"], target:"musik/", label:"🎵 Musik – Die Toten Hosen: Tage wie diese", built:true},
+    {keys:["sonne rammstein"], target:"musik/", label:"🎵 Musik – Rammstein: Sonne", built:true},
+    {keys:["99 luftballons"], target:"musik/", label:"🎵 Musik – Nena: 99 Luftballons", built:true},
+    {keys:["roller apache"], target:"musik/", label:"🎵 Musik – Apache 207: Roller", built:true},
+    {keys:["komet lindenberg"], target:"musik/", label:"🎵 Musik – Udo Lindenberg & Apache 207: Komet", built:true},
+    {keys:["nur ein wort"], target:"musik/", label:"🎵 Musik – Wir sind Helden: Nur ein Wort", built:true},
+    {keys:["54 74 90 2010"], target:"musik/", label:"🎵 Musik – Sportfreunde Stiller: '54, '74, '90, 2010", built:true},
+    {keys:["juli perfekte"], target:"musik/", label:"🎵 Musik – Juli: Perfekte Welle", built:true},
+    {keys:["haus am see"], target:"musik/", label:"🎵 Musik – Peter Fox: Haus am See", built:true},
+    {keys:["durch den monsun"], target:"musik/", label:"🎵 Musik – Tokio Hotel: Durch den Monsun", built:true},
+    {keys:["junge ärzte"], target:"musik/", label:"🎵 Musik – Die Ärzte: Junge", built:true},
+    {keys:["was du liebe nennst"], target:"musik/", label:"🎵 Musik – Bausa: Was du Liebe nennst", built:true},
+    {keys:["vermissen juju"], target:"musik/", label:"🎵 Musik – Juju feat. Henning May: Vermissen", built:true},
+    {keys:["das beste silbermond"], target:"musik/", label:"🎵 Musik – Silbermond: Das Beste", built:true},
+    {keys:["atemlos durch die nacht"], target:"musik/", label:"🎵 Musik – Helene Fischer: Atemlos durch die Nacht", built:true},
+    {keys:["ohne mein team"], target:"musik/", label:"🎵 Musik – Bonez MC & RAF Camora: Ohne mein Team", built:true},
+    {keys:["hamma culcha"], target:"musik/", label:"🎵 Musik – Culcha Candela: Hamma!", built:true},
+    {keys:["au revoir forster"], target:"musik/", label:"🎵 Musik – Mark Forster: Au Revoir", built:true},
+    {keys:["erfolg ist kein glück"], target:"musik/", label:"🎵 Musik – Kontra K: Erfolg ist kein Glück", built:true},
+    {keys:["rock me amadeus"], target:"musik/", label:"🎵 Musik – Falco: Rock Me Amadeus", built:true},
+    {keys:["forster 2018"], target:"musik/", label:"🎵 Musik – Mark Forster: Chöre", built:true},
+    {keys:["ahnma beginner"], target:"musik/", label:"🎵 Musik – Beginner: Ahnma", built:true},
+    {keys:["alles verloren bushido"], target:"musik/", label:"🎵 Musik – Bushido: Alles verloren", built:true},
+    {keys:["weck mich auf"], target:"musik/", label:"🎵 Musik – Samy Deluxe: Weck mich auf", built:true},
+    {keys:["männer sind schweine"], target:"musik/", label:"🎵 Musik – Die Ärzte: Männer sind Schweine", built:true},
+    {keys:["augen auf oomph"], target:"musik/", label:"🎵 Musik – Oomph!: Augen auf", built:true},
+    {keys:["musik lied lieder songs"], target:"musik/", label:"🎵 Musik – 27 tyske sanger", built:true},
+    {keys:["deutschland fakta"], target:"deutschland/", label:"🇩🇪 Deutschland – Fakta og kultur", built:true},
+    {keys:["bundesländer delstater"], target:"deutschland/", label:"🇩🇪 Deutschland – Bundesländer og fakta", built:true},
+    {keys:["naboland tyskland"], target:"deutschland/", label:"🇩🇪 Deutschland – Naboland", built:true},
+    {keys:["nasjonalsang deutschlandlied"], target:"deutschland/", label:"🇩🇪 Deutschland – Nasjonalsangen", built:true},
+    {keys:["fasching fastnacht rosenmontag"], target:"deutschland/", label:"🇩🇪 Deutschland – Karneval, Fasching og Fastnacht", built:true},
+    {keys:["brotkultur brødkultur"], target:"deutschland/", label:"🇩🇪 Deutschland – Mat og skikker", built:true},
+    {keys:["currywurst döner"], target:"deutschland/", label:"🇩🇪 Deutschland – Mat og skikker", built:true},
+    {keys:["zugspitze"], target:"deutschland/", label:"🇩🇪 Deutschland – Geografi og natur", built:true},
+    {keys:["rhein elbe donau"], target:"deutschland/", label:"🇩🇪 Deutschland – Geografi og natur", built:true},
+    {keys:["kart plassere spill"], target:"deutschland/", label:"🇩🇪 Deutschland – Plasser byene på kartet", built:true},
+    {keys:["tysk kultur tradisjon"], target:"deutschland/", label:"🇩🇪 Deutschland – Kultur og tradisjon", built:true}
+  ];
+
+  // dwWeeks: samme 498-ords/50-ukers datasett som grammatikk/wortschatz-woche/
+  // (duplisert bevisst — se README.md for hvorfor). Brukes kun her til å
+  // vise ukens 10 ord i rulleteksten under; selve øvingssiden ligger på
+  // den egne siden.
+  var dwWeeks = [
+    [{de:"ab",no:"av/fra",kl:"Preposisjon"}, {de:"braun",no:"brun",kl:"Adjektiv"}, {de:"er",no:"han",kl:"Pronomen"}, {de:"gefährlich",no:"farlig",kl:"Adjektiv"}, {de:"hinein",no:"inn",kl:"Adverb"}, {de:"legen",no:"legge",kl:"Verb"}, {de:"nehmen",no:"ta",kl:"Verb"}, {de:"schnell",no:"rask",kl:"Adjektiv"}, {de:"Straße (f)",no:"gate",kl:"Substantiv"}, {de:"was",no:"hva",kl:"Pronomen"}], // Uke 1
+    [{de:"Abend (m)",no:"kveld",kl:"Substantiv"}, {de:"Brief (m)",no:"brev",kl:"Substantiv"}, {de:"Erde (f)",no:"jord",kl:"Substantiv"}, {de:"gegen",no:"(i)mot",kl:"Preposisjon"}, {de:"hinter",no:"bak",kl:"Preposisjon"}, {de:"Lehrer (m)",no:"lærer",kl:"Substantiv"}, {de:"nennen",no:"nevne",kl:"Verb"}, {de:"schon",no:"allerede",kl:"Adverb"}, {de:"Stück (n)",no:"stykke",kl:"Substantiv"}, {de:"waschen",no:"vaske",kl:"Verb"}], // Uke 2
+    [{de:"aber",no:"men",kl:"Konjunksjon"}, {de:"bringen",no:"bringe",kl:"Verb"}, {de:"erklären",no:"forklare",kl:"Verb"}, {de:"gehen",no:"gå",kl:"Verb"}, {de:"hoch",no:"høy",kl:"Adjektiv"}, {de:"Lehrerin (f)",no:"lærerinne",kl:"Substantiv"}, {de:"neu",no:"ny",kl:"Adjektiv"}, {de:"schön",no:"fin/vakker",kl:"Adjektiv"}, {de:"Stunde (f)",no:"time",kl:"Substantiv"}, {de:"Wasser (n)",no:"vann",kl:"Substantiv"}], // Uke 3
+    [{de:"acht",no:"åtte",kl:"Tall"}, {de:"Brot (n)",no:"brød",kl:"Substantiv"}, {de:"erschrecken",no:"støkke",kl:"Verb"}, {de:"gehören",no:"høre til",kl:"Verb"}, {de:"holen",no:"hente",kl:"Verb"}, {de:"leicht",no:"lett",kl:"Adjektiv"}, {de:"neun",no:"ni",kl:"Tall"}, {de:"schreiben",no:"skrive",kl:"Verb"}, {de:"suchen",no:"lete/søke",kl:"Verb"}, {de:"weg",no:"vekk",kl:"Adverb"}], // Uke 4
+    [{de:"Affe (m)",no:"ape",kl:"Substantiv"}, {de:"Bruder (m)",no:"bror",kl:"Substantiv"}, {de:"erst",no:"først",kl:"Adverb"}, {de:"gelb",no:"gul",kl:"Adjektiv"}, {de:"hören",no:"høre",kl:"Verb"}, {de:"leise",no:"stille",kl:"Adjektiv"}, {de:"nicht",no:"ikke",kl:"Adverb"}, {de:"schreien",no:"skrike",kl:"Verb"}, {de:"Tag (m)",no:"dag",kl:"Substantiv"}, {de:"Weg (m)",no:"vei",kl:"Substantiv"}], // Uke 5
+    [{de:"alle",no:"alle",kl:"Pronomen"}, {de:"Buch (n)",no:"bok",kl:"Substantiv"}, {de:"erzählen",no:"fortelle",kl:"Verb"}, {de:"Geld (n)",no:"penger",kl:"Substantiv"}, {de:"Hund (m)",no:"hund",kl:"Substantiv"}, {de:"lernen",no:"lære",kl:"Verb"}, {de:"nichts",no:"ingenting",kl:"Pronomen"}, {de:"Schuh (m)",no:"sko",kl:"Substantiv"}, {de:"Tante (f)",no:"tante",kl:"Substantiv"}, {de:"Weihnachten (pl)",no:"jul",kl:"Substantiv"}], // Uke 6
+    [{de:"allein",no:"alene",kl:"Adverb"}, {de:"da",no:"da/der",kl:"Adverb"}, {de:"es",no:"det",kl:"Pronomen"}, {de:"genau",no:"nøyaktig",kl:"Adverb"}, {de:"Hunger (m)",no:"sult",kl:"Substantiv"}, {de:"lesen",no:"lese",kl:"Verb"}, {de:"nie",no:"aldri",kl:"Adverb"}, {de:"Schule (f)",no:"skole",kl:"Substantiv"}, {de:"Teller (m)",no:"tallerken",kl:"Substantiv"}, {de:"weil",no:"fordi",kl:"Konjunksjon"}], // Uke 7
+    [{de:"als",no:"enn/når",kl:"Konjunksjon"}, {de:"dabei",no:"med (det)",kl:"Adverb"}, {de:"essen",no:"spise",kl:"Verb"}, {de:"gerade",no:"akkurat nå",kl:"Adverb"}, {de:"ich",no:"jeg",kl:"Pronomen"}, {de:"letzte",no:"siste",kl:"Adjektiv"}, {de:"nimmt",no:"tar",kl:"Verb"}, {de:"Schüler (m)",no:"elev",kl:"Substantiv"}, {de:"tief",no:"dyp",kl:"Adjektiv"}, {de:"weinen",no:"grine",kl:"Verb"}], // Uke 8
+    [{de:"also",no:"altså",kl:"Adverb"}, {de:"dafür",no:"for det",kl:"Adverb"}, {de:"etwas",no:"noe",kl:"Pronomen"}, {de:"gern",no:"gjerne",kl:"Adverb"}, {de:"ihm",no:"ham (dat.)",kl:"Pronomen"}, {de:"Leute (pl)",no:"folk",kl:"Substantiv"}, {de:"noch",no:"enda/fortsatt",kl:"Adverb"}, {de:"schwarz",no:"svart",kl:"Adjektiv"}, {de:"Tier (n)",no:"dyr",kl:"Substantiv"}, {de:"weiß",no:"vet/hvit",kl:"Verb"}], // Uke 9
+    [{de:"alt",no:"gammel",kl:"Adjektiv"}, {de:"damit",no:"dermed",kl:"Konjunksjon"}, {de:"fahren",no:"kjøre",kl:"Verb"}, {de:"Geschenk (n)",no:"gave",kl:"Substantiv"}, {de:"ihn",no:"ham (akk.)",kl:"Pronomen"}, {de:"Licht (n)",no:"lys",kl:"Substantiv"}, {de:"nun",no:"nå",kl:"Adverb"}, {de:"schwer",no:"vanskelig/tung",kl:"Adjektiv"}, {de:"Tisch (m)",no:"bord",kl:"Substantiv"}, {de:"weit",no:"langt",kl:"Adverb"}], // Uke 10
+    [{de:"am",no:"inntil/ved/på",kl:"Preposisjon"}, {de:"danach",no:"etterpå",kl:"Adverb"}, {de:"Fahrrad (n)",no:"sykkel",kl:"Substantiv"}, {de:"Geschichte (f)",no:"historie",kl:"Substantiv"}, {de:"ihr",no:"hennes/de",kl:"Pronomen"}, {de:"lieb",no:"snill",kl:"Adjektiv"}, {de:"nur",no:"bare",kl:"Adverb"}, {de:"Schwester (f)",no:"søster",kl:"Substantiv"}, {de:"tot",no:"død",kl:"Adjektiv"}, {de:"Welt (f)",no:"verden",kl:"Substantiv"}], // Uke 11
+    [{de:"an",no:"inntil/ved/til",kl:"Preposisjon"}, {de:"dann",no:"da/så",kl:"Adverb"}, {de:"fährt",no:"kjører",kl:"Verb"}, {de:"Gesicht (n)",no:"ansikt",kl:"Substantiv"}, {de:"im",no:"i+art.",kl:"Preposisjon"}, {de:"liegen",no:"ligge",kl:"Verb"}, {de:"ob",no:"om/hvorvidt",kl:"Konjunksjon"}, {de:"schwimmen",no:"svømme",kl:"Verb"}, {de:"tragen",no:"bære",kl:"Verb"}, {de:"wenig",no:"lite",kl:"Adverb"}], // Uke 12
+    [{de:"andere",no:"andre",kl:"Adjektiv"}, {de:"daran",no:"ved det",kl:"Adverb"}, {de:"fallen",no:"falle",kl:"Verb"}, {de:"gestern",no:"i går",kl:"Adverb"}, {de:"immer",no:"alltid",kl:"Adverb"}, {de:"ließ",no:"lot (fortid)",kl:"Verb"}, {de:"oben",no:"oppe",kl:"Adverb"}, {de:"sechs",no:"seks",kl:"Tall"}, {de:"traurig",no:"trist",kl:"Adjektiv"}, {de:"wenn",no:"hvis/når",kl:"Konjunksjon"}], // Uke 13
+    [{de:"anfangen",no:"begynne",kl:"Verb"}, {de:"darauf",no:"på det",kl:"Adverb"}, {de:"Familie (f)",no:"familie",kl:"Substantiv"}, {de:"gesund",no:"sunn",kl:"Adjektiv"}, {de:"in",no:"i",kl:"Preposisjon"}, {de:"Loch (n)",no:"hull",kl:"Substantiv"}, {de:"oder",no:"eller",kl:"Konjunksjon"}, {de:"See (f)",no:"sjø",kl:"Substantiv"}, {de:"treffen",no:"treffe",kl:"Verb"}, {de:"wer",no:"hvem",kl:"Pronomen"}], // Uke 14
+    [{de:"Angst (f)",no:"angst/redd",kl:"Substantiv"}, {de:"darin",no:"i det",kl:"Adverb"}, {de:"fangen",no:"fange",kl:"Verb"}, {de:"gewinnen",no:"vinne",kl:"Verb"}, {de:"ins",no:"i den/det",kl:"Preposisjon"}, {de:"los",no:"løs",kl:"Adjektiv"}, {de:"offen",no:"åpen",kl:"Adjektiv"}, {de:"sehen",no:"se",kl:"Verb"}, {de:"trinken",no:"drikke",kl:"Verb"}, {de:"werden",no:"bli",kl:"Verb"}], // Uke 15
+    [{de:"antworten",no:"svare",kl:"Verb"}, {de:"das",no:"det",kl:"Artikkel"}, {de:"fast",no:"nesten",kl:"Adverb"}, {de:"gibt",no:"finnes/gis",kl:"Verb"}, {de:"ist",no:"er",kl:"Verb"}, {de:"Luft (f)",no:"luft",kl:"Substantiv"}, {de:"öffnen",no:"åpne",kl:"Verb"}, {de:"sehr",no:"veldig",kl:"Adverb"}, {de:"tun",no:"gjøre",kl:"Verb"}, {de:"werfen",no:"kaste",kl:"Verb"}], // Uke 16
+    [{de:"Apfel (m)",no:"eple",kl:"Substantiv"}, {de:"dauern",no:"vare (tid)",kl:"Verb"}, {de:"fehlen",no:"mangle",kl:"Verb"}, {de:"ging",no:"gikk (fortid)",kl:"Verb"}, {de:"ja",no:"ja",kl:"Interjeksjon"}, {de:"lustig",no:"morsom",kl:"Adjektiv"}, {de:"oft",no:"ofte",kl:"Adverb"}, {de:"sein",no:"være",kl:"Verb"}, {de:"Tür (f)",no:"dør",kl:"Substantiv"}, {de:"Wetter (n)",no:"vær",kl:"Substantiv"}], // Uke 17
+    [{de:"Arbeit (f)",no:"arbeid/jobb",kl:"Substantiv"}, {de:"davon",no:"fra det",kl:"Adverb"}, {de:"Fenster (n)",no:"vindu",kl:"Substantiv"}, {de:"Glas (n)",no:"glass",kl:"Substantiv"}, {de:"Jahr (n)",no:"år",kl:"Substantiv"}, {de:"machen",no:"gjøre",kl:"Verb"}, {de:"ohne",no:"uten",kl:"Preposisjon"}, {de:"seit",no:"siden",kl:"Preposisjon"}, {de:"turnen",no:"gym/turne",kl:"Verb"}, {de:"wie",no:"hvordan",kl:"Adverb"}], // Uke 18
+    [{de:"arbeiten",no:"jobbe",kl:"Verb"}, {de:"dazu",no:"dertil",kl:"Adverb"}, {de:"Ferien (f)",no:"ferie",kl:"Substantiv"}, {de:"glauben",no:"tro",kl:"Verb"}, {de:"jeder",no:"hver",kl:"Pronomen"}, {de:"Mädchen (n)",no:"jente",kl:"Substantiv"}, {de:"Oma (f)",no:"bestemor",kl:"Substantiv"}, {de:"Seite (f)",no:"side",kl:"Substantiv"}, {de:"über",no:"over",kl:"Preposisjon"}, {de:"wieder",no:"igjen",kl:"Adverb"}], // Uke 19
+    [{de:"Arzt (m)",no:"lege",kl:"Substantiv"}, {de:"dein",no:"din",kl:"Pronomen"}, {de:"fertig",no:"ferdig",kl:"Adjektiv"}, {de:"gleich",no:"lik/straks",kl:"Adverb"}, {de:"jetzt",no:"nå",kl:"Adverb"}, {de:"mal",no:"gang",kl:"Adverb"}, {de:"Onkel (m)",no:"onkel",kl:"Substantiv"}, {de:"selbst",no:"selv",kl:"Pronomen"}, {de:"überall",no:"overalt",kl:"Adverb"}, {de:"Wiese (f)",no:"eng",kl:"Substantiv"}], // Uke 20
+    [{de:"auch",no:"også",kl:"Adverb"}, {de:"dem",no:"(art. dat.)",kl:"Artikkel"}, {de:"fest",no:"fast",kl:"Adjektiv"}, {de:"Glück (n)",no:"lykke",kl:"Substantiv"}, {de:"jung",no:"ung",kl:"Adjektiv"}, {de:"man",no:"man",kl:"Pronomen"}, {de:"Opa (m)",no:"bestefar",kl:"Substantiv"}, {de:"setzen",no:"sette",kl:"Verb"}, {de:"Uhr (f)",no:"klokke",kl:"Substantiv"}, {de:"will",no:"vil",kl:"Verb"}], // Uke 21
+    [{de:"auf",no:"oppå/på",kl:"Preposisjon"}, {de:"den",no:"(art. akk.)",kl:"Artikkel"}, {de:"Feuer (n)",no:"ild",kl:"Substantiv"}, {de:"glücklich",no:"lykkelig",kl:"Adjektiv"}, {de:"Junge (m)",no:"gutt",kl:"Substantiv"}, {de:"Mann (m)",no:"mann",kl:"Substantiv"}, {de:"packen",no:"pakke",kl:"Verb"}, {de:"sich",no:"seg",kl:"Pronomen"}, {de:"um",no:"om/rundt",kl:"Preposisjon"}, {de:"Winter (m)",no:"vinter",kl:"Substantiv"}], // Uke 22
+    [{de:"Auge (n)",no:"øye",kl:"Substantiv"}, {de:"denken",no:"tenke",kl:"Verb"}, {de:"fiel",no:"falt (fortid)",kl:"Verb"}, {de:"Gott (m)",no:"gud",kl:"Substantiv"}, {de:"kalt",no:"kaldt",kl:"Adjektiv"}, {de:"Maus (f)",no:"mus",kl:"Substantiv"}, {de:"Pferd (n)",no:"hest",kl:"Substantiv"}, {de:"sicher",no:"sikker",kl:"Adjektiv"}, {de:"und",no:"og",kl:"Konjunksjon"}, {de:"wir",no:"vi",kl:"Pronomen"}], // Uke 23
+    [{de:"aus",no:"ut/av/fra",kl:"Preposisjon"}, {de:"denn",no:"da/fordi",kl:"Konjunksjon"}, {de:"finden",no:"finne",kl:"Verb"}, {de:"groß",no:"stor",kl:"Adjektiv"}, {de:"kam",no:"kom (fortid)",kl:"Verb"}, {de:"Meer (n)",no:"hav",kl:"Substantiv"}, {de:"Platz (m)",no:"plass",kl:"Substantiv"}, {de:"sie",no:"hun/de",kl:"Pronomen"}, {de:"uns",no:"oss",kl:"Pronomen"}, {de:"wird",no:"blir",kl:"Verb"}], // Uke 24
+    [{de:"Auto (n)",no:"bil",kl:"Substantiv"}, {de:"der",no:"(art. hankjønn)",kl:"Artikkel"}, {de:"Finger (m)",no:"finger",kl:"Substantiv"}, {de:"grün",no:"grønn",kl:"Adjektiv"}, {de:"kann",no:"kan",kl:"Verb"}, {de:"mehr",no:"mer",kl:"Adverb"}, {de:"plötzlich",no:"plutselig",kl:"Adverb"}, {de:"sieben",no:"syv",kl:"Tall"}, {de:"unser",no:"vår",kl:"Pronomen"}, {de:"wirklich",no:"virkelig",kl:"Adverb"}], // Uke 25
+    [{de:"baden",no:"bade",kl:"Verb"}, {de:"deshalb",no:"fordi",kl:"Konjunksjon"}, {de:"Fisch (m)",no:"fisk",kl:"Substantiv"}, {de:"gut",no:"god",kl:"Adjektiv"}, {de:"Katze (f)",no:"katt",kl:"Substantiv"}, {de:"mein",no:"min",kl:"Pronomen"}, {de:"Polizei (f)",no:"politi",kl:"Substantiv"}, {de:"sieht",no:"ser",kl:"Verb"}, {de:"unten",no:"nede",kl:"Adverb"}, {de:"wissen",no:"vite",kl:"Verb"}], // Uke 26
+    [{de:"bald",no:"snart",kl:"Adverb"}, {de:"dich",no:"deg",kl:"Pronomen"}, {de:"Flasche (f)",no:"flaske",kl:"Substantiv"}, {de:"Haar (n)",no:"hår",kl:"Substantiv"}, {de:"kaufen",no:"kjøpe",kl:"Verb"}, {de:"Mensch (m)",no:"menneske",kl:"Substantiv"}, {de:"Rad (n)",no:"hjul/sykkel",kl:"Substantiv"}, {de:"sind",no:"er (fl.)",kl:"Verb"}, {de:"unter",no:"under",kl:"Preposisjon"}, {de:"wo",no:"hvor",kl:"Adverb"}], // Uke 27
+    [{de:"Ball (m)",no:"ball",kl:"Substantiv"}, {de:"dick",no:"tykk",kl:"Adjektiv"}, {de:"fliegen",no:"fly",kl:"Verb"}, {de:"haben",no:"ha",kl:"Verb"}, {de:"kein",no:"ingen",kl:"Artikkel"}, {de:"merken",no:"merke",kl:"Verb"}, {de:"rechnen",no:"regne",kl:"Verb"}, {de:"singen",no:"synge",kl:"Verb"}, {de:"Vater (m)",no:"far",kl:"Substantiv"}, {de:"Woche (f)",no:"uke",kl:"Substantiv"}], // Uke 28
+    [{de:"bauen",no:"bygge",kl:"Verb"}, {de:"die",no:"(art. hunkjønn)",kl:"Artikkel"}, {de:"Frage (f)",no:"spørsmål",kl:"Substantiv"}, {de:"halb",no:"halv",kl:"Adjektiv"}, {de:"kennen",no:"kjenne",kl:"Verb"}, {de:"mich",no:"meg (akk.)",kl:"Pronomen"}, {de:"reich",no:"rik",kl:"Adjektiv"}, {de:"sitzen",no:"sitte",kl:"Verb"}, {de:"vergessen",no:"glemme",kl:"Verb"}, {de:"wohl",no:"vel/nok",kl:"Adverb"}], // Uke 29
+    [{de:"Bauer (m)",no:"bonde",kl:"Substantiv"}, {de:"Ding (n)",no:"ting",kl:"Substantiv"}, {de:"fragen",no:"spørre",kl:"Verb"}, {de:"halten",no:"holde",kl:"Verb"}, {de:"Kind (n)",no:"barn",kl:"Substantiv"}, {de:"Milch (f)",no:"melk",kl:"Substantiv"}, {de:"reiten",no:"ri",kl:"Verb"}, {de:"so",no:"så/sånn",kl:"Adverb"}, {de:"verkaufen",no:"selge",kl:"Verb"}, {de:"wohnen",no:"bo",kl:"Verb"}], // Uke 30
+    [{de:"Baum (m)",no:"tre",kl:"Substantiv"}, {de:"dir",no:"deg (dat.)",kl:"Pronomen"}, {de:"Frau (f)",no:"fru/dame",kl:"Substantiv"}, {de:"Hand (f)",no:"hånd",kl:"Substantiv"}, {de:"Klasse (f)",no:"klasse",kl:"Substantiv"}, {de:"Minute (f)",no:"minutt",kl:"Substantiv"}, {de:"rennen",no:"sprinte",kl:"Verb"}, {de:"sofort",no:"straks",kl:"Adverb"}, {de:"verlieren",no:"tape",kl:"Verb"}, {de:"Wohnung (f)",no:"leilighet",kl:"Substantiv"}], // Uke 31
+    [{de:"bei",no:"hos/ved",kl:"Preposisjon"}, {de:"doch",no:"jo",kl:"Adverb"}, {de:"frei",no:"fri",kl:"Adjektiv"}, {de:"hängen",no:"henge",kl:"Verb"}, {de:"klein",no:"liten",kl:"Adjektiv"}, {de:"mir",no:"meg (dat.)",kl:"Pronomen"}, {de:"richtig",no:"riktig",kl:"Adjektiv"}, {de:"Sohn (m)",no:"sønn",kl:"Substantiv"}, {de:"verstecken",no:"gjemme",kl:"Verb"}, {de:"wollen",no:"ville",kl:"Verb"}], // Uke 32
+    [{de:"beide",no:"begge",kl:"Pronomen"}, {de:"Dorf (n)",no:"bygd",kl:"Substantiv"}, {de:"fressen",no:"fråtse",kl:"Verb"}, {de:"hart",no:"hardt",kl:"Adjektiv"}, {de:"klettern",no:"klatre",kl:"Verb"}, {de:"mit",no:"med",kl:"Preposisjon"}, {de:"rot",no:"rød",kl:"Adjektiv"}, {de:"sollen",no:"skulle",kl:"Verb"}, {de:"verstehen",no:"forstå",kl:"Verb"}, {de:"Wort (n)",no:"ord",kl:"Substantiv"}], // Uke 33
+    [{de:"beim",no:"hos/ved",kl:"Preposisjon"}, {de:"dort",no:"der",kl:"Adverb"}, {de:"Freude (f)",no:"glede",kl:"Substantiv"}, {de:"Hase (n)",no:"hare",kl:"Substantiv"}, {de:"kochen",no:"lage mat",kl:"Verb"}, {de:"mögen",no:"like",kl:"Verb"}, {de:"rufen",no:"rope",kl:"Verb"}, {de:"Sommer (m)",no:"sommer",kl:"Substantiv"}, {de:"versuchen",no:"forsøke",kl:"Verb"}, {de:"wünschen",no:"ønske",kl:"Verb"}], // Uke 34
+    [{de:"Bein (n)",no:"ben",kl:"Substantiv"}, {de:"draußen",no:"ute",kl:"Adverb"}, {de:"freuen",no:"glede",kl:"Verb"}, {de:"hat",no:"har",kl:"Verb"}, {de:"kommen",no:"komme",kl:"Verb"}, {de:"möglich",no:"mulig",kl:"Adjektiv"}, {de:"ruhig",no:"rolig",kl:"Adjektiv"}, {de:"Sonne (f)",no:"sol",kl:"Substantiv"}, {de:"viel",no:"mye",kl:"Adverb"}, {de:"Zahl (f)",no:"tall",kl:"Substantiv"}], // Uke 35
+    [{de:"Beispiel (n)",no:"eksempel",kl:"Substantiv"}, {de:"drehen",no:"snurre",kl:"Verb"}, {de:"Freund (m) / Freundin (f)",no:"venn / venninne",kl:"Substantiv"}, {de:"hatte",no:"hadde",kl:"Verb"}, {de:"können",no:"kunne",kl:"Verb"}, {de:"Monat (m)",no:"måned",kl:"Substantiv"}, {de:"rund",no:"rund",kl:"Adjektiv"}, {de:"Sonntag (m)",no:"søndag",kl:"Substantiv"}, {de:"vielleicht",no:"kanskje",kl:"Adverb"}, {de:"zehn",no:"ti",kl:"Tall"}], // Uke 36
+    [{de:"beißen",no:"bite",kl:"Verb"}, {de:"drei",no:"tre",kl:"Tall"}, {de:"Freund",no:"venn",kl:"Substantiv"}, {de:"Haus (n)",no:"hus",kl:"Substantiv"}, {de:"Kopf (m)",no:"hode",kl:"Substantiv"}, {de:"müde",no:"trøtt",kl:"Adjektiv"}, {de:"Sache (f)",no:"sak",kl:"Substantiv"}, {de:"sonst",no:"ellers",kl:"Adverb"}, {de:"vier",no:"fire",kl:"Tall"}, {de:"zeigen",no:"vise",kl:"Verb"}], // Uke 37
+    [{de:"bekommen",no:"få",kl:"Verb"}, {de:"dumm",no:"dum",kl:"Adjektiv"}, {de:"fröhlich",no:"glad",kl:"Adjektiv"}, {de:"heiß",no:"glovarm",kl:"Adjektiv"}, {de:"krank",no:"syk",kl:"Adjektiv"}, {de:"Musik (f)",no:"musikk",kl:"Substantiv"}, {de:"sagen",no:"si",kl:"Verb"}, {de:"Spaß (m)",no:"moro",kl:"Substantiv"}, {de:"Vogel (m)",no:"fugl",kl:"Substantiv"}, {de:"Zeit (f)",no:"tid",kl:"Substantiv"}], // Uke 38
+    [{de:"Berg (m)",no:"fjell",kl:"Substantiv"}, {de:"dunkel",no:"mørk",kl:"Adjektiv"}, {de:"früh",no:"tidlig",kl:"Adverb"}, {de:"heißen",no:"hete",kl:"Verb"}, {de:"Küche (f)",no:"kjøkken",kl:"Substantiv"}, {de:"müssen",no:"måtte",kl:"Verb"}, {de:"schaffen",no:"klare",kl:"Verb"}, {de:"spät",no:"sent",kl:"Adverb"}, {de:"voll",no:"full",kl:"Adjektiv"}, {de:"Zeitung (f)",no:"avis",kl:"Substantiv"}], // Uke 39
+    [{de:"besser",no:"bedre",kl:"Adjektiv"}, {de:"durch",no:"gjennom",kl:"Preposisjon"}, {de:"führen",no:"føre/lede",kl:"Verb"}, {de:"heißt",no:"heter",kl:"Verb"}, {de:"kurz",no:"kort",kl:"Adjektiv"}, {de:"Mutter (f)",no:"mor",kl:"Substantiv"}, {de:"schauen",no:"se",kl:"Verb"}, {de:"Spiel (n)",no:"spill",kl:"Substantiv"}, {de:"vom",no:"fra",kl:"Preposisjon"}, {de:"ziehen",no:"dra",kl:"Verb"}], // Uke 40
+    [{de:"Bett (n)",no:"seng",kl:"Substantiv"}, {de:"dürfen",no:"få lov",kl:"Verb"}, {de:"fünf",no:"fem",kl:"Tall"}, {de:"helfen",no:"hjelpe",kl:"Verb"}, {de:"lachen",no:"le",kl:"Verb"}, {de:"nach",no:"til/etter",kl:"Preposisjon"}, {de:"scheinen",no:"skinne/se ut",kl:"Verb"}, {de:"spielen",no:"spille",kl:"Verb"}, {de:"von",no:"fra",kl:"Preposisjon"}, {de:"Zimmer (n)",no:"rom",kl:"Substantiv"}], // Uke 41
+    [{de:"Bild (n)",no:"bilde",kl:"Substantiv"}, {de:"eigentlich",no:"egentlig",kl:"Adverb"}, {de:"für",no:"for/til",kl:"Preposisjon"}, {de:"her",no:"hit",kl:"Adverb"}, {de:"Land (n)",no:"land",kl:"Substantiv"}, {de:"nächste",no:"neste",kl:"Adjektiv"}, {de:"schenken",no:"gi i gave",kl:"Verb"}, {de:"sprechen",no:"snakke",kl:"Verb"}, {de:"vor",no:"foran/før",kl:"Preposisjon"}, {de:"zu",no:"til/mot",kl:"Preposisjon"}], // Uke 42
+    [{de:"bin",no:"er (jeg)",kl:"Verb"}, {de:"ein",no:"en/ei/et",kl:"Artikkel"}, {de:"Fuß (m)",no:"fot",kl:"Substantiv"}, {de:"heraus",no:"ut av",kl:"Adverb"}, {de:"lang",no:"lang",kl:"Adjektiv"}, {de:"Nacht (n)",no:"natt",kl:"Substantiv"}, {de:"schicken",no:"sende",kl:"Verb"}, {de:"springen",no:"hoppe",kl:"Verb"}, {de:"vorbei",no:"forbi",kl:"Adverb"}, {de:"Zug (m)",no:"tog",kl:"Substantiv"}], // Uke 43
+    [{de:"bis",no:"til/innen",kl:"Preposisjon"}, {de:"einfach",no:"enkelt/lett",kl:"Adjektiv"}, {de:"Fußball (m)",no:"fotball",kl:"Substantiv"}, {de:"Herr (m)",no:"herr",kl:"Substantiv"}, {de:"langsam",no:"langsomt",kl:"Adverb"}, {de:"nah",no:"nær",kl:"Adjektiv"}, {de:"Schiff (n)",no:"skip",kl:"Substantiv"}, {de:"Stadt (f)",no:"by",kl:"Substantiv"}, {de:"Wagen (m)",no:"bil/vogn",kl:"Substantiv"}, {de:"zum",no:"til/mot",kl:"Preposisjon"}], // Uke 44
+    [{de:"blau",no:"blå",kl:"Adjektiv"}, {de:"einige",no:"noen",kl:"Pronomen"}, {de:"gab",no:"ga (fortid)",kl:"Verb"}, {de:"Herz (n)",no:"hjerte",kl:"Substantiv"}, {de:"las",no:"leste (fortid)",kl:"Verb"}, {de:"Name (m)",no:"navn",kl:"Substantiv"}, {de:"schlafen",no:"sove",kl:"Verb"}, {de:"stark",no:"sterk",kl:"Adjektiv"}, {de:"wahr",no:"sann",kl:"Adjektiv"}, {de:"zur",no:"til/mot",kl:"Preposisjon"}], // Uke 45
+    [{de:"bleiben",no:"(for)bli",kl:"Verb"}, {de:"einmal",no:"en gang",kl:"Adverb"}, {de:"ganz",no:"hel/helt",kl:"Adverb"}, {de:"heute",no:"i dag",kl:"Adverb"}, {de:"lassen",no:"la",kl:"Verb"}, {de:"nämlich",no:"nemlig",kl:"Adverb"}, {de:"schlagen",no:"slå",kl:"Verb"}, {de:"stehen",no:"stå",kl:"Verb"}, {de:"Wald (m)",no:"skog",kl:"Substantiv"}, {de:"zurück",no:"tilbake",kl:"Adverb"}], // Uke 46
+    [{de:"Blume (f)",no:"blomst",kl:"Substantiv"}, {de:"Eis (n)",no:"is",kl:"Substantiv"}, {de:"gar nicht",no:"absolutt ikke",kl:"Adverb"}, {de:"hier",no:"her",kl:"Adverb"}, {de:"laufen",no:"løpe",kl:"Verb"}, {de:"Nase (f)",no:"nese",kl:"Substantiv"}, {de:"schlecht",no:"dårlig",kl:"Adjektiv"}, {de:"steigen",no:"stige",kl:"Verb"}, {de:"war",no:"var (fortid)",kl:"Verb"}, {de:"zusammen",no:"sammen",kl:"Adverb"}], // Uke 47
+    [{de:"Boden (m)",no:"gulv",kl:"Substantiv"}, {de:"Eltern (pl)",no:"foreldre",kl:"Substantiv"}, {de:"Garten (m)",no:"hage",kl:"Substantiv"}, {de:"Hilfe (f)",no:"hjelp",kl:"Substantiv"}, {de:"laut",no:"høylytt",kl:"Adjektiv"}, {de:"nass",no:"våt",kl:"Adjektiv"}, {de:"schlimm",no:"ille",kl:"Adjektiv"}, {de:"Stein (m)",no:"stein",kl:"Substantiv"}, {de:"warm",no:"varm",kl:"Adjektiv"}, {de:"zwischen",no:"mellom",kl:"Preposisjon"}], // Uke 48
+    [{de:"böse",no:"ond/sint",kl:"Adjektiv"}, {de:"Ende (n)",no:"slutten",kl:"Substantiv"}, {de:"geben",no:"gi",kl:"Verb"}, {de:"Himmel (m)",no:"himmel",kl:"Substantiv"}, {de:"leben",no:"leve",kl:"Verb"}, {de:"natürlich",no:"naturlig",kl:"Adverb"}, {de:"Schluss (m)",no:"slutt",kl:"Substantiv"}, {de:"Stelle (f)",no:"sted/plass",kl:"Substantiv"}, {de:"warten",no:"vente",kl:"Verb"}], // Uke 49
+    [{de:"brauchen",no:"bruke",kl:"Verb"}, {de:"endlich",no:"endelig",kl:"Adverb"}, {de:"Geburtstag (m)",no:"bursdag",kl:"Substantiv"}, {de:"hin",no:"bort",kl:"Adverb"}, {de:"Leben (n)",no:"livet",kl:"Substantiv"}, {de:"neben",no:"ved siden av",kl:"Preposisjon"}, {de:"Schnee (m)",no:"snø",kl:"Substantiv"}, {de:"stellen",no:"stille",kl:"Verb"}, {de:"warum",no:"hvorfor",kl:"Adverb"}] // Uke 50
+  ];
+
+  function dwCurrentWeek(){
+    var start = new Date(2026, 8, 21); // mandag 21. sept. 2026 = Uke 1
+    var now = new Date();
+    var startMid = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+    var nowMid = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var diffDays = Math.floor((nowMid - startMid) / 86400000);
+    var weeksElapsed = Math.floor(diffDays / 7);
+    if(weeksElapsed < 0) weeksElapsed = 0;
+    return (weeksElapsed % 50) + 1;
+  }
+
+  function dwBuildTicker(){
+    var wk = dwCurrentWeek();
+    document.getElementById('dw-ticker-week').textContent = wk;
+    var list = dwWeeks[wk-1];
+    var itemsHtml = list.map(function(w){
+      return '<span class="dw-ticker-item"><b>'+w.de+'</b><span>— '+w.no+'</span></span>';
+    }).join('');
+    document.getElementById('dw-ticker-track').innerHTML = itemsHtml + itemsHtml;
+  }
+
+  function dwSearch(){
+    var q = document.getElementById('dw-search-input').value.trim().toLowerCase();
+    var out = document.getElementById('dw-search-result');
+    if(!q){ out.innerHTML = ""; return; }
+    var hit = dwIndex.find(function(item){
+      return item.keys.some(function(k){ return q.indexOf(k) !== -1 || k.indexOf(q) !== -1; });
+    });
+    if(hit && hit.built){
+      out.innerHTML = 'Vielleicht hier: <a href="'+hit.target+'">'+hit.label+'</a>';
+    } else if(hit && !hit.built){
+      out.textContent = hit.label + ' finnes i planen, men er ikke bygget ennå.';
+    } else {
+      out.textContent = "Ingen direkte treff ennå — prøv et kort under, f.eks. 🧩 Grammatik.";
+    }
+  }
+
+  document.getElementById('dw-search-input').addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ dwSearch(); }
+  });
+
+  dwBuildTicker();
+</script>
 </body>
 </html>
