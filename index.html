@@ -10,11 +10,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Deutschwelt</title>
 <link rel="stylesheet" href="assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --dw-primary:#1e3a5f;
-    --dw-primary-light:#2c5382;
-    --dw-accent:#e8a33d;
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
     --dw-danger:#c62828;
     --dw-bg:#f7f5f0;
     --dw-card:#ffffff;
@@ -31,18 +34,31 @@
   }
   .dw-wrap{max-width:1000px;margin:0 auto;padding:0 16px 60px;}
   .dw-header{
-    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
     color:#fff;
     border-radius:var(--dw-radius);
-    padding:36px 28px;
+    padding:44px 28px 36px;
     text-align:center;
     margin-bottom:28px;
   }
   .dw-header h1{
-    margin:0 0 6px;
-    font-size:clamp(1.6rem,4vw,2.4rem);
+    margin:0 0 8px;
+    font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-weight:800;
+    font-size:clamp(2.6rem,9vw,4.4rem);
     letter-spacing:.5px;
+    text-shadow:0 3px 14px rgba(0,0,0,.3);
   }
+  .dw-flags{display:flex;justify-content:center;gap:14px;margin:6px 0 4px;flex-wrap:wrap;}
+  .dw-flag{display:flex;flex-direction:column;align-items:center;gap:4px;}
+  .dw-flag-chip{width:38px;height:26px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.35);position:relative;overflow:hidden;}
+  .dw-flag-de .dw-flag-chip{background:linear-gradient(to bottom,#161616 0 33.34%,#d00 33.34% 66.67%,#ffce00 66.67% 100%);}
+  .dw-flag-at .dw-flag-chip{background:linear-gradient(to bottom,#ed2939 0 33.34%,#fff 33.34% 66.67%,#ed2939 66.67% 100%);}
+  .dw-flag-ch .dw-flag-chip{background:#d52b1e;}
+  .dw-flag-ch .dw-flag-chip::before,.dw-flag-ch .dw-flag-chip::after{content:"";position:absolute;background:#fff;}
+  .dw-flag-ch .dw-flag-chip::before{left:46%;top:22%;width:8%;height:56%;}
+  .dw-flag-ch .dw-flag-chip::after{left:29%;top:41%;width:42%;height:18%;}
+  .dw-flag span{font-size:.68rem;font-weight:700;color:rgba(255,255,255,.9);letter-spacing:.02em;}
   .dw-header p.dw-sub{
     margin:0;
     font-size:1.1rem;
@@ -118,11 +134,10 @@
     box-shadow:0 10px 20px rgba(30,58,95,.14);
     border-color:var(--dw-accent);
   }
-  .dw-card .dw-icon{font-size:2.1rem;line-height:1;}
   .dw-card h2{
     margin:4px 0 0;
     font-size:1.05rem;
-    color:var(--dw-primary);
+    color:var(--dw-primary-light);
   }
   .dw-card p{
     margin:0;
@@ -152,6 +167,23 @@
   .dw-ticker-item b{color:var(--dw-primary);}
   .dw-ticker-item span{color:var(--dw-muted);}
   @keyframes dw-scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* Tematiske kort-mønstre (erstatter emoji) */
+  .dw-card.dw-p-reise{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%2213%22%20y%3D%2219%22%20width%3D%2230%22%20height%3D%2221%22%20rx%3D%223%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3Crect%20x%3D%2222%22%20y%3D%2212%22%20width%3D%2212%22%20height%3D%228%22%20rx%3D%222%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-sprechen{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cpath%20d%3D%22M11%2013h34a4%204%200%20014%204v15a4%204%200%2001-4%204H24l-9%209v-9h-4a4%204%200%2001-4-4V17a4%204%200%20014-4z%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-hoeren{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%228%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3Crect%20x%3D%2217%22%20y%3D%2215%22%20width%3D%224%22%20height%3D%2228%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3Crect%20x%3D%2226%22%20y%3D%227%22%20width%3D%224%22%20height%3D%2244%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2216%22%20width%3D%224%22%20height%3D%2226%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3Crect%20x%3D%2244%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-lesen{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%2214%22%20y%3D%227%22%20width%3D%2228%22%20height%3D%2242%22%20rx%3D%222%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3Cline%20x1%3D%2219%22%20y1%3D%2218%22%20x2%3D%2237%22%20y2%3D%2218%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3Cline%20x1%3D%2219%22%20y1%3D%2227%22%20x2%3D%2237%22%20y2%3D%2227%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3Cline%20x1%3D%2219%22%20y1%3D%2236%22%20x2%3D%2230%22%20y2%3D%2236%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-schreiben{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%2224.5%22%20y%3D%226%22%20width%3D%227%22%20height%3D%2236%22%20rx%3D%222%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%20transform%3D%22rotate%2840%2028%2024%29%22%2F%3E%3Cpolygon%20points%3D%2220%2C44%2026%2C50%2014%2C52%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%20transform%3D%22rotate%2840%2028%2024%29%20translate%280%200%29%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-grammatikk{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cpath%20d%3D%22M14%2014h11a4%204%200%20108%200h11v11a4%204%200%20100%208v11H33a4%204%200%2010-8%200H14V33a4%204%200%20100-8z%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-staedte{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%227%22%20y%3D%2230%22%20width%3D%228%22%20height%3D%2218%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%2228%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3Crect%20x%3D%2229%22%20y%3D%2211%22%20width%3D%228%22%20height%3D%2237%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%2224%22%20width%3D%228%22%20height%3D%2224%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-geschichte{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%2219%22%20y%3D%2211%22%20width%3D%2218%22%20height%3D%224%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3Crect%20x%3D%2223%22%20y%3D%2215%22%20width%3D%2210%22%20height%3D%2227%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3Crect%20x%3D%2216%22%20y%3D%2242%22%20width%3D%2224%22%20height%3D%224%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-filme{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%229%22%20y%3D%2213%22%20width%3D%2238%22%20height%3D%2230%22%20rx%3D%223%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3Ccircle%20cx%3D%2215%22%20cy%3D%2213%22%20r%3D%222%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.12%22%2F%3E%3Ccircle%20cx%3D%2215%22%20cy%3D%2243%22%20r%3D%222%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.12%22%2F%3E%3Ccircle%20cx%3D%2241%22%20cy%3D%2213%22%20r%3D%222%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.12%22%2F%3E%3Ccircle%20cx%3D%2241%22%20cy%3D%2243%22%20r%3D%222%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.12%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-musik{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Ccircle%20cx%3D%2217%22%20cy%3D%2241%22%20r%3D%226.5%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3Crect%20x%3D%2222.5%22%20y%3D%2213%22%20width%3D%223%22%20height%3D%2228%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3Cpath%20d%3D%22M22.5%2013l16%204.5v7l-16-4.5z%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-deutschland{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%2213%22%20y%3D%2215%22%20width%3D%2230%22%20height%3D%2226%22%20rx%3D%222%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3Cline%20x1%3D%2213%22%20y1%3D%2223.7%22%20x2%3D%2243%22%20y2%3D%2223.7%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3Cline%20x1%3D%2213%22%20y1%3D%2232.3%22%20x2%3D%2243%22%20y2%3D%2232.3%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-challenges{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cpolygon%20points%3D%2228%2C7%2033.5%2C21.5%2049%2C21.5%2036.5%2C30.7%2041%2C46%2028%2C36.7%2015%2C46%2019.5%2C30.7%207%2C21.5%2022.5%2C21.5%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.11%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-normen{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Ccircle%20cx%3D%2228%22%20cy%3D%2228%22%20r%3D%2215%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M20%2028l5.5%205.5L37%2022%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.11%22%20stroke-width%3D%222.4%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-leben{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%2219%22%20y%3D%227%22%20width%3D%2218%22%20height%3D%2242%22%20rx%3D%223%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3Ccircle%20cx%3D%2224%22%20cy%3D%2226%22%20r%3D%221.8%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.14%22%2F%3E%3Ccircle%20cx%3D%2228%22%20cy%3D%2226%22%20r%3D%221.8%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.14%22%2F%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2226%22%20r%3D%221.8%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.14%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-card.dw-p-fortgeschritten{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cpolygon%20points%3D%2228%2C13%2049%2C22%2028%2C31%207%2C22%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3Crect%20x%3D%2223%22%20y%3D%2231%22%20width%3D%2210%22%20height%3D%2211%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
 </style>
 </head>
 <body>
@@ -183,9 +215,14 @@
 <div class="dw-wrap">
 
   <div class="dw-header">
-    <h1>🇩🇪 DEUTSCHWELT</h1>
+    <h1>DEUTSCHWELT</h1>
     <p class="dw-sub">Was möchtest du heute machen?</p>
     <p class="dw-no">Velg et kort under og bli med inn i den tyske verdenen!</p>
+    <div class="dw-flags">
+      <span class="dw-flag dw-flag-de"><span class="dw-flag-chip" role="img" aria-label="Tysklands flagg"></span><span>Deutschland</span></span>
+      <span class="dw-flag dw-flag-at"><span class="dw-flag-chip" role="img" aria-label="Østerrikes flagg"></span><span>Österreich</span></span>
+      <span class="dw-flag dw-flag-ch"><span class="dw-flag-chip" role="img" aria-label="Sveits' flagg"></span><span>Schweiz</span></span>
+    </div>
 
     <div class="dw-search">
       <input type="text" id="dw-search-input" placeholder="Ich suche etwas … (skriv f.eks. Berlin, Café, Akkusativ)">
@@ -205,78 +242,63 @@
   </div>
 
   <div class="dw-grid">
-    <a class="dw-card" href="reise/" id="card-reise">
-      <span class="dw-icon">🗺️</span>
+    <a class="dw-card dw-p-reise" href="reise/" id="card-reise">
       <h2>Eine Reise machen</h2>
       <p>Planlegg, pakk og skriv dagbok fra en reise til Berlin eller Wien</p>
     </a>
-    <a class="dw-card" href="sprechen/" id="card-sprechen">
-      <span class="dw-icon">🗣️</span>
+    <a class="dw-card dw-p-sprechen" href="sprechen/" id="card-sprechen">
       <h2>Deutsch sprechen</h2>
       <p>Café, restaurant, butikk, hotell og taxi — velg en situasjon og snakk!</p>
     </a>
-    <a class="dw-card" href="hoeren/" id="card-hoeren">
-      <span class="dw-icon">🎧</span>
+    <a class="dw-card dw-p-hoeren" href="hoeren/" id="card-hoeren">
       <h2>Deutsch hören</h2>
       <p>Se korte videoer og løs oppgaver før, under og etter</p>
     </a>
-    <a class="dw-card" href="lesen/" id="card-lesen">
-      <span class="dw-icon">📖</span>
+    <a class="dw-card dw-p-lesen" href="lesen/" id="card-lesen">
       <h2>Deutsch lesen</h2>
       <p>Mysterier for detektiver, blitzkorte flash fiction og ekte tekster av Franz Kafka</p>
     </a>
-    <a class="dw-card" href="schreiben/" id="card-schreiben">
-      <span class="dw-icon">✍️</span>
+    <a class="dw-card dw-p-schreiben" href="schreiben/" id="card-schreiben">
       <h2>Deutsch schreiben</h2>
       <p>SMS-chatter, personbeskrivelser, presentasjoner og fem andre skriverammer med grammatikk-tips</p>
     </a>
-    <a class="dw-card" href="grammatikk/" id="card-grammatikk">
-      <span class="dw-icon">🧩</span>
+    <a class="dw-card dw-p-grammatikk" href="grammatikk/" id="card-grammatikk">
       <h2>Grammatik trainieren</h2>
       <p>Lær og øv grammatikk gjennom spill</p>
     </a>
-    <a class="dw-card" href="staedte/" id="card-berlin">
-      <span class="dw-icon">🏙️</span>
+    <a class="dw-card dw-p-staedte" href="staedte/" id="card-berlin">
       <h2>Städte entdecken</h2>
       <p>Utforsk 7 byer — Berlin, Wien, Zürich, Hamburg, München, Köln og Frankfurt</p>
     </a>
-    <a class="dw-card" href="geschichte/" id="card-geschichte">
-      <span class="dw-icon">🕰️</span>
+    <a class="dw-card dw-p-geschichte" href="geschichte/" id="card-geschichte">
       <h2>Geschichte</h2>
       <p>Reis gjennom historien — fra småstater og Kaiserreich til verdenskrigen og delt Tyskland</p>
     </a>
-    <a class="dw-card" href="filme-serien/" id="card-filme">
-      <span class="dw-icon">🎬</span>
+    <a class="dw-card dw-p-filme" href="filme-serien/" id="card-filme">
       <h2>Filme &amp; Serien</h2>
       <p>10 filmer og 5 serier med trailere og korte beskrivelser</p>
     </a>
-    <a class="dw-card" href="musik/" id="card-musik">
-      <span class="dw-icon">🎵</span>
+    <a class="dw-card dw-p-musik" href="musik/" id="card-musik">
       <h2>Musik</h2>
       <p>27 kjente tyske sanger — hør på musikkvideoen og les hva den handler om</p>
     </a>
-    <a class="dw-card" href="deutschland/" id="card-deutschland">
-      <span class="dw-icon">🇩🇪</span>
+    <a class="dw-card dw-p-deutschland" href="deutschland/" id="card-deutschland">
       <h2>Deutschland</h2>
       <p>Kultur, tradisjoner og fakta om landet — pluss et kart der du må plassere de 10 største byene</p>
     </a>
-    <a class="dw-card" href="challenges/" id="card-challenges">
-      <span class="dw-icon">🏆</span>
+    <a class="dw-card dw-p-challenges" href="challenges/" id="card-challenges">
       <h2>Challenges</h2>
       <p>Tilfeldige oppgaver, et memory-spill og en escape-room-gåte</p>
     </a>
-    <a class="dw-card" href="normen/hoeflichkeit/" id="card-normen">
-      <span class="dw-icon">🎩</span>
+    <a class="dw-card dw-p-normen" href="normen/hoeflichkeit/" id="card-normen">
       <h2>Normen &amp; Regeln</h2>
       <p>Høflighet i Tyskland: du eller Sie? Med illustrasjoner og grammatikkspill</p>
     </a>
-    <a class="dw-card" href="leben/" id="card-leben">
-      <span class="dw-icon">📱</span>
+    <a class="dw-card dw-p-leben" href="leben/" id="card-leben">
       <h2>Deutsch im echten Leben</h2>
       <p>Slik snakker tyske ungdommer faktisk — chat, slang og skolehverdag</p>
     </a>
-    <a class="dw-card" href="fortgeschritten/" id="card-fortgeschritten">
-      <span class="dw-icon">🎓</span>
+    <a class="dw-card dw-p-fortgeschritten" href="fortgeschritten/" id="card-fortgeschritten">
       <h2>9.–10. trinn</h2>
       <p>Mer avansert tysk — nye grammatikk-temaer og oppgaver på A2/B1-nivå</p>
     </a>

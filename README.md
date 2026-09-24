@@ -1115,8 +1115,81 @@ kun navigasjonsbaren og "kommer snart"-stilen — resten av stilen ligger
 fortsatt i hver enkelt side. Hvis nettstedet vokser mye, kan det være
 verdt å samle mer av den delte stilen i `assets/style.css` også.
 
+**Visuell redesign — Schwarz-Rot-Gold (runde «Visuell redesign»):** Teach
+syntes nettstedet virket «plain og firkantet» og ba om at fargene på
+siden ble dannet av de tyske fargene, at flaggene til Tyskland, Østerrike
+og Sveits fikk plass på forsiden, at emoji ble fjernet fra kortene i
+hubene til fordel for en tematisk, integrert bakgrunn som ikke går ut
+over lesbarheten, og en «spenstigere» skrifttype i banneret på
+hovedsiden. Claude avklarte tre valg med AskUserQuestion (pilot vs. hele
+siden på én gang, enkle geometriske mønstre vs. mer detaljerte
+illustrasjoner, og hvor flaggene skulle plasseres) — Teach valgte pilot
+først (forsiden + Grammatikk-huben), enkle geometriske mønstre, og en
+diskret flaggstripe i banneret. Etter godkjenning av piloten ble stilen
+rullet ut på hele nettstedet, pluss at emoji også ble fjernet fra selve
+banner-overskriftene (`<h1>`) på alle sider, ikke bare fra kortene.
+
+- **Fargepalett:** `--dw-primary:#161616` (svart), `--dw-primary-light:#9c1329`
+  (rødt) og `--dw-accent:#d9a91c` (gult) — de samme tre CSS-variablene som
+  før (bare nye hex-verdier), så navigasjonsbaren i `assets/style.css`
+  (som leser dem via `var(--dw-primary, …)`) fikk automatisk den nye
+  paletten uten egne endringer der. `.dw-header` har fått en tre-trinns
+  gradient `linear-gradient(120deg, var(--dw-primary) 0%,
+  var(--dw-primary-light) 55%, var(--dw-accent) 100%)` (svart → rødt →
+  gult) i stedet for den gamle to-trinns marineblå gradienten.
+  Kortoverskrifter (`.dw-card h2`) bruker nå den røde fargen i stedet for
+  svart/marineblå, for litt mer varme.
+- **Skrift:** Google Fonts **Baloo 2** (600/700/800) lastes inn i alle
+  sider og brukes på alle `.dw-header h1` — størst og tydeligst på
+  forsidens «DEUTSCHWELT» (`clamp(2.6rem, 9vw, 4.4rem)`, med skygge for å
+  stå tydelig mot gradienten), ellers samme font-size som hver side
+  allerede hadde, bare med Baloo 2 i stedet for systemfonten. **Krever
+  internettforbindelse til `fonts.googleapis.com`** — på et nettverk som
+  blokkerer Google Fonts faller nettleseren automatisk tilbake til
+  systemfonten (fallback-stabelen er fortsatt med i `font-family`), så
+  ingenting går i stykker, men banneret ser da ut som før.
+- **Flagg:** Tyskland/Østerrike/Sveits vises som tre små, rene CSS-tegnede
+  flagg (`.dw-flag-de/-at/-ch`, bygget med `linear-gradient`/`::before`/
+  `::after` — ingen bilder eller emoji) rett under undertittelen i
+  forsidens banner.
+- **Emoji fjernet, erstattet med tematiske mønstre:** alle `<span
+  class="dw-icon">`-emoji er fjernet fra kortene i alle 21 hub-sider
+  (sider med et `.dw-grid` av `.dw-card`-lenker) og fra alle `<h1>`
+  banner-overskrifter på alle 93 sider. Hvert kort har i stedet fått en
+  lett, tematisk SVG-bakgrunn (f.eks. lydbølger for Hören, en
+  bybilde-silhuett for Städte, et spørsmålstegn for Spørreord, en
+  lyskaster/lynpil for Verb) — se `PATTERNS`-biblioteket i
+  build-scriptet fra denne runden (ikke lagt inn i selve nettstedet, kun
+  brukt til å generere CSS-en). Mønsteret er en `data:image/svg+xml`-URI
+  med lav fyll-/strøk-opasitet (ca. 0,07–0,12) direkte bakt inn i SVG-en,
+  så det er trygt lesbart som tekstur uten å gå ut over kontrasten på
+  teksten oppå. **Forsiden og Grammatikk-huben** (hub-av-huber) har hver
+  sitt **eget, unike mønster per kort** (15 + 12 = 27 distinkte motiver,
+  siden hvert kort der peker til et helt eget tema). **De øvrige 19
+  hub-sidene** (f.eks. Städte, Geschichte, Hören, alle grammatikk-
+  kategori-hubene) bruker **ett gjenbrukt mønster per hub**, likt på
+  alle kortene i den huben — en bevisst avveining for å holde omfanget
+  overkommelig, siden disse hubenes kort peker til under-temaer av
+  samme overordnede sak (f.eks. alle 15 Hören-episodene er «Nicos Weg»,
+  så de deler lydbølge-mønsteret; de 7 byene i Städte deler
+  bybilde-mønsteret). `.dw-card .dw-icon`-CSS-regelen (nå ubrukt) er
+  fjernet fra alle 93 sider som en opprydding.
+- **Uendret:** selve navigasjonsmenyens emoji (🏠 Forside, 🧩 Grammatik
+  osv.) er bevisst beholdt — Teach ba kun om at emoji ble fjernet fra
+  kortene og banner-overskriftene, ikke fra navigasjonen.
+
+Full verifisering etter redesignen: JS-syntaks-sjekk og lenke-
+integritetssjekk (1855 relative lenker, 0 ekte brutte) på alle 93 sider,
+pluss en automatisert gjennomgang med Playwright som åpnet alle 93
+sidene og bekreftet 0 JavaScript-feil og ingen HTTP-feil.
+
 ## Kjente begrensninger
 
+- **Banner-skriften (Baloo 2) krever internettforbindelse til Google
+  Fonts** (`fonts.googleapis.com`/`fonts.gstatic.com`). Blokkerer skolens
+  nettverk dette, faller nettleseren automatisk tilbake til systemfonten
+  — banneret ser da ut som før redesignen, men ingenting slutter å
+  fungere.
 - **Hören-videoene er avhengig av YouTube.** Hvis skolens nettverk
   blokkerer YouTube helt (både innebygging og direktelenke), fungerer
   ikke denne seksjonen uten videre — da må videoene evt. lastes ned og
