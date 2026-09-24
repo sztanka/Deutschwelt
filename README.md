@@ -43,7 +43,13 @@ deutschwelt-site/
 │   ├── konjunksjoner/
 │   │   └── index.html                → kategori-hub (alt planlagt): und/aber/oder/denn, Nebensätze (weil/dass)
 │   ├── personlig-pronomen/
-│   │   └── index.html                → kategori-hub (alt planlagt): personlige pronomen i alle kasus
+│   │   ├── index.html                → kategori-hub: Nominativ, Akkusativ, Dativ (tre separate sider, ikke slått sammen)
+│   │   ├── nominativ/
+│   │   │   └── index.html            → "Personlige pronomen: Nominativ" — ich/du/er/sie/es, med full norsk forklaring av HVORFOR tysk bøyer pronomen etter kasus
+│   │   ├── akkusativ/
+│   │   │   └── index.html            → "Personlige pronomen: Akkusativ" — mich/dich/ihn/sie/es
+│   │   └── dativ/
+│   │       └── index.html            → "Personlige pronomen: Dativ" — mir/dir/ihm/ihr … — 🎓 9.–10. trinn
 │   ├── sporreord/
 │   │   └── index.html                → kategori-hub (alt planlagt): W-Fragen
 │   ├── tidsuttrykk/
@@ -799,6 +805,51 @@ oppføringene skygger for eller blir skygget av noen eksisterende oppføring.
 Verifisert med Playwright: alle 12 kort på hovedhuben, brødsmulesti og
 navigasjons-lenker på alle flyttede sider, at Dativ-spillet fortsatt
 fungerer på sin nye adresse, og at søk på de nye kategoriene treffer riktig.
+
+**Om Personlig pronomen (Nominativ, Akkusativ, Dativ som tre separate sider):**
+Teach ba om å bygge ut Personlig pronomen-kategorien (Nominativ og
+Akkusativ+Dativ), og spurte samtidig om det hadde vært lurt å dele
+Akkusativ og Dativ i to separate deler i stedet for én kombinert side.
+Claude avklarte dette med AskUserQuestion og anbefalte tre separate sider
+— samme mønster som Artikler-kategorien allerede bruker (Nominativ/
+Akkusativ/Dativ hver for seg, Dativ merket 9.–10. trinn) — og Teach valgte
+det. Teach ba også uttrykkelig om en tydelig norsk forklaring på hva
+personlige pronomen ER og HVORFOR de bøyes som de gjør på tysk, ikke bare
+selve øvingsspillet.
+
+Løsningen: `grammatikk/personlig-pronomen/nominativ/` har den fulle
+forklaringen — at pronomen erstatter et substantiv/navn, og at FORMEN
+bøyes etter kasus i tysk akkurat slik artiklene der/die/das gjør (der →
+den/dem), bare med sine egne, ikke-avledede former — pluss en full
+Nominativ-tabell (ich/du/er/sie/es/wir/ihr/sie/Sie). Akkusativ- og
+Dativ-sidene viser tilbake til Nominativ-siden for helhetsforklaringen, og
+har hver sin egen tabell og regelboks for akkurat sitt kasus (Akkusativ:
+direkte objekt; Dativ: indirekte objekt, samme preposisjoner som allerede
+er kjent fra `grammatikk/artikler/dativ/`, lenket derfra).
+
+Spillmotoren er en variant av det vanlige Artikler-mønsteret, men med ETT
+nytt element: **dynamiske svaralternativer per oppgave** (`w.choices`) i
+stedet for faste HTML-knapper. Dette var nødvendig fordi flere
+tysk-pronomen skrives helt likt uavhengig av kasus eller person — «sie»
+er både «hun» OG «de» (Nominativ og Akkusativ), «ihr» er både «dere»
+(Nominativ) OG «til henne» (Dativ), og «ihnen»/«Ihnen» skiller seg kun på
+stor/liten forbokstav. Med faste knapper ville to identiske knappetekster
+("sie" og "sie") havnet i samme oppgave uten at eleven kunne skille dem.
+Løsningen: hvert ord-objekt har sitt eget, kuraterte `choices`-array (2–3
+alternativer valgt for å unngå denne kollisjonen i akkurat den oppgaven),
+og en egen setning med kontekst (f.eks. «___ ist meine Freundin.») som
+gjør riktig svar utledbart fra sammenhengen — akkurat slik ekte tysk
+fungerer. Automatisert Playwright-test sjekket eksplisitt at ingen
+oppgave noensinne viser to knapper med identisk tekst.
+
+Personlig pronomen-huben gikk fra to `dw-soon`-plassholdere til tre ekte
+kort. `fortgeschritten/index.html` fikk et nytt, ekte kort for Dativ-siden
+(ved siden av Der Dativ-Kompass). Søkeindeksen (nå 118 elementer) fikk tre
+nye, spesifikke oppføringer («ich du er sie es» → Nominativ, «mich dich
+ihn» → Akkusativ, «mir dir ihm» → Dativ), mens den generiske «personlig
+pronomen»/«personlige pronomen» fortsatt peker til kategori-huben. Full
+kollisjonsskann fant kun de samme 9 permanente, tidligere aksepterte
+kollisjonene — ingen nye.
 
 ## Slik legger du til en ny seksjon
 

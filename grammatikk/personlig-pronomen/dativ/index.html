@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Grammatik-verksted: "Personlige pronomen: Dativ"
+  Personlige pronomen i Dativ (indirekte objekt-form) — for 9.-10. trinn (A2/B1), samme nivå som grammatikk/artikler/dativ/. Bygger videre på grammatikk/personlig-pronomen/nominativ/ og -/akkusativ/.
+  Spillmotor: variant av dwWords/dwOrder/dwAnswer-mønsteret fra grammatikk/artikler/,
+  men med DYNAMISKE svaralternativer per oppgave (w.choices), ikke faste knapper —
+  nødvendig fordi "sie" (hun/de) og "ihr" (dere/til henne) er identiske skriftformer
+  som bare kan skilles med riktig setningskontekst og riktig valgt distraktor-sett.
+  Se README.md i rotmappen for mønsteret.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personlige pronomen: Dativ · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--dw-bg);
+    color:var(--dw-text);
+  }
+  .dw-wrap{max-width:680px;margin:0 auto;padding:0 16px 50px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;
+    border-radius:var(--dw-radius);
+    padding:24px 22px;
+    text-align:center;
+    margin-bottom:20px;
+  }
+  .dw-header h1{margin:0 0 4px;font-size:1.5rem;}
+  .dw-header p{margin:0;opacity:.95;font-size:.95rem;}
+
+  .dw-crumb{
+    font-size:.85rem;
+    margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  }
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-rule{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.92rem;line-height:1.6;
+  }
+  .dw-rule h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+  .dw-rule table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.9rem;}
+  .dw-rule td, .dw-rule th{padding:5px 8px;text-align:left;}
+  .dw-rule th{color:var(--dw-muted);font-weight:600;border-bottom:1px solid #f0dca8;}
+  .dw-rule td.dw-arrow{color:var(--dw-accent);font-weight:800;text-align:center;}
+  .dw-rule .dw-note{font-size:.85rem;color:var(--dw-muted);margin-top:10px;}
+
+  .dw-progress-wrap{
+    background:#e4e0d5;
+    border-radius:999px;
+    height:10px;
+    overflow:hidden;
+    margin:16px 0 6px;
+  }
+  .dw-progress-bar{
+    height:100%;
+    background:var(--dw-accent);
+    width:0%;
+    transition:width .3s ease;
+  }
+  .dw-meta{
+    display:flex;
+    justify-content:space-between;
+    font-size:.82rem;
+    color:var(--dw-muted);
+    margin-bottom:16px;
+  }
+
+  .dw-card{
+    background:var(--dw-card);
+    border-radius:var(--dw-radius);
+    padding:28px 24px;
+    text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.07);
+    border:1px solid #ece8df;
+  }
+  .dw-emoji{font-size:3.4rem;margin-bottom:8px;}
+  .dw-cue{font-size:.95rem;color:var(--dw-muted);margin-bottom:6px;}
+  .dw-sentence{font-size:1.25rem;font-weight:600;color:var(--dw-primary);margin:4px 0 20px;}
+  .dw-sentence .dw-blank{
+    display:inline-block;
+    min-width:2.4em;
+    border-bottom:3px solid var(--dw-accent);
+  }
+
+  .dw-choices{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-bottom:14px;
+  }
+  .dw-choice{
+    flex:1 1 90px;
+    max-width:130px;
+    padding:14px 0;
+    font-size:1.15rem;
+    font-weight:700;
+    border-radius:12px;
+    border:2px solid var(--dw-primary);
+    background:#fff;
+    color:var(--dw-primary);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .dw-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-choice:disabled{cursor:default;opacity:.6;}
+  .dw-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+
+  .dw-hint-btn{
+    background:none;
+    border:none;
+    color:var(--dw-muted);
+    text-decoration:underline;
+    cursor:pointer;
+    font-size:.85rem;
+    margin-bottom:10px;
+  }
+  .dw-explain{
+    min-height:1.4em;
+    font-size:.9rem;
+    color:var(--dw-muted);
+    background:#f4f1e8;
+    border-radius:10px;
+    padding:10px 14px;
+    margin:10px 0 16px;
+    display:none;
+  }
+  .dw-explain.dw-show{display:block;}
+
+  .dw-next-btn{
+    background:var(--dw-primary);
+    color:#fff;
+    border:none;
+    padding:12px 26px;
+    border-radius:999px;
+    font-size:1rem;
+    font-weight:600;
+    cursor:pointer;
+    display:none;
+  }
+  .dw-next-btn.dw-show{display:inline-block;}
+  .dw-next-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-result{display:none;text-align:center;}
+  .dw-result.dw-show{display:block;}
+  .dw-result h2{color:var(--dw-primary);}
+  .dw-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:8px 0;}
+  .dw-review{
+    text-align:left;
+    background:#f4f1e8;
+    border-radius:12px;
+    padding:14px 18px;
+    margin:18px 0;
+    font-size:.9rem;
+  }
+  .dw-review li{margin-bottom:6px;}
+  .dw-restart-btn{
+    background:var(--dw-accent);
+    color:#1a1a1a;
+    border:none;
+    padding:12px 26px;
+    border-radius:999px;
+    font-size:1rem;
+    font-weight:700;
+    cursor:pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">🧩 Grammatik</a> → <a href="../">Personlig pronomen</a> → Dativ <span class="dw-level-tag">🎓 9.–10. trinn</span></p>
+
+  <div class="dw-header">
+    <h1>🤝 Personlige pronomen: Dativ</h1>
+    <p>mir, dir, ihm, ihr … Indirekte objekt-formen</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>📌 Nominativ → Dativ</h2>
+    <p>Husker du <a href="../nominativ/">Nominativ-siden</a>? <strong>Dativ</strong> bruker du for det <strong>indirekte objektet</strong> — den som FÅR noe, blir HJULPET, eller som handlingen skjer TIL/FOR (<i>helfen, danken, gefallen, gehören, geben</i> + Dativ), eller etter preposisjoner som <strong>mit, bei, zu, nach, von, aus, seit</strong> — nøyaktig samme preposisjoner som styrer Dativ for artikler, se <a href="../../artikler/dativ/">Der Dativ-Kompass</a>.</p>
+    <table>
+      <tr><th>Nominativ</th><th></th><th>Dativ</th><th>Norsk</th></tr>
+      <tr><td>ich</td><td class="dw-arrow">→</td><td><strong>mir</strong></td><td>meg</td></tr>
+      <tr><td>du</td><td class="dw-arrow">→</td><td><strong>dir</strong></td><td>deg</td></tr>
+      <tr><td>er</td><td class="dw-arrow">→</td><td><strong>ihm</strong></td><td>ham</td></tr>
+      <tr><td>sie</td><td class="dw-arrow">→</td><td><strong>ihr</strong></td><td>henne</td></tr>
+      <tr><td>es</td><td class="dw-arrow">→</td><td><strong>ihm</strong></td><td>det</td></tr>
+      <tr><td>wir</td><td class="dw-arrow">→</td><td><strong>uns</strong></td><td>oss (uendret)</td></tr>
+      <tr><td>ihr</td><td class="dw-arrow">→</td><td><strong>euch</strong></td><td>dere</td></tr>
+      <tr><td>sie</td><td class="dw-arrow">→</td><td><strong>ihnen</strong></td><td>dem</td></tr>
+      <tr><td>Sie</td><td class="dw-arrow">→</td><td><strong>Ihnen</strong></td><td>Dem, høflig</td></tr>
+    </table>
+    <p class="dw-note">Ekstra fallgruve her: Dativ-formen <strong>ihr</strong> (til henne) skrives helt likt som Nominativ-pronomenet <strong>ihr</strong> (dere) — bare sammenhengen skiller dem. Og <strong>ihnen</strong> (dem) vs. <strong>Ihnen</strong> (Dem, høflig) skiller seg kun på stor/liten forbokstav.</p>
+  </div>
+
+
+  <div class="dw-progress-wrap"><div class="dw-progress-bar" id="dw-bar"></div></div>
+  <div class="dw-meta">
+    <span id="dw-count">Oppgave 1 av 10</span>
+    <span id="dw-score-live">Poeng: 0</span>
+  </div>
+
+  <div class="dw-card" id="dw-game">
+    <div class="dw-emoji" id="dw-emoji">🙋</div>
+    <div class="dw-cue" id="dw-cue"></div>
+    <div class="dw-sentence" id="dw-sentence"></div>
+
+    <div class="dw-choices" id="dw-choices"></div>
+
+    <button class="dw-hint-btn" onclick="dwToggleHint()">💡 Tipp anzeigen</button>
+    <div class="dw-explain" id="dw-explain"></div>
+
+    <button class="dw-next-btn" id="dw-next" onclick="dwNext()">Weiter →</button>
+  </div>
+
+  <div class="dw-card dw-result" id="dw-result">
+    <h2>Geschafft! 🎉</h2>
+    <div class="dw-score" id="dw-final-score">0 / 10</div>
+    <p id="dw-final-msg"></p>
+    <div class="dw-review" id="dw-review"></div>
+    <button class="dw-restart-btn" onclick="dwRestart()">🔁 Nochmal spielen</button>
+  </div>
+
+</div>
+
+<script>
+  // Hvert element: emoji, cue (norsk kontekst over setningen), sentence (med ___ som blank),
+  // art (riktig pronomen), choices (2–3 alternativer, kuratert for å unngå at "sie" (hun)
+  // og "sie" (de) — eller "ihr" (dere) og "ihr" (til henne) — havner i samme oppgave),
+  // hint (norsk forklaring).
+  var dwWords = [
+    {
+        "emoji": "👦",
+        "cue": "Peter (ham)",
+        "sentence": "Ich helfe ___ mit den Hausaufgaben.",
+        "art": "ihm",
+        "choices": [
+            "ihm",
+            "ihr",
+            "ihnen"
+        ],
+        "hint": "er → ihm: Peter er hankjønn, Dativ-formen er ihm."
+    },
+    {
+        "emoji": "👧",
+        "cue": "Anna (henne)",
+        "sentence": "Ich danke ___ für das Geschenk.",
+        "art": "ihr",
+        "choices": [
+            "ihm",
+            "ihr",
+            "ihnen"
+        ],
+        "hint": "sie (hun) → ihr: pass på — dette «ihr» betyr «til henne», ikke «dere»!"
+    },
+    {
+        "emoji": "📕",
+        "cue": "das Buch (meg)",
+        "sentence": "Das Buch gehört ___.",
+        "art": "mir",
+        "choices": [
+            "mir",
+            "dir",
+            "uns"
+        ],
+        "hint": "gehören (tilhøre) styrer alltid Dativ: ich → mir."
+    },
+    {
+        "emoji": "✉️",
+        "cue": "du (deg)",
+        "sentence": "Er schreibt ___ einen Brief.",
+        "art": "dir",
+        "choices": [
+            "dir",
+            "mir",
+            "euch"
+        ],
+        "hint": "du → dir: Dativ-formen av du."
+    },
+    {
+        "emoji": "🏠",
+        "cue": "die Kinder (dem)",
+        "sentence": "Wir zeigen ___ das Haus.",
+        "art": "ihnen",
+        "choices": [
+            "ihnen",
+            "ihm",
+            "ihr"
+        ],
+        "hint": "sie (de) → ihnen: Dativ-formen for flertall."
+    },
+    {
+        "emoji": "🍝",
+        "cue": "wir (oss)",
+        "sentence": "Das Essen schmeckt ___ sehr gut.",
+        "art": "uns",
+        "choices": [
+            "uns",
+            "euch",
+            "ihnen"
+        ],
+        "hint": "schmecken (smake) styrer Dativ: wir → uns (uendret fra Nominativ)."
+    },
+    {
+        "emoji": "💬",
+        "cue": "ihr (dere)",
+        "sentence": "Ich gebe ___ die Antwort.",
+        "art": "euch",
+        "choices": [
+            "euch",
+            "uns",
+            "ihnen"
+        ],
+        "hint": "ihr → euch: Dativ-formen av ihr (dere)."
+    },
+    {
+        "emoji": "🎬",
+        "cue": "ich (meg)",
+        "sentence": "Der Film gefällt ___ nicht.",
+        "art": "mir",
+        "choices": [
+            "mir",
+            "ihm",
+            "uns"
+        ],
+        "hint": "gefallen (falle i smak) styrer Dativ: ich → mir."
+    },
+    {
+        "emoji": "🧑‍💼",
+        "cue": "Frau Schmidt (Dem, høflig)",
+        "sentence": "Ich danke ___ vielmals, Frau Schmidt.",
+        "art": "Ihnen",
+        "choices": [
+            "Ihnen",
+            "ihnen",
+            "ihm"
+        ],
+        "hint": "Høflig tiltale: Sie → Ihnen (stor I), ikke å forveksle med ihnen (dem)."
+    },
+    {
+        "emoji": "🚗",
+        "cue": "das Auto → er (ham)",
+        "sentence": "Das Auto gehört ___.",
+        "art": "ihm",
+        "choices": [
+            "ihm",
+            "ihr",
+            "ihnen"
+        ],
+        "hint": "er/es → ihm: begge blir ihm i Dativ, akkurat som der/das begge blir dem for artikler."
+    }
+];
+
+  var dwOrder = [];
+  var dwIndex = 0;
+  var dwScore = 0;
+  var dwWrong = [];
+  var dwAnswered = false;
+
+  function dwShuffle(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
+    }
+    return a;
+  }
+
+  function dwInit(){
+    dwOrder = dwShuffle(dwWords.map(function(_,i){return i;}));
+    dwIndex = 0; dwScore = 0; dwWrong = [];
+    document.getElementById('dw-result').classList.remove('dw-show');
+    document.getElementById('dw-game').style.display = '';
+    dwLoad();
+  }
+
+  function dwLoad(){
+    dwAnswered = false;
+    var w = dwWords[dwOrder[dwIndex]];
+    document.getElementById('dw-emoji').textContent = w.emoji;
+    document.getElementById('dw-cue').textContent = w.cue;
+    document.getElementById('dw-sentence').innerHTML = w.sentence.replace('___', '<span class="dw-blank" id="dw-blank">___</span>');
+    document.getElementById('dw-explain').classList.remove('dw-show');
+    document.getElementById('dw-explain').textContent = w.hint;
+    document.getElementById('dw-next').classList.remove('dw-show');
+    document.getElementById('dw-count').textContent = 'Oppgave ' + (dwIndex+1) + ' av ' + dwWords.length;
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-bar').style.width = Math.round((dwIndex/dwWords.length)*100) + '%';
+
+    var choicesEl = document.getElementById('dw-choices');
+    choicesEl.innerHTML = '';
+    w.choices.forEach(function(c){
+      var btn = document.createElement('button');
+      btn.className = 'dw-choice';
+      btn.dataset.a = c;
+      btn.textContent = c;
+      btn.onclick = function(){ dwAnswer(c); };
+      choicesEl.appendChild(btn);
+    });
+  }
+
+  function dwToggleHint(){
+    document.getElementById('dw-explain').classList.toggle('dw-show');
+  }
+
+  function dwAnswer(choice){
+    if(dwAnswered) return;
+    dwAnswered = true;
+    var w = dwWords[dwOrder[dwIndex]];
+    var btns = document.querySelectorAll('.dw-choice');
+    btns.forEach(function(b){
+      b.disabled = true;
+      if(b.dataset.a === w.art) b.classList.add('dw-correct');
+      else if(b.dataset.a === choice) b.classList.add('dw-wrong');
+    });
+    document.getElementById('dw-blank').textContent = w.art;
+    document.getElementById('dw-explain').classList.add('dw-show');
+    if(choice === w.art){
+      dwScore++;
+    } else {
+      dwWrong.push(w);
+    }
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-next').classList.add('dw-show');
+  }
+
+  function dwNext(){
+    dwIndex++;
+    if(dwIndex >= dwWords.length){
+      dwFinish();
+    } else {
+      dwLoad();
+    }
+  }
+
+  function dwFinish(){
+    document.getElementById('dw-bar').style.width = '100%';
+    document.getElementById('dw-game').style.display = 'none';
+    document.getElementById('dw-result').classList.add('dw-show');
+    document.getElementById('dw-final-score').textContent = dwScore + ' / ' + dwWords.length;
+    var msg;
+    if(dwScore === dwWords.length) msg = "Perfekt! Du kan pronomenene helt ut! 🏅";
+    else if(dwScore >= dwWords.length*0.7) msg = "Sehr gut! Se gjennom de du bommet på under.";
+    else msg = "Guter Versuch! Se på regelen og tabellen øverst en gang til, og prøv igjen.";
+    document.getElementById('dw-final-msg').textContent = msg;
+
+    var reviewEl = document.getElementById('dw-review');
+    if(dwWrong.length === 0){
+      reviewEl.innerHTML = '<strong>Ingenting å øve mer på akkurat nå — bra jobbet!</strong>';
+    } else {
+      var html = '<strong>Disse kan du øve litt ekstra på:</strong><ul>';
+      dwWrong.forEach(function(w){
+        html += '<li>' + w.emoji + ' <strong>' + w.sentence.replace('___', w.art) + '</strong> — ' + w.hint + '</li>';
+      });
+      html += '</ul>';
+      reviewEl.innerHTML = html;
+    }
+  }
+
+  function dwRestart(){ dwInit(); }
+
+  dwInit();
+</script>
+</body>
+</html>
