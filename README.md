@@ -108,8 +108,28 @@ deutschwelt-site/
 │   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 3 (Tschüss!)
 │   ├── nicos-weg-von-a-bis-z/
 │   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 4 (Von A bis Z)
-│   └── nicos-weg-ich-heisse-emma/
-│       └── index.html                → video + oppgaver: Nicos Weg, Folge 5 (Ich heiße Emma)
+│   ├── nicos-weg-ich-heisse-emma/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 5 (Ich heiße Emma)
+│   ├── nicos-weg-das-ist-nico/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 6 (Das ist Nico)
+│   ├── nicos-weg-woher-kommst-du/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 7 (Woher kommst du?)
+│   ├── nicos-weg-nico-hat-ein-problem/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 8 (Nico hat ein Problem)
+│   ├── nicos-weg-zahlen-1-bis-100/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 9 (Zahlen von 1 bis 100)
+│   ├── nicos-weg-wichtige-nummern/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 10 (Wichtige Nummern)
+│   ├── nicos-weg-adressen/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 11 (Adressen)
+│   ├── nicos-weg-auf-dem-amt/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 12 (Auf dem Amt)
+│   ├── nicos-weg-was-machst-du-hier/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 13 (Was machst du hier?)
+│   ├── nicos-weg-was-trinkst-du/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 14 (Was trinkst du?)
+│   └── nicos-weg-eine-pizza-bitte/
+│       └── index.html                → video + oppgaver: Nicos Weg, Folge 15 (Eine Pizza, bitte!)
 ├── schreiben/
 │   ├── index.html                    → hub-side: velg skriveoppgave (8 kort, 1 «kommer snart»)
 │   ├── sms-chat/
@@ -238,7 +258,40 @@ elevene krysser av ord de hører — en lett måte å holde dem aktive under
 selve avspillingen, siden vi ikke har tilgang til eksakt transkripsjon å
 poengsette mot. Den faktiske poengsatte forståelsesquizen (`dwQuiz`)
 kommer etter videoen og er basert på handlingen i episoden, ikke eksakte
-sitater.
+sitater. Seksjonen har nå 15 episoder (Folge 1–15, «Nicos Weg fortsettes»-
+runden la til Folge 6–15 etter nøyaktig samme mal som Folge 1–5).
+
+**Om video-ID-verifisering (viktig prinsipp, gjelder alle 15 episoder):**
+vi gjetter **aldri** en YouTube-video-ID — hver ID er alltid sjekket mot
+YouTubes oEmbed-endepunkt (`https://www.youtube.com/oembed?url=...&format=json`,
+som returnerer video-tittel og kanalnavn hvis IDen finnes) før den
+publiseres på siden, og vi sjekker samtidig at kanalen er den offisielle
+DW-kanalen («Deutsch lernen mit der DW», @dwlearngerman) — ikke en
+uoffisiell opplasting eller en annen video med lignende navn. Direkte
+`curl` mot oEmbed-endepunktet er blokkert av miljøets nettverksproxy i
+byggeøkten (403 på CONNECT-tunnelen); løsningen som ble funnet og brukt i
+Folge 6–15-runden er å bruke `WebFetch`-verktøyet i stedet, som *kan* nå
+oEmbed-endepunktet og lese ut tittel/kanalnavn — noter dette som
+fremgangsmåte for fremtidige nye episoder også. Selve handlingsreferatet
+i "Vor dem Hören"-teksten for hver episode er grunngitt i eksterne,
+uavhengige kilder (DWs egne videobeskrivelser og Yabla Germans
+episodesammendrag, kryssjekket for indre sammenheng på tvers av
+episodene) — det er *ikke* en eksakt transkripsjon, siden vi ikke har
+tilgang til det. Ett avvik ble oppdaget og rettet før publisering: Yabla
+kalte Folge 15 «Die Bestellung», men den offisielle YouTube/DW-tittelen
+(verifisert via oEmbed) er «Eine Pizza, bitte!» — den offisielle tittelen
+er brukt, med en kommentar i sidens kildehenvisning som forklarer avviket
+(samme prinsipp som Sportfreunde Stiller-årstallrettelsen i Musik-runden).
+Søkeindeksen fikk 10 nye nøkkel-oppføringer (én per ny episode, med
+flerords-nøkler for å holde dem særegne). Full kollisjonsskann etter
+publisering fant de samme 7 permanente, tidligere aksepterte kollisjonene
+pluss én ny av samme aksepterte type: nøkkelen «nico» i Hören-hubens egen
+generiske oppføring blir nå fanget opp av Folge 8s nøkkel «polizist hilft
+nico» først — akkurat samme mønster som «emma» allerede gjorde for Folge 5
+(en bred, generisk enkeltord-nøkkel som en mer spesifikk episodeside — som
+med rette inneholder ordet — skygger for). Dette regnes som forventet
+vekst i søkeindeksen, ikke en feil å rette, i tråd med praksisen fra
+tidligere runder.
 
 **Om verbspillene:** `verben-regelmaessig/` og `verben-unregelmaessig/` bruker
 samme spillmotor som Nominativ/Akkusativ (`dwWords`, poeng, hint), men med
@@ -933,11 +986,18 @@ kollisjonene — ingen nye.
      gloseliste + hovedidé-spørsmål). Sjekk ALLTID opphavsrett først —
      tommelfingerregel i Tyskland/EU: 70 år etter forfatterens dødsår. Ikke
      bruk moderne, fortsatt opphavsrettsbeskyttede tekster.
-   - En ny lyttevideo (f.eks. Nicos Weg Folge 6) → kopier
-     `hoeren/nicos-weg-ich-heisse-emma/` til f.eks. `hoeren/nicos-weg-folge-6/`,
+   - En ny lyttevideo (f.eks. Nicos Weg Folge 16) → kopier en av de 15
+     eksisterende `hoeren/nicos-weg-…/`-mappene (f.eks.
+     `hoeren/nicos-weg-eine-pizza-bitte/`) til f.eks. `hoeren/nicos-weg-folge-16/`,
      og bytt video-ID-en i `<iframe src="https://www.youtube-nocookie.com/embed/…">`
      (finn video-ID-en i YouTube-lenken, delen etter `watch?v=` — sjekk alltid
-     at ID-en er ekte, f.eks. via YouTubes oEmbed-endepunkt, før du publiserer).
+     at ID-en er ekte, f.eks. via YouTubes oEmbed-endepunkt, før du publiserer;
+     direkte `curl` mot oEmbed er blokkert av byggemiljøets proxy, men
+     `WebFetch`-verktøyet når frem — se «Om video-ID-verifisering» lenger
+     opp). Husk å bytte ut `dwListenWords`, Wortschatz-parene og hele
+     `dwQuiz`-arrayet med innhold for den nye episoden, legg til et kort i
+     `hoeren/index.html`, og legg til minst én egen, særegen søkenøkkel i
+     `dwIndex` i rot-`index.html` (kjør en full kollisjonsskann etterpå).
    - En ny samtalesituasjon (f.eks. Am Flughafen) → kopier den av
      `sprechen/cafe/`, `sprechen/restaurant/`, `sprechen/butikken/`,
      `sprechen/hotell/` eller `sprechen/taxi/` som ligner mest, bytt ut
