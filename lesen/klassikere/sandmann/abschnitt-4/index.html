@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Klassikere: Der Sandmann — Vierter Abschnitt
+  Hoffmann døde 1822 → public domain i EU siden 1993. Teksten er hentet ordrett fra projekt-gutenberg.org.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vierter Abschnitt — Der Sandmann · Klassikere · Deutschwelt</title>
+<link rel="stylesheet" href="../../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.5rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-context{
+    background:#eef2f6;border:1px solid #c9d6e3;border-radius:var(--dw-radius);
+    padding:14px 18px;margin-bottom:20px;font-size:.85rem;line-height:1.6;
+  }
+  .dw-context h2{margin:0 0 6px;color:var(--dw-primary);font-size:.95rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-original{
+    font-family:Georgia,"Times New Roman",serif;font-size:1.02rem;line-height:1.8;
+    background:#f4f1e8;border-left:4px solid var(--dw-accent);padding:16px 18px;border-radius:8px;margin-bottom:4px;
+  }
+  .dw-original p{margin:0 0 14px;}
+  .dw-original p:last-child{margin-bottom:0;}
+  .dw-original .dw-gap-note{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-style:italic;color:var(--dw-muted);font-size:.88rem;background:#fff;border:1px dashed #cfc7ad;border-radius:8px;padding:10px 12px;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-top:10px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:100px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-chapternav{display:flex;justify-content:space-between;gap:12px;margin-top:24px;font-size:.9rem;}
+  .dw-chapternav a{color:var(--dw-primary);text-decoration:none;font-weight:600;padding:10px 16px;background:var(--dw-card);border-radius:999px;border:1px solid #ece8df;}
+  .dw-chapternav a:hover{border-color:var(--dw-accent);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../../">📖 Lesen</a> → <a href="../../">Klassikere</a> → <a href="../">Der Sandmann</a> → Vierter Abschnitt</p>
+
+  <div class="dw-header">
+    <h1>Vierter Abschnitt</h1>
+    <p>E.T.A. Hoffmann (1816) · Del 4 av 5</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>🧭 Hvor er vi i handlingen?</h2>
+    <p>Dette er det korteste, men mest sjokkerende avsnittet: Nathanael kommer inn i rommet og ser Spalanzani og Coppola dra og slite i Olimpia, hver fra sin kant. Sannheten kommer brutalt for en dag — Olimpia er ikke et menneske, men en mekanisk dukke som de to har bygget sammen.</p>
+    <p>Coppola river løs dukken og forsvinner med den, mens den skadde Spalanzani ligger igjen. Skandalen blir raskt kjent i hele universitetsbyen, og folk begynner å tvile på om noen de kjenner egentlig er ekte mennesker.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>📖 Originaltekst</h2>
+    <p class="dw-byline">von E.T.A. Hoffmann</p>
+    <div class="dw-original">
+      <p>Erstarrt stand Nathanael – nur zu deutlich hatte er gesehen, Olimpias toderbleichtes Wachsgesicht hatte keine Augen, statt ihrer schwarze Höhlen; sie war eine leblose Puppe. Spalanzani wälzte sich auf der Erde, Glasscherben hatten ihm Kopf, Brust und Arm zerschnitten, wie aus Springquellen strömte das Blut empor. Aber er raffte seine Kräfte zusammen. – »Ihm nach – ihm nach, was zauderst du? – Coppelius – Coppelius, mein bestes Automat hat er mir geraubt – Zwanzig Jahre daran gearbeitet – Leib und Leben daran gesetzt – das Räderwerk – Sprache – Gang – mein – die Augen – die Augen dir gestohlen. – Verdammter – Verfluchter – ihm nach – hol mir Olimpia – da hast du die Augen! –« Nun sah Nathanael, wie ein Paar blutige Augen auf dem Boden liegend ihn anstarrten, die ergriff Spalanzani mit der unverletzten Hand und warf sie nach ihm, daß sie seine Brust trafen. – Da packte ihn der Wahnsinn mit glühenden Krallen und fuhr in sein Inneres hinein Sinn und Gedanken zerreißend. »Hui – hui – hui! – Feuerkreis – Feuerkreis! dreh dich Feuerkreis – lustig – lustig! – Holzpüppchen hui schön Holzpüppchen dreh dich –« damit warf er sich auf den Professor und drückte ihm die Kehle zu. Er hätte ihn erwürgt, aber das Getöse hatte viele Menschen herbeigelockt, die drangen ein, rissen den wütenden Nathanael auf und retteten so den Professor, der gleich verbunden wurde. Siegmund, so stark er war, vermochte nicht den Rasenden zu bändigen; der schrie mit fürchterlicher Stimme immerfort: »Holzpüppchen dreh dich« und schlug um sich mit geballten Fäusten. Endlich gelang es der vereinten Kraft mehrerer, ihn zu überwältigen, indem sie ihn zu Boden warfen und banden. Seine Worte gingen unter in entsetzlichem tierischen Gebrüll. So in gräßlicher Raserei tobend wurde er nach dem Tollhause gebracht.</p>
+      <p>Ehe ich, günstiger Leser! dir zu erzählen fortfahre, was sich weiter mit dem unglücklichen Nathanael zugetragen, kann ich dir, solltest du einigen Anteil an dem geschickten Mechanikus und Automat-Fabrikanten Spalanzani nehmen, versichern, daß er von seinen Wunden völlig geheilt wurde. Er mußte indes die Universität verlassen, weil Nathanaels Geschichte Aufsehen erregt hatte und es allgemein für gänzlich unerlaubten Betrug gehalten wurde, vernünftigen Teezirkeln (Olimpia hatte sie mit Glück besucht) statt der lebendigen Person eine Holzpuppe einzuschwärzen. Juristen nannten es sogar einen feinen und um so härter zu bestrafenden Betrug, als er gegen das Publikum gerichtet und so schlau angelegt worden, daß kein Mensch (ganz kluge Studenten ausgenommen) es gemerkt habe, unerachtet jetzt alle weise tun und sich auf allerlei Tatsachen berufen wollten, die ihnen verdächtig vorgekommen. Diese letzteren brachten aber eigentlich nichts Gescheutes zutage. Denn konnte z. B. wohl irgend jemanden verdächtig vorgekommen sein, daß nach der Aussage eines eleganten Teeisten Olimpia gegen alle Sitte öfter genieset, als gegähnt hatte? Ersteres, meinte der Elegant, sei das Selbstaufziehen des verborgenen Triebwerks gewesen, merklich habe es dabei geknarrt usw. Der Professor der Poesie und Beredsamkeit nahm eine Prise, klappte die Dose zu, räusperte sich und sprach feierlich: »Hochzuverehrende Herren und Damen! merken Sie denn nicht, wo der Hase im Pfeffer liegt? Das Ganze ist eine Allegorie – eine fortgeführte Metapher! – Sie verstehen mich! – Sapienti sat!« Aber viele hochzuverehrende Herren beruhigten sich nicht dabei; die Geschichte mit dem Automat hatte tief in ihrer Seele Wurzel gefaßt und es schlich sich in der Tat abscheuliches Mißtrauen gegen menschliche Figuren ein. Um nun ganz überzeugt zu werden, daß man keine Holzpuppe liebe, wurde von mehrern Liebhabern verlangt, daß die Geliebte etwas taktlos singe und tanze, daß sie beim Vorlesen sticke, stricke, mit dem Möpschen spiele usw. vor allen Dingen aber, daß sie nicht bloß höre, sondern auch manchmal in der Art spreche, daß dies Sprechen wirklich ein Denken und Empfinden voraussetze. Das Liebesbündnis vieler wurde fester und dabei anmutiger, andere dagegen gingen leise auseinander. »Man kann wahrhaftig nicht dafür stehen«, sagte dieser und jener. In den Tees wurde unglaublich gegähnt und niemals genieset, um jedem Verdacht zu begegnen. – Spalanzani mußte, wie gesagt, fort, um der Kriminaluntersuchung wegen der menschlichen Gesellschaft betrüglicherweise eingeschobenen Automats zu entgehen. Coppola war auch verschwunden.</p>
+    </div>
+
+    <div class="dw-vocab">
+      <div><b>die Wunde</b><br>såret</div>
+      <div><b>heilen</b><br>å hele, å lege</div>
+      <div><b>die Universität verlassen</b><br>å forlate universitetet</div>
+      <div><b>der Betrug</b><br>bedrageriet</div>
+      <div><b>bestrafen</b><br>å straffe</div>
+      <div><b>verdächtig</b><br>mistenkelig</div>
+      <div><b>die Puppe</b><br>dukken</div>
+      <div><b>das Mißtrauen</b><br>mistilliten</div>
+      <div><b>gähnen</b><br>å gjespe</div>
+      <div><b>die Kriminaluntersuchung</b><br>straffesaken, den kriminelle etterforskningen</div>
+      <div><b>betrüglich</b><br>bedragersk, svikaktig</div>
+      <div><b>die menschliche Gesellschaft</b><br>det menneskelige selskap(et)</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Verstehst du den Text?</h2>
+    <p class="dw-note">Disse spørsmålene tester om du fikk med deg hovedhandlingen — ikke hvert enkelt ord.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Was denkst du?</h2>
+    <p class="dw-note">Etter skandalen blir folk i byen mistenksomme mot hverandre — de er redde for at noen de kjenner egentlig kan være «kunstige». Kan du tenke deg en moderne parallell til dette (for eksempel AI eller sosiale medier)? Skriv 2–4 setninger på tysk.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Ich glaube, heute könnte man …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+  <div class="dw-chapternav">
+    <a href="../abschnitt-3/">← Dritter Abschnitt</a>
+    <a href="../abschnitt-5/">Fünfter Abschnitt →</a>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Quiz ---------- */
+  var dwQuiz = [{"q": "Was findet Nathanael heraus, als er Olimpia genau ansieht?", "opts": ["Dass sie krank ist", "Dass sie keine Augen hat, sondern nur schwarze Höhlen — sie ist eine leblose Puppe", "Dass sie in Wirklichkeit Clara ist"], "correct": 1}, {"q": "Was ruft Spalanzani, während er verletzt am Boden liegt?", "opts": ["Er ruft nach einem Arzt", "Er ruft, Coppelius habe ihm sein Automat geraubt, an dem er zwanzig Jahre gearbeitet habe", "Er ruft nach Nathanael, damit dieser flieht"], "correct": 1}, {"q": "Was muss Professor Spalanzani am Ende dieses Abschnitts tun?", "opts": ["Er muss die Universität verlassen wegen des Betrugs mit dem Automat", "Er muss Olimpia heiraten lassen", "Er muss ein neues Haus bauen"], "correct": 0}, {"q": "Wie reagiert die feine Gesellschaft der Stadt auf den Skandal um Olimpia?", "opts": ["Niemand interessiert sich dafür", "Viele werden misstrauisch gegenüber anderen Menschen und fürchten, selbst eine Puppe zu lieben", "Alle finden es sehr lustig und vergessen es schnell"], "correct": 1}];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  /* ---------- Skrive-tekstfelt ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

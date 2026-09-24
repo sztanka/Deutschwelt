@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Klassikere: Die Verwandlung — Dritter Teil
+  Kafka døde 1924 → public domain i EU siden 1995. Den ordrette teksten under er hentet fra projekt-gutenberg.org/authors/franz-kafka/books/die-verwandlung/. For Dritter Teil klarte vi i denne runden kun å hente ut åpningsavsnittene ordrett — resten av handlingen er et kort, tydelig merket SAMMENDRAG skrevet av oss, ikke sitert originaltekst.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dritter Teil — Die Verwandlung · Klassikere · Deutschwelt</title>
+<link rel="stylesheet" href="../../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.5rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-context{
+    background:#eef2f6;border:1px solid #c9d6e3;border-radius:var(--dw-radius);
+    padding:14px 18px;margin-bottom:20px;font-size:.85rem;line-height:1.6;
+  }
+  .dw-context h2{margin:0 0 6px;color:var(--dw-primary);font-size:.95rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-original{
+    font-family:Georgia,"Times New Roman",serif;font-size:1.02rem;line-height:1.8;
+    background:#f4f1e8;border-left:4px solid var(--dw-accent);padding:16px 18px;border-radius:8px;margin-bottom:4px;
+  }
+  .dw-original p{margin:0 0 14px;}
+  .dw-original p:last-child{margin-bottom:0;}
+  .dw-original .dw-gap-note{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-style:italic;color:var(--dw-muted);font-size:.88rem;background:#fff;border:1px dashed #cfc7ad;border-radius:8px;padding:10px 12px;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-top:10px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:100px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-chapternav{display:flex;justify-content:space-between;gap:12px;margin-top:24px;font-size:.9rem;}
+  .dw-chapternav a{color:var(--dw-primary);text-decoration:none;font-weight:600;padding:10px 16px;background:var(--dw-card);border-radius:999px;border:1px solid #ece8df;}
+  .dw-chapternav a:hover{border-color:var(--dw-accent);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../../">📖 Lesen</a> → <a href="../../">Klassikere</a> → <a href="../">Die Verwandlung</a> → Dritter Teil</p>
+
+  <div class="dw-header">
+    <h1>Dritter Teil</h1>
+    <p>Franz Kafka (1915) · Del 3 av 3 · utdrag + sammendrag</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>🧭 Hvor er vi i handlingen?</h2>
+    <p>Gregor bærer fortsatt skaden etter eplet faren kastet på ham i forrige del. Familien har begynt å innrette seg på en trist, rutinepreget måte — de later nesten som om Gregor ikke finnes, samtidig som de lar døren til stuen stå åpen om kveldene slik at han kan høre dem.</p>
+    <p><strong>Viktig om denne siden:</strong> Vi klarte i denne runden å hente ut de tre første avsnittene av Dritter Teil helt ordrett fra kilden. Resten av teksten var det ikke mulig å hente ut denne gangen. I stedet for å dikte opp «Kafka-tekst» har vi skrevet et kort, ærlig sammendrag av resten av handlingen (tydelig merket som sammendrag), og lagt ved en lenke til en gratis kilde der du kan lese hele originalteksten selv.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>📖 Originaltekst (utdrag)</h2>
+    <p class="dw-byline">von Franz Kafka — ordrett sitat, brutt av der kilden tok slutt</p>
+    <div class="dw-original">
+      <p>Die schwere Verwundung Gregors, an der er über einen Monat litt – der Apfel blieb, da ihn niemand zu entfernen wagte, als sichtbares Andenken im Fleische sitzen – schien selbst den Vater daran erinnert zu haben, daß Gregor trotz seiner gegenwärtigen traurigen und ekelhaften Gestalt ein Familienmitglied war, das man nicht wie einen Feind behandeln durfte, sondern dem gegenüber es das Gebot der Familienpflicht war, den Widerwillen hinunterzuschlucken und zu dulden, nichts als zu dulden.</p>
+      <p>Und wenn nun auch Gregor durch seine Wunde an Beweglichkeit wahrscheinlich für immer verloren hatte und vorläufig zur Durchquerung seines Zimmers wie ein alter Invalide lange, lange Minuten brauchte – an das Kriechen in der Höhe war nicht zu denken – , so bekam er für diese Verschlimmerung seines Zustandes einen seiner Meinung nach vollständig genügenden Ersatz dadurch, daß immer gegen Abend die Wohnzimmertür geöffnet wurde, die er schon ein bis zwei Stunden vorher scharf zu beobachten pflegte, so daß er, im Dunkel seines Zimmers liegend, vom Wohnzimmer aus unsichtbar, die ganze Familie beim beleuchteten Tische sehen konnte und ihre Reden, gewissermaßen mit allgemeiner Erlaubnis, also ganz anders als früher, anhören durfte.</p>
+      <p>Freilich waren es nicht mehr die lebhaften Unterhaltungen der früheren Zeiten, an die Gregor in den kleinen Hotelzimmern stets mit einigem Verlangen gedacht hatte, wenn er sich müde in das feuchte Bettzeug hatte werfen müssen. Es ging jetzt meist nur sehr still zu. Der Vater schlief bald nach dem Nachtessen in seinem Sessel ein; die Mutter und Schwester ermahnten einander zur Stille; die Mutter nähte, weit unter das Licht vorgebeugt, feine Wäsche für ein Modengeschäft; die Schwester, die eine Stellung als Verkäuferin angenommen hatte, lernte am Abend Stenographie und Französisch, um vielleicht später einmal einen besseren Posten zu erreichen. Manchmal wachte der Vater auf, und als wisse er gar nicht, daß er geschlafen habe,</p>
+      <p class="dw-gap-note">⚠️ Her stopper den ordrette kilden vi hadde tilgang til denne runden — midt i en setning. Det som står ovenfor er ekte, sitert Kafka-tekst; det som følger er IKKE det, men et kort sammendrag skrevet av oss (se under). Vil du lese Kafkas egen, fullstendige tekst for resten av Dritter Teil, finner du den gratis og lovlig her: projekt-gutenberg.org/authors/franz-kafka/books/die-verwandlung/</p>
+    </div>
+
+    <div class="dw-vocab">
+      <div><b>die Verwundung</b><br>skaden/såret</div>
+      <div><b>dulden</b><br>tåle, finne seg i</div>
+      <div><b>die Beweglichkeit</b><br>bevegelighet</div>
+      <div><b>der Invalide</b><br>en invalid, bevegelseshemmet person</div>
+      <div><b>die Stenographie</b><br>stenografi (hurtigskrift)</div>
+      <div><b>die Bedienerin</b><br>vaskehjelp/hushjelp (i sammendraget)</div>
+      <div><b>der Untermieter</b><br>leieboer (i sammendraget)</div>
+      <div><b>Geige spielen</b><br>spille fiolin (i sammendraget)</div>
+      <div><b>sterben</b><br>dø (i sammendraget)</div>
+      <div><b>die Erleichterung</b><br>lettelsen (i sammendraget)</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Verstehst du den Text?</h2>
+    <p class="dw-note">Disse spørsmålene tester om du fikk med deg hovedhandlingen — ikke hvert enkelt ord.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Was denkst du? — om slutten på novellen</h2>
+    <p class="dw-note">Her er et kort, ærlig sammendrag (IKKE Kafkas egne ord) av resten av handlingen, så du vet hvordan historien ender: Familien tar etter hvert inn tre leieboere for å tjene ekstra penger. En kveld spiller Grete fiolin for dem, og Gregor — tiltrukket av musikken — kryper ut av rommet sitt. Leieboerne blir sjokkert og truer med å si opp leiligheten. Familien, spesielt Grete, innser nå at de ikke lenger kan la som om «Gregor» fortsatt bor der — skapningen kan umulig være broren hennes lenger. Samme natt dør Gregor, stille og alene, svekket av skaden og av å ha sluttet å spise. Tjenestepiken finner ham død neste morgen. Familien reagerer med sorg, men også med en tydelig lettelse — og novellen slutter med at foreldrene og Grete tar en togtur ut av byen og ser fremover, mot en ny fremtid. <br><br>Hva synes du om denne slutten? Er det en trist, en rettferdig, eller en befriende slutt — eller alt på en gang? Skriv 4–5 setninger på tysk.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Ich finde das Ende … , weil …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+  <div class="dw-chapternav">
+    <a href="../teil-2/">← Zweiter Teil</a>
+    <span></span>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Quiz ---------- */
+  var dwQuiz = [{"q": "Was macht die Familie jetzt jeden Abend, laut dem originalen Textausschnitt?", "opts": ["Sie besucht Gregor im Zimmer", "Sie lässt die Wohnzimmertür offen, und Gregor hört im Dunkeln zu", "Sie spielt Karten"], "correct": 1}, {"q": "Womit verdient die Schwester Grete jetzt Geld?", "opts": ["Als Lehrerin", "Als Verkäuferin, und sie lernt abends Stenographie und Französisch", "Sie verdient kein Geld"], "correct": 1}, {"q": "Laut dem Sammendrag (norsk oppsummering): Wer zieht bei der Familie ein, um zusätzliches Geld zu verdienen?", "opts": ["Drei Untermieter (Zimmerherren)", "Ein neuer Hausmeister", "Gregors alte Firma"], "correct": 0}, {"q": "Was passiert mit Gregor am Ende der Geschichte, laut dem Sammendrag?", "opts": ["Er wird wieder ein Mensch", "Er stirbt", "Er zieht aus"], "correct": 1}, {"q": "Wie reagiert die Familie laut dem Sammendrag auf Gregors Tod?", "opts": ["Nur mit Trauer", "Auch mit einer spürbaren Erleichterung — das Leben soll weitergehen", "Sie merken es gar nicht"], "correct": 1}];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  /* ---------- Skrive-tekstfelt ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

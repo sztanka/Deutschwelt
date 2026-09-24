@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Klassikere: Der Schatz im Silbersee — Utdrag 1: Der schwarze Panther
+  May døde 1912 → public domain i EU siden 1983. Utdraget er hentet ordrett fra projekt-gutenberg.org. Se hub-siden for et viktig forbehold om hvordan urfolk fremstilles i teksten.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Utdrag 1: Der schwarze Panther — Der Schatz im Silbersee · Klassikere · Deutschwelt</title>
+<link rel="stylesheet" href="../../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.5rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-context{
+    background:#eef2f6;border:1px solid #c9d6e3;border-radius:var(--dw-radius);
+    padding:14px 18px;margin-bottom:20px;font-size:.85rem;line-height:1.6;
+  }
+  .dw-context h2{margin:0 0 6px;color:var(--dw-primary);font-size:.95rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-original{
+    font-family:Georgia,"Times New Roman",serif;font-size:1.02rem;line-height:1.8;
+    background:#f4f1e8;border-left:4px solid var(--dw-accent);padding:16px 18px;border-radius:8px;margin-bottom:4px;
+  }
+  .dw-original p{margin:0 0 14px;}
+  .dw-original p:last-child{margin-bottom:0;}
+  .dw-original .dw-gap-note{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-style:italic;color:var(--dw-muted);font-size:.88rem;background:#fff;border:1px dashed #cfc7ad;border-radius:8px;padding:10px 12px;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-top:10px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:100px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-chapternav{display:flex;justify-content:space-between;gap:12px;margin-top:24px;font-size:.9rem;}
+  .dw-chapternav a{color:var(--dw-primary);text-decoration:none;font-weight:600;padding:10px 16px;background:var(--dw-card);border-radius:999px;border:1px solid #ece8df;}
+  .dw-chapternav a:hover{border-color:var(--dw-accent);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../../">📖 Lesen</a> → <a href="../../">Klassikere</a> → <a href="../">Der Schatz im Silbersee</a> → Utdrag 1: Der schwarze Panther</p>
+
+  <div class="dw-header">
+    <h1>Utdrag 1: Der schwarze Panther</h1>
+    <p>Karl May (1890/94) · Utdrag 1 av 5 · Kapittel 1</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>🧭 Hvor er vi i handlingen?</h2>
+    <p>Dette utdraget er helt fra starten av romanen, fra første kapittel («Der schwarze Panther»). Vi er om bord på dampskipet «Dogfish», som frakter passasjerer og gods oppover elven Arkansas en varm sommerdag. Verken Old Shatterhand eller apache-høvdingen Winnetou — heltene i historien — er introdusert ennå.</p>
+    <p>I stedet møter vi en gruppe på rundt tjue skitne, godt bevæpnede menn som sitter og spiller terningspill på dekk. Mennene later som de er høstarbeidere på vei vestover for å søke jobb på gårder, men både kapteinen og styrmannen aner at noe ikke stemmer med dem.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>📖 Originaltekst (utdrag)</h2>
+    <p class="dw-byline">von Karl May</p>
+    <div class="dw-original">
+      <p>Es war um die Mittagszeit eines sehr heißen Junitags, als der »Dogfish«, einer der größten Passagier- und Güterdampfer des Arkansas, mit seinen mächtigen Schaufelrädern die Fluten des Stromes peitschte. Er hatte am frühen Morgen Little Rock verlassen und sollte nun bald Lewisburg erreichen, um dort anzulegen, falls neue Passagiere oder Güter aufzunehmen seien.</p>
+      <p>Die große Hitze hatte die besser situierten Reisenden in ihre Kajüten und Kabinen getrieben, und die meisten der Deckpassagiere lagen hinter Fässern, Kisten und andern Gepäckstücken, welche ihnen ein wenig Schatten gewährten. Für diese Passagiere hatte der Kapitän unter einer ausgespannten Leinwand einen Bed-and-board errichten lassen, auf welchem allerlei Gläser und Flaschen standen, deren scharfer Inhalt jedenfalls nicht für verwöhnte Gaumen und Zungen berechnet war. Hinter diesem Schenktisch saß der Kellner mit geschlossenen Augen, von der Hitze ermüdet, mit dem Kopfe nickend. Wenn er einmal die Lider hob, wand sich ein leiser Fluch oder sonst ein kräftiges Wort über seine Lippen. Dieser sein Unmut galt einer Anzahl von wohl zwanzig Männern, welche vor dem Tische in einem Kreise auf dem Boden saßen und den Würfelbecher von Hand zu Hand gehen ließen. Es wurde um den sogenannten »Drink« gespielt, d.h. der Verlierende hatte am Schlusse der Partie für jeden Mitspielenden ein Glas Schnaps zu bezahlen. Infolgedessen war dem Kellner das Schläfchen, zu welchem er so große Lust verspürte, versagt.</p>
+      <p>Diese Männer hatten sich jedenfalls nicht erst hier auf dem Steamer zusammengefunden, denn sie nannten einander »du« und schienen, wie gelegentliche Äußerungen verrieten, ihre gegenseitigen Verhältnisse genau zu kennen. Entgegengesetzt dieser allgemeinen Vertraulichkeit gab es unter ihnen einen, dem eine gewisse Art von Respekt erwiesen wurde. Man nannte ihn Cornel, eine gebräuchliche Verstümmelung des Wortes Colonel, Oberst. Dieser Mann war lang und hager; sein glatt rasiertes, scharf und spitz gezeichnetes Gesicht wurde von einem borstigen roten Kehlbarte umrahmt; fuchsrot waren auch die kurzgeschorenen Kopfhaare, wie man sehen konnte, da er den alten, abgegriffenen Filzhut weit in den Nacken geschoben hatte. Sein Anzug bestand aus schweren, nägelbeschlagenen Lederschuhen, Nankingbeinkleidern und einem kurzen Jackett von demselben Stoffe. Eine Weste trug er nicht; an Stelle derselben war ein ungeplättetes, schmutziges Hemd zu sehen, dessen breiter Kragen, ohne von einem Halstuche gehalten zu werden, weit offen stand und die nackte, sonnenverbrannte Brust sehen ließ. Um die Hüften hatte er sich ein rotes Fransentuch geschlungen, aus welchem die Griffe des Messers und zweier Pistolen blickten. Hinter ihm lag ein ziemlich neues Gewehr und ein leinener Schnappsack, welcher mit zwei Bändern versehen war, um auf dem Rücken getragen zu werden.</p>
+      <p>Die andern Männer waren in ähnlicher Weise sorglos und gleich schmutzig gekleidet, dafür aber sehr gut bewaffnet. Es befand sich kein einziger unter ihnen, dem man beim ersten Blicke hätte Vertrauen schenken können. Sie trieben ihr Würfelspiel mit wahrer Leidenschaftlichkeit und unterhielten sich dabei in so rohen Ausdrücken, daß ein halbwegs anständiger Mensch sicher keine Minute lang bei ihnen stehen geblieben wäre. Jedenfalls hatten sie schon manchen »Drink« gethan, denn ihre Gesichter waren nicht nur von der Sonne erhitzt, sondern der Geist des Branntweins führte bereits die Herrschaft über sie.</p>
+      <p>Der Kapitän hatte die Kommandobrücke verlassen und war aufs Achterbord zum Steuermann gegangen, um demselben einige notwendige Weisungen zu erteilen. Als dies geschehen war, sagte der letztere: »Was meint Ihr zu den Jungens, welche da vorn beim Würfeln sitzen, Kapitän? Mir scheint, es sind Boys von der Art, die man nicht gern an Bord kommen sieht.«</p>
+      <p>»Denke es auch,« nickte der Gefragte. »Haben sich zwar als Harvesters ausgegeben, welche nach dem Westen wollen, um sich auf Farmen zu verdingen, aber ich möchte nicht der Mann sein, bei welchem sie nach Arbeit fragen.«</p>
+    </div>
+
+    <div class="dw-vocab">
+      <div><b>der Dampfer</b><br>dampskipet</div>
+      <div><b>das Schaufelrad</b><br>skovlhjulet (på et hjuldampskip)</div>
+      <div><b>der Deckpassagier</b><br>dekkspassasjer (billigste billettklasse)</div>
+      <div><b>der Würfelbecher</b><br>terningbegeret</div>
+      <div><b>der Fluch</b><br>banning, forbannelse</div>
+      <div><b>verwöhnt</b><br>bortskjemt, kresen</div>
+      <div><b>bewaffnet</b><br>bevæpnet</div>
+      <div><b>das Gewehr</b><br>geværet</div>
+      <div><b>der Steuermann</b><br>styrmannen</div>
+      <div><b>der Filzhut</b><br>filthatten</div>
+      <div><b>das Fransentuch</b><br>frynseklede/-skjerf (brukt som belte)</div>
+      <div><b>sich verdingen</b><br>leie seg ut som arbeidskraft</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Verstehst du den Text?</h2>
+    <p class="dw-note">Disse spørsmålene tester om du fikk med deg hovedhandlingen — ikke hvert enkelt ord.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Was denkst du?</h2>
+    <p class="dw-note">Legg merke til hvordan fortelleren bruker utseende og klær for å skape mistanke rundt «Cornel» og mennene hans, allerede før noe skjer. Skriv 2–4 setninger på tysk om hvilket førsteinntrykk du fikk av gruppen, og hva som gjør at kapteinen blir skeptisk.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Ich glaube, die Männer sind …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+  <div class="dw-chapternav">
+    <span></span>
+    <a href="../utdrag-2/">Utdrag 2: List und Gegenlist →</a>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Quiz ---------- */
+  var dwQuiz = [{"q": "Wo spielt die Szene ganz am Anfang des Romans?", "opts": ["An Bord eines Dampfers auf dem Arkansas", "In einer Bergmine in Utah", "In einem Saloon in Sheridan"], "correct": 0}, {"q": "Womit vertreiben sich die etwa zwanzig Männer die Zeit?", "opts": ["Sie würfeln um Schnaps (\"Drinks\")", "Sie lesen Zeitung", "Sie fischen im Fluss"], "correct": 0}, {"q": "Wie wird der Anführer der Männer von den anderen genannt?", "opts": ["Cornel (Colonel)", "Captain", "Mister Charoy"], "correct": 0}, {"q": "Wie sind die Männer laut dem Erzähler gekleidet und ausgerüstet?", "opts": ["Elegant und ohne Waffen", "Schmutzig gekleidet, aber gut bewaffnet", "Wie Soldaten in Uniform"], "correct": 1}, {"q": "Was denken Kapitän und Steuermann über die Männer?", "opts": ["Sie freuen sich über die neuen Passagiere", "Sie sind misstrauisch und trauen ihnen nicht", "Sie kennen die Männer schon lange gut"], "correct": 1}];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  /* ---------- Skrive-tekstfelt ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

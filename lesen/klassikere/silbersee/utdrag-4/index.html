@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Klassikere: Der Schatz im Silbersee — Utdrag 4: Am Silbersee (I)
+  May døde 1912 → public domain i EU siden 1983. Utdraget er hentet ordrett fra projekt-gutenberg.org. Se hub-siden for et viktig forbehold om hvordan urfolk fremstilles i teksten.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Utdrag 4: Am Silbersee (I) — Der Schatz im Silbersee · Klassikere · Deutschwelt</title>
+<link rel="stylesheet" href="../../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.5rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-context{
+    background:#eef2f6;border:1px solid #c9d6e3;border-radius:var(--dw-radius);
+    padding:14px 18px;margin-bottom:20px;font-size:.85rem;line-height:1.6;
+  }
+  .dw-context h2{margin:0 0 6px;color:var(--dw-primary);font-size:.95rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-original{
+    font-family:Georgia,"Times New Roman",serif;font-size:1.02rem;line-height:1.8;
+    background:#f4f1e8;border-left:4px solid var(--dw-accent);padding:16px 18px;border-radius:8px;margin-bottom:4px;
+  }
+  .dw-original p{margin:0 0 14px;}
+  .dw-original p:last-child{margin-bottom:0;}
+  .dw-original .dw-gap-note{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-style:italic;color:var(--dw-muted);font-size:.88rem;background:#fff;border:1px dashed #cfc7ad;border-radius:8px;padding:10px 12px;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-top:10px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:100px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-chapternav{display:flex;justify-content:space-between;gap:12px;margin-top:24px;font-size:.9rem;}
+  .dw-chapternav a{color:var(--dw-primary);text-decoration:none;font-weight:600;padding:10px 16px;background:var(--dw-card);border-radius:999px;border:1px solid #ece8df;}
+  .dw-chapternav a:hover{border-color:var(--dw-accent);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../../">📖 Lesen</a> → <a href="../../">Klassikere</a> → <a href="../">Der Schatz im Silbersee</a> → Utdrag 4: Am Silbersee (I)</p>
+
+  <div class="dw-header">
+    <h1>Utdrag 4: Am Silbersee (I)</h1>
+    <p>Karl May (1890/94) · Utdrag 4 av 5 · Kapittel 16</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>🧭 Hvor er vi i handlingen?</h2>
+    <p>Bakholdet fra forrige utdrag fører til dramatiske hendelser som vi hopper over her. Til slutt når heltene endelig frem til selve Silbersee (Sølvsjøen) — stedet der skatten skal befinne seg. Vi er nå i siste kapittel av romanen, med tittelen «Am Silbersee».</p>
+    <p>I dette utdraget viser Old Firehand endelig fram funnet sitt: en sølv- og gullåre skjult i en fjellvegg, som han oppdaget for lenge siden. Ingeniøren Butler, som er med i gruppen, undersøker malmen og blir stadig mer begeistret.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>📖 Originaltekst (utdrag)</h2>
+    <p class="dw-byline">von Karl May</p>
+    <div class="dw-original">
+      <p>Seine Zuversicht sollte nicht zu Schanden werden. Old Firehand war an der Felswand angelangt, welche sich hier unterwaschen und zerbröckelt zeigte. Er zog einen lockern Stein heraus, noch einen und noch mehrere. Es entstand ein Riß, welcher mit diesen Steinen verschlossen worden war. Dieser Riß war durch natürlichen Einfluß entstanden und, wie man deutlich sah, künstlich erweitert worden. Old Firehand langte mit der Hand hinein und sagte dabei: »Von dem, was ich hier fand, habe ich mir eine Probe mitgenommen und untersuchen lassen. Jetzt will ich sehen, ob das Gutachten Butlers dasselbe ist.«</p>
+      <p>Als er nun die Hand zurückzog, hielt er in derselben ein weißes, bräunlich angelaufenes und drahtähnliches Gebilde, welches er dem Ingenieur hinreichte. Kaum hatte dieser es genommen und einen Blick darauf geworfen, so rief er laut: »Himmel! das ist ja reines gediegenes Silber! Und das hat ursprünglich hier in diesem Spalt gesteckt?«</p>
+      <p>»Ja, der ganze Spalt war damit ausgefüllt. Er scheint sich tief in das Gestein hineinzuziehen und sehr reich an Metall zu sein.«</p>
+      <p>»So kann ich garantieren, daß wir hier eine außerordentlich reiche Ausbeute machen werden. Jedenfalls gibt es noch mehr solche Klüfte und Sprünge, welche Gediegenes enthalten.«</p>
+      <p>»Und auch feste Gänge mit Erz, wie ich gleich zeigen werde,« lächelte Old Firehand.</p>
+      <p>Er holte einen zweiten noch viel größeren Gegenstand heraus und gab ihn dem Ingenieur. Es war ein mehr als zwei Faust großes Erzstück, welches Butler aufmerksam betrachtete, um dann auszurufen: »Die chemische Untersuchung ist freilich viel sicherer; aber ich möchte darauf schwören, daß wir es hier mit Chlorsilber, also Silberhornerz, Kerargyrit zu thun haben!«</p>
+      <p>»Das stimmt. Die chemische Analyse hat Chlorsilber ergeben.«</p>
+      <p>»Mit wie viel Prozent?«</p>
+      <p>»Fünfundsiebzig Prozent reines Silber.«</p>
+      <p>»Welch ein Fund! Allerdings findet man in Utah vorzugsweise Silberhornerz. Wo ist die betreffende Ader?«</p>
+      <p>»Weiter dahinten an der andern Seite des Kessels. Ich habe sie hoch mit Geröll bedeckt, werde sie euch aber zeigen. Und nun, was ist das?«</p>
+      <p>Er brachte aus der Spalte mehrere Körner von der Größe einer Haselnuß.</p>
+      <p>»Nuggets, Gold!« schrie der Ingenieur. »Auch von hier?«</p>
+      <p>»Ja. Wir hatten uns damals hier versteckt und konnten nicht fort, weil die Roten auf uns lauerten. Es fehlte uns an Wasser, und ich grub den Sand auf, um zu versuchen, ob der Boden Feuchtigkeit enthalte. Wasser gab es nicht, aber solche Nuggets fand ich mehrere.«</p>
+      <p>»So gibt es auch Goldgänge hier, ganz wie ich vorhin gesagt habe! Old Firehand, hier liegen Millionen, und der Entdecker ist ein reicher, steinreicher Mann!«</p>
+      <p>»Nur der Entdecker? Ihr alle sollt teilhaben. Ich bin der Entdecker, Butler ist der Ingenieur, und die andern helfen ausbeuten. Zu diesem Zwecke habe ich euch mitgenommen. Die Bedingungen, unter denen wir zusammen arbeiten, und der Anteil, den jeder einzelne bekommt, das werden wir noch bestimmen.«</p>
+      <p>Die Worte riefen einen allgemeinen Jubel hervor, einen Jubel, welcher gar nicht nachlassen wollte.</p>
+    </div>
+
+    <div class="dw-vocab">
+      <div><b>die Felswand</b><br>fjellveggen</div>
+      <div><b>der Riß</b><br>sprekken, revnen</div>
+      <div><b>gediegen</b><br>gedigen, ren (om metall)</div>
+      <div><b>das Erzstück</b><br>malmstykket</div>
+      <div><b>das Chlorsilber / Silberhornerz</b><br>hornsølv (et sølvmineral)</div>
+      <div><b>die Ader</b><br>åren (geologisk: malmåre)</div>
+      <div><b>das Nugget</b><br>gullklumpen</div>
+      <div><b>die Ausbeute</b><br>utbyttet, avkastningen</div>
+      <div><b>teilhaben</b><br>å ha del i, dele på noe</div>
+      <div><b>der Jubel</b><br>jubelen</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Verstehst du den Text?</h2>
+    <p class="dw-note">Disse spørsmålene tester om du fikk med deg hovedhandlingen — ikke hvert enkelt ord.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Was denkst du?</h2>
+    <p class="dw-note">Tenk deg at du er en av gruveingeniørene i historien og akkurat har sett sølvet og gullet for første gang. Skriv 2–4 setninger på tysk om hvordan du ville reagert.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Wenn ich das Silber sehen würde, wäre ich …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+  <div class="dw-chapternav">
+    <a href="../utdrag-3/">← Utdrag 3: In der Klemme</a>
+    <a href="../utdrag-5/">Utdrag 5: Am Silbersee (II) →</a>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Quiz ---------- */
+  var dwQuiz = [{"q": "Was zieht Old Firehand zuerst aus der Felswand?", "opts": ["Lockere Steine, die einen Riss verschlossen hatten", "Ein altes Gewehr", "Einen toten Vogel"], "correct": 0}, {"q": "Was findet sich in dem Riss?", "opts": ["Reines, gediegenes Silber", "Nur Wasser", "Alte Knochen"], "correct": 0}, {"q": "Wie viel Prozent reines Silber enthält das Erz laut chemischer Analyse?", "opts": ["25 Prozent", "50 Prozent", "75 Prozent"], "correct": 2}, {"q": "Was findet Old Firehand außerdem, als er einst nach Wasser suchte?", "opts": ["Goldnuggets", "Eine Landkarte", "Einen Ring"], "correct": 0}, {"q": "Was verspricht Old Firehand den anderen am Ende des Ausschnitts?", "opts": ["Dass er den ganzen Schatz allein behält", "Dass alle am Fund teilhaben sollen", "Dass sie sofort abreisen müssen"], "correct": 1}];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  /* ---------- Skrive-tekstfelt ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

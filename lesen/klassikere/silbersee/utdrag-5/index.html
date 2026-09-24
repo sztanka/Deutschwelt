@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Klassikere: Der Schatz im Silbersee — Utdrag 5: Am Silbersee (II)
+  May døde 1912 → public domain i EU siden 1983. Utdraget er hentet ordrett fra projekt-gutenberg.org. Se hub-siden for et viktig forbehold om hvordan urfolk fremstilles i teksten.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Utdrag 5: Am Silbersee (II) — Der Schatz im Silbersee · Klassikere · Deutschwelt</title>
+<link rel="stylesheet" href="../../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.5rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-context{
+    background:#eef2f6;border:1px solid #c9d6e3;border-radius:var(--dw-radius);
+    padding:14px 18px;margin-bottom:20px;font-size:.85rem;line-height:1.6;
+  }
+  .dw-context h2{margin:0 0 6px;color:var(--dw-primary);font-size:.95rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-original{
+    font-family:Georgia,"Times New Roman",serif;font-size:1.02rem;line-height:1.8;
+    background:#f4f1e8;border-left:4px solid var(--dw-accent);padding:16px 18px;border-radius:8px;margin-bottom:4px;
+  }
+  .dw-original p{margin:0 0 14px;}
+  .dw-original p:last-child{margin-bottom:0;}
+  .dw-original .dw-gap-note{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-style:italic;color:var(--dw-muted);font-size:.88rem;background:#fff;border:1px dashed #cfc7ad;border-radius:8px;padding:10px 12px;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-top:10px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:100px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-chapternav{display:flex;justify-content:space-between;gap:12px;margin-top:24px;font-size:.9rem;}
+  .dw-chapternav a{color:var(--dw-primary);text-decoration:none;font-weight:600;padding:10px 16px;background:var(--dw-card);border-radius:999px;border:1px solid #ece8df;}
+  .dw-chapternav a:hover{border-color:var(--dw-accent);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../../">📖 Lesen</a> → <a href="../../">Klassikere</a> → <a href="../">Der Schatz im Silbersee</a> → Utdrag 5: Am Silbersee (II)</p>
+
+  <div class="dw-header">
+    <h1>Utdrag 5: Am Silbersee (II)</h1>
+    <p>Karl May (1890/94) · Utdrag 5 av 5 · Kapittel 16</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>🧭 Hvor er vi i handlingen?</h2>
+    <p>Vi er fortsatt i det siste kapittelet, bare litt senere enn forrige utdrag. Etter gledene rundt sølv- og gullfunnet må heltene håndtere ettervirkningene av konflikten med Utah-folket som vi så starten på i utdrag 3.</p>
+    <p>I dette, nesten helt på slutten av romanen, forhandler Old Shatterhand på vegne av seg selv, Old Firehand og Winnetou med en Utah-høvding kalt «den gamle Donner» om fred. Høvdingen anklager de tre for å være alliert med sine fiender, mens Old Shatterhand forsvarer gruppens handlinger.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>📖 Originaltekst (utdrag)</h2>
+    <p class="dw-byline">von Karl May</p>
+    <div class="dw-original">
+      <p>Das war scharf zurechtgewiesen. Er deutete den Roten dadurch an, daß er es sei, der hier zu sprechen und zu fordern habe. Sie schwiegen, und darum fuhr er fort: »Du hast meinen Namen genannt und kennst mich also. Kennst du auch die beiden Krieger, welche hier neben mir sitzen?«</p>
+      <p>»Ja. Es ist Old Firehand und Winnetou, der Häuptling der Apachen.«</p>
+      <p>»So wirst du wissen, daß wir stets die Freunde der roten Männer gewesen sind. Kein Indianer kann sagen, daß wir ihm unbeleidigt entgegengetreten sind; ja, wir haben oft auf unsre gerechte Rache verzichtet und verziehen, wo wir hätten strafen sollen. Warum verfolgt ihr uns?«</p>
+      <p>»Weil ihr die Freunde unsrer Feinde seid.«</p>
+      <p>»Das ist nicht wahr. Der »große Wolf« hat uns gefangen genommen, ohne daß wir ihm geringste Feindseligkeit erwiesen hatten. Er trachtete uns wiederholt nach dem Leben und brach mehreremal sein Wort. Um unser Leben zu retten, mußten wir uns gegen die Utahs wehren.«</p>
+      <p>»Habt ihr nicht im Walde des Wassers den alten Häuptling niedergeschlagen und andre Häuptlinge und Krieger mitgenommen?«</p>
+      <p>»Wieder nur, um uns zu retten.«</p>
+      <p>»Und jetzt befindet ihr euch bei den Navajos und Timbabatschen, welche unsre Feinde sind!«</p>
+      <p>»Aus Zufall. Wir wollten nach dem Silbersee und trafen hier auf sie. Wir hörten, daß es zum Kampfe zwischen euch und ihnen kommen werde, und beeilen uns, Frieden zu stiften.«</p>
+      <p>»Wir wollen Rache, aber keinen Frieden, und aus euren Händen am allerwenigsten.«</p>
+      <p>»Ob ihr ihn annehmt, das ist eure Sache; wir halten es für unsre Pflicht, ihn euch anzubieten.«</p>
+      <p>»Wir sind Sieger!«</p>
+      <p>»Bis vorhin, aber nun nicht mehr. Ihr seid schwer gekränkt worden; das wissen wir; aber es ist ungerecht von euch, euch an Unschuldigen zu rächen. Unser Leben hat wiederholt auf dem Spiele gestanden. Wäre es auf euch angekommen, so wären wir längst am Marterpfahle gestorben, wie die andern Bleichgesichter im Thale der Hirsche.«</p>
+      <p>»Was wißt ihr davon?«</p>
+      <p>»Alles. Wir haben ihre Leiber begraben.«</p>
+      <p>»So warst du dort?«</p>
+      <p>»Ja. Wir waren mitten unter euch. Wir haben gehört, was die Utahs sprachen, und gesehen, was sie thaten. Wir standen unter den Bäumen, als die Navajos kamen, und sahen, daß ihr sie von dannen getrieben habt.«</p>
+      <p>»Das ist unmöglich; das ist nicht wahr.«</p>
+      <p>»Du weißt, daß ich nicht lüge. Fragt die Häuptlinge der Utahs, welche dabei gewesen sind.«</p>
+      <p>»Wo sollen wir sie fragen? Sie sind verschwunden.«</p>
+      <p>»Wohin?«</p>
+      <p>»Wissen wir es?«</p>
+      <p>»Sind sie von den Navajos getötet worden?«</p>
+      <p>»Nein. Wir glaubten es, aber wir fanden ihre Leiber nicht. Dann glaubten wir, sie seien gefangen; aber wir haben die Navajos hart verfolgt und keinen einzigen Gefangenen bei ihnen gesehen, während viele von ihnen in unsre Hände geraten sind. Die Häuptlinge der Utahs befinden sich nicht bei den Navajos.«</p>
+      <p>»Aber verschwunden können sie doch nicht sein!«</p>
+      <p>»Der große Geist hat sie zu sich genommen.«</p>
+      <p>»Nein. Der große Geist mag von so treulosen und verräterischen Männern nichts wissen. Er hat sie in unsre Hände gegeben.«</p>
+      <p>»In eure Hände?«</p>
+      <p>»Ja, in die Gewalt der Bleichgesichter, welche ihr verderben wolltet.«</p>
+    </div>
+
+    <div class="dw-vocab">
+      <div><b>verzeihen</b><br>å tilgi</div>
+      <div><b>die Rache</b><br>hevnen</div>
+      <div><b>der Friede(n)</b><br>freden</div>
+      <div><b>gekränkt</b><br>krenket, fornærmet</div>
+      <div><b>unschuldig</b><br>uskyldig</div>
+      <div><b>verräterisch</b><br>forræderisk</div>
+      <div><b>gefangen nehmen</b><br>å ta til fange</div>
+      <div><b>der große Geist</b><br>Den store ånd (Utah-folkets navn på en guddom, slik May skildrer det)</div>
+      <div><b>die Feindseligkeit</b><br>fiendtligheten</div>
+      <div><b>der Sieger</b><br>seierherren</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Verstehst du den Text?</h2>
+    <p class="dw-note">Disse spørsmålene tester om du fikk med deg hovedhandlingen — ikke hvert enkelt ord.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Was denkst du?</h2>
+    <p class="dw-note">Dette er nesten det siste vi leser fra romanen. Legg merke til hvordan konflikten mellom Utah-folket og de hvite heltene løses her — gjennom en forhandling der Old Shatterhand har definisjonsmakten. Skriv 2–4 setninger på tysk om hva du synes om måten konflikten avsluttes på.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Ich finde, dass …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+  <div class="dw-chapternav">
+    <a href="../utdrag-4/">← Utdrag 4: Am Silbersee (I)</a>
+    <span></span>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Quiz ---------- */
+  var dwQuiz = [{"q": "Mit wem verhandelt Old Shatterhand in diesem Ausschnitt?", "opts": ["Mit einem Utah-Häuptling", "Mit dem Ingenieur Charoy", "Mit dem Anführer der Tramps"], "correct": 0}, {"q": "Was bietet Old Shatterhand den Utahs an?", "opts": ["Geld", "Frieden", "Waffen"], "correct": 1}, {"q": "Was wirft der Häuptling den drei Männern vor?", "opts": ["Dass sie Freunde seiner Feinde seien", "Dass sie Diebe seien", "Dass sie lügen über ihre Namen"], "correct": 0}, {"q": "Warum, laut Old Shatterhand, mussten sie sich gegen die Utahs wehren?", "opts": ["Um ihr eigenes Leben zu retten", "Um den Schatz zu stehlen", "Aus reiner Abenteuerlust"], "correct": 0}, {"q": "Was ist laut Old Shatterhand mit den verschwundenen Utah-Häuptlingen geschehen?", "opts": ["Sie sind geflohen", "Sie sind in die Hände der Bleichgesichter geraten", "Sie leben jetzt bei den Navajos"], "correct": 1}];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  /* ---------- Skrive-tekstfelt ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

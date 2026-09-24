@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Klassikere: Max und Moritz — Siebter Streich
+  Busch døde 1908 → public domain i EU siden 1979. Teksten er hentet ordrett fra Project Gutenberg (gutenberg.org, e-bok nr. 17161).
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Siebter Streich — Max und Moritz · Klassikere · Deutschwelt</title>
+<link rel="stylesheet" href="../../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.5rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-context{
+    background:#eef2f6;border:1px solid #c9d6e3;border-radius:var(--dw-radius);
+    padding:14px 18px;margin-bottom:20px;font-size:.85rem;line-height:1.6;
+  }
+  .dw-context h2{margin:0 0 6px;color:var(--dw-primary);font-size:.95rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-original{
+    font-family:Georgia,"Times New Roman",serif;font-size:1.02rem;line-height:1.8;
+    background:#f4f1e8;border-left:4px solid var(--dw-accent);padding:16px 18px;border-radius:8px;margin-bottom:4px;
+  }
+  .dw-original p{margin:0 0 14px;}
+  .dw-original p:last-child{margin-bottom:0;}
+  .dw-original .dw-gap-note{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-style:italic;color:var(--dw-muted);font-size:.88rem;background:#fff;border:1px dashed #cfc7ad;border-radius:8px;padding:10px 12px;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-top:10px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:100px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-chapternav{display:flex;justify-content:space-between;gap:12px;margin-top:24px;font-size:.9rem;}
+  .dw-chapternav a{color:var(--dw-primary);text-decoration:none;font-weight:600;padding:10px 16px;background:var(--dw-card);border-radius:999px;border:1px solid #ece8df;}
+  .dw-chapternav a:hover{border-color:var(--dw-accent);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../../">📖 Lesen</a> → <a href="../../">Klassikere</a> → <a href="../">Max und Moritz</a> → Siebter Streich</p>
+
+  <div class="dw-header">
+    <h1>Siebter Streich</h1>
+    <p>Wilhelm Busch (1865) · Streich 7 av 7 · med Ende</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>🧭 Hvor er vi i handlingen?</h2>
+    <p>Den syvende og siste streken blir skjebnesvanger: Max und Moritz skjærer hull i kornsekkene til bonden Bauer Mecke. Denne gangen går det ikke som de to guttene har planlagt.</p>
+    <p><strong>NB:</strong> Etter selve streken følger bokens korte, satiriske avslutning («Ende»), der landsbyen reagerer på det som skjer med Max und Moritz — helt uten sorg. Den er tatt med nederst i teksten under.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🖋️ Originaltekst (Verse) — inkl. Ende</h2>
+    <p class="dw-byline">von Wilhelm Busch</p>
+    <div class="dw-original">
+      <p>Max und Moritz, wehe euch!<br>
+         Jetzt kommt euer letzter Streich!<br>
+         Wozu müssen auch die beiden<br>
+         Löcher in die Säcke schneiden?<br>
+         Seht, da trägt der Bauer Mecke<br>
+         Einen seiner Maltersäcke.<br>
+         Aber kaum, daß er von hinnen,<br>
+         Fängt das Korn schon an zu rinnen.<br>
+         Und verwundert steht und spricht er:<br>
+         »Zapperment! dat Ding werd lichter!«<br>
+         Hei! Da sieht er voller Freude<br>
+         Max und Moritz im Getreide.<br>
+         Rabs! — in seinen großen Sack<br>
+         Schaufelt er das Lumpenpack.<br>
+         Max und Moritz wird es schwüle,<br>
+         Denn nun geht es nach der Mühle. —<br>
+         »Meister Müller, he, heran!<br>
+         Mahl er das, so schnell er kann!«<br>
+         »Her damit!« Und in den Trichter<br>
+         Schüttelt er die Bösewichter. —<br>
+         Rickeracke! Rickeracke!<br>
+         Geht die Mühle mit Geknacke.<br>
+         Hier kann man sie noch erblicken<br>
+         Fein geschroten und in Stücken.<br>
+         Doch sogleich verzehret sie<br>
+         Meister Müllers Federvieh.</p>
+    </div>
+      <p style="margin-top:18px;padding-top:14px;border-top:1px dashed #cfc7ad;"><strong>— Ende —</strong></p>
+      <p>Als man dies im Dorf erfuhr,<br>
+         War von Trauer keine Spur. —<br>
+         — Witwe Bolte, mild und weich,<br>
+         Sprach: »Sieh' da, ich dacht' es gleich!« —<br>
+         — »Ja, ja, ja!« rief Meister Böck,<br>
+         »Bosheit ist kein Lebenszweck!«<br>
+         — Drauf so sprach Herr Lehrer Lämpel:<br>
+         »Dies ist wieder ein Exempel!« —<br>
+         — »Freilich!« meint der Zuckerbäcker,<br>
+         »Warum ist der Mensch so lecker!« —<br>
+         — Selbst der gute Onkel Fritze<br>
+         Sprach: »Das kommt von dumme Witze!« —<br>
+         — Doch der brave Bauersmann<br>
+         Dachte: »Wat geiht meck dat an!« —<br>
+         — Kurz im ganzen Ort herum<br>
+         Ging ein freudiges Gebrumm:<br>
+         »Gott sei Dank! Nun ist's vorbei<br>
+         Mit der Übeltäterei!!«</p>
+
+    <div class="dw-vocab">
+      <div><b>der Bauer</b><br>bonde</div>
+      <div><b>der Sack, die Säcke</b><br>sekk(er)</div>
+      <div><b>das Korn</b><br>korn</div>
+      <div><b>die Mühle</b><br>mølle</div>
+      <div><b>mahlen</b><br>male (korn)</div>
+      <div><b>das Federvieh</b><br>fjærkre</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Verstehst du den Text?</h2>
+    <p class="dw-note">Disse spørsmålene tester om du fikk med deg hovedhandlingen — ikke hvert enkelt ord.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Was denkst du?</h2>
+    <p class="dw-note">Historien om Max und Moritz ender svært brutalt sammenlignet med moderne barnebøker. Hvorfor tror du en slik slutt var vanlig i tekster fra 1800-tallet? Og: synes du slutten passer til historien, eller er den for hard? Skriv 4–5 setninger på tysk.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Ich finde das Ende …, weil …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+  <div class="dw-chapternav">
+    <a href="../streich-6/">← Sechster Streich</a>
+    <span></span>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Quiz ---------- */
+  var dwQuiz = [{"q": "Was schneiden Max und Moritz in die Kornsäcke von Bauer Mecke?", "opts": ["Bilder", "Löcher", "Ihre Namen"], "correct": 1}, {"q": "Was macht Bauer Mecke, als er die beiden im Getreide entdeckt?", "opts": ["Er lässt sie laufen", "Er schaufelt sie in seinen großen Sack und bringt sie zur Mühle", "Er ruft die Polizei"], "correct": 1}, {"q": "Was passiert mit Max und Moritz in der Mühle?", "opts": ["Sie werden zu Mehl/Getreidestücken gemahlen", "Sie entkommen rechtzeitig", "Der Müller lässt sie frei"], "correct": 0}, {"q": "Laut dem 'Ende': Wie reagiert das Dorf auf das Schicksal von Max und Moritz?", "opts": ["Mit großer Trauer", "Ohne jede Trauer — fast mit Erleichterung", "Niemand bemerkt es"], "correct": 1}];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  /* ---------- Skrive-tekstfelt ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

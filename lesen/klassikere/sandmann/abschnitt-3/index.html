@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Klassikere: Der Sandmann — Dritter Abschnitt
+  Hoffmann døde 1822 → public domain i EU siden 1993. Teksten er hentet ordrett fra projekt-gutenberg.org.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dritter Abschnitt — Der Sandmann · Klassikere · Deutschwelt</title>
+<link rel="stylesheet" href="../../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.5rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-context{
+    background:#eef2f6;border:1px solid #c9d6e3;border-radius:var(--dw-radius);
+    padding:14px 18px;margin-bottom:20px;font-size:.85rem;line-height:1.6;
+  }
+  .dw-context h2{margin:0 0 6px;color:var(--dw-primary);font-size:.95rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-original{
+    font-family:Georgia,"Times New Roman",serif;font-size:1.02rem;line-height:1.8;
+    background:#f4f1e8;border-left:4px solid var(--dw-accent);padding:16px 18px;border-radius:8px;margin-bottom:4px;
+  }
+  .dw-original p{margin:0 0 14px;}
+  .dw-original p:last-child{margin-bottom:0;}
+  .dw-original .dw-gap-note{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-style:italic;color:var(--dw-muted);font-size:.88rem;background:#fff;border:1px dashed #cfc7ad;border-radius:8px;padding:10px 12px;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-top:10px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:100px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-chapternav{display:flex;justify-content:space-between;gap:12px;margin-top:24px;font-size:.9rem;}
+  .dw-chapternav a{color:var(--dw-primary);text-decoration:none;font-weight:600;padding:10px 16px;background:var(--dw-card);border-radius:999px;border:1px solid #ece8df;}
+  .dw-chapternav a:hover{border-color:var(--dw-accent);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../../">📖 Lesen</a> → <a href="../../">Klassikere</a> → <a href="../">Der Sandmann</a> → Dritter Abschnitt</p>
+
+  <div class="dw-header">
+    <h1>Dritter Abschnitt</h1>
+    <p>E.T.A. Hoffmann (1816) · Del 3 av 5</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>🧭 Hvor er vi i handlingen?</h2>
+    <p>Professor Spalanzani inviterer til en stor fest der Olimpia, som han hittil har holdt skjult for omverdenen, endelig skal presenteres. Nathanael er blant gjestene og blir fullstendig fortryllet av Olimpia — han danser med henne, snakker lidenskapelig til henne, og hun svarer nesten bare med et stille «Ach, Ach!».</p>
+    <p>I dagene etter merker Nathanaels venn Siegmund og andre studenter at det er noe underlig, stivt og mekanisk ved Olimpia, men Nathanael avviser all kritikk. Han glemmer Clara fullstendig og tilbringer all sin tid hos Olimpia — helt til han en dag kommer opp til Spalanzanis leilighet og hører en voldsom krangel derinne.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>📖 Originaltekst</h2>
+    <p class="dw-byline">von E.T.A. Hoffmann</p>
+    <div class="dw-original">
+      <p>Als er zurückkehren wollte in seine Wohnung, wurde er in Spalanzanis Hause ein geräuschvolles Treiben gewahr. Die Türen standen offen, man trug allerlei Geräte hinein, die Fenster des ersten Stocks waren ausgehoben, geschäftige Mägde kehrten und stäubten mit großen Haarbesen hin- und herfahrend, inwendig klopften und hämmerten Tischler und Tapezierer. Nathanael blieb in vollem Erstaunen auf der Straße stehen; da trat Siegmund lachend zu ihm und sprach: »Nun, was sagst du zu unserem alten Spalanzani?« Nathanael versicherte, daß er gar nichts sagen könne, da er durchaus nichts vom Professor wisse, vielmehr mit großer Verwunderung wahrnehme, wie in dem stillen düstern Hause ein tolles Treiben und Wirtschaften losgegangen; da erfuhr er denn von Siegmund, daß Spalanzani morgen ein großes Fest geben wolle, Konzert und Ball, und daß die halbe Universität eingeladen sei. Allgemein verbreite man, daß Spalanzani seine Tochter Olimpia, die er so lange jedem menschlichen Auge recht ängstlich entzogen, zum erstenmal erscheinen lassen werde.</p>
+      <p>Nathanael fand eine Einladungskarte und ging mit hochklopfendem Herzen zur bestimmten Stunde, als schon die Wagen rollten und die Lichter in den geschmückten Sälen schimmerten, zum Professor. Die Gesellschaft war zahlreich und glänzend. Olimpia erschien sehr reich und geschmackvoll gekleidet. Man mußte ihr schöngeformtes Gesicht, ihren Wuchs bewundern. Der etwas seltsam eingebogene Rücken, die wespenartige Dünne des Leibes schien von zu starkem Einschnüren bewirkt zu sein. In Schritt und Stellung hatte sie etwas Abgemessenes und Steifes, das manchem unangenehm auffiel; man schrieb es dem Zwange zu, den ihr die Gesellschaft auflegte. Das Konzert begann. Olimpia spielte den Flügel mit großer Fertigkeit und trug ebenso eine Bravour-Arie mit heller, beinahe schneidender Glasglockenstimme vor. Nathanael war ganz entzückt; er stand in der hintersten Reihe und konnte im blendenden Kerzenlicht Olimpias Züge nicht ganz erkennen. Ganz unvermerkt nahm er deshalb Coppolas Glas hervor und schaute hin nach der schönen Olimpia. Ach! – da wurde er gewahr, wie sie voll Sehnsucht nach ihm herübersah, wie jeder Ton erst deutlich aufging in dem Liebesblick, der zündend sein Inneres durchdrang. Die künstlichen Rouladen schienen dem Nathanael das Himmelsjauchzen des in Liebe verklärten Gemüts, und als nun endlich nach der Kadenz der lange Trillo recht schmetternd durch den Saal gellte, konnte er wie von glühenden Ärmen plötzlich erfaßt sich nicht mehr halten, er mußte vor Schmerz und Entzücken laut aufschreien: »Olimpia!« – Alle sahen sich um nach ihm, manche lachten. Der Domorganist schnitt aber noch ein finstreres Gesicht, als vorher und sagte bloß: »Nun nun!« – Das Konzert war zu Ende, der Ball fing an. »Mit ihr zu tanzen! – mit ihr!« das war nun dem Nathanael das Ziel aller Wünsche, alles Strebens; aber wie sich erheben zu dem Mut, sie, die Königin des Festes, aufzufordern? Doch! – er selbst wußte nicht wie es geschah, daß er, als schon der Tanz angefangen, dicht neben Olimpia stand, die noch nicht aufgefordert worden, und daß er, kaum vermögend einige Worte zu stammeln, ihre Hand ergriff. Eiskalt war Olimpias Hand, er fühlte sich durchbebt von grausigem Todesfrost, er starrte Olimpia ins Auge, das strahlte ihm voll Liebe und Sehnsucht entgegen und in dem Augenblick war es auch, als fingen an in der kalten Hand Pulse zu schlagen und des Lebensblutes Ströme zu glühen. Und auch in Nathanaels Innerm glühte höher auf die Liebeslust, er umschlang die schöne Olimpia und durchflog mit ihr die Reihen. – Er glaubte sonst recht taktmäßig getanzt zu haben, aber an der ganz eignen rhythmischen Festigkeit, womit Olimpia tanzte und die ihn oft ordentlich aus der Haltung brachte, merkte er bald, wie sehr ihm der Takt gemangelt. Er wollte jedoch mit keinem andern Frauenzimmer mehr tanzen und hätte jeden, der sich Olimpia näherte, um sie aufzufordern, nur gleich ermorden mögen. Doch nur zweimal geschah dies, zu seinem Erstaunen blieb darauf Olimpia bei jedem Tanze sitzen und er ermangelte nicht, immer wieder sie aufzuziehen.</p>
+      <p>Hätte Nathanael außer der schönen Olimpia noch etwas andres zu sehen vermocht, so wäre allerlei fataler Zank und Streit unvermeidlich gewesen; denn offenbar ging das halbleise, mühsam unterdrückte Gelächter, was sich in diesem und jenem Winkel unter den jungen Leuten erhob, auf die schöne Olimpia, die sie mit ganz kuriosen Blicken verfolgten, man konnte gar nicht wissen, warum? Durch den Tanz und durch den reichlich genossenen Wein erhitzt, hatte Nathanael alle ihm sonst eigne Scheu abgelegt. Er saß neben Olimpia, ihre Hand in der seinigen und sprach hochentflammt und begeistert von seiner Liebe in Worten, die keiner verstand, weder er, noch Olimpia. Doch diese vielleicht; denn sie sah ihm unverrückt ins Auge und seufzte einmal übers andere: »Ach – Ach – Ach!« – worauf denn Nathanael also sprach: »O du herrliche, himmlische Frau! – du Strahl aus dem verheißenen Jenseits der Liebe – du tiefes Gemüt, in dem sich mein ganzes Sein spiegelt« und noch mehr dergleichen, aber Olimpia seufzte bloß immer wieder: »Ach, Ach!« – Der Professor Spalanzani ging einigemal bei den Glücklichen vorüber und lächelte sie ganz seltsam zufrieden an. Dem Nathanael schien es, unerachtet er sich in einer ganz andern Welt befand, mit einemmal, als würd es hienieden beim Professor Spalanzani merklich finster; er schaute um sich und wurde zu seinem nicht geringen Schreck gewahr, daß eben die zwei letzten Lichter in dem leeren Saal herniederbrennen und ausgehen wollten. Längst hatten Musik und Tanz aufgehört. »Trennung, Trennung«, schrie er ganz wild und verzweifelt, er küßte Olimpias Hand, er neigte sich zu ihrem Munde, eiskalte Lippen begegneten seinen glühenden! – So wie, als er Olimpias kalte Hand berührte, fühlte er sich von innerem Grausen erfaßt, die Legende von der toten Braut ging ihm plötzlich durch den Sinn; aber fest hatte ihn Olimpia an sich gedrückt, und in dem Kuß schienen die Lippen zum Leben zu erwarmen. – Der Professor Spalanzani schritt langsam durch den leeren Saal, seine Schritte klangen hohl wieder und seine Figur, von flackernden Schlagschatten umspielt, hatte ein grauliches gespenstisches Ansehen. »Liebst du mich – liebst du mich Olimpia? – Nur dies Wort! – Liebst du mich?« So flüsterte Nathanael, aber Olimpia seufzte, indem sie aufstand, nur: »Ach – Ach!« – »Ja du mein holder, herrlicher Liebesstern«, sprach Nathanael, »bist mir aufgegangen und wirst leuchten, wirst verklären mein Inneres immerdar!« – »Ach, ach!« replizierte Olimpia fortschreitend. Nathanael folgte ihr, sie standen vor dem Professor. »Sie haben sich außerordentlich lebhaft mit meiner Tochter unterhalten«, sprach dieser lächelnd: »Nun, nun, lieber Herr Nathanael, finden Sie Geschmack daran, mit dem blöden Mädchen zu konvergieren, so sollen mir Ihre Besuche willkommen sein.« – Einen ganzen hellen strahlenden Himmel in der Brust schied Nathanael von dannen.</p>
+      <p>Spalanzanis Fest war der Gegenstand des Gesprächs in den folgenden Tagen. Unerachtet der Professor alles getan hatte, recht splendid zu erscheinen, so wußten doch die lustigen Köpfe von allerlei Unschicklichem und Sonderbarem zu erzählen, das sich begeben, und vorzüglich fiel man über die todstarre, stumme Olimpia her, der man, ihres schönen Äußern unerachtet, totalen Stumpfsinn andichten und darin die Ursache finden wollte, warum Spalanzani sie so lange verborgen gehalten. Nathanael vernahm das nicht ohne innern Grimm, indessen schwieg er; denn, dachte er, würde es wohl verlohnen, diesen Burschen zu beweisen, daß eben ihr eigin Stumpfsinn es ist, der sie Olimpias tiefes herrliches Gemüt zu erkennen hindert? »Tu mir den Gefallen, Bruder«, sprach eines Tages Siegmund, »tu mir den Gefallen und sage, wie es dir gescheuten Kerl möglich war, dich in das Wachsgesicht, in die Holzpuppe da drüben zu vergaffen?« Nathanael wollte zornig auffahren, doch schnell besann er sich und erwiderte: »Sage du mir Siegmund, wie deinem, sonst alles Schöne klar auffassenden Blick, deinem regen Sinn, Olimpias himmlischer Liebreiz entgehen konnte? Doch eben deshalb habe ich, Dank sei es dem Geschick, dich nicht zum Nebenbuhler; denn sonst müßte einer von uns blutend fallen.« Siegmund merkte wohl, wie es mit dem Freunde stand, lenkte geschickt ein, und fügte, nachdem er geäußert, daß in der Liebe niemals über den Gegenstand zu richten sei, hinzu: »Wunderlich ist es doch, daß viele von uns über Olimpia ziemlich gleich urteilen. Sie ist uns – nimm es nicht übel, Bruder! – auf seltsame Weise starr und seelenlos erschienen. Ihr Wuchs ist regelmäßig, so wie ihr Gesicht, das ist wahr! – Sie könnte für schön gelten, wenn ihr Blick nicht so ganz ohne Lebensstrahl, ich möchte sagen, ohne Sehkraft wäre. Ihr Schritt ist sonderbar abgemessen, jede Bewegung scheint durch den Gang eines aufgezogenen Räderwerks bedingt. Ihr Spiel, ihr Singen hat den unangenehm richtigen geistlosen Takt der singenden Maschine und ebenso ist ihr Tanz. Uns ist diese Olimpia ganz unheimlich geworden, wir mochten nichts mit ihr zu schaffen haben, es war uns als tue sie nur so wie ein lebendiges Wesen und doch habe es mit ihr eine eigne Bewandtnis.« – Nathanael gab sich dem bittern Gefühl, das ihn bei diesen Worten Siegmunds ergreifen wollte, durchaus nicht hin, er wurde Herr seines Unmuts und sagte bloß sehr ernst: »Wohl mag euch, ihr kalten prosaischen Menschen, Olimpia unheimlich sein. Nur dem poetischen Gemüt entfaltet sich das gleich organisierte! – Nur mir ging ihr Liebesblick auf und durchstrahlte Sinn und Gedanken, nur in Olimpias Liebe finde ich mein Selbst wieder. Euch mag es nicht recht sein, daß sie nicht in platter Konversation faselt, wie die andern flachen Gemüter. Sie spricht wenig Worte, das ist wahr; aber diese wenigen Worte erscheinen als echte Hieroglyphe der innern Welt voll Liebe und hoher Erkenntnis des geistigen Lebens in der Anschauung des ewigen Jenseits. Doch für alles das habt ihr keinen Sinn und alles sind verlorne Worte.« – »Behüte dich Gott, Herr Bruder«, sagte Siegmund sehr sanft, beinahe wehmütig, »aber mir scheint es, du seist auf bösem Wege. Auf mich kannst du rechnen, wenn alles – Nein, ich mag nichts weiter sagen! –« Dem Nathanael war es plötzlich, als meine der kalte prosaische Siegmund es sehr treu mit ihm, er schüttelte daher die ihm dargebotene Hand recht herzlich.</p>
+      <p>Nathanael hatte rein vergessen, daß es eine Clara in der Welt gebe, die er sonst geliebt; – die Mutter – Lothar – alle waren aus seinem Gedächtnis entschwunden, er lebte nur für Olimpia, bei der er täglich stundenlang saß und von seiner Liebe, von zum Leben erglühter Sympathie, von psychischer Wahlverwandtschaft fantasierte, welches alles Olimpia mit großer Andacht anhörte. Aus dem tiefsten Grunde des Schreibpults holte Nathanael alles hervor, was er jemals geschrieben. Gedichte, Fantasien, Visionen, Romane, Erzählungen, das wurde täglich vermehrt mit allerlei ins Blaue fliegenden Sonetten, Stanzen, Kanzonen, und das alles las er der Olimpia stundenlang hintereinander vor, ohne zu ermüden. Aber auch noch nie hatte er eine solche herrliche Zuhörerin gehabt. Sie stickte und strickte nicht, sie sah nicht durchs Fenster, sie fütterte keinen Vogel, sie spielte mit keinem Schoßhündchen, mit keiner Lieblingskatze, sie drehte keine Papierschnitzchen, oder sonst etwas in der Hand, sie durfte kein Gähnen durch einen leisen erzwungenen Husten bezwingen – kurz! – stundenlang sah sie mit starrem Blick unverwandt dem Geliebten ins Auge, ohne sich zu rücken und zu bewegen und immer glühender, immer lebendiger wurde dieser Blick. Nur wenn Nathanael endlich aufstand und ihr die Hand, auch wohl den Mund küßte, sagte sie: »Ach, Ach!« – dann aber: »Gute Nacht, mein Lieber!« – »O du herrliches, du tiefes Gemüt«, rief Nathanael auf seiner Stube: »nur von dir, von dir allein werd ich ganz verstanden.« Er erbebte vor innerm Entzücken, wenn er bedachte, welch wunderbarer Zusammenklang sich in seinem und Olimpias Gemüt täglich mehr offenbare; denn es schien ihm, als habe Olimpia über seine Werke, über seine Dichtergabe überhaupt recht tief aus seinem Innern gesprochen, ja als habe die Stimme aus seinem Innern selbst herausgetönt. Das mußte denn wohl auch sein; denn mehr Worte als vorhin erwähnt, sprach Olimpia niemals. Erinnerte sich aber auch Nathanael in hellen nüchternen Augenblicken, z. B. morgens gleich nach dem Erwachen, wirklich an Olimpias gänzliche Passivität und Wortkargheit, so sprach er doch: »Was sind Worte – Worte! – Der Blick ihres himmlischen Auges sagt mehr als jede Sprache hienieden. Vermag denn überhaupt ein Kind des Himmels sich einzuschichten in den engen Kreis, den ein klägliches irdisches Bedürfnis gezogen?«</p>
+      <p>Professor Spalanzani schien hocherfreut über das Verhältnis seiner Tochter mit Nathanael; er gab diesem allerlei unzweideutige Zeichen seines Wohlwollens und als es Nathanael endlich wagte von ferne auf eine Verbindung mit Olimpia anzuspielen, lächelte dieser mit dem ganzen Gesicht und meinte: er werde seiner Tochter völlig freie Wahl lassen. – Ermutigt durch diese Worte, brennendes Verlangen im Herzen, beschloß Nathanael, gleich am folgenden Tage Olimpia anzusehen, daß sie das unumwunden in deutlichen Worten ausspreche, was längst ihr holder Liebesblick ihm gesagt, daß sie sein eigen immerdar sein wolle. Er suchte nach dem Ringe, den ihm beim Abschiede die Mutter geschenkt, um ihn Olimpia als Symbol seiner Hingebung, seines mit ihr aufkeimenden, blühenden Lebens darzureichen. Claras, Lothars Briefe fielen ihm dabei in die Hände; gleichgültig warf er sie beiseite, fand den Ring, steckte ihn ein und rannte herüber zu Olimpia.</p>
+      <p>Schon auf der Treppe, auf dem Flur, vernahm er ein wunderliches Getöse; es schien aus Spalanzanis Studierzimmer herauszuschallen. – Ein Stampfen – ein Klirren – ein Stoßen – Schlagen gegen die Tür, dazwischen Flüche und Verwünschungen. Laß los – laß los – Infamer – Verruchter! – Darum Leib und Leben daran gesetzt? – ha ha ha ha! – so haben wir nicht gewettet – ich, ich hab die Augen gemacht – ich das Räderwerk – dummer Teufel mit deinem Räderwerk – verfluchter Hund von einfältigem Uhrmacher – fort mit dir – Satan – halt – Peipendreher – teuflische Bestie! – halt – fort – laß los! – Es waren Spalanzanis und des gräßlichen Coppelius Stimmen, die so durcheinander schwirrten und tobten. Hinein stürzte Nathanael von namenloser Angst ergriffen. Der Professor hatte eine weibliche Figur bei den Schultern gepackt, der Italiener Coppola bei den Füßen, die zerrten und zogen sie hin und her, streitend in voller Wut um den Besitz. Voll tiefen Entsetzens prallte Nathanael zurück, als er die Figur für Olimpia erkannte; aufflammend in wildem Zorn wollte er den Wütenden die Geliebte entreißen, aber in dem Augenblick wand Coppola sich mit Riesenkraft drehend die Figur dem Professor aus den Händen und versetzte ihm mit der Figur selbst einen fürchterlichen Schlag, daß er rücklings über den Tisch, auf dem Phiolen, Retorten, Flaschen, gläserne Zylinder standen, taumelte und hinstürzte; alles Gerät klirrte in tausend Scherben zusammen. Nun warf Coppola die Figur über die Schulter und rannte mit fürchterlich gellendem Gelächter rasch fort die Treppe herab, so daß die häßlich herunterhängenden Füße der Figur auf den Stufen hölzern klapperten und dröhnten.</p>
+    </div>
+
+    <div class="dw-vocab">
+      <div><b>das Fest</b><br>festen</div>
+      <div><b>der Flügel</b><br>flygelet (pianoet)</div>
+      <div><b>die Bravour-Arie</b><br>bravurarien (en krevende sangnummer)</div>
+      <div><b>eiskalt</b><br>iskald</div>
+      <div><b>der Takt</b><br>takten, rytmen</div>
+      <div><b>seufzen</b><br>å sukke</div>
+      <div><b>stumpfsinnig / der Stumpfsinn</b><br>sløv(het), åndsfattig(het)</div>
+      <div><b>das Räderwerk</b><br>urverket, tannhjulsmekanismen</div>
+      <div><b>die Verbindung</b><br>forbindelsen (her: forlovelse/ekteskap)</div>
+      <div><b>der Ring</b><br>ringen</div>
+      <div><b>das Getöse</b><br>bråket, larmen</div>
+      <div><b>die Figur</b><br>figuren, skikkelsen</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Verstehst du den Text?</h2>
+    <p class="dw-note">Disse spørsmålene tester om du fikk med deg hovedhandlingen — ikke hvert enkelt ord.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Was denkst du?</h2>
+    <p class="dw-note">Olimpia sier nesten ingenting annet enn «Ach, Ach!», men Nathanael er likevel overbevist om at hun forstår ham fullt ut. Hvorfor tror du han lar seg lure så lett? Skriv 2–4 setninger på tysk.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Ich glaube, Nathanael …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+  <div class="dw-chapternav">
+    <a href="../abschnitt-2/">← Zweiter Abschnitt</a>
+    <a href="../abschnitt-4/">Vierter Abschnitt →</a>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Quiz ---------- */
+  var dwQuiz = [{"q": "Was für ein Ereignis findet bei Professor Spalanzani statt?", "opts": ["Eine Beerdigung", "Ein großes Fest mit Konzert und Ball, bei dem Olimpia zum ersten Mal erscheint", "Eine Vorlesung"], "correct": 1}, {"q": "Wie reagiert Nathanael, als er mit Olimpia tanzt?", "opts": ["Er findet sie langweilig", "Er ist völlig hingerissen, obwohl ihre Hand eiskalt ist", "Er tanzt lieber mit Clara"], "correct": 1}, {"q": "Was fällt Siegmund und den anderen Studenten an Olimpia auf?", "opts": ["Dass sie zu viel redet", "Dass sie starr, steif und fast wie eine Maschine wirkt", "Dass sie unhöflich ist"], "correct": 1}, {"q": "Wie reagiert Nathanael auf die Kritik seiner Freunde an Olimpia?", "opts": ["Er stimmt ihnen sofort zu", "Er weist die Kritik empört zurück und verteidigt Olimpia leidenschaftlich", "Er hört gar nicht zu"], "correct": 1}, {"q": "Was will Nathanael tun, als er mit dem Ring seiner Mutter zu Olimpia eilt?", "opts": ["Er will sie um ihre Hand bitten", "Er will ihr den Ring nur zeigen", "Er will den Ring zurückfordern"], "correct": 0}, {"q": "Was hört Nathanael, als er zu Spalanzanis Zimmer kommt?", "opts": ["Ruhige Musik", "Einen heftigen Streit mit Stampfen, Klirren und Verwünschungen zwischen zwei Stimmen", "Nichts, die Wohnung ist leer"], "correct": 1}];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  /* ---------- Skrive-tekstfelt ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

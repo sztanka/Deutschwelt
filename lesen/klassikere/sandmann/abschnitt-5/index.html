@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Klassikere: Der Sandmann — Fünfter Abschnitt
+  Hoffmann døde 1822 → public domain i EU siden 1993. Teksten er hentet ordrett fra projekt-gutenberg.org.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fünfter Abschnitt — Der Sandmann · Klassikere · Deutschwelt</title>
+<link rel="stylesheet" href="../../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.5rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-context{
+    background:#eef2f6;border:1px solid #c9d6e3;border-radius:var(--dw-radius);
+    padding:14px 18px;margin-bottom:20px;font-size:.85rem;line-height:1.6;
+  }
+  .dw-context h2{margin:0 0 6px;color:var(--dw-primary);font-size:.95rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-original{
+    font-family:Georgia,"Times New Roman",serif;font-size:1.02rem;line-height:1.8;
+    background:#f4f1e8;border-left:4px solid var(--dw-accent);padding:16px 18px;border-radius:8px;margin-bottom:4px;
+  }
+  .dw-original p{margin:0 0 14px;}
+  .dw-original p:last-child{margin-bottom:0;}
+  .dw-original .dw-gap-note{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-style:italic;color:var(--dw-muted);font-size:.88rem;background:#fff;border:1px dashed #cfc7ad;border-radius:8px;padding:10px 12px;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-top:10px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:100px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-chapternav{display:flex;justify-content:space-between;gap:12px;margin-top:24px;font-size:.9rem;}
+  .dw-chapternav a{color:var(--dw-primary);text-decoration:none;font-weight:600;padding:10px 16px;background:var(--dw-card);border-radius:999px;border:1px solid #ece8df;}
+  .dw-chapternav a:hover{border-color:var(--dw-accent);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../../">📖 Lesen</a> → <a href="../../">Klassikere</a> → <a href="../">Der Sandmann</a> → Fünfter Abschnitt</p>
+
+  <div class="dw-header">
+    <h1>Fünfter Abschnitt</h1>
+    <p>E.T.A. Hoffmann (1816) · Del 5 av 5</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>🧭 Hvor er vi i handlingen?</h2>
+    <p>Nathanael våkner opp etter galskapen som fulgte Olimpia-avsløringen — han har vært alvorlig syk, men later til å bli frisk igjen med hjelp fra Clara, moren og Lothar. Familien planlegger å flytte sammen til et lite gods de har arvet, og Nathanael skal endelig gifte seg med Clara.</p>
+    <p>Men på vei gjennom byen klatrer Nathanael og Clara opp i et tårn for å se utover. Der får Nathanael tak i Coppolas gamle kikkert igjen — og synet av den utløser et nytt, dødelig sammenbrudd. Historien når sitt tragiske klimaks, med Coppelius til stede i folkemengden nedenfor.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>📖 Originaltekst</h2>
+    <p class="dw-byline">von E.T.A. Hoffmann</p>
+    <div class="dw-original">
+      <p>Nathanael erwachte wie aus schwerem, fürchterlichem Traum, er schlug die Augen auf und fühlte wie ein unbeschreibliches Wonnegefühl mit sanfter himmlischer Wärme ihn durchströmte. Er lag in seinem Zimmer in des Vaters Hause auf dem Bette, Clara hatte sich über ihn hingebeugt und unfern standen die Mutter und Lothar. »Endlich, endlich, o mein herzlieber Nathanael – nun bist du genesen von schwerer Krankheit – nun bist du wieder mein!« – So sprach Clara recht aus tiefer Seele und faßte den Nathanael in ihre Arme. Aber dem quollen vor lauter Wehmut und Entzücken die hellen glühenden Tränen aus den Augen und er stöhnte tief auf. »Meine – meine Clara!« – Siegmund, der getreulich ausgeharrt bei dem Freunde in großer Not, trat herein. Nathanael reichte ihm die Hand: »Du treuer Bruder hast mich doch nicht verlassen.« – Jede Spur des Wahnsinns war verschwunden, bald erkräftigte sich Nathanael in der sorglichen Pflege der Mutter, der Geliebten, der Freunde. Das Glück war unterdessen in das Haus eingekehrt; denn ein alter karger Oheim, von dem niemand etwas gehofft, war gestorben und hatte der Mutter nebst einem nicht unbedeutenden Vermögen ein Gütchen in einer angenehmen Gegend unfern der Stadt hinterlassen. Dort wollten sie hinziehen, die Mutter, Nathanael mit seiner Clara, die er nun zu heiraten gedachte, und Lothar. Nathanael war milder, kindlicher geworden, als er je gewesen und erkannte nun erst recht Claras himmlisch reines, herrliches Gemüt. Niemand erinnerte ihn auch nur durch den leisesten Anklang an die Vergangenheit. Nur, als Siegmund von ihm schied, sprach Nathanael: »Bei Gott Bruder! ich war auf schlimmen Wege, aber zu rechter Zeit leitete mich ein Engel auf den lichten Pfad! – Ach es war ja Clara! –« Siegmund ließ ihn nicht weiter reden, aus Besorgnis, tief verletzende Erinnerungen möchten ihm zu hell und flammend aufgehen.</p>
+      <p>Es war an der Zeit, daß die vier glücklichen Menschen nach dem Gütchen ziehen wollten. Zur Mittagsstunde gingen sie durch die Straßen der Stadt. Sie hatten manches eingekauft, der hohe Ratsturm warf seinen Riesenschatten über den Markt. »Ei!« sagte Clara: »steigen wir doch noch einmal herauf und schauen in das ferne Gebirge hinein!« Gesagt, getan! Beide, Nathanael und Clara, stiegen herauf, die Mutter ging mit der Dienstmagd nach Hause, und Lothar, nicht geneigt, die vielen Stufen zu erklettern, wollte unten warten. Da standen die beiden Liebenden Arm in Arm auf der höchsten Galerie des Turmes und schauten hinein in die duftigen Waldungen, hinter denen das blaue Gebirge, wie eine Riesenstadt, sich erhob.</p>
+      <p>»Sieh doch den sonderbaren kleinen grauen Busch, der ordentlich auf uns los zu schreiten scheint«, frug Clara. – Nathanael faßte mechanisch nach der Seitentasche; er fand Coppolas Perspektiv, er schaute seitwärts – Clara stand vor dem Glase! – Da zuckte es krampfhaft in seinen Pulsen und Adern – totenbleich starrte er Clara an, aber bald glühten und sprühten Feuerströme durch die rollenden Augen, gräßlich brüllte er auf, wie ein gehetztes Tier; dann sprang er hoch in die Lüfte und grausig dazwischen lachend schrie er in schneidendem Ton: »Holzpüppchen dreh dich – Holzpüppchen dreh dich« – und mit gewaltiger Kraft faßte er Clara und wollte sie herabschleudern, aber Clara krallte sich in verzweifelnder Todesangst fest an das Geländer.</p>
+      <p>Lothar hörte den Rasenden toben, er hörte Claras Angstgeschrei, gräßliche Ahnung durchflog ihn, er rannte herauf, die Tür der zweiten Treppe war verschlossen – stärker hallte Claras Jammergeschrei. Unsinnig vor Wut und Angst stieß er gegen die Tür, die endlich aufsprang – Matter und matter wurden nun Claras Laute: »Hülfe – rettet – rettet –« so erstarb die Stimme in den Lüften. »Sie ist hin – ermordet von dem Rasenden«, so schrie Lothar. Auch die Tür zur Galerie war zugeschlagen. – Die Verzweiflung gab ihm Riesenkraft, er sprengte die Tür aus den Angeln. Gott im Himmel – Clara schwebte von dem rasenden Nathanael erfaßt über der Galerie in den Lüften – nur mit einer Hand hatte sie noch die Eisenstäbe umklammert. Rasch wie der Blitz erfaßte Lothar die Schwester, zog sie hinein, und schlug im demselben Augenblick mit geballter Faust dem Wütenden ins Gesicht, daß er zurückprallte und die Todesbeute fallen ließ. Lothar rannte herab, die ohnmächtige Schwester in den Armen. – Sie war gerettet. –</p>
+      <p>Nun raste Nathanael herum auf der Galerie und sprang hoch in die Lüfte und schrie »Feuerkreis dreh dich – Feuerkreis dreh dich« – Die Menschen liefen auf das wilde Geschrei zusammen; unter ihnen ragte riesengroß der Advokat Coppelius hervor, der eben in die Stadt gekommen und gerades Weges nach dem Markt geschritten war. Man wollte herauf, um sich des Rasenden zu bemächtigen, da lachte Coppelius sprechend: »Ha ha – wartet nur, der kommt schon herunter von selbst«, und schaute wie die übrigen hinauf. Nathanael blieb plötzlich wie erstarrt stehen, er bückte sich herab, wurde den Coppelius gewahr und mit dem gellenden Schrei: »Ha! Sköne Oke – Sköne Oke«, sprang er über das Geländer.</p>
+      <p>Als Nathanael mit zerschmettertem Kopf auf dem Steinpflaster lag, war Coppelius im Gewühl verschwunden.</p>
+      <p>Nach mehreren Jahren will man in einer entfernten Gegend Clara gesehen haben, wie sie mit einem freundlichen Mann, Hand in Hand vor der Türe eines schönen Landhauses saß und vor ihr zwei muntre Knaben spielten. Es wäre daraus zu schließen, daß Clara das ruhige häusliche Glück noch fand, das ihrem heitern lebenslustigen Sinn zusagte und das ihr der im Innern zerrissene Nathanael niemals hätte gewähren können.</p>
+    </div>
+
+    <div class="dw-vocab">
+      <div><b>genesen</b><br>å bli frisk igjen (etter sykdom)</div>
+      <div><b>der Wahnsinn</b><br>galskapen</div>
+      <div><b>das Vermögen</b><br>formuen</div>
+      <div><b>das Gütchen</b><br>det lille godset/gården</div>
+      <div><b>der Turm</b><br>tårnet</div>
+      <div><b>die Galerie</b><br>galleriet (her: utsiktsplattformen)</div>
+      <div><b>das Geländer</b><br>rekkverket</div>
+      <div><b>krallen (sich)</b><br>å klore seg fast</div>
+      <div><b>retten</b><br>å redde</div>
+      <div><b>zerschmettert</b><br>knust</div>
+      <div><b>das Steinpflaster</b><br>brosteinen, steinbelegningen</div>
+      <div><b>häusliches Glück</b><br>hjemlig lykke</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Verstehst du den Text?</h2>
+    <p class="dw-note">Disse spørsmålene tester om du fikk med deg hovedhandlingen — ikke hvert enkelt ord.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Was denkst du?</h2>
+    <p class="dw-note">Til slutt finner Clara lykke med en annen mann, mens Nathanael dør. Synes du slutten er rettferdig, eller for grusom? Hva kunne ha reddet Nathanael tidligere i historien? Skriv 2–4 setninger på tysk.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Ich glaube, das Ende ist …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+  <div class="dw-chapternav">
+    <a href="../abschnitt-4/">← Vierter Abschnitt</a>
+    <span></span>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Quiz ---------- */
+  var dwQuiz = [{"q": "Wie geht es Nathanael zu Beginn dieses Abschnitts?", "opts": ["Er ist noch immer wahnsinnig", "Er scheint von seiner Krankheit genesen zu sein und ist wieder bei Clara", "Er ist gestorben"], "correct": 1}, {"q": "Wohin wollen Nathanael, Clara, die Mutter und Lothar gemeinsam ziehen?", "opts": ["Nach G., wo Nathanael studiert hat", "Auf ein geerbtes Gütchen außerhalb der Stadt", "Sie wollen auswandern"], "correct": 1}, {"q": "Was löst Nathanaels erneuten Wahnsinn auf dem Turm aus?", "opts": ["Ein Streit mit Lothar", "Der Anblick Claras durch Coppolas altes Perspektiv", "Eine Nachricht von Spalanzani"], "correct": 1}, {"q": "Wie wird Clara gerettet?", "opts": ["Sie rettet sich selbst, indem sie hinunterklettert", "Lothar hört ihre Schreie, bricht die Tür auf und zieht sie vom Geländer zurück", "Coppelius hilft ihr"], "correct": 1}, {"q": "Wer taucht unten auf dem Marktplatz auf, während Nathanael auf dem Turm tobt?", "opts": ["Spalanzani", "Der Advokat Coppelius", "Siegmund"], "correct": 1}, {"q": "Wie endet Nathanaels Geschichte?", "opts": ["Er wird geheilt und heiratet Clara", "Er stürzt sich vom Turm und stirbt auf dem Steinpflaster", "Er verschwindet spurlos"], "correct": 1}];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  /* ---------- Skrive-tekstfelt ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

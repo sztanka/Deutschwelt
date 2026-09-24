@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Klassikere: "Der Sandmann" (verk-hub)
+  Hoffmann døde 1822 → public domain i EU siden 1993. Teksten er hentet ordrett fra projekt-gutenberg.org.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Der Sandmann · Klassikere · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:820px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:32px 26px;text-align:center;margin-bottom:16px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.8rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.65;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+  .dw-context{
+    background:#eef2f6;border:1px solid #c9d6e3;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:24px;font-size:.88rem;line-height:1.65;
+  }
+  .dw-context h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.0rem;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+  .dw-card{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px;text-decoration:none;color:var(--dw-text);
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;
+    display:flex;flex-direction:column;gap:6px;
+  }
+  .dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  .dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  .dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-card .dw-meta{font-size:.78rem;color:var(--dw-accent);font-weight:700;text-transform:uppercase;letter-spacing:.03em;margin-top:2px;}
+  .dw-card.dw-p-sandmann{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cpath%20d%3D%22M31%2010a13%2013%200%20100%2026%2011%2011%200%20010-26z%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3Ccircle%20cx%3D%2214%22%20cy%3D%2216%22%20r%3D%221.6%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.13%22%2F%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2230%22%20r%3D%221.2%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.13%22%2F%3E%3Ccircle%20cx%3D%2218%22%20cy%3D%2240%22%20r%3D%221.6%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.13%22%2F%3E%3Ccircle%20cx%3D%2242%22%20cy%3D%2242%22%20r%3D%221.2%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.13%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">📖 Lesen</a> → <a href="../">Klassikere</a> → Der Sandmann</p>
+
+  <div class="dw-header">
+    <h1>Der Sandmann</h1>
+    <p>E.T.A. Hoffmann (1816)</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>🌙 Om verket</h2>
+    <p><strong>Der Sandmann</strong> er en av de mest kjente uhyggelige (unheimlich) fortellingene i tysk litteratur, skrevet av E.T.A. Hoffmann. Historien handler om Nathanael, som som barn ble skremt med historien om «Sandmannen» — en skikkelse som visstnok tar øynene til barn som ikke vil sove. Som voksen student møter Nathanael skikkelser som får barndomsfrykten hans til å våkne til live igjen, blant annet den mystiske optikeren Coppola og en vakker, men merkelig stille kvinne ved navn Olimpia.</p>
+    <p>Teksten er delt inn i fem deler etter det naturlige handlingsforløpet i originalteksten. Fortellingen er skrevet delvis som brev mellom hovedpersonene, noe som gjør språket ekstra autentisk — men også utfordrende. Ta deg god tid!</p>
+  </div>
+
+  <div class="dw-grid">
+    <a class="dw-card dw-p-sandmann" href="abschnitt-1/">
+      <div class="dw-meta">Del 1 av 5</div>
+      <h2>Erster Abschnitt</h2>
+      <p>Nathanaels brev til vennen Lothar: barndomsminnet om Sandmannen og advokaten Coppelius.</p>
+    </a>
+    <a class="dw-card dw-p-sandmann" href="abschnitt-2/">
+      <div class="dw-meta">Del 2 av 5</div>
+      <h2>Zweiter Abschnitt</h2>
+      <p>Clara svarer Nathanael. Nathanael vender hjem og møter den mystiske Coppola.</p>
+    </a>
+    <a class="dw-card dw-p-sandmann" href="abschnitt-3/">
+      <div class="dw-meta">Del 3 av 5</div>
+      <h2>Dritter Abschnitt</h2>
+      <p>Nathanael som student: professor Spalanzani, hans hemmelighetsfulle datter Olimpia, og et uhyggelig kjøp.</p>
+    </a>
+    <a class="dw-card dw-p-sandmann" href="abschnitt-4/">
+      <div class="dw-meta">Del 4 av 5</div>
+      <h2>Vierter Abschnitt</h2>
+      <p>Nathanael blir stadig mer fascinert av Olimpia — til tross for advarslene fra vennene sine.</p>
+    </a>
+    <a class="dw-card dw-p-sandmann" href="abschnitt-5/">
+      <div class="dw-meta">Del 5 av 5</div>
+      <h2>Fünfter Abschnitt</h2>
+      <p>Sannheten om Olimpia avsløres, og historien beveger seg mot sin dramatiske slutt.</p>
+    </a>
+  </div>
+
+</div>
+</body>
+</html>

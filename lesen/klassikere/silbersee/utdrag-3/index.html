@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Klassikere: Der Schatz im Silbersee — Utdrag 3: In der Klemme
+  May døde 1912 → public domain i EU siden 1983. Utdraget er hentet ordrett fra projekt-gutenberg.org. Se hub-siden for et viktig forbehold om hvordan urfolk fremstilles i teksten.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Utdrag 3: In der Klemme — Der Schatz im Silbersee · Klassikere · Deutschwelt</title>
+<link rel="stylesheet" href="../../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.5rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-context{
+    background:#eef2f6;border:1px solid #c9d6e3;border-radius:var(--dw-radius);
+    padding:14px 18px;margin-bottom:20px;font-size:.85rem;line-height:1.6;
+  }
+  .dw-context h2{margin:0 0 6px;color:var(--dw-primary);font-size:.95rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-original{
+    font-family:Georgia,"Times New Roman",serif;font-size:1.02rem;line-height:1.8;
+    background:#f4f1e8;border-left:4px solid var(--dw-accent);padding:16px 18px;border-radius:8px;margin-bottom:4px;
+  }
+  .dw-original p{margin:0 0 14px;}
+  .dw-original p:last-child{margin-bottom:0;}
+  .dw-original .dw-gap-note{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-style:italic;color:var(--dw-muted);font-size:.88rem;background:#fff;border:1px dashed #cfc7ad;border-radius:8px;padding:10px 12px;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-top:10px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:100px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-chapternav{display:flex;justify-content:space-between;gap:12px;margin-top:24px;font-size:.9rem;}
+  .dw-chapternav a{color:var(--dw-primary);text-decoration:none;font-weight:600;padding:10px 16px;background:var(--dw-card);border-radius:999px;border:1px solid #ece8df;}
+  .dw-chapternav a:hover{border-color:var(--dw-accent);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../../">📖 Lesen</a> → <a href="../../">Klassikere</a> → <a href="../">Der Schatz im Silbersee</a> → Utdrag 3: In der Klemme</p>
+
+  <div class="dw-header">
+    <h1>Utdrag 3: In der Klemme</h1>
+    <p>Karl May (1890/94) · Utdrag 3 av 5 · Kapittel 11</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>🧭 Hvor er vi i handlingen?</h2>
+    <p>Etter møtet i Sheridan fortsetter jakten på skatten ved Silbersee (Sølvsjøen), og på veien kommer heltene også i konflikt med en gruppe Utah-krigere. Dette utdraget er fra ellevte kapittel («In der Klemme») og viser situasjonen fra motpartens side: et par hundre Utah-krigere under høvding Ovuts-avaht («den store ulven») planlegger et bakhold mot seks hvite menn som har slått leir i en skogslysning.</p>
+    <p>Merk at denne scenen er skrevet fra en hvit forfatters ståsted på 1890-tallet, og språket om «de røde» og krigsmaling følger datidens klisjeer om urfolk — se hub-siden for mer om dette.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>📖 Originaltekst (utdrag)</h2>
+    <p class="dw-byline">von Karl May</p>
+    <div class="dw-original">
+      <p>Der andre erwähnte Trupp, welcher sich dem Walde von der andern Seite näherte, bestand aus einer Schar von gegen zweihundert Indianern. Old Shatterhand war zwar auch auf dieser Seite gewesen, um zu rekognoszieren, aber er hatte, als er die dort sich öffnende Prairie überblickte, die heranreitenden Roten nicht sehen können, da sie sich zu dieser Zeit noch hinter einer vorspringenden Waldesecke befunden hatten. Auch sie mußten die Gegend genau kennen, denn sie hielten gerade auf den Ausgang des schmalen Waldpfades zu, durch dessen Eingang die Weißen nach der Blöße gekommen waren.</p>
+      <p>Die Roten befanden sich auf dem Kriegspfade, wie die grellen Farben bezeugten, mit denen sie ihre Gesichter angemalt hatten. Die meisten waren mit Schießgewehren und nur wenige mit Bogen und Pfeilen bewaffnet. An ihrer Spitze ritt ein riesenhafter Kerl, welcher ein Häuptling war, denn er trug eine Adlerfeder im Schopfe. Sein Alter war nicht zu erkennen, da auch sein Gesicht ganz mit schwarzen, gelben und roten Linien bedeckt war.</p>
+      <p>Am Pfade angekommen, stieg er ab, um denselben zu untersuchen. Die vordersten Krieger des Zuges, welche hinter ihm hielten, sahen seinem Beginnen mit Spannung zu. Ein Pferd schnaubte. Er erhob warnend die Hand und der betreffende Reiter hielt dem Tiere die Nüstern zu. Da der Häuptling damit zur größten Stille aufforderte, mußte er etwas Verdächtiges bemerkt haben. Er ging langsam, Schritt für Schritt und den Oberkörper tief zum Boden niedergesenkt, eine kurze Strecke auf dem Pfade weiter in den Wald hinein. Als er dann zurückkehrte, sagte er leise in der Sprache der Utah, welche ein Glied der shoshonischen Abteilung des Sonorasprachstammes ist: »Ein Bleichgesicht war hier vor der Zeit, welche die Sonne braucht, um eine Spanne weit zu laufen. Die Krieger der Utah mögen sich mit ihren Pferden unter den Bäumen verbergen. Ovuts-avaht wird gehen, um das Bleichgesicht zu suchen.«</p>
+      <p>Der Häuptling, welcher fast noch länger, breiter und stärker als Old Firehand war, hieß also Ovuts-avaht, zu deutsch der große Wolf. Er schlich in den Wald zurück; als er nach vielleicht einer halben Stunde zurückkehrte, war keiner seiner Leute zu sehen. Er ließ einen leisen Pfiff hören und sofort kamen die Roten unter den Bäumen hervor, indem sie die Pferde dort zurückließen. Er gab einen Wink, auf welchen die Unteranführer, fünf oder sechs an der Zahl, zu ihm traten.</p>
+      <p>»Sechs Bleichgesichter lagern bei den Felsen,« sagte er ihnen. »Das sind wohl die sechs, welche gestern entkamen. Sie essen Fleisch, und ihre Pferde weiden bei ihnen. Meine Brüder mögen mir folgen, bis der Pfad zu Ende geht; dann teilen sie sich; die Hälfte schleicht nach rechts, die andern nach links, bis die Lichtung umstellt ist. Dann werde ich das Zeichen geben und die roten Krieger brechen hervor. Die weißen Hunde werden so erschrocken sein, daß sie sich gar nicht wehren. Wir werden sie mit den Händen greifen und nach dem Dorfe schaffen, um sie dort an den Pfahl zu binden. Fünf Leute bleiben hier, um die angebundenen Pferde zu bewachen. Howgh!«</p>
+      <p>Dieses letztere Wort ist ein Bekräftigungswort und hat ungefähr die Bedeutung unsers »Amen« oder »Pasta«, »abgemacht«! Wenn ein Indianer dies ausspricht, so hält er den Gegenstand für vollständig erschöpft besprochen und erledigt.</p>
+      <p>Ihren Häuptling voran, drangen die Roten auf dem Pfade in den Wald ein, leise, so leise, daß nicht eine Spur von Geräusch zu hören war. Als sie die Stelle erreichten, an welcher der Weg auf die Blöße mündete, gingen sie nach beiden Seiten auseinander, um den Platz zu umstellen. Ein Reiter hätte nicht in den Wald eindringen können; zu Fuße aber und für die gewandten Gestalten der Indianer war es möglich.</p>
+    </div>
+
+    <div class="dw-vocab">
+      <div><b>der Kriegspfad</b><br>krigsstien</div>
+      <div><b>der Häuptling</b><br>høvdingen</div>
+      <div><b>die Adlerfeder</b><br>ørnefjæren</div>
+      <div><b>die Prairie</b><br>prærien</div>
+      <div><b>die Blöße</b><br>lysningen (i skogen)</div>
+      <div><b>der Pfad</b><br>stien</div>
+      <div><b>umstellen</b><br>omringe</div>
+      <div><b>verbergen</b><br>å gjemme (seg)</div>
+      <div><b>schnauben</b><br>å fnyse (om hest)</div>
+      <div><b>der Marterpfahl</b><br>torturpælen (som fanger ble bundet til)</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Verstehst du den Text?</h2>
+    <p class="dw-note">Disse spørsmålene tester om du fikk med deg hovedhandlingen — ikke hvert enkelt ord.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Was denkst du?</h2>
+    <p class="dw-note">Denne scenen skildrer Utah-kriegerne som en truende, taus fare — et typisk grep i datidens eventyrromaner. Skriv 2–4 setninger på tysk: Hva legger du merke til i språket her, og hvordan tror du en lignende scene ville blitt skrevet i en bok i dag?</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Die Krieger werden hier als … beschrieben."></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+  <div class="dw-chapternav">
+    <a href="../utdrag-2/">← Utdrag 2: List und Gegenlist</a>
+    <a href="../utdrag-4/">Utdrag 4: Am Silbersee (I) →</a>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Quiz ---------- */
+  var dwQuiz = [{"q": "Wie viele Utah-Krieger umfasst die Schar etwa?", "opts": ["Etwa zwanzig", "Etwa zweihundert", "Etwa fünfzig"], "correct": 1}, {"q": "Woran erkennt man, dass die Krieger auf dem Kriegspfad sind?", "opts": ["An der grellen Kriegsbemalung ihrer Gesichter", "An roten Fahnen", "An ihren blanken Uniformen"], "correct": 0}, {"q": "Was plant der Häuptling Ovuts-avaht?", "opts": ["Die sechs Bleichgesichter zu umstellen und gefangen zu nehmen", "Sofort zu fliehen", "Mit den Bleichgesichtern Handel zu treiben"], "correct": 0}, {"q": "Was bedeutet das Wort \"Howgh\" im Text?", "opts": ["Ein Kriegsschrei", "Ein Bekräftigungswort, etwa wie \"abgemacht\"", "Der Name eines Flusses"], "correct": 1}, {"q": "Was soll laut dem Häuptling mit den Gefangenen geschehen?", "opts": ["Sie sollen ins Dorf gebracht und an den Pfahl gebunden werden", "Sie sollen sofort freigelassen werden", "Sie sollen als Führer angestellt werden"], "correct": 0}];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  /* ---------- Skrive-tekstfelt ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

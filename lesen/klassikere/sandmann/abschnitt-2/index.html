@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Klassikere: Der Sandmann — Zweiter Abschnitt
+  Hoffmann døde 1822 → public domain i EU siden 1993. Teksten er hentet ordrett fra projekt-gutenberg.org.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zweiter Abschnitt — Der Sandmann · Klassikere · Deutschwelt</title>
+<link rel="stylesheet" href="../../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.5rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-context{
+    background:#eef2f6;border:1px solid #c9d6e3;border-radius:var(--dw-radius);
+    padding:14px 18px;margin-bottom:20px;font-size:.85rem;line-height:1.6;
+  }
+  .dw-context h2{margin:0 0 6px;color:var(--dw-primary);font-size:.95rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-original{
+    font-family:Georgia,"Times New Roman",serif;font-size:1.02rem;line-height:1.8;
+    background:#f4f1e8;border-left:4px solid var(--dw-accent);padding:16px 18px;border-radius:8px;margin-bottom:4px;
+  }
+  .dw-original p{margin:0 0 14px;}
+  .dw-original p:last-child{margin-bottom:0;}
+  .dw-original .dw-gap-note{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-style:italic;color:var(--dw-muted);font-size:.88rem;background:#fff;border:1px dashed #cfc7ad;border-radius:8px;padding:10px 12px;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-top:10px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:100px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-chapternav{display:flex;justify-content:space-between;gap:12px;margin-top:24px;font-size:.9rem;}
+  .dw-chapternav a{color:var(--dw-primary);text-decoration:none;font-weight:600;padding:10px 16px;background:var(--dw-card);border-radius:999px;border:1px solid #ece8df;}
+  .dw-chapternav a:hover{border-color:var(--dw-accent);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../../">📖 Lesen</a> → <a href="../../">Klassikere</a> → <a href="../">Der Sandmann</a> → Zweiter Abschnitt</p>
+
+  <div class="dw-header">
+    <h1>Zweiter Abschnitt</h1>
+    <p>E.T.A. Hoffmann (1816) · Del 2 av 5</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>🧭 Hvor er vi i handlingen?</h2>
+    <p>Clara svarer på Nathanaels brev. Hun er fornuftig og rolig av natur, og mener at alt det skremmende han har opplevd, stammer fra hans eget sinn — ikke fra noen ond, ytre makt. Hun ber ham glemme både Coppelius og Coppola.</p>
+    <p>Deretter tar fortelleren selv ordet og forklarer hvordan historien er satt sammen. Vi får vite at Clara og Lothar vokste opp i Nathanaels hjem, og at Clara og Nathanael er forlovet. Nathanael studerer nå hos professor <strong>Spalanzani</strong>, og har fra vinduet sitt fått øye på Spalanzanis stille, vakre datter <strong>Olimpia</strong>. Da glasshandleren Coppola dukker opp igjen og selger Nathanael en lommekikkert, blir Nathanael som forhekset av synet av Olimpia gjennom glasset.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>📖 Originaltekst</h2>
+    <p class="dw-byline">von E.T.A. Hoffmann</p>
+    <div class="dw-original">
+      <p>Wahr ist es, daß Du recht lange mir nicht geschrieben hast, aber dennoch glaube ich, daß Du mich in Sinn und Gedanken trägst. Denn meiner gedachtest Du wohl recht lebhaft, als Du Deinen letzten Brief an Bruder Lothar absenden wolltest und die Aufschrift, statt an ihn an mich richtetest. Freudig erbrach ich den Brief und wurde den Irrtum erst bei den Worten inne: »Ach mein herzlieber Lothar!« – Nun hätte ich nicht weiter lesen, sondern den Brief dem Bruder geben sollen. Aber, hast Du mir auch sonst manchmal in kindischer Neckerei vorgeworfen, ich hätte solch ruhiges, weiblich besonnenes Gemüt, daß ich wie jene Frau, drohe das Haus den Einsturz, noch vor schneller Flucht ganz geschwinde einen falschen Kniff in der Fenstergardine glattstreichen würde, so darf ich doch wohl kaum versichern, daß Deines Briefes Anfang mich tief erschütterte. Ich konnte kaum atmen, es flimmerte mir vor den Augen. – Ach, mein herzgeliebter Nathanael! was konnte so Entsetzliches in Dein Leben getreten sein! Trennung von Dir, Dich niemals wiedersehen, der Gedanke durchfuhr meine Brust wie ein glühender Dolchstich. – Ich las und las! – Deine Schilderung des widerwärtigen Coppelius ist gräßlich. Erst jetzt vernahm ich, wie Dein guter alter Vater solch entsetzlichen, gewaltsamen Todes starb. Bruder Lothar, dem ich sein Eigentum zustellte, suchte mich zu beruhigen, aber es gelang ihm schlecht. Der fatale Wetterglashändler Giuseppe Coppola verfolgte mich auf Schritt und Tritt und beinahe schäme ich mich, es zu gestehen, daß er selbst meinen gesunden, sonst so ruhigen Schlaf in allerlei wunderlichen Traumgebilden zerstören konnte. Doch bald, schon den andern Tag, hatte sich alles anders in mir gestaltet. Sei mir nur nicht böse, mein Inniggeliebter, wenn Lothar Dir etwa sagen möchte, daß ich trotz Deiner seltsamen Ahnung, Coppelius werde Dir etwas Böses antun, ganz heitern unbefangenen Sinnes bin, wie immer.</p>
+      <p>Geradeheraus will ich es Dir nur gestehen, daß, wie ich meine, alles Entsetzliche und Schreckliche, wovon Du sprichst, nur in Deinem Innern vorging, die wahre wirkliche Außenwelt aber daran wohl wenig teilhatte. Widerwärtig genug mag der alte Coppelius gewesen sein, aber daß er Kinder haßte, das brachte in Euch Kindern wahren Abscheu gegen ihn hervor.</p>
+      <p>Natürlich verknüpfte sich nun in Deinem kindischen Gemüt der schreckliche Sandmann aus dem Ammenmärchen mit dem alten Coppelius, der Dir, glaubtest Du auch nicht an den Sandmann, ein gespenstischer, Kindern vorzüglich gefährlicher, Unhold blieb. Das unheimliche Treiben mit Deinem Vater zur Nachtzeit war wohl nichts anders, als daß beide insgeheim alchymistische Versuche machten, womit die Mutter nicht zufrieden sein konnte, da gewiß viel Geld unnütz verschleudert und obendrein, wie es immer mit solchen Laboranten der Fall sein soll, des Vaters Gemüt ganz von dem trügerischen Drange nach hoher Weisheit erfüllt, der Familie abwendig gemacht wurde. Der Vater hat wohl gewiß durch eigne Unvorsichtigkeit seinen Tod herbeigeführt, und Coppelius ist nicht schuld daran: Glaubst Du, daß ich den erfahrnen Nachbar Apotheker gestern frug, ob wohl bei chemischen Versuchen eine solche augenblicklich tötende Explosion möglich sei? Der sagte: »Ei allerdings« und beschrieb mir nach seiner Art gar weitläufig und umständlich, wie das zugehen könne, und nannte dabei so viel sonderbar klingende Namen, die ich gar nicht zu behalten vermochte. – Nun wirst Du wohl unwillig werden über Deine Clara, Du wirst sagen: »In dies kalte Gemüt dringt kein Strahl des Geheimnisvollen, das den Menschen oft mit unsichtbaren Armen umfaßt; sie erschaut nur die bunte Oberfläche der Welt und freut sich, wie das kindische Kind über die goldgleißende Frucht, in deren Innern tödliches Gift verborgen.«</p>
+      <p>Ach mein herzgeliebter Nathanael! glaubst Du denn nicht, daß auch in heitern – unbefangenen – sorglosen Gemütern die Ahnung wohnen könne von einer dunklen Macht, die feindlich uns in unserm eignen Selbst zu verderben strebt? – Aber verzeih es mir, wenn ich einfältig Mädchen mich unterfange, auf irgend eine Weise Dir anzudeuten, was ich eigentlich von solchem Kampfe im Innern glaube. – Ich finde wohl gar am Ende nicht die rechten Worte und Du lachst mich aus, nicht, weil ich was Dummes meine, sondern weil ich mich so ungeschickt anstelle, es zu sagen.</p>
+      <p>Gibt es eine dunkle Macht, die so recht feindlich und verräterisch einen Faden in unser Inneres legt, woran sie uns dann festpackt und fortzieht auf einem gefahrvollen verderblichen Wege, den wir sonst nicht betreten haben würden – gibt es eine solche Macht, so muß sie in uns sich, wie wir selbst gestalten, ja unser Selbst werden; denn nur so glauben wir an sie und räumen ihr den Platz ein, dessen sie bedarf, um jenes geheime Werk zu vollbringen. Haben wir festen, durch das heitre Leben gestärkten, Sinn genug, um fremdes feindliches Einwirken als solches stets zu erkennen und den Weg, in den uns Neigung und Beruf geschoben, ruhigen Schrittes zu verfolgen, so geht wohl jene unheimliche Macht unter in dem vergeblichen Ringen nach der Gestaltung, die unser eignes Spiegelbild sein sollte. Es ist auch gewiß, fügt Lothar hinzu, daß die dunkle psychische Macht, haben wir uns durch uns selbst ihr hingegeben, oft fremde Gestalten, die die Außenwelt uns in den Weg wirft, in unser Inneres hineinzieht, so, daß wir selbst nur den Geist entzünden, der, wie wir in wunderlicher Täuschung glauben, aus jener Gestalt spricht. Es ist das Phantom unseres eigenen Ichs, dessen innige Verwandtschaft und dessen tiefe Einwirkung auf unser Gemüt uns in die Hölle wirft, oder in den Himmel verzückt. – Du merkst, mein herzlieber Nathanael! daß wir, ich und Bruder Lothar uns recht über die Materie von dunklen Mächten und Gewalten ausgesprochen haben, die mir nun, nachdem ich nicht ohne Mühe das Hauptsächlichste aufgeschrieben, ordentlich tiefsinnig vorkommt. Lothars letzte Worte verstehe ich nicht ganz, ich ahne nur, was er meint, und doch ist es mir, als sei alles sehr wahr. Ich bitte Dich, schlage Dir den häßlichen Advokaten Coppelius und den Wetterglasmann Giuseppe Coppola ganz aus dem Sinn. Sei überzeugt, daß diese fremden Gestalten nichts über Dich vermögen; nur der Glaube an ihre feindliche Gewalt kann sie Dir in der Tat feindlich machen. Spräche nicht aus jeder Zeile Deines Briefes die tiefste Aufregung Deines Gemüts, schmerzte mich nicht Dein Zustand recht in innerster Seele, wahrhaftig, ich könnte über den Advokaten Sandmann und den Wetterglashändler Coppelius scherzen. Sei heiter – heiter! – Ich habe mir vorgenommen, bei Dir zu erscheinen, wie Dein Schutzgeist, und den häßlichen Coppola, sollte er es sich etwa beikommen lassen, Dir im Traum beschwerlich zu fallen, mit lautem Lachen fortzubannen. Ganz und gar nicht fürchte ich mich vor ihm und vor seinen garstigen Fäusten, er soll mir weder als Advokat eine Näscherei, noch als Sandmann die Augen verderben.</p>
+      <p>Ewig, mein herzinnigstgeliebter Nathanael etc. etc. etc.</p>
+      <p>Sehr unlieb ist es mir, daß Clara neulich den Brief an Dich aus, freilich durch meine Zerstreutheit veranlagtem, Irrtum erbrach und las. Sie hat mir einen sehr tiefsinnigen philosophischen Brief geschrieben, worin sie ausführlich beweiset daß Coppelius und Coppola nur in meinem Innern existieren und Phantome meines Ichs sind, die augenblicklich zerstäuben, wenn ich sie als solche erkenne. In der Tat, man sollte gar nicht glauben, daß der Geist, der aus solch hellen holdlächelnden Kindesaugen, oft wie ein lieblicher süßer Traum, hervorleuchtet, so gar verständig, so professionsmäßig distinguierend sein könne. Sie beruft sich auf Dich. Ihr habt über mich gesprochen. Du liesest ihr wohl logische Kollegia, damit sie alles fein sichten und sondern lerne. – Laß das bleiben! – Übrigens ist es wohl gewiß, daß der Wetterglashändler Giuseppe Coppola keinesweges der alte Advokat Coppelius ist. Der kennt den Coppola schon seit vielen Jahren und überdem hört man es auch seiner Aussprache an, daß er wirklich Piemonteser ist. Coppelius war ein Deutscher, aber wie mich dünkt, kein ehrlicher. Ganz beruhigt bin ich nicht. Haltet Ihr, Du und Clara, mich immerhin für einen düstern Träumer, aber nicht los werde ich den Eindruck, den Coppelius&#x27; verfluchtes Gesicht auf mich macht. Ich bin froh, daß er fort ist aus der Stadt, wie mir Spalanzani sagt. Dieser Professor ist ein wunderlicher Kauz. Ein kleiner rundlicher Mann, das Gesicht mit starken Backenknochen, feiner Nase, aufgeworfenen Lippen, kleinen stechenden Augen. Neulich steige ich die Treppe herauf und nehme wahr, daß die sonst einer Glastüre dicht vorgezogene Gardine zur Seite einen kleinen Spalt läßt. Ein hohes, sehr schlank im reinsten Ebenmaß gewachsenes, herrlich gekleidetes Frauenzimmer saß im Zimmer vor einem kleinen Tisch, auf den sie beide Arme, die Hände zusammengefaltet, gelegt hatte. Sie schien mich nicht zu bemerken, und überhaupt hatten ihre Augen etwas Starres, beinahe möcht ich sagen, keine Sehkraft, es war mir so, als schliefe sie mit offnen Augen. Mir wurde ganz unheimlich und deshalb schlich ich leise fort ins Auditorium, das daneben gelegen. Nachher erfuhr ich, daß die Gestalt, die ich gesehen, Spalanzanis Tochter, Olimpia war, die er seltsamer und harter Weise jedem Menschen abschließt. Weshalb schreibe ich Dir aber das alles? Besser und ausführlicher hätte ich Dir das mündlich erzählen können. Wisse nämlich, daß ich über vierzehn Tage bei Euch bin. Ich muß mein süßes liebes Engelsbild, meine Clara, wiedersehen. Weggehaucht wird dann die Verstimmung sein, die sich (ich muß das gestehen) nach dem fatalen verständigen Briefe meiner bemeistern wollte. Deshalb schreibe ich auch heute nicht an sie. Tausend Grüße etc. etc. etc.</p>
+      <p>Seltsamer und wunderlicher kann nichts erfunden werden, als dasjenige ist, was sich mit meinem armen Freunde, dem jungen Studenten Nathanael, zugetragen, und was ich dir, günstiger Leser! zu erzählen unternommen. Hast du, Geneigtester! wohl jemals etwas erlebt, das deine Brust, Sinn und Gedanken ganz und gar erfüllte, alles andere daraus verdrängend? Es gärte und kochte in dir, zur siedenden Glut entzündet sprang das Blut durch die Adern und färbte höher deine Wangen. Dein Blick war so seltsam als wolle er Gestalten, keinem andern Auge sichtbar, im leeren Raum erfassen und die Rede zerfloß in dunkle Seufzer. Da frugen dich die Freunde: »Wie ist Ihnen, Verehrter? – Was haben Sie, Teurer?« Und nun wolltest du das innere Gebilde mit allen glühenden Farben und Schatten und Lichtern aussprechen und mühtest dich ab, Worte zu finden, um nur anzufangen. Aber es war dir, als müßtest du nun gleich im ersten Wort alles Wunderbare, Herrliche, Entsetzliche, Lustige, Grauenhafte, das sich zugetragen, recht zusammengreifen, so daß es, wie ein elektrischer Schlag, alle treffe. Doch jedes Wort, alles was Rede vermag, schien dir farblos und frostig und tot. Du suchst und suchst, und stotterst und stammelst, und die nüchternen Fragen der Freunde schlagen, wie eisige Windeshauche, hinein in deine innere Glut, bis sie verlöschen will. Hattest du aber, wie ein kecker Maler, erst mit einigen verwegenen Strichen, den Umriß deines innern Bildes hingeworfen, so trugst du mit leichter Mühe immer glühender und glühender die Farben auf und das lebendige Gewühl mannigfacher Gestalten riß die Freunde fort und sie sahen, wie du, sich selbst mitten im Bilde, das aus deinem Gemüt hervorgegangen! – Mich hat, wie ich es dir, geneigter Leser! gestehen muß, eigentlich niemand nach der Geschichte des jungen Nathanael gefragt; du weißt ja aber wohl, daß ich zu dem wunderlichen Geschlechte der Autoren gehöre, denen, tragen sie etwas so in sich, wie ich es vorhin beschrieben, so zumute wird, als frage jeder, der in ihre Nähe kommt und nebenher auch wohl noch die ganze Welt: »Was ist es denn? Erzählen Sie Liebster?« – So trieb es mich denn gar gewaltig, von Nathanaels verhängnisvollem Leben zu dir zu sprechen. Das Wunderbare, Seltsame davon erfüllte meine ganze Seele, aber eben deshalb und weil ich dich, o mein Leser! gleich geneigt machen mußte, Wunderliches zu ertragen, welches nichts Geringes ist, quälte ich mich ab, Nathanaels Geschichte, bedeutend – originell, ergreifend, anzufangen: »Es war einmal« – der schönste Anfang jeder Erzählung, zu nüchtern! – »In der kleinen Provinzialstadt S. lebte« – etwas besser, wenigstens ausholend zum Klimax. – Oder gleich medias in res: »›Scher er sich zum Teufel‹, rief, Wut und Entsetzen im wilden Blick, der Student Nathanael, als der Wetterglashändler Giuseppe Coppola« – Das hatte ich in der Tat schon aufgeschrieben, als ich in dem wilden Blick des Studenten Nathanael etwas Possierliches zu verspüren glaubte; die Geschichte ist aber gar nicht spaßhaft. Mir kam keine Rede in den Sinn, die nur im mindesten etwas von dem Farbenglanz des innern Bildes abzuspiegeln schien. Ich beschloß gar nicht anzufangen. Nimm, geneigter Leser! die drei Briefe, welche Freund Lothar mir gütigst mitteilte, für den Umriß des Gebildes, in das ich nun erzählend immer mehr und mehr Farbe hineinzutragen mich bemühen werde. Vielleicht gelingt es mir, manche Gestalt, wie ein guter Porträtmaler, so aufzufassen, daß du es ähnlich findest, ohne das Original zu kennen, ja daß es dir ist, als hättest du die Person recht oft schon mit leibhaftigen Augen gesehen. Vielleicht wirst du, o mein Leser! dann glauben, daß nichts wunderlicher und toller sei, als das wirkliche Leben und daß dieses der Dichter doch nur, wie in eines matt geschliffnen Spiegels dunklem Widerschein, auffassen könne.</p>
+      <p>Damit klarer werde, was gleich anfangs zu wissen nötig, ist jenen Briefen noch hinzuzufügen, daß bald darauf, als Nathanaels Vater gestorben, Clara und Lothar, Kinder eines weitläuftigen Verwandten, der ebenfalls gestorben und sie verwaist nachgelassen, von Nathanaels Mutter ins Haus genommen wurden. Clara und Nathanael faßten eine heftige Zuneigung zueinander, wogegen kein Mensch auf Erden etwas einzuwenden hatte; sie waren daher Verlobte, als Nathanael den Ort verließ um seine Studien in G. – fortzusetzen. Da ist er nun in seinem letzten Brief und hört Kollegia bei dem berühmten Professor Physices, Spalanzani. Nun könnte ich getrost in der Erzählung fortfahren; aber in dem Augenblick steht Claras Bild so lebendig mir vor Augen, daß ich nicht wegschauen kann, so wie es immer geschah, wenn sie mich holdlächelnd anblickte. – Für schön konnte Clara keinesweges gelten; das meinten alle, die sich von Amtswegen auf Schönheit verstehen. Doch lobten die Architekten die reinen Verhältnisse ihres Wuchses, die Maler fanden Nacken, Schultern und Brust beinahe zu keusch geformt, verliebten sich dagegen sämtlich in das wunderbare Magdalenenhaar und faselten überhaupt viel von Battonischem Kolorit. Einer von ihnen, ein wirklicher Fantast, verglich aber höchstseltsamer Weise Claras Augen mit einem See von Ruisdael, in dem sich des wolkenlosen Himmels reines Azur, Wald- und Blumenflur, der reichen Landschaft ganzes buntes, heitres Leben spiegelt. Dichter und Meister gingen aber weiter und sprachen: »Was See – was Spiegel! – Können wir denn das Mädchen anschauen, ohne daß uns aus ihrem Blick wunderbare himmlische Gesänge und Klänge entgegenstrahlen, die in unser Innerstes dringen, daß da alles wach und rege wird? Singen wir selbst dann nichts wahrhaft Gescheutes, so ist überhaupt nicht viel an uns und das lesen wir denn auch deutlich in dem um Claras Lippen schwebenden feinen Lächeln, wenn wir uns unterfangen, ihr etwas vorzuquinkelieren, das so tun will als sei es Gesang, unerachtet nur einzelne Töne verworren durcheinander springen.« Es war dem so. Clara hatte die lebenskräftige Fantasie des heitern unbefangenen, kindischen Kindes, ein tiefes weiblich zartes Gemüt, einen gar hellen scharf sichtenden Verstand. Die Nebler und Schwebler hatten bei ihr böses Spiel; denn ohne zu viel zu reden, was überhaupt in Claras schweigsamer Natur nicht lag, sagte ihnen der helle Blick, und jenes feine ironische Lächeln: Lieben Freunde! wie möget ihr mir denn zumuten, daß ich eure verfließende Schattengebilde für wahre Gestalten ansehen soll, mit Leben und Regung? – Clara wurde deshalb von vielen kalt, gefühllos, prosaisch gescholten; aber andere, die das Leben in klarer Tiefe aufgefaßt, liebten ungemein das gemütvolle, verständige, kindliche Mädchen, doch keiner so sehr, als Nathanael, der sich in Wissenschaft und Kunst kräftig und heiter bewegte. Clara hing an dem Geliebten mit ganzer Seele; die ersten Wolkenschatten zogen durch ihr Leben, als er sich von ihr trennte. Mit welchem Entzücken flog sie in seine Arme, als er nun, wie er im letzten Briefe an Lothar es verheißen, wirklich in seiner Vaterstadt ins Zimmer der Mutter eintrat. Es geschah so wie Nathanael geglaubt; denn in dem Augenblick, als er Clara wiedersah, dachte er weder an den Advokaten Coppelius, noch an Claras verständigen Brief, jede Verstimmung war verschwunden. Recht hatte aber Nathanael doch, als er seinem Freunde Lothar schrieb, daß des widerwärtigen Wetterglashändlers Coppola Gestalt recht feindlich in sein Leben getreten sei. Alle fühlten das, da Nathanael gleich in den ersten Tagen in seinem ganzen Wesen durchaus verändert sich zeigte. Er versank in düstre Träumereien, und trieb es bald so seltsam, wie man es niemals von ihm gewohnt gewesen. Alles, das ganze Leben war ihm Traum und Ahnung geworden; immer sprach er davon, wie jeder Mensch, sich frei wähnend, nur dunklen Mächten zum grausamen Spiel diene, vergeblich lehne man sich dagegen auf, demütig müsse man sich dem fügen, was das Schicksal verhängt habe. Er ging so weit, zu behaupten, daß es töricht sei, wenn man glaube, in Kunst und Wissenschaft nach selbsttätiger Willkür zu schaffen; denn die Begeisterung, in der man nur zu schaffen fähig sei, komme nicht aus dem eignen Innern, sondern sei das Einwirken irgend eines außer uns selbst liegenden höheren Prinzips.</p>
+      <p>Der verständigen Clara war diese mystische Schwärmerei im höchsten Grade zuwider, doch schien es vergebens, sich auf Widerlegung einzulassen. Nur dann, wenn Nathanael bewies, daß Coppelius das böse Prinzip sei, was ihn in dem Augenblick erfaßt habe, als er hinter dem Vorhange lauschte, und daß dieser widerwärtige Dämon auf entsetzliche Weise ihr Liebesglück stören werde, da wurde Clara sehr ernst und sprach: »Ja Nathanael! du hast recht, Coppelius ist ein böses feindliches Prinzip, er kann Entsetzliches wirken, wie eine teuflische Macht, die sichtbarlich in das Leben trat, aber nur dann, wenn du ihn nicht aus Sinn und Gedanken verbannst. Solange du an ihn glaubst, ist er auch und wirkt, nur dein Glaube ist seine Macht.« – Nathanael, ganz erzürnt, daß Clara die Existenz des Dämons nur in seinem eignen Innern statuiere, wollte dann hervorrücken mit der ganzen mystischen Lehre von Teufeln und grausen Mächten, Clara brach aber verdrüßlich ab, indem sie irgend etwas Gleichgültiges dazwischen schob, zu Nathanaels nicht geringem Ärger. Der dachte, kalten unempfänglichen Gemütern verschließen sich solche tiefe Geheimnisse, ohne sich deutlich bewußt zu sein, daß er Clara eben zu solchen untergeordneten Naturen zähle, weshalb er nicht abließ mit Versuchen, sie in jene Geheimnisse einzuweihen. Am frühen Morgen, wenn Clara das Frühstück bereiten half, stand er bei ihr und las ihr aus allerlei mystischen Büchern vor, daß Clara bat: »Aber lieber Nathanael, wenn ich dich nun das böse Prinzip schelten wollte, das feindlich auf meinen Kaffee wirkt? – Denn, wenn ich, wie du es willst, alles stehen und liegen lassen und dir, indem du liesest, in die Augen schauen soll, so läuft mir der Kaffee ins Feuer und ihr bekommt alle kein Frühstück!« – Nathanael klappte das Buch heftig zu und rannte voll Unmut fort in sein Zimmer. Sonst hatte er eine besondere Stärke in anmutigen, lebendigen Erzählungen, die er aufschrieb, und die Clara mit dem innigsten Vergnügen anhörte, jetzt waren seine Dichtungen düster, unverständlich, gestaltlos, so daß, wenn Clara schonend es auch nicht sagte, er doch wohl fühlte, wie wenig sie davon angesprochen wurde. Nichts war für Clara tötender, als das Langweilige; in Blick und Rede sprach sich dann ihre nicht zu besiegende geistige Schläfrigkeit aus. Nathanaels Dichtungen waren in der Tat sehr langweilig. Sein Verdruß über Claras kaltes prosaisches Gemüt stieg höher, Clara konnte ihren Unmut über Nathanaels dunkle, düstere, langweilige Mystik nicht überwinden, und so entfernten beide im Innern sich immer mehr voneinander, ohne es selbst zu bemerken. Die Gestalt des häßlichen Coppelius war, wie Nathanael selbst es sich gestehen mußte, in seiner Fantasie erbleicht und es kostete ihm oft Mühe, ihn in seinen Dichtungen, wo er als grauser Schicksalspopanz auftrat, recht lebendig zu kolorieren.</p>
+      <p>Es kam ihm endlich ein, jene düstre Ahnung, daß Coppelius sein Liebesglück stören werde, zum Gegenstande eines Gedichts zu machen. Er stellte sich und Clara dar, in treuer Liebe verbunden, aber dann und wann war es, als griffe eine schwarze Faust in ihr Leben und risse irgend eine Freude heraus, die ihnen aufgegangen. Endlich, als sie schon am Traualtar stehen, erscheint der entsetzliche Coppelius und berührt Claras holde Augen; die springen in Nathanaels Brust wie blutige Funken sengend und brennend, Coppelius faßt ihn und wirft ihn in einen flammenden Feuerkreis, der sich dreht mit der Schnelligkeit des Sturmes und ihn sausend und brausend fortreißt. Es ist ein Tosen, als wenn der Orkan grimmig hineinpeitscht in die schäumenden Meereswellen, die sich wie schwarze, weißhauptige Riesen emporbäumen in wütendem Kampfe. Aber durch dies wilde Tosen hört er Claras Stimme: »Kannst du mich denn nicht erschauen? Coppelius hat dich getäuscht, das waren ja nicht meine Augen, die so in deiner Brust brannten, das waren ja glühende Tropfen deines eignen Herzbluts – ich habe ja meine Augen, sieh mich doch nur an!« – Nathanael denkt: Das ist Clara, und ich bin ihr eigen ewiglich. – Da ist es, als faßt der Gedanke gewaltig in den Feuerkreis hinein, daß er stehen bleibt, und im schwarzen Abgrund verrauscht dumpf das Getöse. Nathanael blickt in Claras Augen; aber es ist der Tod, der mit Claras Augen ihn freundlich anschaut.</p>
+      <p>Während Nathanael dies dichtete, war er sehr ruhig und besonnen, er feilte und besserte an jeder Zeile und da er sich dem metrischen Zwange unterworfen, ruhte er nicht, bis alles rein und wohlklingend sich fügte. Als er jedoch nun endlich fertig worden, und das Gedicht für sich laut las, da faßte ihn Grausen und wildes Entsetzen und er schrie auf. »Wessen grauenvolle Stimme ist das?« – Bald schien ihm jedoch das Ganze wieder nur eine sehr gelungene Dichtung, und es war ihm, als müsse Claras kaltes Gemüt dadurch entzündet werden, wiewohl er nicht deutlich dachte, wozu denn Clara entzündet, und wozu es denn nun eigentlich führen solle, sie mit den grauenvollen Bildern zu ängstigen, die ein entsetzliches, ihre Liebe zerstörendes Geschick weissagten.</p>
+      <p>Sie, Nathanael und Clara, saßen in der Mutter kleinem Garten, Clara war sehr heiter, weil Nathanael sie seit drei Tagen, in denen er an jener Dichtung schrieb, nicht mit seinen Träumen und Ahnungen geplagt hatte. Auch Nathanael sprach lebhaft und froh von lustigen Dingen wie sonst, so, daß Clara sagte: »Nun erst habe ich dich ganz wieder, siehst du es wohl, wie wir den häßlichen Coppelius vertrieben haben?« Da fiel dem Nathanael erst ein, daß er ja die Dichtung in der Tasche trage, die er habe vorlesen wollen. Er zog auch sogleich die Blätter hervor und fing an zu lesen: Clara, etwas Langweiliges wie gewöhnlich vermutend und sich darein ergebend, fing an, ruhig zu stricken. Aber so wie immer schwärzer und schwärzer das düstre Gewölk aufstieg, ließ sie den Strickstrumpf sinken und blickte starr dem Nathanael ins Auge. Den riß seine Dichtung unaufhaltsam fort, hochrot färbte seine Wangen die innere Glut, Tränen quollen ihm aus den Augen. – Endlich hatte er geschlossen, er stöhnte in tiefer Ermattung – er faßte Claras Hand und seufzte wie aufgelöst in trostlosem Jammer: »Ach! – Clara – Clara!« – Clara drückte ihn sanft an ihren Busen und sagte leise, aber sehr langsam und ernst: »Nathanael – mein herzlieber Nathanael! – wirf das tolle – unsinnige – wahnsinnige Märchen ins Feuer.« Da sprang Nathanael entrüstet auf und rief, Clara von sich stoßend: »Du lebloses, verdammtes Automat!« Er rannte fort, bittre Tränen vergoß die tief verletzte Clara: »Ach er hat mich niemals geliebt, denn er versteht mich nicht«, schluchzte sie laut. – Lothar trat in die Laube; Clara mußte ihm erzählen was vorgefallen; er liebte seine Schwester mit ganzer Seele, jedes Wort ihrer Anklage fiel wie ein Funke in sein Inneres, so, daß der Unmut, den er wider den träumerischen Nathanael lange im Herzen getragen, sich entzündete zum wilden Zorn. Er lief zu Nathanael, er warf ihm das unsinnige Betragen gegen die geliebte Schwester in harten Worten vor, die der aufbrausende Nathanael ebenso erwiderte. Ein fantastischer, wahnsinniger Geck wurde mit einem miserablen, gemeinen Alltagsmenschen erwidert. Der Zweikampf war unvermeidlich. Sie beschlossen, sich am folgenden Morgen hinter dem Garten nach dortiger akademischer Sitte mit scharfgeschliffenen Stoßrapieren zu schlagen. Stumm und finster schlichen sie umher, Clara hatte den heftigen Streit gehört und gesehen, daß der Fechtmeister in der Dämmerung die Rapiere brachte. Sie ahnte was geschehen sollte. Auf dem Kampfplatz angekommen hatten Lothar und Nathanael soeben düsterschweigend die Röcke abgeworfen, blutdürstige Kampflust im brennenden Auge wollten sie gegeneinander ausfallen, als Clara durch die Gartentür herbeistürzte. Schluchzend rief sie laut: »Ihr wilden entsetzlichen Menschen! – stoßt mich nur gleich nieder, ehe ihr euch anfallt; denn wie soll ich denn länger leben auf der Welt, wenn der Geliebte den Bruder, oder wenn der Bruder den Geliebten ermordet hat!« – Lothar ließ die Waffe sinken und sah schweigend zur Erde nieder, aber in Nathanaels Innern ging in herzzerreißender Wehmut alle Liebe wieder auf, wie er sie jemals in der herrlichen Jugendzeit schönsten Tagen für die holde Clara empfunden. Das Mordgewehr entfiel seiner Hand, er stürzte zu Claras Füßen. »Kannst du mir denn jemals verzeihen, du meine einzige, meine herzgeliebte Clara! – Kannst du mir verzeihen, mein herzlieber Bruder Lothar!« – Lothar wurde gerührt von des Freundes tiefem Schmerz; unter tausend Tränen umarmten sich die drei versöhnten Menschen und schwuren, nicht voneinander zu lassen in steter Liebe und Treue. Dem Nathanael war es zumute, als sei eine schwere Last, die ihn zu Boden gedrückt, von ihm abgewälzt, ja als habe er, Widerstand leistend der finstern Macht, die ihn befangen, sein ganzes Sein, dem Vernichtung drohte, gerettet. Noch drei selige Tage verlebte er bei den Lieben, dann kehrte er zurück nach G., wo er noch ein Jahr zu bleiben, dann aber auf immer nach seiner Vaterstadt zurückzukehren gedachte. Der Mutter war alles, was sich auf Coppelius bezog, verschwiegen worden; denn man wußte, daß sie nicht ohne Entsetzen an ihn denken konnte, weil sie, wie Nathanael, ihm den Tod ihres Mannes schuld gab.</p>
+      <p>Wie erstaunte Nathanael, als er in seine Wohnung wollte und sah, daß das ganze Haus niedergebrannt war, so daß aus dem Schutthaufen nur die nackten Feuermauern hervorragten. Unerachtet das Feuer in dem Laboratorium des Apothekers, der im untern Stocke wohnte, ausgebrochen war, das Haus daher von unten herauf gebrannt hatte, so war es doch den kühnen, rüstigen Freunden gelungen, noch zu rechter Zeit in Nathanaels im obern Stock gelegenes Zimmer zu dringen, und Bücher, Manuskripte, Instrumente zu retten. Alles hatten sie unversehrt in ein anderes Haus getragen, und dort ein Zimmer in Beschlag genommen, welches Nathanael nun sogleich bezog. Nicht sonderlich achtete er darauf, daß er dem Professor Spalanzani gegenüber wohnte, und ebensowenig schien es ihm etwas Besonderes, als er bemerkte, daß er aus seinem Fenster gerade hinein in das Zimmer blickte, wo oft Olimpia einsam saß, so, daß er ihre Figur deutlich erkennen konnte, wiewohl die Züge des Gesichts undeutlich und verworren blieben. Wohl fiel es ihm endlich auf, daß Olimpia oft stundenlang in derselben Stellung, wie er sie einst durch die Glastüre entdeckte, ohne irgend eine Beschäftigung an einem kleinen Tische saß und daß sie offenbar unverwandten Blickes nach ihm herüberschaute; er mußte sich auch selbst gestehen, daß er nie einen schöneren Wuchs gesehen; indessen, Clara im Herzen, blieb ihm die steife, starre Olimpia höchst gleichgültig und nur zuweilen sah er flüchtig über sein Kompendium herüber nach der schönen Bildsäule, das war alles. – Eben schrieb er an Clara, als es leise an die Türe klopfte; sie öffnete sich auf seinen Zuruf und Coppolas widerwärtiges Gesicht sah hinein. Nathanael fühlte sich im Innersten erbeben; eingedenk dessen, was ihm Spalanzani über den Landsmann Coppola gesagt und was er auch rücksichts des Sandmanns Coppelius der Geliebten so heilig versprochen, schämte er sich aber selbst seiner kindischen Gespensterfurcht, nahm sich mit aller Gewalt zusammen und sprach so sanft und gelassen, als möglich: »Ich kaufe kein Wetterglas, mein lieber Freund! gehen Sie nur!« Da trat aber Coppola vollends in die Stube und sprach mit heiserem Ton, indem sich das weite Maul zum häßlichen Lachen verzog und die kleinen Augen unter den grauen langen Wimpern stechend hervorfunkelten: »Ei, nix Wetterglas, nix Wetterglas! – hab auch sköne Oke – sköne Oke!« – Entsetzt rief Nathanael: »Toller Mensch, wie kannst du Augen haben? – Augen – Augen? –« Aber in dem Augenblick hatte Coppola seine Wettergläser beiseite gesetzt, griff in die weiten Rocktaschen und holte Lorgnetten und Brillen heraus, die er auf den Tisch legte. – »Nu – Nu – Brill – Brill auf der Nas su setze, das sein meine Oke – sköne Oke!« – Und damit holte er immer mehr und mehr Brillen heraus, so, daß es auf dem ganzen Tisch seltsam zu flimmern und zu funkeln begann. Tausend Augen blickten und zuckten krampfhaft und starrten auf zum Nathanael; aber er konnte nicht wegschauen von dem Tisch, und immer mehr Brillen legte Coppola hin, und immer wilder und wilder sprangen flammende Blicke durcheinander und schossen ihre blutrote Strahlen in Nathanaels Brust. Übermannt von tollem Entsetzen schrie er auf.- »Halt ein! halt ein, fürchterlicher Mensch!« – Er hatte Coppola, der eben in die Tasche griff, um noch mehr Brillen herauszubringen, unerachtet schon der ganze Tisch überdeckt war, beim Arm festgepackt. Coppola machte sich mit heiserem widrigen Lachen sanft los und mit den Worten: »Ah! – nix für Sie – aber hier sköne Glas« – hatte er alle Brillen zusammengerafft, eingesteckt und aus der Seitentasche des Rocks eine Menge großer und kleiner Perspektive hervorgeholt. Sowie die Brillen fort waren, wurde Nathanael ganz ruhig und an Clara denkend sah er wohl ein, daß der entsetzliche Spuk nur aus seinem Innern hervorgegangen, sowie daß Coppola ein höchst ehrlicher Mechanikus und Optikus, keineswegs aber Coppelii verfluchter Doppeltgänger und Revenant sein könne. Zudem hatten alle Gläser, die Coppola nun auf den Tisch gelegt, gar nichts Besonderes, am wenigsten so etwas Gespenstisches wie die Brillen und, um alles wieder gutzumachen, beschloß Nathanael dem Coppola jetzt wirklich etwas abzukaufen. Er ergriff ein kleines sehr sauber gearbeitetes Taschenperspektiv und sah, um es zu prüfen, durch das Fenster. Noch im Leben war ihm kein Glas vorgekommen, das die Gegenstände so rein, scharf und deutlich dicht vor die Augen rückte. Unwillkürlich sah er hinein in Spalanzanis Zimmer; Olimpia saß, wie gewöhnlich, vor dem kleinen Tisch, die Arme darauf gelegt, die Hände gefaltet. – Nun erschaute Nathanael erst Olimpias wunderschön geformtes Gesicht. Nur die Augen schienen ihm gar seltsam starr und tot. Doch wie er immer schärfer und schärfer durch das Glas hinschaute, war es, als gingen in Olimpias Augen feuchte Mondesstrahlen auf. Es schien, als wenn nun erst die Sehkraft entzündet würde; immer lebendiger und lebendiger flammten die Blicke. Nathanael lag wie festgezaubert im Fenster, immer fort und fort die himmlisch-schöne Olimpia betrachtend. Ein Räuspern und Scharren weckte ihn, wie aus tiefem Traum. Coppola stand hinter ihm: »Tre Zechini – drei Dukat« – Nathanael hatte den Optikus rein vergessen, rasch zahlte er das Verlangte. »Nick so? – sköne Glas – sköne Glas!« frug Coppola mit seiner widerwärtigen heisern Stimme und dem hämischen Lächeln. »Ja ja, ja!« erwiderte Nathanael verdrießlich. »Adieu, lieber Freund!« – Coppola verließ nicht ohne viele seltsame Seitenblicke auf Nathanael, das Zimmer. Er hörte ihn auf der Treppe laut lachen. »Nun ja«, meinte Nathanael, »er lacht mich aus, weil ich ihm das kleine Perspektiv gewiß viel zu teuer bezahlt habe – zu teuer bezahlt!« – Indem er diese Worte leise sprach, war es, als halle ein tiefer Todesseufzer grauenvoll durch das Zimmer, Nathanaels Atem stockte vor innerer Angst. – Er hatte ja aber selbst so aufgeseufzt, das merkte er wohl. »Clara«, sprach er zu sich selber, »hat wohl recht, daß sie mich für einen abgeschmackten Geisterseher hält; aber närrisch ist es doch – ach wohl mehr, als närrisch, daß mich der dumme Gedanke, ich hätte das Glas dem Coppola zu teuer bezahlt, noch jetzt so sonderbar ängstigt; den Grund davon sehe ich gar nicht ein.« – Jetzt setzte er sich hin, um den Brief an Clara zu enden, aber ein Blick durchs Fenster überzeugte ihn, daß Olimpia noch dasäße und im Augenblick, wie von unwiderstehlicher Gewalt getrieben, sprang er auf, ergriff Coppolas Perspektiv und konnte nicht los von Olimpias verführerischem Anblick, bis ihn Freund und Bruder Siegmund abrief ins Kollegium bei dem Professor Spalanzani. Die Gardine vor dem verhängnisvollen Zimmer war dicht zugezogen, er konnte Olimpia ebensowenig hier, als die beiden folgenden Tage hindurch in ihrem Zimmer, entdecken, unerachtet er kaum das Fenster verließ und fortwährend durch Coppolas Perspektiv hinüberschaute. Am dritten Tage wurden sogar die Fenster verhängt. Ganz verzweifelt und getrieben von Sehnsucht und glühendem Verlangen lief er hinaus vors Tor. Olimpias Gestalt schwebte vor ihm her in den Lüften und trat aus dem Gebüsch, und guckte ihn an mit großen strahlenden Augen, aus dem hellen Bach. Claras Bild war ganz aus seinem Innern gewichen, er dachte nichts, als Olimpia und klagte ganz laut und weinerlich: »Ach du mein hoher herrlicher Liebesstern, bist du mir denn nur aufgegangen, um gleich wieder zu verschwinden, und mich zu lassen in finstrer hoffnungsloser Nacht?«</p>
+    </div>
+
+    <div class="dw-vocab">
+      <div><b>erschüttern</b><br>å ryste, sjokkere</div>
+      <div><b>die Einbildung</b><br>innbilningen, fantasien</div>
+      <div><b>der Abscheu</b><br>avskyen</div>
+      <div><b>beruhigen</b><br>å berolige</div>
+      <div><b>das Perspektiv</b><br>kikkerten (her: lommekikkert)</div>
+      <div><b>die Brille</b><br>brillen</div>
+      <div><b>der Wetterglashändler</b><br>barometer-/glasshandleren</div>
+      <div><b>starr</b><br>stiv, stirrende</div>
+      <div><b>verlobt</b><br>forlovet</div>
+      <div><b>die Neigung</b><br>tilbøyeligheten, hengivenheten</div>
+      <div><b>das Gemüt</b><br>sinnet, gemyttet</div>
+      <div><b>entzückt</b><br>henrykt</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Verstehst du den Text?</h2>
+    <p class="dw-note">Disse spørsmålene tester om du fikk med deg hovedhandlingen — ikke hvert enkelt ord.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Was denkst du?</h2>
+    <p class="dw-note">Clara mener at det farlige egentlig bor i Nathanaels eget sinn, ikke hos Coppelius. Er du enig i at frykt kan bli «ekte» bare fordi vi tror på den? Skriv 2–4 setninger på tysk.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Ich glaube, Angst kann …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+  <div class="dw-chapternav">
+    <a href="../abschnitt-1/">← Erster Abschnitt</a>
+    <a href="../abschnitt-3/">Dritter Abschnitt →</a>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Quiz ---------- */
+  var dwQuiz = [{"q": "Wie erklärt Clara in ihrem Brief die schreckliche Geschichte mit Coppelius?", "opts": ["Sie glaubt, Coppelius sei wirklich ein Dämon", "Sie meint, das Schreckliche sei vor allem in Nathanaels eigenem Inneren entstanden", "Sie glaubt, der Sandmann existiere wirklich"], "correct": 1}, {"q": "Was rät Clara Nathanael bezüglich Coppelius und Coppola?", "opts": ["Er solle die Polizei rufen", "Er solle beide ganz aus dem Sinn schlagen und sich nicht fürchten", "Er solle sofort nach Hause zurückkehren"], "correct": 1}, {"q": "In welcher Beziehung stehen Clara und Nathanael zueinander?", "opts": ["Sie sind Geschwister", "Sie sind Cousin und Cousine", "Sie sind Verlobte"], "correct": 2}, {"q": "Wen sieht Nathanael zum ersten Mal durch einen Türspalt bei Professor Spalanzani?", "opts": ["Coppelius", "Spalanzanis stille, schöne Tochter Olimpia", "Eine Dienstmagd"], "correct": 1}, {"q": "Was kauft Nathanael dem Optiker Coppola ab?", "opts": ["Ein Wetterglas", "Ein kleines Taschenperspektiv (eine Art Fernglas)", "Eine Brille für sich selbst"], "correct": 1}, {"q": "Was geschieht mit Nathanael, als er durch das gekaufte Glas zu Olimpia hinüberschaut?", "opts": ["Er verliert sofort das Interesse an ihr", "Er ist wie gebannt von ihrem Anblick und kann sich kaum losreißen", "Er erkennt sofort, dass sie eine Puppe ist"], "correct": 1}];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  /* ---------- Skrive-tekstfelt ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Klassikere: Die Verwandlung — Erster Teil
+  Kafka døde 1924 → public domain i EU siden 1995. Teksten er hentet ordrett fra projekt-gutenberg.org/authors/franz-kafka/books/die-verwandlung/.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erster Teil — Die Verwandlung · Klassikere · Deutschwelt</title>
+<link rel="stylesheet" href="../../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.5rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-context{
+    background:#eef2f6;border:1px solid #c9d6e3;border-radius:var(--dw-radius);
+    padding:14px 18px;margin-bottom:20px;font-size:.85rem;line-height:1.6;
+  }
+  .dw-context h2{margin:0 0 6px;color:var(--dw-primary);font-size:.95rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-original{
+    font-family:Georgia,"Times New Roman",serif;font-size:1.02rem;line-height:1.8;
+    background:#f4f1e8;border-left:4px solid var(--dw-accent);padding:16px 18px;border-radius:8px;margin-bottom:4px;
+  }
+  .dw-original p{margin:0 0 14px;}
+  .dw-original p:last-child{margin-bottom:0;}
+  .dw-original .dw-gap-note{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-style:italic;color:var(--dw-muted);font-size:.88rem;background:#fff;border:1px dashed #cfc7ad;border-radius:8px;padding:10px 12px;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-top:10px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:100px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-chapternav{display:flex;justify-content:space-between;gap:12px;margin-top:24px;font-size:.9rem;}
+  .dw-chapternav a{color:var(--dw-primary);text-decoration:none;font-weight:600;padding:10px 16px;background:var(--dw-card);border-radius:999px;border:1px solid #ece8df;}
+  .dw-chapternav a:hover{border-color:var(--dw-accent);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../../">📖 Lesen</a> → <a href="../../">Klassikere</a> → <a href="../">Die Verwandlung</a> → Erster Teil</p>
+
+  <div class="dw-header">
+    <h1>Erster Teil</h1>
+    <p>Franz Kafka (1915) · Del 1 av 3</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>🧭 Hvor er vi i handlingen?</h2>
+    <p>Historien begynner uten forvarsel: en morgen våkner den reisende selgeren <strong>Gregor Samsa</strong> og oppdager at han er forvandlet til et enormt insekt. Han bor sammen med foreldrene og søsteren Grete, og hele familien er avhengig av lønnen hans.</p>
+    <p>I denne første delen skjer alt i løpet av samme morgen: Gregor prøver å forstå hva som har hendt, familien banker på døren hans, og til slutt kommer sjefens prokurist (en slags mellomleder) for å finne ut hvorfor Gregor ikke har møtt på jobb.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>📖 Originaltekst</h2>
+    <p class="dw-byline">von Franz Kafka</p>
+    <div class="dw-original">
+      <p>Als Gregor Samsa eines Morgens aus unruhigen Träumen erwachte, fand er sich in seinem Bett zu einem ungeheueren Ungeziefer verwandelt. Er lag auf seinem panzerartig harten Rücken und sah, wenn er den Kopf ein wenig hob, seinen gewölbten, braunen, von bogenförmigen Versteifungen geteilten Bauch. Seine vielen, im Vergleich zu seinem sonstigen Umfang kläglich dünnen Beine flimmerten ihm hilflos vor den Augen.</p>
+      <p>»Was ist mit mir geschehen?«, dachte er. Es war kein Traum. Sein Zimmer, ein richtiges, nur etwas zu kleines Menschenzimmer, lag ruhig zwischen den vier wohlbekannten Wänden. Über dem Tisch, auf dem eine auseinandergepackte Musterkollektion von Tuchwaren ausgebreitet war – Samsa war Reisender – hing das Bild, das er vor kurzem aus einer illustrierten Zeitschrift ausgeschnitten und in einem hübschen, vergoldeten Rahmen untergebracht hatte. Es stellte eine Dame dar, die mit einem Pelzhut und einer Pelzboa versehen, aufrecht dasaß und einen schweren Pelzmuff, in dem ihr ganzer Unterarm verschwunden war, dem Beschauer entgegenhob.</p>
+      <p>Gregors Blick richtete sich dann zum Fenster, und das trübe Wetter – man hörte Regentropfen auf das Fensterblech aufschlagen – machte ihn ganz melancholisch. »Wie wäre es, wenn ich noch ein wenig weiterschliefe und alle Narrheiten vergäße«, dachte er, aber das war gänzlich undurchführbar. Mit welcher Kraft er sich auch auf die rechte Seite warf, immer wieder schaukelte er in die Rückenlage zurück.</p>
+      <p>»Ach Gott«, dachte er, »was für einen anstrengenden Beruf habe ich gewählt! Tag aus, Tag ein auf der Reise. Die geschäftlichen Aufregungen sind viel größer, als im eigentlichen Geschäft zu Hause.« Er fühlte ein leichtes Jucken oben auf dem Bauch; schob sich auf dem Rücken langsam näher zum Bettpfosten. »Dies frühzeitige Aufstehen«, dachte er, »macht einen ganz blödsinnig. Der Mensch muß seinen Schlaf haben. Wenn ich zum Beispiel im Laufe des Vormittags ins Gasthaus zurückgehe, um die erlangten Aufträge zu überschreiben – Das sollte ich bei meinem Chef versuchen; ich würde auf der Stelle hinausfliegen. Vom Pult hätte er fallen müssen! Nun, die Hoffnung ist noch nicht gänzlich aufgegeben; habe ich einmal das Geld beisammen, um die Schuld der Eltern an ihn abzuzahlen –«</p>
+      <p>»Himmlischer Vater!«, dachte er. Es war halb sieben Uhr, und die Zeiger gingen ruhig vorwärts. Sollte der Wecker nicht geläutet haben? Nun, ruhig hatte er ja nicht geschlafen, aber wahrscheinlich desto fester. Der nächste Zug ging um sieben Uhr; um den einzuholen, hätte er sich unsinnig beeilen müssen, die Kollektion war noch nicht eingepackt, und er selbst fühlte sich durchaus nicht besonders frisch und beweglich. Es war eine Kreatur des Chefs, ohne Rückgrat und Verstand.</p>
+      <p>Wie nun, wenn er sich krank meldete? Das wäre aber äußerst peinlich und verdächtig, denn Gregor war während seines fünfjährigen Dienstes noch nicht einmal krank gewesen. Gewiß würde der Chef mit dem Krankenkassenarzt kommen, würde den Eltern wegen des faulen Sohnes Vorwürfe machen. Gregor fühlte sich tatsächlich, abgesehen von einer nach dem langen Schlaf wirklich überflüssigen Schläfrigkeit, ganz wohl.</p>
+      <p>Gerade schlug der Wecker dreiviertel sieben – klopfte es vorsichtig an die Tür am Kopfende seines Bettes. »Gregor«, rief es – es war die Mutter –, »es ist dreiviertel sieben. Wolltest du nicht wegfahren?« Die sanfte Stimme! Gregor erschrak, als er seine antwortende Stimme hörte, die wohl unverkennbar seine frühere war, in die sich aber, wie von unten her, ein nicht zu unterdrückendes, schmerzliches Piepsen mischte, das die Worte förmlich nur im ersten Augenblick in ihrer Deutlichkeit beließ, um sie im Nachklang derart zu zerstören, daß man nicht wußte, ob man recht gehört hatte. Gregor hatte ausführlich antworten und alles erklären wollen, beschränkte sich aber bei diesen Umständen darauf, zu sagen: »Ja, ja, danke Mutter, ich stehe schon auf.« Infolge der Holztür war die Veränderung in Gregors Stimme draußen wohl nicht zu merken, denn die Mutter beruhigte sich mit dieser Erklärung und schlürfte davon. Aber durch das kleine Gespräch waren die anderen Familienmitglieder darauf aufmerksam geworden, daß Gregor wider Erwarten noch zu Hause war, und schon klopfte an der einen Seitentür der Vater, schwach, aber mit der Faust. »Gregor, Gregor«, rief er, »was ist denn?« An der anderen Seitentür aber klagte leise die Schwester: »Gregor? Ist dir nicht wohl? Brauchst du etwas?« Nach beiden Seiten hin antwortete Gregor: »Bin schon fertig«.</p>
+      <p>Der Vater kehrte auch zu seinem Frühstück zurück, die Schwester aber flüsterte: »Gregor, mach auf, ich beschwöre dich.« Gregor aber dachte gar nicht daran aufzumachen, sondern lobte die vom Reisen her übernommene Vorsicht, auch zu Hause alle Türen während der Nacht zu versperren.</p>
+      <p>Zunächst wollte er ruhig und ungestört aufstehen, sich anziehen und vor allem frühstücken, und dann erst das Weitere überlegen, denn, das merkte er wohl, im Bett würde er mit dem Nachdenken zu keinem vernünftigen Ende kommen. Die Decke abzuwerfen war ganz einfach; er brauchte sich nur ein wenig aufzublasen und sie fiel von selbst. Aber weiterhin wurde es schwierig, besonders weil er so ungemein breit war. »Nur sich nicht im Bett unnütz aufhalten«, sagte sich Gregor.</p>
+      <p>Zuerst wollte er mit dem unteren Teil seines Körpers aus dem Bett hinauskommen. Er versuchte es daher, zuerst den Oberkörper aus dem Bett zu bekommen, und drehte vorsichtig den Kopf dem Bettrand zu. Aber als er den Kopf endlich außerhalb des Bettes in der freien Luft hielt, bekam er Angst. »Schon sieben Uhr«, sagte er sich beim neuerlichen Schlagen des Weckers, »schon sieben Uhr und noch immer ein solcher Nebel.« Dann aber sagte er sich: »Ehe es einviertel acht schlägt, muß ich unbedingt das Bett vollständig verlassen haben.« Und er machte sich nun daran, den Körper in seiner ganzen Länge vollständig gleichmäßig aus dem Bett hinauszuschaukeln. Als Gregor schon zur Hälfte aus dem Bette ragte – die neue Methode war mehr ein Spiel als eine Anstrengung – fiel ihm ein, wie einfach alles wäre, wenn man ihm zu Hilfe käme. Zwei starke Leute – er dachte an seinen Vater und das Dienstmädchen – hätten vollständig genügt. Schon war er so weit, daß er bei stärkerem Schaukeln kaum das Gleichgewicht noch erhielt, als es an der Wohnungstür läutete. »Das ist jemand aus dem Geschäft«, sagte er sich und erstarrte fast. »Sie öffnen nicht«, sagte sich Gregor, befangen in irgendeiner unsinnigen Hoffnung. Gregor brauchte nur das erste Grußwort des Besuchers zu hören und wußte schon, wer es war – der Prokurist selbst. Warum war nur Gregor dazu verurteilt, bei einer Firma zu dienen, wo man bei der kleinsten Versäumnis gleich den größten Verdacht faßte? Und mehr infolge der Erregung, in welche Gregor durch diese Überlegungen versetzt wurde, schwang er sich mit aller Macht aus dem Bett.</p>
+      <p>Es gab einen lauten Schlag, aber ein eigentlicher Krach war es nicht. »Da drin ist etwas gefallen«, sagte der Prokurist im Nebenzimmer links. Aus dem Nebenzimmer rechts flüsterte die Schwester, um Gregor zu verständigen: »Gregor, der Prokurist ist da.« »Ich weiß«, sagte Gregor vor sich hin; aber so laut, daß es die Schwester hätte hören können, wagte er die Stimme nicht zu erheben.</p>
+      <p>»Gregor«, sagte nun der Vater aus dem Nebenzimmer links, »der Herr Prokurist ist gekommen und erkundigt sich, warum du nicht mit dem Frühzug weggefahren bist.« »Guten Morgen, Herr Samsa«, rief der Prokurist freundlich dazwischen. »Ihm ist nicht wohl«, sagte die Mutter zum Prokuristen, während der Vater noch an der Tür redete, »ihm ist nicht wohl, glauben Sie mir, Herr Prokurist. Wie würde denn Gregor sonst einen Zug versäumen! Der Junge hat ja nichts im Kopf als das Geschäft. Ich ärgere mich schon fast, daß er abends niemals ausgeht; jetzt war er doch acht Tage in der Stadt, aber jeden Abend war er zu Hause. Da sitzt er bei uns am Tisch und liest still die Zeitung oder studiert Fahrpläne. Es ist schon eine Zerstreuung für ihn, wenn er sich mit Laubsägearbeiten beschäftigt. Da hat er zum Beispiel im Laufe von zwei, drei Abenden einen kleinen Rahmen geschnitzt; Sie werden staunen, wie hübsch er ist; er hängt drin im Zimmer; Sie werden ihn gleich sehen, bis Gregor aufmacht. Ich bin übrigens glücklich, daß Sie da sind, Herr Prokurist; wir allein hätten Gregor nicht dazu gebracht, die Tür zu öffnen; er ist so hartnäckig; und bestimmt ist ihm nicht wohl, trotzdem er es am Morgen geleugnet hat.«</p>
+      <p>»Ich komme gleich«, sagte Gregor langsam und bedächtig und rührte sich nicht, um kein Wort der Gespräche zu verlieren. »Anders, gnädige Frau, kann ich es mir auch nicht erklären«, sagte der Prokurist, »hoffentlich ist es nichts Ernstes. Wenn ich auch andererseits sagen muß, daß wir Geschäftsleute – wie man will, leider oder glücklicherweise – ein leichtes Unwohlsein sehr oft aus geschäftlichen Rücksichten einfach überwinden müssen.«</p>
+      <p>»Also kann der Herr Prokurist schon zu dir hinein?« fragte der ungeduldige Vater und klopfte wiederum an die Tür. »Nein«, sagte Gregor. Im Nebenzimmer links trat eine peinliche Stille ein, im Nebenzimmer rechts begann die Schwester zu schluchzen.</p>
+      <p>Warum ging denn die Schwester nicht zu den anderen? Sie war wohl erst jetzt aus dem Bett aufgestanden und hatte noch gar nicht angefangen sich anzuziehen. Und warum weinte sie denn? Weil er nicht aufstand und den Prokuristen nicht hereinließ, weil er in Gefahr war, den Posten zu verlieren.</p>
+      <p>»Herr Samsa«, rief nun der Prokurist mit erhobener Stimme, »was ist denn los? Sie verbarrikadieren sich da in Ihrem Zimmer, antworten bloß mit ja und nein, machen Ihren Eltern schwere, unnötige Sorgen und versäumen – dies nur nebenbei erwähnt – Ihre geschäftliche Pflichten.«</p>
+      <p>»Aber Herr Prokurist«, rief Gregor außer sich und vergaß in der Aufregung alles andere, »ich mache ja sofort, augenblicklich auf. Ein leichtes Unwohlsein, ein Schwindelanfall, haben mich verhindert aufzustehen. Ich liege noch jetzt im Bett. Jetzt bin ich aber schon wieder ganz frisch. Eben steige ich aus dem Bett. Nur einen kleinen Augenblick Geduld! Es geht noch nicht so gut; wie ich dachte. Es ist mir aber schon wohl. Wie das nur einen Menschen so überfallen kann! Noch gestern abend war mir ganz gut, meine Eltern wissen es ja, oder besser, schon gestern abend hatte ich eine kleine Vorahnung. Man hätte es mir ansehen müssen. Warum habe ich es nur im Geschäfte nicht gemeldet! Aber man denkt eben immer, daß man die Krankheit ohne Zuhausebleiben überstehen wird. Herr Prokurist! Schonen Sie meine Eltern! Für alle die Vorwürfe, die Sie mir jetzt machen, ist ja kein Grund; man hat mir ja davon auch kein Wort gesagt. Sie haben vielleicht die letzten Aufträge, die ich geschickt habe, nicht gelesen. Übrigens, noch mit dem Achtuhrzug fahre ich auf die Reise, die paar Stunden Ruhe haben mich gekräftigt. Halten Sie sich nur nicht auf, Herr Prokurist; ich bin gleich selbst im Geschäft, und haben Sie die Güte, das zu sagen und mich dem Herrn Chef zu empfehlen!«</p>
+      <p>»Haben Sie auch nur ein Wort verstanden?«, fragte der Prokurist die Eltern, »er macht sich doch wohl nicht einen Narren aus uns?« »Um Gottes willen«, rief die Mutter schon unter Weinen, »er ist vielleicht schwer krank, und wir quälen ihn. Grete! Grete!« schrie sie dann. »Mutter?« rief die Schwester von der anderen Seite. Du mußt augenblicklich zum Arzt. Gregor ist krank. Rasch um den Arzt. Hast du Gregor jetzt reden hören? »Das war eine Tierstimme«, sagte der Prokurist, auffallend leise gegenüber dem Schreien der Mutter. »Anna! Anna!« rief der Vater durch das Vorzimmer in die Küche und klatschte in die Hände, »sofort einen Schlosser holen!« Und schon liefen die zwei Mädchen mit rauschenden Röcken durch das Vorzimmer – wie hatte sich die Schwester denn so schnell angezogen? – und rissen die Wohnungstüre auf. Man hörte gar nicht die Türe zuschlagen; sie hatten sie wohl offen gelassen, wie es in Wohnungen zu sein pflegt, in denen ein großes Unglück geschehen ist.</p>
+      <p>Gregor war aber viel ruhiger geworden. Man verstand zwar also seine Worte nicht mehr, trotzdem sie ihm genug klar, klarer als früher, vorgekommen waren, aber immerhin glaubte man nun schon daran, daß es mit ihm nicht ganz in Ordnung war. Die Zuversicht und Sicherheit, mit welchen die ersten Anordnungen getroffen worden waren, taten ihm wohl. Er fühlte sich wieder einbezogen in den menschlichen Kreis. Um für die sich nähernden entscheidenden Besprechungen eine möglichst klare Stimme zu bekommen, hustete er ein wenig ab. Im Nebenzimmer war es inzwischen ganz still geworden.</p>
+      <p>Gregor schob sich langsam mit dem Sessel zur Tür hin. Dann aber machte er sich daran, mit dem Mund den Schlüssel im Schloß umzudrehen. Es schien leider, daß er keine eigentlichen Zähne hatte; mit ihrer Hilfe brachte er auch wirklich den Schlüssel in Bewegung. »Hören Sie nur«, sagte der Prokurist im Nebenzimmer, »er dreht den Schlüssel um.« Das war für Gregor eine große Aufmunterung; aber alle hätten ihm zurufen sollen, auch der Vater und die Mutter. Und in der Vorstellung, daß alle seine Bemühungen mit Spannung verfolgten, verbiß er sich. Der hellere Klang des endlich zurückschnappenden Schlosses erweckte Gregor förmlich. Aufatmend sagte er sich: »Ich habe also den Schlosser nicht gebraucht.« Er mußte sich erst langsam um den einen Türflügel herumdrehen; hörte er schon den Prokuristen ein lautes »Oh!« ausstoßen; es klang, wie wenn der Wind saust.</p>
+      <p>Die Mutter – sie stand hier trotz der Anwesenheit des Prokuristen mit von der Nacht her noch aufgelösten, hoch sich sträubenden Haaren – sah zuerst mit gefalteten Händen den Vater an, ging dann zwei Schritte zu Gregor hin und fiel inmitten ihrer rings um sie herum sich ausbreitenden Röcke nieder. Der Vater ballte mit feindseligem Ausdruck die Faust, als wolle er Gregor in sein Zimmer zurückstoßen, sah sich dann unsicher im Wohnzimmer um, beschattete dann mit den Händen die Augen und weinte, daß sich seine mächtige Brust schüttelte. Gregor trat nun gar nicht in das Zimmer, sondern lehnte sich von innen an den festgeriegelten Türflügel, so daß sein Leib nur zur Hälfte und darüber der seitlich geneigte Kopf zu sehen war, mit dem er zu den anderen hinüberlugte.</p>
+      <p>Es war inzwischen viel heller geworden; klar stand auf der anderen Straßenseite ein Ausschnitt des gegenüberliegenden, endlosen, grauschwarzen Hauses – es war ein Krankenhaus –, der Regen fiel noch nieder, aber nur mit großen, einzeln sichtbaren und förmlich auch einzelnweise auf die Erde hinuntergeworfenen Tropfen. Das Frühstücksgeschirr stand in überreicher Zahl auf dem Tisch, denn für den Vater war das Frühstück die wichtigste Mahlzeit des Tages. Gerade an der gegenüberliegenden Wand hing eine Photographie Gregors aus seiner Militärzeit, die ihn als Leutnant darstellte.</p>
+      <p>»Nun, Herr Prokurist, Sie sehen, ich bin nicht starrköpfig und ich arbeite gern; das Reisen ist beschwerlich, aber ich könnte ohne das Reisen nicht leben. Wohin gehen Sie denn, Herr Prokurist? Ins Geschäft? Ja? Werden Sie alles wahrheitsgetreu berichten? Man kann im Augenblick unfähig sein zu arbeiten, aber dann ist gerade der richtige Zeitpunkt, sich an die früheren Leistungen zu erinnern. Ich bin ja dem Herrn Chef so sehr verpflichtet, das wissen Sie doch recht gut. Andererseits habe ich die Sorge um meine Eltern und die Schwester. Ich bin in der Klemme, ich werde mich aber auch wieder herausarbeiten. Halten Sie im Geschäft meine Partei! Man liebt den Reisenden nicht, ich weiß. Man denkt, er verdient ein Heidengeld und führt dabei ein schönes Leben. Sie aber, Herr Prokurist, Sie haben einen besseren Überblick über die Verhältnisse als das sonstige Personal. Sie wissen auch sehr wohl, daß der Reisende, der fast das ganze Jahr außerhalb des Geschäfts ist, so leicht ein Opfer von Klatschereien, Zufälligkeiten und grundlosen Beschwerden werden kann.«</p>
+      <p>Aber der Prokurist hatte sich schon bei den ersten Worten Gregors abgewendet, und nur über die zuckende Schulter hinweg sah er Gregor noch mit aufgeworfenen Lippen an. Während Gregors Rede stand er keinen Augenblick still, sondern er verzog sich, ohne Gregor aus den Augen zu lassen, gegen die Tür, aber ganz allmählich. Im Vorzimmer aber streckte er die rechte Hand weit von sich zur Treppe hin, als warte dort auf ihn eine geradezu überirdische Erlösung.</p>
+      <p>Gregor sah ein, daß er den Prokuristen in dieser Stimmung auf keinen Fall weggehen lassen dürfe, wenn dadurch seine Stellung im Geschäft nicht aufs äußerste gefährdet werden sollte. Die Eltern verstanden das alles nicht so gut; sie hatten sich in den langen Jahren die Überzeugung gebildet, daß Gregor in diesem Geschäft für sein Leben versorgt war. Der Prokurist mußte gehalten, beruhigt, überzeugt und schließlich gewonnen werden; die Zukunft Gregors und seiner Familie hing doch davon ab! Wäre doch die Schwester hier gewesen! Sie war klug; sie hatte schon geweint, als Gregor noch ruhig auf dem Rücken lag.</p>
+      <p>Verließ er den Türflügel; schob sich durch die Öffnung; wollte zum Prokuristen hingehen, fiel aber sofort, nach einem Halt suchend, mit einem kleinen Schrei auf seine vielen Beinchen nieder. Kaum war das geschehen, fühlte er zum erstenmal an diesem Morgen ein körperliches Wohlbehagen; die Beinchen hatten festen Boden unter sich; sie gehorchten vollkommen, wie er zu seiner Freude merkte; strebten sogar darnach, ihn fortzutragen, wohin er wollte; und schon glaubte er, die endgültige Besserung alles Leidens stehe unmittelbar bevor.</p>
+      <p>Im gleichen Augenblick, als er da schaukelnd vor verhaltener Bewegung, gar nicht weit von seiner Mutter entfernt, ihr gerade gegenüber auf dem Boden lag, sprang diese, die doch so ganz in sich versunken schien, mit einem Male in die Höhe, die Arme weit ausgestreckt, rief: »Hilfe, um Gottes willen Hilfe!«, hielt den Kopf geneigt, als wolle sie Gregor besser sehen, lief aber, im Widerspruch dazu, sinnlos zurück; hatte vergessen, daß hinter ihr der gedeckte Tisch stand; setzte sich, als sie bei ihm angekommen war, wie in Zerstreutheit, eilig auf ihn; schien gar nicht zu merken, daß neben ihr aus der umgeworfenen großen Kanne der Kaffee in vollem Strome auf den Teppich sich ergoß.</p>
+      <p>»Mutter, Mutter«, sagte Gregor leise, und sah zu ihr hinauf. Der Prokurist war ihm für einen Augenblick ganz aus dem Sinn gekommen; dagegen konnte er sich nicht versagen, im Anblick des fließenden Kaffees mehrmals mit den Kiefern ins Leere zu schnappen. Darüber schrie die Mutter neuerdings auf, flüchtete vom Tisch und fiel dem ihr entgegeneilenden Vater in die Arme. Aber Gregor hatte jetzt keine Zeit für seine Eltern; der Prokurist war schon auf der Treppe; das Kinn auf dem Geländer, sah er noch zum letzten Male zurück. Gregor nahm einen Anlauf, um ihn möglichst sicher einzuholen; der Prokurist mußte etwas ahnen, denn er machte einen Sprung über mehrere Stufen und verschwand; »Huh!« aber schrie er noch, es klang durchs ganze Treppenhaus.</p>
+      <p>Leider schien nun auch diese Flucht des Prokuristen den Vater, der bisher verhältnismäßig gefaßt gewesen war, völlig zu verwirren, denn statt selbst dem Prokuristen nachzulaufen oder wenigstens Gregor in der Verfolgung nicht zu hindern, packte er mit der Rechten den Stock des Prokuristen, den dieser mit Hut und Überzieher auf einem Sessel zurückgelassen hatte, holte mit der Linken eine große Zeitung vom Tisch und machte sich unter Füßestampfen daran, Gregor durch Schwenken des Stockes und der Zeitung in sein Zimmer zurückzutreiben.</p>
+      <p>Kein Bitten Gregors half, kein Bitten wurde auch verstanden, er mochte den Kopf noch so demütig drehen, der Vater stampfte nur stärker mit den Füßen. Drüben hatte die Mutter trotz des kühlen Wetters ein Fenster aufgerissen, und hinausgelehnt drückte sie ihr Gesicht weit außerhalb des Fensters in ihre Hände. Zwischen Gasse und Treppenhaus entstand eine starke Zugluft, die Fenstervorhänge flogen auf, die Zeitungen auf dem Tische rauschten, einzelne Blätter wehten über den Boden hin. Unerbittlich drängte der Vater und stieß Zischlaute aus, wie ein Wilder. Nun hatte aber Gregor noch gar keine Übung im Rückwärtsgehen, es ging wirklich sehr langsam. Wenn sich Gregor nur hätte umdrehen dürfen, er wäre gleich in seinem Zimmer gewesen, aber er fürchtete sich, den Vater durch die zeitraubende Umdrehung ungeduldig zu machen, und jeden Augenblick drohte ihm doch von dem Stock in des Vaters Hand der tödliche Schlag auf den Rücken oder auf den Kopf.</p>
+      <p>Endlich aber blieb Gregor doch nichts anderes übrig, denn er merkte mit Entsetzen, daß er im Rückwärtsgehen nicht einmal die Richtung einzuhalten verstand; und so begann er, unter unaufhörlichen ängstlichen Seitenblicken nach dem Vater, sich nach Möglichkeit rasch, in Wirklichkeit aber doch nur sehr langsam umzudrehen. Vielleicht merkte der Vater seinen guten Willen, denn er störte ihn hierbei nicht, sondern dirigierte sogar hie und da die Drehbewegung von der Ferne mit der Spitze seines Stockes. Wenn nur nicht dieses unerträgliche Zischen des Vaters gewesen wäre! Gregor verlor darüber ganz den Kopf. Er war schon fast ganz umgedreht, als er sich, immer auf dieses Zischen horchend, sogar irrte und sich wieder ein Stück zurückdrehte. Als er aber endlich glücklich mit dem Kopf vor der Türöffnung war, zeigte es sich, daß sein Körper zu breit war, um ohne weiteres durchzukommen. Dem Vater fiel es natürlich in seiner gegenwärtigen Verfassung auch nicht entfernt ein, etwa den anderen Türflügel zu öffnen, um für Gregor einen genügenden Durchgang zu schaffen. Seine fixe Idee war bloß, daß Gregor so rasch als möglich in sein Zimmer müsse. Niemals hätte er auch die umständlichen Vorbereitungen gestattet, die Gregor brauchte, um sich aufzurichten und vielleicht auf diese Weise durch die Tür zu kommen. Vielmehr trieb er, als gäbe es kein Hindernis, Gregor jetzt unter besonderem Lärm vorwärts; es klang schon hinter Gregor gar nicht mehr wie die Stimme bloß eines einzigen Vaters; nun gab es wirklich keinen Spaß mehr, und Gregor drängte sich – geschehe was wolle – in die Tür. Die eine Seite seines Körpers hob sich, er lag schief in der Türöffnung, seine eine Flanke war ganz wundgerieben, an der weißen Tür blieben häßliche Flecken, bald steckte er fest und hätte sich allein nicht mehr rühren können, die Beinchen auf der einen Seite hingen zitternd oben in der Luft, die auf der anderen waren schmerzhaft zu Boden gedrückt – da gab ihm der Vater von hinten einen jetzt wahrhaftig erlösenden starken Stoß, und er flog, heftig blutend, weit in sein Zimmer hinein. Die Tür wurde noch mit dem Stock zugeschlagen, dann war es endlich still.</p>
+    </div>
+
+    <div class="dw-vocab">
+      <div><b>das Ungeziefer</b><br>utøy / kryp (skjellsord for insekt/skadedyr)</div>
+      <div><b>der Reisende</b><br>den (handels)reisende, selgeren</div>
+      <div><b>der Prokurist</b><br>prokurist (en overordnet ansatt med fullmakt)</div>
+      <div><b>sich beeilen</b><br>skynde seg</div>
+      <div><b>erschrecken</b><br>bli redd/skremt</div>
+      <div><b>die Decke abwerfen</b><br>kaste av seg dekket/teppet</div>
+      <div><b>das Bett verlassen</b><br>forlate/stå opp fra sengen</div>
+      <div><b>der Schlosser</b><br>låsesmed</div>
+      <div><b>der Schrecken</b><br>sjokket, skrekken</div>
+      <div><b>zischen</b><br>hvese</div>
+      <div><b>stampfen</b><br>stampe (med føttene)</div>
+      <div><b>bluten</b><br>blø</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Verstehst du den Text?</h2>
+    <p class="dw-note">Disse spørsmålene tester om du fikk med deg hovedhandlingen — ikke hvert enkelt ord.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Was denkst du?</h2>
+    <p class="dw-note">Tenk deg at du våkner forvandlet til noe helt annet (et dyr, et objekt — hva du vil). Hvordan tror du familien din ville reagert? Skriv 3–4 setninger på tysk (det er lov å bruke enkle ord som ich glaube, meine Familie, würde).</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Ich glaube, meine Familie würde …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+  <div class="dw-chapternav">
+    <span></span>
+    <a href="../teil-2/">Zweiter Teil →</a>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Quiz ---------- */
+  var dwQuiz = [{"q": "Was entdeckt Gregor, als er aufwacht?", "opts": ["Er ist zu spät zur Arbeit", "Er ist in ein riesiges Ungeziefer verwandelt", "Er hat seinen Zug verpasst"], "correct": 1}, {"q": "Warum macht sich Gregor zuerst Sorgen, obwohl er sich verwandelt hat?", "opts": ["Er hat Angst vor seinen Eltern", "Er denkt an seinen Beruf und daran, dass er den Zug verpasst", "Er hat Hunger"], "correct": 1}, {"q": "Wer kommt zum Haus, weil Gregor nicht zur Arbeit gekommen ist?", "opts": ["Ein Arzt", "Der Prokurist aus der Firma", "Ein Polizist"], "correct": 1}, {"q": "Was passiert, als Gregor endlich die Tür öffnet und sich zeigt?", "opts": ["Alle freuen sich, dass es ihm gut geht", "Die Mutter schreit vor Schreck, und der Prokurist flieht", "Der Vater hilft ihm sofort"], "correct": 1}, {"q": "Wie reagiert der Vater am Ende von Teil 1?", "opts": ["Er tröstet Gregor", "Er treibt Gregor mit einem Stock zurück in sein Zimmer und verletzt ihn dabei", "Er ruft einen Arzt"], "correct": 1}];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  /* ---------- Skrive-tekstfelt ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>
