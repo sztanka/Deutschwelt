@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <!--
-  DEUTSCHWELT — Grammatik (hub-side for grammatikktemaer)
-  Se README.md i rotmappen for hvordan du legger til et nytt grammatikktema.
+  DEUTSCHWELT — Grammatik (hub-siden for grammatikk-kategorier)
+  Fra runde "Grammatikk-restrukturering": grammatikk er delt inn i 11
+  kategorier (kort under, alle egne undermapper) + Wortschatz der Woche
+  som ligger for seg selv. Hver kategori er sin egen hub-side
+  (samme mønster som denne siden, men på nivå 2) med kort til ferdige
+  spill og "Kommer snart"-kort for planlagte temaer.
+  Se README.md i rotmappen for hvordan du legger til et nytt
+  grammatikktema i riktig kategori.
 -->
 <html lang="de">
 <head>
@@ -39,6 +45,7 @@
   .dw-card .dw-icon{font-size:2.2rem;line-height:1;}
   .dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary);}
   .dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-section-label{font-weight:700;color:var(--dw-primary);margin:28px 2px 12px;font-size:.95rem;text-transform:uppercase;letter-spacing:.03em;}
 </style>
 </head>
 <body>
@@ -71,46 +78,70 @@
 
   <div class="dw-header">
     <h1>🧩 Grammatik</h1>
-    <p>Øv på tysk grammatikk gjennom spill — ett tema om gangen</p>
+    <p>Øv på tysk grammatikk gjennom spill — velg en kategori</p>
   </div>
 
+  <p class="dw-section-label">Kategorier</p>
   <div class="dw-grid">
-    <a class="dw-card" href="substantiv-abc/">
+    <a class="dw-card" href="artikler/">
       <span class="dw-icon">📚</span>
-      <h2>Das Substantiv-ABC</h2>
-      <p>Kjønn, artikkel i alle kasus og pluralis — grunnlaget for alt annet her</p>
+      <h2>Artikler</h2>
+      <p>Kjønn, kasus og artikkelbøying — der/die/das gjennom Nominativ, Akkusativ og Dativ</p>
     </a>
-    <a class="dw-card" href="nominativ/">
-      <span class="dw-icon">🕵️</span>
-      <h2>Der Artikel-Detektiv</h2>
-      <p>Nominativ: finn riktig artikkel — der, die eller das.</p>
-    </a>
-    <a class="dw-card" href="akkusativ/">
-      <span class="dw-icon">🎯</span>
-      <h2>Die Akkusativ-Jagd</h2>
-      <p>Akkusativ: hva skjer med artikkelen når ordet blir et objekt?</p>
-    </a>
-    <a class="dw-card" href="dativ/">
-      <span class="dw-icon">🧭</span>
-      <h2>Der Dativ-Kompass</h2>
-      <p>Dativ: dem eller der? Og pass på — den er en felle her.</p>
-      <span class="dw-level-tag">🎓 9.–10. trinn</span>
-    </a>
-    <a class="dw-card" href="verben-regelmaessig/">
-      <span class="dw-icon">⚙️</span>
-      <h2>Verben: regelrette</h2>
-      <p>Presens av regelrette verb — spielen, lernen, wohnen …</p>
-    </a>
-    <a class="dw-card" href="verben-unregelmaessig/">
-      <span class="dw-icon">🌀</span>
-      <h2>Verben: uregelrette</h2>
-      <p>Presens av sein, haben og andre uregelrette verb</p>
-    </a>
-    <a class="dw-card" href="satzanalyse/">
+    <a class="dw-card" href="analyse/">
       <span class="dw-icon">🔍</span>
-      <h2>Der Satz-Detektiv</h2>
-      <p>Finn Subjekt, Verb, Objekt og Adverbial i tilfeldige, korte setninger</p>
+      <h2>Analyse</h2>
+      <p>Finn Subjekt, Verb, Objekt og Adverbial i tyske setninger</p>
     </a>
+    <a class="dw-card" href="adverbial/">
+      <span class="dw-icon">🧭</span>
+      <h2>Adverbial</h2>
+      <p>Tid, sted og måte — og rekkefølgen adverbialene skal stå i</p>
+    </a>
+    <a class="dw-card" href="adjektiv/">
+      <span class="dw-icon">🎨</span>
+      <h2>Adjektiv</h2>
+      <p>Adjektivbøying og gradbøying — komparativ og superlativ</p>
+    </a>
+    <a class="dw-card" href="eiendomsord/">
+      <span class="dw-icon">🔑</span>
+      <h2>Eiendomsord</h2>
+      <p>Possessivpronomen — mein, dein, sein og resten av familien</p>
+    </a>
+    <a class="dw-card" href="konjunksjoner/">
+      <span class="dw-icon">🔗</span>
+      <h2>Konjunksjoner</h2>
+      <p>Bindeord som und, aber, weil og dass — og ordstillingen de styrer</p>
+    </a>
+    <a class="dw-card" href="personlig-pronomen/">
+      <span class="dw-icon">🙋</span>
+      <h2>Personlig pronomen</h2>
+      <p>ich, du, er, sie, es — og bøyingen i de ulike kasus</p>
+    </a>
+    <a class="dw-card" href="preposisjoner/">
+      <span class="dw-icon">📍</span>
+      <h2>Preposisjoner</h2>
+      <p>Akkusativ-, dativ- og vekselpreposisjoner — og kasusen de styrer</p>
+    </a>
+    <a class="dw-card" href="sporreord/">
+      <span class="dw-icon">❓</span>
+      <h2>Spørreord</h2>
+      <p>wer, was, wann, wo, warum — still de riktige spørsmålene på tysk</p>
+    </a>
+    <a class="dw-card" href="tidsuttrykk/">
+      <span class="dw-icon">⏰</span>
+      <h2>Tidsuttrykk</h2>
+      <p>Klokkeslett, ukedager, måneder og årstider på tysk</p>
+    </a>
+    <a class="dw-card" href="verb/">
+      <span class="dw-icon">⚙️</span>
+      <h2>Verb</h2>
+      <p>Verbtider — presens, perfektum, preteritum og futur</p>
+    </a>
+  </div>
+
+  <p class="dw-section-label">Ord for seg selv</p>
+  <div class="dw-grid">
     <a class="dw-card" href="wortschatz-woche/">
       <span class="dw-icon">📅</span>
       <h2>Wortschatz der Woche</h2>

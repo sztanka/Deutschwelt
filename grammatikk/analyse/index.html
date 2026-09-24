@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Grammatik-kategori: "Analyse"
+  Setningsanalyse og ordstilling.
+  Se README.md i rotmappen for mønsteret for grammatikk-kategorier.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analyse · Grammatik · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:820px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:32px 26px;text-align:center;margin-bottom:10px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.8rem;}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{
+    font-size:.85rem;margin:14px 0 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  }
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+  .dw-card{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px;text-decoration:none;color:var(--dw-text);
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;
+    display:flex;flex-direction:column;gap:6px;
+  }
+  .dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  .dw-card .dw-icon{font-size:2.2rem;line-height:1;}
+  .dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary);}
+  .dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>🔍 Analyse</h1>
+    <p>Bygg opp og bryt ned tyske setninger, ledd for ledd</p>
+  </div>
+
+  <p class="dw-crumb"><a href="../">🧩 Grammatik</a> → Analyse</p>
+
+  <div class="dw-grid">
+    <a class="dw-card" href="satzanalyse/">
+      <span class="dw-icon">🔍</span>
+      <h2>Der Satz-Detektiv</h2>
+      <p>Finn Subjekt, Verb, Objekt og Adverbial i tilfeldige, korte setninger</p>
+    </a>
+    <a class="dw-card dw-soon" href="#">
+      <span class="dw-icon">🧩</span>
+      <h2>Ordstilling: V2-regelen i hovedsetninger</h2>
+      <p>Kommer snart</p>
+      <span class="dw-soon-tag">🔜 Kommer snart</span>
+    </a>
+  </div>
+
+</div>
+</body>
+</html>

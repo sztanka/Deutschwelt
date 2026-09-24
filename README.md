@@ -11,23 +11,45 @@ deutschwelt-site/
 ├── assets/
 │   └── style.css                     → delt navigasjonsstil (brukes av alle sider)
 ├── grammatikk/
-│   ├── index.html                    → hub-side: velg grammatikktema
-│   ├── substantiv-abc/
-│   │   └── index.html                → "Das Substantiv-ABC": kjønn, artikkel i alle kasus (Nominativ/Akkusativ/Dativ) og pluralformer — referanse + blandet øvingsspill
-│   ├── nominativ/
-│   │   └── index.html                → "Der Artikel-Detektiv" (der/die/das)
-│   ├── akkusativ/
-│   │   └── index.html                → "Die Akkusativ-Jagd" (den/die/das)
-│   ├── dativ/
-│   │   └── index.html                → "Der Dativ-Kompass" (dem/der) — 🎓 9.–10. trinn (A2/B1)
-│   ├── verben-regelmaessig/
-│   │   └── index.html                → "Verb-Werkstatt": presens av regelrette verb
-│   ├── verben-unregelmaessig/
-│   │   └── index.html                → "Verb-Werkstatt": presens av sein, haben m.fl.
-│   ├── satzanalyse/
-│   │   └── index.html                → "Der Satz-Detektiv": finn Subjekt/Verb/Objekt/Adverbial
+│   ├── index.html                    → hub-side: velg kategori (hub-av-huber, se eget avsnitt under)
+│   ├── artikler/
+│   │   ├── index.html                → kategori-hub: Substantiv-ABC, Nominativ, Akkusativ, Dativ + Genitiv (kommer)
+│   │   ├── substantiv-abc/
+│   │   │   └── index.html            → "Das Substantiv-ABC": kjønn, artikkel i alle kasus (Nominativ/Akkusativ/Dativ) og pluralformer — referanse + blandet øvingsspill
+│   │   ├── nominativ/
+│   │   │   └── index.html            → "Der Artikel-Detektiv" (der/die/das)
+│   │   ├── akkusativ/
+│   │   │   └── index.html            → "Die Akkusativ-Jagd" (den/die/das)
+│   │   └── dativ/
+│   │       └── index.html            → "Der Dativ-Kompass" (dem/der) — 🎓 9.–10. trinn (A2/B1)
+│   ├── analyse/
+│   │   ├── index.html                → kategori-hub: Satzanalyse + ordstilling (kommer)
+│   │   └── satzanalyse/
+│   │       └── index.html            → "Der Satz-Detektiv": finn Subjekt/Verb/Objekt/Adverbial
+│   ├── verb/
+│   │   ├── index.html                → kategori-hub, delt inn i verbtider: Presens er bygget, Perfekt/Präteritum/Plusquamperfekt/Futur I/Futur II er planlagt
+│   │   ├── praesens-regelmaessig/
+│   │   │   └── index.html            → "Verb-Werkstatt": presens av regelrette verb
+│   │   └── praesens-unregelmaessig/
+│   │       └── index.html            → "Verb-Werkstatt": presens av sein, haben m.fl.
+│   ├── preposisjoner/
+│   │   └── index.html                → kategori-hub (alt planlagt): Akkusativ-, Dativ- og Wechselpräpositionen
+│   ├── adverbial/
+│   │   └── index.html                → kategori-hub (alt planlagt): TeKaMoLo, stedsadverbial
+│   ├── adjektiv/
+│   │   └── index.html                → kategori-hub (alt planlagt): adjektivbøying, komparativ/superlativ
+│   ├── eiendomsord/
+│   │   └── index.html                → kategori-hub (alt planlagt): possessivpronomen
+│   ├── konjunksjoner/
+│   │   └── index.html                → kategori-hub (alt planlagt): und/aber/oder/denn, Nebensätze (weil/dass)
+│   ├── personlig-pronomen/
+│   │   └── index.html                → kategori-hub (alt planlagt): personlige pronomen i alle kasus
+│   ├── sporreord/
+│   │   └── index.html                → kategori-hub (alt planlagt): W-Fragen
+│   ├── tidsuttrykk/
+│   │   └── index.html                → kategori-hub (alt planlagt): klokka, ukedager, måneder, årstider
 │   └── wortschatz-woche/
-│       └── index.html                → "Wortschatz der Woche": 498 høyfrekvente ord fordelt på 50 uker (10/uke), ordliste + dynamisk quiz — samme ukesdata som forsidens rulletekst
+│       └── index.html                → "Wortschatz der Woche": 498 høyfrekvente ord fordelt på 50 uker (10/uke), ordliste + dynamisk quiz — samme ukesdata som forsidens rulletekst — ligger for seg selv, utenfor de 11 kategoriene
 ├── staedte/
 │   ├── index.html                    → hub-side: velg by (7 kort)
 │   ├── berlin/
@@ -148,12 +170,12 @@ deutschwelt-site/
 fortgeschritten/
 └── index.html                        → hub av huber: samlingspunkt for alt innhold på
                                          9.–10. trinn-nivå (A2/B1) — selve sidene bor i
-                                         sin naturlige seksjon (f.eks. grammatikk/dativ/),
+                                         sin naturlige seksjon (f.eks. grammatikk/artikler/dativ/),
                                          og lenkes hit med .dw-level-tag-merket
 ```
 
-`grammatikk/dativ/` (🧭 Der Dativ-Kompass) er det første ferdigbygde temaet på
-9.–10. trinn-nivået — se «Om 9.–10. trinn-nivået» lenger ned.
+`grammatikk/artikler/dativ/` (🧭 Der Dativ-Kompass) er det første ferdigbygde
+temaet på 9.–10. trinn-nivået — se «Om 9.–10. trinn-nivået» lenger ned.
 
 Hver seksjon ligger i sin egen mappe med en `index.html`, slik at adressen
 blir ren og kort (f.eks. `.../staedte/berlin/` i stedet for
@@ -164,6 +186,26 @@ undersider (som `staedte/`, `geschichte/`, `grammatikk/`, `lesen/`,
 `hoeren/`, `schreiben/`, `reise/`, `challenges/`, `leben/` og nå `sprechen/`
 har), får den en egen `index.html` som viser et lite kortgalleri med lenker
 videre — akkurat som forsiden, bare smalere.
+
+**Grammatikk er nå en hub-av-huber (fra runden «Grammatikk-restrukturering»):**
+`grammatikk/index.html` er selv en hub-side, men i stedet for å lenke rett
+til hvert spilltema lenker den til 11 kategori-hub-sider (`artikler/`,
+`analyse/`, `adverbial/`, `adjektiv/`, `eiendomsord/`, `konjunksjoner/`,
+`personlig-pronomen/`, `preposisjoner/`, `sporreord/`, `tidsuttrykk/`,
+`verb/`) + `wortschatz-woche/` som ligger for seg selv utenfor kategoriene.
+Hver kategori-hub bruker akkurat samme kort-mønster som `grammatikk/index.html`
+selv, bare ett nivå dypere (`.../assets/style.css` blir `../../assets/style.css`
+i stedet for `../assets/style.css`). De ferdigbygde spilltemaene ligger nå ett
+nivå dypere enn før (f.eks. `grammatikk/dativ/` → `grammatikk/artikler/dativ/`),
+så **hver leaf-side trenger tre `../` til rota** (`../../../assets/style.css`,
+`../../../staedte/` osv. i navigasjonen), mens Grammatikk-lenken i navigasjonen
+og brødsmule-lenken til Grammatikk kun går to nivåer opp (`../../`). Brødsmulen
+(`.dw-crumb`) på en leaf-side er nå tre ledd: `Grammatik → Kategori → Temanavn`
+(f.eks. `Grammatik → Artikler → Der Dativ-Kompass`), mot to ledd før
+restruktureringen. Preposisjoner er delt i Akkusativ-/Dativ-/Wechselpräpositionen
+og Verb er delt tydelig i verbtider (Presens er bygget, resten er planlagt
+`dw-soon`-kort), akkurat som etterspurt. Se «Slik legger du til et nytt
+grammatikktema» lenger ned for konkret oppskrift på nye kort i riktig kategori.
 
 **Om toppnavigasjonen:** den har nå 16 punkter (🏠 Forside ·
 🧩 Grammatik · 🏙️ Städte · 🕰️ Geschichte · 📖 Lesen · 🎧 Hören · ✍️ Schreiben ·
@@ -422,7 +464,7 @@ sette både pris og reisetid. Fordi `sprechen/` nå er en hub, måtte
 navigasjonsmenyen oppdateres i alle øvrige HTML-filer (bytte lenke/
 etikett fra `sprechen/cafe/`/☕ Café til `sprechen/`/🗣️ Sprechen), og
 `sprechen/cafe/index.html` selv fikk brødsmulesti og "aktiv hub"-lenke
-lagt til, akkurat som andre hub-barn (se `grammatikk/nominativ/` for
+lagt til, akkurat som andre hub-barn (se `grammatikk/artikler/nominativ/` for
 samme mønster). Søkeindeksen ble også ryddet opp i: nøklene "restaurant"
 og "essen bestellen" pekte tidligere feilaktig til Café-siden (fra før
 Restaurant fantes som egen side) og er nå flyttet til den nye
@@ -553,12 +595,12 @@ toppmeny; (2) merket på kortene skulle si «9.–10. trinn» (trinnbasert),
 ikke CEFR-nivå «A2/B1» eller begge deler — Teach valgte trinnbasert.
 Prinsippet: **selve innholdet bor i sin naturlige hjemme-hub** (pedagogisk
 sømløst — eleven ser progresjonen i sammenheng, f.eks. Dativ rett etter
-Akkusativ i `grammatikk/`), **men lenkes i tillegg samlet** i
+Akkusativ i `grammatikk/artikler/`), **men lenkes i tillegg samlet** i
 `fortgeschritten/index.html`, en «hub av huber» merket med den nye
 `.dw-level-tag`-CSS-klassen (definert i `assets/style.css`, blå kapsel —
 brukes både som en liten merkelapp på kort og inline i brødsmulestien).
 Piloten for hele mønsteret er **Der Dativ-Kompass**
-(`grammatikk/dativ/`), bygget med nøyaktig samme spillmotor som
+(`grammatikk/artikler/dativ/`), bygget med nøyaktig samme spillmotor som
 Nominativ/Akkusativ, men med tre svaralternativer i stedet for to — «den»
 er tatt med som en bevisst distraktor, siden Akkusativ/Dativ-forveksling
 (den vs. dem) er en kjent fallgruve når elever lærer Dativ rett etter
@@ -718,6 +760,46 @@ deutschland», «ostdeutschland», «westdeutschland», «bundesrepublik», «br
 Full kollisjonsskann etter publisering fant nøyaktig de samme 7 permanente,
 tidligere aksepterte kollisjonene — ingen nye.
 
+**Om Grammatikk-restruktureringen (11 kategorier + Wortschatz for seg selv):**
+Teach ba om at grammatikkdelen skulle deles inn i egne kategorier —
+Artikler, Analyse, Adverbial, Adjektiv, Eiendomsord, Konjunksjoner,
+Personlig pronomen, Preposisjoner, Spørreord, Tidsuttrykk og Verb — med de
+7 ferdigbygde temaene plassert i riktig kategori, Wortschatz der Woche for
+seg selv, Preposisjoner forhåndsdelt i Akkusativ-/Dativ-/Wechselpräpositionen
+og Verb tydelig delt inn i verbtider. Claude avklarte ett valg med
+AskUserQuestion før bygging: om de 7 eksisterende sidene skulle flyttes til
+nye, nestede URL-er (litt arbeid, men riktig struktur videre) eller bli
+liggende på sine gamle, flate adresser mens bare hub-siden ble omorganisert
+visuelt — Teach valgte å flytte dem. `grammatikk/index.html` er nå selv en
+hub-av-huber: 11 kategori-kort + ett eget Wortschatz-kort, der hver
+kategori er sin egen hub-side med samme kortmønster, ett nivå dypere. De 7
+ferdigbygde temaene flyttet slik: Substantiv-ABC, Nominativ, Akkusativ og
+Dativ → `artikler/`; Der Satz-Detektiv → `analyse/`; Verben:
+regelrette/uregelrette → `verb/` (omdøpt til `praesens-regelmaessig/` og
+`praesens-unregelmaessig/`, siden Verb-kategorien nå rommer flere
+verbtider — Perfekt, Präteritum, Plusquamperfekt, Futur I og Futur II som
+`dw-soon`-plassholderkort, samme titler som allerede var lovet på
+`fortgeschritten/` for Perfekt og Wechselpräpositionen). De 7 andre
+kategoriene (Adverbial, Adjektiv, Eiendomsord, Konjunksjoner, Personlig
+pronomen, Spørreord, Tidsuttrykk) har foreløpig bare `dw-soon`-kort med
+konkrete, spesifikke temanavn (ikke generiske «kommer snart»-bokser) — klare
+til å bli ekte sider etter samme oppskrift som før. Alle interne lenker ble
+oppdatert: `fortgeschritten/index.html`s Dativ-kort, alle 7 flyttede sidenes
+sti-dybde (`../../` → `../../../` i navigasjon og assets-lenke) og
+brødsmulesti (nå tre ledd: Grammatik → Kategori → Tema), samt 7
+søkeindeks-mål i `index.html`. 8 nye søkeindeks-oppføringer ble lagt til for
+de nye kategoriene (nå 115 oppføringer totalt) — bevisst UTEN nøkkelordet
+«adverbial» (inneholder substrengen «verb», som allerede var tatt) og uten
+«mein dein sein» (inneholder «sein», allerede tatt av Verben-uregelrette-
+siden), og uten «akkusativpräpositionen»/«dativpräpositionen»/
+«präpositionen» (kolliderer med eksisterende «akkusativ»/«dativ»-nøkler og
+med «wechselpräpositionen»/«ortspräpositionen» fra `schreiben/wo-ist-was/`)
+— full kollisjonsskann etter publisering bekreftet at ingen av de 8 nye
+oppføringene skygger for eller blir skygget av noen eksisterende oppføring.
+Verifisert med Playwright: alle 12 kort på hovedhuben, brødsmulesti og
+navigasjons-lenker på alle flyttede sider, at Dativ-spillet fortsatt
+fungerer på sin nye adresse, og at søk på de nye kategoriene treffer riktig.
+
 ## Slik legger du til en ny seksjon
 
 1. **Kopier den mappen som ligner mest** på det du skal lage:
@@ -727,23 +809,39 @@ tidligere aksepterte kollisjonene — ingen nye.
      verifiserte fakta (fødested/år ELLER en klar «bodde/arbeidet der»-
      tilknytning), ikke oppdiktede. Sjekk også om byen bruker euro eller en
      annen valuta (Zürich bruker CHF, se `dwCurrency`-mønsteret der).
-   - Et nytt grammatikktema med samme spillmotor som Nominativ/Akkusativ/
-     Dativ/Verben (ett spørsmål, ett svar) → kopier `grammatikk/dativ/` til
-     f.eks. `grammatikk/genitiv/`. Hører temaet naturlig til 9.–10. trinn
-     (A2/B1) → legg `.dw-level-tag`-merket på kortet i `grammatikk/index.html`
-     og lenk siden inn fra `fortgeschritten/index.html` også — se «Om
-     9.–10. trinn-nivået» lenger ned.
+   - **Et nytt tema i en av de 11 grammatikk-kategoriene** (siden
+     «Grammatikk-restrukturering»-runden er `grammatikk/` en hub-av-huber —
+     se eget avsnitt lenger opp): finn riktig kategorimappe (`artikler/`,
+     `analyse/`, `adverbial/`, `adjektiv/`, `eiendomsord/`, `konjunksjoner/`,
+     `personlig-pronomen/`, `preposisjoner/`, `sporreord/`, `tidsuttrykk/`
+     eller `verb/`) og lag den nye siden **inni** den, f.eks.
+     `grammatikk/preposisjoner/wechsel/`. Kopier `grammatikk/artikler/dativ/`
+     som mal for samme spillmotor som Nominativ/Akkusativ/Dativ/Verben (ett
+     spørsmål, ett svar) — men husk at en leaf-side nå ligger tre nivåer
+     under rota, så `assets/style.css`-lenken og alle navigasjonslenker
+     (unntatt selve Grammatik-lenken) skal ha `../../../`, mens
+     Grammatik-lenken i navigasjonen (`.dw-nav-active`) og første ledd i
+     brødsmulestien skal ha `../../`. Brødsmulestien blir tre ledd:
+     `<a href="../../">🧩 Grammatik</a> → <a href="../">Kategorinavn</a> →
+     Temanavn`. Bytt ut det tilhørende `dw-soon`-plassholderkortet i
+     kategori-hub-siden (`grammatikk/<kategori>/index.html`) med et ekte
+     `<a class="dw-card" href="ny-mappe/">`-kort. Hører temaet naturlig til
+     9.–10. trinn (A2/B1) → legg `.dw-level-tag`-merket på kortet og lenk
+     siden inn fra `fortgeschritten/index.html` også — se «Om 9.–10.
+     trinn-nivået» lenger ned.
    - Et grammatikktema som trenger å blande FLERE spørsmålstyper i ett
      spill (som «Das Substantiv-ABC» blander kjønn/kasus/plural) → kopier
-     `grammatikk/substantiv-abc/` og bytt ut `dwQuiz`-poolen. Hvert element
-     har et `type`-felt (legg gjerne til en ny type om nødvendig) som
-     `dwLoad()` sjekker for å vite hvordan setningen/valgene skal bygges —
-     se kommentaren øverst i filen for detaljer. Referanseseksjonene
-     (`.dw-rule`/`.dw-section`) øverst på siden kan gjenbrukes for enhver
-     side som trenger regler/tabeller før selve øvingsspillet.
+     `grammatikk/artikler/substantiv-abc/` og bytt ut `dwQuiz`-poolen. Hvert
+     element har et `type`-felt (legg gjerne til en ny type om nødvendig)
+     som `dwLoad()` sjekker for å vite hvordan setningen/valgene skal
+     bygges — se kommentaren øverst i filen for detaljer.
+     Referanseseksjonene (`.dw-rule`/`.dw-section`) øverst på siden kan
+     gjenbrukes for enhver side som trenger regler/tabeller før selve
+     øvingsspillet.
    - En ny ukentlig ordforråds-/rulletekst-type funksjon (data delt mellom
      forsiden og en egen side, gruppert i "uker" eller lignende perioder) →
-     se `grammatikk/wortschatz-woche/` og ticker-koden i `index.html`
+     se `grammatikk/wortschatz-woche/` (ligger for seg selv, utenfor de 11
+     kategoriene) og ticker-koden i `index.html`
      (`.dw-ticker`/`dwBuildTicker()`) for mønsteret: samme datasett
      (`dwWeeks`) duplisert i begge filer, en dato-basert
      `dwCurrentWeek()`-funksjon, og dynamisk quiz-bygging
@@ -751,11 +849,13 @@ tidligere aksepterte kollisjonene — ingen nye.
      ordpoolen i stedet for faste `choices`-arrays.
    - Et nytt "analyser hele setningen"-tema (samme motor som
      Satz-Detektiv, der flere ledd i én setning skal kategoriseres etter
-     hverandre) → kopier `grammatikk/satzanalyse/` og bytt ut `dwSentences`.
-     Husk å holde setningene korte og grammatisk 100 % sikre — poolen er
-     håndskrevet, ikke generert, nettopp for å unngå feil bøying/kasus.
-     Lengre/mer avanserte setninger (leddsetninger, verb-sist-regelen)
-     passer bedre som en egen, mer avansert side for 9./10. trinn.
+     hverandre) → kopier `grammatikk/analyse/satzanalyse/` og bytt ut
+     `dwSentences`. Husk å holde setningene korte og grammatisk 100 % sikre
+     — poolen er håndskrevet, ikke generert, nettopp for å unngå feil
+     bøying/kasus. Lengre/mer avanserte setninger (leddsetninger,
+     verb-sist-regelen) passer bedre som en egen, mer avansert side for
+     9./10. trinn (og hører da naturlig hjemme i `grammatikk/analyse/`
+     likevel, bare med `.dw-level-tag`).
    - Et nytt historietema → kopier den av `geschichte/berliner-mauer/`,
      `geschichte/kaiserreich/`, `geschichte/zweiter-weltkrieg/`,
      `geschichte/kleinstaaterei/` eller `geschichte/kalter-krieg/` som

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Grammatik-referanse: "Das Substantiv-ABC"
+  Kjønn (Genus), bestemt/ubestemt artikkel i alle tre kasus (Nominativ/
+  Akkusativ/Dativ), og pluralformer — samlet på én side, siden Teach ba om
+  nettopp denne kombinasjonen. Bevisst plassert FØRST i grammatikk-huben
+  (før Nominativ), siden dette er grunnlaget de andre grammatikkspillene
+  bygger videre på. Ikke merket 9.-10. trinn, selv om Dativ er med i
+  artikkel-tabellen — hoveddelen (kjønn, Nominativ/Akkusativ, plural) er
+  kjernestoff for alle. Se README.md for detaljer.
+
+  Struktur: fire forklarings-/referanseseksjoner (.dw-rule/.dw-section)
+  øverst, deretter et blandet øvingsspill (dwQuiz, 18 spørsmål: genus +
+  kasus + plural om hverandre) som bruker samme motor som de andre
+  grammatikkspillene (dwOrder/dwIndex/dwScore/dwAnswer), men generalisert
+  til å håndtere tre ulike spørsmålstyper i ett og samme spill.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Das Substantiv-ABC · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--dw-bg);
+    color:var(--dw-text);
+  }
+  .dw-wrap{max-width:720px;margin:0 auto;padding:0 16px 50px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;
+    border-radius:var(--dw-radius);
+    padding:24px 22px;
+    text-align:center;
+    margin-bottom:20px;
+  }
+  .dw-header h1{margin:0 0 4px;font-size:1.5rem;}
+  .dw-header p{margin:0;opacity:.95;font-size:.95rem;}
+
+  .dw-crumb{
+    font-size:.85rem;
+    margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  }
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:20px 22px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.1rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 8px;line-height:1.55;font-size:.92rem;}
+
+  .dw-rule{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:16px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-rule h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+  .dw-rule table{width:100%;border-collapse:collapse;margin-top:6px;font-size:.87rem;}
+  .dw-rule td, .dw-rule th{padding:5px 8px;text-align:left;border-bottom:1px solid #f0dca8;}
+  .dw-rule th{color:var(--dw-muted);font-weight:600;}
+  .dw-rule .dw-note{font-size:.85rem;color:var(--dw-muted);margin-top:10px;}
+
+  .dw-genus-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;}
+  .dw-genus-col{background:#f4f1e8;border-radius:12px;padding:14px 16px;}
+  .dw-genus-col h3{margin:0 0 8px;font-size:.95rem;color:var(--dw-primary);}
+  .dw-genus-col ul{margin:0;padding-left:18px;font-size:.85rem;line-height:1.5;}
+  .dw-genus-col li{margin-bottom:6px;}
+  .dw-genus-col b{color:var(--dw-primary);}
+
+  table.dw-table{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px;}
+  table.dw-table th, table.dw-table td{text-align:left;padding:7px 8px;border-bottom:1px solid #ece8df;}
+  table.dw-table th{color:var(--dw-primary);font-size:.78rem;text-transform:uppercase;letter-spacing:.02em;}
+  table.dw-table td b{color:var(--dw-primary);}
+
+  .dw-progress-wrap{
+    background:#e4e0d5;
+    border-radius:999px;
+    height:10px;
+    overflow:hidden;
+    margin:16px 0 6px;
+  }
+  .dw-progress-bar{
+    height:100%;
+    background:var(--dw-accent);
+    width:0%;
+    transition:width .3s ease;
+  }
+  .dw-meta{
+    display:flex;
+    justify-content:space-between;
+    font-size:.82rem;
+    color:var(--dw-muted);
+    margin-bottom:16px;
+  }
+
+  .dw-card{
+    background:var(--dw-card);
+    border-radius:var(--dw-radius);
+    padding:28px 24px;
+    text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.07);
+    border:1px solid #ece8df;
+  }
+  .dw-emoji{font-size:3.4rem;margin-bottom:4px;}
+  .dw-qtype{
+    font-size:.76rem;font-weight:700;color:var(--dw-accent);
+    text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;
+  }
+  .dw-sentence{font-size:1.2rem;font-weight:600;color:var(--dw-primary);margin:4px 0 20px;}
+  .dw-sentence .dw-blank{
+    display:inline-block;
+    min-width:2.4em;
+    border-bottom:3px solid var(--dw-accent);
+  }
+
+  .dw-choices{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-bottom:14px;
+  }
+  .dw-choice{
+    flex:1 1 90px;
+    max-width:150px;
+    padding:14px 6px;
+    font-size:1.05rem;
+    font-weight:700;
+    border-radius:12px;
+    border:2px solid var(--dw-primary);
+    background:#fff;
+    color:var(--dw-primary);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .dw-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-choice:disabled{cursor:default;opacity:.6;}
+  .dw-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+
+  .dw-hint-btn{
+    background:none;
+    border:none;
+    color:var(--dw-muted);
+    text-decoration:underline;
+    cursor:pointer;
+    font-size:.85rem;
+    margin-bottom:10px;
+  }
+  .dw-explain{
+    min-height:1.4em;
+    font-size:.9rem;
+    color:var(--dw-muted);
+    background:#f4f1e8;
+    border-radius:10px;
+    padding:10px 14px;
+    margin:10px 0 16px;
+    display:none;
+  }
+  .dw-explain.dw-show{display:block;}
+
+  .dw-next-btn{
+    background:var(--dw-primary);
+    color:#fff;
+    border:none;
+    padding:12px 26px;
+    border-radius:999px;
+    font-size:1rem;
+    font-weight:600;
+    cursor:pointer;
+    display:none;
+  }
+  .dw-next-btn.dw-show{display:inline-block;}
+  .dw-next-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-result{display:none;text-align:center;}
+  .dw-result.dw-show{display:block;}
+  .dw-result h2{color:var(--dw-primary);}
+  .dw-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:8px 0;}
+  .dw-review{
+    text-align:left;
+    background:#f4f1e8;
+    border-radius:12px;
+    padding:14px 18px;
+    margin:18px 0;
+    font-size:.9rem;
+  }
+  .dw-review li{margin-bottom:6px;}
+  .dw-restart-btn{
+    background:var(--dw-accent);
+    color:#1a1a1a;
+    border:none;
+    padding:12px 26px;
+    border-radius:999px;
+    font-size:1rem;
+    font-weight:700;
+    cursor:pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">🧩 Grammatik</a> → <a href="../">Artikler</a> → Das Substantiv-ABC</p>
+
+  <div class="dw-header">
+    <h1>📚 Das Substantiv-ABC</h1>
+    <p>Kjønn, artikkel og pluralis — de tre tingene du må lære sammen med hvert substantiv</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🤔 Hvorfor er kjønn så viktig?</h2>
+    <p>På tysk har hvert substantiv et <strong>kjønn</strong>: hankjønn (<b>der</b>), hunkjønn (<b>die</b>) eller intetkjønn (<b>das</b>). Kjønnet bestemmer hvilken artikkel du bruker — og artikkelen forandrer seg igjen etter hvilken <strong>kasus</strong> (Nominativ, Akkusativ, Dativ) setningen trenger. Derfor er beste strategien å lære substantivet OG artikkelen sammen, som ett ord: ikke <s>Katze</s>, men <b>die Katze</b>.</p>
+    <p class="dw-note">Det finnes alltid unntak fra reglene under — de er huskeregler, ikke 100 % garantier!</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>👤 Kjønn: der, die eller das?</h2>
+    <div class="dw-genus-grid">
+      <div class="dw-genus-col">
+        <h3>🔵 der — hankjønn</h3>
+        <ul>
+          <li><b>-er</b> (yrker/personer): der Lehrer, der Bäcker</li>
+          <li>Årstider, måneder, dager: der Sommer, der Montag, der Januar</li>
+          <li>Vær: der Regen, der Schnee, der Wind</li>
+          <li><b>-ling, -ig</b>: der Frühling, der Honig</li>
+        </ul>
+      </div>
+      <div class="dw-genus-col">
+        <h3>🟡 die — hunkjønn</h3>
+        <ul>
+          <li><b>-e</b> (de fleste): die Blume, die Lampe</li>
+          <li><b>-ung, -heit, -keit</b>: die Zeitung, die Freiheit, die Möglichkeit</li>
+          <li><b>-schaft, -tion, -ur</b>: die Freundschaft, die Nation, die Kultur</li>
+          <li>Tall som substantiv: die Eins, die Zwei</li>
+        </ul>
+      </div>
+      <div class="dw-genus-col">
+        <h3>⚪ das — intetkjønn</h3>
+        <ul>
+          <li><b>-chen, -lein</b> (ALLTID, uansett betydning): das Mädchen, das Brötchen</li>
+          <li>Verb brukt som substantiv: das Essen, das Leben</li>
+          <li><b>-um, -ment, -o</b>: das Museum, das Instrument, das Auto</li>
+          <li>De fleste land/byer: (das) Norwegen, (das) Deutschland</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="dw-rule">
+    <h2>📋 Bestemt artikkel i alle kasus</h2>
+    <table>
+      <tr><th>Kasus</th><th>der (m.)</th><th>die (f.)</th><th>das (n.)</th><th>Plural</th></tr>
+      <tr><td><b>Nominativ</b> (subjekt)</td><td>der</td><td>die</td><td>das</td><td>die</td></tr>
+      <tr><td><b>Akkusativ</b> (direkte objekt)</td><td>den</td><td>die</td><td>das</td><td>die</td></tr>
+      <tr><td><b>Dativ</b> (indirekte objekt)</td><td>dem</td><td>der</td><td>dem</td><td>den <span class="dw-note" style="display:inline">(+n på ordet)</span></td></tr>
+    </table>
+    <p class="dw-note">Kun hankjønn (der) forandrer seg i Akkusativ (der → den). I Dativ forandrer alle seg, og substantivet i pluralis får som regel en ekstra <b>-n</b>: die Kinder → <b>den Kindern</b>.</p>
+    <p class="dw-note">Eksempler: <i>Der Hund läuft.</i> (Nominativ) · <i>Ich sehe den Hund.</i> (Akkusativ) · <i>Ich helfe dem Hund.</i> (Dativ)</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>🆕 Ubestemt artikkel i alle kasus</h2>
+    <table>
+      <tr><th>Kasus</th><th>ein (m.)</th><th>eine (f.)</th><th>ein (n.)</th></tr>
+      <tr><td><b>Nominativ</b></td><td>ein</td><td>eine</td><td>ein</td></tr>
+      <tr><td><b>Akkusativ</b></td><td>einen</td><td>eine</td><td>ein</td></tr>
+      <tr><td><b>Dativ</b></td><td>einem</td><td>einer</td><td>einem</td></tr>
+    </table>
+    <p class="dw-note">Samme mønster som bestemt artikkel: kun hankjønn endrer seg i Akkusativ (ein → einen). Ubestemt artikkel finnes IKKE i pluralis — «Ich sehe Häuser» (uten artikkel), eller «einige Häuser» (noen hus).</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>➕ Pluralformer</h2>
+    <table class="dw-table">
+      <tr><th>Mønster</th><th>Eksempel</th><th>Typisk for</th></tr>
+      <tr><td><b>-e</b> (ofte + Umlaut)</td><td>der Stuhl → die Stühle</td><td>mange der-ord</td></tr>
+      <tr><td><b>-er</b> (+ Umlaut når mulig)</td><td>das Buch → die Bücher</td><td>mange das-ord</td></tr>
+      <tr><td><b>-(e)n</b></td><td>die Lampe → die Lampen</td><td>nesten alle die-ord</td></tr>
+      <tr><td><b>-s</b></td><td>das Auto → die Autos</td><td>lånord</td></tr>
+      <tr><td>ingen endelse (ofte + Umlaut)</td><td>der Lehrer → die Lehrer</td><td>ord på -er, -el, -en, -chen, -lein</td></tr>
+    </table>
+    <p class="dw-note">Huskeregel: die-ord får nesten alltid <b>-(e)n</b>. Ord som allerede ender på <b>-er/-el/-chen/-lein</b> forandrer seg ofte ikke i det hele tatt (kanskje bare Umlaut).</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🎮 Øv deg!</h2>
+    <p>18 blandede oppgaver — noen ganger spør vi om kjønn, noen ganger om riktig artikkel i en setning, noen ganger om pluralis. Se etter den lille gule etiketten øverst i hver oppgave for å vite hva som testes.</p>
+  </div>
+
+  <div class="dw-progress-wrap"><div class="dw-progress-bar" id="dw-bar"></div></div>
+  <div class="dw-meta">
+    <span id="dw-count">Oppgave 1 av 18</span>
+    <span id="dw-score-live">Poeng: 0</span>
+  </div>
+
+  <div class="dw-card" id="dw-game">
+    <div class="dw-emoji" id="dw-emoji">📚</div>
+    <div class="dw-qtype" id="dw-qtype">Kjønn</div>
+    <div class="dw-sentence" id="dw-sentence"></div>
+
+    <div class="dw-choices" id="dw-choices"></div>
+
+    <button class="dw-hint-btn" onclick="dwToggleHint()">💡 Tipp anzeigen</button>
+    <div class="dw-explain" id="dw-explain"></div>
+
+    <button class="dw-next-btn" id="dw-next" onclick="dwNext()">Weiter →</button>
+  </div>
+
+  <div class="dw-card dw-result" id="dw-result">
+    <h2>Geschafft! 🎉</h2>
+    <div class="dw-score" id="dw-final-score">0 / 18</div>
+    <p id="dw-final-msg"></p>
+    <div class="dw-review" id="dw-review"></div>
+    <button class="dw-restart-btn" onclick="dwRestart()">🔁 Nochmal spielen</button>
+  </div>
+
+</div>
+
+<script>
+  // Blandet spørsmålspool: type "genus" (der/die/das), "kasus" (riktig
+  // artikkelform i en setning) og "plural" (riktig flertallsform).
+  // Hvert element har: type, emoji, label (vises som liten gul etikett),
+  // choices (svaralternativer), correct (riktig svar), hint (forklaring),
+  // review (kort tekst brukt i oppsummeringen til slutt).
+  // genus/plural bruker "word"/"before"+"after" for å bygge setningen i dwLoad().
+  var dwQuiz = [
+    {type:"genus", emoji:"👨‍🏫", label:"Kjønn", word:"Lehrer", choices:["der","die","das"], correct:"der",
+      hint:"Yrker på -er for menn er der: der Lehrer, der Bäcker, der Fahrer.", review:"der Lehrer"},
+    {type:"genus", emoji:"❄️", label:"Kjønn", word:"Winter", choices:["der","die","das"], correct:"der",
+      hint:"Årstider er alltid der: der Winter, der Sommer, der Frühling, der Herbst.", review:"der Winter"},
+    {type:"genus", emoji:"🏠", label:"Kjønn", word:"Wohnung", choices:["die","der","das"], correct:"die",
+      hint:"-ung er nesten alltid die: die Wohnung, die Zeitung, die Übung.", review:"die Wohnung"},
+    {type:"genus", emoji:"🤝", label:"Kjønn", word:"Freundschaft", choices:["die","der","das"], correct:"die",
+      hint:"-schaft er alltid die: die Freundschaft, die Mannschaft, die Wissenschaft.", review:"die Freundschaft"},
+    {type:"genus", emoji:"👧", label:"Kjønn", word:"Mädchen", choices:["das","die","der"], correct:"das",
+      hint:"-chen og -lein er ALLTID das, uansett hva ordet betyr — das Mädchen, das Brötchen.", review:"das Mädchen"},
+    {type:"genus", emoji:"🚗", label:"Kjønn", word:"Auto", choices:["das","der","die"], correct:"das",
+      hint:"Lånord på -o er ofte das: das Auto, das Kino, das Foto.", review:"das Auto"},
+    {type:"genus", emoji:"📕", label:"Kjønn", word:"Buch", choices:["das","der","die"], correct:"das",
+      hint:"Buch følger ingen fast endelse-regel — dette må du bare pugge: das Buch.", review:"das Buch"},
+
+    {type:"kasus", emoji:"🐕", label:"Nominativ", before:"", after:" Hund ist süß.", choices:["der","die","das"], correct:"der",
+      hint:"I Nominativ (subjekt) bruker vi grunnformen: der Hund.", review:"der Hund (Nominativ)"},
+    {type:"kasus", emoji:"🪑", label:"Akkusativ", before:"Ich kaufe ", after:" Tisch.", choices:["der","den","dem"], correct:"den",
+      hint:"I Akkusativ (direkte objekt) blir der til den — kun hankjønn forandrer seg!", review:"den Tisch (Akkusativ)"},
+    {type:"kasus", emoji:"🐈", label:"Akkusativ", before:"Ich sehe ", after:" Katze.", choices:["die","der","den"], correct:"die",
+      hint:"Hunkjønn (die) forandrer seg IKKE i Akkusativ: die Katze → die Katze.", review:"die Katze (Akkusativ, uendret)"},
+    {type:"kasus", emoji:"🙋‍♀️", label:"Dativ", before:"Ich helfe ", after:" Frau.", choices:["die","der","den"], correct:"der",
+      hint:"I Dativ blir die (hunkjønn) til der: der Frau.", review:"der Frau (Dativ)"},
+    {type:"kasus", emoji:"👶", label:"Dativ", before:"Ich gebe es ", after:" Kind.", choices:["das","dem","den"], correct:"dem",
+      hint:"I Dativ blir das (intetkjønn) til dem: dem Kind.", review:"dem Kind (Dativ)"},
+    {type:"kasus", emoji:"📕", label:"Ubestemt · Nominativ", before:"Das ist ", after:" Buch.", choices:["ein","eine","einen"], correct:"ein",
+      hint:"Ubestemt artikkel i Nominativ for der- og das-ord er ein.", review:"ein Buch (ubestemt Nominativ)"},
+
+    {type:"plural", emoji:"🧒", label:"Pluralis", singular:"das Kind", choices:["Kinder","Kindes","Kinden"], correct:"Kinder",
+      hint:"Mange das-ord får -er i pluralis: das Kind → die Kinder, das Buch → die Bücher.", review:"die Kinder (Plural av Kind)"},
+    {type:"plural", emoji:"🪑", label:"Pluralis", singular:"der Stuhl", choices:["Stuhle","Stühle","Stühler"], correct:"Stühle",
+      hint:"Mange der-ord får -e, ofte med Umlaut: der Stuhl → die Stühle.", review:"die Stühle (Plural av Stuhl)"},
+    {type:"plural", emoji:"💡", label:"Pluralis", singular:"die Lampe", choices:["Lampes","Lampen","Lampe"], correct:"Lampen",
+      hint:"Nesten alle die-ord får -(e)n i pluralis: die Lampe → die Lampen.", review:"die Lampen (Plural av Lampe)"},
+    {type:"plural", emoji:"🚗", label:"Pluralis", singular:"das Auto", choices:["Autos","Auten","Autoss"], correct:"Autos",
+      hint:"Lånord får ofte bare -s: das Auto → die Autos, das Hotel → die Hotels.", review:"die Autos (Plural av Auto)"},
+    {type:"plural", emoji:"👨‍🏫", label:"Pluralis", singular:"der Lehrer", choices:["Lehrer","Lehrers","Lehrern"], correct:"Lehrer",
+      hint:"Ord som ender på -er, -el, -en forandrer seg ofte IKKE i pluralis: der Lehrer → die Lehrer.", review:"die Lehrer (Plural av Lehrer, uendret)"}
+  ];
+
+  var dwOrder = [];
+  var dwIndex = 0;
+  var dwScore = 0;
+  var dwWrong = [];
+  var dwAnswered = false;
+
+  function dwShuffle(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
+    }
+    return a;
+  }
+
+  function dwInit(){
+    dwOrder = dwShuffle(dwQuiz.map(function(_,i){return i;}));
+    dwIndex = 0; dwScore = 0; dwWrong = [];
+    document.getElementById('dw-result').classList.remove('dw-show');
+    document.getElementById('dw-game').style.display = '';
+    dwLoad();
+  }
+
+  function dwLoad(){
+    dwAnswered = false;
+    var it = dwQuiz[dwOrder[dwIndex]];
+    document.getElementById('dw-emoji').textContent = it.emoji;
+    document.getElementById('dw-qtype').textContent = it.label;
+
+    var sentenceHtml;
+    if(it.type === "genus"){
+      sentenceHtml = '<span class="dw-blank" id="dw-blank">___</span> ' + it.word;
+    } else if(it.type === "kasus"){
+      sentenceHtml = it.before + '<span class="dw-blank" id="dw-blank">___</span>' + it.after;
+    } else {
+      sentenceHtml = '„' + it.singular + '“ → die <span class="dw-blank" id="dw-blank">___</span>';
+    }
+    document.getElementById('dw-sentence').innerHTML = sentenceHtml;
+
+    var choicesEl = document.getElementById('dw-choices');
+    choicesEl.innerHTML = '';
+    it.choices.forEach(function(c){
+      var btn = document.createElement('button');
+      btn.className = 'dw-choice';
+      btn.dataset.a = c;
+      btn.textContent = c;
+      btn.onclick = function(){ dwAnswer(c); };
+      choicesEl.appendChild(btn);
+    });
+
+    document.getElementById('dw-explain').classList.remove('dw-show');
+    document.getElementById('dw-explain').textContent = it.hint;
+    document.getElementById('dw-next').classList.remove('dw-show');
+    document.getElementById('dw-count').textContent = 'Oppgave ' + (dwIndex+1) + ' av ' + dwQuiz.length;
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-bar').style.width = Math.round((dwIndex/dwQuiz.length)*100) + '%';
+  }
+
+  function dwToggleHint(){
+    document.getElementById('dw-explain').classList.toggle('dw-show');
+  }
+
+  function dwAnswer(choice){
+    if(dwAnswered) return;
+    dwAnswered = true;
+    var it = dwQuiz[dwOrder[dwIndex]];
+    var btns = document.querySelectorAll('.dw-choice');
+    btns.forEach(function(b){
+      b.disabled = true;
+      if(b.dataset.a === it.correct) b.classList.add('dw-correct');
+      else if(b.dataset.a === choice) b.classList.add('dw-wrong');
+    });
+    document.getElementById('dw-blank').textContent = it.correct;
+    document.getElementById('dw-explain').classList.add('dw-show');
+    if(choice === it.correct){
+      dwScore++;
+    } else {
+      dwWrong.push(it);
+    }
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-next').classList.add('dw-show');
+  }
+
+  function dwNext(){
+    dwIndex++;
+    if(dwIndex >= dwQuiz.length){
+      dwFinish();
+    } else {
+      dwLoad();
+    }
+  }
+
+  function dwFinish(){
+    document.getElementById('dw-bar').style.width = '100%';
+    document.getElementById('dw-game').style.display = 'none';
+    document.getElementById('dw-result').classList.add('dw-show');
+    document.getElementById('dw-final-score').textContent = dwScore + ' / ' + dwQuiz.length;
+    var msg;
+    if(dwScore === dwQuiz.length) msg = "Perfekt! Du hast Genus, Artikel und Plural voll im Griff! 🏅";
+    else if(dwScore >= dwQuiz.length*0.7) msg = "Sehr gut! Se gjennom reglene øverst for de siste detaljene.";
+    else msg = "Guter Versuch! Les reglene øverst en gang til, og prøv igjen.";
+    document.getElementById('dw-final-msg').textContent = msg;
+
+    var reviewEl = document.getElementById('dw-review');
+    if(dwWrong.length === 0){
+      reviewEl.innerHTML = '<strong>Ingenting å øve mer på akkurat nå — bra jobbet!</strong>';
+    } else {
+      var html = '<strong>Disse kan du øve litt ekstra på:</strong><ul>';
+      dwWrong.forEach(function(it){
+        html += '<li>' + it.emoji + ' <strong>' + it.review + '</strong> — ' + it.hint + '</li>';
+      });
+      html += '</ul>';
+      reviewEl.innerHTML = html;
+    }
+  }
+
+  function dwRestart(){ dwInit(); }
+
+  dwInit();
+</script>
+</body>
+</html>

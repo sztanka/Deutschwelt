@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Grammatik-verksted: "Der Dativ-Kompass"
+  Dativ: dem / der — for 9.-10. trinn (A2/B1). Første side i den nye
+  "9.-10. trinn"-nivået (se fortgeschritten/ for samlingspunktet).
+  Bygger videre på Nominativ/Akkusativ-sidene (samme ordliste), men nå med
+  preposisjonen "zu" (som alltid styrer Dativ) og "den" som bevisst
+  feil-svar-mulighet, siden det er en vanlig forveksling med Akkusativ.
+  Samme spillmotor som grammatikk/artikler/akkusativ/ (dwWords/dwOrder/dwAnswer).
+  Se README.md i rotmappen for hvordan du legger til flere grammatikk- og
+  nivå 2-sider.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Der Dativ-Kompass · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<style>
+  :root{
+    --dw-primary:#1e3a5f;
+    --dw-primary-light:#2c5382;
+    --dw-accent:#e8a33d;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--dw-bg);
+    color:var(--dw-text);
+  }
+  .dw-wrap{max-width:680px;margin:0 auto;padding:0 16px 50px;}
+  .dw-header{
+    background:linear-gradient(135deg,var(--dw-primary) 0%,var(--dw-primary-light) 100%);
+    color:#fff;
+    border-radius:var(--dw-radius);
+    padding:24px 22px;
+    text-align:center;
+    margin-bottom:20px;
+  }
+  .dw-header h1{margin:0 0 4px;font-size:1.5rem;}
+  .dw-header p{margin:0;opacity:.95;font-size:.95rem;}
+
+  .dw-crumb{
+    font-size:.85rem;
+    margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  }
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-rule{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.92rem;line-height:1.6;
+  }
+  .dw-rule h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+  .dw-rule table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.9rem;}
+  .dw-rule td, .dw-rule th{padding:5px 8px;text-align:left;}
+  .dw-rule th{color:var(--dw-muted);font-weight:600;border-bottom:1px solid #f0dca8;}
+  .dw-rule td.dw-arrow{color:var(--dw-accent);font-weight:800;text-align:center;}
+  .dw-rule .dw-note{font-size:.85rem;color:var(--dw-muted);margin-top:10px;}
+
+  .dw-progress-wrap{
+    background:#e4e0d5;
+    border-radius:999px;
+    height:10px;
+    overflow:hidden;
+    margin:16px 0 6px;
+  }
+  .dw-progress-bar{
+    height:100%;
+    background:var(--dw-accent);
+    width:0%;
+    transition:width .3s ease;
+  }
+  .dw-meta{
+    display:flex;
+    justify-content:space-between;
+    font-size:.82rem;
+    color:var(--dw-muted);
+    margin-bottom:16px;
+  }
+
+  .dw-card{
+    background:var(--dw-card);
+    border-radius:var(--dw-radius);
+    padding:28px 24px;
+    text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.07);
+    border:1px solid #ece8df;
+  }
+  .dw-emoji{font-size:3.4rem;margin-bottom:8px;}
+  .dw-sentence{font-size:1.25rem;font-weight:600;color:var(--dw-primary);margin:4px 0 20px;}
+  .dw-sentence .dw-blank{
+    display:inline-block;
+    min-width:2.4em;
+    border-bottom:3px solid var(--dw-accent);
+  }
+
+  .dw-choices{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-bottom:14px;
+  }
+  .dw-choice{
+    flex:1 1 90px;
+    max-width:130px;
+    padding:14px 0;
+    font-size:1.15rem;
+    font-weight:700;
+    border-radius:12px;
+    border:2px solid var(--dw-primary);
+    background:#fff;
+    color:var(--dw-primary);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .dw-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-choice:disabled{cursor:default;opacity:.6;}
+  .dw-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+
+  .dw-hint-btn{
+    background:none;
+    border:none;
+    color:var(--dw-muted);
+    text-decoration:underline;
+    cursor:pointer;
+    font-size:.85rem;
+    margin-bottom:10px;
+  }
+  .dw-explain{
+    min-height:1.4em;
+    font-size:.9rem;
+    color:var(--dw-muted);
+    background:#f4f1e8;
+    border-radius:10px;
+    padding:10px 14px;
+    margin:10px 0 16px;
+    display:none;
+  }
+  .dw-explain.dw-show{display:block;}
+
+  .dw-next-btn{
+    background:var(--dw-primary);
+    color:#fff;
+    border:none;
+    padding:12px 26px;
+    border-radius:999px;
+    font-size:1rem;
+    font-weight:600;
+    cursor:pointer;
+    display:none;
+  }
+  .dw-next-btn.dw-show{display:inline-block;}
+  .dw-next-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-result{display:none;text-align:center;}
+  .dw-result.dw-show{display:block;}
+  .dw-result h2{color:var(--dw-primary);}
+  .dw-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:8px 0;}
+  .dw-review{
+    text-align:left;
+    background:#f4f1e8;
+    border-radius:12px;
+    padding:14px 18px;
+    margin:18px 0;
+    font-size:.9rem;
+  }
+  .dw-review li{margin-bottom:6px;}
+  .dw-restart-btn{
+    background:var(--dw-accent);
+    color:#1a1a1a;
+    border:none;
+    padding:12px 26px;
+    border-radius:999px;
+    font-size:1rem;
+    font-weight:700;
+    cursor:pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">🧩 Grammatik</a> → <a href="../">Artikler</a> → Dativ <span class="dw-level-tag">🎓 9.–10. trinn</span></p>
+
+  <div class="dw-header">
+    <h1>🧭 Der Dativ-Kompass</h1>
+    <p>Du gehst zu verschiedenen Orten in der Stadt. Finde den richtigen Artikel im Dativ!</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>📌 Regel: Nominativ → Dativ</h2>
+    <p>Dativ bruker du blant annet etter preposisjoner som <strong>zu, mit, bei, nach, von, aus, seit</strong>, og med indirekte objekt (den du hjelper, takker eller gir noe til: <i>helfen, danken, gefallen</i> + Dativ).</p>
+    <table>
+      <tr><th>Nominativ</th><th></th><th>Dativ</th><th>Eksempel</th></tr>
+      <tr><td><strong>der</strong> Bahnhof</td><td class="dw-arrow">→</td><td><strong>dem</strong> Bahnhof</td><td>Ich gehe zu dem Bahnhof.</td></tr>
+      <tr><td><strong>die</strong> Straße</td><td class="dw-arrow">→</td><td><strong>der</strong> Straße</td><td>Ich gehe zu der Straße.</td></tr>
+      <tr><td><strong>das</strong> Auto</td><td class="dw-arrow">→</td><td><strong>dem</strong> Auto</td><td>Ich gehe zu dem Auto.</td></tr>
+    </table>
+    <p class="dw-note">Pass på: <strong>der</strong> og <strong>das</strong> blir BEGGE <strong>dem</strong> i Dativ — ikke <em>den</em> (det er Akkusativ)! I vanlig tale forkortes ofte <i>zu dem → zum</i> og <i>zu der → zur</i>.</p>
+  </div>
+
+  <div class="dw-progress-wrap"><div class="dw-progress-bar" id="dw-bar"></div></div>
+  <div class="dw-meta">
+    <span id="dw-count">Oppgave 1 av 10</span>
+    <span id="dw-score-live">Poeng: 0</span>
+  </div>
+
+  <div class="dw-card" id="dw-game">
+    <div class="dw-emoji" id="dw-emoji">🚉</div>
+    <div class="dw-sentence" id="dw-sentence">Ich gehe zu <span class="dw-blank" id="dw-blank">___</span> Bahnhof.</div>
+
+    <div class="dw-choices" id="dw-choices">
+      <button class="dw-choice" data-a="dem" onclick="dwAnswer('dem')">dem</button>
+      <button class="dw-choice" data-a="der" onclick="dwAnswer('der')">der</button>
+      <button class="dw-choice" data-a="den" onclick="dwAnswer('den')">den</button>
+    </div>
+
+    <button class="dw-hint-btn" onclick="dwToggleHint()">💡 Tipp anzeigen</button>
+    <div class="dw-explain" id="dw-explain"></div>
+
+    <button class="dw-next-btn" id="dw-next" onclick="dwNext()">Weiter →</button>
+  </div>
+
+  <div class="dw-card dw-result" id="dw-result">
+    <h2>Geschafft! 🎉</h2>
+    <div class="dw-score" id="dw-final-score">0 / 10</div>
+    <p id="dw-final-msg"></p>
+    <div class="dw-review" id="dw-review"></div>
+    <button class="dw-restart-btn" onclick="dwRestart()">🔁 Nochmal spielen</button>
+  </div>
+
+</div>
+
+<script>
+  // Ordliste — samme ord som Nominativ/Akkusativ-sidene, nå med Dativ-artikkel
+  // etter preposisjonen "zu". nom = artikkelen i nominativ (til hint-teksten),
+  // art = riktig svar i dativ (dem/der).
+  var dwWords = [
+    {emoji:"🚉", noun:"Bahnhof",   nom:"der", art:"dem", hint:"der → dem: Bahnhof er hankjønn. I Dativ blir hankjønn OG intetkjønn til dem — ikke den!"},
+    {emoji:"🌳", noun:"Park",      nom:"der", art:"dem", hint:"der → dem: Park er hankjønn, og i Dativ blir det dem."},
+    {emoji:"🛒", noun:"Supermarkt",nom:"der", art:"dem", hint:"der → dem: Supermarkt er hankjønn, og i Dativ blir det dem."},
+    {emoji:"🛣️", noun:"Straße",    nom:"die", art:"der", hint:"die → der: Straße er hunkjønn, og i Dativ blir die alltid til der."},
+    {emoji:"🏫", noun:"Schule",    nom:"die", art:"der", hint:"die → der: Schule er hunkjønn, og i Dativ blir die alltid til der."},
+    {emoji:"🥖", noun:"Bäckerei",  nom:"die", art:"der", hint:"die → der: Bäckerei er hunkjønn, og i Dativ blir die alltid til der."},
+    {emoji:"⛪", noun:"Kirche",    nom:"die", art:"der", hint:"die → der: Kirche er hunkjønn, og i Dativ blir die alltid til der."},
+    {emoji:"🚗", noun:"Auto",      nom:"das", art:"dem", hint:"das → dem: Auto er intetkjønn. I Dativ blir hankjønn OG intetkjønn til dem."},
+    {emoji:"🎬", noun:"Kino",      nom:"das", art:"dem", hint:"das → dem: Kino er intetkjønn, og i Dativ blir det dem."},
+    {emoji:"🖼️", noun:"Museum",    nom:"das", art:"dem", hint:"das → dem: Museum er intetkjønn, og i Dativ blir det dem."}
+  ];
+
+  var dwOrder = [];
+  var dwIndex = 0;
+  var dwScore = 0;
+  var dwWrong = [];
+  var dwAnswered = false;
+
+  function dwShuffle(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
+    }
+    return a;
+  }
+
+  function dwInit(){
+    dwOrder = dwShuffle(dwWords.map(function(_,i){return i;}));
+    dwIndex = 0; dwScore = 0; dwWrong = [];
+    document.getElementById('dw-result').classList.remove('dw-show');
+    document.getElementById('dw-game').style.display = '';
+    dwLoad();
+  }
+
+  function dwLoad(){
+    dwAnswered = false;
+    var w = dwWords[dwOrder[dwIndex]];
+    document.getElementById('dw-emoji').textContent = w.emoji;
+    document.getElementById('dw-sentence').innerHTML = 'Ich gehe zu <span class="dw-blank" id="dw-blank">___</span> ' + w.noun + '.';
+    document.getElementById('dw-explain').classList.remove('dw-show');
+    document.getElementById('dw-explain').textContent = w.hint;
+    document.getElementById('dw-next').classList.remove('dw-show');
+    document.getElementById('dw-count').textContent = 'Oppgave ' + (dwIndex+1) + ' av ' + dwWords.length;
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-bar').style.width = Math.round((dwIndex/dwWords.length)*100) + '%';
+    var btns = document.querySelectorAll('.dw-choice');
+    btns.forEach(function(b){
+      b.disabled = false;
+      b.classList.remove('dw-correct','dw-wrong');
+    });
+  }
+
+  function dwToggleHint(){
+    document.getElementById('dw-explain').classList.toggle('dw-show');
+  }
+
+  function dwAnswer(choice){
+    if(dwAnswered) return;
+    dwAnswered = true;
+    var w = dwWords[dwOrder[dwIndex]];
+    var btns = document.querySelectorAll('.dw-choice');
+    btns.forEach(function(b){
+      b.disabled = true;
+      if(b.dataset.a === w.art) b.classList.add('dw-correct');
+      else if(b.dataset.a === choice) b.classList.add('dw-wrong');
+    });
+    document.getElementById('dw-blank').textContent = w.art;
+    document.getElementById('dw-explain').classList.add('dw-show');
+    if(choice === w.art){
+      dwScore++;
+    } else {
+      dwWrong.push(w);
+    }
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-next').classList.add('dw-show');
+  }
+
+  function dwNext(){
+    dwIndex++;
+    if(dwIndex >= dwWords.length){
+      dwFinish();
+    } else {
+      dwLoad();
+    }
+  }
+
+  function dwFinish(){
+    document.getElementById('dw-bar').style.width = '100%';
+    document.getElementById('dw-game').style.display = 'none';
+    document.getElementById('dw-result').classList.add('dw-show');
+    document.getElementById('dw-final-score').textContent = dwScore + ' / ' + dwWords.length;
+    var msg;
+    if(dwScore === dwWords.length) msg = "Perfekt! Du hast den Dativ voll im Griff! 🏅";
+    else if(dwScore >= dwWords.length*0.7) msg = "Sehr gut! Husk: der og das blir begge dem — ikke den.";
+    else msg = "Guter Versuch! Se på regelen øverst en gang til, og prøv igjen.";
+    document.getElementById('dw-final-msg').textContent = msg;
+
+    var reviewEl = document.getElementById('dw-review');
+    if(dwWrong.length === 0){
+      reviewEl.innerHTML = '<strong>Ingenting å øve mer på akkurat nå — bra jobbet!</strong>';
+    } else {
+      var html = '<strong>Disse kan du øve litt ekstra på:</strong><ul>';
+      dwWrong.forEach(function(w){
+        html += '<li>' + w.emoji + ' <strong>' + w.art + ' ' + w.noun + '</strong> — ' + w.hint + '</li>';
+      });
+      html += '</ul>';
+      reviewEl.innerHTML = html;
+    }
+  }
+
+  function dwRestart(){ dwInit(); }
+
+  dwInit();
+</script>
+</body>
+</html>
