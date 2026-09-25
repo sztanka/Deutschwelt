@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Grammatik-referanse: "Perfekt — haben oder sein?"
+  For 9.-10. trinn (A2/B1). Erstatter dw-soon-plassholderen i
+  grammatikk/verb/index.html og fortgeschritten/index.html.
+  Struktur: seks forklarings-/referanseseksjoner (.dw-section/.dw-rule)
+  øverst — (1) hva Perfekt er, (2) svake verb ge+stamme+t, (3) sterke verb
+  ge+stamme(Umlaut)+en, (4) haben/sein + presensbøying av dem, (5) ordstilling
+  sammenlignet med norsk, (6) verb som IKKE får ge- — deretter ett kombinert
+  20-spørsmålsspill i tre faste blokker (6 svake, 7 sterke, 7 haben/sein),
+  samme motor som grammatikk/artikler/substantiv-abc/ (dwQuiz med et
+  "type"-felt som styrer hvordan spørsmålet bygges, blokkene shuffles hver
+  for seg men rekkefølgen blokk-for-blokk er fast, så det oppleves som tre
+  atskilte øvelser slik Teach ba om).
+  Se README.md i rotmappen for detaljer.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perfekt — haben oder sein? · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 50px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:26px 22px;text-align:center;margin-bottom:20px;
+  }
+  .dw-header h1{margin:0 0 4px;font-size:1.6rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;font-size:.95rem;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:20px 22px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.1rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 8px;line-height:1.55;font-size:.92rem;}
+
+  .dw-rule{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:16px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-rule h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+  .dw-rule table{width:100%;border-collapse:collapse;margin-top:6px;font-size:.87rem;}
+  .dw-rule td, .dw-rule th{padding:5px 8px;text-align:left;border-bottom:1px solid #f0dca8;}
+  .dw-rule th{color:var(--dw-muted);font-weight:600;}
+  .dw-rule td.dw-arrow{color:var(--dw-accent);font-weight:800;text-align:center;}
+  .dw-rule .dw-note{font-size:.85rem;color:var(--dw-muted);margin-top:10px;}
+  .dw-formula{
+    display:inline-block;background:var(--dw-primary);color:#fff;font-weight:700;
+    padding:6px 14px;border-radius:999px;font-size:.95rem;margin:4px 0 10px;
+  }
+
+  .dw-3col{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
+  .dw-3col-item{background:#f4f1e8;border-radius:12px;padding:14px 16px;}
+  .dw-3col-item h3{margin:0 0 8px;font-size:.95rem;color:var(--dw-primary);}
+  .dw-3col-item ul{margin:0;padding-left:18px;font-size:.85rem;line-height:1.5;}
+  .dw-3col-item li{margin-bottom:6px;}
+  .dw-3col-item b{color:var(--dw-primary);}
+
+  table.dw-table{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px;}
+  table.dw-table th, table.dw-table td{text-align:left;padding:7px 8px;border-bottom:1px solid #ece8df;}
+  table.dw-table th{color:var(--dw-primary);font-size:.78rem;text-transform:uppercase;letter-spacing:.02em;}
+  table.dw-table td b{color:var(--dw-primary);}
+  table.dw-table .dw-umlaut{color:var(--dw-primary-light);font-weight:700;}
+
+  .dw-progress-wrap{background:#e4e0d5;border-radius:999px;height:10px;overflow:hidden;margin:16px 0 6px;}
+  .dw-progress-bar{height:100%;background:var(--dw-accent);width:0%;transition:width .3s ease;}
+  .dw-meta{display:flex;justify-content:space-between;font-size:.82rem;color:var(--dw-muted);margin-bottom:16px;}
+
+  .dw-card{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:28px 24px;text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.07);border:1px solid #ece8df;
+  }
+  .dw-emoji{font-size:3.4rem;margin-bottom:4px;}
+  .dw-qtype{font-size:.76rem;font-weight:700;color:var(--dw-accent);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;}
+  .dw-sentence{font-size:1.15rem;font-weight:600;color:var(--dw-primary);margin:4px 0 6px;line-height:1.5;}
+  .dw-sentence .dw-blank{display:inline-block;min-width:2.4em;border-bottom:3px solid var(--dw-accent);}
+  .dw-infinitive{font-size:.85rem;color:var(--dw-muted);margin:0 0 16px;}
+
+  .dw-choices{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;}
+  .dw-choice{
+    flex:1 1 110px;max-width:180px;padding:14px 8px;font-size:1.02rem;font-weight:700;border-radius:12px;
+    border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;
+  }
+  .dw-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-choice:disabled{cursor:default;opacity:.6;}
+  .dw-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+
+  .dw-hint-btn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-size:.85rem;margin-bottom:10px;}
+  .dw-explain{
+    min-height:1.4em;font-size:.9rem;color:var(--dw-muted);background:#f4f1e8;border-radius:10px;
+    padding:10px 14px;margin:10px 0 16px;display:none;
+  }
+  .dw-explain.dw-show{display:block;}
+
+  .dw-next-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:12px 26px;border-radius:999px;
+    font-size:1rem;font-weight:600;cursor:pointer;display:none;
+  }
+  .dw-next-btn.dw-show{display:inline-block;}
+  .dw-next-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-result{display:none;text-align:center;}
+  .dw-result.dw-show{display:block;}
+  .dw-result h2{color:var(--dw-primary);}
+  .dw-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:8px 0;}
+  .dw-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:14px 18px;margin:18px 0;font-size:.9rem;}
+  .dw-review li{margin-bottom:6px;}
+  .dw-restart-btn{
+    background:var(--dw-accent);color:#1a1a1a;border:none;padding:12px 26px;border-radius:999px;
+    font-size:1rem;font-weight:700;cursor:pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">🧩 Grammatik</a> → <a href="../">Verb</a> → Perfekt <span class="dw-level-tag">🎓 9.–10. trinn</span></p>
+
+  <div class="dw-header">
+    <h1>Perfekt — haben oder sein?</h1>
+    <p>Den viktigste fortidsformen i muntlig tysk: hjelpeverb + Partizip II</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🤔 Hva er Perfekt?</h2>
+    <p><strong>Perfekt</strong> er den formen tyskere bruker aller mest når de <em>snakker</em> om noe som har skjedd — omtrent som norsk «har spilt» eller «har gått». Perfekt består alltid av <strong>to deler</strong>: et bøyd hjelpeverb (<strong>haben</strong> eller <strong>sein</strong>) i presens, pluss hovedverbets <strong>Partizip II</strong> (perfektum partisipp) helt til slutt i setningen.</p>
+    <p><span class="dw-formula">hjelpeverb (presens) + … + Partizip II</span></p>
+    <p class="dw-note">Eksempel: <strong>Ich habe</strong> gestern Fußball <strong>gespielt</strong>. — «Jeg har spilt fotball i går.» Legg merke til at <em>gespielt</em> havner aller sist, ikke rett etter <em>habe</em> som på norsk — mer om nettopp dette lenger ned.</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>📌 Svake verb (regelrette): ge + stamme + t</h2>
+    <p>De aller fleste tyske verb er <strong>svake</strong> (regelrette) — de følger et fast mønster. Du finner stammen ved å fjerne <strong>-en</strong> fra infinitiv, legger til <strong>ge-</strong> foran og <strong>-t</strong> bak.</p>
+    <table>
+      <tr><th>Infinitiv</th><th>Stamme</th><th></th><th>Partizip II</th></tr>
+      <tr><td>spiel<strong>en</strong></td><td>spiel</td><td class="dw-arrow">→</td><td><strong>ge</strong>spiel<strong>t</strong></td></tr>
+      <tr><td>mach<strong>en</strong></td><td>mach</td><td class="dw-arrow">→</td><td><strong>ge</strong>mach<strong>t</strong></td></tr>
+      <tr><td>kauf<strong>en</strong></td><td>kauf</td><td class="dw-arrow">→</td><td><strong>ge</strong>kauf<strong>t</strong></td></tr>
+    </table>
+    <p class="dw-note"><strong>Unntak innad i mønsteret:</strong> hvis stammen ender på <strong>-t</strong>, <strong>-d</strong>, eller en vanskelig konsonantkombinasjon, legger du til <strong>-et</strong> i stedet for bare <strong>-t</strong> (for at ordet skal være mulig å uttale): <strong>arbeiten</strong> → arbeit → <strong>ge</strong>arbeit<strong>et</strong> (ikke <s>gearbeitt</s>), <strong>reden</strong> → red → <strong>ge</strong>red<strong>et</strong>, <strong>öffnen</strong> → öffn → <strong>ge</strong>öffn<strong>et</strong>.</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>📌 Sterke verb (uregelrette): ge + stamme (ofte med vokalendring) + en</h2>
+    <p>Sterke verb følger et annet mønster: <strong>ge-</strong> foran, <strong>-en</strong> bak — men stammen forandrer ofte <strong>vokalen</strong> (kalt <em>Ablaut</em>). Denne vokalendringen følger ingen fast regel, så sterke verb må <strong>pugges</strong> ett og ett.</p>
+    <table>
+      <tr><th>Infinitiv</th><th></th><th>Partizip II</th></tr>
+      <tr><td>gehen</td><td class="dw-arrow">→</td><td>ge<span class="dw-umlaut">gang</span>en</td></tr>
+      <tr><td>trinken</td><td class="dw-arrow">→</td><td>ge<span class="dw-umlaut">trunk</span>en</td></tr>
+      <tr><td>sprechen</td><td class="dw-arrow">→</td><td>ge<span class="dw-umlaut">sproch</span>en</td></tr>
+      <tr><td>nehmen</td><td class="dw-arrow">→</td><td>ge<span class="dw-umlaut">nomm</span>en</td></tr>
+      <tr><td>sehen</td><td class="dw-arrow">→</td><td>gesehen <span class="dw-note" style="display:inline">(ingen vokalendring her)</span></td></tr>
+    </table>
+    <p class="dw-note">Her er flere svært vanlige sterke verb å pugge (Partizip II med vokalendring i farge):</p>
+    <table class="dw-table">
+      <tr><th>Infinitiv</th><th>Partizip II</th><th>Infinitiv</th><th>Partizip II</th></tr>
+      <tr><td>essen</td><td>ge<span class="dw-umlaut">gess</span>en</td><td>lesen</td><td>ge<span class="dw-umlaut">les</span>en</td></tr>
+      <tr><td>schreiben</td><td>ge<span class="dw-umlaut">schrieb</span>en</td><td>fahren</td><td>ge<span class="dw-umlaut">fahr</span>en</td></tr>
+      <tr><td>finden</td><td>ge<span class="dw-umlaut">fund</span>en</td><td>helfen</td><td>ge<span class="dw-umlaut">holf</span>en</td></tr>
+      <tr><td>singen</td><td>ge<span class="dw-umlaut">sung</span>en</td><td>schlafen</td><td>ge<span class="dw-umlaut">schlaf</span>en</td></tr>
+      <tr><td>kommen</td><td>ge<span class="dw-umlaut">komm</span>en</td><td>bleiben</td><td>ge<span class="dw-umlaut">blieb</span>en</td></tr>
+    </table>
+    <p class="dw-note">Tips: siden vokalendringen ikke følger noen regel, hjelper det å lære hvert sterke verb sammen med Partizip II som én fast pakke — akkurat som med kjønn og substantiv.</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>🔑 haben eller sein — og bøying i presens</h2>
+    <p>Både <strong>haben</strong> og <strong>sein</strong> er vanlige verb du allerede kjenner fra presens — i Perfekt er det nettopp <strong>presensformen</strong> av dem som brukes som hjelpeverb:</p>
+    <table>
+      <tr><th>Person</th><th>haben</th><th>sein</th></tr>
+      <tr><td>ich</td><td><strong>habe</strong></td><td><strong>bin</strong></td></tr>
+      <tr><td>du</td><td><strong>hast</strong></td><td><strong>bist</strong></td></tr>
+      <tr><td>er/sie/es</td><td><strong>hat</strong></td><td><strong>ist</strong></td></tr>
+      <tr><td>wir</td><td><strong>haben</strong></td><td><strong>sind</strong></td></tr>
+      <tr><td>ihr</td><td><strong>habt</strong></td><td><strong>seid</strong></td></tr>
+      <tr><td>sie/Sie</td><td><strong>haben</strong></td><td><strong>sind</strong></td></tr>
+    </table>
+    <p class="dw-note">De aller fleste verb bruker <strong>haben</strong> — det er «standardvalget» hvis du er usikker. <strong>sein</strong> brukes bare for et mindre, men viktig, sett av verb:</p>
+    <div class="dw-3col">
+      <div class="dw-3col-item">
+        <h3>🏃 Bevegelse fra A til B</h3>
+        <ul>
+          <li>gehen — <i>Ich bin gegangen.</i></li>
+          <li>fahren — <i>Ich bin gefahren.</i></li>
+          <li>kommen — <i>Ich bin gekommen.</i></li>
+          <li>fliegen, laufen, schwimmen …</li>
+        </ul>
+      </div>
+      <div class="dw-3col-item">
+        <h3>🔄 Forandring av tilstand</h3>
+        <ul>
+          <li>werden — <i>Ich bin geworden.</i></li>
+          <li>aufwachen — <i>Ich bin aufgewacht.</i></li>
+          <li>einschlafen — <i>Ich bin eingeschlafen.</i></li>
+          <li>sterben, wachsen …</li>
+        </ul>
+      </div>
+      <div class="dw-3col-item">
+        <h3>⭐ Faste unntak</h3>
+        <ul>
+          <li>sein — <i>Ich bin gewesen.</i></li>
+          <li>bleiben — <i>Ich bin geblieben.</i></li>
+          <li>(ingen bevegelse, men regnes som unntak likevel)</li>
+        </ul>
+      </div>
+    </div>
+    <p class="dw-note">Alt annet — <i>essen, trinken, sehen, spielen, machen, lesen</i> osv. — bruker <strong>haben</strong>.</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>🔀 Ordstilling: tysk sammenlignet med norsk</h2>
+    <p>Den største fellen for norske elever: på norsk kommer partisippet <strong>rett etter</strong> hjelpeverbet. På tysk hopper <strong>Partizip II helt til slutt</strong> i setningen — uansett hvor lang setningen er.</p>
+    <table>
+      <tr><th>Tysk</th><th>Norsk (naturlig)</th></tr>
+      <tr><td><strong>Ich habe</strong> gestern ein Buch <strong>gelesen</strong>.</td><td>Jeg <strong>har</strong> <strong>lest</strong> en bok i går.</td></tr>
+      <tr><td><strong>Wir sind</strong> letztes Jahr nach Berlin <strong>gefahren</strong>.</td><td>Vi <strong>har</strong> <strong>reist</strong> til Berlin i fjor.</td></tr>
+    </table>
+    <p class="dw-note">Setter du inn flere ord i midten (tid, sted osv.), blir det enda tydeligere: hjelpeverbet blir stående på <strong>plass 2</strong> i setningen (hovedsetningens faste regel), mens Partizip II blir liggende og «vente» helt til slutten.</p>
+    <p class="dw-note"><strong>Bonus for de som vil videre:</strong> i en leddsetning (Nebensatz, f.eks. etter <i>weil</i> eller <i>dass</i>) flytter til og med hjelpeverbet seg til aller siste plass, etter Partizip II: <i>…, weil ich ein Buch <strong>gelesen habe</strong>.</i> Dette er egen pensum for leddsetninger, men greit å kjenne igjen allerede nå.</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>🚫 Verb som IKKE får ge- foran seg</h2>
+    <div class="dw-3col">
+      <div class="dw-3col-item">
+        <h3>🔒 Uatskillelige forstavelser</h3>
+        <ul>
+          <li>be-, ge-, er-, ver-, zer-, ent-, emp-, miss-</li>
+          <li>besuchen → <strong>besucht</strong> (ikke gebesucht)</li>
+          <li>verstehen → <strong>verstanden</strong></li>
+          <li>erzählen → <strong>erzählt</strong></li>
+        </ul>
+      </div>
+      <div class="dw-3col-item">
+        <h3>🌍 Verb på -ieren</h3>
+        <ul>
+          <li>Ofte importord fra andre språk</li>
+          <li>studieren → <strong>studiert</strong></li>
+          <li>telefonieren → <strong>telefoniert</strong></li>
+          <li>fotografieren → <strong>fotografiert</strong></li>
+        </ul>
+      </div>
+      <div class="dw-3col-item">
+        <h3>➗ Atskillelige verb — unntaket som ikke er et unntak</h3>
+        <ul>
+          <li>Disse FÅR ge-, men den havner MIDT i ordet</li>
+          <li>aufstehen → auf<strong>ge</strong>standen</li>
+          <li>einkaufen → ein<strong>ge</strong>kauft</li>
+          <li>anrufen → an<strong>ge</strong>rufen</li>
+        </ul>
+      </div>
+    </div>
+    <p class="dw-note">Huskeregel: hvis verbet allerede begynner med en av de uatskillelige forstavelsene, eller ender på <strong>-ieren</strong>, får det <strong>ingen</strong> ge- i det hele tatt. Atskillelige verb (som <i>aufstehen</i>) er ikke egentlig et unntak — de får fortsatt ge-, den bare kommer på et litt uventet sted.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🎮 Øv deg! Tre øvelser</h2>
+    <p>20 oppgaver i tre bolker etter hverandre: først <strong>svake verb</strong>, så <strong>sterke verb</strong>, og til slutt <strong>haben eller sein</strong>. Se etter den lille gule etiketten øverst i hver oppgave for å vite hvilken øvelse du er i.</p>
+  </div>
+
+  <div class="dw-progress-wrap"><div class="dw-progress-bar" id="dw-bar"></div></div>
+  <div class="dw-meta">
+    <span id="dw-count">Oppgave 1 av 20</span>
+    <span id="dw-score-live">Poeng: 0</span>
+  </div>
+
+  <div class="dw-card" id="dw-game">
+    <div class="dw-emoji" id="dw-emoji">📚</div>
+    <div class="dw-qtype" id="dw-qtype">Schwache Verben</div>
+    <div class="dw-sentence" id="dw-sentence"></div>
+    <div class="dw-infinitive" id="dw-infinitive"></div>
+
+    <div class="dw-choices" id="dw-choices"></div>
+
+    <button class="dw-hint-btn" onclick="dwToggleHint()">💡 Tipp anzeigen</button>
+    <div class="dw-explain" id="dw-explain"></div>
+
+    <button class="dw-next-btn" id="dw-next" onclick="dwNext()">Weiter →</button>
+  </div>
+
+  <div class="dw-card dw-result" id="dw-result">
+    <h2>Geschafft! 🎉</h2>
+    <div class="dw-score" id="dw-final-score">0 / 20</div>
+    <p id="dw-final-msg"></p>
+    <div class="dw-review" id="dw-review"></div>
+    <button class="dw-restart-btn" onclick="dwRestart()">🔁 Nochmal spielen</button>
+  </div>
+
+</div>
+
+<script>
+  // Tre faste blokker, satt sammen til ett dwQuiz-array (samme motor som
+  // Substantiv-ABC). Hver blokk shuffles for seg (dwShuffleBlock), men
+  // blokk-rekkefølgen er fast: svake → sterke → haben/sein — slik at det
+  // oppleves som tre atskilte øvelser, ikke ett tilfeldig blandet spill.
+  var dwSchwach = [
+    {emoji:"⚽", label:"Schwache Verben", infinitive:"spielen", before:"Ich habe Fußball ", after:".", choices:["gespielt","spielt","gespielen"], correct:"gespielt",
+      hint:"Svakt verb: spiel (stamme) + ge- foran + -t bak → gespielt.", review:"spielen → gespielt"},
+    {emoji:"🍳", label:"Schwache Verben", infinitive:"machen", before:"Was hast du gestern ", after:"?", choices:["gemacht","gemachen","macht"], correct:"gemacht",
+      hint:"Svakt verb: mach (stamme) + ge- foran + -t bak → gemacht.", review:"machen → gemacht"},
+    {emoji:"📖", label:"Schwache Verben", infinitive:"lernen", before:"Wir haben viel Deutsch ", after:".", choices:["gelernt","lernt","gelernen"], correct:"gelernt",
+      hint:"Svakt verb: lern (stamme) + ge- foran + -t bak → gelernt.", review:"lernen → gelernt"},
+    {emoji:"🛍️", label:"Schwache Verben", infinitive:"kaufen", before:"Sie hat ein neues Handy ", after:".", choices:["gekauft","gekaufen","kauft"], correct:"gekauft",
+      hint:"Svakt verb: kauf (stamme) + ge- foran + -t bak → gekauft.", review:"kaufen → gekauft"},
+    {emoji:"🧑‍🔧", label:"Schwache Verben", infinitive:"arbeiten", before:"Er hat den ganzen Tag ", after:".", choices:["gearbeitet","gearbeit","arbeitet"], correct:"gearbeitet",
+      hint:"Stammen «arbeit» ender på -t, derfor -et i stedet for bare -t: gearbeitet (ikke gearbeit).", review:"arbeiten → gearbeitet"},
+    {emoji:"🎵", label:"Schwache Verben", infinitive:"hören", before:"Habt ihr das neue Lied schon ", after:"?", choices:["gehört","hört","gehören"], correct:"gehört",
+      hint:"Svakt verb: hör (stamme) + ge- foran + -t bak → gehört.", review:"hören → gehört"}
+  ];
+
+  var dwStark = [
+    {emoji:"🎬", label:"Starke Verben", infinitive:"gehen", before:"Ich bin ins Kino ", after:".", choices:["gegangen","gegeht","geganget"], correct:"gegangen",
+      hint:"Sterkt verb med vokalendring: gehen → gegangen (e → a), og alltid -en, aldri -t.", review:"gehen → gegangen"},
+    {emoji:"🍕", label:"Starke Verben", infinitive:"essen", before:"Wir haben Pizza ", after:".", choices:["gegessen","isst","geesst"], correct:"gegessen",
+      hint:"Sterkt verb: essen → gegessen. Pass på: «isst» er presens, ikke Partizip II.", review:"essen → gegessen"},
+    {emoji:"🥤", label:"Starke Verben", infinitive:"trinken", before:"Er hat zu viel Cola ", after:".", choices:["getrunken","trinkt","getrinkt"], correct:"getrunken",
+      hint:"Sterkt verb med vokalendring: trinken → getrunken (i → u).", review:"trinken → getrunken"},
+    {emoji:"🗣️", label:"Starke Verben", infinitive:"sprechen", before:"Habt ihr mit ihr ", after:"?", choices:["gesprochen","spricht","gesprecht"], correct:"gesprochen",
+      hint:"Sterkt verb med vokalendring: sprechen → gesprochen (e → o).", review:"sprechen → gesprochen"},
+    {emoji:"🎁", label:"Starke Verben", infinitive:"nehmen", before:"Sie hat das Geschenk ", after:".", choices:["genommen","nimmt","genehmt"], correct:"genommen",
+      hint:"Sterkt verb, uregelrett: nehmen → genommen (e → o, og dobbel m).", review:"nehmen → genommen"},
+    {emoji:"📚", label:"Starke Verben", infinitive:"lesen", before:"Ich habe das Buch schon ", after:".", choices:["gelesen","liest","gelest"], correct:"gelesen",
+      hint:"Sterkt verb, ingen vokalendring her: lesen → gelesen. Pass på: «liest» er presens.", review:"lesen → gelesen"},
+    {emoji:"👀", label:"Starke Verben", infinitive:"sehen", before:"Habt ihr den Film schon ", after:"?", choices:["gesehen","sieht","geseht"], correct:"gesehen",
+      hint:"Sterkt verb, ingen vokalendring her: sehen → gesehen.", review:"sehen → gesehen"}
+  ];
+
+  var dwAux = [
+    {emoji:"🚗", label:"haben oder sein?", verb:"fahren", before:"Ich ", after:" nach Berlin gefahren.", choices:["bin","habe"], correct:"bin",
+      hint:"fahren beskriver bevegelse fra A til B → sein: Ich bin gefahren.", review:"fahren → sein (bevegelse)"},
+    {emoji:"🍕", label:"haben oder sein?", verb:"essen", before:"Ich ", after:" eine Pizza gegessen.", choices:["habe","bin"], correct:"habe",
+      hint:"essen er ikke bevegelse eller tilstandsendring → standardvalget haben.", review:"essen → haben (standard)"},
+    {emoji:"⏰", label:"haben oder sein?", verb:"kommen", before:"Ich ", after:" zu spät gekommen.", choices:["bin","habe"], correct:"bin",
+      hint:"kommen beskriver bevegelse fra A til B → sein: Ich bin gekommen.", review:"kommen → sein (bevegelse)"},
+    {emoji:"🎬", label:"haben oder sein?", verb:"sehen", before:"Ich ", after:" einen Film gesehen.", choices:["habe","bin"], correct:"habe",
+      hint:"sehen er ikke bevegelse eller tilstandsendring → standardvalget haben.", review:"sehen → haben (standard)"},
+    {emoji:"🏠", label:"haben oder sein?", verb:"bleiben", before:"Ich ", after:" zu Hause geblieben.", choices:["bin","habe"], correct:"bin",
+      hint:"bleiben er et fast unntak — ingen bevegelse, men bruker likevel sein: Ich bin geblieben.", review:"bleiben → sein (fast unntak)"},
+    {emoji:"🎸", label:"haben oder sein?", verb:"spielen", before:"Ich ", after:" Gitarre gespielt.", choices:["habe","bin"], correct:"habe",
+      hint:"spielen er ikke bevegelse eller tilstandsendring → standardvalget haben.", review:"spielen → haben (standard)"},
+    {emoji:"🤒", label:"haben oder sein?", verb:"sein", before:"Ich ", after:" letzte Woche krank gewesen.", choices:["bin","habe"], correct:"bin",
+      hint:"sein selv er også et fast unntak: Partizip II er «gewesen», og hjelpeverbet er sein: Ich bin gewesen.", review:"sein → sein (fast unntak)"}
+  ];
+
+  function dwShuffle(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
+    }
+    return a;
+  }
+
+  // Bygg det endelige spørsmålssettet: hver blokk shuffles internt,
+  // men blokkrekkefølgen (svak → sterk → hjelpeverb) er fast.
+  var dwQuiz = dwShuffle(dwSchwach).concat(dwShuffle(dwStark)).concat(dwShuffle(dwAux));
+
+  var dwOrder = [];
+  var dwIndex = 0;
+  var dwScore = 0;
+  var dwWrong = [];
+  var dwAnswered = false;
+
+  function dwInit(){
+    dwOrder = dwQuiz.map(function(_,i){return i;});
+    dwIndex = 0; dwScore = 0; dwWrong = [];
+    document.getElementById('dw-result').classList.remove('dw-show');
+    document.getElementById('dw-game').style.display = '';
+    dwLoad();
+  }
+
+  function dwLoad(){
+    dwAnswered = false;
+    var it = dwQuiz[dwOrder[dwIndex]];
+    document.getElementById('dw-emoji').textContent = it.emoji;
+    document.getElementById('dw-qtype').textContent = it.label;
+    document.getElementById('dw-sentence').innerHTML = it.before + '<span class="dw-blank" id="dw-blank">___</span>' + it.after;
+    document.getElementById('dw-infinitive').textContent = 'Infinitiv: ' + (it.infinitive || it.verb);
+
+    var choicesEl = document.getElementById('dw-choices');
+    choicesEl.innerHTML = '';
+    dwShuffle(it.choices).forEach(function(c){
+      var btn = document.createElement('button');
+      btn.className = 'dw-choice';
+      btn.dataset.a = c;
+      btn.textContent = c;
+      btn.onclick = function(){ dwAnswer(c); };
+      choicesEl.appendChild(btn);
+    });
+
+    document.getElementById('dw-explain').classList.remove('dw-show');
+    document.getElementById('dw-explain').textContent = it.hint;
+    document.getElementById('dw-next').classList.remove('dw-show');
+    document.getElementById('dw-count').textContent = 'Oppgave ' + (dwIndex+1) + ' av ' + dwQuiz.length;
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-bar').style.width = Math.round((dwIndex/dwQuiz.length)*100) + '%';
+  }
+
+  function dwToggleHint(){
+    document.getElementById('dw-explain').classList.toggle('dw-show');
+  }
+
+  function dwAnswer(choice){
+    if(dwAnswered) return;
+    dwAnswered = true;
+    var it = dwQuiz[dwOrder[dwIndex]];
+    var btns = document.querySelectorAll('.dw-choice');
+    btns.forEach(function(b){
+      b.disabled = true;
+      if(b.dataset.a === it.correct) b.classList.add('dw-correct');
+      else if(b.dataset.a === choice) b.classList.add('dw-wrong');
+    });
+    document.getElementById('dw-blank').textContent = it.correct;
+    document.getElementById('dw-explain').classList.add('dw-show');
+    if(choice === it.correct){
+      dwScore++;
+    } else {
+      dwWrong.push(it);
+    }
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-next').classList.add('dw-show');
+  }
+
+  function dwNext(){
+    dwIndex++;
+    if(dwIndex >= dwQuiz.length){
+      dwFinish();
+    } else {
+      dwLoad();
+    }
+  }
+
+  function dwFinish(){
+    document.getElementById('dw-bar').style.width = '100%';
+    document.getElementById('dw-game').style.display = 'none';
+    document.getElementById('dw-result').classList.add('dw-show');
+    document.getElementById('dw-final-score').textContent = dwScore + ' / ' + dwQuiz.length;
+    var msg;
+    if(dwScore === dwQuiz.length) msg = "Perfekt! Du hast das Perfekt voll im Griff! 🏅";
+    else if(dwScore >= dwQuiz.length*0.7) msg = "Sehr gut! Se gjennom reglene øverst for de siste detaljene.";
+    else msg = "Guter Versuch! Les reglene øverst en gang til, og prøv igjen.";
+    document.getElementById('dw-final-msg').textContent = msg;
+
+    var reviewEl = document.getElementById('dw-review');
+    if(dwWrong.length === 0){
+      reviewEl.innerHTML = '<strong>Ingenting å øve mer på akkurat nå — bra jobbet!</strong>';
+    } else {
+      var html = '<strong>Disse kan du øve litt ekstra på:</strong><ul>';
+      dwWrong.forEach(function(it){
+        html += '<li>' + it.emoji + ' <strong>' + it.review + '</strong> — ' + it.hint + '</li>';
+      });
+      html += '</ul>';
+      reviewEl.innerHTML = html;
+    }
+  }
+
+  function dwRestart(){ dwInit(); }
+
+  dwInit();
+</script>
+</body>
+</html>
