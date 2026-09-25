@@ -57,21 +57,31 @@ deutschwelt-site/
 │   └── wortschatz-woche/
 │       └── index.html                → "Wortschatz der Woche": 498 høyfrekvente ord fordelt på 50 uker (10/uke), ordliste + dynamisk quiz — samme ukesdata som forsidens rulletekst — ligger for seg selv, utenfor de 11 kategoriene
 ├── staedte/
-│   ├── index.html                    → hub-side: velg by (7 kort)
+│   ├── index.html                    → hub-side: velg by (11 kort, gruppert visuelt i tre seksjoner:
+│   │                                    🇩🇪 Deutschland / 🇦🇹 Österreich / 🇨🇭 Schweiz — se
+│   │                                    endringsloggen for "Fire nye byportretter" lenger ned)
 │   ├── berlin/
 │   │   └── index.html                → byportrett: Berlin
-│   ├── wien/
-│   │   └── index.html                → byportrett: Wien
-│   ├── zuerich/
-│   │   └── index.html                → byportrett: Zürich (budsjett i sveitserfranc, CHF)
 │   ├── hamburg/
 │   │   └── index.html                → byportrett: Hamburg
 │   ├── muenchen/
 │   │   └── index.html                → byportrett: München
 │   ├── koeln/
 │   │   └── index.html                → byportrett: Köln
-│   └── frankfurt/
-│       └── index.html                → byportrett: Frankfurt am Main
+│   ├── frankfurt/
+│   │   └── index.html                → byportrett: Frankfurt am Main
+│   ├── wien/
+│   │   └── index.html                → byportrett: Wien
+│   ├── salzburg/
+│   │   └── index.html                → byportrett: Salzburg
+│   ├── innsbruck/
+│   │   └── index.html                → byportrett: Innsbruck
+│   ├── zuerich/
+│   │   └── index.html                → byportrett: Zürich (budsjett i sveitserfranc, CHF)
+│   ├── bern/
+│   │   └── index.html                → byportrett: Bern (budsjett i CHF)
+│   └── genf/
+│       └── index.html                → byportrett: Genf (budsjett i CHF; fransktalende by — egen merknad på siden)
 ├── geschichte/
 │   ├── index.html                    → hub-side: velg historietema
 │   ├── kleinstaaterei/
@@ -96,8 +106,24 @@ deutschwelt-site/
 │   │   └── index.html                → original flash fiction, selvskrevet — med twist-refleksjon
 │   ├── die-sms/
 │   │   └── index.html                → original flash fiction, selvskrevet — med twist-refleksjon
-│   └── kafka-parabeln/
-│       └── index.html                → bonus: to ekte, gemeinfrie tekster av Franz Kafka + norsk oversettelse
+│   ├── kafka-parabeln/
+│   │   └── index.html                → bonus: to ekte, gemeinfrie tekster av Franz Kafka + norsk oversettelse
+│   └── klassikere/
+│       ├── index.html                → hub-av-huber: veldig avansert lesedel, fire gemeinfrie verker
+│       ├── verwandlung/
+│       │   ├── index.html            → verk-hub: Die Verwandlung (Kafka)
+│       │   ├── teil-1/index.html     → Erster Teil — full, ordrett tekst
+│       │   ├── teil-2/index.html     → Zweiter Teil — full, ordrett tekst
+│       │   └── teil-3/index.html     → Dritter Teil — ordrett utdrag + tydelig merket sammendrag (se "Kjente begrensninger")
+│       ├── sandmann/
+│       │   ├── index.html            → verk-hub: Der Sandmann (E.T.A. Hoffmann)
+│       │   └── abschnitt-1/ … abschnitt-5/  → full, ordrett tekst, ett kapittel per side
+│       ├── silbersee/
+│       │   ├── index.html            → verk-hub: Der Schatz im Silbersee (Karl May) + kontekstboks om tidstypiske stereotypier
+│       │   └── utdrag-1/ … utdrag-5/  → fem ordrette utdrag fra ulike kapitler (romanen er for lang til å ta med i sin helhet)
+│       └── max-und-moritz/
+│           ├── index.html            → verk-hub: Max und Moritz (Wilhelm Busch)
+│           └── streich-1/ … streich-7/  → full, ordrett verse-tekst; streich-1 inkl. Vorwort, streich-7 inkl. Ende
 ├── hoeren/
 │   ├── index.html                    → hub-side: velg lyttevideo
 │   ├── nicos-weg-hallo/
@@ -179,6 +205,9 @@ deutschwelt-site/
 │   │   └── index.html                → "Chat & Social Media" — forkortelser, innkommende chat, skriv et svar
 │   ├── jugendwoerter/
 │   │   └── index.html                → liten ordbok med tyske ungdomsuttrykk + testquiz
+│   ├── sprichwoerter/
+│   │   └── index.html                → "Sprichwörter und Redewendungen" — 37 ordtak/faste uttrykk
+│   │                                    (ordliste i to grupper) + 14-spørsmål betydningsquiz
 │   └── schule/
 │       └── index.html                → "Jugend & Schule" — skolehverdag i Tyskland vs. Norge
 └── sprechen/
@@ -486,9 +515,9 @@ tidligere aksepterte kollisjonene — ingen nye.
 **Om «Deutsch im echten Leben»-seksjonen:** dette er nettstedets
 "autentiske tysk"-seksjon — mens de andre delene lærer eleven tysk, viser
 denne hvordan tysk faktisk brukes av folk (særlig ungdom) utenfor
-læreboka. `leben/index.html` er en hub med 7 kort: 4 er bygget ut
-(`alltagssprache/`, `chat/`, `jugendwoerter/`, `schule/`) og 3 er
-`dw-soon`-plassholdere (Gaming & Internet, Alltagssituationen, Gleiches
+læreboka. `leben/index.html` er en hub med 8 kort: 5 er bygget ut
+(`alltagssprache/`, `chat/`, `jugendwoerter/`, `sprichwoerter/`, `schule/`)
+og 3 er `dw-soon`-plassholdere (Gaming & Internet, Alltagssituationen, Gleiches
 Wort andere Welt) som venter på fremtidige runder. **Alltagssprache**
 kombinerer to av de opprinnelige idétemaene (hverdagsuttrykk +
 "Was bedeutet das?") til én side, med en egen `.dw-pair`-sammenligning av
@@ -904,15 +933,186 @@ pronomen»/«personlige pronomen» fortsatt peker til kategori-huben. Full
 kollisjonsskann fant kun de samme 9 permanente, tidligere aksepterte
 kollisjonene — ingen nye.
 
+**Om Klassikere-runden (veldig avansert lesedel, fire gemeinfrie verker):**
+Teach ba om en ny, veldig avansert del i Lesen med fire navngitte, lovlig
+tilgjengelige klassiske verker — Die Verwandlung (Kafka), Der Sandmann
+(E.T.A. Hoffmann), Der Schatz im Silbersee (Karl May) og Max und Moritz
+(Wilhelm Busch) — pluss kapitteloppgaver. Claude avklarte to spørsmål med
+AskUserQuestion: full tekst der det er praktisk mulig (fremfor bevisst
+forkortede utdrag for alle fire — Teach ville ha mest mulig ekte tekst),
+og om Karl May-teksten skulle ha en kort kontekstboks om tidstypiske
+stereotypier (Teach svarte ja).
+
+Alle fire forfattere har vært døde i over 70 år (Busch 1908, Hoffmann
+1822, May 1912, Kafka 1924), så verkene er trygt gemeinfrie i hele EU/EØS.
+Tekstene ble hentet **ordrett** — ikke omskrevet eller forenklet — fra
+Project Gutenberg og projekt-gutenberg.org, kapittel for kapittel, med et
+strengt prinsipp om at ingenting skulle dikte opp eller "fylle inn" tekst
+som ikke faktisk var bekreftet original. Max und Moritz (alle 7 Streiche +
+Vorwort + Ende) og Der Sandmann (alle 5 Abschnitte) ble hentet 100 %
+komplett. Der Schatz im Silbersee er en roman på over 100 000 ord — for
+lang til å ta med i sin helhet — så Teach sitt eget svar om "full tekst
+der praktisk mulig" ble tolket dithen at nettopp denne romanen får fem
+utvalgte, ordrette utdrag (kapittel 1, 9, 11 og 16) i stedet, tydelig
+merket som utdrag med kildehenvisning per side.
+
+**Die Verwandlung — delvis kildebegrensning (Dritter Teil):** Erster og
+Zweiter Teil ble hentet 100 % ordrett og komplett. For Dritter Teil klarte
+ikke uthentingen (via automatisert sidehenting) å få tak i mer enn de
+første tre avsnittene før kilden brøt av midt i en setning — en teknisk
+begrensning i verktøyet som ble brukt til uthenting, ikke en bevisst
+forkorting. Fremfor å dikte opp resten (i strid med nettstedets
+grunnprinsipp om aldri å fabrikere tekst som fremstilles som ekte), viser
+`verwandlung/teil-3/index.html` de bekreftede, ordrette avsnittene, en
+tydelig merket sammenbruddsboks (`.dw-gap-note`) som forklarer akkurat
+hvor kilden tar slutt, et kort **sammendrag skrevet av Claude** (ikke
+sitert som Kafka-tekst, og tydelig merket som sammendrag) av resten av
+handlingen fram til Gregors død, og en lenke til en gratis, lovlig
+kilde for elever som vil lese hele originalteksten selv.
+
+**Karl May — kontekstboks om stereotypier:** `silbersee/index.html` har en
+egen boks («💭 Til læreren og eleven: et viktig forbehold») som forklarer
+at fremstillingen av urfolk i Nord-Amerika er preget av sin tid
+(1890-tallet) og bygger på datidens klisjeer, ikke ekte kunnskap om
+konkrete folkegrupper — skrevet som et nøytralt utgangspunkt for
+klasseromsdiskusjon, ikke en advarsel som skremmer bort fra teksten. Noen
+av kapittelsidene (særlig utdrag 3, bakholdsscenen) har i tillegg én kort,
+nøytral setning i introduksjonen som minner om dette samme poenget.
+
+**Sidestruktur:** hver av de fire verkene fikk sin egen verk-hub (kapittel-
+oversikt) under en ny hub-av-huber, `lesen/klassikere/`, linket fra et nytt
+kort i Lesen-huben («🏛️ Klassikere — for viderekomne»). Hver kapittel-/
+delside følger samme mønster som Kafka-parabeln-siden (original tekst,
+gloseliste, flervalgsquiz om innholdet, en refleksjons-/skriveoppgave), men
+med norsk **kontekst i stedet for full oversettelse** — teksten er lengre
+og mer avansert enn parablene, så målet er å orientere leseren i
+handlingen, ikke oversette linje for linje. Max und Moritz-versene beholder
+linjeskiftene sine (rim/vers-format med `<br>` i stedet for flytende
+prosa-avsnitt) i stedet for å bli lagt om til prosa. Kapitlene er lenket
+sammen med forrige/neste-navigasjon nederst på hver side. Søkeindeksen
+fikk 5 nye oppføringer (huben + én per verk-hub) — ingen kollisjoner mot de
+133 eksisterende nøklene.
+
+Full verifisering: alle 20 kapittelsiders JavaScript sjekket med `node
+--check` (0 feil), ingen `{{`/`}}`-rester fra malmotoren, stikkprøver
+bekreftet at original-teksten i de ferdige HTML-sidene er tegn-for-tegn
+identisk med kildefilene (bortsett fra nødvendig HTML-escaping av
+&/</>), alle forrige/neste-kjeder verifisert programmatisk, og en
+Playwright-gjennomgang av alle 25 nye sider fant 0 JavaScript-feil.
+
+**Sprichwörter und Redewendungen (ny side under Deutsch im echten Leben):**
+Teach sendte en egen liste på 30 tyske ordtak og faste uttrykk (med norsk
+betydning + "når brukes det?"-forklaring for hvert) og ba om en ny del
+under Deutsch im echten Leben, med en kort norsk forklaring på hva
+Sprichwörter/Redewendungen er, og ba Claude komme med forslag til flere
+hvis noe manglet. Tre valg ble avklart med AskUserQuestion før bygging:
+(1) plassering som nytt søsterkort til `leben/jugendwoerter/` (ikke egen
+toppnivå-seksjon), (2) et lite knippe nye tillegg fra Claude, tydelig
+merket, (3) samme "referanseliste + quiz"-format som Jugendwörter (ikke
+et matche-spill eller en ren referanseside uten quiz).
+
+**Innhold:** Teachs 30 rader ble delt i 10 Sprichwörter og 20
+Redewendungen; ett tydelig duplikat i den innsendte listen («Die Daumen
+drücken» og «Jemandem die Daumen drücken», rad 16 og 29) ble slått sammen
+til én oppføring siden det er nøyaktig samme uttrykk. Claude la til 8 nye
+uttrykk (4 Sprichwörter, 4 Redewendungen) — velkjente, ikke duplikater av
+noe annet på nettstedet — for å utfylle temaene, tydelig merket med en
+«✨ nytt tillegg»-chip i gloselisten slik at Teach lett ser hva som var
+hans egen liste og hva som er lagt til. Totalt 37 uttrykk (14 Sprichwörter
++ 23 Redewendungen).
+
+**Sidestruktur:** `leben/sprichwoerter/index.html` følger nøyaktig samme
+mønster som `leben/jugendwoerter/index.html` — en kort norsk forklaring
+øverst på forskjellen mellom et Sprichwort (helt ordtak/leveregel) og en
+Redewendung (idiomatisk uttrykk som ikke skal forstås bokstavelig), to
+`.dw-word-grid`-gloselister (Sprichwörter og Redewendungen hver for seg,
+med egen `<h3>`-undergruppe), og en interaktiv quiz nederst. Quizformatet
+er tilpasset innholdet: siden uttrykkene er hele fraser (ikke enkeltord
+som i Jugendwörter), viser quizen det tyske uttrykket og lar eleven velge
+riktig norsk betydning blant tre alternativer — samme `dwQuiz`/`dwShuffle`/
+`dwAnswer`-spillmotor som resten av nettstedet, bare med betydninger i
+stedet for enkeltord som svaralternativer. 14 av de 37 uttrykkene inngår i
+quizen (representativt utvalg fra begge grupper); feilsvarte alternativer
+er alltid ekte betydninger hentet fra andre uttrykk på listen, ikke
+oppdiktede distraktorer. `leben/index.html` fikk et nytt kort mellom
+Jugendwörter og Jugend & Schule (leben-huben har nå 8 kort, 5 bygget ut),
+og søkeindeksen fikk én ny oppføring — ingen kollisjoner mot de 134
+eksisterende nøklene.
+
+Full verifisering: siden sitt JavaScript sjekket med `node --check` (0
+feil), programmatisk kontroll av at alle 14 quiz-fraser finnes ordrett i
+gloselisten, 0 ødelagte lenker (22 lenker på selve siden, 2451 sjekket
+nettstedbredt), og en Playwright-gjennomgang (åpne siden, svare på 3
+quiz-spørsmål, sjekke at telleren går riktig fram) fant 0 JavaScript-feil.
+
+**Fire nye byportretter: Salzburg, Innsbruck, Bern, Genf + landegruppering
+i Städte-huben.** Teach ba om å bygge ut Städte-seksjonen med Salzburg,
+Innsbruck, Bern, Genf og Zürich. Zürich fantes allerede fra før (bygget i
+en tidligere runde) — Claude flagget dette via AskUserQuestion, og Teach
+valgte å beholde den eksisterende Zürich-siden uendret og bare bygge de 4
+nye byene. Teach ba i samme runde om å gruppere alle byene i egne
+underkort for Deutschland/Österreich/Schweiz; Claude avklarte med
+AskUserQuestion om dette skulle være ren visuell gruppering på samme side
+(ingen URL-endringer) eller en full hub-av-huber-restrukturering (som
+Grammatikk-runden, der de 7 eksisterende byene ville flyttet til nye,
+dypere adresser og gamle lenker brutt) — Teach valgte ren visuell
+gruppering, altså ingen brutte lenker.
+
+**Innhold i de fire nye byportrettene:** hver side følger nøyaktig samme
+mal som de 7 eksisterende (samme seksjoner: Wo liegt/Wie viele
+Menschen/Was ist typisch/Was kann man sehen/machen/essen/Geschichte/
+Berühmte Personen/Wortschatz/budsjettoppdrag/quiz). Salzburg og Innsbruck
+er kopiert fra Wien-malen (Østerrike, € som budsjettvaluta); Bern og Genf
+er kopiert fra Zürich-malen (Sveits, CHF som budsjettvaluta, med samme
+tydelige CHF-merknad øverst i filen som Zürich har). Hver by har 3
+berømte personer med ekte, verifiserbare fakta (fødested/år eller en klar
+bodde/arbeidet-der-tilknytning) — Salzburg: Mozart, Herbert von Karajan,
+Christian Doppler; Innsbruck: Kaiser Maximilian I., Andreas Hofer,
+Erzherzog Ferdinand II.; Bern: Albert Einstein (utviklet relativitets-
+teorien mens han jobbet på patentkontoret i Bern), Paul Klee, Adrian von
+Bubenberg; Genf: Jean-Jacques Rousseau, Johannes Calvin, Henry Dunant
+(grunnla Røde Kors). **Genf-siden har en egen tydelig merknad** om at
+byen er fransktalende, ikke tysktalende — et bevisst pedagogisk poeng om
+at Sveits har fire landsspråk, ikke bare tysk (samme idé som CHF-
+merknaden på Zürich/Bern-sidene, bare for språk i stedet for valuta).
+
+**Landegruppering i Städte-huben:** `staedte/index.html` er delt i tre
+visuelle seksjoner med landeoverskrifter (🇩🇪 Deutschland: Berlin,
+Hamburg, München, Köln, Frankfurt · 🇦🇹 Österreich: Wien, Salzburg,
+Innsbruck · 🇨🇭 Schweiz: Zürich, Bern, Genf) — samme `.dw-grid`-kort-
+mønster som før, bare gruppert under en ny `.dw-country-h2`-overskrift
+per land. Ingen filer er flyttet, så alle 7 eksisterende byadresser
+(`staedte/berlin/` osv.) fortsetter å virke akkurat som før. Søkeindeksen
+fikk 4 nye oppføringer (én per ny by) — ingen kollisjoner mot de 138
+eksisterende nøklene; Salzburg fikk bevisst IKKE nøkkelen «mozart» (den
+er allerede brukt av Wien-oppføringen), men mer spesifikke nøkler som
+«mozarts geburtshaus» og «salzburger festspiele» i stedet.
+
+Full verifisering: alle 4 nye sider sitt JavaScript sjekket med `node
+--check` (0 feil), 0 ødelagte lenker (2527 sjekket nettstedbredt), en
+Playwright-gjennomgang av alle 4 nye byportretter + den restrukturerte
+Städte-huben fant 0 JavaScript-feil, og en funksjonstest bekreftet at
+budsjettoppdraget regner riktig i både € (Salzburg) og CHF (Bern). Én
+feil ble oppdaget og rettet under egenverifisering før levering: Genf-
+sidens ordforrådskort for «französischsprachig» hadde tysk og norsk i
+feil rekkefølge (norsk fett, tysk i stedet for omvendt) — rettet til
+samme mønster som resten av ordforrådskortene på nettstedet.
+
 ## Slik legger du til en ny seksjon
 
 1. **Kopier den mappen som ligner mest** på det du skal lage:
    - En ny by → kopier en av de eksisterende `staedte/`-mappene til f.eks.
-     `staedte/salzburg/`. Husk «Berühmte Personen»-seksjonen (samme
-     `.dw-people-grid`-mønster på alle 7 byer nå) — 2–3 personer med ekte,
-     verifiserte fakta (fødested/år ELLER en klar «bodde/arbeidet der»-
-     tilknytning), ikke oppdiktede. Sjekk også om byen bruker euro eller en
-     annen valuta (Zürich bruker CHF, se `dwCurrency`-mønsteret der).
+     `staedte/salzburg/` (eller en annen ny by-mappe). Husk «Berühmte
+     Personen»-seksjonen (samme `.dw-people-grid`-mønster på alle 11 byer
+     nå) — 2–3 personer med ekte, verifiserte fakta (fødested/år ELLER en
+     klar «bodde/arbeidet der»-tilknytning), ikke oppdiktede. Sjekk også om
+     byen bruker euro eller en annen valuta (Zürich, Bern og Genf bruker
+     CHF, se `dwCurrency`-mønsteret der — og husk en tydelig merknad på
+     siden om dette, akkurat som på de tre). Husk også å legge det nye
+     byportrettkortet under riktig landeoverskrift (🇩🇪/🇦🇹/🇨🇭) i
+     `staedte/index.html` — se endringsloggoppføringen «Fire nye
+     byportretter: Salzburg, Innsbruck, Bern, Genf + landegruppering i
+     Städte-huben» lenger opp for `.dw-country-h2`-mønsteret.
    - **Et nytt tema i en av de 11 grammatikk-kategoriene** (siden
      «Grammatikk-restrukturering»-runden er `grammatikk/` en hub-av-huber —
      se eget avsnitt lenger opp): finn riktig kategorimappe (`artikler/`,
@@ -1199,3 +1399,10 @@ sidene og bekreftet 0 JavaScript-feil og ingen HTTP-feil.
   oversikt over elevsvar krever en database/backend — dette er utenfor
   hva et rent statisk nettsted kan gjøre, og må eventuelt løses med en
   enkel tilleggstjeneste senere.
+- **«Die Verwandlung», Dritter Teil, er ikke 100 % komplett.** Kun de tre
+  første avsnittene kunne hentes ordrett fra kilden denne runden (se
+  Klassikere-runden over for detaljer). Siden viser den ordrette teksten
+  så langt den går, et tydelig merket sammendrag (skrevet av Claude, ikke
+  sitert som Kafka-tekst) av resten av handlingen, og en lenke til en
+  gratis kilde for hele originalteksten. Hvis noen får hentet ut resten
+  ordrett senere, bør sammendraget byttes ut med ekte tekst.

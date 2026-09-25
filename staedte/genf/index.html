@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Byportrett: Genf ("Die Stadt entdecken")
+  For 8. trinn (A1). Kopiert fra staedte/zuerich/ — se README.md for detaljer.
+  MERK: Sveits bruker sveitserfranc (CHF), ikke euro — budsjettoppdraget
+  bruker derfor CHF i stedet for €, med en egen merknad om dette. Genève er
+  dessuten fransktalende (ikke tysktalende) — siden har en tydelig merknad
+  om dette, som et poeng om Sveits' flerspråklighet.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Genf entdecken · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.9rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 8px;line-height:1.55;}
+  .dw-section ul{margin:0;padding-left:20px;line-height:1.6;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  .dw-people-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
+  .dw-person-card{background:#f4f1e8;border-radius:12px;padding:14px 16px;}
+  .dw-person-card .dw-person-icon{font-size:1.6rem;line-height:1;}
+  .dw-person-card h3{margin:6px 0 4px;color:var(--dw-primary);font-size:1rem;}
+  .dw-person-card p{margin:0;font-size:.85rem;line-height:1.5;color:var(--dw-text);}
+
+  .dw-mission-head{
+    background:linear-gradient(135deg,var(--dw-accent) 0%,#f2c168 100%);
+    color:#1a1a1a;border-radius:var(--dw-radius);padding:20px 24px;margin-bottom:16px;
+  }
+  .dw-mission-head h2{margin:0 0 6px;}
+  .dw-budget-bar-wrap{background:#e4e0d5;border-radius:999px;height:16px;overflow:hidden;margin:14px 0 4px;}
+  .dw-budget-bar{height:100%;background:var(--dw-primary);width:0%;transition:width .25s ease;}
+  .dw-budget-txt{display:flex;justify-content:space-between;font-size:.9rem;font-weight:600;color:var(--dw-primary);}
+  .dw-budget-txt.dw-over{color:var(--dw-bad);}
+
+  .dw-items{display:flex;flex-direction:column;gap:8px;margin-top:14px;}
+  .dw-item{
+    display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f4f1e8;border-radius:10px;cursor:pointer;
+  }
+  .dw-item input{width:18px;height:18px;}
+  .dw-item .dw-item-name{flex:1;font-size:.95rem;}
+  .dw-item .dw-item-price{font-weight:700;color:var(--dw-primary);}
+
+  textarea.dw-plan{
+    width:100%;min-height:120px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link dw-nav-active" href="../">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>Genf entdecken</h1>
+    <p>Eine internationale Stadt am Genfersee</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>📍 Wo liegt die Stadt?</h2>
+    <p>Genf liegt ganz im Südwesten der Schweiz, direkt am <strong>Genfersee</strong> (auf Französisch: Lac Léman), dort wo der Fluss <strong>Rhône</strong> aus dem See fließt. Genf grenzt fast vollständig an Frankreich.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>👥 Wie viele Menschen leben dort?</h2>
+    <p>In Genf leben etwa <strong>200 000 Menschen</strong>. Zusammen mit der Umgebung leben in der Region Genf über 500 000 Menschen.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>✨ Was ist typisch?</h2>
+    <ul>
+      <li>Achtung: In Genf spricht man <strong>Französisch</strong>, nicht Deutsch! Die Schweiz hat vier Landessprachen, und Genf liegt in der „Suisse romande“, dem französischsprachigen Teil</li>
+      <li>Genf ist eine sehr internationale Stadt — viele Menschen aus der ganzen Welt leben und arbeiten hier</li>
+      <li>Sitz von internationalen Organisationen wie den Vereinten Nationen (UNO) und dem Roten Kreuz</li>
+      <li>Die Schweiz ist nicht Mitglied der EU und hat eine eigene Währung: den <strong>Schweizer Franken (CHF)</strong></li>
+    </ul>
+  </div>
+
+  <div class="dw-section">
+    <h2>👀 Was kann man sehen?</h2>
+    <ul>
+      <li><strong>Jet d'Eau</strong> — eine riesige Wasserfontäne im See, das Wahrzeichen der Stadt</li>
+      <li><strong>Genfersee</strong> — der größte See der Schweiz, perfekt für eine Bootsfahrt</li>
+      <li><strong>Palais des Nations</strong> — der europäische Sitz der Vereinten Nationen</li>
+      <li><strong>Altstadt</strong> — mit engen Gassen und der Kathedrale St. Pierre</li>
+      <li><strong>Blumenuhr</strong> — eine berühmte Uhr aus lebenden Blumen im Jardin Anglais</li>
+    </ul>
+  </div>
+
+  <div class="dw-section">
+    <h2>🎯 Was kann man machen?</h2>
+    <ul>
+      <li>Eine Bootsfahrt auf dem Genfersee machen</li>
+      <li>Den Jet d'Eau aus der Nähe sehen</li>
+      <li>Das Viertel um den Palais des Nations besuchen</li>
+      <li>Durch die Altstadt spazieren</li>
+    </ul>
+  </div>
+
+  <div class="dw-section">
+    <h2>🍽️ Was kann man essen?</h2>
+    <ul>
+      <li><strong>Fondue</strong> — geschmolzener Käse zum Dippen, ein Schweizer Klassiker</li>
+      <li><strong>Schweizer Schokolade</strong> — weltberühmt</li>
+      <li><strong>Longeole</strong> — eine typische Wurst aus der Genfer Region</li>
+    </ul>
+  </div>
+
+  <div class="dw-section">
+    <h2>🕰️ Welche Geschichte hat die Stadt?</h2>
+    <p>Genf war im 16. Jahrhundert ein Zentrum der <strong>Reformation</strong> — der Reformator <strong>Johannes Calvin</strong> lebte und wirkte hier. 1815 wurde Genf Teil der Schweiz. Seit dem 20. Jahrhundert ist die Stadt zu einem wichtigen Zentrum der internationalen Diplomatie geworden — viele Organisationen der Vereinten Nationen und das Internationale Komitee vom Roten Kreuz haben hier ihren Sitz.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🌟 Berühmte Personen</h2>
+    <p class="dw-note">Menschen, die eng mit Genf verbunden sind — nicht alle sind dort geboren, aber alle haben dort gelebt oder gewirkt.</p>
+    <div class="dw-people-grid">
+      <div class="dw-person-card">
+        <span class="dw-person-icon">📖</span>
+        <h3>Jean-Jacques Rousseau (1712–1778)</h3>
+        <p>Philosoph und Schriftsteller, geboren in Genf. Seine Ideen beeinflussten die Aufklärung und die Französische Revolution.</p>
+      </div>
+      <div class="dw-person-card">
+        <span class="dw-person-icon">⛪</span>
+        <h3>Johannes Calvin (1509–1564)</h3>
+        <p>Wichtiger Reformator. Lebte und wirkte viele Jahre in Genf und machte die Stadt zu einem Zentrum des Protestantismus.</p>
+      </div>
+      <div class="dw-person-card">
+        <span class="dw-person-icon">❤️</span>
+        <h3>Henry Dunant (1828–1910)</h3>
+        <p>Geboren in Genf. Gründete das Rote Kreuz und erhielt 1901 den ersten Friedensnobelpreis der Geschichte.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>🧠 Wortschatz</h2>
+    <div class="dw-vocab">
+      <div><b>der See</b><br>innsjø</div>
+      <div><b>die Fontäne</b><br>fontene</div>
+      <div><b>die Vereinten Nationen</b><br>FN (De forente nasjoner)</div>
+      <div><b>das Rote Kreuz</b><br>Røde Kors</div>
+      <div><b>französischsprachig</b><br>fransktalende</div>
+      <div><b>der Friedensnobelpreis</b><br>Nobels fredspris</div>
+    </div>
+  </div>
+
+  <div class="dw-mission-head">
+    <h2>🎯 Deine Mission</h2>
+    <p>Du hast <strong>500 CHF</strong> und <strong>drei Tage</strong> in Genf. Achtung: in der Schweiz bezahlt man mit <strong>Schweizer Franken (CHF)</strong>, nicht mit Euro — und in Genf spricht man Französisch, nicht Deutsch! Plane deine Reise! Kryss av det du vil bruke penger på, og skriv en kort reiseplan på tysk nederst.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>💶 Dein Budget</h2>
+    <div class="dw-budget-bar-wrap"><div class="dw-budget-bar" id="dw-bbar"></div></div>
+    <div class="dw-budget-txt" id="dw-btxt">0 CHF von 500 CHF benutzt</div>
+
+    <div class="dw-items" id="dw-items"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✍️ Mein Reiseplan</h2>
+    <p class="dw-note">Schreib 3–5 Sätze: Wo übernachtest du? Was machst du an Tag 1, 2 und 3? Was isst du?</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="An Tag 1 besuche ich … Ich übernachte in …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Teste dich selbst</h2>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Budsjett-oppdrag ---------- */
+  var dwItems = [
+    {name:"🏨 Hotel, 3 Nächte", price:280},
+    {name:"🚋 3-Tage-Ticket (Tram & Bus)", price:27},
+    {name:"⛵ Bootsfahrt auf dem Genfersee", price:25},
+    {name:"🏛️ Palais des Nations-Führung", price:18},
+    {name:"🧀 Fondue (3x)", price:90},
+    {name:"🍫 Schweizer Schokolade", price:15},
+    {name:"🌸 Blumenuhr-Besuch", price:0},
+    {name:"🎁 Souvenir", price:12}
+  ];
+  var dwBudget = 500;
+  var dwCurrency = "CHF";
+
+  function dwRenderItems(){
+    var wrap = document.getElementById('dw-items');
+    wrap.innerHTML = '';
+    dwItems.forEach(function(it, i){
+      var label = document.createElement('label');
+      label.className = 'dw-item';
+      label.innerHTML = '<input type="checkbox" onchange="dwUpdateBudget()" id="dw-it-'+i+'">' +
+        '<span class="dw-item-name">' + it.name + '</span>' +
+        '<span class="dw-item-price">' + it.price + ' ' + dwCurrency + '</span>';
+      wrap.appendChild(label);
+    });
+  }
+
+  function dwUpdateBudget(){
+    var used = 0;
+    dwItems.forEach(function(it, i){
+      if(document.getElementById('dw-it-'+i).checked) used += it.price;
+    });
+    var pct = Math.min(100, Math.round((used/dwBudget)*100));
+    var bar = document.getElementById('dw-bbar');
+    var txt = document.getElementById('dw-btxt');
+    bar.style.width = pct + '%';
+    txt.textContent = used + ' ' + dwCurrency + ' von ' + dwBudget + ' ' + dwCurrency + ' benutzt';
+    if(used > dwBudget){
+      txt.classList.add('dw-over');
+      bar.style.background = 'var(--dw-bad)';
+      txt.textContent += ' — zu teuer! Wähle weniger aus.';
+    } else {
+      txt.classList.remove('dw-over');
+      bar.style.background = 'var(--dw-primary)';
+    }
+  }
+  dwRenderItems();
+
+  /* ---------- Reiseplan-tekstfelt ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+
+  /* ---------- Quiz ---------- */
+  var dwQuiz = [
+    {q:"Welche Sprache spricht man in Genf?", opts:["Deutsch","Italienisch","Französisch"], correct:2},
+    {q:"Wie heißt das Wahrzeichen von Genf im See?", opts:["Der Jet d'Eau","Der Rheinfall","Die Zytglogge"], correct:0},
+    {q:"Welche Organisation hat ihren Sitz in Genf?", opts:["Die NATO","Die Vereinten Nationen","Die Europäische Zentralbank"], correct:1},
+    {q:"Wer gründete das Rote Kreuz?", opts:["Albert Einstein","Henry Dunant","Johannes Calvin"], correct:1}
+  ];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+</script>
+</body>
+</html>

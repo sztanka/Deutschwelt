@@ -33,6 +33,12 @@
   .dw-header h1{margin:0 0 6px;font-size:1.8rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
   .dw-header p{margin:0;opacity:.95;}
   .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+  .dw-country-group{margin-bottom:28px;}
+  .dw-country-group:last-child{margin-bottom:0;}
+  .dw-country-h2{
+    margin:0 0 14px;font-size:1.15rem;color:var(--dw-primary);display:flex;align-items:center;gap:8px;
+    padding-bottom:8px;border-bottom:2px solid #ece8df;
+  }
   .dw-card{
     background:var(--dw-card);border-radius:var(--dw-radius);padding:22px;text-decoration:none;color:var(--dw-text);
     box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;
@@ -79,35 +85,66 @@
     <p>Welche Stadt möchtest du besuchen?</p>
   </div>
 
-  <div class="dw-grid">
-    <a class="dw-card dw-p-staedte" href="berlin/">
-      <h2>Berlin</h2>
-      <p>Hauptstadt von Deutschland — Geschichte, Sehenswürdigkeiten und deine Reise-Mission</p>
-    </a>
-    <a class="dw-card dw-p-staedte" href="wien/">
-      <h2>Wien</h2>
-      <p>Hauptstadt von Österreich — Musik, Kaffeehäuser und Kaiserzeit</p>
-    </a>
-    <a class="dw-card dw-p-staedte" href="zuerich/">
-      <h2>Zürich</h2>
-      <p>Die größte Stadt der Schweiz — Bahnhofstrasse, Zürichsee und Schweizer Franken</p>
-    </a>
-    <a class="dw-card dw-p-staedte" href="hamburg/">
-      <h2>Hamburg</h2>
-      <p>Hafenstadt im Norden — Elbphilharmonie, Speicherstadt und die Hanse</p>
-    </a>
-    <a class="dw-card dw-p-staedte" href="muenchen/">
-      <h2>München</h2>
-      <p>Die Hauptstadt von Bayern — Marienplatz, Oktoberfest und FC Bayern</p>
-    </a>
-    <a class="dw-card dw-p-staedte" href="koeln/">
-      <h2>Köln</h2>
-      <p>Die Stadt mit dem berühmten Dom — Karneval, Kölsch und die Römer</p>
-    </a>
-    <a class="dw-card dw-p-staedte" href="frankfurt/">
-      <h2>Frankfurt</h2>
-      <p>„Mainhattan“ — Skyline, Goethe-Haus und Finanzzentrum</p>
-    </a>
+  <div class="dw-country-group">
+    <h2 class="dw-country-h2">🇩🇪 Deutschland</h2>
+    <div class="dw-grid">
+      <a class="dw-card dw-p-staedte" href="berlin/">
+        <h2>Berlin</h2>
+        <p>Hauptstadt von Deutschland — Geschichte, Sehenswürdigkeiten und deine Reise-Mission</p>
+      </a>
+      <a class="dw-card dw-p-staedte" href="hamburg/">
+        <h2>Hamburg</h2>
+        <p>Hafenstadt im Norden — Elbphilharmonie, Speicherstadt und die Hanse</p>
+      </a>
+      <a class="dw-card dw-p-staedte" href="muenchen/">
+        <h2>München</h2>
+        <p>Die Hauptstadt von Bayern — Marienplatz, Oktoberfest und FC Bayern</p>
+      </a>
+      <a class="dw-card dw-p-staedte" href="koeln/">
+        <h2>Köln</h2>
+        <p>Die Stadt mit dem berühmten Dom — Karneval, Kölsch und die Römer</p>
+      </a>
+      <a class="dw-card dw-p-staedte" href="frankfurt/">
+        <h2>Frankfurt</h2>
+        <p>„Mainhattan“ — Skyline, Goethe-Haus und Finanzzentrum</p>
+      </a>
+    </div>
+  </div>
+
+  <div class="dw-country-group">
+    <h2 class="dw-country-h2">🇦🇹 Österreich</h2>
+    <div class="dw-grid">
+      <a class="dw-card dw-p-staedte" href="wien/">
+        <h2>Wien</h2>
+        <p>Hauptstadt von Österreich — Musik, Kaffeehäuser und Kaiserzeit</p>
+      </a>
+      <a class="dw-card dw-p-staedte" href="salzburg/">
+        <h2>Salzburg</h2>
+        <p>Die Geburtsstadt von Mozart — Barock, Festspiele und die Festung Hohensalzburg</p>
+      </a>
+      <a class="dw-card dw-p-staedte" href="innsbruck/">
+        <h2>Innsbruck</h2>
+        <p>Die Hauptstadt von Tirol — mitten in den Alpen, Goldenes Dachl und Olympia-Geschichte</p>
+      </a>
+    </div>
+  </div>
+
+  <div class="dw-country-group">
+    <h2 class="dw-country-h2">🇨🇭 Schweiz</h2>
+    <div class="dw-grid">
+      <a class="dw-card dw-p-staedte" href="zuerich/">
+        <h2>Zürich</h2>
+        <p>Die größte Stadt der Schweiz — Bahnhofstrasse, Zürichsee und Schweizer Franken</p>
+      </a>
+      <a class="dw-card dw-p-staedte" href="bern/">
+        <h2>Bern</h2>
+        <p>Die Bundesstadt der Schweiz — Bärenpark, Zytglogge und Albert Einstein</p>
+      </a>
+      <a class="dw-card dw-p-staedte" href="genf/">
+        <h2>Genf</h2>
+        <p>Internationale Stadt am Genfersee — französischsprachig, UNO und der Jet d'Eau</p>
+      </a>
+    </div>
   </div>
 
 </div>

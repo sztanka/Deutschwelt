@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Byportrett: Bern ("Die Stadt entdecken")
+  For 8. trinn (A1). Kopiert fra staedte/zuerich/ — se README.md for detaljer.
+  MERK: Sveits bruker sveitserfranc (CHF), ikke euro — budsjettoppdraget
+  bruker derfor CHF i stedet for €, med en egen merknad om dette.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bern entdecken · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.9rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 8px;line-height:1.55;}
+  .dw-section ul{margin:0;padding-left:20px;line-height:1.6;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  .dw-people-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
+  .dw-person-card{background:#f4f1e8;border-radius:12px;padding:14px 16px;}
+  .dw-person-card .dw-person-icon{font-size:1.6rem;line-height:1;}
+  .dw-person-card h3{margin:6px 0 4px;color:var(--dw-primary);font-size:1rem;}
+  .dw-person-card p{margin:0;font-size:.85rem;line-height:1.5;color:var(--dw-text);}
+
+  .dw-mission-head{
+    background:linear-gradient(135deg,var(--dw-accent) 0%,#f2c168 100%);
+    color:#1a1a1a;border-radius:var(--dw-radius);padding:20px 24px;margin-bottom:16px;
+  }
+  .dw-mission-head h2{margin:0 0 6px;}
+  .dw-budget-bar-wrap{background:#e4e0d5;border-radius:999px;height:16px;overflow:hidden;margin:14px 0 4px;}
+  .dw-budget-bar{height:100%;background:var(--dw-primary);width:0%;transition:width .25s ease;}
+  .dw-budget-txt{display:flex;justify-content:space-between;font-size:.9rem;font-weight:600;color:var(--dw-primary);}
+  .dw-budget-txt.dw-over{color:var(--dw-bad);}
+
+  .dw-items{display:flex;flex-direction:column;gap:8px;margin-top:14px;}
+  .dw-item{
+    display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f4f1e8;border-radius:10px;cursor:pointer;
+  }
+  .dw-item input{width:18px;height:18px;}
+  .dw-item .dw-item-name{flex:1;font-size:.95rem;}
+  .dw-item .dw-item-price{font-weight:700;color:var(--dw-primary);}
+
+  textarea.dw-plan{
+    width:100%;min-height:120px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link dw-nav-active" href="../">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>Bern entdecken</h1>
+    <p>Die Bundesstadt der Schweiz</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>📍 Wo liegt die Stadt?</h2>
+    <p>Bern liegt in der Mitte der Schweiz, an einer Schleife des Flusses <strong>Aare</strong>. Bern ist die <strong>Bundesstadt</strong> der Schweiz — der Sitz von Regierung und Parlament. (Die Schweiz hat offiziell keine „Hauptstadt“, aber Bern übernimmt diese Rolle.)</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>👥 Wie viele Menschen leben dort?</h2>
+    <p>In Bern leben etwa <strong>135 000 Menschen</strong>. Damit ist Bern die fünftgrößte Stadt der Schweiz.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>✨ Was ist typisch?</h2>
+    <ul>
+      <li>Die mittelalterliche Altstadt mit ihren Lauben (überdachten Arkadengängen) ist UNESCO-Weltkulturerbe</li>
+      <li>Der Bär ist das Symbol der Stadt — im Namen „Bern“ steckt vermutlich das Wort „Bär“</li>
+      <li>Die Schweiz hat vier Landessprachen: Deutsch, Französisch, Italienisch und Rätoromanisch</li>
+      <li>Die Schweiz ist nicht Mitglied der EU und hat eine eigene Währung: den <strong>Schweizer Franken (CHF)</strong></li>
+    </ul>
+  </div>
+
+  <div class="dw-section">
+    <h2>👀 Was kann man sehen?</h2>
+    <ul>
+      <li><strong>Zytglogge</strong> — ein mittelalterlicher Uhrturm mit einer berühmten astronomischen Uhr</li>
+      <li><strong>Bundeshaus</strong> — das Parlamentsgebäude der Schweiz</li>
+      <li><strong>Bärengraben</strong> — der Bärenpark, wo echte Bären leben</li>
+      <li><strong>Münster</strong> — die gotische Kathedrale mit dem höchsten Kirchturm der Schweiz</li>
+      <li><strong>Rosengarten</strong> — ein Park mit dem schönsten Blick über die Altstadt</li>
+    </ul>
+  </div>
+
+  <div class="dw-section">
+    <h2>🎯 Was kann man machen?</h2>
+    <ul>
+      <li>Die Bären im Bärenpark beobachten</li>
+      <li>Durch die Lauben (Arkaden) der Altstadt spazieren</li>
+      <li>Den Münsterturm hinaufsteigen für die beste Aussicht</li>
+      <li>Auf der Zytglogge die astronomische Uhr schlagen sehen</li>
+    </ul>
+  </div>
+
+  <div class="dw-section">
+    <h2>🍽️ Was kann man essen?</h2>
+    <ul>
+      <li><strong>Berner Platte</strong> — ein großer Teller mit verschiedenem Fleisch und Sauerkraut</li>
+      <li><strong>Rösti</strong> — knusprige Kartoffeln, ein Schweizer Klassiker</li>
+      <li><strong>Schweizer Schokolade</strong> — weltberühmt</li>
+    </ul>
+  </div>
+
+  <div class="dw-section">
+    <h2>🕰️ Welche Geschichte hat die Stadt?</h2>
+    <p>Bern wurde 1191 von <strong>Berchtold V. von Zähringen</strong> gegründet. Der Legende nach wurde der Name der Stadt nach dem ersten Tier gewählt, das der Gründer auf der Jagd erlegte — ein Bär. Seit 1848 ist Bern der Sitz der Schweizer Bundesregierung. Die Altstadt ist bis heute fast unverändert erhalten und gehört seit 1983 zum UNESCO-Weltkulturerbe.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🌟 Berühmte Personen</h2>
+    <p class="dw-note">Menschen, die eng mit Bern verbunden sind — nicht alle sind dort geboren, aber alle haben dort gelebt oder gearbeitet.</p>
+    <div class="dw-people-grid">
+      <div class="dw-person-card">
+        <span class="dw-person-icon">🧪</span>
+        <h3>Albert Einstein (1879–1955)</h3>
+        <p>Arbeitete als junger Physiker im Patentamt von Bern und entwickelte dort 1905 seine Relativitätstheorie. Sein Wohnhaus ist heute ein Museum.</p>
+      </div>
+      <div class="dw-person-card">
+        <span class="dw-person-icon">🎨</span>
+        <h3>Paul Klee (1879–1940)</h3>
+        <p>Berühmter Maler, aufgewachsen bei Bern. Das Zentrum Paul Klee in Bern zeigt heute die größte Sammlung seiner Werke.</p>
+      </div>
+      <div class="dw-person-card">
+        <span class="dw-person-icon">⚔️</span>
+        <h3>Adrian von Bubenberg (um 1434–1479)</h3>
+        <p>Berner Ritter und Bürgermeister. Führte die Stadt Bern 1476 zum Sieg in der Schlacht bei Murten.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>🧠 Wortschatz</h2>
+    <div class="dw-vocab">
+      <div><b>die Laube</b><br>arkadegang</div>
+      <div><b>der Bär</b><br>bjørn</div>
+      <div><b>das Bundeshaus</b><br>parlamentsbygning</div>
+      <div><b>die Regierung</b><br>regjering</div>
+      <div><b>der Uhrturm</b><br>klokketårn</div>
+      <div><b>der Franken</b><br>sveitserfranc (valuta)</div>
+    </div>
+  </div>
+
+  <div class="dw-mission-head">
+    <h2>🎯 Deine Mission</h2>
+    <p>Du hast <strong>500 CHF</strong> und <strong>drei Tage</strong> in Bern. Achtung: in der Schweiz bezahlt man mit <strong>Schweizer Franken (CHF)</strong>, nicht mit Euro! Plane deine Reise! Kryss av det du vil bruke penger på, og skriv en kort reiseplan på tysk nederst.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>💶 Dein Budget</h2>
+    <div class="dw-budget-bar-wrap"><div class="dw-budget-bar" id="dw-bbar"></div></div>
+    <div class="dw-budget-txt" id="dw-btxt">0 CHF von 500 CHF benutzt</div>
+
+    <div class="dw-items" id="dw-items"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✍️ Mein Reiseplan</h2>
+    <p class="dw-note">Schreib 3–5 Sätze: Wo übernachtest du? Was machst du an Tag 1, 2 und 3? Was isst du?</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="An Tag 1 besuche ich … Ich übernachte in …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Teste dich selbst</h2>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Budsjett-oppdrag ---------- */
+  var dwItems = [
+    {name:"🏨 Hotel, 3 Nächte", price:250},
+    {name:"🚋 3-Tage-Ticket (Tram & Bus)", price:25},
+    {name:"🐻 Bärenpark-Besuch", price:0},
+    {name:"⛪ Münsterturm-Ticket", price:6},
+    {name:"🎨 Zentrum Paul Klee-Ticket", price:20},
+    {name:"🍲 Berner Platte (3x)", price:75},
+    {name:"🍫 Schweizer Schokolade", price:15},
+    {name:"🎁 Souvenir", price:12}
+  ];
+  var dwBudget = 500;
+  var dwCurrency = "CHF";
+
+  function dwRenderItems(){
+    var wrap = document.getElementById('dw-items');
+    wrap.innerHTML = '';
+    dwItems.forEach(function(it, i){
+      var label = document.createElement('label');
+      label.className = 'dw-item';
+      label.innerHTML = '<input type="checkbox" onchange="dwUpdateBudget()" id="dw-it-'+i+'">' +
+        '<span class="dw-item-name">' + it.name + '</span>' +
+        '<span class="dw-item-price">' + it.price + ' ' + dwCurrency + '</span>';
+      wrap.appendChild(label);
+    });
+  }
+
+  function dwUpdateBudget(){
+    var used = 0;
+    dwItems.forEach(function(it, i){
+      if(document.getElementById('dw-it-'+i).checked) used += it.price;
+    });
+    var pct = Math.min(100, Math.round((used/dwBudget)*100));
+    var bar = document.getElementById('dw-bbar');
+    var txt = document.getElementById('dw-btxt');
+    bar.style.width = pct + '%';
+    txt.textContent = used + ' ' + dwCurrency + ' von ' + dwBudget + ' ' + dwCurrency + ' benutzt';
+    if(used > dwBudget){
+      txt.classList.add('dw-over');
+      bar.style.background = 'var(--dw-bad)';
+      txt.textContent += ' — zu teuer! Wähle weniger aus.';
+    } else {
+      txt.classList.remove('dw-over');
+      bar.style.background = 'var(--dw-primary)';
+    }
+  }
+  dwRenderItems();
+
+  /* ---------- Reiseplan-tekstfelt ---------- */
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+
+  /* ---------- Quiz ---------- */
+  var dwQuiz = [
+    {q:"Was ist Bern für die Schweiz?", opts:["Die größte Stadt","Die Bundesstadt","Eine kleine Dorf"], correct:1},
+    {q:"Welches Tier ist das Symbol von Bern?", opts:["Der Löwe","Der Bär","Der Adler"], correct:1},
+    {q:"Welcher berühmte Wissenschaftler arbeitete in Bern?", opts:["Albert Einstein","Isaac Newton","Charles Darwin"], correct:0},
+    {q:"Welche Organisation ist NICHT die Schweiz Mitglied von?", opts:["UNO","Die EU","Der Europarat"], correct:1}
+  ];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+</script>
+</body>
+</html>
