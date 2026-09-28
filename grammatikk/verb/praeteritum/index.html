@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Grammatik-referanse: "Präteritum — fortellerfortiden"
+  For 9.-10. trinn (A2/B1). Erstatter dw-soon-plassholderen i
+  grammatikk/verb/index.html og fortgeschritten/index.html.
+  Struktur: fem forklarings-/referanseseksjoner (.dw-section/.dw-rule) —
+  (1) hva Präteritum er og skriftlig vs. muntlig bruk sammenlignet med Perfekt,
+  (2) svake verb stamme+te+personendelser, (3) sterke verb med vokalendring og
+  INGEN endelse i ich/er-formen, (4) sein/haben/modalverb (som brukes mye i
+  Präteritum selv muntlig — viktig unntak fra regel 1) — deretter ett
+  18-spørsmålsspill i tre faste blokker (6 svake, 6 sterke, 6 sein/haben/modal),
+  samme motor som grammatikk/verb/perfekt/ (dwSchwach/dwStark/dwAux slått
+  sammen til dwQuiz, hver blokk shuffles for seg, blokkrekkefølgen er fast).
+  Se README.md i rotmappen for detaljer.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Präteritum · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 50px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:26px 22px;text-align:center;margin-bottom:20px;
+  }
+  .dw-header h1{margin:0 0 4px;font-size:1.6rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;font-size:.95rem;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:20px 22px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.1rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 8px;line-height:1.55;font-size:.92rem;}
+
+  .dw-rule{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:16px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-rule h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+  .dw-rule table{width:100%;border-collapse:collapse;margin-top:6px;font-size:.87rem;}
+  .dw-rule td, .dw-rule th{padding:5px 8px;text-align:left;border-bottom:1px solid #f0dca8;}
+  .dw-rule th{color:var(--dw-muted);font-weight:600;}
+  .dw-rule td.dw-arrow{color:var(--dw-accent);font-weight:800;text-align:center;}
+  .dw-rule .dw-note{font-size:.85rem;color:var(--dw-muted);margin-top:10px;}
+
+  table.dw-table{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px;}
+  table.dw-table th, table.dw-table td{text-align:left;padding:7px 8px;border-bottom:1px solid #ece8df;}
+  table.dw-table th{color:var(--dw-primary);font-size:.78rem;text-transform:uppercase;letter-spacing:.02em;}
+  table.dw-table td b{color:var(--dw-primary);}
+  table.dw-table .dw-umlaut{color:var(--dw-primary-light);font-weight:700;}
+
+  .dw-progress-wrap{background:#e4e0d5;border-radius:999px;height:10px;overflow:hidden;margin:16px 0 6px;}
+  .dw-progress-bar{height:100%;background:var(--dw-accent);width:0%;transition:width .3s ease;}
+  .dw-meta{display:flex;justify-content:space-between;font-size:.82rem;color:var(--dw-muted);margin-bottom:16px;}
+
+  .dw-card{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:28px 24px;text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.07);border:1px solid #ece8df;
+  }
+  .dw-emoji{font-size:3.4rem;margin-bottom:4px;}
+  .dw-qtype{font-size:.76rem;font-weight:700;color:var(--dw-accent);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;}
+  .dw-sentence{font-size:1.15rem;font-weight:600;color:var(--dw-primary);margin:4px 0 6px;line-height:1.5;}
+  .dw-sentence .dw-blank{display:inline-block;min-width:2.4em;border-bottom:3px solid var(--dw-accent);}
+  .dw-infinitive{font-size:.85rem;color:var(--dw-muted);margin:0 0 16px;}
+
+  .dw-choices{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;}
+  .dw-choice{
+    flex:1 1 110px;max-width:180px;padding:14px 8px;font-size:1.02rem;font-weight:700;border-radius:12px;
+    border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;
+  }
+  .dw-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-choice:disabled{cursor:default;opacity:.6;}
+  .dw-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+
+  .dw-hint-btn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-size:.85rem;margin-bottom:10px;}
+  .dw-explain{
+    min-height:1.4em;font-size:.9rem;color:var(--dw-muted);background:#f4f1e8;border-radius:10px;
+    padding:10px 14px;margin:10px 0 16px;display:none;
+  }
+  .dw-explain.dw-show{display:block;}
+
+  .dw-next-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:12px 26px;border-radius:999px;
+    font-size:1rem;font-weight:600;cursor:pointer;display:none;
+  }
+  .dw-next-btn.dw-show{display:inline-block;}
+  .dw-next-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-result{display:none;text-align:center;}
+  .dw-result.dw-show{display:block;}
+  .dw-result h2{color:var(--dw-primary);}
+  .dw-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:8px 0;}
+  .dw-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:14px 18px;margin:18px 0;font-size:.9rem;}
+  .dw-review li{margin-bottom:6px;}
+  .dw-restart-btn{
+    background:var(--dw-accent);color:#1a1a1a;border:none;padding:12px 26px;border-radius:999px;
+    font-size:1rem;font-weight:700;cursor:pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">🧩 Grammatik</a> → <a href="../">Verb</a> → Präteritum <span class="dw-level-tag">🎓 9.–10. trinn</span></p>
+
+  <div class="dw-header">
+    <h1>Präteritum</h1>
+    <p>Fortellerfortiden — den du finner i bøker, aviser og historier</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🤔 Hva er Präteritum, og når brukes den?</h2>
+    <p><strong>Präteritum</strong> er en annen fortidsform enn Perfekt (som du kanskje allerede kan fra <a href="../perfekt/">Perfekt — haben oder sein?</a>) — men den beskriver akkurat det samme: noe som har skjedd. Forskjellen ligger i <strong>når du bruker hvilken</strong>:</p>
+    <div class="dw-rule" style="margin-bottom:0;">
+      <table>
+        <tr><th></th><th>Perfekt</th><th>Präteritum</th></tr>
+        <tr><td>Brukes mest i</td><td><strong>muntlig</strong> tale, samtaler</td><td><strong>skriftlig</strong> tekst: bøker, aviser, historier</td></tr>
+        <tr><td>Eksempel</td><td><i>Ich habe einen Film gesehen.</i></td><td><i>Ich sah einen Film.</i></td></tr>
+      </table>
+    </div>
+    <p class="dw-note">God nyhet: dette kjenner du faktisk fra norsk også! «Jeg <strong>så</strong> en film» (fortellerfortid, som Präteritum) og «Jeg <strong>har sett</strong> en film» (som Perfekt) finnes begge på norsk — det er ikke et helt nytt konsept, bare et tysk skille mellom skrift og tale som er strengere enn på norsk.</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>📌 Svake verb (regelrette): stamme + -te + personendelse</h2>
+    <p>Svake verb i Präteritum følger et fast mønster: stammen (infinitiv minus -en) + <strong>-te</strong>, og deretter vanlige personendelser.</p>
+    <table>
+      <tr><th>Person</th><th>spielen</th></tr>
+      <tr><td>ich</td><td>spiel<strong>te</strong></td></tr>
+      <tr><td>du</td><td>spiel<strong>test</strong></td></tr>
+      <tr><td>er/sie/es</td><td>spiel<strong>te</strong></td></tr>
+      <tr><td>wir</td><td>spiel<strong>ten</strong></td></tr>
+      <tr><td>ihr</td><td>spiel<strong>tet</strong></td></tr>
+      <tr><td>sie/Sie</td><td>spiel<strong>ten</strong></td></tr>
+    </table>
+    <p class="dw-note">Akkurat som i Perfekt: hvis stammen ender på <strong>-t</strong>, <strong>-d</strong>, eller en vanskelig konsonantkombinasjon, settes det inn en ekstra <strong>-e-</strong> for at ordet skal være mulig å uttale: <strong>arbeiten</strong> → arbeit<strong>ete</strong> (ikke <s>arbeitte</s>), <strong>reden</strong> → red<strong>ete</strong>.</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>📌 Sterke verb (uregelrette): vokalendring, INGEN endelse i ich/er-formen</h2>
+    <p>Sterke verb forandrer <strong>vokalen</strong> i stammen (samme <em>Ablaut</em>-prinsipp som i Perfekts Partizip II — men ofte en ANNEN vokal enn der!). Det spesielle: <strong>ich</strong>- og <strong>er/sie/es</strong>-formen får <strong>ingen endelse i det hele tatt</strong>.</p>
+    <table>
+      <tr><th>Person</th><th>gehen</th><th>essen</th></tr>
+      <tr><td>ich</td><td>g<span class="dw-umlaut">i</span>ng <span class="dw-note" style="display:inline">(ingen endelse!)</span></td><td>a<span class="dw-umlaut">ß</span> <span class="dw-note" style="display:inline">(ingen endelse!)</span></td></tr>
+      <tr><td>du</td><td>g<span class="dw-umlaut">i</span>ngst</td><td>a<span class="dw-umlaut">ß</span>t</td></tr>
+      <tr><td>er/sie/es</td><td>g<span class="dw-umlaut">i</span>ng <span class="dw-note" style="display:inline">(samme som ich!)</span></td><td>a<span class="dw-umlaut">ß</span> <span class="dw-note" style="display:inline">(samme som ich!)</span></td></tr>
+      <tr><td>wir</td><td>g<span class="dw-umlaut">i</span>ngen</td><td>a<span class="dw-umlaut">ß</span>en</td></tr>
+      <tr><td>ihr</td><td>g<span class="dw-umlaut">i</span>ngt</td><td>a<span class="dw-umlaut">ß</span>t</td></tr>
+      <tr><td>sie/Sie</td><td>g<span class="dw-umlaut">i</span>ngen</td><td>a<span class="dw-umlaut">ß</span>en</td></tr>
+    </table>
+    <p class="dw-note">Flere svært vanlige sterke verb i Präteritum (ich-formen, med vokalendring i farge):</p>
+    <table class="dw-table">
+      <tr><th>Infinitiv</th><th>Präteritum (ich)</th><th>Infinitiv</th><th>Präteritum (ich)</th></tr>
+      <tr><td>trinken</td><td>tr<span class="dw-umlaut">a</span>nk</td><td>sprechen</td><td>spr<span class="dw-umlaut">a</span>ch</td></tr>
+      <tr><td>nehmen</td><td>n<span class="dw-umlaut">a</span>hm</td><td>lesen</td><td>l<span class="dw-umlaut">a</span>s</td></tr>
+      <tr><td>fahren</td><td>f<span class="dw-umlaut">u</span>hr</td><td>sehen</td><td>s<span class="dw-umlaut">a</span>h</td></tr>
+      <tr><td>kommen</td><td>k<span class="dw-umlaut">a</span>m</td><td>finden</td><td>f<span class="dw-umlaut">a</span>nd</td></tr>
+      <tr><td>schreiben</td><td>schr<span class="dw-umlaut">ie</span>b</td><td>bleiben</td><td>bl<span class="dw-umlaut">ie</span>b</td></tr>
+    </table>
+    <p class="dw-note">Tips: siden vokalendringen ikke følger noen fast regel, hjelper det å pugge hvert sterke verb sammen med Präteritum-formen — akkurat som med Partizip II i Perfekt.</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>⭐ Unntaket fra regelen: sein, haben og modalverb</h2>
+    <p>Selv om Perfekt vanligvis vinner i muntlig tale, er det ett viktig unntak: <strong>sein</strong>, <strong>haben</strong> og <strong>modalverb</strong> (können, wollen, müssen, dürfen, sollen, mögen) brukes i Präteritum HELE TIDEN, også muntlig — <i>«Ich war krank»</i> høres mye mer naturlig ut enn <i>«Ich bin krank gewesen»</i>, selv i vanlig samtale.</p>
+    <table>
+      <tr><th>Person</th><th>sein</th><th>haben</th></tr>
+      <tr><td>ich</td><td><strong>war</strong></td><td><strong>hatte</strong></td></tr>
+      <tr><td>du</td><td><strong>warst</strong></td><td><strong>hattest</strong></td></tr>
+      <tr><td>er/sie/es</td><td><strong>war</strong></td><td><strong>hatte</strong></td></tr>
+      <tr><td>wir</td><td><strong>waren</strong></td><td><strong>hatten</strong></td></tr>
+      <tr><td>ihr</td><td><strong>wart</strong></td><td><strong>hattet</strong></td></tr>
+      <tr><td>sie/Sie</td><td><strong>waren</strong></td><td><strong>hatten</strong></td></tr>
+    </table>
+    <p class="dw-note">Modalverb er en slags mellomting: de bruker <strong>-te</strong> som svake verb, men mister ofte omlyden (¨) i stammen:</p>
+    <table class="dw-table">
+      <tr><th>Infinitiv</th><th>Präteritum (ich)</th><th>Infinitiv</th><th>Präteritum (ich)</th></tr>
+      <tr><td>können</td><td>k<span class="dw-umlaut">o</span>nnte</td><td>dürfen</td><td>d<span class="dw-umlaut">u</span>rfte</td></tr>
+      <tr><td>wollen</td><td>wollte</td><td>sollen</td><td>sollte</td></tr>
+      <tr><td>müssen</td><td>m<span class="dw-umlaut">u</span>sste</td><td>mögen</td><td>m<span class="dw-umlaut">o</span>chte</td></tr>
+    </table>
+    <p class="dw-note">Pass på: ikke forveksle Präteritum-formene med konjunktiv («ville»-formen) som ser nesten like ut men har omlyd — <i>konnte</i> (Präteritum: «kunne») vs. <i>könnte</i> (konjunktiv: «ville kunne/kunne tenke seg») — konjunktiv er egen pensum senere.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🎮 Øv deg! Tre øvelser</h2>
+    <p>18 oppgaver i tre bolker etter hverandre: først <strong>svake verb</strong>, så <strong>sterke verb</strong>, og til slutt <strong>sein, haben og modalverb</strong>. Se etter den lille gule etiketten øverst i hver oppgave.</p>
+  </div>
+
+  <div class="dw-progress-wrap"><div class="dw-progress-bar" id="dw-bar"></div></div>
+  <div class="dw-meta">
+    <span id="dw-count">Oppgave 1 av 18</span>
+    <span id="dw-score-live">Poeng: 0</span>
+  </div>
+
+  <div class="dw-card" id="dw-game">
+    <div class="dw-emoji" id="dw-emoji">📚</div>
+    <div class="dw-qtype" id="dw-qtype">Schwache Verben</div>
+    <div class="dw-sentence" id="dw-sentence"></div>
+    <div class="dw-infinitive" id="dw-infinitive"></div>
+
+    <div class="dw-choices" id="dw-choices"></div>
+
+    <button class="dw-hint-btn" onclick="dwToggleHint()">💡 Tipp anzeigen</button>
+    <div class="dw-explain" id="dw-explain"></div>
+
+    <button class="dw-next-btn" id="dw-next" onclick="dwNext()">Weiter →</button>
+  </div>
+
+  <div class="dw-card dw-result" id="dw-result">
+    <h2>Geschafft! 🎉</h2>
+    <div class="dw-score" id="dw-final-score">0 / 18</div>
+    <p id="dw-final-msg"></p>
+    <div class="dw-review" id="dw-review"></div>
+    <button class="dw-restart-btn" onclick="dwRestart()">🔁 Nochmal spielen</button>
+  </div>
+
+</div>
+
+<script>
+  // Tre faste blokker (svak → sterk → sein/haben/modal), samme mønster
+  // som grammatikk/verb/perfekt/. Hver blokk shuffles for seg internt.
+  var dwSchwach = [
+    {emoji:"⚽", label:"Schwache Verben", infinitive:"spielen", before:"Ich ", after:" gestern Fußball.", choices:["spielte","spielst","gespielt"], correct:"spielte",
+      hint:"Svakt verb: spiel (stamme) + -te → spielte.", review:"spielen → ich spielte"},
+    {emoji:"🍳", label:"Schwache Verben", infinitive:"machen", before:"Was ", after:" du gestern?", choices:["machtest","machst","gemacht"], correct:"machtest",
+      hint:"Svakt verb, du-form: mach (stamme) + -test → machtest.", review:"machen → du machtest"},
+    {emoji:"📖", label:"Schwache Verben", infinitive:"lernen", before:"Wir ", after:" viel Deutsch.", choices:["lernten","lernen","gelernt"], correct:"lernten",
+      hint:"Svakt verb, wir-form: lern (stamme) + -ten → lernten.", review:"lernen → wir lernten"},
+    {emoji:"🛍️", label:"Schwache Verben", infinitive:"kaufen", before:"Sie ", after:" ein neues Handy.", choices:["kaufte","kauft","gekauft"], correct:"kaufte",
+      hint:"Svakt verb: kauf (stamme) + -te → kaufte.", review:"kaufen → sie kaufte"},
+    {emoji:"🏠", label:"Schwache Verben", infinitive:"wohnen", before:"Früher ", after:" ich in Hamburg.", choices:["wohnte","wohnst","gewohnt"], correct:"wohnte",
+      hint:"Svakt verb: wohn (stamme) + -te → wohnte.", review:"wohnen → ich wohnte"},
+    {emoji:"🧑‍🔧", label:"Schwache Verben", infinitive:"arbeiten", before:"Er ", after:" den ganzen Tag.", choices:["arbeitete","arbeitte","arbeitet"], correct:"arbeitete",
+      hint:"Stammen «arbeit» ender på -t, derfor ekstra -e- før -te: arbeitete (ikke arbeitte).", review:"arbeiten → er arbeitete"}
+  ];
+
+  var dwStark = [
+    {emoji:"🎬", label:"Starke Verben", infinitive:"gehen", before:"Ich ", after:" ins Kino.", choices:["ging","gehte","gegangen"], correct:"ging",
+      hint:"Sterkt verb med vokalendring: gehen → ging. Ingen -te, ingen endelse i ich-formen.", review:"gehen → ich ging"},
+    {emoji:"🍕", label:"Starke Verben", infinitive:"essen", before:"Wir ", after:" Pizza.", choices:["aßen","esste","gegessen"], correct:"aßen",
+      hint:"Sterkt verb: essen → aß (ich/er), wir aßen (med -en).", review:"essen → wir aßen"},
+    {emoji:"🥤", label:"Starke Verben", infinitive:"trinken", before:"Er ", after:" zu viel Cola.", choices:["trank","trinkte","getrunken"], correct:"trank",
+      hint:"Sterkt verb med vokalendring: trinken → trank (i → a). Ingen endelse i er-formen.", review:"trinken → er trank"},
+    {emoji:"🗣️", label:"Starke Verben", infinitive:"sprechen", before:"Sie (Plural) ", after:" lange miteinander.", choices:["sprachen","sprachten","gesprochen"], correct:"sprachen",
+      hint:"Sterkt verb: sprechen → sprach (e → a), sie-form: sprachen (med -en).", review:"sprechen → sie sprachen"},
+    {emoji:"🎁", label:"Starke Verben", infinitive:"nehmen", before:"Sie ", after:" das Geschenk.", choices:["nahm","nehmte","genommen"], correct:"nahm",
+      hint:"Sterkt verb, uregelrett: nehmen → nahm (e → a).", review:"nehmen → sie nahm"},
+    {emoji:"📚", label:"Starke Verben", infinitive:"lesen", before:"Ich ", after:" das Buch schon letztes Jahr.", choices:["las","lesete","gelesen"], correct:"las",
+      hint:"Sterkt verb med vokalendring: lesen → las (e → a). Ingen endelse i ich-formen.", review:"lesen → ich las"}
+  ];
+
+  var dwAux = [
+    {emoji:"🤒", label:"sein/haben/Modalverben", infinitive:"sein", before:"Ich ", after:" letzte Woche krank.", choices:["war","warte","gewesen"], correct:"war",
+      hint:"sein i Präteritum, ich-form: war.", review:"sein → ich war"},
+    {emoji:"⏰", label:"sein/haben/Modalverben", infinitive:"haben", before:"Wir ", after:" keine Zeit.", choices:["hatten","habten","gehabt"], correct:"hatten",
+      hint:"haben i Präteritum, wir-form: hatten.", review:"haben → wir hatten"},
+    {emoji:"🚫", label:"sein/haben/Modalverben", infinitive:"können", before:"Er ", after:" nicht kommen.", choices:["konnte","könnte","kannte"], correct:"konnte",
+      hint:"können → konnte (mister omlyden). Ikke forveksle med könnte (konjunktiv) eller kannte (fra kennen).", review:"können → er konnte"},
+    {emoji:"🙅", label:"sein/haben/Modalverben", infinitive:"wollen", before:"Ich ", after:" das nicht machen.", choices:["wollte","willte","gewollt"], correct:"wollte",
+      hint:"wollen → wollte (ingen omlyd å miste her).", review:"wollen → ich wollte"},
+    {emoji:"⏳", label:"sein/haben/Modalverben", infinitive:"müssen", before:"Sie ", after:" früh aufstehen.", choices:["musste","müsste","gemusst"], correct:"musste",
+      hint:"müssen → musste (mister omlyden). Ikke forveksle med müsste (konjunktiv).", review:"müssen → sie musste"},
+    {emoji:"🎮", label:"sein/haben/Modalverben", infinitive:"dürfen", before:"Wir ", after:" nicht spielen.", choices:["durften","dürften","gedurft"], correct:"durften",
+      hint:"dürfen → durfte (mister omlyden), wir-form: durften. Ikke forveksle med dürften (konjunktiv).", review:"dürfen → wir durften"}
+  ];
+
+  function dwShuffle(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
+    }
+    return a;
+  }
+
+  var dwQuiz = dwShuffle(dwSchwach).concat(dwShuffle(dwStark)).concat(dwShuffle(dwAux));
+
+  var dwOrder = [];
+  var dwIndex = 0;
+  var dwScore = 0;
+  var dwWrong = [];
+  var dwAnswered = false;
+
+  function dwInit(){
+    dwOrder = dwQuiz.map(function(_,i){return i;});
+    dwIndex = 0; dwScore = 0; dwWrong = [];
+    document.getElementById('dw-result').classList.remove('dw-show');
+    document.getElementById('dw-game').style.display = '';
+    dwLoad();
+  }
+
+  function dwLoad(){
+    dwAnswered = false;
+    var it = dwQuiz[dwOrder[dwIndex]];
+    document.getElementById('dw-emoji').textContent = it.emoji;
+    document.getElementById('dw-qtype').textContent = it.label;
+    document.getElementById('dw-sentence').innerHTML = it.before + '<span class="dw-blank" id="dw-blank">___</span>' + it.after;
+    document.getElementById('dw-infinitive').textContent = 'Infinitiv: ' + it.infinitive;
+
+    var choicesEl = document.getElementById('dw-choices');
+    choicesEl.innerHTML = '';
+    dwShuffle(it.choices).forEach(function(c){
+      var btn = document.createElement('button');
+      btn.className = 'dw-choice';
+      btn.dataset.a = c;
+      btn.textContent = c;
+      btn.onclick = function(){ dwAnswer(c); };
+      choicesEl.appendChild(btn);
+    });
+
+    document.getElementById('dw-explain').classList.remove('dw-show');
+    document.getElementById('dw-explain').textContent = it.hint;
+    document.getElementById('dw-next').classList.remove('dw-show');
+    document.getElementById('dw-count').textContent = 'Oppgave ' + (dwIndex+1) + ' av ' + dwQuiz.length;
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-bar').style.width = Math.round((dwIndex/dwQuiz.length)*100) + '%';
+  }
+
+  function dwToggleHint(){
+    document.getElementById('dw-explain').classList.toggle('dw-show');
+  }
+
+  function dwAnswer(choice){
+    if(dwAnswered) return;
+    dwAnswered = true;
+    var it = dwQuiz[dwOrder[dwIndex]];
+    var btns = document.querySelectorAll('.dw-choice');
+    btns.forEach(function(b){
+      b.disabled = true;
+      if(b.dataset.a === it.correct) b.classList.add('dw-correct');
+      else if(b.dataset.a === choice) b.classList.add('dw-wrong');
+    });
+    document.getElementById('dw-blank').textContent = it.correct;
+    document.getElementById('dw-explain').classList.add('dw-show');
+    if(choice === it.correct){
+      dwScore++;
+    } else {
+      dwWrong.push(it);
+    }
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-next').classList.add('dw-show');
+  }
+
+  function dwNext(){
+    dwIndex++;
+    if(dwIndex >= dwQuiz.length){
+      dwFinish();
+    } else {
+      dwLoad();
+    }
+  }
+
+  function dwFinish(){
+    document.getElementById('dw-bar').style.width = '100%';
+    document.getElementById('dw-game').style.display = 'none';
+    document.getElementById('dw-result').classList.add('dw-show');
+    document.getElementById('dw-final-score').textContent = dwScore + ' / ' + dwQuiz.length;
+    var msg;
+    if(dwScore === dwQuiz.length) msg = "Perfekt! Du hast das Präteritum voll im Griff! 🏅";
+    else if(dwScore >= dwQuiz.length*0.7) msg = "Sehr gut! Se gjennom reglene øverst for de siste detaljene.";
+    else msg = "Guter Versuch! Les reglene øverst en gang til, og prøv igjen.";
+    document.getElementById('dw-final-msg').textContent = msg;
+
+    var reviewEl = document.getElementById('dw-review');
+    if(dwWrong.length === 0){
+      reviewEl.innerHTML = '<strong>Ingenting å øve mer på akkurat nå — bra jobbet!</strong>';
+    } else {
+      var html = '<strong>Disse kan du øve litt ekstra på:</strong><ul>';
+      dwWrong.forEach(function(it){
+        html += '<li>' + it.emoji + ' <strong>' + it.review + '</strong> — ' + it.hint + '</li>';
+      });
+      html += '</ul>';
+      reviewEl.innerHTML = html;
+    }
+  }
+
+  function dwRestart(){ dwInit(); }
+
+  dwInit();
+</script>
+</body>
+</html>

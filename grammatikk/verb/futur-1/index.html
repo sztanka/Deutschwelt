@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Grammatik-referanse: "Futur I"
+  For 9.-10. trinn (A2/B1). Erstatter dw-soon-plassholderen i
+  grammatikk/verb/index.html og fortgeschritten/index.html.
+  Struktur: tre forklarings-/referanseseksjoner (.dw-section/.dw-rule) —
+  (1) hva Futur I er og formelen werden+Infinitiv, (2) full bøyingstabell for
+  werden i presens, (3) når man i praksis heller bruker presens+tidsuttrykk
+  i stedet (positiv overføring fra norsk, som gjør akkurat det samme) —
+  deretter ett 10-spørsmålsspill med enkle 3-valgs-knapper (samme motor som
+  grammatikk/artikler/dativ/, siden svaret alltid er én bøyd werden-form).
+  Se README.md i rotmappen for detaljer.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Futur I · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:700px;margin:0 auto;padding:0 16px 50px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:26px 22px;text-align:center;margin-bottom:20px;
+  }
+  .dw-header h1{margin:0 0 4px;font-size:1.6rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;font-size:.95rem;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:20px 22px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.1rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 8px;line-height:1.55;font-size:.92rem;}
+
+  .dw-rule{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:16px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-rule h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+  .dw-rule table{width:100%;border-collapse:collapse;margin-top:6px;font-size:.87rem;}
+  .dw-rule td, .dw-rule th{padding:5px 8px;text-align:left;border-bottom:1px solid #f0dca8;}
+  .dw-rule th{color:var(--dw-muted);font-weight:600;}
+  .dw-rule .dw-note{font-size:.85rem;color:var(--dw-muted);margin-top:10px;}
+  .dw-formula{
+    display:inline-block;background:var(--dw-primary);color:#fff;font-weight:700;
+    padding:6px 14px;border-radius:999px;font-size:.95rem;margin:4px 0 10px;
+  }
+
+  .dw-progress-wrap{background:#e4e0d5;border-radius:999px;height:10px;overflow:hidden;margin:16px 0 6px;}
+  .dw-progress-bar{height:100%;background:var(--dw-accent);width:0%;transition:width .3s ease;}
+  .dw-meta{display:flex;justify-content:space-between;font-size:.82rem;color:var(--dw-muted);margin-bottom:16px;}
+
+  .dw-card{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:28px 24px;text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.07);border:1px solid #ece8df;
+  }
+  .dw-emoji{font-size:3.4rem;margin-bottom:8px;}
+  .dw-sentence{font-size:1.2rem;font-weight:600;color:var(--dw-primary);margin:4px 0 20px;line-height:1.5;}
+  .dw-sentence .dw-blank{display:inline-block;min-width:2.4em;border-bottom:3px solid var(--dw-accent);}
+
+  .dw-choices{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;}
+  .dw-choice{
+    flex:1 1 90px;max-width:130px;padding:14px 0;font-size:1.1rem;font-weight:700;border-radius:12px;
+    border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;
+  }
+  .dw-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-choice:disabled{cursor:default;opacity:.6;}
+  .dw-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+
+  .dw-hint-btn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-size:.85rem;margin-bottom:10px;}
+  .dw-explain{
+    min-height:1.4em;font-size:.9rem;color:var(--dw-muted);background:#f4f1e8;border-radius:10px;
+    padding:10px 14px;margin:10px 0 16px;display:none;
+  }
+  .dw-explain.dw-show{display:block;}
+
+  .dw-next-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:12px 26px;border-radius:999px;
+    font-size:1rem;font-weight:600;cursor:pointer;display:none;
+  }
+  .dw-next-btn.dw-show{display:inline-block;}
+  .dw-next-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-result{display:none;text-align:center;}
+  .dw-result.dw-show{display:block;}
+  .dw-result h2{color:var(--dw-primary);}
+  .dw-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:8px 0;}
+  .dw-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:14px 18px;margin:18px 0;font-size:.9rem;}
+  .dw-review li{margin-bottom:6px;}
+  .dw-restart-btn{
+    background:var(--dw-accent);color:#1a1a1a;border:none;padding:12px 26px;border-radius:999px;
+    font-size:1rem;font-weight:700;cursor:pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">🧩 Grammatik</a> → <a href="../">Verb</a> → Futur I <span class="dw-level-tag">🎓 9.–10. trinn</span></p>
+
+  <div class="dw-header">
+    <h1>Futur I</h1>
+    <p>werden + Infinitiv — spådommer, løfter og planer for fremtiden</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🤔 Hva er Futur I?</h2>
+    <p><strong>Futur I</strong> er tysk sin tydeligste fremtidsform, brukt særlig til:</p>
+    <p>🔮 <strong>Spådommer/antagelser</strong>: <i>Es wird morgen regnen.</i> («Det kommer nok til å regne i morgen.»)<br>
+    🤝 <strong>Løfter</strong>: <i>Ich werde dir helfen.</i> («Jeg skal hjelpe deg.»)<br>
+    🎯 <strong>Bestemte planer</strong>: <i>Wir werden nächstes Jahr nach Deutschland fahren.</i></p>
+    <p>Futur I består av <strong>to deler</strong>: <strong>werden</strong> bøyd i presens, pluss hovedverbet i <strong>Infinitiv</strong> (grunnform) helt til slutt i setningen — akkurat som Partizip II havnet til slutt i Perfekt.</p>
+    <p><span class="dw-formula">werden (presens) + … + Infinitiv</span></p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>📌 werden i presens</h2>
+    <p><strong>werden</strong> er et verb du kanskje allerede kjenner igjen — det betyr også «å bli» som helt vanlig verb (<i>Ich werde Lehrer.</i> — «Jeg blir lærer.»). Her bruker vi den samme bøyningen, bare som hjelpeverb foran et annet verbs infinitiv:</p>
+    <table>
+      <tr><th>Person</th><th>werden</th></tr>
+      <tr><td>ich</td><td><strong>werde</strong></td></tr>
+      <tr><td>du</td><td><strong>wirst</strong></td></tr>
+      <tr><td>er/sie/es</td><td><strong>wird</strong></td></tr>
+      <tr><td>wir</td><td><strong>werden</strong></td></tr>
+      <tr><td>ihr</td><td><strong>werdet</strong></td></tr>
+      <tr><td>sie/Sie</td><td><strong>werden</strong></td></tr>
+    </table>
+    <p class="dw-note">Eksempel: <strong>Ich werde</strong> morgen ins Kino <strong>gehen</strong>. — «Jeg kommer til å gå på kino i morgen.» Legg merke til at <em>gehen</em> (infinitiv, ubøyd) havner aller sist, akkurat som Partizip II gjorde i Perfekt.</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>💡 I praksis: presens vinner ofte likevel</h2>
+    <p>Her kommer en fin overraskelse: tyskere (akkurat som nordmenn!) bruker ofte bare <strong>presens + et tidsuttrykk</strong> for å snakke om nære, konkrete planer — i stedet for Futur I:</p>
+    <table>
+      <tr><th>Futur I</th><th>Presens + tidsuttrykk (like vanlig/vanligere)</th></tr>
+      <tr><td><i>Ich werde morgen ins Kino gehen.</i></td><td><i>Ich <strong>gehe morgen</strong> ins Kino.</i></td></tr>
+      <tr><td><i>Wir werden nächstes Jahr nach Berlin fahren.</i></td><td><i>Wir <strong>fahren nächstes Jahr</strong> nach Berlin.</i></td></tr>
+    </table>
+    <p class="dw-note">Dette er faktisk nøyaktig som på norsk: «Jeg <strong>går</strong> på kino i morgen» (presens) er like naturlig som «Jeg <strong>skal gå</strong> på kino i morgen» (fremtidsform). Futur I brukes mest når du vil <strong>understreke</strong> at noe er en spådom, et løfte, eller når det ikke allerede finnes et tidsuttrykk (som «morgen») som gjør fremtiden tydelig av seg selv.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🎮 Øv deg! Velg riktig werden-form</h2>
+    <p>10 oppgaver: velg riktig bøyning av werden ut fra hvem som er subjekt i setningen.</p>
+  </div>
+
+  <div class="dw-progress-wrap"><div class="dw-progress-bar" id="dw-bar"></div></div>
+  <div class="dw-meta">
+    <span id="dw-count">Oppgave 1 av 10</span>
+    <span id="dw-score-live">Poeng: 0</span>
+  </div>
+
+  <div class="dw-card" id="dw-game">
+    <div class="dw-emoji" id="dw-emoji">🔮</div>
+    <div class="dw-sentence" id="dw-sentence"></div>
+
+    <div class="dw-choices" id="dw-choices">
+      <button class="dw-choice" data-a="werde" onclick="dwAnswer('werde')">werde</button>
+      <button class="dw-choice" data-a="wirst" onclick="dwAnswer('wirst')">wirst</button>
+      <button class="dw-choice" data-a="wird" onclick="dwAnswer('wird')">wird</button>
+      <button class="dw-choice" data-a="werden" onclick="dwAnswer('werden')">werden</button>
+      <button class="dw-choice" data-a="werdet" onclick="dwAnswer('werdet')">werdet</button>
+    </div>
+
+    <button class="dw-hint-btn" onclick="dwToggleHint()">💡 Tipp anzeigen</button>
+    <div class="dw-explain" id="dw-explain"></div>
+
+    <button class="dw-next-btn" id="dw-next" onclick="dwNext()">Weiter →</button>
+  </div>
+
+  <div class="dw-card dw-result" id="dw-result">
+    <h2>Geschafft! 🎉</h2>
+    <div class="dw-score" id="dw-final-score">0 / 10</div>
+    <p id="dw-final-msg"></p>
+    <div class="dw-review" id="dw-review"></div>
+    <button class="dw-restart-btn" onclick="dwRestart()">🔁 Nochmal spielen</button>
+  </div>
+
+</div>
+
+<script>
+  // Fem faste knapper (alle werden-formene), samme lette 3(-5)-valgs-motor
+  // som Der Dativ-Kompass — svaret er alltid én bøyd werden-form.
+  var dwWords = [
+    {emoji:"🤝", before:"Ich ", after:" dir helfen.", art:"werde", hint:"ich → werde."},
+    {emoji:"💪", before:"Du ", after:" das schon schaffen.", art:"wirst", hint:"du → wirst."},
+    {emoji:"🚶", before:"Er ", after:" morgen kommen.", art:"wird", hint:"er/sie/es → wird."},
+    {emoji:"✈️", before:"Wir ", after:" nach Berlin fahren.", art:"werden", hint:"wir → werden."},
+    {emoji:"🏆", before:"Ihr ", after:" das Spiel gewinnen.", art:"werdet", hint:"ihr → werdet."},
+    {emoji:"⏰", before:"Sie (de) ", after:" pünktlich sein.", art:"werden", hint:"sie (flertall) → werden."},
+    {emoji:"🌧️", before:"Es ", after:" morgen regnen.", art:"wird", hint:"es → wird (samme som er/sie)."},
+    {emoji:"🔥", before:"Ich ", after:" nie aufgeben.", art:"werde", hint:"ich → werde."},
+    {emoji:"🚗", before:"Meine Eltern ", after:" ein neues Auto kaufen.", art:"werden", hint:"meine Eltern = de (flertall) → werden."},
+    {emoji:"👩‍⚕️", before:"Meine Schwester ", after:" Ärztin werden.", art:"wird", hint:"meine Schwester → wird. Legg merke til at «werden» dukker opp TO ganger her — først som hjelpeverb (bøyd: wird), så som hovedverbets infinitiv («å bli», ubøyd, helt til slutt)!"}
+  ];
+
+  var dwOrder = [];
+  var dwIndex = 0;
+  var dwScore = 0;
+  var dwWrong = [];
+  var dwAnswered = false;
+
+  function dwShuffle(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
+    }
+    return a;
+  }
+
+  function dwInit(){
+    dwOrder = dwShuffle(dwWords.map(function(_,i){return i;}));
+    dwIndex = 0; dwScore = 0; dwWrong = [];
+    document.getElementById('dw-result').classList.remove('dw-show');
+    document.getElementById('dw-game').style.display = '';
+    dwLoad();
+  }
+
+  function dwLoad(){
+    dwAnswered = false;
+    var w = dwWords[dwOrder[dwIndex]];
+    document.getElementById('dw-emoji').textContent = w.emoji;
+    document.getElementById('dw-sentence').innerHTML = w.before + '<span class="dw-blank" id="dw-blank">___</span>' + w.after;
+    document.getElementById('dw-explain').classList.remove('dw-show');
+    document.getElementById('dw-explain').textContent = w.hint;
+    document.getElementById('dw-next').classList.remove('dw-show');
+    document.getElementById('dw-count').textContent = 'Oppgave ' + (dwIndex+1) + ' av ' + dwWords.length;
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-bar').style.width = Math.round((dwIndex/dwWords.length)*100) + '%';
+    var btns = document.querySelectorAll('.dw-choice');
+    btns.forEach(function(b){
+      b.disabled = false;
+      b.classList.remove('dw-correct','dw-wrong');
+    });
+  }
+
+  function dwToggleHint(){
+    document.getElementById('dw-explain').classList.toggle('dw-show');
+  }
+
+  function dwAnswer(choice){
+    if(dwAnswered) return;
+    dwAnswered = true;
+    var w = dwWords[dwOrder[dwIndex]];
+    var btns = document.querySelectorAll('.dw-choice');
+    btns.forEach(function(b){
+      b.disabled = true;
+      if(b.dataset.a === w.art) b.classList.add('dw-correct');
+      else if(b.dataset.a === choice) b.classList.add('dw-wrong');
+    });
+    document.getElementById('dw-blank').textContent = w.art;
+    document.getElementById('dw-explain').classList.add('dw-show');
+    if(choice === w.art){
+      dwScore++;
+    } else {
+      dwWrong.push(w);
+    }
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-next').classList.add('dw-show');
+  }
+
+  function dwNext(){
+    dwIndex++;
+    if(dwIndex >= dwWords.length){
+      dwFinish();
+    } else {
+      dwLoad();
+    }
+  }
+
+  function dwFinish(){
+    document.getElementById('dw-bar').style.width = '100%';
+    document.getElementById('dw-game').style.display = 'none';
+    document.getElementById('dw-result').classList.add('dw-show');
+    document.getElementById('dw-final-score').textContent = dwScore + ' / ' + dwWords.length;
+    var msg;
+    if(dwScore === dwWords.length) msg = "Perfekt! Du hast das Futur I voll im Griff! 🏅";
+    else if(dwScore >= dwWords.length*0.7) msg = "Sehr gut! Se på bøyingstabellen øverst en gang til.";
+    else msg = "Guter Versuch! Se på regelen øverst en gang til, og prøv igjen.";
+    document.getElementById('dw-final-msg').textContent = msg;
+
+    var reviewEl = document.getElementById('dw-review');
+    if(dwWrong.length === 0){
+      reviewEl.innerHTML = '<strong>Ingenting å øve mer på akkurat nå — bra jobbet!</strong>';
+    } else {
+      var html = '<strong>Disse kan du øve litt ekstra på:</strong><ul>';
+      dwWrong.forEach(function(w){
+        html += '<li>' + w.emoji + ' <strong>' + w.art + '</strong> — ' + w.hint + '</li>';
+      });
+      html += '</ul>';
+      reviewEl.innerHTML = html;
+    }
+  }
+
+  function dwRestart(){ dwInit(); }
+
+  dwInit();
+</script>
+</body>
+</html>

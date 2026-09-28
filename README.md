@@ -13,29 +13,37 @@ deutschwelt-site/
 ├── grammatikk/
 │   ├── index.html                    → hub-side: velg kategori (hub-av-huber, se eget avsnitt under)
 │   ├── artikler/
-│   │   ├── index.html                → kategori-hub: Substantiv-ABC, Nominativ, Akkusativ, Dativ + Genitiv (kommer)
+│   │   ├── index.html                → kategori-hub: Substantiv-ABC, Nominativ, Akkusativ, Dativ, Genitiv
 │   │   ├── substantiv-abc/
 │   │   │   └── index.html            → "Das Substantiv-ABC": kjønn, artikkel i alle kasus (Nominativ/Akkusativ/Dativ) og pluralformer — referanse + blandet øvingsspill
 │   │   ├── nominativ/
 │   │   │   └── index.html            → "Der Artikel-Detektiv" (der/die/das)
 │   │   ├── akkusativ/
 │   │   │   └── index.html            → "Die Akkusativ-Jagd" (den/die/das)
-│   │   └── dativ/
-│   │       └── index.html            → "Der Dativ-Kompass" (dem/der) — 🎓 9.–10. trinn (A2/B1)
+│   │   ├── dativ/
+│   │   │   └── index.html            → "Der Dativ-Kompass" (dem/der) — 🎓 9.–10. trinn (A2/B1)
+│   │   └── genitiv/
+│   │       └── index.html            → "Genitiv — wessen?": des/der + -s/-es-regel, 4 regelseksjoner + 10-spørsmålsquiz (dynamiske svaralternativer) — 🎓 9.–10. trinn (A2/B1)
 │   ├── analyse/
-│   │   ├── index.html                → kategori-hub: Satzanalyse + ordstilling (kommer)
-│   │   └── satzanalyse/
-│   │       └── index.html            → "Der Satz-Detektiv": finn Subjekt/Verb/Objekt/Adverbial
+│   │   ├── index.html                → kategori-hub: Satzanalyse, Ordstilling
+│   │   ├── satzanalyse/
+│   │   │   └── index.html            → "Der Satz-Detektiv": finn Subjekt/Verb/Objekt/Adverbial
+│   │   └── ordstilling/
+│   │       └── index.html            → "Ordstilling: V2-regelen": eleven BYGGER setningen selv ved å klikke ord-brikker i riktig rekkefølge (ny spillmekanikk, inspirert av H5P "Drag the Words"/setnings-reordering) — 14 setninger i en pool, 8 trukket per runde, positiv-transfer-vinkling mot norsk V2-ordstilling — 🎓 9.–10. trinn (A2/B1)
 │   ├── verb/
-│   │   ├── index.html                → kategori-hub, delt inn i verbtider: Presens og Perfekt er bygget, Präteritum/Plusquamperfekt/Futur I/Futur II er planlagt
+│   │   ├── index.html                → kategori-hub, delt inn i verbtider: Presens, Perfekt, Präteritum og Futur I er bygget; Plusquamperfekt/Futur II er planlagt
 │   │   ├── praesens-regelmaessig/
 │   │   │   └── index.html            → "Verb-Werkstatt": presens av regelrette verb
 │   │   ├── praesens-unregelmaessig/
 │   │   │   └── index.html            → "Verb-Werkstatt": presens av sein, haben m.fl.
-│   │   └── perfekt/
-│   │       └── index.html            → "Perfekt — haben oder sein?" — 6 regelseksjoner (svake/sterke verb,
-│   │                                    hjelpeverb+presensbøying, ordstilling vs. norsk, unntak fra ge-) +
-│   │                                    20-spørsmålsquiz i tre bolker — 🎓 9.–10. trinn (A2/B1)
+│   │   ├── perfekt/
+│   │   │   └── index.html            → "Perfekt — haben oder sein?" — 6 regelseksjoner (svake/sterke verb,
+│   │   │                                hjelpeverb+presensbøying, ordstilling vs. norsk, unntak fra ge-) +
+│   │   │                                20-spørsmålsquiz i tre bolker — 🎓 9.–10. trinn (A2/B1)
+│   │   ├── praeteritum/
+│   │   │   └── index.html            → "Präteritum": fortellingens tid (skriftlig) vs. Perfekt (muntlig) — 4 regelseksjoner + 18-spørsmålsquiz i tre bolker (svake/sterke verb, sein/haben/modalverb) — 🎓 9.–10. trinn (A2/B1)
+│   │   └── futur-1/
+│   │       └── index.html            → "Futur I": werden + Infinitiv — 3 regelseksjoner (formel, werden-bøying, Präsens vs. Futur I i praksis) + 10-spørsmålsquiz (fast 5-knapps werden-bøying) — 🎓 9.–10. trinn (A2/B1)
 │   ├── preposisjoner/
 │   │   ├── index.html                → kategori-hub: Akkusativ-, Dativ- og Wechselpräpositionen (alle tre bygget)
 │   │   ├── akkusativ/
@@ -1322,6 +1330,87 @@ fra en dyp underside, og søk på «österreich», «schweiz», «krampus»,
 byer) og quizen (6/6 spørsmål) på begge nye landssider var allerede
 grundig funksjonstestet med simulerte pointer-drag-hendelser tidligere i
 runden, og ble ikke endret av navigasjons-/søkeindeks-arbeidet etterpå.
+
+**Genitiv, Ordstilling, Präteritum og Futur I — fire nye `dw-soon`-kort
+fylt ut.** Teach ba om å bruke research-notatet om eksterne kilder
+(`claude/ressurskartlegging-eksterne-kilder.md`, se forrige runde) som base
+for å fylle ut de gjenstående `dw-soon`-plassholderne — spesielt Genitiv,
+ordstilling og Präteritum/Futur — og om å se på H5P-øvelsesformatene som
+mal for nye spilltyper. Claude avklarte omfang med AskUserQuestion først:
+(1) hvilke verbtider som skulle bygges nå — Teach valgte Präteritum + Futur
+I, og lot Plusquamperfekt/Futur II forbli `dw-soon` til en senere runde; (2)
+nivåmerking — Teach valgte å merke alle tre nye temaene (Genitiv,
+Ordstilling, Präteritum/Futur I) som 🎓 9.–10. trinn.
+
+**Om kilde-basen:** `deutsch-lernen.zum.de` sine faktiske sider for disse
+temaene viste seg å være for tynne til å brukes direkte — Genitiv-siden var
+én enkelt setning, Wortstellung og Futur I ga 404, og Präteritum-siden
+hadde kun en kort muntlig/skriftlig-kommentar uten bøyingstabeller. Claude
+skrev derfor originalt, faglig fundert innhold direkte (samme praksis som
+alle tidligere grammatikk-sider på nettstedet), og brukte research-notatets
+temavalg og den ene bekreftede ZUM-observasjonen (Präteritum = skriftlig
+fortellerstil vs. Perfekt = muntlig register) som utgangspunkt fremfor å
+kopiere tekst.
+
+**Genitiv** (`grammatikk/artikler/genitiv/`) følger Perfekt-sidens
+referanse+quiz-mønster: 4 regelseksjoner (der/das→des+(-e)s med
+tommelfingerregelen kort/langt substantiv, die→der uten substantivendring,
+von+Dativ som muntlig alternativ, og en kort bonus-nevning av
+wegen/trotz/während/statt) + en 10-spørsmåls dynamisk-svaralternativ-quiz,
+inkludert en bevisst luring (das Mädchen → des Mädchens, intetkjønn til
+tross for betydningen «jente»).
+
+**Präteritum** (`grammatikk/verb/praeteritum/`) er bygget som Perfekt-siden,
+men med tre quiz-bolker (svake verb, sterke verb/Ablaut, sein-haben-
+modalverb) — 18 spørsmål totalt. Regeldelen inkluderer en eksplisitt
+positiv-transfer-sammenligning med norsk («han så» vs. «han har sett» ≈
+tysk Präteritum vs. Perfekt) og en advarsel mot å forveksle modalverbenes
+Präteritum-stammer (konnte, musste, durfte) med Konjunktiv II (könnte,
+müsste, dürfte).
+
+**Futur I** (`grammatikk/verb/futur-1/`) bruker Dativ-Kompass-sidens enklere
+faste-5-knapps-motor (werde/wirst/wird/werden/werdet) — 10 spørsmål, samt 3
+regelseksjoner (formel, full werden-bøying, og en praktisk note om at tysk,
+akkurat som norsk, ofte foretrekker presens+tidsuttrykk fremfor Futur I for
+nære planer). Siste quiz-spørsmål er en bevisst luring som viser werdens
+doble rolle («Meine Schwester wird Ärztin werden» — hjelpeverb og
+hovedverb i samme setning).
+
+**Ordstilling** (`grammatikk/analyse/ordstilling/`) er den nye spilltypen —
+direkte inspirert av H5P-formatet «Drag the Words»/setnings-reordering,
+implementert som klikk i stedet for dra-og-slipp for bedre robusthet
+(samme designvalg som tidligere er gjort for landkartene, der drag faktisk
+er pedagogisk nødvendig, i motsetning til her). Eleven bygger setningen ved
+å klikke ordledd i riktig rekkefølge fra en stokket pool; motoren er en
+tilpasning av Satz-Detektiv-sidens klikk-og-fasit-mønster
+(`dwActivePart`/`dwAnswer`), men her er «riktig svar» neste ledd i
+rekkefølgen (sjekket via opprinnelig indeks, ikke tekst — robust mot
+duplikatord) i stedet for en grammatisk rolle. 14 ferdig-designede
+setninger (4 subjekt-først, 10 med adverbial-inversjon), 8 trukket
+tilfeldig per runde. Regeldelen legger vekt på V2-regelen (det bøyde
+verbet er alltid det ANDRE SETNINGSLEDDET) og fremhever eksplisitt at
+norsk bokmål OGSÅ er et V2-språk — i motsetning til engelsk — så dette er
+et «venn, ikke fiende»-tema for norske elever.
+
+Alle fire nye sidene ble lenket inn i sine kategori-huber
+(`grammatikk/artikler/`, `grammatikk/analyse/`, `grammatikk/verb/` —
+`dw-soon`-kortene erstattet med ekte lenker) og i
+`fortgeschritten/index.html` (fire nye kort i 🧩 Grammatik-seksjonen).
+Søkeindeksen fikk 7 nye oppføringer (Genitiv, Präteritum, Futur I,
+Ordstilling, pluss synonym-nøkkelord som «wessen», «wortstellung» og
+«imperfekt») — ingen kollisjoner funnet ved full skann.
+
+Full verifisering: `node --check` på alle fire nye script-blokker og alle
+berørte hub-/indeks-filer (0 feil), en programmatisk kontroll av all
+quiz-data (ingen manglende `correct`-verdier, ingen duplikate `choices`,
+ingen ugyldige `verbIndex`-referanser — 10+18+10+27 spørsmål/ledd
+totalt), en full lenke-integritetssjekk av alle 134 HTML-filer (0 ekte
+brutte lenker), og en Playwright-gjennomgang kjørt via en lokal
+HTTP-server: klikk-kjede fra alle fire huber til de nye sidene, brødsmule
+tilbake, samt fulle spill-gjennomganger av alle fire quiz-/spillmotorene —
+inkludert en «alltid riktig svar»-kjøring av det nye Ordstilling-
+setningsbygger-spillet som bekreftet 27/27 riktig og et tomt
+øve-mer-på-listen ved perfekt spill.
 
 ## Slik legger du til en ny seksjon
 
