@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Grammatik-referanse: "Dativpräpositionen"
+  Base A1-innhold (ingen 9.-10. trinn-tag). Erstatter dw-soon-plassholderen i
+  grammatikk/preposisjoner/index.html.
+  Struktur: fem forklarings-/referanseseksjoner (.dw-section/.dw-rule) —
+  (1) hva en dativpreposisjon er, (2) de syv + huskerim, (3) effekt på
+  artikkelen inkl. flertall+n (kobles til Der Dativ-Kompass), (4) sammentrekninger
+  (beim/vom/zum/zur), (5) eksempelsetninger + nach-vs-zu-fella — deretter ett
+  16-spørsmålsspill i to faste blokker, samme motor som grammatikk/verb/perfekt/.
+  Se README.md i rotmappen for detaljer.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dativpräpositionen · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 50px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:26px 22px;text-align:center;margin-bottom:20px;
+  }
+  .dw-header h1{margin:0 0 4px;font-size:1.6rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;font-size:.95rem;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:20px 22px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.1rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 8px;line-height:1.55;font-size:.92rem;}
+
+  .dw-rule{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:16px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-rule h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+  .dw-rule table{width:100%;border-collapse:collapse;margin-top:6px;font-size:.87rem;}
+  .dw-rule td, .dw-rule th{padding:5px 8px;text-align:left;border-bottom:1px solid #f0dca8;}
+  .dw-rule th{color:var(--dw-muted);font-weight:600;}
+  .dw-rule td.dw-arrow{color:var(--dw-accent);font-weight:800;text-align:center;}
+  .dw-rule .dw-note{font-size:.85rem;color:var(--dw-muted);margin-top:10px;}
+
+  table.dw-table{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px;}
+  table.dw-table th, table.dw-table td{text-align:left;padding:7px 8px;border-bottom:1px solid #ece8df;}
+  table.dw-table th{color:var(--dw-primary);font-size:.78rem;text-transform:uppercase;letter-spacing:.02em;}
+  table.dw-table td b{color:var(--dw-primary);}
+
+  .dw-3col{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
+  .dw-3col-item{background:#f4f1e8;border-radius:12px;padding:14px 16px;}
+  .dw-3col-item h3{margin:0 0 8px;font-size:.95rem;color:var(--dw-primary);}
+  .dw-3col-item ul{margin:0;padding-left:18px;font-size:.85rem;line-height:1.5;}
+  .dw-3col-item li{margin-bottom:6px;}
+  .dw-3col-item b{color:var(--dw-primary);}
+
+  .dw-progress-wrap{background:#e4e0d5;border-radius:999px;height:10px;overflow:hidden;margin:16px 0 6px;}
+  .dw-progress-bar{height:100%;background:var(--dw-accent);width:0%;transition:width .3s ease;}
+  .dw-meta{display:flex;justify-content:space-between;font-size:.82rem;color:var(--dw-muted);margin-bottom:16px;}
+
+  .dw-card{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:28px 24px;text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.07);border:1px solid #ece8df;
+  }
+  .dw-emoji{font-size:3.4rem;margin-bottom:4px;}
+  .dw-qtype{font-size:.76rem;font-weight:700;color:var(--dw-accent);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;}
+  .dw-sentence{font-size:1.15rem;font-weight:600;color:var(--dw-primary);margin:4px 0 6px;line-height:1.5;}
+  .dw-sentence .dw-blank{display:inline-block;min-width:2.4em;border-bottom:3px solid var(--dw-accent);}
+  .dw-infinitive{font-size:.85rem;color:var(--dw-muted);margin:0 0 16px;}
+
+  .dw-choices{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;}
+  .dw-choice{
+    flex:1 1 110px;max-width:180px;padding:14px 8px;font-size:1.02rem;font-weight:700;border-radius:12px;
+    border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;
+  }
+  .dw-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-choice:disabled{cursor:default;opacity:.6;}
+  .dw-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+
+  .dw-hint-btn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-size:.85rem;margin-bottom:10px;}
+  .dw-explain{
+    min-height:1.4em;font-size:.9rem;color:var(--dw-muted);background:#f4f1e8;border-radius:10px;
+    padding:10px 14px;margin:10px 0 16px;display:none;
+  }
+  .dw-explain.dw-show{display:block;}
+
+  .dw-next-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:12px 26px;border-radius:999px;
+    font-size:1rem;font-weight:600;cursor:pointer;display:none;
+  }
+  .dw-next-btn.dw-show{display:inline-block;}
+  .dw-next-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-result{display:none;text-align:center;}
+  .dw-result.dw-show{display:block;}
+  .dw-result h2{color:var(--dw-primary);}
+  .dw-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:8px 0;}
+  .dw-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:14px 18px;margin:18px 0;font-size:.9rem;}
+  .dw-review li{margin-bottom:6px;}
+  .dw-restart-btn{
+    background:var(--dw-accent);color:#1a1a1a;border:none;padding:12px 26px;border-radius:999px;
+    font-size:1rem;font-weight:700;cursor:pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">🧩 Grammatik</a> → <a href="../">Preposisjoner</a> → Dativ</p>
+
+  <div class="dw-header">
+    <h1>Dativpräpositionen</h1>
+    <p>aus, bei, mit, nach, seit, von, zu — disse syv styrer alltid dativ</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🤔 Hva er en dativpreposisjon?</h2>
+    <p>Akkurat som med <a href="../akkusativ/">Akkusativpräpositionen</a> finnes det en fast gruppe preposisjoner som <strong>alltid</strong> styrer dativ, helt uavhengig av sammenhengen. Denne gruppa er litt større — syv stykker — men fortsatt fullt mulig å pugge som én fast enhet.</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>📌 De syv — pugg dem sammen</h2>
+    <table class="dw-table">
+      <tr><th>Preposisjon</th><th>Betyr</th><th>Eksempel</th></tr>
+      <tr><td><strong>aus</strong></td><td>fra, ut av</td><td>aus Norwegen</td></tr>
+      <tr><td><strong>bei</strong></td><td>hos, ved</td><td>bei meiner Oma</td></tr>
+      <tr><td><strong>mit</strong></td><td>med</td><td>mit dem Bus</td></tr>
+      <tr><td><strong>nach</strong></td><td>til, etter</td><td>nach Berlin</td></tr>
+      <tr><td><strong>seit</strong></td><td>siden, i (varighet)</td><td>seit einem Jahr</td></tr>
+      <tr><td><strong>von</strong></td><td>fra, av</td><td>von meiner Freundin</td></tr>
+      <tr><td><strong>zu</strong></td><td>til</td><td>zum Arzt</td></tr>
+    </table>
+    <p class="dw-note">Huskerim: <strong>«aus, bei, mit, nach, seit, von, zu — schnapp dir den Dativ, im Nu!»</strong> — et lite tysk rim som betyr omtrent «grip dativen med en gang». Si de syv ordene i denne rekkefølgen noen ganger, så sitter de.</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>📌 Hva skjer med artikkelen?</h2>
+    <p>Reglene er de samme som i <a href="../../artikler/dativ/">Der Dativ-Kompass</a> — men her forandrer <strong>alle</strong> artiklene seg, ikke bare hankjønn. Legg spesielt merke til flertall!</p>
+    <table>
+      <tr><th>Nominativ</th><th></th><th>Dativ (etter aus/bei/mit/…)</th></tr>
+      <tr><td><strong>der</strong> Mann</td><td class="dw-arrow">→</td><td><strong>dem</strong> Mann</td></tr>
+      <tr><td><strong>die</strong> Frau</td><td class="dw-arrow">→</td><td><strong>der</strong> Frau</td></tr>
+      <tr><td><strong>das</strong> Kind</td><td class="dw-arrow">→</td><td><strong>dem</strong> Kind</td></tr>
+      <tr><td><strong>die</strong> Kinder (flertall)</td><td class="dw-arrow">→</td><td><strong>den</strong> Kind<strong>ern</strong></td></tr>
+    </table>
+    <p class="dw-note"><strong>Fellen med flertall:</strong> i dativ flertall blir artikkelen alltid <strong>den</strong>, og selve substantivet får som regel en ekstra <strong>-n</strong> på slutten (hvis det ikke allerede ender på -n eller -s): die Kinder → den Kindern, die Freunde → den Freunden. Har du ikke øvd på selve artikkel-bøyingen ennå? Ta gjerne en tur innom <a href="../../artikler/dativ/">Der Dativ-Kompass</a> først.</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>🔗 Sammentrekninger — de blir ofte ett ord</h2>
+    <p>I naturlig tysk trekkes preposisjon og artikkel ofte sammen til ett ord. Dette er ikke valgfritt — tyskere bruker nesten alltid den sammentrukne formen i dagligtale:</p>
+    <table class="dw-table">
+      <tr><th>Fullt</th><th>Sammentrukket</th><th>Eksempel</th></tr>
+      <tr><td>bei dem</td><td><strong>beim</strong></td><td>beim Arzt</td></tr>
+      <tr><td>von dem</td><td><strong>vom</strong></td><td>vom Bahnhof</td></tr>
+      <tr><td>zu dem</td><td><strong>zum</strong></td><td>zum Arzt</td></tr>
+      <tr><td>zu der</td><td><strong>zur</strong></td><td>zur Schule</td></tr>
+    </table>
+  </div>
+
+  <div class="dw-rule">
+    <h2>💬 Eksempelsetninger — og fella nach vs. zu</h2>
+    <table class="dw-table">
+      <tr><th>Preposisjon</th><th>Eksempel</th><th>Norsk</th></tr>
+      <tr><td><strong>aus</strong></td><td>Ich komme aus Norwegen.</td><td>Jeg kommer fra Norge.</td></tr>
+      <tr><td><strong>bei</strong></td><td>Ich wohne bei meiner Oma.</td><td>Jeg bor hos bestemoren min.</td></tr>
+      <tr><td><strong>mit</strong></td><td>Er fährt mit dem Bus.</td><td>Han kjører med bussen.</td></tr>
+      <tr><td><strong>nach</strong></td><td>Wir fahren nach Berlin.</td><td>Vi reiser til Berlin.</td></tr>
+      <tr><td><strong>seit</strong></td><td>Ich lerne seit zwei Jahren Deutsch.</td><td>Jeg har lært tysk i to år.</td></tr>
+      <tr><td><strong>von</strong></td><td>Das ist ein Geschenk von meiner Freundin.</td><td>Det er en gave fra venninnen min.</td></tr>
+      <tr><td><strong>zu</strong></td><td>Ich gehe zum Arzt.</td><td>Jeg går til legen.</td></tr>
+    </table>
+    <p class="dw-note"><strong>Fella: nach eller zu?</strong> Begge kan bety «til» på norsk, men de brukes ulikt. <strong>nach</strong> brukes for byer og land <em>uten</em> artikkel (nach Berlin, nach Deutschland) og i det faste uttrykket <em>nach Hause</em> (til hjemmet). <strong>zu</strong> brukes for personer og steder <em>med</em> artikkel (zum Arzt, zur Schule, zu meiner Oma).</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🎮 Øv deg! To øvelser</h2>
+    <p>16 oppgaver i to bolker: først <strong>riktig artikkelform</strong> etter en gitt dativpreposisjon, så <strong>riktig preposisjon</strong> ut fra meningen i setningen.</p>
+  </div>
+
+  <div class="dw-progress-wrap"><div class="dw-progress-bar" id="dw-bar"></div></div>
+  <div class="dw-meta">
+    <span id="dw-count">Oppgave 1 av 16</span>
+    <span id="dw-score-live">Poeng: 0</span>
+  </div>
+
+  <div class="dw-card" id="dw-game">
+    <div class="dw-emoji" id="dw-emoji">🚌</div>
+    <div class="dw-qtype" id="dw-qtype">Richtige Form</div>
+    <div class="dw-sentence" id="dw-sentence"></div>
+    <div class="dw-infinitive" id="dw-infinitive"></div>
+
+    <div class="dw-choices" id="dw-choices"></div>
+
+    <button class="dw-hint-btn" onclick="dwToggleHint()">💡 Tipp anzeigen</button>
+    <div class="dw-explain" id="dw-explain"></div>
+
+    <button class="dw-next-btn" id="dw-next" onclick="dwNext()">Weiter →</button>
+  </div>
+
+  <div class="dw-card dw-result" id="dw-result">
+    <h2>Geschafft! 🎉</h2>
+    <div class="dw-score" id="dw-final-score">0 / 16</div>
+    <p id="dw-final-msg"></p>
+    <div class="dw-review" id="dw-review"></div>
+    <button class="dw-restart-btn" onclick="dwRestart()">🔁 Nochmal spielen</button>
+  </div>
+
+</div>
+
+<script>
+  // To faste blokker satt sammen til ett dwQuiz-array (samme motor som
+  // grammatikk/verb/perfekt/). Blokk A tester artikkelbøying (inkl.
+  // flertall+n) etter en fast dativpreposisjon, blokk B tester valg av
+  // riktig preposisjon ut fra meningen i setningen. Hver blokk shuffles
+  // internt, blokkrekkefølgen (form → preposisjon) er fast.
+  var dwForm = [
+    {emoji:"🚌", label:"Richtige Form", infinitive:"mit + der Bus", before:"Er fährt mit ", after:" Bus.", choices:["dem","den","der"], correct:"dem",
+      hint:"mit styrer alltid dativ. der Bus er hankjønn → dem Bus.", review:"mit + der Bus → dem Bus"},
+    {emoji:"👵", label:"Richtige Form", infinitive:"bei + die Oma", before:"Ich bin am Wochenende bei ", after:" Oma.", choices:["der","dem","den"], correct:"der",
+      hint:"bei styrer alltid dativ. die Oma er hunkjønn → der Oma.", review:"bei + die Oma → der Oma"},
+    {emoji:"🖼️", label:"Richtige Form", infinitive:"von + das Kind", before:"Das ist ein Bild von ", after:" Kind.", choices:["dem","der","den"], correct:"dem",
+      hint:"von styrer alltid dativ. das Kind er intetkjønn → dem Kind.", review:"von + das Kind → dem Kind"},
+    {emoji:"🇨🇭", label:"Richtige Form", infinitive:"aus + die Schweiz", before:"Meine Lehrerin kommt aus ", after:" Schweiz.", choices:["der","dem","den"], correct:"der",
+      hint:"aus styrer alltid dativ. die Schweiz er et av de få landene med artikkel, og er hunkjønn → der Schweiz.", review:"aus + die Schweiz → der Schweiz"},
+    {emoji:"🏫", label:"Richtige Form", infinitive:"zu + die Schule", before:"Ich gehe jeden Tag zu ", after:" Schule.", choices:["der","dem","den"], correct:"der",
+      hint:"zu styrer alltid dativ. die Schule er hunkjønn → der Schule (ofte sammentrukket til «zur Schule»).", review:"zu + die Schule → der Schule"},
+    {emoji:"🔔", label:"Richtige Form", infinitive:"nach + der Unterricht", before:"Nach ", after:" Unterricht gehe ich nach Hause.", choices:["dem","der","den"], correct:"dem",
+      hint:"nach styrer alltid dativ. der Unterricht er hankjønn → dem Unterricht.", review:"nach + der Unterricht → dem Unterricht"},
+    {emoji:"📅", label:"Richtige Form", infinitive:"seit + ein Jahr", before:"Ich spiele seit ", after:" Jahr Fußball.", choices:["einem","einen","eine"], correct:"einem",
+      hint:"seit styrer alltid dativ. ein Jahr er intetkjønn → einem Jahr.", review:"seit + ein Jahr → einem Jahr"},
+    {emoji:"👫", label:"Richtige Form", infinitive:"mit + die Freunde (flertall)", before:"Ich gehe mit ", after:" Freunden ins Kino.", choices:["den","die","der"], correct:"den",
+      hint:"mit styrer alltid dativ. I flertall blir artikkelen alltid den, og substantivet får ofte -n: Freunde → Freunden.", review:"mit + die Freunde → den Freunden (flertall +n)"}
+  ];
+
+  var dwChoice = [
+    {emoji:"🇩🇪", label:"Richtige Präposition", infinitive:"Opprinnelse (sted)", before:"Ich komme ", after:" Deutschland.", choices:["aus","von","zu"], correct:"aus",
+      hint:"aus = fra et sted (opprinnelse).", review:"aus = fra (sted/opprinnelse)"},
+    {emoji:"🎁", label:"Richtige Präposition", infinitive:"Fra en person", before:"Das Geschenk ist ", after:" meiner Schwester.", choices:["von","aus","bei"], correct:"von",
+      hint:"von = fra en person (giver/avsender), mens aus brukes om steder.", review:"von = fra (person/giver)"},
+    {emoji:"🏠", label:"Richtige Präposition", infinitive:"Hos noen", before:"Ich wohne ", after:" meinen Eltern.", choices:["bei","mit","zu"], correct:"bei",
+      hint:"bei = hos, ved noens sted.", review:"bei = hos"},
+    {emoji:"🚆", label:"Richtige Präposition", infinitive:"By uten artikkel", before:"Wir fahren morgen ", after:" Hamburg.", choices:["nach","zu","in"], correct:"nach",
+      hint:"nach brukes for byer og land uten artikkel.", review:"nach = til (by/land uten artikkel)"},
+    {emoji:"🦷", label:"Richtige Präposition", infinitive:"Person/sted med artikkel", before:"Ich gehe jetzt ", after:" Zahnarzt.", choices:["zum","nach","bei"], correct:"zum",
+      hint:"zu brukes for personer og steder med artikkel; zu + dem trekkes sammen til zum.", review:"zu(m) = til (person/sted med artikkel)"},
+    {emoji:"📆", label:"Richtige Präposition", infinitive:"Pågående periode", before:"", after:" zwei Wochen lerne ich Deutsch.", choices:["Seit","Von","Nach"], correct:"Seit",
+      hint:"seit = en periode som startet i fortiden og fortsatt varer.", review:"seit = siden/i (varighet)"},
+    {emoji:"🚗", label:"Richtige Präposition", infinitive:"Med et middel", before:"Er fährt ", after:" dem Auto zur Arbeit.", choices:["mit","durch","für"], correct:"mit",
+      hint:"mit = med — brukes om transportmiddel eller det du gjør noe sammen med.", review:"mit = med"},
+    {emoji:"🎒", label:"Richtige Präposition", infinitive:"Ut av et sted", before:"Sie kommt gerade ", after:" der Schule.", choices:["aus","von","nach"], correct:"aus",
+      hint:"aus = ut av et sted — hun kommer akkurat ut av skolebygningen.", review:"aus = fra/ut av (sted)"}
+  ];
+
+  function dwShuffle(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
+    }
+    return a;
+  }
+
+  var dwQuiz = dwShuffle(dwForm).concat(dwShuffle(dwChoice));
+
+  var dwOrder = [];
+  var dwIndex = 0;
+  var dwScore = 0;
+  var dwWrong = [];
+  var dwAnswered = false;
+
+  function dwInit(){
+    dwOrder = dwQuiz.map(function(_,i){return i;});
+    dwIndex = 0; dwScore = 0; dwWrong = [];
+    document.getElementById('dw-result').classList.remove('dw-show');
+    document.getElementById('dw-game').style.display = '';
+    dwLoad();
+  }
+
+  function dwLoad(){
+    dwAnswered = false;
+    var it = dwQuiz[dwOrder[dwIndex]];
+    document.getElementById('dw-emoji').textContent = it.emoji;
+    document.getElementById('dw-qtype').textContent = it.label;
+    document.getElementById('dw-sentence').innerHTML = it.before + '<span class="dw-blank" id="dw-blank">___</span>' + it.after;
+    document.getElementById('dw-infinitive').textContent = it.infinitive;
+
+    var choicesEl = document.getElementById('dw-choices');
+    choicesEl.innerHTML = '';
+    dwShuffle(it.choices).forEach(function(c){
+      var btn = document.createElement('button');
+      btn.className = 'dw-choice';
+      btn.dataset.a = c;
+      btn.textContent = c;
+      btn.onclick = function(){ dwAnswer(c); };
+      choicesEl.appendChild(btn);
+    });
+
+    document.getElementById('dw-explain').classList.remove('dw-show');
+    document.getElementById('dw-explain').textContent = it.hint;
+    document.getElementById('dw-next').classList.remove('dw-show');
+    document.getElementById('dw-count').textContent = 'Oppgave ' + (dwIndex+1) + ' av ' + dwQuiz.length;
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-bar').style.width = Math.round((dwIndex/dwQuiz.length)*100) + '%';
+  }
+
+  function dwToggleHint(){
+    document.getElementById('dw-explain').classList.toggle('dw-show');
+  }
+
+  function dwAnswer(choice){
+    if(dwAnswered) return;
+    dwAnswered = true;
+    var it = dwQuiz[dwOrder[dwIndex]];
+    var btns = document.querySelectorAll('.dw-choice');
+    btns.forEach(function(b){
+      b.disabled = true;
+      if(b.dataset.a === it.correct) b.classList.add('dw-correct');
+      else if(b.dataset.a === choice) b.classList.add('dw-wrong');
+    });
+    document.getElementById('dw-blank').textContent = it.correct;
+    document.getElementById('dw-explain').classList.add('dw-show');
+    if(choice === it.correct){
+      dwScore++;
+    } else {
+      dwWrong.push(it);
+    }
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-next').classList.add('dw-show');
+  }
+
+  function dwNext(){
+    dwIndex++;
+    if(dwIndex >= dwQuiz.length){
+      dwFinish();
+    } else {
+      dwLoad();
+    }
+  }
+
+  function dwFinish(){
+    document.getElementById('dw-bar').style.width = '100%';
+    document.getElementById('dw-game').style.display = 'none';
+    document.getElementById('dw-result').classList.add('dw-show');
+    document.getElementById('dw-final-score').textContent = dwScore + ' / ' + dwQuiz.length;
+    var msg;
+    if(dwScore === dwQuiz.length) msg = "Perfekt! Du kan dativpreposisjonene ut og inn! 🏅";
+    else if(dwScore >= dwQuiz.length*0.7) msg = "Sehr gut! Se gjennom reglene øverst for de siste detaljene.";
+    else msg = "Guter Versuch! Les reglene øverst en gang til, og prøv igjen.";
+    document.getElementById('dw-final-msg').textContent = msg;
+
+    var reviewEl = document.getElementById('dw-review');
+    if(dwWrong.length === 0){
+      reviewEl.innerHTML = '<strong>Ingenting å øve mer på akkurat nå — bra jobbet!</strong>';
+    } else {
+      var html = '<strong>Disse kan du øve litt ekstra på:</strong><ul>';
+      dwWrong.forEach(function(it){
+        html += '<li>' + it.emoji + ' <strong>' + it.review + '</strong> — ' + it.hint + '</li>';
+      });
+      html += '</ul>';
+      reviewEl.innerHTML = html;
+    }
+  }
+
+  function dwRestart(){ dwInit(); }
+
+  dwInit();
+</script>
+</body>
+</html>

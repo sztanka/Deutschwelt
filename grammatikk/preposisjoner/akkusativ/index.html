@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Grammatik-referanse: "Akkusativpräpositionen"
+  Base A1-innhold (ingen 9.-10. trinn-tag). Erstatter dw-soon-plassholderen i
+  grammatikk/preposisjoner/index.html.
+  Struktur: fire forklarings-/referanseseksjoner (.dw-section/.dw-rule) —
+  (1) hva en akkusativpreposisjon er, (2) de fem + huskerim, (3) effekt på
+  artikkelen (kobles til Akkusativ-Jagd), (4) eksempelsetninger per ord —
+  deretter ett 16-spørsmålsspill i to faste blokker (8 artikkelbøying,
+  8 preposisjonsvalg), samme motor som grammatikk/verb/perfekt/.
+  Se README.md i rotmappen for detaljer.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akkusativpräpositionen · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 50px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:26px 22px;text-align:center;margin-bottom:20px;
+  }
+  .dw-header h1{margin:0 0 4px;font-size:1.6rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;font-size:.95rem;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:20px 22px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.1rem;display:flex;align-items:center;gap:8px;}
+  .dw-section p{margin:0 0 8px;line-height:1.55;font-size:.92rem;}
+
+  .dw-rule{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:16px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-rule h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+  .dw-rule table{width:100%;border-collapse:collapse;margin-top:6px;font-size:.87rem;}
+  .dw-rule td, .dw-rule th{padding:5px 8px;text-align:left;border-bottom:1px solid #f0dca8;}
+  .dw-rule th{color:var(--dw-muted);font-weight:600;}
+  .dw-rule td.dw-arrow{color:var(--dw-accent);font-weight:800;text-align:center;}
+  .dw-rule .dw-note{font-size:.85rem;color:var(--dw-muted);margin-top:10px;}
+  .dw-formula{
+    display:inline-block;background:var(--dw-primary);color:#fff;font-weight:700;
+    padding:6px 14px;border-radius:999px;font-size:.95rem;margin:4px 0 10px;
+  }
+
+  table.dw-table{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px;}
+  table.dw-table th, table.dw-table td{text-align:left;padding:7px 8px;border-bottom:1px solid #ece8df;}
+  table.dw-table th{color:var(--dw-primary);font-size:.78rem;text-transform:uppercase;letter-spacing:.02em;}
+  table.dw-table td b{color:var(--dw-primary);}
+
+  .dw-progress-wrap{background:#e4e0d5;border-radius:999px;height:10px;overflow:hidden;margin:16px 0 6px;}
+  .dw-progress-bar{height:100%;background:var(--dw-accent);width:0%;transition:width .3s ease;}
+  .dw-meta{display:flex;justify-content:space-between;font-size:.82rem;color:var(--dw-muted);margin-bottom:16px;}
+
+  .dw-card{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:28px 24px;text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.07);border:1px solid #ece8df;
+  }
+  .dw-emoji{font-size:3.4rem;margin-bottom:4px;}
+  .dw-qtype{font-size:.76rem;font-weight:700;color:var(--dw-accent);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;}
+  .dw-sentence{font-size:1.15rem;font-weight:600;color:var(--dw-primary);margin:4px 0 6px;line-height:1.5;}
+  .dw-sentence .dw-blank{display:inline-block;min-width:2.4em;border-bottom:3px solid var(--dw-accent);}
+  .dw-infinitive{font-size:.85rem;color:var(--dw-muted);margin:0 0 16px;}
+
+  .dw-choices{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;}
+  .dw-choice{
+    flex:1 1 110px;max-width:180px;padding:14px 8px;font-size:1.02rem;font-weight:700;border-radius:12px;
+    border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;
+  }
+  .dw-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-choice:disabled{cursor:default;opacity:.6;}
+  .dw-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+
+  .dw-hint-btn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-size:.85rem;margin-bottom:10px;}
+  .dw-explain{
+    min-height:1.4em;font-size:.9rem;color:var(--dw-muted);background:#f4f1e8;border-radius:10px;
+    padding:10px 14px;margin:10px 0 16px;display:none;
+  }
+  .dw-explain.dw-show{display:block;}
+
+  .dw-next-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:12px 26px;border-radius:999px;
+    font-size:1rem;font-weight:600;cursor:pointer;display:none;
+  }
+  .dw-next-btn.dw-show{display:inline-block;}
+  .dw-next-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-result{display:none;text-align:center;}
+  .dw-result.dw-show{display:block;}
+  .dw-result h2{color:var(--dw-primary);}
+  .dw-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:8px 0;}
+  .dw-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:14px 18px;margin:18px 0;font-size:.9rem;}
+  .dw-review li{margin-bottom:6px;}
+  .dw-restart-btn{
+    background:var(--dw-accent);color:#1a1a1a;border:none;padding:12px 26px;border-radius:999px;
+    font-size:1rem;font-weight:700;cursor:pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../deutschland/">🇩🇪 Deutschland</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">🧩 Grammatik</a> → <a href="../">Preposisjoner</a> → Akkusativ</p>
+
+  <div class="dw-header">
+    <h1>Akkusativpräpositionen</h1>
+    <p>durch, für, gegen, ohne, um — disse fem styrer alltid akkusativ</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🤔 Hva er en akkusativpreposisjon?</h2>
+    <p>Preposisjoner er småord som <em>durch</em>, <em>für</em>, <em>mit</em> eller <em>in</em> — de forteller noe om retning, sted, tid eller forhold mellom ting. Det spesielle med tysk er at hver preposisjon <strong>bestemmer hvilken kasus</strong> (fall) ordet etter den skal stå i, altså hvilken form artikkelen får.</p>
+    <p>Noen preposisjoner styrer <strong>alltid akkusativ</strong>, helt uavhengig av hva som skjer ellers i setningen. Det finnes bare fem slike, og de er lette å pugge som én fast gruppe — da slipper du å tenke deg om hver gang.</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>📌 De fem — pugg dem sammen</h2>
+    <table class="dw-table">
+      <tr><th>Preposisjon</th><th>Betyr</th><th>Eksempel</th></tr>
+      <tr><td><strong>durch</strong></td><td>gjennom</td><td>durch den Park</td></tr>
+      <tr><td><strong>für</strong></td><td>for, til</td><td>für meinen Bruder</td></tr>
+      <tr><td><strong>gegen</strong></td><td>mot</td><td>gegen die Wand</td></tr>
+      <tr><td><strong>ohne</strong></td><td>uten</td><td>ohne Zucker</td></tr>
+      <tr><td><strong>um</strong></td><td>rundt, klokka</td><td>um den Tisch / um 8 Uhr</td></tr>
+    </table>
+    <p class="dw-note">Huskerim: <strong>«durch, für, gegen, ohne, um»</strong> — si dem gjerne i denne rekkefølgen noen ganger, som et lite rim, til det sitter automatisk.</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>📌 Hva skjer med artikkelen?</h2>
+    <p>Reglene er akkurat de samme som i <a href="../../artikler/akkusativ/">Die Akkusativ-Jagd</a>: bare hankjønn (der) forandrer seg. Hunkjønn, intetkjønn og flertall er uendret.</p>
+    <table>
+      <tr><th>Nominativ</th><th></th><th>Akkusativ (etter durch/für/gegen/ohne/um)</th></tr>
+      <tr><td><strong>der</strong> Park</td><td class="dw-arrow">→</td><td><strong>den</strong> Park</td></tr>
+      <tr class="dw-same"><td><strong>die</strong> Stadt</td><td class="dw-arrow">→</td><td><strong>die</strong> Stadt (ingen endring)</td></tr>
+      <tr class="dw-same"><td><strong>das</strong> Auto</td><td class="dw-arrow">→</td><td><strong>das</strong> Auto (ingen endring)</td></tr>
+      <tr><td>ein Bruder</td><td class="dw-arrow">→</td><td><strong>einen</strong> Bruder</td></tr>
+    </table>
+    <p class="dw-note">Har du ikke øvd på selve artikkel-bøyingen ennå? Ta gjerne en tur innom <a href="../../artikler/akkusativ/">Die Akkusativ-Jagd</a> først, og kom tilbake hit etterpå.</p>
+  </div>
+
+  <div class="dw-rule">
+    <h2>💬 Eksempelsetninger for hvert ord</h2>
+    <table class="dw-table">
+      <tr><th>Preposisjon</th><th>Eksempel</th><th>Norsk</th></tr>
+      <tr><td><strong>durch</strong></td><td>Ich gehe durch den Park.</td><td>Jeg går gjennom parken.</td></tr>
+      <tr><td><strong>für</strong></td><td>Das Geschenk ist für meinen Bruder.</td><td>Gaven er til broren min.</td></tr>
+      <tr><td><strong>gegen</strong></td><td>Wir spielen gegen die Nachbarschule.</td><td>Vi spiller mot naboskolen.</td></tr>
+      <tr><td><strong>ohne</strong></td><td>Ich trinke Kaffee ohne Zucker.</td><td>Jeg drikker kaffe uten sukker.</td></tr>
+      <tr><td><strong>um</strong></td><td>Der Film beginnt um 20 Uhr.</td><td>Filmen begynner klokka 20.</td></tr>
+    </table>
+    <p class="dw-note"><strong>Bonus-betydning for um:</strong> i tillegg til klokkeslett kan <em>um</em> også bety «rundt» i fysisk forstand: <em>Die Kinder sitzen um den Tisch.</em> («Barna sitter rundt bordet.») — og <em>gegen</em> kan også brukes om omtrentlig klokkeslett: <em>Wir kommen gegen 8 Uhr.</em> («Vi kommer rundt klokka 8.»)</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🎮 Øv deg! To øvelser</h2>
+    <p>16 oppgaver i to bolker: først <strong>riktig artikkelform</strong> etter en gitt akkusativpreposisjon, så <strong>riktig preposisjon</strong> ut fra meningen i setningen.</p>
+  </div>
+
+  <div class="dw-progress-wrap"><div class="dw-progress-bar" id="dw-bar"></div></div>
+  <div class="dw-meta">
+    <span id="dw-count">Oppgave 1 av 16</span>
+    <span id="dw-score-live">Poeng: 0</span>
+  </div>
+
+  <div class="dw-card" id="dw-game">
+    <div class="dw-emoji" id="dw-emoji">🚶</div>
+    <div class="dw-qtype" id="dw-qtype">Richtige Form</div>
+    <div class="dw-sentence" id="dw-sentence"></div>
+    <div class="dw-infinitive" id="dw-infinitive"></div>
+
+    <div class="dw-choices" id="dw-choices"></div>
+
+    <button class="dw-hint-btn" onclick="dwToggleHint()">💡 Tipp anzeigen</button>
+    <div class="dw-explain" id="dw-explain"></div>
+
+    <button class="dw-next-btn" id="dw-next" onclick="dwNext()">Weiter →</button>
+  </div>
+
+  <div class="dw-card dw-result" id="dw-result">
+    <h2>Geschafft! 🎉</h2>
+    <div class="dw-score" id="dw-final-score">0 / 16</div>
+    <p id="dw-final-msg"></p>
+    <div class="dw-review" id="dw-review"></div>
+    <button class="dw-restart-btn" onclick="dwRestart()">🔁 Nochmal spielen</button>
+  </div>
+
+</div>
+
+<script>
+  // To faste blokker satt sammen til ett dwQuiz-array (samme motor som
+  // grammatikk/verb/perfekt/). Blokk A tester artikkelbøying etter en fast
+  // akkusativpreposisjon, blokk B tester valg av riktig preposisjon ut fra
+  // meningen i setningen. Hver blokk shuffles internt, blokkrekkefølgen
+  // (form → preposisjon) er fast.
+  var dwForm = [
+    {emoji:"🌳", label:"Richtige Form", infinitive:"durch + der Park", before:"Wir gehen durch ", after:" Park.", choices:["den","dem","der"], correct:"den",
+      hint:"durch styrer alltid akkusativ. der Park er hankjønn → den Park.", review:"durch + der Park → den Park"},
+    {emoji:"🎁", label:"Richtige Form", infinitive:"für + die Familie", before:"Das ist ein Geschenk für ", after:" Familie.", choices:["die","der","den"], correct:"die",
+      hint:"für styrer alltid akkusativ. die Familie er hunkjønn — ingen endring i akkusativ.", review:"für + die Familie → die Familie"},
+    {emoji:"📱", label:"Richtige Form", infinitive:"ohne + das Handy", before:"Ich gehe nie ohne ", after:" Handy aus dem Haus.", choices:["das","dem","den"], correct:"das",
+      hint:"ohne styrer alltid akkusativ. das Handy er intetkjønn — ingen endring i akkusativ.", review:"ohne + das Handy → das Handy"},
+    {emoji:"🚗", label:"Richtige Form", infinitive:"gegen + der Baum", before:"Das Auto ist gegen ", after:" Baum gefahren.", choices:["den","dem","der"], correct:"den",
+      hint:"gegen styrer alltid akkusativ. der Baum er hankjønn → den Baum.", review:"gegen + der Baum → den Baum"},
+    {emoji:"🍽️", label:"Richtige Form", infinitive:"um + der Tisch", before:"Die Familie sitzt um ", after:" Tisch.", choices:["den","dem","der"], correct:"den",
+      hint:"um styrer alltid akkusativ. der Tisch er hankjønn → den Tisch.", review:"um + der Tisch → den Tisch"},
+    {emoji:"💌", label:"Richtige Form", infinitive:"für + der Bruder", before:"Die Karte ist für ", after:" Bruder.", choices:["den","dem","der"], correct:"den",
+      hint:"für styrer alltid akkusativ. der Bruder er hankjønn → den Bruder.", review:"für + der Bruder → den Bruder"},
+    {emoji:"🏙️", label:"Richtige Form", infinitive:"durch + die Stadt", before:"Wir laufen durch ", after:" Stadt.", choices:["die","der","den"], correct:"die",
+      hint:"durch styrer alltid akkusativ. die Stadt er hunkjønn — ingen endring i akkusativ.", review:"durch + die Stadt → die Stadt"},
+    {emoji:"🎬", label:"Richtige Form", infinitive:"ohne + der Freund", before:"Sie geht nicht gern ohne ", after:" Freund ins Kino.", choices:["den","dem","der"], correct:"den",
+      hint:"ohne styrer alltid akkusativ. der Freund er hankjønn → den Freund.", review:"ohne + der Freund → den Freund"}
+  ];
+
+  var dwChoice = [
+    {emoji:"🌸", label:"Richtige Präposition", infinitive:"Mottaker", before:"Ich kaufe eine Blume ", after:" meine Mutter.", choices:["für","gegen","ohne"], correct:"für",
+      hint:"für = for/til — brukes om mottakeren av noe.", review:"für = for/til (mottaker)"},
+    {emoji:"🏃", label:"Richtige Präposition", infinitive:"Gjennom noe", before:"Er läuft schnell ", after:" den Park.", choices:["durch","um","gegen"], correct:"durch",
+      hint:"durch = gjennom — fysisk bevegelse gjennom noe.", review:"durch = gjennom"},
+    {emoji:"⚽", label:"Richtige Präposition", infinitive:"Motstand", before:"Wir spielen heute ", after:" die andere Mannschaft.", choices:["gegen","für","um"], correct:"gegen",
+      hint:"gegen = mot — brukes om motstand eller konflikt.", review:"gegen = mot (motstand)"},
+    {emoji:"☕", label:"Richtige Präposition", infinitive:"Uten noe", before:"Ich trinke meinen Tee ", after:" Milch.", choices:["ohne","gegen","für"], correct:"ohne",
+      hint:"ohne = uten.", review:"ohne = uten"},
+    {emoji:"🎉", label:"Richtige Präposition", infinitive:"Klokkeslett", before:"Die Party beginnt ", after:" 19 Uhr.", choices:["um","durch","für"], correct:"um",
+      hint:"um brukes om klokkeslett: um 19 Uhr = klokka 19.", review:"um = klokkeslett"},
+    {emoji:"🌳", label:"Richtige Präposition", infinitive:"Rundt noe", before:"Die Kinder laufen ", after:" den Baum herum.", choices:["um","durch","für"], correct:"um",
+      hint:"um … herum = rundt noe (sirkelbevegelse), til forskjell fra durch = gjennom.", review:"um = rundt (fysisk)"},
+    {emoji:"👨‍👩‍👧", label:"Richtige Präposition", infinitive:"På vegne av", before:"Er kämpft ", after:" seine Familie.", choices:["für","gegen","ohne"], correct:"für",
+      hint:"für kan også bety «på vegne av», ikke bare «til».", review:"für = på vegne av"},
+    {emoji:"🚇", label:"Richtige Präposition", infinitive:"Gjennom noe", before:"Das Auto fährt ", after:" den Tunnel.", choices:["durch","um","ohne"], correct:"durch",
+      hint:"durch = gjennom — fysisk bevegelse gjennom noe.", review:"durch = gjennom"}
+  ];
+
+  function dwShuffle(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
+    }
+    return a;
+  }
+
+  var dwQuiz = dwShuffle(dwForm).concat(dwShuffle(dwChoice));
+
+  var dwOrder = [];
+  var dwIndex = 0;
+  var dwScore = 0;
+  var dwWrong = [];
+  var dwAnswered = false;
+
+  function dwInit(){
+    dwOrder = dwQuiz.map(function(_,i){return i;});
+    dwIndex = 0; dwScore = 0; dwWrong = [];
+    document.getElementById('dw-result').classList.remove('dw-show');
+    document.getElementById('dw-game').style.display = '';
+    dwLoad();
+  }
+
+  function dwLoad(){
+    dwAnswered = false;
+    var it = dwQuiz[dwOrder[dwIndex]];
+    document.getElementById('dw-emoji').textContent = it.emoji;
+    document.getElementById('dw-qtype').textContent = it.label;
+    document.getElementById('dw-sentence').innerHTML = it.before + '<span class="dw-blank" id="dw-blank">___</span>' + it.after;
+    document.getElementById('dw-infinitive').textContent = it.infinitive;
+
+    var choicesEl = document.getElementById('dw-choices');
+    choicesEl.innerHTML = '';
+    dwShuffle(it.choices).forEach(function(c){
+      var btn = document.createElement('button');
+      btn.className = 'dw-choice';
+      btn.dataset.a = c;
+      btn.textContent = c;
+      btn.onclick = function(){ dwAnswer(c); };
+      choicesEl.appendChild(btn);
+    });
+
+    document.getElementById('dw-explain').classList.remove('dw-show');
+    document.getElementById('dw-explain').textContent = it.hint;
+    document.getElementById('dw-next').classList.remove('dw-show');
+    document.getElementById('dw-count').textContent = 'Oppgave ' + (dwIndex+1) + ' av ' + dwQuiz.length;
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-bar').style.width = Math.round((dwIndex/dwQuiz.length)*100) + '%';
+  }
+
+  function dwToggleHint(){
+    document.getElementById('dw-explain').classList.toggle('dw-show');
+  }
+
+  function dwAnswer(choice){
+    if(dwAnswered) return;
+    dwAnswered = true;
+    var it = dwQuiz[dwOrder[dwIndex]];
+    var btns = document.querySelectorAll('.dw-choice');
+    btns.forEach(function(b){
+      b.disabled = true;
+      if(b.dataset.a === it.correct) b.classList.add('dw-correct');
+      else if(b.dataset.a === choice) b.classList.add('dw-wrong');
+    });
+    document.getElementById('dw-blank').textContent = it.correct;
+    document.getElementById('dw-explain').classList.add('dw-show');
+    if(choice === it.correct){
+      dwScore++;
+    } else {
+      dwWrong.push(it);
+    }
+    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
+    document.getElementById('dw-next').classList.add('dw-show');
+  }
+
+  function dwNext(){
+    dwIndex++;
+    if(dwIndex >= dwQuiz.length){
+      dwFinish();
+    } else {
+      dwLoad();
+    }
+  }
+
+  function dwFinish(){
+    document.getElementById('dw-bar').style.width = '100%';
+    document.getElementById('dw-game').style.display = 'none';
+    document.getElementById('dw-result').classList.add('dw-show');
+    document.getElementById('dw-final-score').textContent = dwScore + ' / ' + dwQuiz.length;
+    var msg;
+    if(dwScore === dwQuiz.length) msg = "Perfekt! Du kan akkusativpreposisjonene ut og inn! 🏅";
+    else if(dwScore >= dwQuiz.length*0.7) msg = "Sehr gut! Se gjennom reglene øverst for de siste detaljene.";
+    else msg = "Guter Versuch! Les reglene øverst en gang til, og prøv igjen.";
+    document.getElementById('dw-final-msg').textContent = msg;
+
+    var reviewEl = document.getElementById('dw-review');
+    if(dwWrong.length === 0){
+      reviewEl.innerHTML = '<strong>Ingenting å øve mer på akkurat nå — bra jobbet!</strong>';
+    } else {
+      var html = '<strong>Disse kan du øve litt ekstra på:</strong><ul>';
+      dwWrong.forEach(function(it){
+        html += '<li>' + it.emoji + ' <strong>' + it.review + '</strong> — ' + it.hint + '</li>';
+      });
+      html += '</ul>';
+      reviewEl.innerHTML = html;
+    }
+  }
+
+  function dwRestart(){ dwInit(); }
+
+  dwInit();
+</script>
+</body>
+</html>

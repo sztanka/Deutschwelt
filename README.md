@@ -27,13 +27,23 @@ deutschwelt-site/
 │   │   └── satzanalyse/
 │   │       └── index.html            → "Der Satz-Detektiv": finn Subjekt/Verb/Objekt/Adverbial
 │   ├── verb/
-│   │   ├── index.html                → kategori-hub, delt inn i verbtider: Presens er bygget, Perfekt/Präteritum/Plusquamperfekt/Futur I/Futur II er planlagt
+│   │   ├── index.html                → kategori-hub, delt inn i verbtider: Presens og Perfekt er bygget, Präteritum/Plusquamperfekt/Futur I/Futur II er planlagt
 │   │   ├── praesens-regelmaessig/
 │   │   │   └── index.html            → "Verb-Werkstatt": presens av regelrette verb
-│   │   └── praesens-unregelmaessig/
-│   │       └── index.html            → "Verb-Werkstatt": presens av sein, haben m.fl.
+│   │   ├── praesens-unregelmaessig/
+│   │   │   └── index.html            → "Verb-Werkstatt": presens av sein, haben m.fl.
+│   │   └── perfekt/
+│   │       └── index.html            → "Perfekt — haben oder sein?" — 6 regelseksjoner (svake/sterke verb,
+│   │                                    hjelpeverb+presensbøying, ordstilling vs. norsk, unntak fra ge-) +
+│   │                                    20-spørsmålsquiz i tre bolker — 🎓 9.–10. trinn (A2/B1)
 │   ├── preposisjoner/
-│   │   └── index.html                → kategori-hub (alt planlagt): Akkusativ-, Dativ- og Wechselpräpositionen
+│   │   ├── index.html                → kategori-hub: Akkusativ-, Dativ- og Wechselpräpositionen (alle tre bygget)
+│   │   ├── akkusativ/
+│   │   │   └── index.html            → "Akkusativpräpositionen" — durch/für/gegen/ohne/um (fast kasus) + 16-spørsmålsquiz i to bolker
+│   │   ├── dativ/
+│   │   │   └── index.html            → "Dativpräpositionen" — aus/bei/mit/nach/seit/von/zu (fast kasus, inkl. flertall+n og sammentrekninger) + 16-spørsmålsquiz i to bolker
+│   │   └── wechsel/
+│   │       └── index.html            → "Wechselpräpositionen" — an/auf/hinter/in/neben/über/unter/vor/zwischen (Wo?→Dativ / Wohin?→Akkusativ), med 9 egne inline-SVG-illustrasjoner + 18-spørsmålsquiz i to bolker — 🎓 9.–10. trinn (A2/B1)
 │   ├── adverbial/
 │   │   └── index.html                → kategori-hub (alt planlagt): TeKaMoLo, stedsadverbial
 │   ├── adjektiv/
@@ -1097,6 +1107,148 @@ feil ble oppdaget og rettet under egenverifisering før levering: Genf-
 sidens ordforrådskort for «französischsprachig» hadde tysk og norsk i
 feil rekkefølge (norsk fett, tysk i stedet for omvendt) — rettet til
 samme mønster som resten av ordforrådskortene på nettstedet.
+
+**Perfekt — haben oder sein? (nytt verbtema, 9.–10. trinn).** Teach ba om
+å bygge ut Verb-kategorien med Perfekt, og ga en detaljert liste over
+hvilke regler siden måtte dekke: (1) ge+stamme+t for svake verb, (2)
+ge+stamme (mulig Umlaut)+en for sterke verb, (3) når/hvorfor haben eller
+sein brukes som hjelpeverb, med forklaring om at disse selv bøyes i
+presens, (4) ordstilling sammenlignet med norsk, og (5) verb som er unntak
+fra å få ge- foran seg. I tillegg ba Teach om egne øvingsoppgaver for
+svake verb, sterke verb (særlig høyfrekvente) og hjelpeverb-bruk hver for
+seg. Dette var allerede planlagt i nettstedets egen veikart — både
+`grammatikk/verb/index.html` og `fortgeschritten/index.html` hadde en
+`dw-soon`-plassholder med nøyaktig tittelen «Perfekt — haben oder sein?»,
+begge nå erstattet med ekte lenker til den nye siden.
+
+**Sidestruktur:** `grammatikk/verb/perfekt/index.html` følger samme
+`.dw-rule`/`.dw-section`-referansemønster som `grammatikk/artikler/
+substantiv-abc/` og `grammatikk/artikler/dativ/` — seks regelseksjoner
+øverst (Perfekt generelt, svake verb med tabell og -et-unntaket for
+stammer på -t/-d, sterke verb med tabell + en utvidet referanseliste over
+10 høyfrekvente sterke verb, haben/sein med full presens-bøyingstabell for
+begge pluss en tre-kolonners oversikt over når sein brukes — bevegelse A
+til B, tilstandsendring, faste unntak som *sein* og *bleiben* — ordstilling
+med tysk/norsk-sammenligning + en kort bonusmerknad om Nebensatz-
+rekkefølge, og til slutt en tre-kolonners oversikt over verb uten ge-:
+uatskillelige forstavelser be-/ge-/er-/ver-/zer-/ent-/emp-/miss-, verb på
+-ieren, og en tydeliggjøring om at atskillelige verb som *aufstehen* IKKE
+er et unntak — de får fortsatt ge-, bare midt i ordet).
+
+**Øvingsdelen** er ett kombinert `dwQuiz`-array (samme spillmotor som
+Substantiv-ABC, med et `label`-felt som viser hvilken øvelse man er i),
+men bygget som tre faste blokker etter hverandre — 6 svake verb, 7 sterke
+verb, 7 haben/sein-oppgaver (20 totalt) — der hver blokk shuffles internt
+med `dwShuffle()`, men blokk-rekkefølgen i seg selv aldri endres, slik at
+det oppleves som tre atskilte øvelser slik Teach ba om, ikke ett tilfeldig
+blandet spill. Svake/sterke-oppgavene viser en setning med luke + verbets
+infinitiv, og distraktorene er bevisst valgt pedagogisk (f.eks. presens-
+formen som feil svar — «isst» i stedet for «gegessen» — for å synliggjøre
+forskjellen mellom presens og Partizip II). haben/sein-oppgavene bruker
+konsekvent «ich» som subjekt og lar eleven velge «habe» eller «bin».
+Søkeindeksen fikk én ny oppføring — ingen kollisjoner mot de 138
+eksisterende nøklene (bevisst unngått «haben»/«sein» som nøkler siden de
+allerede peker til Presens-siden for uregelrette verb).
+
+**Feil oppdaget og rettet under egenverifisering:** i alle 20
+spørsmålene lå det riktige svaret alltid som FØRSTE valg i `choices`-
+arrayet — det ville gjort quizen løsbar ved bare å klikke første knapp
+hver gang, uten å faktisk kunne stoffet. Rettet ved å shuffle
+`it.choices` i selve rendring-funksjonen (`dwLoad()`), verifisert
+programmatisk med en headless kjøring av spillmotoren (alle 20 `correct`-
+verdier bekreftet å faktisk finnes i sitt eget `choices`-array, ingen
+duplikater) og med en Playwright-gjennomgang som klikket «første knapp»
+gjennom alle 20 oppgavene og bekreftet at resultatet ikke lenger ble
+20/20 automatisk.
+
+Full verifisering: `node --check` (0 feil), 0 ødelagte lenker (2549
+sjekket nettstedbredt), og en Playwright-funksjonstest som fullførte alle
+20 oppgavene og bekreftet riktig blokk-rekkefølge (svak → sterk →
+hjelpeverb) fant 0 JavaScript-feil.
+
+**Akkusativ-, Dativ- og Wechselpräpositionen (tre nye preposisjonssider).**
+Teach ba om å bygge ut alle tre kasus-preposisjon-temaene på én gang, med
+«veldig gode og tydelige forklaringer» av bruk og kasus-effekt, variert
+øving, og — spesifikt for Wechselpräpositionen — egne illustrasjoner per
+preposisjon (eksempel gitt: «über = bilde av en lampe over et bord»). Alle
+tre var allerede planlagt som `dw-soon`-plassholdere i
+`grammatikk/preposisjoner/index.html`; kun Wechselpräpositionen var merket
+🎓 9.–10. trinn (Akkusativ-/Dativpräpositionen er grunnleggende A1-stoff).
+
+**Akkusativpräpositionen** (`grammatikk/preposisjoner/akkusativ/`): durch/
+für/gegen/ohne/um — fast akkusativ uansett sammenheng. Referanseseksjoner:
+hva en akkusativpreposisjon er, de fem + et huskerim, effekt på artikkelen
+(krysslenket til `grammatikk/artikler/akkusativ/`), og en eksempeltabell
+inkl. bonusbetydninger (um = klokkeslett, gegen = omtrentlig tid). 16
+spørsmål i to bolker: artikkelbøying etter fast preposisjon, og valg av
+riktig preposisjon ut fra betydning.
+
+**Dativpräpositionen** (`grammatikk/preposisjoner/dativ/`): aus/bei/mit/
+nach/seit/von/zu — fast dativ uansett sammenheng. Samme mønster, pluss to
+ekstra referanseseksjoner: sammentrekninger (beim/vom/zum/zur) og en egen
+fella-forklaring nach vs. zu (by/land uten artikkel vs. person/sted med
+artikkel). Artikkeltabellen fremhever flertall+n-fella spesifikt (die
+Kinder → den Kindern), krysslenket til `grammatikk/artikler/dativ/`. 16
+spørsmål i samme to-bolk-struktur som Akkusativpräpositionen.
+
+**Wechselpräpositionen** (`grammatikk/preposisjoner/wechsel/`, 🎓 9.–10.
+trinn): an/auf/hinter/in/neben/über/unter/vor/zwischen — kan styre både
+dativ og akkusativ avhengig av Wo? (plassering → Dativ) vs. Wohin?
+(bevegelse til nytt sted → Akkusativ). Regelseksjoner: konseptet Wo?/
+Wohin? med minimalpar (nøyaktig Teachs eget über-eksempel: lampe over
+bord, statisk vs. bevegelse), de ni + betydninger, en illustrert
+9-korts galleri (se eget avsnitt under), liggen/legen-type verbpar som
+avslører Wo? vs. Wohin?, og en konsolidert artikkeltabell med
+sammentrekninger (am/ans/im/ins). 18 spørsmål i to bolker: fem Wo?/
+Wohin?-minimalpar (10 oppgaver) og valg av riktig preposisjon ut fra
+betydning (8 oppgaver).
+
+**Illustrasjonene** — Teachs eksplisitte ønske — er egne inline-SVG-
+diagrammer, ikke bilder eller emoji: ni konsistente scener i samme
+husholdnings-/gate-tema (bord, vegg, stol, boks, hus, bil, tre), bygget
+programmatisk med `scratchpad/wechsel/build_illustrations.py` (gjenbrukbare
+form-funksjoner: `table_shape`, `wall_shape`, `chair_shape`, `cat_shape`,
+`box_shape`, `lamp_shape`, `house_shape`, `car_shape`, `tree_shape`, osv.)
+og limt inn i siden av `scratchpad/wechsel/build_page.py`. Fargespråket
+bruker sidens egne CSS-variabler direkte i SVG-en (`fill="var(--dw-accent)"`
+osv.), slik at illustrasjonene automatisk følger designsystemet. Under
+egenverifisering ble «hinter»-illustrasjonen (katt bak stol) oppdaget å se
+ut som «neben» — katten sto bare ved siden av stolen i stedet for skjult
+bak den; rettet ved å tegne katten FØR stolen og overlappe dem, slik at
+stolen delvis dekker katten (bare ørene/litt av hodet stikker synlig opp),
+verifisert på nytt med en ny skjermdump.
+
+**Søkeindeksen** fikk tre nye oppføringer. Én reell feil ble oppdaget og
+rettet her: siden søkefunksjonen matcher på delstreng begge veier
+(`q.indexOf(k)!==-1 || k.indexOf(q)!==-1`), ville søk på det fulle
+sidenavnet «akkusativpräpositionen» eller «dativpräpositionen» havne på de
+ELDRE `grammatikk/artikler/akkusativ/`- og `.../dativ/`-sidene i stedet,
+fordi «akkusativ»/«dativ» alene er en delstreng av de nye nøklene og disse
+eldre oppføringene står tidligere i `dwIndex`-arrayet (`.find()` returnerer
+første treff). Rettet ved å endre `dwSearch()` til å foretrekke et EKSAKT
+nøkkeltreff før den faller tilbake til delstreng-søk — en generell
+forbedring som ikke endrer oppførselen for noen eksisterende søk (verifisert
+med en full regresjonstest av søk på «berlin», «perfekt», «café»,
+«akkusativ», «dativ» osv., alle uendret).
+
+Koblet opp: alle tre `dw-soon`-kort i `grammatikk/preposisjoner/index.html`
+erstattet med ekte lenker, Wechselpräpositionen lagt til i
+`fortgeschritten/index.html` (`.dw-from`-mønster), og
+`schreiben/wo-ist-was/index.html` (en eksisterende, enklere Wo?+Dativ-
+skriveramme) fikk en kryssenke til den nye, fullverdige
+Wechselpräpositionen-siden i sin referansetabell.
+
+Full verifisering: `node --check` på alle tre nye sider (0 feil), en
+programmatisk kontroll av all quiz-data (ingen manglende `correct`-verdier,
+ingen duplikate `choices`, 16+16+18 = 50 spørsmål totalt), 0 ødelagte
+lenker, og en Playwright-funksjonstest kjørt via en lokal HTTP-server (ikke
+`file://`, som ikke løser mappe-URL-er til `index.html` slik GitHub Pages
+gjør): full klikk-gjennom-navigasjon mellom alle tre nye sider, kryss-
+lenkene til Akkusativ-Jagd/Dativ-Kompass, fortgeschritten-huben og søket —
+samt to fulle quiz-kjøringer per side, én som klikket «alltid første knapp»
+(bekreftet at ingen quiz kunne løses 100 % blindt) og én som klikket
+«alltid riktig svar» (bekreftet 16/16, 16/16 og 18/18 — ingen data-
+mismatch).
 
 ## Slik legger du til en ny seksjon
 

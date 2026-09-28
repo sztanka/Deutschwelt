@@ -318,6 +318,9 @@
     {keys:["nominativ","artikel","der die das","artikel-detektiv"], target:"grammatikk/artikler/nominativ/", label:"🕵️ Grammatik – Der Artikel-Detektiv (Nominativ)", built:true},
     {keys:["akkusativ","akkusativ-jagd"], target:"grammatikk/artikler/akkusativ/", label:"🎯 Grammatik – Die Akkusativ-Jagd (Akkusativ)", built:true},
     {keys:["dativ","dem dativ","dativ-kompass","zu dem","zu der","zum zur"], target:"grammatikk/artikler/dativ/", label:"🧭 Grammatik – Der Dativ-Kompass (Dativ)", built:true},
+    {keys:["akkusativpräpositionen","akkusativpreposisjoner","durch für gegen ohne um"], target:"grammatikk/preposisjoner/akkusativ/", label:"🧩 Grammatik – Akkusativpräpositionen", built:true},
+    {keys:["dativpräpositionen","dativpreposisjoner","aus bei mit nach seit von zu"], target:"grammatikk/preposisjoner/dativ/", label:"🧩 Grammatik – Dativpräpositionen", built:true},
+    {keys:["wechselpräpositionen","wechselpreposisjoner","wo oder wohin","an auf hinter in neben über unter vor zwischen"], target:"grammatikk/preposisjoner/wechsel/", label:"🧩 Grammatik – Wechselpräpositionen", built:true},
     {keys:["uregelrett","uregelrette","unregelmäßig","sein","haben","fahren","essen"], target:"grammatikk/verb/praesens-unregelmaessig/", label:"🌀 Grammatik – Verben: uregelrette", built:true},
     {keys:["verb","verben","konjugieren","konjugasjon","präsens","presens","regelmessig","spielen","lernen"], target:"grammatikk/verb/praesens-regelmaessig/", label:"⚙️ Grammatik – Verben: regelrette", built:true},
     {keys:["perfekt","partizip ii","partizip 2","perfektum","ge-form","haben oder sein"], target:"grammatikk/verb/perfekt/", label:"🔑 Grammatik – Perfekt: haben oder sein?", built:true},
@@ -533,9 +536,17 @@
     var q = document.getElementById('dw-search-input').value.trim().toLowerCase();
     var out = document.getElementById('dw-search-result');
     if(!q){ out.innerHTML = ""; return; }
+    // Eksakt nøkkel-treff vinner alltid først (unngår at f.eks. "akkusativpräpositionen"
+    // havner på den eldre "akkusativ"-artikkelsiden bare fordi "akkusativ" er en delstreng).
+    // Faller tilbake til delstreng-søk (første treff i listen) hvis ingen eksakt match finnes.
     var hit = dwIndex.find(function(item){
-      return item.keys.some(function(k){ return q.indexOf(k) !== -1 || k.indexOf(q) !== -1; });
+      return item.keys.indexOf(q) !== -1;
     });
+    if(!hit){
+      hit = dwIndex.find(function(item){
+        return item.keys.some(function(k){ return q.indexOf(k) !== -1 || k.indexOf(q) !== -1; });
+      });
+    }
     if(hit && hit.built){
       out.innerHTML = 'Vielleicht hier: <a href="'+hit.target+'">'+hit.label+'</a>';
     } else if(hit && !hit.built){
