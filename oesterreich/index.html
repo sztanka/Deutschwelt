@@ -1,32 +1,29 @@
 <!DOCTYPE html>
 <!--
-  DEUTSCHWELT — Deutschland: Kultur, tradisjoner, fakta og et interaktivt kart
-  Ny, 16. toppnav-pilar. Bygget etter ønske fra Teach om en generell del om
-  Tyskland/tysk kultur/tradisjon, pluss et interaktivt kart der de 10 største
-  byene skal plasseres riktig (dra-og-slipp, avklart med AskUserQuestion).
+  DEUTSCHWELT — Österreich: Kultur, tradisjoner, fakta og et interaktivt kart
+  Del av den nye "Länder"-huben (laender/), som samler Deutschland/
+  Österreich/Schweiz-landsprofilene. Bygget etter nøyaktig samme mønster og
+  spillmotor som deutschland/index.html (dra-og-slipp-kart + quiz), kun med
+  landspesifikt innhold og egen kartprojeksjon.
 
   Alle fakta er sjekket med websøk før publisering (se README.md/status-
-  dokumentet for kildene): de 10 største byene og innbyggertall (wiwo.de/
-  WirtschaftsWoche-rangering), Bundesländer/naboland/areal/Zugspitze (tysk
-  Wikipedia + destatis.de), nasjonalsangen (bundesregierung.de), Oktoberfest
-  (engelsk Wikipedia), Karneval/Fasching/Fastnacht-regionene (zdfheute.de),
-  Currywurst (Tagesspiegel/DPMA) og den tyske Brotkultur-UNESCO-statusen
-  (brotinstitut.de/unesco.de).
+  dokumentet for kildene).
 
-  Kartet: en forenklet Tyskland-silhuett generert fra åpne geografiske
-  koordinater (mainland + Rügen), projisert til et 600×814 SVG-koordinat-
-  system. Byenes posisjoner er plassert med samme projeksjon ut fra deres
-  faktiske lengde-/breddegrad — IKKE anslått for hånd. Spillet bruker en
-  "nærmeste by wins"-logikk (ikke en fast radius) for rettferdig retting,
-  siden noen byer (Köln/Düsseldorf/Essen/Dortmund i Ruhrgebiet) ligger tett.
+  Kartet: en forenklet Österreich-silhuett generert fra åpne geografiske
+  grensekoordinater (georgique/world-geojson, OSM-avledet), forenklet med
+  Shapely og projisert til et 800×411.0 SVG-koordinatsystem med en
+  cos(breddegrad)-korrigert projeksjon (samme metode som Deutschland-siden)
+  — IKKE anslått for hånd. Byenes posisjoner er beregnet fra faktiske
+  lengde-/breddegrader med samme projeksjon. Spillet bruker "nærmeste by
+  wins"-logikk for rettferdig retting.
 
-  Se README.md i rotmappen for hvordan du legger til flere temaer/byer her.
+  Se README.md i rotmappen for hvordan du legger til flere land/temaer her.
 -->
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Deutschland · Deutschwelt</title>
+<title>Österreich · Deutschwelt</title>
 <link rel="stylesheet" href="../assets/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -164,140 +161,126 @@
 
 <div class="dw-wrap">
 
-  <p class="dw-crumb"><a href="../laender/">🌍 Länder</a> → Deutschland</p>
+  <p class="dw-crumb"><a href="../laender/">🌍 Länder</a> → Österreich</p>
 
   <div class="dw-header">
-    <h1>Deutschland</h1>
+    <h1>Österreich</h1>
     <p>Kultur, tradisjoner og fakta om landet — og et kart du må mestre til slutt!</p>
   </div>
 
   <div class="dw-stat-grid">
-    <div class="dw-stat"><b>16</b><span>Bundesländer</span></div>
-    <div class="dw-stat"><b>Berlin</b><span>Hovedstad</span></div>
-    <div class="dw-stat"><b>84,7 mill.</b><span>Innbyggere</span></div>
-    <div class="dw-stat"><b>9</b><span>Naboland</span></div>
-    <div class="dw-stat"><b>357 600 km²</b><span>Areal</span></div>
+    <div class="dw-stat"><b>9</b><span>Bundesländer</span></div>
+    <div class="dw-stat"><b>Wien</b><span>Hovedstad</span></div>
+    <div class="dw-stat"><b>9,22 mill.</b><span>Innbyggere</span></div>
+    <div class="dw-stat"><b>8</b><span>Naboland</span></div>
+    <div class="dw-stat"><b>83 879 km²</b><span>Areal</span></div>
     <div class="dw-stat"><b>€</b><span>Valuta (Euro)</span></div>
   </div>
+
 
   <div class="dw-section">
     <h2>🎉 Høytider og tradisjoner</h2>
     <p>
-      <b>Tag der Deutschen Einheit</b> (3. oktober) er Tysklands nasjonaldag —
-      dagen i 1990 da Øst- og Vest-Tyskland ble ett land igjen etter den kalde
-      krigen (les mer på <a href="../geschichte/kalter-krieg/">Kalter Krieg</a>
-      og <a href="../geschichte/berliner-mauer/">Die Berliner Mauer</a>).
-    </p>
-    <h3>Karneval, Fasching og Fastnacht</h3>
-    <p>
-      Det samme høytiden har faktisk tre ulike navn avhengig av hvor i Tyskland
-      du er. I Rheinland (Köln, Düsseldorf) heter det <b>Karneval</b>, i Bayern
-      og østover <b>Fasching</b>, og i sørvest (Schwaben) <b>Fastnacht</b> eller
-      <b>Fasnet</b> — der tradisjonen er enda eldre, med utskårne tremasker og
-      «Häs»-drakter som forestiller hekser og djevler. Høydepunktet overalt er
-      <b>Rosenmontag</b> («rosenmandag»), mandagen før askeonsdag, med store
-      opptog i gatene.
+      <b>Nationalfeiertag</b> (26. oktober) er Østerrikes nasjonaldag — dagen
+      i 1955 da parlamentet vedtok loven om <b>permanent nøytralitet</b>,
+      rett etter at de allierte okkupasjonsstyrkene hadde trukket seg ut
+      (Staatsvertrag, 15. mai 1955). Selve høytidsdagen ble ikke innført før
+      1965, og først i 1967 ble den en offisiell fridag for alle.
     </p>
     <div class="dw-fact-box">
-      🕚 <b>Visste du at</b> Karneval-sesongen i Rheinland offisielt starter
-      klokken <b>11:11 den 11. november</b> hvert år — og at selve festen ikke
-      begynner for alvor før i februar/mars? Tallet 11 har vært et «narrenes
-      tall» i karneval-tradisjonen siden 1800-tallet.
+      🏛️ <b>Visste du at</b> museer som Heeresgeschichtliches Museum og Wien
+      Museum har gratis inngang akkurat denne dagen — og at hæren arrangerer
+      en stor parade på Wiens Ringstraße hvert tiende år?
     </div>
-    <h3>Oktoberfest</h3>
+    <h3>Krampus</h3>
     <p>
-      Verdens største folkefest startet ikke som en ølfest, men som et
-      <b>bryllup</b>: i 1810 giftet kronprins Ludwig av Bayern seg med prinsesse
-      Therese, og München feiret med en stor fest på en eng som siden har hett
-      <b>Theresienwiese</b> («Wiesn» til vanlig). Festen ble en årlig tradisjon
-      — og selv om den heter «Oktober»-fest, starter den i dag i september
-      (for å utnytte de varmere kveldene) og varer 16–18 dager fram til første
-      søndag i oktober.
+      Den 5. desember («Krampusnacht») følges Sankt Nikolaus av en helt annen
+      skikkelse: <b>Krampus</b>, en hornete, geiteaktig «anti-julenisse» som
+      skremmer (og ifølge legenden straffer) barn som har oppført seg dårlig.
+      Mange byer arrangerer <b>Krampusläufe</b> — fakkeltog med utkledde
+      Krampus-figurer i gatene.
     </p>
     <p class="dw-note">
-      Weihnachten (jul) feires 24.–26. desember, med selve Heiligabend
-      (julaften) den 24. som den viktigste dagen — akkurat som i Norge.
+      Krampus-tradisjonen har faktisk blitt forsøkt stanset to ganger i
+      historien — av kirken på 1100-tallet fordi figuren lignet for mye på
+      djevelen, og av den østerrikske regjeringen i 1934 — men ingen av
+      forsøkene varte. I dag blomstrer tradisjonen mer enn noen gang i
+      alpelandene.
     </p>
   </div>
 
   <div class="dw-section">
     <h2>🏛️ Nasjonalsymboler og fakta</h2>
     <p>
-      Det tyske flagget har tre vannrette striper: <b>svart – rødt – gull</b>
-      (schwarz-rot-gold). Tyskland er en <b>forbundsrepublikk</b>
-      («Bundesrepublik Deutschland») med <b>16 Bundesländer</b> (delstater),
-      hver med sin egen regjering — litt som fylkene i Norge, men med langt mer
-      selvstyre (blant annet bestemmer hvert Bundesland sine egne skoleferier
-      og en del av skolepolitikken selv).
+      Det østerrikske flagget har tre vannrette striper: <b>rødt – hvitt –
+      rødt</b>. Det er ett av verdens eldste statsflagg, dokumentert på et
+      segl fra Babenberg-dynastiet allerede i 1230. Den kjente legenden om at
+      hertug Leopold V fikk en blodig kappe med en ren, hvit stripe under
+      beltet under beleiringen av Akko (1189–91) ble første gang nedskrevet
+      rundt 1260 — trolig en romantisert historie i ettertid, ikke den
+      egentlige opprinnelsen.
+    </p>
+    <p>
+      Østerrike er en <b>forbundsrepublikk</b> med <b>9 Bundesländer</b>
+      (delstater), akkurat som Tyskland — men på en mindre skala.
     </p>
     <h3>Nasjonalsangen</h3>
     <p>
-      Den tyske nasjonalsangen er <i>Das Lied der Deutschen</i>
-      («Deutschlandlied»), med melodi av Joseph Haydn og tekst av August
-      Heinrich Hoffmann von Fallersleben (1841). Men det synges kun <b>ett</b>
-      av de tre versene i dag: det <b>tredje</b> («Einigkeit und Recht und
-      Freiheit …»). Grunnen er historisk: nazistene misbrukte særlig det
-      første verset som propaganda for erobringskrig, så etter krigen ble det
-      i 1952 offisielt bestemt at bare det tredje verset skulle synges ved
-      statlige anledninger — en beslutning som ble bekreftet på nytt etter
-      gjenforeningen i 1991 (se <a href="../geschichte/zweiter-weltkrieg/">Zweiter
-      Weltkrieg</a> for mer om denne perioden).
+      <i>Bundeshymne der Republik Österreich</i> («Land der Berge, Land am
+      Strome») har tekst av Paula Preradović (1947); melodien har tradisjonelt
+      blitt tilskrevet Mozart, selv om musikkforskere er uenige om dette.
+      Et interessant, ganske moderne eksempel på språkendring: i 2011–2012 ble
+      teksten endret for å bli kjønnsnøytral — «Heimat bist du großer
+      <b>Söhne</b>» ble til «Heimat bist du großer <b>Töchter und Söhne</b>»,
+      og «Brüderchören» ble til «Jubelchören». Endringen ble vedtatt av
+      Nationalrådet 7. desember 2011 og trådte i kraft 1. januar 2012.
     </p>
     <h3>Naboland</h3>
     <p>
-      Tyskland grenser til <b>9 land</b> — flere enn de fleste andre land i
-      Europa: Danmark (nord), Polen (nordøst), Tsjekkia (øst), Østerrike
-      (sørøst), Sveits (sør), Frankrike (sørvest), Luxembourg og Belgia (vest)
-      og Nederland (nordvest).
+      Østerrike grenser til <b>8 land</b>: Tyskland og Tsjekkia (nord),
+      Slovakia og Ungarn (øst), Slovenia og Italia (sør), og Sveits og
+      Liechtenstein (vest).
     </p>
   </div>
 
   <div class="dw-section">
-    <h2>🍞 Mat og skikker</h2>
-    <p>
-      Tyskland har en helt egen <b>brødkultur</b>: over <b>3 200</b> godkjente,
-      registrerte brødsorter — trolig flere enn noe annet land i verden. I 2014
-      ble den tyske brødkulturen offisielt en del av UNESCOs liste over
-      immateriell kulturarv.
-    </p>
-    <p>
-      En annen vane som ofte overrasker norske elever: <b>Abendbrot</b>
-      («kveldsbrød») er den vanlige, kalde kveldsmaten i mange tyske hjem —
-      brød med pålegg, akkurat som norsk kveldsmat — mens hovedmåltidet
-      («Mittagessen») tradisjonelt spises varmt midt på dagen.
-    </p>
+    <h2>🍽️ Mat og skikker</h2>
     <table class="dw-food-table">
       <tr><th>Rett</th><th>Hva er det?</th></tr>
-      <tr><td><b>Currywurst</b></td><td>Stekt pølse i curryketchup — oppfunnet av Herta Heuwer i Berlin i 1949, i dag en av Tysklands mest kjente gatematretter.</td></tr>
-      <tr><td><b>Döner Kebab</b></td><td>Flatbrød med kjøtt og grønnsaker — sterkt knyttet til Berlins tyrkisk-tyske miljø, en av byens mest populære gateretter i dag.</td></tr>
-      <tr><td><b>Weißwurst</b></td><td>Hvit kalve-/svinepølse fra Bayern, tradisjonelt spist til frokost/formiddag, aldri etter klokken 12 ifølge gammel skikk.</td></tr>
-      <tr><td><b>Sauerkraut</b></td><td>Syrnet, finskåret hvitkål — klassisk tilbehør over hele landet.</td></tr>
-      <tr><td><b>Kartoffeln</b></td><td>Poteter — en av de viktigste råvarene i tysk husmannskost, akkurat som i Norge.</td></tr>
+      <tr><td><b>Wiener Schnitzel</b></td><td>Panert, stekt kalvekotelett — Wiens desidert mest kjente rett.</td></tr>
+      <tr><td><b>Sachertorte</b></td><td>Tett sjokoladekake med aprikossyltetøy, oppfunnet i 1832 av den 16 år gamle lærlingen Franz Sacher. Hotel Sacher og konditoriet Demel kranglet i tiår om hvem som hadde rett til å kalle sin versjon «Original Sacher-Torte» — striden ble avgjort i retten først i 1963.</td></tr>
+      <tr><td><b>Kaiserschmarrn</b></td><td>Karamellisert, oppdelt pannekake. Legenden sier keiser Franz Joseph I likte den så godt at han spiste opp kona si sin del også.</td></tr>
+      <tr><td><b>Apfelstrudel</b></td><td>Sprø, tynn strudeldeig rundt eplefyll — en wiensk klassiker.</td></tr>
+      <tr><td><b>Tafelspitz</b></td><td>Kokt oksekjøtt servert med eple-pepperrot-saus.</td></tr>
+      <tr><td><b>Melange</b></td><td>Wiens klassiske melkekaffe. Den wienske kaffehuskulturen står på UNESCOs liste over immateriell kulturarv.</td></tr>
     </table>
+    <p class="dw-note">
+      Et gammelt wiensk ordtak om kaffehuskulturen: du betaler for kaffen,
+      men tid og plass får du gratis — mange satt (og sitter) timevis på en
+      kaffe med avis eller bok.
+    </p>
   </div>
 
   <div class="dw-section">
     <h2>🏔️ Geografi og natur</h2>
     <p>
-      Tyskland strekker seg fra kystlinjen i nord (<b>Nordsee</b> og
-      <b>Ostsee</b>) til Alpene i sør. Landskapet endrer seg gradvis: flatt
-      slettelandskap i nord («Norddeutsches Tiefland»), så et belte med
-      lavere fjell og skogkledde åser i midten (Mittelgebirge, bl.a.
-      Schwarzwald), og til slutt de høye Alpene helt sør.
+      Alpene dekker rundt <b>62 %</b> av Østerrike, fordelt på tre
+      fjellkjeder som strekker seg vest–øst. Resten er flatere landskap,
+      særlig konsentrert til Wien-bekkenet og den pannonske sletta lengst
+      øst.
     </p>
     <p>
-      Tysklands høyeste fjell er <b>Zugspitze</b> (2 962 moh.), på grensen mot
-      Østerrike i Alpene. De viktigste elvene er <b>Rhein</b> (den mest
-      trafikkerte og økonomisk viktigste), <b>Elbe</b>, <b>Donau</b>
-      (Donau/Donauen renner faktisk østover, mot Svartehavet — motsatt av de
-      fleste andre store tyske elver), <b>Weser</b>, <b>Ems</b> og
-      <b>Oder</b> (som i dag delvis danner grensen mot Polen).
+      Østerrikes høyeste fjell er <b>Großglockner</b> (3 798 moh.), i
+      Hohe Tauern-kjeden. Den viktigste elven er <b>Donau</b> (Donau/Donauen),
+      som renner vest–øst gjennom både Linz og Wien; alpetilløpselvene Inn,
+      Salzach og Enns drenerer nordover, mens Mur og Drau drenerer sørover
+      mot Slovenia.
     </p>
     <p class="dw-note">
-      Areal: ca. 357 600 km² — litt mindre enn Norge i utstrekning (Norge er
-      ca. 385 000 km²), men med over 15 ganger så mange innbyggere.
+      Areal: ca. 83 879 km² — omtrent på størrelse med Irland eller Skottland.
     </p>
   </div>
+
 
   <div class="dw-section">
     <h2>🗺️ Plasser de 10 største byene!</h2>
@@ -310,9 +293,8 @@
     </p>
     <div class="dw-map-game">
       <div class="dw-map-col">
-        <svg id="dw-map-svg" viewBox="0 0 600 814" xmlns="http://www.w3.org/2000/svg">
-          <path class="dw-map-land" d="M 166.1,1.3 L 162.6,9.3 L 167.6,18.7 L 192.7,14.6 L 233.5,28.0 L 245.2,18.9 L 267.6,28.9 L 272.3,52.9 L 260.0,61.6 L 283.5,62.8 L 279.1,77.9 L 291.4,64.9 L 316.7,78.5 L 344.4,69.6 L 339.9,73.4 L 342.2,89.7 L 319.9,104.7 L 328.9,115.0 L 347.8,108.8 L 365.8,120.8 L 367.7,113.7 L 360.8,110.7 L 368.1,113.7 L 380.7,94.4 L 409.7,94.7 L 435.6,59.8 L 464.6,64.7 L 446.3,67.9 L 454.6,74.3 L 468.4,64.5 L 474.0,81.0 L 497.0,100.9 L 512.7,92.4 L 527.0,118.5 L 521.1,124.4 L 528.5,120.0 L 526.4,111.5 L 535.4,116.5 L 532.8,106.6 L 547.1,117.7 L 546.8,124.5 L 519.9,125.2 L 551.2,137.7 L 546.7,141.5 L 562.0,187.6 L 540.6,231.6 L 574.5,258.8 L 567.3,278.0 L 581.2,311.7 L 571.1,337.8 L 581.0,354.2 L 578.4,365.5 L 593.8,373.5 L 600.0,391.5 L 593.6,424.8 L 579.2,442.0 L 565.5,418.5 L 551.9,418.2 L 548.8,426.7 L 558.9,429.9 L 557.0,435.5 L 503.1,453.8 L 497.6,466.0 L 491.6,461.1 L 465.6,485.1 L 435.4,486.6 L 423.0,509.6 L 414.3,494.6 L 407.2,501.7 L 437.4,536.0 L 428.0,554.0 L 444.9,587.7 L 469.3,600.6 L 493.4,634.5 L 508.4,638.0 L 521.9,656.4 L 514.3,683.4 L 500.0,675.0 L 494.0,697.9 L 450.9,725.1 L 467.2,752.8 L 461.3,765.4 L 474.0,775.1 L 468.0,793.2 L 454.0,783.2 L 452.8,771.2 L 434.7,776.1 L 418.2,764.5 L 413.0,768.8 L 415.3,779.0 L 377.7,779.3 L 354.0,801.0 L 334.5,800.5 L 328.4,785.6 L 298.8,780.7 L 298.9,802.3 L 281.6,813.6 L 285.4,800.8 L 276.8,804.8 L 268.6,784.3 L 250.1,785.0 L 207.9,755.8 L 219.5,772.0 L 204.4,763.7 L 197.9,773.4 L 176.7,756.8 L 165.9,770.8 L 179.2,771.2 L 177.8,779.1 L 117.8,785.7 L 107.5,769.1 L 114.7,740.1 L 111.8,724.7 L 128.7,671.1 L 154.4,635.9 L 115.5,627.2 L 103.1,613.6 L 93.1,620.8 L 77.7,621.1 L 69.0,609.6 L 56.7,615.7 L 43.5,587.5 L 31.6,584.3 L 43.0,548.4 L 28.8,545.6 L 14.8,522.1 L 19.5,503.7 L 35.1,493.6 L 30.0,476.8 L 19.7,470.8 L 26.6,464.0 L 6.0,445.3 L 13.8,432.0 L 0.0,419.3 L 19.6,407.9 L 13.5,398.3 L 23.6,385.6 L 22.8,370.7 L 6.1,337.7 L 18.8,329.3 L 35.7,337.6 L 57.1,329.9 L 63.1,319.9 L 54.3,311.7 L 78.5,294.4 L 74.3,270.3 L 58.5,270.8 L 53.2,261.3 L 58.7,260.3 L 57.1,251.8 L 77.3,252.9 L 80.1,230.9 L 91.0,215.1 L 90.2,180.4 L 73.8,177.1 L 84.3,149.3 L 140.5,140.6 L 150.7,156.9 L 144.3,166.3 L 156.0,173.2 L 157.3,151.2 L 176.8,160.7 L 171.1,142.3 L 179.3,123.1 L 211.5,124.7 L 193.2,108.1 L 203.8,105.5 L 192.4,92.3 L 201.8,77.7 L 177.5,78.6 L 184.4,73.1 L 179.3,70.0 L 198.0,67.3 L 204.3,56.1 L 192.3,61.2 L 197.8,48.5 L 178.1,17.9 L 166.7,21.9 L 159.8,19.0 L 157.8,31.8 L 159.0,15.4 L 166.1,1.3 Z"/>
-          <path class="dw-map-land" d="M 496.3,50.2 L 511.6,51.6 L 504.4,62.1 L 517.3,74.7 L 514.6,81.8 L 509.4,79.4 L 513.2,76.3 L 507.1,77.4 L 511.8,73.9 L 505.1,73.5 L 490.2,82.2 L 494.5,83.8 L 492.9,87.3 L 486.1,84.1 L 489.0,81.3 L 476.2,80.9 L 479.2,78.9 L 474.6,75.7 L 475.4,71.6 L 484.2,70.4 L 476.9,65.6 L 484.6,60.3 L 477.5,57.7 L 476.5,53.3 L 487.1,56.7 L 486.6,52.7 L 491.2,49.9 L 489.2,53.1 L 491.8,52.0 L 494.1,58.8 L 500.3,60.1 L 500.0,53.1 L 496.3,50.2 Z"/>
+        <svg id="dw-map-svg" viewBox="0 0 800 411.0" xmlns="http://www.w3.org/2000/svg">
+          <path class="dw-map-land" d="M 573.4,21.3 L 557.5,18.5 L 555.4,53.3 L 539.6,52.3 L 539.1,58.7 L 530.5,68.7 L 529.7,78.8 L 520.0,73.6 L 509.8,74.9 L 507.4,70.3 L 505.1,78.8 L 494.6,83.6 L 470.5,77.5 L 466.5,75.1 L 465.2,70.3 L 468.1,68.5 L 464.7,62.3 L 447.1,52.9 L 442.8,60.9 L 446.9,62.9 L 444.6,64.3 L 446.6,73.9 L 436.7,89.3 L 415.7,78.5 L 408.4,85.4 L 411.0,88.8 L 408.1,104.0 L 399.2,115.7 L 355.4,132.8 L 344.7,143.9 L 345.0,153.0 L 361.0,170.2 L 366.7,183.5 L 359.1,194.0 L 361.5,195.6 L 358.1,202.6 L 371.4,202.9 L 375.4,208.1 L 367.5,237.0 L 346.3,223.1 L 351.5,217.6 L 342.3,206.6 L 319.6,214.7 L 314.1,206.0 L 296.2,207.1 L 297.3,198.7 L 287.3,204.5 L 291.0,217.8 L 237.5,220.7 L 232.0,224.1 L 232.8,230.7 L 218.2,231.0 L 212.9,236.0 L 217.4,241.0 L 199.3,248.1 L 199.5,243.1 L 174.4,248.3 L 169.4,235.7 L 164.4,234.9 L 168.1,230.7 L 165.7,228.1 L 155.0,230.4 L 137.7,224.1 L 131.7,227.8 L 122.0,222.0 L 126.4,242.5 L 107.3,264.4 L 98.7,266.3 L 102.6,250.2 L 89.8,252.3 L 89.8,240.7 L 85.3,235.7 L 77.4,228.6 L 66.4,228.6 L 59.6,220.2 L 55.2,228.3 L 39.1,232.5 L 48.2,240.1 L 50.2,249.1 L 36.0,265.7 L 41.2,275.0 L 39.4,279.9 L 46.0,286.0 L 43.4,295.4 L 67.8,300.7 L 68.5,313.7 L 90.6,326.0 L 102.6,322.2 L 104.2,314.0 L 111.3,314.5 L 116.0,305.0 L 128.0,312.9 L 125.6,324.6 L 135.9,327.3 L 145.8,321.4 L 154.2,329.4 L 150.8,335.5 L 178.9,336.3 L 187.0,316.6 L 194.3,308.9 L 235.4,302.3 L 247.2,308.1 L 289.9,290.9 L 294.4,294.1 L 282.9,305.5 L 287.1,316.9 L 296.8,321.2 L 299.4,334.7 L 304.9,335.3 L 309.9,346.5 L 352.3,359.6 L 414.4,366.0 L 444.0,373.8 L 452.9,371.6 L 477.0,383.1 L 503.5,382.9 L 516.6,392.5 L 518.7,384.0 L 540.7,373.2 L 545.7,360.4 L 553.8,356.6 L 556.4,360.6 L 559.6,354.8 L 596.0,353.2 L 602.5,358.5 L 620.1,345.7 L 637.1,343.5 L 657.0,352.1 L 651.5,339.8 L 653.1,328.9 L 681.7,303.4 L 700.8,303.1 L 695.5,299.1 L 702.4,295.1 L 698.7,289.8 L 702.6,285.3 L 696.1,282.7 L 693.5,273.4 L 699.5,261.8 L 693.5,254.7 L 695.8,246.5 L 710.7,243.9 L 719.7,227.8 L 713.6,214.4 L 701.8,213.9 L 693.7,209.4 L 695.5,205.5 L 710.5,196.3 L 722.3,200.3 L 725.4,206.6 L 736.7,201.8 L 737.2,206.3 L 756.6,203.7 L 754.8,188.8 L 750.0,182.2 L 757.1,178.6 L 757.6,165.8 L 764.0,161.4 L 756.1,158.0 L 754.2,141.9 L 747.2,138.5 L 743.2,124.0 L 732.8,108.4 L 735.1,97.6 L 744.0,85.4 L 740.9,65.6 L 739.0,60.2 L 719.4,58.2 L 716.0,51.8 L 704.5,46.9 L 697.4,46.9 L 689.8,57.2 L 665.4,57.4 L 638.4,39.0 L 624.0,40.5 L 583.9,21.8 L 573.2,29.5 L 573.4,21.3 Z"/>
           <g id="dw-targets"></g>
           <g id="dw-pins"></g>
         </svg>
@@ -336,22 +318,7 @@
 </div>
 
 <script>
-  // Byer: x/y er posisjon i SVG-koordinatsystemet (600×814), regnet ut fra
-  // ekte lengde-/breddegrad med samme projeksjon som selve kartomrisset —
-  // ikke anslått for hånd. Innbyggertall er avrundet (kilde: WirtschaftsWoche-
-  // rangering 2026, se README.md/status-dokumentet).
-  var dwCities = [
-    {name:"Berlin", x:493.6, y:265.0, pop:"3,9 mill.", fact:"Tysklands hovedstad og største by."},
-    {name:"Hamburg", x:269.8, y:157.4, pop:"2,0 mill.", fact:"Stor havneby ved elven Elbe."},
-    {name:"München", x:373.7, y:723.0, pop:"1,6 mill.", fact:"Hovedstad i Bayern, kjent for Oktoberfest."},
-    {name:"Köln", x:71.3, y:430.4, pop:"1,1 mill.", fact:"Kjent for den enorme Kölner Dom (domkirke)."},
-    {name:"Frankfurt am Main", x:184.1, y:516.8, pop:"780 000", fact:"Tysklands finanssentrum, med skyskrapere."},
-    {name:"Düsseldorf", x:59.1, y:400.1, pop:"660 000", fact:"Hovedstad i delstaten Nordrhein-Westfalen."},
-    {name:"Leipzig", x:426.0, y:388.4, pop:"630 000", fact:"Musikkby — Johann Sebastian Bach jobbet her."},
-    {name:"Dortmund", x:104.4, y:370.2, pop:"610 000", fact:"Ruhrgebiet — kjent for fotballklubben Borussia Dortmund."},
-    {name:"Stuttgart", x:217.0, y:656.3, pop:"610 000", fact:"Bilindustri — hjemsted for Mercedes-Benz og Porsche."},
-    {name:"Essen", x:74.7, y:376.3, pop:"600 000", fact:"Tidligere industri-/kullgruveby i Ruhrgebiet."}
-  ];
+  var dwCities = [{"name": "Wien", "x": 688.7, "y": 132.8, "pop": "2,03 mill.", "fact": "Østerrikes hovedstad — historisk sentrum for psykoanalyse (Freud) og klassisk musikk."}, {"name": "Graz", "x": 599.7, "y": 294.0, "pop": "305 000", "fact": "Har verdens største historiske samling av middelalder-/renessanserustninger."}, {"name": "Linz", "x": 489.7, "y": 118.9, "pop": "214 000", "fact": "Europeisk kulturhovedstad i 2009."}, {"name": "Salzburg", "x": 371.3, "y": 190.6, "pop": "158 000", "fact": "Mozarts fødeby — gamlebyen er på UNESCOs verdensarvliste."}, {"name": "Innsbruck", "x": 213.7, "y": 266.0, "pop": "132 000", "fact": "Omgitt av Alpene — vertsby for Vinter-OL i 1964 og 1976."}, {"name": "Klagenfurt", "x": 491.0, "y": 358.3, "pop": "105 000", "fact": "En legende om en drage (Lindwurm) står bak byens kjente drage-statue."}, {"name": "Villach", "x": 448.1, "y": 358.3, "pop": "66 000", "fact": "Kåret til Alpenes første «Alpine Town of the Year» i 1997."}, {"name": "Wels", "x": 465.9, "y": 138.8, "pop": "65 000", "fact": "Grunnlagt av romerne som byen «Ovilava»."}, {"name": "Sankt Pölten", "x": 618.6, "y": 132.9, "pop": "60 000", "fact": "Hovedstad i delstaten Niederösterreich, bygget på en romersk bosetning."}, {"name": "Dornbirn", "x": 56.4, "y": 245.3, "pop": "52 000", "fact": "Størst i delstaten Vorarlberg, helt vest i landet."}];
 
   var dwMapScore = 0;
 
@@ -457,7 +424,7 @@
 
     dwDragChip = null;
 
-    if(!p || p.x < -60 || p.x > 660 || p.y < -60 || p.y > 874){
+    if(!p || p.x < -60 || p.x > 860 || p.y < -60 || p.y > 471.0){
       return; // sluppet langt utenfor kartet — ingen tilbakemelding, prøv igjen
     }
 
@@ -513,7 +480,7 @@
 
   function dwShowReview(){
     var wrap = document.getElementById('dw-city-review');
-    wrap.innerHTML = '<p style="grid-column:1/-1;font-weight:700;color:var(--dw-good);">🎉 Alle 10 byer riktig plassert!</p>';
+    wrap.innerHTML = '<p style="grid-column:1/-1;font-weight:700;color:var(--dw-good);">🎉 Alle ' + dwCities.length + ' byer riktig plassert!</p>';
     dwCities.forEach(function(c){
       var div = document.createElement('div');
       div.className = 'dw-city-review-item';
@@ -539,13 +506,7 @@
   dwRenderPool();
 
   // Quiz
-  var dwQuiz = [
-    {q:"Hvor mange Bundesländer (delstater) har Tyskland?", opts:["9","12","16","20"], correct:2},
-    {q:"Hvilken by var vertskap for det aller første Oktoberfest i 1810?", opts:["Berlin","München","Hamburg","Köln"], correct:1},
-    {q:"Hvilket vers av «Deutschlandlied» er den offisielle nasjonalsangen i dag?", opts:["Det første","Det andre","Det tredje","Alle tre"], correct:2},
-    {q:"I hvilken by ble Currywurst oppfunnet i 1949?", opts:["München","Frankfurt","Köln","Berlin"], correct:3},
-    {q:"Hva heter Tysklands høyeste fjell?", opts:["Zugspitze","Watzmann","Brocken","Feldberg"], correct:0}
-  ];
+  var dwQuiz = [{"q": "Hva markerer Østerrikes Nationalfeiertag (26. oktober)?", "opts": ["Grunnlovsdagen", "Loven om permanent nøytralitet (1955)", "Slaget ved Wien", "EU-medlemskapet"], "correct": 1}, {"q": "Hva heter den hornete «anti-julenissen» som følger Sankt Nikolaus 5. desember?", "opts": ["Krampus", "Perchta", "Rumpelstiltskin", "Knecht Ruprecht"], "correct": 0}, {"q": "Hvilket ord i nasjonalsangen ble endret i 2012 for å bli kjønnsnøytralt?", "opts": ["«Heimat»", "«großer Söhne» → «großer Töchter und Söhne»", "«Berge»", "«Strome»"], "correct": 1}, {"q": "Hvor mange land grenser Østerrike til?", "opts": ["5", "6", "8", "10"], "correct": 2}, {"q": "Hva heter Østerrikes høyeste fjell?", "opts": ["Zugspitze", "Großglockner", "Dachstein", "Watzmann"], "correct": 1}, {"q": "Hvem sto etter sigende bak den lange rettstvisten om «Original Sacher-Torte»?", "opts": ["To bakerfamilier i Salzburg", "Hotel Sacher og konditoriet Demel", "Wien og Graz kommune", "To søsken"], "correct": 1}];
   var dwQuizScore = 0;
   var dwQuizAnswered = 0;
 

@@ -204,6 +204,12 @@ deutschwelt-site/
 │   └── index.html                    → "Musik" — 27 tyske sanger med innebygd YouTube-spiller
 ├── deutschland/
 │   └── index.html                    → "Deutschland" — kultur/tradisjon/fakta + interaktivt dra-og-slipp-kart (10 største byer)
+├── laender/
+│   └── index.html                    → hub-side: "Länder" — velg landsprofil (Deutschland/Österreich/Schweiz)
+├── oesterreich/
+│   └── index.html                    → "Österreich" — kultur/tradisjon/fakta + interaktivt dra-og-slipp-kart (10 største byer)
+├── schweiz/
+│   └── index.html                    → "Schweiz" — kultur/tradisjon/fakta + interaktivt dra-og-slipp-kart (10 største byer)
 ├── normen/
 │   └── hoeflichkeit/
 │       └── index.html                → "Höflichkeit in Deutschland" — du/Sie, illustrasjoner, grammatikkspill
@@ -272,11 +278,12 @@ og Verb er delt tydelig i verbtider (Presens er bygget, resten er planlagt
 `dw-soon`-kort), akkurat som etterspurt. Se «Slik legger du til et nytt
 grammatikktema» lenger ned for konkret oppskrift på nye kort i riktig kategori.
 
-**Om toppnavigasjonen:** den har nå 16 punkter (🏠 Forside ·
+**Om toppnavigasjonen:** den har fortsatt 16 punkter (🏠 Forside ·
 🧩 Grammatik · 🏙️ Städte · 🕰️ Geschichte · 📖 Lesen · 🎧 Hören · ✍️ Schreiben ·
-🗺️ Reise · 🏆 Challenges · 🎬 Filme & Serien · 🎵 Musik · 🇩🇪 Deutschland ·
+🗺️ Reise · 🏆 Challenges · 🎬 Filme & Serien · 🎵 Musik · 🌍 Länder ·
 🎩 Normen & Regler · 📱 Deutsch im echten Leben · 🗣️ Sprechen · 🎓 9.–10. trinn —
-🇩🇪 Deutschland er nyest, se «Om Deutschland-siden» lenger ned) og bruker `flex-wrap` i
+punktet som pekte rett til `deutschland/` (🇩🇪 Deutschland) peker nå i stedet til
+`laender/` (🌍 Länder), se «Om Länder-seksjonen» lenger ned) og bruker `flex-wrap` i
 `assets/style.css`, så den bryter fint til to-tre linjer på smale skjermer.
 Punktet som pekte rett til `sprechen/cafe/` (☕ Café) peker nå til
 `sprechen/` (🗣️ Sprechen) i stedet, siden `sprechen/` gikk fra én side til
@@ -1249,6 +1256,72 @@ samt to fulle quiz-kjøringer per side, én som klikket «alltid første knapp»
 (bekreftet at ingen quiz kunne løses 100 % blindt) og én som klikket
 «alltid riktig svar» (bekreftet 16/16, 16/16 og 18/18 — ingen data-
 mismatch).
+
+**Landsprofiler for Österreich og Schweiz + ny «Länder»-hub.** Teach ba om
+landsprofiler for Østerrike og Sveits «slik vi laget om Deutschland» — samme
+mønster: statistikk-rad, kultur-/faktaseksjoner, et interaktivt
+dra-og-slipp-kart der eleven plasserer de 10 største byene, og en quiz.
+Siden toppnavigasjonen allerede hadde 16 punkter og var full, avklarte
+Claude arkitekturen med AskUserQuestion: fortsette å gi hvert land sin egen
+faste plass (ville krevd 2 nye punkter, 18 totalt), eller samle alle tre
+landene bak ett nytt punkt som peker til en ny hub-side. Teach valgte hub-
+løsningen. `deutschland/index.html` beholder sin gamle adresse uendret (så
+ingen gamle lenker/bokmerker brytes) — kun toppnavigasjonens lenkemål
+endret seg, fra `deutschland/` til den nye `laender/`-huben.
+
+`laender/index.html` er en enkel hub med tre kort (🇩🇪/🇦🇹/🇨🇭), og
+`oesterreich/index.html`/`schweiz/index.html` er bygget som strukturelt
+identiske søsken til `deutschland/index.html` — samme stat-grid, samme
+`.dw-fact-box`/`.dw-food-table`-mønstre, samme kartspill-motor og samme
+quiz-motor, kun med land-spesifikt innhold. Alle tre landssider fikk en ny
+brødsmulelinje (`.dw-crumb`: `🌍 Länder → <land>`), inkludert
+`deutschland/index.html` som ikke hadde `.dw-crumb`-stilen fra før (lagt
+til denne runden for at settet skal føles helhetlig).
+
+**Fakta** ble hentet av to parallelle recherche-agenter (én per land) og
+verifisert mot offisielle/anerkjente kilder før publisering — bl.a.
+Nationalfeiertag (26. oktober 1955, nøytralitetsloven) og Krampus (5.
+desember, historisk forbudt to ganger) for Østerrike; Bundesfeier (1.
+august, Bundesbrief 1291, offisiell helligdag først fra 1994) og de fire
+offisielle språkene for Sveits; samt Sachertorte-rettstvisten
+(Hotel Sacher vs. Demel, avgjort 1963) og at Bern er hovedstad de facto
+(Sveits har ingen grunnlovfestet hovedstad).
+
+**Kartene** er generert med samme metode som Deutschland-kartet: ekte
+GeoJSON-grensekoordinater (denne gangen hentet fra et annet offentlig
+GeoJSON-depot, siden det opprinnelige ikke hadde nok detaljer for Østerrike/
+Sveits), forenklet med Douglas-Peucker (`shapely.simplify()`) til et
+sammenlignbart detaljnivå som Deutschland-silhuetten (178/217 punkter), og
+projisert med samme cos(breddegrad)-korrigerte projeksjon slik at formen er
+proporsjonalt riktig. Byenes posisjoner er regnet ut fra ekte lengde-/
+breddegrad med akkurat samme projeksjon som selve landomrisset. Samme
+«nærmeste by»-rettelogikk (ikke fast treffradius) som Deutschland-kartet.
+
+**Søkeindeksen** fikk 15 nye oppføringer. Én reell kollisjon ble funnet og
+rettet før publisering: nøkkelordet «österreich» var allerede i bruk på
+Wien-byportrettets oppføring (`staedte/wien/`) — fjernet derfra og gitt til
+den nye Østerrike-landssiden i stedet, siden et søk på selve landsnavnet nå
+mer naturlig hører hjemme på landsprofilen enn på én enkelt by. Wien-siden
+er fortsatt fullt søkbar via «wien»/«mozart»/«kaffeehaus». Ingen andre
+kollisjoner funnet ved full skann.
+
+Homepage-kortet som tidligere lenket til `deutschland/` («Deutschland») ble
+oppdatert til å lenke til `laender/` med tittel «Länder» og en beskrivelse
+som nevner alle tre landene. Navigasjonsmenyen ble oppdatert i alle 126
+daværende HTML-filer (samme automatiserte mønster som tidligere
+navigasjonsendrende runder) — bortsett fra `deutschland/index.html` selv,
+som hadde et litt avvikende, selv-lenkende nav-mønster og derfor ble rettet
+manuelt.
+
+Full verifisering: `node --check` på alle tre berørte/nye script-blokker (0
+feil), en full lenke-integritetssjekk av alle 130 HTML-filer (0 ekte
+brutte lenker), og en Playwright-gjennomgang: klikk-kjede forside → Länder-
+hub → hvert land → brødsmule tilbake til hub, nav-lenken «🌍 Länder» testet
+fra en dyp underside, og søk på «österreich», «schweiz», «krampus»,
+«fondue» og «landsprofiler» — alle traff riktig side. Kartspillet (10/10
+byer) og quizen (6/6 spørsmål) på begge nye landssider var allerede
+grundig funksjonstestet med simulerte pointer-drag-hendelser tidligere i
+runden, og ble ikke endret av navigasjons-/søkeindeks-arbeidet etterpå.
 
 ## Slik legger du til en ny seksjon
 

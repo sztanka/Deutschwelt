@@ -1,32 +1,29 @@
 <!DOCTYPE html>
 <!--
-  DEUTSCHWELT — Deutschland: Kultur, tradisjoner, fakta og et interaktivt kart
-  Ny, 16. toppnav-pilar. Bygget etter ønske fra Teach om en generell del om
-  Tyskland/tysk kultur/tradisjon, pluss et interaktivt kart der de 10 største
-  byene skal plasseres riktig (dra-og-slipp, avklart med AskUserQuestion).
+  DEUTSCHWELT — Schweiz: Kultur, tradisjoner, fakta og et interaktivt kart
+  Del av den nye "Länder"-huben (laender/), som samler Deutschland/
+  Österreich/Schweiz-landsprofilene. Bygget etter nøyaktig samme mønster og
+  spillmotor som deutschland/index.html (dra-og-slipp-kart + quiz), kun med
+  landspesifikt innhold og egen kartprojeksjon.
 
   Alle fakta er sjekket med websøk før publisering (se README.md/status-
-  dokumentet for kildene): de 10 største byene og innbyggertall (wiwo.de/
-  WirtschaftsWoche-rangering), Bundesländer/naboland/areal/Zugspitze (tysk
-  Wikipedia + destatis.de), nasjonalsangen (bundesregierung.de), Oktoberfest
-  (engelsk Wikipedia), Karneval/Fasching/Fastnacht-regionene (zdfheute.de),
-  Currywurst (Tagesspiegel/DPMA) og den tyske Brotkultur-UNESCO-statusen
-  (brotinstitut.de/unesco.de).
+  dokumentet for kildene).
 
-  Kartet: en forenklet Tyskland-silhuett generert fra åpne geografiske
-  koordinater (mainland + Rügen), projisert til et 600×814 SVG-koordinat-
-  system. Byenes posisjoner er plassert med samme projeksjon ut fra deres
-  faktiske lengde-/breddegrad — IKKE anslått for hånd. Spillet bruker en
-  "nærmeste by wins"-logikk (ikke en fast radius) for rettferdig retting,
-  siden noen byer (Köln/Düsseldorf/Essen/Dortmund i Ruhrgebiet) ligger tett.
+  Kartet: en forenklet Schweiz-silhuett generert fra åpne geografiske
+  grensekoordinater (georgique/world-geojson, OSM-avledet), forenklet med
+  Shapely og projisert til et 800×510.6 SVG-koordinatsystem med en
+  cos(breddegrad)-korrigert projeksjon (samme metode som Deutschland-siden)
+  — IKKE anslått for hånd. Byenes posisjoner er beregnet fra faktiske
+  lengde-/breddegrader med samme projeksjon. Spillet bruker "nærmeste by
+  wins"-logikk for rettferdig retting.
 
-  Se README.md i rotmappen for hvordan du legger til flere temaer/byer her.
+  Se README.md i rotmappen for hvordan du legger til flere land/temaer her.
 -->
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Deutschland · Deutschwelt</title>
+<title>Schweiz · Deutschwelt</title>
 <link rel="stylesheet" href="../assets/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -164,140 +161,120 @@
 
 <div class="dw-wrap">
 
-  <p class="dw-crumb"><a href="../laender/">🌍 Länder</a> → Deutschland</p>
+  <p class="dw-crumb"><a href="../laender/">🌍 Länder</a> → Schweiz</p>
 
   <div class="dw-header">
-    <h1>Deutschland</h1>
+    <h1>Schweiz</h1>
     <p>Kultur, tradisjoner og fakta om landet — og et kart du må mestre til slutt!</p>
   </div>
 
   <div class="dw-stat-grid">
-    <div class="dw-stat"><b>16</b><span>Bundesländer</span></div>
-    <div class="dw-stat"><b>Berlin</b><span>Hovedstad</span></div>
-    <div class="dw-stat"><b>84,7 mill.</b><span>Innbyggere</span></div>
-    <div class="dw-stat"><b>9</b><span>Naboland</span></div>
-    <div class="dw-stat"><b>357 600 km²</b><span>Areal</span></div>
-    <div class="dw-stat"><b>€</b><span>Valuta (Euro)</span></div>
+    <div class="dw-stat"><b>26</b><span>Kantoner</span></div>
+    <div class="dw-stat"><b>Bern</b><span>Forbundsby (de facto)</span></div>
+    <div class="dw-stat"><b>9,13 mill.</b><span>Innbyggere</span></div>
+    <div class="dw-stat"><b>5</b><span>Naboland</span></div>
+    <div class="dw-stat"><b>41 285 km²</b><span>Areal</span></div>
+    <div class="dw-stat"><b>CHF</b><span>Valuta (Sveitsisk franc)</span></div>
   </div>
+
 
   <div class="dw-section">
     <h2>🎉 Høytider og tradisjoner</h2>
     <p>
-      <b>Tag der Deutschen Einheit</b> (3. oktober) er Tysklands nasjonaldag —
-      dagen i 1990 da Øst- og Vest-Tyskland ble ett land igjen etter den kalde
-      krigen (les mer på <a href="../geschichte/kalter-krieg/">Kalter Krieg</a>
-      og <a href="../geschichte/berliner-mauer/">Die Berliner Mauer</a>).
-    </p>
-    <h3>Karneval, Fasching og Fastnacht</h3>
-    <p>
-      Det samme høytiden har faktisk tre ulike navn avhengig av hvor i Tyskland
-      du er. I Rheinland (Köln, Düsseldorf) heter det <b>Karneval</b>, i Bayern
-      og østover <b>Fasching</b>, og i sørvest (Schwaben) <b>Fastnacht</b> eller
-      <b>Fasnet</b> — der tradisjonen er enda eldre, med utskårne tremasker og
-      «Häs»-drakter som forestiller hekser og djevler. Høydepunktet overalt er
-      <b>Rosenmontag</b> («rosenmandag»), mandagen før askeonsdag, med store
-      opptog i gatene.
+      <b>Bundesfeier</b> (1. august) er Sveits' nasjonaldag. Den markerer
+      <b>Bundesbrevet</b> fra 1291 — en forsvarspakt mellom de tre
+      «urkantonene» Uri, Schwyz og Unterwalden, tradisjonelt regnet som
+      starten på Sveits som land. Historikere påpeker at dette bare var én
+      av flere lignende avtaler på 1200–1300-tallet, og at fortellingen om
+      1291 som et «grunnleggelsesår» først ble etablert og forsterket på
+      1800-tallet. Dagen feires med bål på fjelltopper, fyrverkeri,
+      lyktetog for barn (Lampionumzug) og felles frokost på gårder.
     </p>
     <div class="dw-fact-box">
-      🕚 <b>Visste du at</b> Karneval-sesongen i Rheinland offisielt starter
-      klokken <b>11:11 den 11. november</b> hvert år — og at selve festen ikke
-      begynner for alvor før i februar/mars? Tallet 11 har vært et «narrenes
-      tall» i karneval-tradisjonen siden 1800-tallet.
+      🎆 <b>Visste du at</b> selv om 1. august ble feiret uoffisielt fra
+      1891, ble den først en offisiell føderal fridag i <b>1994</b> — etter
+      en egen folkeavstemning?
     </div>
-    <h3>Oktoberfest</h3>
+    <h3>Alpabzug / Désalpe</h3>
     <p>
-      Verdens største folkefest startet ikke som en ølfest, men som et
-      <b>bryllup</b>: i 1810 giftet kronprins Ludwig av Bayern seg med prinsesse
-      Therese, og München feiret med en stor fest på en eng som siden har hett
-      <b>Theresienwiese</b> («Wiesn» til vanlig). Festen ble en årlig tradisjon
-      — og selv om den heter «Oktober»-fest, starter den i dag i september
-      (for å utnytte de varmere kveldene) og varer 16–18 dager fram til første
-      søndag i oktober.
-    </p>
-    <p class="dw-note">
-      Weihnachten (jul) feires 24.–26. desember, med selve Heiligabend
-      (julaften) den 24. som den viktigste dagen — akkurat som i Norge.
+      Om høsten drives kyrne ned fra sommerbeitene høyt i fjellet, pyntet med
+      blomsterkranser og store bjeller — en fargerik tradisjon (Alpabzug på
+      tysk, Désalpe på fransk) som feires med folkefester i alpelandsbyer.
     </p>
   </div>
 
   <div class="dw-section">
     <h2>🏛️ Nasjonalsymboler og fakta</h2>
     <p>
-      Det tyske flagget har tre vannrette striper: <b>svart – rødt – gull</b>
-      (schwarz-rot-gold). Tyskland er en <b>forbundsrepublikk</b>
-      («Bundesrepublik Deutschland») med <b>16 Bundesländer</b> (delstater),
-      hver med sin egen regjering — litt som fylkene i Norge, men med langt mer
-      selvstyre (blant annet bestemmer hvert Bundesland sine egne skoleferier
-      og en del av skolepolitikken selv).
+      Det sveitsiske flagget er hvitt kors på rød bunn — og offisielt
+      <b>kvadratisk</b> (1:1), ett av bare to firkantede nasjonalflagg i
+      verden. Unntaket: på skip og fly brukes en rektangulær versjon (2:3),
+      av praktiske og internasjonale hensyn (siden 1953).
     </p>
+    <p>
+      Sveits har <b>26 kantoner</b> og er kjent for <b>direkte demokrati</b>
+      — folkeavstemninger brukes langt oftere enn i de fleste andre land, på
+      alle nivåer av politikken.
+    </p>
+    <div class="dw-fact-box">
+      🏙️ <b>Ingen offisiell hovedstad!</b> Sveits har faktisk ikke en
+      hovedstad i juridisk forstand. <b>Bern</b> er «Bundesstadt»
+      (forbundsby) — sete for regjering og parlament — og fungerer i praksis
+      som hovedstad, uten at det noen gang er blitt formelt vedtatt.
+    </div>
     <h3>Nasjonalsangen</h3>
     <p>
-      Den tyske nasjonalsangen er <i>Das Lied der Deutschen</i>
-      («Deutschlandlied»), med melodi av Joseph Haydn og tekst av August
-      Heinrich Hoffmann von Fallersleben (1841). Men det synges kun <b>ett</b>
-      av de tre versene i dag: det <b>tredje</b> («Einigkeit und Recht und
-      Freiheit …»). Grunnen er historisk: nazistene misbrukte særlig det
-      første verset som propaganda for erobringskrig, så etter krigen ble det
-      i 1952 offisielt bestemt at bare det tredje verset skulle synges ved
-      statlige anledninger — en beslutning som ble bekreftet på nytt etter
-      gjenforeningen i 1991 (se <a href="../geschichte/zweiter-weltkrieg/">Zweiter
-      Weltkrieg</a> for mer om denne perioden).
+      <i>Schweizerpsalm</i> («Sveitsersalmen») ble brukt midlertidig fra
+      1961 og ble offisiell nasjonalsang i 1981.
+    </p>
+    <h3>Fire offisielle språk</h3>
+    <p>
+      Sveits har <b>fire</b> offisielle språk: tysk (ca. 62 %), fransk
+      (ca. 23 %), italiensk (ca. 8 %) og retoromansk (ca. 0,5 %) — et av
+      Europas mest markante eksempler på et flerspråklig land, der landegrenser
+      og språkgrenser slett ikke følger hverandre.
     </p>
     <h3>Naboland</h3>
     <p>
-      Tyskland grenser til <b>9 land</b> — flere enn de fleste andre land i
-      Europa: Danmark (nord), Polen (nordøst), Tsjekkia (øst), Østerrike
-      (sørøst), Sveits (sør), Frankrike (sørvest), Luxembourg og Belgia (vest)
-      og Nederland (nordvest).
+      Sveits grenser til <b>5 land</b>: Tyskland (nord), Østerrike og
+      Liechtenstein (øst), Italia (sør) og Frankrike (vest).
     </p>
   </div>
 
   <div class="dw-section">
-    <h2>🍞 Mat og skikker</h2>
-    <p>
-      Tyskland har en helt egen <b>brødkultur</b>: over <b>3 200</b> godkjente,
-      registrerte brødsorter — trolig flere enn noe annet land i verden. I 2014
-      ble den tyske brødkulturen offisielt en del av UNESCOs liste over
-      immateriell kulturarv.
-    </p>
-    <p>
-      En annen vane som ofte overrasker norske elever: <b>Abendbrot</b>
-      («kveldsbrød») er den vanlige, kalde kveldsmaten i mange tyske hjem —
-      brød med pålegg, akkurat som norsk kveldsmat — mens hovedmåltidet
-      («Mittagessen») tradisjonelt spises varmt midt på dagen.
-    </p>
+    <h2>🍽️ Mat og skikker</h2>
     <table class="dw-food-table">
       <tr><th>Rett</th><th>Hva er det?</th></tr>
-      <tr><td><b>Currywurst</b></td><td>Stekt pølse i curryketchup — oppfunnet av Herta Heuwer i Berlin i 1949, i dag en av Tysklands mest kjente gatematretter.</td></tr>
-      <tr><td><b>Döner Kebab</b></td><td>Flatbrød med kjøtt og grønnsaker — sterkt knyttet til Berlins tyrkisk-tyske miljø, en av byens mest populære gateretter i dag.</td></tr>
-      <tr><td><b>Weißwurst</b></td><td>Hvit kalve-/svinepølse fra Bayern, tradisjonelt spist til frokost/formiddag, aldri etter klokken 12 ifølge gammel skikk.</td></tr>
-      <tr><td><b>Sauerkraut</b></td><td>Syrnet, finskåret hvitkål — klassisk tilbehør over hele landet.</td></tr>
-      <tr><td><b>Kartoffeln</b></td><td>Poteter — en av de viktigste råvarene i tysk husmannskost, akkurat som i Norge.</td></tr>
+      <tr><td><b>Fondue</b></td><td>Smeltet ost (f.eks. Gruyère og Vacherin) med hvitvin, spist ved å dyppe brødbiter. Først nevnt skriftlig i et manuskript fra Zürich i 1699, senere lansert som «nasjonalrett» av den sveitsiske osteunionen tidlig på 1900-tallet.</td></tr>
+      <tr><td><b>Raclette</b></td><td>Osteskive varmes opp og skrapes av, servert med poteter — en skikk som går tilbake til 1500-tallets Valais.</td></tr>
+      <tr><td><b>Rösti</b></td><td>Stekt, revet potetkake, opprinnelig fra Zürich. Har gitt navn til uttrykket «Röstigraben» — den kulturelle «grensen» mellom tysk- og fransktalende Sveits.</td></tr>
+      <tr><td><b>Sveitsisk sjokolade</b></td><td>Verdens første faste melkesjokolade ble oppfunnet i Sveits i 1875.</td></tr>
+      <tr><td><b>Älplermagronen</b></td><td>Makaroni, poteter, bacon og ost — en enkel, mettende rett fra alpegjeterne, tradisjonelt servert med eplemos.</td></tr>
+      <tr><td><b>Zürcher Geschnetzeltes</b></td><td>Tynne strimler av kalvekjøtt i fløte-/soppsaus, en Zürich-spesialitet som gjerne serveres med rösti.</td></tr>
     </table>
   </div>
 
   <div class="dw-section">
     <h2>🏔️ Geografi og natur</h2>
     <p>
-      Tyskland strekker seg fra kystlinjen i nord (<b>Nordsee</b> og
-      <b>Ostsee</b>) til Alpene i sør. Landskapet endrer seg gradvis: flatt
-      slettelandskap i nord («Norddeutsches Tiefland»), så et belte med
-      lavere fjell og skogkledde åser i midten (Mittelgebirge, bl.a.
-      Schwarzwald), og til slutt de høye Alpene helt sør.
+      Landskapet domineres av <b>Alpene</b> (rundt 60 % av arealet) i sør og
+      sentralt, med platået <b>Mittelland</b> mellom Alpene og
+      <b>Jurafjellene</b> i nordvest.
     </p>
     <p>
-      Tysklands høyeste fjell er <b>Zugspitze</b> (2 962 moh.), på grensen mot
-      Østerrike i Alpene. De viktigste elvene er <b>Rhein</b> (den mest
-      trafikkerte og økonomisk viktigste), <b>Elbe</b>, <b>Donau</b>
-      (Donau/Donauen renner faktisk østover, mot Svartehavet — motsatt av de
-      fleste andre store tyske elver), <b>Weser</b>, <b>Ems</b> og
-      <b>Oder</b> (som i dag delvis danner grensen mot Polen).
+      Høyeste fjelltopp helt innenfor Sveits er <b>Dufourspitze</b>
+      (4 634 moh.) i Monte Rosa-massivet — selve toppen ligger i Sveits, selv
+      om resten av massivet ligger på grensen mot Italia. Både <b>Rhinen</b>
+      og <b>Rhône</b> har kildene sine i de sveitsiske Alpene. De viktigste
+      innsjøene er <b>Genfersjøen</b> (delt med Frankrike) og
+      <b>Bodensjøen</b> (delt med Tyskland og Østerrike).
     </p>
     <p class="dw-note">
-      Areal: ca. 357 600 km² — litt mindre enn Norge i utstrekning (Norge er
-      ca. 385 000 km²), men med over 15 ganger så mange innbyggere.
+      Areal: ca. 41 285 km² — et lite, landlåst land, omtrent 220 km fra nord
+      til sør og 350 km fra øst til vest.
     </p>
   </div>
+
 
   <div class="dw-section">
     <h2>🗺️ Plasser de 10 største byene!</h2>
@@ -310,9 +287,8 @@
     </p>
     <div class="dw-map-game">
       <div class="dw-map-col">
-        <svg id="dw-map-svg" viewBox="0 0 600 814" xmlns="http://www.w3.org/2000/svg">
-          <path class="dw-map-land" d="M 166.1,1.3 L 162.6,9.3 L 167.6,18.7 L 192.7,14.6 L 233.5,28.0 L 245.2,18.9 L 267.6,28.9 L 272.3,52.9 L 260.0,61.6 L 283.5,62.8 L 279.1,77.9 L 291.4,64.9 L 316.7,78.5 L 344.4,69.6 L 339.9,73.4 L 342.2,89.7 L 319.9,104.7 L 328.9,115.0 L 347.8,108.8 L 365.8,120.8 L 367.7,113.7 L 360.8,110.7 L 368.1,113.7 L 380.7,94.4 L 409.7,94.7 L 435.6,59.8 L 464.6,64.7 L 446.3,67.9 L 454.6,74.3 L 468.4,64.5 L 474.0,81.0 L 497.0,100.9 L 512.7,92.4 L 527.0,118.5 L 521.1,124.4 L 528.5,120.0 L 526.4,111.5 L 535.4,116.5 L 532.8,106.6 L 547.1,117.7 L 546.8,124.5 L 519.9,125.2 L 551.2,137.7 L 546.7,141.5 L 562.0,187.6 L 540.6,231.6 L 574.5,258.8 L 567.3,278.0 L 581.2,311.7 L 571.1,337.8 L 581.0,354.2 L 578.4,365.5 L 593.8,373.5 L 600.0,391.5 L 593.6,424.8 L 579.2,442.0 L 565.5,418.5 L 551.9,418.2 L 548.8,426.7 L 558.9,429.9 L 557.0,435.5 L 503.1,453.8 L 497.6,466.0 L 491.6,461.1 L 465.6,485.1 L 435.4,486.6 L 423.0,509.6 L 414.3,494.6 L 407.2,501.7 L 437.4,536.0 L 428.0,554.0 L 444.9,587.7 L 469.3,600.6 L 493.4,634.5 L 508.4,638.0 L 521.9,656.4 L 514.3,683.4 L 500.0,675.0 L 494.0,697.9 L 450.9,725.1 L 467.2,752.8 L 461.3,765.4 L 474.0,775.1 L 468.0,793.2 L 454.0,783.2 L 452.8,771.2 L 434.7,776.1 L 418.2,764.5 L 413.0,768.8 L 415.3,779.0 L 377.7,779.3 L 354.0,801.0 L 334.5,800.5 L 328.4,785.6 L 298.8,780.7 L 298.9,802.3 L 281.6,813.6 L 285.4,800.8 L 276.8,804.8 L 268.6,784.3 L 250.1,785.0 L 207.9,755.8 L 219.5,772.0 L 204.4,763.7 L 197.9,773.4 L 176.7,756.8 L 165.9,770.8 L 179.2,771.2 L 177.8,779.1 L 117.8,785.7 L 107.5,769.1 L 114.7,740.1 L 111.8,724.7 L 128.7,671.1 L 154.4,635.9 L 115.5,627.2 L 103.1,613.6 L 93.1,620.8 L 77.7,621.1 L 69.0,609.6 L 56.7,615.7 L 43.5,587.5 L 31.6,584.3 L 43.0,548.4 L 28.8,545.6 L 14.8,522.1 L 19.5,503.7 L 35.1,493.6 L 30.0,476.8 L 19.7,470.8 L 26.6,464.0 L 6.0,445.3 L 13.8,432.0 L 0.0,419.3 L 19.6,407.9 L 13.5,398.3 L 23.6,385.6 L 22.8,370.7 L 6.1,337.7 L 18.8,329.3 L 35.7,337.6 L 57.1,329.9 L 63.1,319.9 L 54.3,311.7 L 78.5,294.4 L 74.3,270.3 L 58.5,270.8 L 53.2,261.3 L 58.7,260.3 L 57.1,251.8 L 77.3,252.9 L 80.1,230.9 L 91.0,215.1 L 90.2,180.4 L 73.8,177.1 L 84.3,149.3 L 140.5,140.6 L 150.7,156.9 L 144.3,166.3 L 156.0,173.2 L 157.3,151.2 L 176.8,160.7 L 171.1,142.3 L 179.3,123.1 L 211.5,124.7 L 193.2,108.1 L 203.8,105.5 L 192.4,92.3 L 201.8,77.7 L 177.5,78.6 L 184.4,73.1 L 179.3,70.0 L 198.0,67.3 L 204.3,56.1 L 192.3,61.2 L 197.8,48.5 L 178.1,17.9 L 166.7,21.9 L 159.8,19.0 L 157.8,31.8 L 159.0,15.4 L 166.1,1.3 Z"/>
-          <path class="dw-map-land" d="M 496.3,50.2 L 511.6,51.6 L 504.4,62.1 L 517.3,74.7 L 514.6,81.8 L 509.4,79.4 L 513.2,76.3 L 507.1,77.4 L 511.8,73.9 L 505.1,73.5 L 490.2,82.2 L 494.5,83.8 L 492.9,87.3 L 486.1,84.1 L 489.0,81.3 L 476.2,80.9 L 479.2,78.9 L 474.6,75.7 L 475.4,71.6 L 484.2,70.4 L 476.9,65.6 L 484.6,60.3 L 477.5,57.7 L 476.5,53.3 L 487.1,56.7 L 486.6,52.7 L 491.2,49.9 L 489.2,53.1 L 491.8,52.0 L 494.1,58.8 L 500.3,60.1 L 500.0,53.1 L 496.3,50.2 Z"/>
+        <svg id="dw-map-svg" viewBox="0 0 800 510.6" xmlns="http://www.w3.org/2000/svg">
+          <path class="dw-map-land" d="M 454.0,23.0 L 456.2,28.4 L 439.6,31.6 L 428.9,47.1 L 428.9,54.2 L 439.7,60.7 L 461.0,54.0 L 465.0,57.8 L 459.6,60.6 L 460.9,67.3 L 456.6,71.7 L 447.0,62.9 L 437.5,70.7 L 443.0,74.8 L 425.9,78.6 L 398.3,65.7 L 377.6,80.6 L 350.3,83.0 L 345.6,73.1 L 334.4,73.3 L 330.7,80.6 L 314.3,86.6 L 304.9,79.7 L 313.2,78.7 L 311.1,74.1 L 314.7,70.5 L 297.8,73.0 L 283.0,85.3 L 288.5,87.9 L 283.2,89.1 L 285.2,94.7 L 281.4,98.3 L 272.9,94.6 L 270.8,98.5 L 276.6,100.5 L 267.8,109.1 L 242.8,112.9 L 230.6,107.4 L 235.5,95.5 L 200.9,95.5 L 203.7,104.6 L 193.8,109.6 L 184.0,128.0 L 205.3,124.0 L 211.4,126.7 L 212.3,133.0 L 194.0,143.9 L 196.2,154.1 L 155.8,192.2 L 153.9,195.3 L 158.1,199.2 L 141.0,213.2 L 122.6,217.0 L 112.2,228.0 L 117.0,236.0 L 112.0,255.5 L 115.4,264.0 L 60.5,310.2 L 67.9,317.8 L 54.5,336.5 L 56.5,341.8 L 53.3,348.0 L 70.1,359.7 L 59.3,378.9 L 62.8,386.7 L 38.0,396.9 L 41.9,402.9 L 36.0,415.5 L 51.1,410.3 L 64.3,412.8 L 90.0,393.0 L 92.6,385.6 L 84.6,386.6 L 82.5,374.8 L 78.1,372.6 L 83.4,361.2 L 96.6,351.2 L 126.3,338.9 L 152.3,339.2 L 174.7,345.4 L 172.4,356.7 L 166.6,362.3 L 181.9,380.0 L 171.7,397.9 L 171.0,413.8 L 187.2,416.6 L 183.3,433.5 L 193.0,430.5 L 220.2,478.3 L 228.6,474.2 L 233.6,478.9 L 249.6,464.3 L 264.9,469.8 L 283.3,454.8 L 290.3,455.7 L 291.4,449.0 L 309.1,451.5 L 319.8,463.6 L 323.7,459.7 L 342.9,464.7 L 344.4,451.8 L 349.4,446.3 L 365.8,442.4 L 369.3,421.7 L 387.4,413.8 L 390.1,403.8 L 376.5,384.9 L 386.1,374.8 L 397.2,374.1 L 414.2,356.6 L 410.1,350.6 L 412.9,346.1 L 434.3,336.9 L 439.3,353.1 L 438.0,368.2 L 432.4,375.2 L 434.6,386.6 L 449.1,394.4 L 462.1,416.8 L 478.3,422.4 L 483.0,417.3 L 500.6,428.8 L 489.6,447.7 L 507.4,455.4 L 515.1,476.8 L 510.4,485.3 L 529.2,487.7 L 538.6,468.9 L 527.7,462.5 L 522.7,452.6 L 528.5,447.2 L 525.7,437.7 L 536.2,430.2 L 535.8,417.8 L 555.9,403.6 L 559.5,392.0 L 563.7,391.3 L 572.3,369.3 L 569.2,348.4 L 563.9,344.2 L 569.4,329.5 L 583.8,326.7 L 589.9,336.4 L 598.1,327.1 L 598.3,356.8 L 611.1,373.5 L 625.4,378.4 L 638.0,377.5 L 643.5,363.5 L 648.5,366.8 L 677.2,357.1 L 684.2,363.9 L 683.8,378.2 L 693.5,382.6 L 691.5,392.9 L 695.7,395.1 L 712.9,386.2 L 701.4,368.6 L 702.1,361.9 L 710.7,354.8 L 710.5,348.4 L 691.1,341.5 L 691.1,318.9 L 700.8,304.1 L 722.8,296.8 L 726.3,302.5 L 724.1,312.0 L 732.7,316.7 L 757.8,320.7 L 761.4,316.5 L 762.7,301.9 L 749.9,297.0 L 746.2,284.9 L 751.2,277.6 L 749.0,273.4 L 755.4,268.7 L 752.8,259.9 L 756.7,257.1 L 764.0,226.0 L 743.7,212.8 L 738.9,215.0 L 735.8,228.7 L 723.9,227.8 L 721.3,241.4 L 701.0,247.6 L 664.0,227.3 L 666.6,213.7 L 662.6,205.8 L 628.3,197.0 L 600.6,199.2 L 607.6,187.4 L 602.8,165.1 L 614.6,139.7 L 633.1,120.5 L 629.7,105.6 L 620.6,103.3 L 612.5,85.3 L 607.6,85.9 L 596.3,72.0 L 565.7,56.6 L 528.2,50.7 L 507.5,59.2 L 500.3,51.2 L 503.8,46.2 L 493.0,38.3 L 487.3,43.2 L 493.8,48.6 L 491.1,53.0 L 480.5,48.5 L 478.3,38.9 L 483.0,35.9 L 474.5,33.3 L 473.3,27.1 L 468.7,23.9 L 465.2,33.2 L 463.1,23.6 L 454.0,23.0 Z"/>
           <g id="dw-targets"></g>
           <g id="dw-pins"></g>
         </svg>
@@ -336,22 +312,7 @@
 </div>
 
 <script>
-  // Byer: x/y er posisjon i SVG-koordinatsystemet (600×814), regnet ut fra
-  // ekte lengde-/breddegrad med samme projeksjon som selve kartomrisset —
-  // ikke anslått for hånd. Innbyggertall er avrundet (kilde: WirtschaftsWoche-
-  // rangering 2026, se README.md/status-dokumentet).
-  var dwCities = [
-    {name:"Berlin", x:493.6, y:265.0, pop:"3,9 mill.", fact:"Tysklands hovedstad og største by."},
-    {name:"Hamburg", x:269.8, y:157.4, pop:"2,0 mill.", fact:"Stor havneby ved elven Elbe."},
-    {name:"München", x:373.7, y:723.0, pop:"1,6 mill.", fact:"Hovedstad i Bayern, kjent for Oktoberfest."},
-    {name:"Köln", x:71.3, y:430.4, pop:"1,1 mill.", fact:"Kjent for den enorme Kölner Dom (domkirke)."},
-    {name:"Frankfurt am Main", x:184.1, y:516.8, pop:"780 000", fact:"Tysklands finanssentrum, med skyskrapere."},
-    {name:"Düsseldorf", x:59.1, y:400.1, pop:"660 000", fact:"Hovedstad i delstaten Nordrhein-Westfalen."},
-    {name:"Leipzig", x:426.0, y:388.4, pop:"630 000", fact:"Musikkby — Johann Sebastian Bach jobbet her."},
-    {name:"Dortmund", x:104.4, y:370.2, pop:"610 000", fact:"Ruhrgebiet — kjent for fotballklubben Borussia Dortmund."},
-    {name:"Stuttgart", x:217.0, y:656.3, pop:"610 000", fact:"Bilindustri — hjemsted for Mercedes-Benz og Porsche."},
-    {name:"Essen", x:74.7, y:376.3, pop:"600 000", fact:"Tidligere industri-/kullgruveby i Ruhrgebiet."}
-  ];
+  var dwCities = [{"name": "Zürich", "x": 450.6, "y": 123.5, "pop": "441 000", "fact": "Sveits' største by — et stort finans- og teknologiknutepunkt."}, {"name": "Genève", "x": 66.4, "y": 398.4, "pop": "204 000", "fact": "Flest internasjonale organisasjoner i verden — kalt «fredshovedstaden»."}, {"name": "Basel", "x": 298.1, "y": 81.2, "pop": "178 000", "fact": "Regnes som Sveits' kulturhovedstad, med rundt 40 museer."}, {"name": "Lausanne", "x": 144.5, "y": 323.8, "pop": "145 000", "fact": "Verdens minste by med egen t-bane."}, {"name": "Bern", "x": 275.1, "y": 223.5, "pop": "135 000", "fact": "Forbundsbyen — sete for regjering og parlament, selv om Sveits ikke har noen offisiell hovedstad."}, {"name": "Winterthur", "x": 480.6, "y": 94.3, "pop": "114 000", "fact": "Har en av Sveits' travleste jernbanestasjoner."}, {"name": "Luzern", "x": 411.9, "y": 199.6, "pop": "83 000", "fact": "Kapellbrücke fra 1333 er Europas eldste overbygde trebro."}, {"name": "St. Gallen", "x": 583.7, "y": 111.8, "pop": "76 000", "fact": "Klosterbiblioteket her er en UNESCO-verdensarv med bøker helt fra 800-tallet."}, {"name": "Lugano", "x": 516.6, "y": 444.6, "pop": "63 000", "fact": "Italiensktalende — vertsby for aller første Eurovision Song Contest i 1956."}, {"name": "Biel/Bienne", "x": 243.4, "y": 180.1, "pop": "55 000", "fact": "Kalt «verdens urmakerhovedstad» — hjemsted for Rolex, Omega og Swatch."}];
 
   var dwMapScore = 0;
 
@@ -457,7 +418,7 @@
 
     dwDragChip = null;
 
-    if(!p || p.x < -60 || p.x > 660 || p.y < -60 || p.y > 874){
+    if(!p || p.x < -60 || p.x > 860 || p.y < -60 || p.y > 570.6){
       return; // sluppet langt utenfor kartet — ingen tilbakemelding, prøv igjen
     }
 
@@ -513,7 +474,7 @@
 
   function dwShowReview(){
     var wrap = document.getElementById('dw-city-review');
-    wrap.innerHTML = '<p style="grid-column:1/-1;font-weight:700;color:var(--dw-good);">🎉 Alle 10 byer riktig plassert!</p>';
+    wrap.innerHTML = '<p style="grid-column:1/-1;font-weight:700;color:var(--dw-good);">🎉 Alle ' + dwCities.length + ' byer riktig plassert!</p>';
     dwCities.forEach(function(c){
       var div = document.createElement('div');
       div.className = 'dw-city-review-item';
@@ -539,13 +500,7 @@
   dwRenderPool();
 
   // Quiz
-  var dwQuiz = [
-    {q:"Hvor mange Bundesländer (delstater) har Tyskland?", opts:["9","12","16","20"], correct:2},
-    {q:"Hvilken by var vertskap for det aller første Oktoberfest i 1810?", opts:["Berlin","München","Hamburg","Köln"], correct:1},
-    {q:"Hvilket vers av «Deutschlandlied» er den offisielle nasjonalsangen i dag?", opts:["Det første","Det andre","Det tredje","Alle tre"], correct:2},
-    {q:"I hvilken by ble Currywurst oppfunnet i 1949?", opts:["München","Frankfurt","Köln","Berlin"], correct:3},
-    {q:"Hva heter Tysklands høyeste fjell?", opts:["Zugspitze","Watzmann","Brocken","Feldberg"], correct:0}
-  ];
+  var dwQuiz = [{"q": "Hva markerer Sveits' nasjonaldag 1. august?", "opts": ["Grunnlovsdagen fra 1848", "Bundesbrevet fra 1291", "Seieren ved Morgarten", "EU-søknaden"], "correct": 1}, {"q": "Hvilken by er Sveits' «Bundesstadt» (forbundsby), selv om landet ikke har noen offisiell hovedstad?", "opts": ["Zürich", "Genève", "Bern", "Basel"], "correct": 2}, {"q": "Hvilken form har det sveitsiske flagget offisielt?", "opts": ["Rektangel (2:3)", "Kvadrat (1:1)", "Rundt", "Trekant"], "correct": 1}, {"q": "Hvor mange offisielle språk har Sveits?", "opts": ["2", "3", "4", "5"], "correct": 2}, {"q": "Hva heter Sveits' høyeste fjelltopp (helt innenfor landet)?", "opts": ["Matterhorn", "Piz Bernina", "Dufourspitze", "Jungfrau"], "correct": 2}, {"q": "Hvilken rett har gitt navn til uttrykket «Röstigraben» (den kulturelle grensen mellom tysk- og fransktalende Sveits)?", "opts": ["Fondue", "Raclette", "Rösti", "Älplermagronen"], "correct": 2}];
   var dwQuizScore = 0;
   var dwQuizAnswered = 0;
 

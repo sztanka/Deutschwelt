@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <!--
-  DEUTSCHWELT — Schreiben (hub-side for skriveoppgaver)
-  Se README.md i rotmappen for hvordan du legger til en ny skriveoppgave.
+  DEUTSCHWELT — Länder (hub-side for landsprofiler: Deutschland/Österreich/Schweiz)
+  Ny, 17. toppnav-pilar — erstatter den gamle "🇩🇪 Deutschland"-pilaren.
+  Deutschland selv BEHOLDER sin gamle adresse (../deutschland/), kun selve
+  navigasjonsmenyens lenke ble endret til å peke hit i stedet, slik at ingen
+  gamle bokmerker/lenker til deutschland/ brytes (avklart med Teach via
+  AskUserQuestion). Österreich og Schweiz er nye søsterprofiler bygget etter
+  nøyaktig samme mønster (statistikk, kultur/tradisjon-seksjoner, et
+  interaktivt dra-og-slipp-kart og en quiz).
+  Se README.md i rotmappen for hvordan du legger til flere land her.
 -->
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Schreiben · Deutschwelt</title>
+<title>Länder · Deutschwelt</title>
 <link rel="stylesheet" href="../assets/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,11 +46,9 @@
     display:flex;flex-direction:column;gap:6px;
   }
   .dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
-  .dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  .dw-card .dw-flag-emoji{font-size:2.2rem;}
+  .dw-card h2{margin:2px 0 0;font-size:1.15rem;color:var(--dw-primary-light);}
   .dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
-
-  /* Tematisk kort-mønster (erstatter emoji) */
-  .dw-card.dw-p-schreiben{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%2224.5%22%20y%3D%226%22%20width%3D%227%22%20height%3D%2236%22%20rx%3D%222%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%20transform%3D%22rotate%2840%2028%2024%29%22%2F%3E%3Cpolygon%20points%3D%2220%2C44%2026%2C50%2014%2C52%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%20transform%3D%22rotate%2840%2028%2024%29%20translate%280%200%29%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
 </style>
 </head>
 <body>
@@ -58,12 +63,12 @@
       <a class="dw-nav-link" href="../geschichte/">🕰️ Geschichte</a>
       <a class="dw-nav-link" href="../lesen/">📖 Lesen</a>
       <a class="dw-nav-link" href="../hoeren/">🎧 Hören</a>
-      <a class="dw-nav-link dw-nav-active" href="./">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../schreiben/">✍️ Schreiben</a>
       <a class="dw-nav-link" href="../reise/">🗺️ Reise</a>
       <a class="dw-nav-link" href="../challenges/">🏆 Challenges</a>
       <a class="dw-nav-link" href="../filme-serien/">🎬 Filme &amp; Serien</a>
       <a class="dw-nav-link" href="../musik/">🎵 Musik</a>
-      <a class="dw-nav-link" href="../laender/">🌍 Länder</a>
+      <a class="dw-nav-link dw-nav-active" href="./">🌍 Länder</a>
       <a class="dw-nav-link" href="../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
       <a class="dw-nav-link" href="../leben/">📱 Deutsch im echten Leben</a>
       <a class="dw-nav-link" href="../sprechen/">🗣️ Sprechen</a>
@@ -75,43 +80,25 @@
 <div class="dw-wrap">
 
   <div class="dw-header">
-    <h1>Deutsch schreiben</h1>
-    <p>Skriv kreativt på tysk — med hjelpemidler, ikke bare en tom side</p>
+    <h1>Länder</h1>
+    <p>Kultur, tradisjoner, fakta og kart for de tre tysktalende landene</p>
   </div>
 
   <div class="dw-grid">
-    <a class="dw-card dw-p-schreiben" href="sms-chat/">
-      <h2>SMS-Chat</h2>
-      <p>Skriv en tekstmeldingssamtale med en tysk venn — begge sider!</p>
+    <a class="dw-card" href="../deutschland/">
+      <span class="dw-flag-emoji">🇩🇪</span>
+      <h2>Deutschland</h2>
+      <p>Kultur, tradisjoner og fakta — pluss et kart der du må plassere de 10 største byene</p>
     </a>
-    <a class="dw-card dw-p-schreiben" href="wortkiste/">
-      <h2>Die Wortkiste</h2>
-      <p>Trekk tilfeldige ord og skriv en tekst som bruker dem</p>
+    <a class="dw-card" href="../oesterreich/">
+      <span class="dw-flag-emoji">🇦🇹</span>
+      <h2>Österreich</h2>
+      <p>Krampus, Sachertorte og Alpene — pluss et kart der du må plassere de 10 største byene</p>
     </a>
-    <a class="dw-card dw-p-schreiben" href="personenbeschreibung/">
-      <h2>Personenbeschreibung</h2>
-      <p>Beskriv utseendet og personligheten til en person</p>
-    </a>
-    <a class="dw-card dw-p-schreiben" href="praesentation/">
-      <h2>Eine Präsentation halten</h2>
-      <p>Bygg opp en presentasjon om et selvvalgt tema, steg for steg</p>
-    </a>
-    <a class="dw-card dw-p-schreiben" href="ort-beschreiben/">
-      <h2>Einen Ort beschreiben</h2>
-      <p>Skriv om en by eller et sted — ekte eller ditt eget hjemsted</p>
-    </a>
-    <a class="dw-card dw-p-schreiben" href="mein-tag/">
-      <h2>Mein Tag</h2>
-      <p>Skriv om en vanlig dag din — fra morgen til kveld</p>
-    </a>
-    <a class="dw-card dw-p-schreiben" href="wo-ist-was/">
-      <h2>Wo ist was?</h2>
-      <p>Forklar hvor ting befinner seg — med preposisjoner og Dativ</p>
-    </a>
-    <a class="dw-card dw-p-schreiben dw-soon" href="#">
-      <h2>Postkarte aus Berlin</h2>
-      <p>Kommer snart</p>
-      <span class="dw-soon-tag">🔜 Kommer snart</span>
+    <a class="dw-card" href="../schweiz/">
+      <span class="dw-flag-emoji">🇨🇭</span>
+      <h2>Schweiz</h2>
+      <p>Fire språk, direkte demokrati og fondue — pluss et kart der du må plassere de 10 største byene</p>
     </a>
   </div>
 
