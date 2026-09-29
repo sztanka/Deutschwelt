@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Lesen → Wikisource (nivådelt): "Der Zahnarzt" (9. trinn, A2)
+  Johann Peter Hebel (1760–1826), Kalendergeschichte fra «Schatzkästlein des
+  rheinischen Hausfreundes» (1811) — klart offentlig eiendom (gemeinfrei).
+  Teksten er limt inn av Teach selv (skjermbilde fra de.wikisource.org),
+  siden de.wikisource.org var blokkert for Claudes egne verktøy denne
+  runden. Kilde oppgitt på siden: https://de.wikisource.org/wiki/Der_Zahnarzt
+  Ordforråd-glosser (både i teksten som hover/trykk-tooltip OG i listen
+  under) og norsk oversettelse er laget av Claude, ikke hentet fra en
+  ekstern kilde.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Der Zahnarzt · Wikisource · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.6rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-section p{margin:0 0 10px;line-height:1.7;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-original{
+    font-family:Georgia,"Times New Roman",serif;font-size:1.02rem;line-height:1.9;
+    background:#f4f1e8;border-left:4px solid var(--dw-accent);padding:16px 18px;border-radius:8px;margin-bottom:8px;
+  }
+  .dw-original p{margin:0 0 12px;}
+  .dw-original p:last-child{margin-bottom:0;}
+  .dw-hint{font-size:.8rem;color:var(--dw-muted);margin:0 0 12px;}
+
+  .dw-gloss{border-bottom:2px dotted var(--dw-accent);cursor:help;position:relative;}
+  .dw-gloss-tip{
+    visibility:hidden;opacity:0;position:absolute;bottom:125%;left:50%;transform:translateX(-50%);
+    background:var(--dw-primary);color:#fff;padding:6px 10px;border-radius:8px;font-size:.78rem;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.3;white-space:normal;max-width:200px;width:max-content;transition:opacity .15s ease;
+    pointer-events:none;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.2);
+  }
+  .dw-gloss:hover .dw-gloss-tip, .dw-gloss:focus .dw-gloss-tip{visibility:visible;opacity:1;}
+
+  .dw-toggle-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;margin-bottom:12px;
+  }
+  .dw-toggle-btn:hover{background:var(--dw-primary-light);}
+  .dw-translation{
+    display:none;background:#eef2f6;border-left:4px solid var(--dw-primary);padding:14px 18px;border-radius:8px;
+    font-size:.92rem;line-height:1.7;margin-bottom:12px;font-style:italic;
+  }
+  .dw-translation.dw-show{display:block;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-top:10px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:80px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">📖 Lesen</a> → <a href="../">Wikisource</a> → Der Zahnarzt</p>
+
+  <div class="dw-header">
+    <h1>Der Zahnarzt</h1>
+    <p>En Kalendergeschichte av Johann Peter Hebel — to svindlere og en gjeng lettlurte markedsgjester</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>📖 Om teksten</h2>
+    <p>Johann Peter Hebel (1760–1806... nei, 1760–1826) var en tysk forfatter og prest fra Baden som skrev korte, morsomme og lærerike «Kalendergeschichten» — fortellinger som opprinnelig sto i folkekalendere og var ment å bli lest høyt for vanlige folk. «Der Zahnarzt» sto i samlingen <em>Schatzkästlein des rheinischen Hausfreundes</em> fra 1811. Historien handler om to late loffere som finner opp et geniknep for å lure penger av godtroende markedsbesøkende — med falske «tannverkspiller» laget av rent brød.</p>
+    <p><strong>Tips:</strong> Ord med stiplet understrek kan du holde musepekeren over (eller trykke på, på nettbrett/mobil) for norsk oversettelse med en gang. Alle glosene finner du også samlet i listen under teksten.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🦷 Der Zahnarzt</h2>
+    <p class="dw-byline">Aus: Schatzkästlein des rheinischen Hausfreundes (1811) · von Johann Peter Hebel</p>
+    <div class="dw-original">
+      <p>Zwey <span class="dw-gloss" tabindex="0">Tagdiebe<span class="dw-gloss-tip">dagdrivere, late loffere (gammelt ord)</span></span>, die schon lange in der Welt miteinander herumgezogen, weil sie zum arbeiten zu träg, oder zu ungeschickt waren, kamen doch zuletzt in grosse <span class="dw-gloss" tabindex="0">Noth<span class="dw-gloss-tip">nød (gammel skrivemåte for «Not»)</span></span>, weil sie wenig Geld mehr übrig hatten, und nicht geschwind wußten, wo nehmen. Da geriethen sie auf folgenden <span class="dw-gloss" tabindex="0">Einfall<span class="dw-gloss-tip">idé, innfall</span></span>: Sie <span class="dw-gloss" tabindex="0">bettelten<span class="dw-gloss-tip">tigget</span></span> vor einigen Hausthüren Brod zusammen, das sie nicht zur Stillung des Hungers genießen, sondern zum <span class="dw-gloss" tabindex="0">Betrug<span class="dw-gloss-tip">bedrageri, svindel</span></span> <span class="dw-gloss" tabindex="0">mißbrauchen<span class="dw-gloss-tip">misbruke</span></span> wollten. Sie kneteten nemlich und drehten aus demselben lauter kleine <span class="dw-gloss" tabindex="0">Kügelein<span class="dw-gloss-tip">små kuler</span></span> oder Pillen, und bestreuten sie mit <span class="dw-gloss" tabindex="0">Wurmmehl<span class="dw-gloss-tip">ormemel — pulver fra ormeangrepet, råttent tre</span></span> aus altem zerfressenem Holz, damit sie völlig aussahen wie die gelben Arznei-Pillen. Hierauf kauften sie für ein paar Bazen einige Bogen rothgefärbtes Papier bey dem Buchbinder: (denn eine schöne Farbe muß gewöhnlich bey jedem Betrug mithelfen.) Das Papier zerschnitten sie alsdann und wickelten die Pillen darein, je sechs bis acht Stücke in ein Päcklein. Nun ging der eine voraus in einen Flecken, wo eben <span class="dw-gloss" tabindex="0">Jahrmarkt<span class="dw-gloss-tip">marked, torgdag</span></span> war, und in den rothen Löwen, wo er viele Gäste anzutreffen hoffte. Er forderte ein Glas Wein, trank aber nicht, sondern saß ganz <span class="dw-gloss" tabindex="0">wehmüthig<span class="dw-gloss-tip">vemodig, sørgmodig</span></span> in einem Winkel, hielt die Hand an den Backen, <span class="dw-gloss" tabindex="0">winselte<span class="dw-gloss-tip">klynket</span></span> halblaut für sich, und kehrte sich unruhig bald so her, bald so hin. Die ehrlichen Landleute und Bürger, die im Wirthshaus waren, bildeten sich wohl ein, daß der arme Mensch ganz entsetzlich Zahnweh haben müsse. Aber was war zu thun? man bedauerte ihn, man tröstete ihn, daß es sich wieder vergehen werde, trank sein Gläslein fort, und machte seine Marktaffairen aus.</p>
+      <p>Indessen kam der andere Tagdieb auch nach. Da stellten sich die beiden <span class="dw-gloss" tabindex="0">Schelme<span class="dw-gloss-tip">skøyere, svindlere</span></span>, als ob noch keiner den andern in seinem Leben gesehen hätte. Keiner sah den andern an, bis der Zweite durch das Winseln des Ersten, der im Winkel saß, aufmerksam zu werden schien. „Guter Freund, sprach er, ihr scheint wohl Zahnschmerzen zu haben?" und gieng mit großen und langsamen Schritten auf ihn zu. „Ich bin der Doctor Schnauzius Rapunzius von Travalgar," fuhr er fort. Denn solche fremde volltönige Namen müssen auch zum Betrug behülflich seyn, wie die Farben. „Und wenn ihr meine Zahnpillen gebrauchen wollt, fuhr er fort, so soll es mir eine schlechte Kunst seyn, euch mit einer höchstens zweyen, von euren Leiden zu befreien." – „Das wolle Gott," erwiderte der andere <span class="dw-gloss" tabindex="0">Halunk<span class="dw-gloss-tip">skurk, kjeltring</span></span>. Hierauf zog der saubere Doctor Rapunzius eines von seinen rothen Päcklein aus der Tasche, und verordnete dem Patienten ein Kugelein daraus auf den bösen Zahn zu legen und <span class="dw-gloss" tabindex="0">herzhaft<span class="dw-gloss-tip">kraftig, tappert</span></span> darauf zu beißen. Jetzt streckten die Gäste an den andern Tischen die Köpfe herfür, und einer um den andern kam herbei um die Wunderkur mit anzusehen. Nun könnt ihr euch vorstellen, was geschah. Auf diese erste Probe wollte zwar der Patient wenig rühmen, vielmehr that er einen entsetzlichen <span class="dw-gloss" tabindex="0">Schrey<span class="dw-gloss-tip">skrik</span></span>. Das gefiel dem Doctor. Der Schmerz, sagte er, sey jetzt gebrochen, und gab ihm geschwind die zweite Pille zu gleichem Gebrauch. Da war nun plötzlich aller Schmerz verschwunden. Der Patient sprang vor Freuden auf, wischte den <span class="dw-gloss" tabindex="0">Angstschweiß<span class="dw-gloss-tip">angstsvette</span></span> von der Stirne weg, obgleich keiner daran war, und that, als ob er seinem Retter zum Danke etwas <span class="dw-gloss" tabindex="0">Nahmhaftes<span class="dw-gloss-tip">noe klekkelig, en pen sum</span></span> in die Hand drükte. – Der <span class="dw-gloss" tabindex="0">Streich<span class="dw-gloss-tip">knep, puss</span></span> war schlau angelegt, und that seine Wirkung. Denn jeder Anwesende wollte nun auch von diesen vortrefflichen Pillen haben. Der Doctor bot das Päklein für 24 Kreuzer, und in wenig Minuten waren alle verkauft. Natürlich giengen jezt die zwei Schelme wieder einer nach dem andern weiters, lachten, als sie wieder zusammen kamen, über die Einfalt dieser Leute, und ließen sich's wohl seyn von ihrem Geld.</p>
+      <p>Das war theures Brod. So wenig für 24 kr. bekam man noch in keiner <span class="dw-gloss" tabindex="0">Hungersnoth<span class="dw-gloss-tip">hungersnød</span></span>. Aber der Geldverlust war nicht einmal das Schlimmste. Denn die Weichbrod-Kügelein wurden natürlicher Weise mit der Zeit steinhart. Wenn nun so ein armer Betrogener nach Jahr und Tag Zahnweh bekam, und in gutem Vertrauen mit dem kranken Zahn einmal und zweimal darauf biß, da denke man an den entsetzlichen Schmerz, den er, statt geheilt zu werden, sich selbst für 24 Kreuzer aus der eigenen Tasche machte. Daraus ist also zu lernen, wie leicht man kann betrogen werden, wenn man den <span class="dw-gloss" tabindex="0">Vorspiegelungen<span class="dw-gloss-tip">falske forespeilinger, løgnaktige løfter</span></span> jedes herumlaufenden <span class="dw-gloss" tabindex="0">Landstreichers<span class="dw-gloss-tip">landstryker, vandringsmann</span></span> traut, den man zum erstenmal in seinem Leben sieht, und vorher nie, und nachher nimmer; und mancher, der dieses ließt, wird vielleicht denken: „So einfältig bin ich zu meinem eigenen Schaden auch schon gewesen." – Merke: Wer so etwas kann, weiß an andern Orten Geld zu verdienen, lauft nicht auf den Dörfern, und Jahrmärkten herum mit Löchern im Strumpf, oder mit einer weißen Schnalle im rechten Schuh, und am linken mit einer gelben.</p>
+    </div>
+    <p class="dw-hint">Merk: teksten bruker eldre tysk rettskrivning fra tidlig 1800-tall (f.eks. «Noth», «gieng», «bey», «seyn», «thun» i stedet for moderne «Not», «ging», «bei», «sein», «tun») — helt normalt for en så gammel tekst.</p>
+
+    <button class="dw-toggle-btn" onclick="dwToggleTranslation(this)">🇳🇴 Vis norsk oversettelse</button>
+    <div class="dw-translation" id="dw-translation">
+      To dagdrivere som lenge hadde vandret sammen i verden, fordi de var for late eller for klønete til å arbeide, kom til slutt i stor nød, siden de hadde lite penger igjen og ikke visste hvor de raskt skulle skaffe mer. Da kom de på følgende idé: De tigget sammen brød ved noen husdører — brød de ikke skulle spise for å stille sulten, men misbruke til bedrageri. De knadde nemlig brødet og formet det til små kuler eller piller, og drysset ormemel fra gammelt, råttent tre over dem, så de så helt ut som gule medisinpiller. Deretter kjøpte de for noen få mynter noen ark med rødfarget papir hos bokbinderen (for en pen farge må som regel hjelpe til ved ethvert bedrageri). Papiret klippet de så opp og pakket pillene inn i det, seks til åtte stykker i hver liten pakke. Nå gikk den ene i forveien til en liten by hvor det nettopp var marked, og inn på vertshuset «Den røde løven», hvor han håpet å treffe mange gjester. Han bestilte et glass vin, men drakk ikke — i stedet satt han helt vemodig i et hjørne, holdt hånden mot kinnet, klynket lavmælt for seg selv, og vred seg urolig fra side til side. De ærlige bøndene og borgerne som var på vertshuset, trodde nok at den stakkars mannen måtte ha fryktelig tannverk. Men hva var å gjøre? Man syntes synd på ham, man trøstet ham med at det nok skulle gå over igjen, drakk ferdig glasset sitt, og ordnet sine markedsgjøremål.<br><br>
+      I mellomtiden kom den andre dagdriveren også. Da lot de to skøyerne som om de aldri hadde sett hverandre i hele sitt liv. Ingen av dem så på den andre, før den andre lot til å legge merke til klynkingen fra den første, som satt i hjørnet. «Kjære venn,» sa han, «du ser ut til å ha tannverk?» og gikk med store, langsomme skritt bort til ham. «Jeg er Doktor Schnauzius Rapunzius von Travalgar,» fortsatte han. For slike fremmede, klingende navn måtte også hjelpe til med bedrageriet, akkurat som fargene. «Og hvis dere vil bruke tannpillene mine,» fortsatte han, «skulle det være dårlig håndverk om jeg ikke kunne befri dere fra lidelsen med én, høyst to.» — «Gud gi det,» svarte den andre kjeltringen. Deretter tok den fine doktor Rapunzius en av sine røde pakker opp av lommen, og foreskrev pasienten å legge en kule fra den på den vonde tannen og bite kraftig på den. Nå strakte gjestene ved de andre bordene fram hodene, og den ene etter den andre kom bort for å se på undermedisinen. Dere kan tenke dere hva som skjedde. Ved denne første prøven ville pasienten riktignok ikke rose seg — han satte i stedet i et fryktelig skrik. Det likte doktoren. «Smerten er nå brutt,» sa han, og ga ham straks den andre pillen til samme bruk. Da forsvant med ett all smerten. Pasienten spratt opp av glede, tørket angstsvetten fra pannen, selv om det ikke fantes noen, og lot som om han trykket noe klekkelig i hånden på sin redningsmann som takk. — Knepet var lurt lagt opp, og virket etter hensikten. For nå ville alle de tilstedeværende også ha av disse fortreffelige pillene. Doktoren tilbød pakken for 24 kreuzer, og på få minutter var alt utsolgt. Naturligvis dro de to skøyerne så videre, hver for seg, og lo — da de møttes igjen — av godtroenheten til disse folkene, og levde godt av pengene deres.<br><br>
+      Det var dyrt brød. Så lite for 24 kreuzer fikk man ikke engang i den verste hungersnød. Men pengetapet var ikke engang det verste. For de myke brødkulene ble naturligvis steinharde med tiden. Når så en stakkars lurt person fikk tannverk en dag etter år og dag, og i god tro bet på den vonde tannen med den — én, to ganger — da kan man tenke seg den fryktelige smerten han, i stedet for å bli helbredet, påførte seg selv for 24 kreuzer av egen lomme. Av dette kan man altså lære hvor lett man kan bli lurt hvis man stoler på løgnene til enhver landstryker man møter for første gang i livet — og aldri før, og aldri siden. Og mange som leser dette vil kanskje tenke: «Så godtroende har vel også jeg vært, til egen skade.» — Merk deg: Den som kan noe sånt, vet å tjene penger andre steder, og trenger ikke å traske rundt i landsbyer og på markeder med hull i strømpen, eller med en hvit spenne på høyre sko og en gul på venstre.
+      <div class="dw-note" style="font-style:normal;margin-top:8px;">(Uoffisiell oversettelse, laget for Deutschwelt.)</div>
+    </div>
+
+    <h3 style="margin:18px 0 8px;color:var(--dw-primary);font-size:1rem;">📝 Gloseliste</h3>
+    <div class="dw-vocab">
+      <div><b>der Tagdieb</b><br>dagdriver, loffer</div>
+      <div><b>die Noth (Not)</b><br>nød</div>
+      <div><b>der Einfall</b><br>idé, innfall</div>
+      <div><b>betteln</b><br>tigge</div>
+      <div><b>der Betrug</b><br>bedrageri, svindel</div>
+      <div><b>mißbrauchen</b><br>misbruke</div>
+      <div><b>das Kügelein</b><br>liten kule</div>
+      <div><b>der Jahrmarkt</b><br>marked, torgdag</div>
+      <div><b>wehmütig</b><br>vemodig</div>
+      <div><b>winseln</b><br>klynke</div>
+      <div><b>der Schelm</b><br>skøyer, svindler</div>
+      <div><b>der Halunk(e)</b><br>skurk, kjeltring</div>
+      <div><b>herzhaft</b><br>kraftig, tappert</div>
+      <div><b>der Schrey (Schrei)</b><br>skrik</div>
+      <div><b>der Streich</b><br>knep, puss</div>
+      <div><b>die Hungersnoth</b><br>hungersnød</div>
+      <div><b>der Landstreicher</b><br>landstryker</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Teste dich selbst</h2>
+    <p class="dw-note">Disse spørsmålene handler om hovedideen — ikke om hvert enkelt ord.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Was denkst du?</h2>
+    <p class="dw-note">Hebel avslutter historien med en advarsel til leseren. Hva tror du han vil at vi skal lære av historien? Skriv 2–3 setninger på tysk.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Ich denke, Hebel will, dass wir …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function dwToggleTranslation(btn){
+    var el = document.getElementById('dw-translation');
+    el.classList.toggle('dw-show');
+    btn.textContent = el.classList.contains('dw-show') ? '🇳🇴 Skjul norsk oversettelse' : '🇳🇴 Vis norsk oversettelse';
+  }
+
+  var dwQuiz = [
+    {q:"Warum betteln die zwei Tagdiebe Brot zusammen?", opts:["Sie wollen daraus falsche Zahnpillen machen","Sie haben Hunger","Sie wollen es verschenken"], correct:0},
+    {q:"Was tut der erste Schelm im Wirtshaus, bevor der zweite kommt?", opts:["Er singt Lieder","Er tut so, als hätte er Zahnschmerzen","Er schläft ein"], correct:1},
+    {q:"Was verkauft „Doctor Rapunzius“ den Gästen?", opts:["Echte Medizin","Rotgefärbtes Papier","Zahnpillen aus Brot"], correct:2},
+    {q:"Was passiert mit den Brotpillen mit der Zeit?", opts:["Sie werden steinhart","Sie verschwinden","Sie werden zu echter Medizin"], correct:0}
+  ];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

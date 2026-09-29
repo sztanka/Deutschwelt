@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Lesen → Wikisource (nivådelt): "John Maynard" (10. trinn,
+  fortgeschritten). Ballade av Theodor Fontane (1819–1898) — klart
+  offentlig eiendom (gemeinfrei). Teksten er limt inn av Teach selv
+  (skjermbilde fra de.wikisource.org), siden de.wikisource.org var
+  blokkert for Claudes egne verktøy denne runden. Kilde oppgitt på siden:
+  https://de.wikisource.org/wiki/John_Maynard_(Fontane)
+  Ordforråd-glosser (både i teksten som hover/trykk-tooltip OG i listen
+  under) og norsk oversettelse er laget av Claude, ikke hentet fra en
+  ekstern kilde.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>John Maynard · Wikisource · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.6rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-section p{margin:0 0 10px;line-height:1.7;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-original{
+    font-family:Georgia,"Times New Roman",serif;font-size:1.02rem;line-height:1.75;
+    background:#f4f1e8;border-left:4px solid var(--dw-accent);padding:16px 18px;border-radius:8px;margin-bottom:8px;
+  }
+  .dw-original p{margin:0 0 14px;}
+  .dw-original p:last-child{margin-bottom:0;}
+  .dw-original .dw-stanza-break{text-align:center;color:var(--dw-accent);margin:0 0 14px;letter-spacing:4px;}
+  .dw-hint{font-size:.8rem;color:var(--dw-muted);margin:0 0 12px;}
+
+  .dw-gloss{border-bottom:2px dotted var(--dw-accent);cursor:help;position:relative;}
+  .dw-gloss-tip{
+    visibility:hidden;opacity:0;position:absolute;bottom:125%;left:50%;transform:translateX(-50%);
+    background:var(--dw-primary);color:#fff;padding:6px 10px;border-radius:8px;font-size:.78rem;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.3;white-space:normal;max-width:200px;width:max-content;transition:opacity .15s ease;
+    pointer-events:none;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.2);
+  }
+  .dw-gloss:hover .dw-gloss-tip, .dw-gloss:focus .dw-gloss-tip{visibility:visible;opacity:1;}
+
+  .dw-toggle-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;margin-bottom:12px;
+  }
+  .dw-toggle-btn:hover{background:var(--dw-primary-light);}
+  .dw-translation{
+    display:none;background:#eef2f6;border-left:4px solid var(--dw-primary);padding:14px 18px;border-radius:8px;
+    font-size:.92rem;line-height:1.7;margin-bottom:12px;font-style:italic;
+  }
+  .dw-translation.dw-show{display:block;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-top:10px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:80px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">📖 Lesen</a> → <a href="../">Wikisource</a> → John Maynard</p>
+
+  <div class="dw-header">
+    <h1>John Maynard</h1>
+    <p>En av de mest kjente tyske balladene — om rormannen som reddet skipet sitt</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>📖 Om teksten</h2>
+    <p>Theodor Fontane (1819–1898) var en av de viktigste tyske forfatterne på 1800-tallet. «John Maynard» er en <em>Ballade</em> — et diktverk som forteller en dramatisk historie — og er et av de mest kjente tyske diktene som fortsatt læres på skoler i Tyskland i dag. Den forteller om dampskipet «Schwalbe» som tar fyr på Eriesjøen i USA/Canada, og om rormannen John Maynard som holder kursen mot land selv om han vet at det kan koste ham livet.</p>
+    <p><strong>Tips:</strong> Ord med stiplet understrek kan du holde musepekeren over (eller trykke på, på nettbrett/mobil) for norsk oversettelse med en gang. Alle glosene finner du også samlet i listen under teksten.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>⚓ John Maynard</h2>
+    <p class="dw-byline">Ballade · von Theodor Fontane</p>
+    <div class="dw-original">
+      <p>John Maynard!<br>„Wer ist John Maynard?"</p>
+      <p>John Maynard war unser <span class="dw-gloss" tabindex="0">Steuermann<span class="dw-gloss-tip">rormann, styrmann</span></span>,<br>
+      <span class="dw-gloss" tabindex="0">Aushielt<span class="dw-gloss-tip">holdt ut (fra «aushalten»)</span></span> er bis er das <span class="dw-gloss" tabindex="0">Ufer<span class="dw-gloss-tip">bredd, kyst</span></span> gewann,<br>
+      Er hat uns gerettet, er trägt die <span class="dw-gloss" tabindex="0">Kron'<span class="dw-gloss-tip">krone (kortform av «Krone»)</span></span>,<br>
+      Er starb für uns, unsre Liebe sein Lohn.<br>
+      John Maynard.</p>
+      <p class="dw-stanza-break">* * *</p>
+      <p>Die „Schwalbe" fliegt über den Erie-See,<br>
+      <span class="dw-gloss" tabindex="0">Gischt<span class="dw-gloss-tip">skumsprøyt</span></span> schäumt um den <span class="dw-gloss" tabindex="0">Bug<span class="dw-gloss-tip">baugen (fremste del av skipet)</span></span> wie Flocken von Schnee,<br>
+      Von Detroit fliegt sie nach Buffalo –<br>
+      Die Herzen aber sind frei und froh,<br>
+      Und die Passagiere, mit Kindern und Frau'n<br>
+      Im <span class="dw-gloss" tabindex="0">Dämmerlicht<span class="dw-gloss-tip">skumringslys</span></span> schon das Ufer schau'n<br>
+      Und plaudernd an John Maynard heran<br>
+      Tritt alles: „Wie weit noch, Steuermann?<br>
+      Der schaut nach vorn und schaut in die Rund':<br>
+      „Noch dreißig Minuten … Halbe Stund'."</p>
+      <p>Alle Herzen sind froh, alle Herzen sind frei –<br>
+      Da klingt's aus dem Schiffsraum her wie Schrei,<br>
+      „Feuer" war es, was da klang,<br>
+      Ein <span class="dw-gloss" tabindex="0">Qualm<span class="dw-gloss-tip">tykk røyk</span></span> aus Kajütt' und Luke drang,<br>
+      Ein Qualm, dann Flammen <span class="dw-gloss" tabindex="0">lichterloh<span class="dw-gloss-tip">i full fyr, lys lue</span></span>,<br>
+      Und noch zwanzig Minuten bis Buffalo.</p>
+      <p>Und die Passagiere, buntgemengt,<br>
+      Am <span class="dw-gloss" tabindex="0">Bugspriet<span class="dw-gloss-tip">baugspryd (mast fremst på skipet)</span></span> stehn sie zusammengedrängt,<br>
+      Am Bugspriet vorn ist noch Luft und Licht,<br>
+      Am Steuer aber lagert sich's dicht,<br>
+      Und ein Jammern wird laut: „Wo sind wir? wo?"<br>
+      Und noch fünfzehn Minuten bis Buffalo,</p>
+      <p>Der Zugwind wächst, doch die Qualmwolke steht,<br>
+      Der Kapitän nach dem Steuer späht,<br>
+      Er sieht nicht mehr seinen Steuermann,<br>
+      Aber durchs Sprachrohr fragt er an:<br>
+      „Noch da, John Maynard?"<br>
+      „Ja, Herr. Ich bin."<br>
+      „Auf den Strand. In die <span class="dw-gloss" tabindex="0">Brandung<span class="dw-gloss-tip">brenning, brytende bølger mot land</span></span>."<br>
+      „Ich halte drauf hin."<br>
+      Und das Schiffsvolk jubelt: „Halt aus. Halloh."<br>
+      Und noch zehn Minuten bis Buffalo.</p>
+      <p>„Noch da, John Maynard?" Und Antwort schallt's<br>
+      Mit <span class="dw-gloss" tabindex="0">ersterbender<span class="dw-gloss-tip">døende, i ferd med å dø ut</span></span> Stimme: „Ja, Herr, ich halt's"<br>
+      Und in die Brandung, was Klippe was Stein,<br>
+      Jagt er die „Schwalbe" mitten hinein,<br>
+      Soll Rettung kommen, so kommt sie nur so.<br>
+      Rettung: der Strand von Buffalo.</p>
+      <p class="dw-stanza-break">* * *</p>
+      <p>Das Schiff <span class="dw-gloss" tabindex="0">geborsten<span class="dw-gloss-tip">sprukket, brutt i stykker (fra «bersten»)</span></span>. Das Feuer <span class="dw-gloss" tabindex="0">verschweelt<span class="dw-gloss-tip">brant ut, ble til aske</span></span>.<br>
+      Gerettet alle. Nur Einer fehlt!</p>
+      <p class="dw-stanza-break">* * *</p>
+      <p>Alle Glocken gehn; ihre Töne schwell'n<br>
+      Himmelan aus Kirchen und Kapell'n,<br>
+      Ein Klingen und Läuten, sonst schweigt die Stadt,<br>
+      Ein Dienst nur, den sie heute hat:<br>
+      Zehntausend folgen oder mehr<br>
+      Und kein Aug' im Zuge, das <span class="dw-gloss" tabindex="0">thränenleer<span class="dw-gloss-tip">tåreløs (gammel skrivemåte for «tränenleer»)</span></span>.</p>
+      <p>Sie lassen den <span class="dw-gloss" tabindex="0">Sarg<span class="dw-gloss-tip">kiste</span></span> in Blumen hinab,<br>
+      Mit Blumen schließen sie das Grab,<br>
+      Und mit goldner Schrift in den Marmorstein<br>
+      Schreibt die Stadt ihren Dankspruch ein:<br>
+      „Hier ruht John Maynard. In Qualm und Brand,<br>
+      Hielt er das Steuer fest in der Hand,<br>
+      Er hat uns gerettet, er trägt die Kron',<br>
+      Er starb für uns, unsre Liebe sein Lohn.<br>
+      John Maynard."</p>
+    </div>
+    <p class="dw-hint">Merk: teksten har noen eldre apostrofformer («schwell'n», «Kapell'n», «Aug'») typisk for diktspråket på 1800-tallet — de erstatter bokstaver som er utelatt for å beholde verserytmen.</p>
+
+    <button class="dw-toggle-btn" onclick="dwToggleTranslation(this)">🇳🇴 Vis norsk oversettelse</button>
+    <div class="dw-translation" id="dw-translation">
+      John Maynard!<br>«Hvem er John Maynard?»<br><br>
+      John Maynard var vår rormann. Han holdt ut til han nådde land. Han har reddet oss, han bærer æreskransen, han døde for oss, vår kjærlighet er hans lønn. John Maynard.<br><br>
+      Skipet «Schwalbe» flyr over Eriesjøen, skumsprøyt skummer rundt baugen som snøfnugg, fra Detroit flyr det mot Buffalo — hjertene er lette og glade, og passasjerene, med barn og koner, ser allerede kysten i skumringslyset og trer pratende bort til John Maynard: «Hvor langt igjen, rormann?» Han ser fremover, ser seg rundt: «Ennå tretti minutter … en halvtime.»<br><br>
+      Alle hjerter er glade, alle hjerter er frie — da lyder det fra lasterommet som et skrik: «Brann!» var det som lød. En røyksky trengte ut fra lugar og luke, en røyksky, så flammer i full lue, og ennå tjue minutter til Buffalo.<br><br>
+      Og passasjerene, om hverandre, står tett sammenpresset ved baugsprydet. Fremme ved baugsprydet er det ennå luft og lys, men ved roret legger røyken seg tett, og en klage lyder høyt: «Hvor er vi? Hvor?» Og ennå femten minutter til Buffalo.<br><br>
+      Trekkvinden øker, men røykskyen står stille. Kapteinen speider mot roret, han ser ikke lenger sin rormann, men roper gjennom talerøret: «Fortsatt der, John Maynard?» «Ja, herre. Det er jeg.» «Mot stranden. Inn i brenningen.» «Jeg styrer dit.» Og mannskapet jubler: «Hold ut. Halloi!» Og ennå ti minutter til Buffalo.<br><br>
+      «Fortsatt der, John Maynard?» Og svaret runger med døende stemme: «Ja, herre, jeg holder ut.» Og inn i brenningen, uansett klippe, uansett stein, jager han «Schwalbe» rett inn. Skal redning komme, så kommer den bare slik. Redningen: stranden ved Buffalo.<br><br>
+      Skipet sprakk i stykker. Ilden sluknet. Alle reddet. Bare én mangler!<br><br>
+      Alle klokker ringer; tonene stiger mot himmelen fra kirker og kapeller, en klingende ringing — ellers tier byen. Bare én gjøremål har den i dag: ti tusen følger, eller flere, og ikke ett øye i toget er uten tårer.<br><br>
+      De senker kisten ned i blomster, med blomster lukker de graven, og med gyllen skrift i marmorsteinen skriver byen inn sin takkehilsen: «Her hviler John Maynard. I røyk og brann holdt han roret fast i hånden. Han har reddet oss, han bærer æreskransen, han døde for oss, vår kjærlighet er hans lønn. John Maynard.»
+      <div class="dw-note" style="font-style:normal;margin-top:8px;">(Uoffisiell oversettelse, laget for Deutschwelt.)</div>
+    </div>
+
+    <h3 style="margin:18px 0 8px;color:var(--dw-primary);font-size:1rem;">📝 Gloseliste</h3>
+    <div class="dw-vocab">
+      <div><b>der Steuermann</b><br>rormann, styrmann</div>
+      <div><b>aushalten</b><br>holde ut</div>
+      <div><b>das Ufer</b><br>bredd, kyst</div>
+      <div><b>die Gischt</b><br>skumsprøyt</div>
+      <div><b>der Bug</b><br>baugen</div>
+      <div><b>das Dämmerlicht</b><br>skumringslys</div>
+      <div><b>der Qualm</b><br>tykk røyk</div>
+      <div><b>lichterloh</b><br>i full fyr</div>
+      <div><b>der Bugspriet</b><br>baugspryd</div>
+      <div><b>die Brandung</b><br>brenning (bølger mot land)</div>
+      <div><b>ersterbend</b><br>døende</div>
+      <div><b>bersten (geborsten)</b><br>sprekke, briste</div>
+      <div><b>verschweelen</b><br>brenne ut, bli til aske</div>
+      <div><b>tränenleer</b><br>tåreløs</div>
+      <div><b>der Sarg</b><br>kiste</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Teste dich selbst</h2>
+    <p class="dw-note">Disse spørsmålene handler om hovedideen — ikke om hvert enkelt ord.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Was denkst du?</h2>
+    <p class="dw-note">John Maynard holder kursen mot land selv om han vet at han sannsynligvis vil dø. Hva tror du var grunnen til at han gjorde det? Skriv 2–3 setninger på tysk.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Ich glaube, John Maynard hat das getan, weil …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function dwToggleTranslation(btn){
+    var el = document.getElementById('dw-translation');
+    el.classList.toggle('dw-show');
+    btn.textContent = el.classList.contains('dw-show') ? '🇳🇴 Skjul norsk oversettelse' : '🇳🇴 Vis norsk oversettelse';
+  }
+
+  var dwQuiz = [
+    {q:"Was ist John Maynard von Beruf?", opts:["Kapitän","Steuermann","Koch"], correct:1},
+    {q:"Was passiert auf dem Schiff „Schwalbe“?", opts:["Ein Sturm zieht auf","Es bricht ein Feuer aus","Das Schiff hat kein Trinkwasser mehr"], correct:1},
+    {q:"Was tut John Maynard, obwohl er in Gefahr ist?", opts:["Er springt sofort ins Wasser","Er hält das Steuer fest bis zum Strand","Er weckt den Kapitän"], correct:1},
+    {q:"Was passiert am Ende mit John Maynard?", opts:["Er wird als Held gefeiert, aber er ist gestorben","Er wird Kapitän eines neuen Schiffes","Er zieht nach Detroit"], correct:0}
+  ];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

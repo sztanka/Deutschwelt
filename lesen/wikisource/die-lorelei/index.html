@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Lesen → Wikisource (nivådelt): "Die Lorelei" (10. trinn,
+  fortgeschritten). Tre tekster samlet på én side: (1) Wilhelm Proehles
+  sagnframstilling om St. Goar og Lorelei-klippen (fra "Rheinlands Sagen
+  und Geschichten"), (2) Proehles prosagjenfortelling av Clemens
+  Brentanos Lorelei-ballade, og (3) Heinrich Heines berømte dikt
+  "Die Lorelei" ("Ich weiß nicht, was soll es bedeuten") — sitert
+  ordrett i kilden. Alle tre er klart offentlig eiendom (Brentano d.
+  1842, Heine d. 1856, Proehle utgav sin samling på 1800-tallet).
+  Teksten er limt inn av Teach selv (skjermbilde fra de.wikisource.org),
+  siden de.wikisource.org var blokkert for Claudes egne verktøy denne
+  runden. Kilde: https://de.wikisource.org/wiki/Seite:Proehle_Rheinlands_Sagen_und_Geschichten.djvu/122
+  Ordforråd-glosser (både i teksten som hover/trykk-tooltip OG i listen
+  under) og norsk oversettelse er laget av Claude, ikke hentet fra en
+  ekstern kilde.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Die Lorelei · Wikisource · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.6rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-section p{margin:0 0 10px;line-height:1.7;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-original{
+    font-family:Georgia,"Times New Roman",serif;font-size:1.02rem;line-height:1.85;
+    background:#f4f1e8;border-left:4px solid var(--dw-accent);padding:16px 18px;border-radius:8px;margin-bottom:8px;
+  }
+  .dw-original p{margin:0 0 12px;}
+  .dw-original p:last-child{margin-bottom:0;}
+  .dw-hint{font-size:.8rem;color:var(--dw-muted);margin:0 0 12px;}
+
+  .dw-gloss{border-bottom:2px dotted var(--dw-accent);cursor:help;position:relative;}
+  .dw-gloss-tip{
+    visibility:hidden;opacity:0;position:absolute;bottom:125%;left:50%;transform:translateX(-50%);
+    background:var(--dw-primary);color:#fff;padding:6px 10px;border-radius:8px;font-size:.78rem;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.3;white-space:normal;max-width:200px;width:max-content;transition:opacity .15s ease;
+    pointer-events:none;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.2);
+  }
+  .dw-gloss:hover .dw-gloss-tip, .dw-gloss:focus .dw-gloss-tip{visibility:visible;opacity:1;}
+
+  .dw-toggle-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;margin-bottom:12px;
+  }
+  .dw-toggle-btn:hover{background:var(--dw-primary-light);}
+  .dw-translation{
+    display:none;background:#eef2f6;border-left:4px solid var(--dw-primary);padding:14px 18px;border-radius:8px;
+    font-size:.92rem;line-height:1.7;margin-bottom:12px;font-style:italic;
+  }
+  .dw-translation.dw-show{display:block;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-top:10px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:80px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">📖 Lesen</a> → <a href="../">Wikisource</a> → Die Lorelei</p>
+
+  <div class="dw-header">
+    <h1>Die Lorelei</h1>
+    <p>Det mest berømte sagnet fra Rhinen — i tre versjoner: sagnet selv, en ballade og verdens mest kjente Lorelei-dikt</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>📖 Om teksten</h2>
+    <p>Lorelei er en høy, bratt klippe ved Rhinen nær byene St. Goar og St. Goarshausen i Tyskland — kjent for et sterkt ekko og for at den var farlig for skippere. Rundt klippen vokste det fram et sagn om en fortryllende kvinne hvis sang lokket sjøfolk i døden. Her får du tre versjoner av historien, alle skrevet ned på 1800-tallet: først en beskrivelse av stedet og sagnet fra Wilhelm Proehles bok om Rhinens sagn, deretter en gjenfortelling av Clemens Brentanos dikt om «Lore Lay» (han var faktisk den første som skrev ned denne versjonen av sagnet, rundt 1801), og til slutt Heinrich Heines berømte dikt «Die Lorelei» fra 1824 — trolig det mest kjente tyske diktet noensinne, som fortsatt blir sunget som vise i Tyskland i dag.</p>
+    <p><strong>Tips:</strong> Ord med stiplet understrek kan du holde musepekeren over (eller trykke på, på nettbrett/mobil) for norsk oversettelse med en gang. Alle glosene finner du også samlet i listen under tekstene.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🪨 Der Felsen und die Sage</h2>
+    <p class="dw-byline">Aus: Rheinlands Sagen und Geschichten · von Wilhelm Proehle</p>
+    <div class="dw-original">
+      <p>Nördlich von Oberwesel liegt St. Goar und St. Goarshausen. St. Goar ist von Freiligrath in dem Gedichte „ein <span class="dw-gloss" tabindex="0">Flecken<span class="dw-gloss-tip">liten by (gammelt ord)</span></span> am Rhein" beschrieben worden.</p>
+      <p>Welch ein prächtig Nest! ruft Freiligrath aus; wie <span class="dw-gloss" tabindex="0">schlank<span class="dw-gloss-tip">slank</span></span> ist sein Mauerturm, wie <span class="dw-gloss" tabindex="0">schartig<span class="dw-gloss-tip">forrevet, hakkete</span></span> seine Burg und wie seltsam sind seine Thore mit Moos bewachsen. Wenn irgendwo am Rhein, so wohnt hier noch die Romantik im schlichten <span class="dw-gloss" tabindex="0">Nonnenkleide<span class="dw-gloss-tip">nonnedrakt</span></span>. Zitternd birgt sich die wunderbare Frau in kleinen, morschen <span class="dw-gloss" tabindex="0">Uferfesten<span class="dw-gloss-tip">elvefestninger, festninger langs bredden</span></span>. Sie kniet am Altare in den öden Kirchen, den sie in der Erinnerung an eine vergangene frömmere Zeit mit brünstigem Weinen umklammert hat. Durch die düstern Bogen des <span class="dw-gloss" tabindex="0">Kreuzganges<span class="dw-gloss-tip">klostergang (gang rundt en klostergård)</span></span> schaut ein rankiges und verwildertes Gärtlein. Leise zittern die wolkigen Schatten seiner wilden Gebüsche an dem alten <span class="dw-gloss" tabindex="0">Gemäuer<span class="dw-gloss-tip">murverk</span></span>. Stellt sich schon die Stadt St. Goar so poetisch dar, so regt die nahe Lorelei noch seltsamere Träume in uns an.</p>
+      <p>Den Namen Lorelei oder Lurlei führt zunächst ein Felsen im Süden von Goarshausen. Er steigt senkrecht aus dem Rheine auf, hat ein berühmtes Echo und ist den Schiffern gefährlich. Lei heißt eigentlich der Fels.</p>
+      <p>Die Sage hat diesen aus dem Rheine aufsteigenden Felsen zum Wohnsitze einer schönen Wasserfrau gemacht. Alles andere werden vielleicht die Dichter zu der Sage hinzugefügt haben. So wird denn auch von der Lorelei wie von den griechischen Sirenen erzählt, daß sie die <span class="dw-gloss" tabindex="0">Vorüberfahrenden<span class="dw-gloss-tip">de som seiler forbi</span></span> durch ihren zauberischen Gesang anlocke, bis sie an dem Felsen <span class="dw-gloss" tabindex="0">scheitern<span class="dw-gloss-tip">forlise</span></span> und <span class="dw-gloss" tabindex="0">versinken<span class="dw-gloss-tip">synke</span></span>. Im 13. Jahrhundert glaubte man, daß bei dem Lorelei-Felsen der <span class="dw-gloss" tabindex="0">Nibelungenhort<span class="dw-gloss-tip">Nibelungenskatten — den legendariske gullskatten fra Nibelungen-sagnet</span></span> versenkt sei. Aus dem 16. und 17. Jahrhundert wird berichtet, daß man meinte, er sei von Geistern bewohnt.</p>
+    </div>
+    <p class="dw-hint">Merk: teksten bruker eldre tysk rettskrivning fra 1800-tallet (f.eks. «Thore» for «Tore», «daß» for «dass»).</p>
+
+    <button class="dw-toggle-btn" onclick="dwToggleTranslation(this, 'dw-translation-1')">🇳🇴 Vis norsk oversettelse</button>
+    <div class="dw-translation" id="dw-translation-1">
+      Nord for Oberwesel ligger St. Goar og St. Goarshausen. St. Goar er beskrevet av dikteren Freiligrath i diktet «en liten by ved Rhinen».<br><br>
+      «For et praktfullt reir!» utbryter Freiligrath. «Hvor slankt er ikke murtårnet, hvor forrevet borgen, og hvor underlig mosegrodde er ikke portene!» Om noe sted langs Rhinen, så bor romantikken fortsatt her, kledd i en enkel nonnedrakt. Skjelvende gjemmer den vidunderlige kvinnen seg i små, forfalne festninger langs elvebredden. Hun kneler ved alteret i de øde kirkene, som hun i minnet om en svunnen, frommere tid har omfavnet med lidenskapelig gråt. Gjennom klostergangens mørke buer skimtes en gjengrodd og forvillet liten hage. Stille skjelver de skyaktige skyggene fra det ville krattet langs de gamle murene. Selv om byen St. Goar allerede fremstår så poetisk, vekker den nære Lorelei enda underligere drømmer i oss.<br><br>
+      Navnet Lorelei eller Lurlei bæres først og fremst av en klippe sør for Goarshausen. Den stiger loddrett opp av Rhinen, har et berømt ekko og er farlig for skipperne. «Lei» betyr egentlig «klippe».<br><br>
+      Sagnet har gjort denne klippen, som stiger opp av Rhinen, til bosted for en vakker vannkvinne. Alt det andre har kanskje dikterne lagt til sagnet senere. Slik fortelles det da også om Lorelei — som om de greske sirenene — at hun lokker de forbifarende med sin fortryllende sang, helt til de forliser mot klippen og synker. På 1200-tallet trodde man at Nibelungenskatten var senket ned ved Lorelei-klippen. Fra 1500- og 1600-tallet fortelles det at man mente klippen var bebodd av ånder.
+      <div class="dw-note" style="font-style:normal;margin-top:8px;">(Uoffisiell oversettelse, laget for Deutschwelt.)</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>👑 Die Sage nach Clemens Brentano</h2>
+    <p class="dw-byline">Prosagjenfortelling av Brentanos ballade, nedskrevet av Wilhelm Proehle</p>
+    <div class="dw-original">
+      <p>Es wohnte eine <span class="dw-gloss" tabindex="0">Zauberin<span class="dw-gloss-tip">trollkvinne</span></span> zu Bacharach am Rheine. Sie war so schön, daß sie alle Herzen bezauberte. Viele Männer brachte sie rings umher ins <span class="dw-gloss" tabindex="0">Verderben<span class="dw-gloss-tip">fordervelse, undergang</span></span>. Niemals war Rettung aus ihren Liebesbanden.</p>
+      <p>Der Bischof ließ sie vor sein geistliches Gericht fordern. Aber er war gezwungen sie zu <span class="dw-gloss" tabindex="0">begnadigen<span class="dw-gloss-tip">benåde</span></span>, so schön war ihre Gestalt. Gerührt sprach er zu ihr: „Du arme Lore! Wer hat doch Dich nur zur bösen Zauberin gemacht?"</p>
+      <p>Sie sagte: „Herr Bischof, laßt mich nur sterben, denn ich bin meines Lebens müde, weil jeder verderben muß, der mir in's Auge blickt. Meine Augen sind zwei Flammen, und ein <span class="dw-gloss" tabindex="0">Zauberstab<span class="dw-gloss-tip">tryllestav</span></span> ist mein Arm. Darum verurteilt mich zum Tode und laßt mich in's Feuer werfen."</p>
+      <p>Der Bischof erwiderte: „Ich kann Dich nicht verdammen, Du müßtest mir denn gestehen, weswegen mein eigenes Herz schon in diesen Flammen brennt. Nein, nein, Du schöne Lorelei, ich kann Dir den Stab nicht brechen, weil sonst mein eigenes Herz mit zerbrechen würde."</p>
+      <p>Lorelei sprach: „Herr Bischof, treibt nicht so bösen Spott mit mir und bittet lieber unsern himmlischen Vater um Erbarmen für mich. Ich liebe niemand mehr und kann nicht länger leben. Ich bin zu Euch gekommen, um den Tod zu empfangen. So wisset denn, mein Schatz hat mich betrogen und sich von mir gewandt. Er hat mich verlassen und ist in die Fremde gegangen. Wollet Ihr aber erfahren, wie es sich mit meiner Zauberei verhält, so wisset denn: Rote Wangen und milde Worte, das ist mein ganzer Zauberkreis. Ich selbst muß darin untergehen. Mir thut das Herz so wehe. Ich möchte vor Schmerzen sterben, wenn ich mein Bildnis erblicke. Darum verschaffet mir mein Recht und lasset mich sterben wie eine Christin. Denn es muß alles verschwinden, weil mein Geliebter nicht mehr bei mir ist."</p>
+      <p>Da ließ der Bischof drei Ritter herbeikommen und befahl ihnen: „Bringt sie in ein Kloster! Geh, Lore, und befiehl Deine <span class="dw-gloss" tabindex="0">bethörten<span class="dw-gloss-tip">forvirrede, dåraktige (gammelt ord)</span></span> Sinne dem Herrn im Himmel. Bereite Dich immerhin zu Deiner Todesreise. Aber am Leben bleibst Du doch, der Weg geht nur in's Kloster, nicht in's Grab, Du sollst nur ein schwarzes und weißes Nönnchen werden."</p>
+      <p>Alle die drei Ritter ritten nun zum Kloster und hatten die schöne Lore zwischen sich. Aber die bat: „O Ritter, laßt mich auf diesen großen Felsen steigen. Ich will nur noch einmal nach meines Geliebten Schlosse hinschauen. Nur noch einmal will ich blicken in den tiefen Rhein, dann will ich gern in's Kloster gehen, um Gottes Jungfrau zu werden."</p>
+      <p>Der Felsen ist so jäh, die Wand so steil, aber doch klomm sie empor, bis sie oben war. „Da geht ein Schifflein auf dem Rhein," rief sie aus, „der in dem Schiff steht, der soll mein Liebster werden. So fröhlich wird mir das Herz, mein Liebster muß er werden!" Mit diesen Worten lehnt sie sich hinab und stürzt in den Rhein. – –</p>
+    </div>
+
+    <button class="dw-toggle-btn" onclick="dwToggleTranslation(this, 'dw-translation-2')">🇳🇴 Vis norsk oversettelse</button>
+    <div class="dw-translation" id="dw-translation-2">
+      Det bodde en trollkvinne i Bacharach ved Rhinen. Hun var så vakker at hun fortryllet alle hjerter. Mange menn førte hun rundt omkring i fordervelse. Aldri fantes det redning fra kjærlighetslenkene hennes.<br><br>
+      Biskopen lot henne innkalle for sin geistlige domstol. Men han var tvunget til å benåde henne, så vakker var hennes skikkelse. Rørt sa han til henne: «Du stakkars Lore! Hvem har vel gjort deg til en ond trollkvinne?»<br><br>
+      Hun sa: «Herr biskop, la meg bare dø, for jeg er lei av livet mitt, fordi enhver som ser meg inn i øynene, må gå til grunne. Øynene mine er to flammer, og armen min er en tryllestav. Døm meg derfor til døden og la meg kastes på bålet.»<br><br>
+      Biskopen svarte: «Jeg kan ikke fordømme deg, med mindre du tilstår hvorfor mitt eget hjerte allerede brenner i disse flammene. Nei, nei, du vakre Lorelei, jeg kan ikke knekke staven din, for da ville mitt eget hjerte gå i stykker med.»<br><br>
+      Lorelei sa: «Herr biskop, driv ikke slik ond spott med meg, og be heller vår himmelske Far om nåde for meg. Jeg elsker ingen lenger og kan ikke leve videre. Jeg er kommet til dere for å motta døden. Så vit da: min kjæreste har bedratt meg og vendt seg bort fra meg. Han har forlatt meg og dratt til fremmede land. Men vil dere vite hvordan det egentlig forholder seg med trolldommen min, så vit: røde kinn og milde ord — det er hele trollkretsen min. Jeg selv må gå til grunne i den. Hjertet mitt gjør så vondt. Jeg ville dø av smerte om jeg så mitt eget bilde. Skaff meg derfor min rett, og la meg dø som en kristen. For alt må forsvinne, siden min elskede ikke lenger er hos meg.»<br><br>
+      Da lot biskopen tre riddere komme og befalte dem: «Før henne til et kloster! Gå, Lore, og overgi dine forvirrede sanser til Herren i himmelen. Forbered deg gjerne på din dødsreise. Men du forblir likevel i live — veien går bare til klosteret, ikke til graven, du skal bare bli en liten nonne, svart og hvit.»<br><br>
+      Alle de tre ridderne red nå mot klosteret med den vakre Lore mellom seg. Men hun ba: «Å, riddere, la meg klatre opp på denne store klippen. Jeg vil bare enda en gang se bort mot slottet til min elskede. Bare en gang til vil jeg se ned i den dype Rhinen, så skal jeg gjerne gå inn i klosteret for å bli Guds jomfru.»<br><br>
+      Klippen er så bratt, veggen så steil, men likevel klatret hun oppover til hun var på toppen. «Der går det et lite skip på Rhinen,» ropte hun, «den som står i skipet, han skal bli min elskede. Så glad blir jeg i hjertet, min elskede må han bli!» Med disse ordene lener hun seg utover og styrter i Rhinen. — —
+      <div class="dw-note" style="font-style:normal;margin-top:8px;">(Uoffisiell oversettelse, laget for Deutschwelt.)</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>🎵 Die Lorelei</h2>
+    <p class="dw-byline">Das berühmteste Gedicht · von Heinrich Heine (1824)</p>
+    <div class="dw-original">
+      <p>Ich weiß nicht, was soll das <span class="dw-gloss" tabindex="0">bedeuten<span class="dw-gloss-tip">bety</span></span>,<br>
+      Daß ich so traurig bin.<br>
+      Ein Märchen aus alten Zeiten,<br>
+      Das kommt mir nicht aus dem Sinn.</p>
+      <p>Die Luft ist kühl und es dunkelt,<br>
+      Und ruhig fließt der Rhein;<br>
+      Der <span class="dw-gloss" tabindex="0">Gipfel<span class="dw-gloss-tip">toppen</span></span> des Berges <span class="dw-gloss" tabindex="0">funkelt<span class="dw-gloss-tip">glitrer</span></span><br>
+      Im Abendsonnenschein.</p>
+      <p>Die schönste Jungfrau sitzet<br>
+      Dort oben wunderbar;<br>
+      Ihr goldnes <span class="dw-gloss" tabindex="0">Geschmeide<span class="dw-gloss-tip">smykker</span></span> blitzet,<br>
+      Sie <span class="dw-gloss" tabindex="0">kämmt<span class="dw-gloss-tip">grer (fra «kämmen»)</span></span> ihr goldenes Haar.</p>
+      <p>Sie kämmt es mit goldnem <span class="dw-gloss" tabindex="0">Kamme<span class="dw-gloss-tip">kam</span></span>,<br>
+      Und singt ein Lied dabei,<br>
+      Das hat eine wundersame,<br>
+      Gewaltige Melodei.</p>
+      <p>Den <span class="dw-gloss" tabindex="0">Schiffer<span class="dw-gloss-tip">skipper</span></span> im kleinen Schiffe<br>
+      Ergreift es mit wildem Weh;<br>
+      Er schaut nicht die <span class="dw-gloss" tabindex="0">Felsenriffe<span class="dw-gloss-tip">steinrev</span></span>,<br>
+      Er schaut nur hinauf in die Höh'.</p>
+      <p>Ich glaube, die Wellen <span class="dw-gloss" tabindex="0">verschlingen<span class="dw-gloss-tip">sluker</span></span><br>
+      Am Ende Schiffer und Kahn;<br>
+      Und das hat mit ihrem Singen<br>
+      Die Lorelei gethan.</p>
+    </div>
+    <p class="dw-hint">Dette diktet ble senere satt til musikk av Friedrich Silcher (1837) og er blitt en av de mest kjente tyske visene noensinne.</p>
+
+    <button class="dw-toggle-btn" onclick="dwToggleTranslation(this, 'dw-translation-3')">🇳🇴 Vis norsk oversettelse</button>
+    <div class="dw-translation" id="dw-translation-3">
+      Jeg vet ikke hva det skal bety, at jeg er så trist. Et eventyr fra gamle tider vil ikke gå ut av tankene mine.<br><br>
+      Luften er kjølig og det blir mørkt, og Rhinen flyter stille; fjelltoppen glitrer i kveldssolens skinn.<br><br>
+      Den vakreste jomfruen sitter der oppe, vidunderlig; hennes gylne smykker blinker, hun grer sitt gyldne hår.<br><br>
+      Hun grer det med en gyllen kam, og synger en sang mens hun gjør det, som har en underfull, mektig melodi.<br><br>
+      Skipperen i den lille båten gripes av vill smerte; han ser ikke steinrevene, han ser bare opp mot høyden.<br><br>
+      Jeg tror bølgene til slutt sluker skipperen og båten; og det er det Lorelei har gjort med sangen sin.
+      <div class="dw-note" style="font-style:normal;margin-top:8px;">(Uoffisiell oversettelse, laget for Deutschwelt.)</div>
+    </div>
+
+    <h3 style="margin:18px 0 8px;color:var(--dw-primary);font-size:1rem;">📝 Gloseliste</h3>
+    <div class="dw-vocab">
+      <div><b>der Flecken</b><br>liten by (gammelt ord)</div>
+      <div><b>das Ufer</b><br>elvebredd</div>
+      <div><b>scheitern</b><br>forlise</div>
+      <div><b>versinken</b><br>synke</div>
+      <div><b>die Zauberin</b><br>trollkvinne</div>
+      <div><b>das Verderben</b><br>fordervelse, undergang</div>
+      <div><b>begnadigen</b><br>benåde</div>
+      <div><b>der Zauberstab</b><br>tryllestav</div>
+      <div><b>verdammen</b><br>fordømme</div>
+      <div><b>betrügen</b><br>bedra</div>
+      <div><b>bedeuten</b><br>bety</div>
+      <div><b>der Gipfel</b><br>toppen</div>
+      <div><b>funkeln</b><br>glitre</div>
+      <div><b>das Geschmeide</b><br>smykker</div>
+      <div><b>kämmen</b><br>gre</div>
+      <div><b>der Schiffer</b><br>skipper</div>
+      <div><b>verschlingen</b><br>sluke</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Teste dich selbst</h2>
+    <p class="dw-note">Disse spørsmålene handler om hovedideen i alle tre tekstene — ikke om hvert enkelt ord.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Was denkst du?</h2>
+    <p class="dw-note">Du har nå lest tre versjoner av samme sagn: en beskrivelse av stedet, en ballade-gjenfortelling og et berømt dikt. Hvilken versjon likte du best, og hvorfor? Skriv 2–3 setninger på tysk.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Mir gefällt … am besten, weil …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function dwToggleTranslation(btn, id){
+    var el = document.getElementById(id);
+    el.classList.toggle('dw-show');
+    btn.textContent = el.classList.contains('dw-show') ? '🇳🇴 Skjul norsk oversettelse' : '🇳🇴 Vis norsk oversettelse';
+  }
+
+  var dwQuiz = [
+    {q:"Was ist die Lorelei, laut Proehles Beschreibung?", opts:["Eine Stadt am Rhein","Ein Felsen mit einem berühmten Echo","Ein Schiff"], correct:1},
+    {q:"Warum will die Zauberin in Brentanos Geschichte sterben?", opts:["Sie ist krank","Ihr Geliebter hat sie verlassen und sie kann nicht mehr leben","Sie hat kein Geld mehr"], correct:1},
+    {q:"Was tut die schöne Lore ganz am Ende der Ballade?", opts:["Sie geht ins Kloster","Sie stürzt sich in den Rhein","Sie heiratet den Bischof"], correct:1},
+    {q:"Was passiert mit dem Schiffer in Heines Gedicht?", opts:["Er hört der Lorelei zu und schaut nicht auf die Felsen","Er findet einen Schatz","Er rettet die Lorelei"], correct:0}
+  ];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Lesen → Wikisource (nivådelt): "Brot zu Stein geworden"
+  (9. trinn, A2). Tysk folkesagn (Sage nr. 240 i en eldre sagnsamling,
+  med kilder oppgitt til bl.a. Melissantes 1744 og Zeiler 1655) —
+  klart offentlig eiendom (gemeinfrei), et folkelig sagn uten navngitt
+  moderne forfatter. Teksten er limt inn av Teach selv (skjermbilde fra
+  de.wikisource.org), siden de.wikisource.org var blokkert for Claudes
+  egne verktøy denne runden.
+  Ordforråd-glosser (både i teksten som hover/trykk-tooltip OG i listen
+  under) og norsk oversettelse er laget av Claude, ikke hentet fra en
+  ekstern kilde.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brot zu Stein geworden · Wikisource · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.6rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-section p{margin:0 0 10px;line-height:1.7;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-original{
+    font-family:Georgia,"Times New Roman",serif;font-size:1.02rem;line-height:1.9;
+    background:#f4f1e8;border-left:4px solid var(--dw-accent);padding:16px 18px;border-radius:8px;margin-bottom:8px;
+  }
+  .dw-original p{margin:0 0 12px;}
+  .dw-original p:last-child{margin-bottom:0;}
+  .dw-hint{font-size:.8rem;color:var(--dw-muted);margin:0 0 12px;}
+
+  .dw-gloss{border-bottom:2px dotted var(--dw-accent);cursor:help;position:relative;}
+  .dw-gloss-tip{
+    visibility:hidden;opacity:0;position:absolute;bottom:125%;left:50%;transform:translateX(-50%);
+    background:var(--dw-primary);color:#fff;padding:6px 10px;border-radius:8px;font-size:.78rem;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.3;white-space:normal;max-width:200px;width:max-content;transition:opacity .15s ease;
+    pointer-events:none;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.2);
+  }
+  .dw-gloss:hover .dw-gloss-tip, .dw-gloss:focus .dw-gloss-tip{visibility:visible;opacity:1;}
+
+  .dw-toggle-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;margin-bottom:12px;
+  }
+  .dw-toggle-btn:hover{background:var(--dw-primary-light);}
+  .dw-translation{
+    display:none;background:#eef2f6;border-left:4px solid var(--dw-primary);padding:14px 18px;border-radius:8px;
+    font-size:.92rem;line-height:1.7;margin-bottom:12px;font-style:italic;
+  }
+  .dw-translation.dw-show{display:block;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-top:10px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:80px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">📖 Lesen</a> → <a href="../">Wikisource</a> → Brot zu Stein geworden</p>
+
+  <div class="dw-header">
+    <h1>Brot zu Stein geworden</h1>
+    <p>Et gammelt tysk folkesagn — fire versjoner av samme advarende historie</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>📖 Om teksten</h2>
+    <p>Dette er et <em>Sage</em> — et folkesagn som ble fortalt muntlig på mange forskjellige steder i Tyskland, og som senere ble samlet og skrevet ned. Denne varianten er nummerert 240 i en eldre sagnsamling, med kilder tilbake til bøker fra så tidlig som 1655. Sagnet finnes i flere versjoner fra ulike byer (Westfalen, Leiden, Landshut, Danzig), men handler alltid om det samme: brød som plutselig blir til stein, som straff for hardhjertethet og gjerrighet overfor de som sulter.</p>
+    <p><strong>Tips:</strong> Ord med stiplet understrek kan du holde musepekeren over (eller trykke på, på nettbrett/mobil) for norsk oversettelse med en gang. Alle glosene finner du også samlet i listen under teksten.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🍞 Brot zu Stein geworden</h2>
+    <p class="dw-byline">Volkssage Nr. 240 (u.a. nach Melissantes, 1744, und Zeiler, 1655)</p>
+    <div class="dw-original">
+      <p>Man hat an viel Orten, <span class="dw-gloss" tabindex="0">namentlich<span class="dw-gloss-tip">nemlig, særlig</span></span> in Westphalen, die Sagen, daß zur Zeit großer <span class="dw-gloss" tabindex="0">Theuerung<span class="dw-gloss-tip">dyrtid, matmangel (gammel skrivemåte for «Teuerung»)</span></span> eine <span class="dw-gloss" tabindex="0">hartherzige<span class="dw-gloss-tip">hardhjertet</span></span> Schwester ihre arme Schwester, die für sich und ihre Kindlein Brot gebeten, mit den Worten <span class="dw-gloss" tabindex="0">abgewiesen<span class="dw-gloss-tip">avvist</span></span>: „und wenn ich Brot hätte, wollte ich, daß es zu Stein würde!" – worauf sich ihr <span class="dw-gloss" tabindex="0">Brotvorrat<span class="dw-gloss-tip">brødlager</span></span> alsbald in Stein verwandelte. Zu Leiden in Holland hebt man in der großen Peterskirche ein solches Steinbrot auf und zeigt es den Leuten zur <span class="dw-gloss" tabindex="0">Bewährung<span class="dw-gloss-tip">bekreftelse, bevis</span></span> der Geschichte.</p>
+      <p>Im Jahr 1579 hatte ein dortmunder Becker in der Hungersnoth viel Korn <span class="dw-gloss" tabindex="0">aufgekauft<span class="dw-gloss-tip">kjøpt opp</span></span> und freute sich, damit recht zu <span class="dw-gloss" tabindex="0">wuchern<span class="dw-gloss-tip">drive ågervirksomhet, utnytte nøden til egen vinning</span></span>. Als er aber mitten in diesem Geschäft war, ist ihm sein Brot im ganzen Hause eines Tages zu Stein worden und wie er einen Laib <span class="dw-gloss" tabindex="0">ergriffen<span class="dw-gloss-tip">grep</span></span> und mit dem Messer aufschneiden wollen, Blut daraus geflossen. Darüber hat er sich alsbald in seiner Kammer erhängt.</p>
+      <p>In der dem heiligen Kastulus geweihten Hauptkirche zu Landshut hängt mit silberner Einfassung ein runder Stein in Gestalt eines Brotes, in dessen Oberfläche sich vier kleine Höhlungen befinden. Davon geht folgende Sage. Kurz vor seinem Tode kam der heil. Kastulus als ein armer Mann zu einer Wittwe in der Stadt und bat um ein <span class="dw-gloss" tabindex="0">Almosen<span class="dw-gloss-tip">almisse, gave til fattige</span></span>. Die Frau hieß ihre Tochter, das einzige Brot, das sie noch übrig hatten, dem <span class="dw-gloss" tabindex="0">Dürftigen<span class="dw-gloss-tip">den trengende</span></span> reichen. Die Tochter, die es ungern weggab, wollte vorher noch eilig einige Stücke abbrechen, aber in dem Augenblick verwandelte sich das, dem Heiligen schon eigene, Brot in Stein und man erblickt noch jetzt darin die <span class="dw-gloss" tabindex="0">eingedrückten<span class="dw-gloss-tip">nedtrykte, inntrykte</span></span> Finger deutlich.</p>
+      <p>Zur Zeit einer großen Theurung ging ein armes Weib, ein Kind auf dem Arm, eins neben sich herlaufend und nach Brot laut schreiend, durch eine Straße der Stadt Danzig. Da begegnete ihr ein Mönch aus dem Kloster Oliva, den sie <span class="dw-gloss" tabindex="0">flehentlich<span class="dw-gloss-tip">bønnfallende</span></span> um ein Bißchen Brot für ihre Kinder bat. Der Mönch aber sagte: „ich habe keins." Die Frau sprach: „ach ich sehe, daß ihr in euerm Busen Brot stecken habt." „Ei, das ist nur ein Stein, die Hunde damit zu werfen," antwortete der Mönch und ging fort. Nach einer Weile wollte er sein Brot holen und essen, aber er fand, daß es sich wirklich in Stein verwandelt hatte. Er erschrak, <span class="dw-gloss" tabindex="0">bekannte<span class="dw-gloss-tip">tilsto</span></span> seine <span class="dw-gloss" tabindex="0">Sünden<span class="dw-gloss-tip">synder</span></span> und gab den Stein ab, der noch jetzt in der Klosterkirche dort hängt.</p>
+    </div>
+    <p class="dw-hint">Merk: teksten bruker eldre tysk rettskrivning (f.eks. «Theuerung», «worden» for «geworden», «ei» for «å» i noen ord) — helt normalt for en så gammel tekst.</p>
+
+    <button class="dw-toggle-btn" onclick="dwToggleTranslation(this)">🇳🇴 Vis norsk oversettelse</button>
+    <div class="dw-translation" id="dw-translation">
+      Mange steder — særlig i Westfalen — finnes det sagn om at det i en tid med stor dyrtid var en hardhjertet søster som avviste sin fattige søster, som ba om brød til seg selv og barna sine, med ordene: «Om jeg hadde brød, skulle jeg ønske det ble til stein!» — hvorpå brødlageret hennes straks ble forvandlet til stein. I Leiden i Holland oppbevarer man et slikt steinbrød i den store Peterskirken og viser det fram til folk som bevis på historien.<br><br>
+      I året 1579 hadde en baker i Dortmund kjøpt opp mye korn under hungersnøden og gledet seg over å kunne utnytte nøden til egen vinning. Men mens han holdt på med denne forretningen, ble brødet hans i hele huset en dag til stein — og da han grep et brød og ville skjære det opp med kniven, fløt det blod ut av det. Over dette hengte han seg like etterpå på kammerset sitt.<br><br>
+      I hovedkirken i Landshut, viet den hellige Kastulus, henger det med en sølvinnfatning en rund stein formet som et brød, med fire små fordypninger i overflaten. Om denne går følgende sagn. Kort før sin død kom den hellige Kastulus, forkledd som en fattig mann, til en enke i byen og ba om en almisse. Kvinnen ba datteren sin gi det eneste brødet de hadde igjen til den trengende. Datteren, som ikke ville gi det bort, ville først hastig brekke av noen stykker — men i samme øyeblikk forvandlet brødet, som allerede tilhørte den hellige, seg til stein, og man kan fortsatt tydelig se de nedtrykte fingermerkene i det.<br><br>
+      I en tid med stor dyrtid gikk en fattig kvinne, med et barn på armen og et annet løpende ved siden, gjennom en gate i byen Danzig og ropte høyt etter brød. Da møtte hun en munk fra klosteret Oliva, som hun bønnfallende ba om litt brød til barna sine. Men munken sa: «Jeg har ikke noe.» Kvinnen sa: «Å, jeg ser at dere har brød stukket inn på brystet.» «Nei, det er bare en stein, til å kaste etter hunder med,» svarte munken og gikk videre. Etter en stund ville han ta fram brødet sitt og spise, men oppdaget at det virkelig var blitt forvandlet til stein. Han ble forskrekket, tilsto syndene sine og ga fra seg steinen, som fortsatt henger der i klosterkirken i dag.
+      <div class="dw-note" style="font-style:normal;margin-top:8px;">(Uoffisiell oversettelse, laget for Deutschwelt.)</div>
+    </div>
+
+    <h3 style="margin:18px 0 8px;color:var(--dw-primary);font-size:1rem;">📝 Gloseliste</h3>
+    <div class="dw-vocab">
+      <div><b>namentlich</b><br>nemlig, særlig</div>
+      <div><b>die Theuerung (Teuerung)</b><br>dyrtid, matmangel</div>
+      <div><b>hartherzig</b><br>hardhjertet</div>
+      <div><b>abweisen</b><br>avvise</div>
+      <div><b>der Brotvorrat</b><br>brødlager</div>
+      <div><b>die Bewährung</b><br>bekreftelse, bevis</div>
+      <div><b>aufkaufen</b><br>kjøpe opp</div>
+      <div><b>wuchern</b><br>drive ågervirksomhet</div>
+      <div><b>ergreifen</b><br>gripe</div>
+      <div><b>das Almosen</b><br>almisse</div>
+      <div><b>der/die Dürftige</b><br>den trengende</div>
+      <div><b>eingedrückt</b><br>nedtrykt, inntrykt</div>
+      <div><b>flehentlich</b><br>bønnfallende</div>
+      <div><b>bekennen</b><br>tilstå</div>
+      <div><b>die Sünde</b><br>synd</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Teste dich selbst</h2>
+    <p class="dw-note">Disse spørsmålene handler om hovedideen — ikke om hvert enkelt ord.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Was denkst du?</h2>
+    <p class="dw-note">Alle fire historiene i dette sagnet handler om det samme mønsteret: noen er gjerrige eller onde mot en som sulter, og blir straffet ved at brød blir til stein. Hvorfor tror du folk fortalte akkurat denne typen historier i tider med hungersnød? Skriv 2–3 setninger på tysk.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Ich glaube, die Menschen haben diese Geschichten erzählt, weil …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function dwToggleTranslation(btn){
+    var el = document.getElementById('dw-translation');
+    el.classList.toggle('dw-show');
+    btn.textContent = el.classList.contains('dw-show') ? '🇳🇴 Skjul norsk oversettelse' : '🇳🇴 Vis norsk oversettelse';
+  }
+
+  var dwQuiz = [
+    {q:"Was passiert, wenn die hartherzige Schwester sagt „ich wollte, es würde zu Stein“?", opts:["Nichts passiert","Ihr Brotvorrat verwandelt sich in Stein","Sie bekommt mehr Brot"], correct:1},
+    {q:"Warum erhängt sich der Bäcker aus Dortmund?", opts:["Er hat kein Geld mehr","Sein aufgekauftes Brot wird zu Stein und blutet","Er verliert einen Wettkampf"], correct:1},
+    {q:"Was macht die Tochter in Landshut mit dem letzten Brot?", opts:["Sie gibt es sofort ganz weg","Sie will erst heimlich ein Stück abbrechen","Sie isst es selbst auf"], correct:1},
+    {q:"Was findet der Mönch aus Danzig später in seinem Gewand?", opts:["Echtes Brot","Gold","Einen Stein statt des Brotes"], correct:2}
+  ];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

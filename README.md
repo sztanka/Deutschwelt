@@ -143,11 +143,15 @@ deutschwelt-site/
 │           ├── index.html            → verk-hub: Max und Moritz (Wilhelm Busch)
 │           └── streich-1/ … streich-7/  → full, ordrett verse-tekst; streich-1 inkl. Vorwort, streich-7 inkl. Ende
 │   └── wikisource/
-│       ├── index.html                → kategori-hub: nivådelt 8./9./10. trinn (8. trinn bygget, 9./10. trinn dw-soon)
+│       ├── index.html                → kategori-hub: nivådelt 8./9./10. trinn (8 av 11 tekster bygget, 3 gjenstår som dw-soon)
 │       ├── der-suesse-brei/index.html        → "Der süße Brei" (KHM 103, Grimm) — hover/trykk-glosser + gloseliste + quiz — 8. trinn
 │       ├── die-sterntaler/index.html         → "Die Sterntaler" (KHM 153, Grimm) — hover/trykk-glosser + gloseliste + quiz — 8. trinn
 │       ├── laeuschen-und-floehchen/index.html → "Läuschen und Flöhchen" (KHM 30, Grimm) — hover/trykk-glosser + gloseliste + quiz — 8. trinn
-│       └── der-fuchs-und-die-gaense/index.html → "Der Fuchs und die Gänse" (KHM 86, Grimm) — hover/trykk-glosser + gloseliste + quiz — 8. trinn
+│       ├── der-fuchs-und-die-gaense/index.html → "Der Fuchs und die Gänse" (KHM 86, Grimm) — hover/trykk-glosser + gloseliste + quiz — 8. trinn
+│       ├── der-zahnarzt/index.html           → "Der Zahnarzt" (Hebel, 1811) — hover/trykk-glosser + gloseliste + quiz — 9. trinn
+│       ├── brot-zu-stein-geworden/index.html → "Brot zu Stein geworden" (folkesagn) — hover/trykk-glosser + gloseliste + quiz — 9. trinn
+│       ├── john-maynard/index.html           → "John Maynard" (Fontane, ballade) — hover/trykk-glosser + gloseliste + quiz — 10. trinn
+│       └── die-lorelei/index.html            → "Die Lorelei" (Proehle-sagn + Brentano-gjenfortelling + Heine-dikt) — hover/trykk-glosser + gloseliste + quiz — 10. trinn
 ├── hoeren/
 │   ├── index.html                    → hub-side: velg lyttevideo
 │   ├── nicos-weg-hallo/
@@ -1427,6 +1431,14 @@ Teach ba samtidig om en ordforråd-løsning: enten en egen gloseliste, eller und
 Hver av de fire ferdige 8.-trinns-sidene har: en norsk bakgrunnsintro, ordrett tysk originaltekst med inline-glosser, en «Vis norsk oversettelse»-knapp (uoffisiell oversettelse laget av Claude, tydelig merket som sådan — samme praksis som Kafka-parabeln-siden), en samlet gloseliste, en 4-spørsmuls forståelsesquiz, og et kort norsk refleksjonsspørsmål med tekstfelt og kopier-knapp. `lesen/index.html` fikk en ny gruppe («📜 Wikisource — nivådelt fra 8. til 10. trinn») med ett kort som lenker til den nye hub-siden. Søkeindeksen fikk 6 nye oppføringer, ingen kollisjoner funnet.
 
 Full verifisering: `node --check` på alle 4 nye script-blokker og de 2 berørte filene (0 feil), 0 ekte brutte lenker (139 HTML-filer sjekket), og en Playwright-gjennomgang: klikk-kjede lesen-hub → Wikisource-hub → hver av de fire nye sidene, brødsmulenavigasjon, en programmatisk sjekk av at tooltip faktisk blir synlig ved hover (`visibility`/`opacity` på `.dw-gloss-tip` verifisert via beregnet CSS-stil, ikke bare tilstedeværelse i DOM-en), oversettelses-toggle, og en «alltid riktig svar»-kjøring av alle fire quizene (4/4 riktig på hver).
+
+**Wikisource, runde 2 — Teach limte selv inn de 4 gjenstående tekstene.** Som avtalt i forrige runde (siden `de.wikisource.org` er blokkert for Claudes egne nettleserverktøy, men ikke for Teachs egen nettleser) limte Teach inn skjermbilder/tekst for fire av de sju gjenstående kandidatene direkte i chatten: «Der Zahnarzt» (Johann Peter Hebel, 1811) og «Brot zu Stein geworden» (et gammelt tysk folkesagn, nr. 240 i en eldre sagnsamling) for 9. trinn, samt «John Maynard» (Theodor Fontane, ballade) og «Die Lorelei» for 10. trinn. Alle fire ble bygget etter samme mal som 8.-trinns-sidene (hover/trykk-glosser i `.dw-original`-teksten, samlet gloseliste, «Vis norsk oversettelse»-knapp med uoffisiell Claude-oversettelse, 4-spørsmuls quiz, refleksjonsfelt med ordteller og kopier-knapp).
+
+«Die Lorelei» er spesiell: siden kilden Teach limte inn faktisk inneholdt tre tekster i ett (Wilhelm Proehles sagnbeskrivelse av klippen og stedet St. Goar/St. Goarshausen, Proehles egen prosagjenfortelling av Clemens Brentanos Lorelei-ballade, og Heinrich Heines berømte dikt «Ich weiß nicht, was soll es bedeuten» fra 1824, sitert ordrett i kilden), ble siden bygget med tre separate tekstblokker — hver med egen oversettelses-knapp — og én felles gloseliste og quiz til slutt. Alle tre er utvetydig offentlig eiendom (Brentano d. 1842, Heine d. 1856, Proehles samling fra 1800-tallet).
+
+`lesen/wikisource/index.html` har nå 8 av 11 tekster bygget (opp fra 4): Brot zu Stein geworden og Der Zahnarzt er flyttet fra `dw-soon` til ekte kort under 9. trinn, John Maynard og Die Lorelei det samme under 10. trinn. Kannitverstan, Der Handschuh og Vor dem Gesetz venter fortsatt som `dw-soon` — samme praksis som før: bygges når/hvis Teach limer inn teksten. Søkeindeksen (`index.html` i rot) fikk 4 nye oppføringer, ingen nøkkelkollisjoner funnet.
+
+Full verifisering: alle 4 nye script-blokker sjekket med `node --check` (0 feil), balansert `<div>`/`</div>`-telling per fil (0 avvik), og en full lenke-integritetssjekk av alle 143 HTML-filer i hele nettstedet (0 ekte brutte lenker — treffet på `'+hit.target+'` i rotens `index.html` er en JS-malstreng, ikke en ekte lenke).
 
 ## Slik legger du til en ny seksjon
 
