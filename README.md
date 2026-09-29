@@ -142,6 +142,12 @@ deutschwelt-site/
 │       └── max-und-moritz/
 │           ├── index.html            → verk-hub: Max und Moritz (Wilhelm Busch)
 │           └── streich-1/ … streich-7/  → full, ordrett verse-tekst; streich-1 inkl. Vorwort, streich-7 inkl. Ende
+│   └── wikisource/
+│       ├── index.html                → kategori-hub: nivådelt 8./9./10. trinn (8. trinn bygget, 9./10. trinn dw-soon)
+│       ├── der-suesse-brei/index.html        → "Der süße Brei" (KHM 103, Grimm) — hover/trykk-glosser + gloseliste + quiz — 8. trinn
+│       ├── die-sterntaler/index.html         → "Die Sterntaler" (KHM 153, Grimm) — hover/trykk-glosser + gloseliste + quiz — 8. trinn
+│       ├── laeuschen-und-floehchen/index.html → "Läuschen und Flöhchen" (KHM 30, Grimm) — hover/trykk-glosser + gloseliste + quiz — 8. trinn
+│       └── der-fuchs-und-die-gaense/index.html → "Der Fuchs und die Gänse" (KHM 86, Grimm) — hover/trykk-glosser + gloseliste + quiz — 8. trinn
 ├── hoeren/
 │   ├── index.html                    → hub-side: velg lyttevideo
 │   ├── nicos-weg-hallo/
@@ -1411,6 +1417,16 @@ tilbake, samt fulle spill-gjennomganger av alle fire quiz-/spillmotorene —
 inkludert en «alltid riktig svar»-kjøring av det nye Ordstilling-
 setningsbygger-spillet som bekreftet 27/27 riktig og et tomt
 øve-mer-på-listen ved perfekt spill.
+
+**Wikisource — nivådelt lesegruppe under Lesen, med hover/trykk-glosser i teksten.** Teach ba Claude søke gjennom de.wikisource.org etter ekte, gemeinfrie tekster passende for 8., 9. og 10. trinn, med korte norske bakgrunnsintroer. Tre parallelle recherche-agenter researchet hvert sitt nivå og fant og vurderte til sammen 15 kandidater (4 for 8. trinn, 5 for 9. trinn, 6 for 10. trinn), med ærlig vurdering av faktisk språklig vanskelighetsgrad — ikke bare sjanger — inkludert flagging av arkaisk rettskrivning og for lange/tette tekster. Teach valgte deretter de tryggeste 11 tekstene (4+3+4) for bygging.
+
+Teach ba samtidig om en ordforråd-løsning: enten en egen gloseliste, eller understrekede ord i selve teksten som viser norsk oversettelse ved hover/trykk. Claude bekreftet at begge er mulig med ren HTML/CSS (ingen JavaScript-bibliotek nødvendig), og Teach valgte begge deler. Løsningen er en ny `.dw-gloss`/`.dw-gloss-tip`-CSS-komponent: vanskelige ord er stiplet understreket i selve `.dw-original`-teksten, med en tooltip som vises både ved musehover OG ved fokus (`tabindex="0"` gjør at trykk/tab på nettbrett og mobil også fungerer, ikke bare mus) — samme mønster som resten av nettstedets bevisste unngåelse av dra-og-slipp der klikk/trykk er mer robust. Alle glossene finnes i tillegg samlet i en `.dw-vocab`-liste under teksten (samme mønster som den eksisterende Kafka-parabeln-siden), for oversikt og utskrift.
+
+**Et reelt teknisk hinder underveis, løst med brukerens hjelp:** de.wikisource.org selv var blokkert av miljøets nettverkspolicy (`connect_rejected` i agent-proxyen) denne runden, så Claude kunne ikke hente sidene direkte. For 8. trinns fire Grimm-eventyr ble ordrett tekst i stedet hentet fra sagen.at (et anerkjent folkeminnearkiv som gjengir samme offentlige-domene-utgave), verifisert linje for linje. For de resterende 7 tekstene (9./10. trinn: Kannitverstan, Der Zahnarzt, Brot zu Stein geworden, Der Handschuh, John Maynard, Die Lorelei, Vor dem Gesetz) nektet nettleseverktøyet konsekvent å gjengi fullstendig dikt-/novelletekst ordrett, uansett hvordan forespørselen ble formulert — selv om samtlige er bekreftet offentlig eiendom (forfatterne døde alle for over 100 år siden, bortsett fra Kafka i 1924). Claude flagget dette ærlig i stedet for å dikte tekst fra hukommelsen og fremstille den som verifisert, og avklarte løsningen med Teach via AskUserQuestion: bygg 8. trinn nå, og Teach limer selv inn teksten for de 7 gjenstående (siden blokkeringen kun gjelder Claudes verktøy, ikke Teachs egen nettleser) — Teach valgte dette. `lesen/wikisource/index.html` har derfor 9./10. trinn liggende som `dw-soon`-kort inntil videre.
+
+Hver av de fire ferdige 8.-trinns-sidene har: en norsk bakgrunnsintro, ordrett tysk originaltekst med inline-glosser, en «Vis norsk oversettelse»-knapp (uoffisiell oversettelse laget av Claude, tydelig merket som sådan — samme praksis som Kafka-parabeln-siden), en samlet gloseliste, en 4-spørsmuls forståelsesquiz, og et kort norsk refleksjonsspørsmål med tekstfelt og kopier-knapp. `lesen/index.html` fikk en ny gruppe («📜 Wikisource — nivådelt fra 8. til 10. trinn») med ett kort som lenker til den nye hub-siden. Søkeindeksen fikk 6 nye oppføringer, ingen kollisjoner funnet.
+
+Full verifisering: `node --check` på alle 4 nye script-blokker og de 2 berørte filene (0 feil), 0 ekte brutte lenker (139 HTML-filer sjekket), og en Playwright-gjennomgang: klikk-kjede lesen-hub → Wikisource-hub → hver av de fire nye sidene, brødsmulenavigasjon, en programmatisk sjekk av at tooltip faktisk blir synlig ved hover (`visibility`/`opacity` på `.dw-gloss-tip` verifisert via beregnet CSS-stil, ikke bare tilstedeværelse i DOM-en), oversettelses-toggle, og en «alltid riktig svar»-kjøring av alle fire quizene (4/4 riktig på hver).
 
 ## Slik legger du til en ny seksjon
 

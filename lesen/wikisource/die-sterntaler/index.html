@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Lesen → Wikisource (nivådelt): "Die Sterntaler" (8. trinn, A1)
+  KHM 153, brødrene Grimm. Klart offentlig eiendom (gemeinfrei). Teksten er
+  hentet ORDRETT fra sagen.at
+  (https://www.sagen.at/texte/maerchen/maerchen_deutschland/brueder_grimm/sterntaler.html)
+  — de.wikisource.org selv var blokkert av miljøets nettverkspolicy denne
+  runden. Samme tekst/utgave finnes også på:
+  https://de.wikisource.org/wiki/Die_Sterntaler
+  Ordforråd-glosser (hover/trykk-tooltip + liste) er laget av Claude.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Die Sterntaler · Wikisource · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.6rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-section p{margin:0 0 10px;line-height:1.7;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-original{
+    font-family:Georgia,"Times New Roman",serif;font-size:1.02rem;line-height:1.9;
+    background:#f4f1e8;border-left:4px solid var(--dw-accent);padding:16px 18px;border-radius:8px;margin-bottom:8px;
+  }
+  .dw-original p{margin:0;}
+  .dw-hint{font-size:.8rem;color:var(--dw-muted);margin:0 0 12px;}
+
+  .dw-gloss{
+    border-bottom:2px dotted var(--dw-accent);cursor:help;position:relative;
+  }
+  .dw-gloss-tip{
+    visibility:hidden;opacity:0;position:absolute;bottom:125%;left:50%;transform:translateX(-50%);
+    background:var(--dw-primary);color:#fff;padding:6px 10px;border-radius:8px;font-size:.78rem;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.3;white-space:normal;max-width:200px;width:max-content;transition:opacity .15s ease;
+    pointer-events:none;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.2);
+  }
+  .dw-gloss:hover .dw-gloss-tip, .dw-gloss:focus .dw-gloss-tip{visibility:visible;opacity:1;}
+
+  .dw-toggle-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;margin-bottom:12px;
+  }
+  .dw-toggle-btn:hover{background:var(--dw-primary-light);}
+  .dw-translation{
+    display:none;background:#eef2f6;border-left:4px solid var(--dw-primary);padding:14px 18px;border-radius:8px;
+    font-size:.92rem;line-height:1.7;margin-bottom:12px;font-style:italic;
+  }
+  .dw-translation.dw-show{display:block;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-top:10px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:80px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">📖 Lesen</a> → <a href="../">Wikisource</a> → Die Sterntaler</p>
+
+  <div class="dw-header">
+    <h1>Die Sterntaler</h1>
+    <p>Et ekte Grimm-eventyr — jenta som ga bort alt hun eide</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>📖 Om teksten</h2>
+    <p>Et av de mest kjente eventyrene til brødrene Grimm, om en fattig, foreldreløs jente som gir bort alt hun eier — mat, klær og til slutt skjorta si — til andre som trenger det enda mer enn henne selv. Historien handler om godhet og hva man kan få igjen for den, og stjernene på himmelen spiller en overraskende rolle.</p>
+    <p><strong>Tips:</strong> Ord med stiplet understrek kan du holde musepekeren over (eller trykke på, på nettbrett/mobil) for norsk oversettelse. Alle glosene finner du også samlet i listen under teksten.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>⭐ Die Sterntaler</h2>
+    <p class="dw-byline">Kinder- und Hausmärchen (KHM 153) · von den Brüdern Grimm</p>
+    <div class="dw-original">
+      <p>Es war einmal ein kleines Mädchen, dem war Vater und Mutter <span class="dw-gloss" tabindex="0">gestorben<span class="dw-gloss-tip">død, avdød (perfektum av sterben)</span></span>, und es war so arm, daß es kein <span class="dw-gloss" tabindex="0">Kämmerchen<span class="dw-gloss-tip">lite kammer/rom</span></span> mehr hatte, darin zu wohnen, und kein <span class="dw-gloss" tabindex="0">Bettchen<span class="dw-gloss-tip">liten seng</span></span> mehr hatte, darin zu schlafen, und endlich gar nichts mehr als die Kleider auf dem Leib und ein Stückchen Brot in der Hand, das ihm ein <span class="dw-gloss" tabindex="0">mitleidiges Herz<span class="dw-gloss-tip">et medfølende hjerte</span></span> geschenkt hatte. Es war aber gut und <span class="dw-gloss" tabindex="0">fromm<span class="dw-gloss-tip">gudfryktig, snill</span></span>. Und weil es so von aller Welt <span class="dw-gloss" tabindex="0">verlassen<span class="dw-gloss-tip">forlatt</span></span> war, ging es im <span class="dw-gloss" tabindex="0">Vertrauen auf<span class="dw-gloss-tip">i tillit til</span></span> den lieben Gott hinaus ins Feld. Da begegnete ihm ein armer Mann, der sprach: „Ach, gib mir etwas zu essen, ich bin so <span class="dw-gloss" tabindex="0">hungerig<span class="dw-gloss-tip">sulten (gammel skrivemåte for hungrig)</span></span>." Es reichte ihm das ganze Stückchen Brot und sagte: „Gott segne dir's", und ging weiter. Da kam ein Kind, das <span class="dw-gloss" tabindex="0">jammerte<span class="dw-gloss-tip">klaget, jamret</span></span> und sprach: „Es friert mich so an meinem Kopfe, schenk mir etwas, womit ich ihn bedecken kann." Da tat es seine <span class="dw-gloss" tabindex="0">Mütze<span class="dw-gloss-tip">lue</span></span> ab und gab sie ihm. Und als es noch eine Weile gegangen war, kam wieder ein Kind und hatte kein <span class="dw-gloss" tabindex="0">Leibchen<span class="dw-gloss-tip">liten (under)trøye</span></span> an und <span class="dw-gloss" tabindex="0">fror<span class="dw-gloss-tip">frøs</span></span>: da gab es ihm seins; und noch weiter, da bat eins um ein <span class="dw-gloss" tabindex="0">Röcklein<span class="dw-gloss-tip">liten kjole/skjørt</span></span>, das gab es auch von sich hin. Endlich <span class="dw-gloss" tabindex="0">gelangte<span class="dw-gloss-tip">kom frem til, nådde</span></span> es in einen Wald, und es war schon dunkel geworden, da kam noch eins und bat um ein <span class="dw-gloss" tabindex="0">Hemdlein<span class="dw-gloss-tip">liten skjorte</span></span>, und das fromme Mädchen dachte: „Es ist dunkle Nacht, da sieht dich niemand, du kannst wohl dein Hemd weggeben", und zog das Hemd ab und gab es auch noch hin. Und wie es so stand und gar nichts mehr hatte, fielen auf einmal die Sterne vom Himmel, und waren lauter blanke <span class="dw-gloss" tabindex="0">Taler<span class="dw-gloss-tip">gamle sølvmynter</span></span>; und ob es gleich sein Hemdlein weggegeben, so hatte es ein neues an, und das war vom allerfeinsten <span class="dw-gloss" tabindex="0">Linnen<span class="dw-gloss-tip">lintøy</span></span>. Da sammelte es sich die Taler hinein und war reich für sein <span class="dw-gloss" tabindex="0">Lebtag<span class="dw-gloss-tip">resten av livet (gammelt uttrykk)</span></span>.</p>
+    </div>
+    <p class="dw-hint">Merk: teksten bruker eldre tysk rettskrivning fra før 1901 (f.eks. «daß» i stedet for moderne «dass»).</p>
+
+    <button class="dw-toggle-btn" onclick="dwToggleTranslation(this)">🇳🇴 Vis norsk oversettelse</button>
+    <div class="dw-translation" id="dw-translation">
+      Det var en gang en liten jente som hadde mistet både far og mor, og hun var så fattig at hun ikke lenger hadde et lite rom å bo i, ikke en seng å sove i, og til slutt ingenting igjen unntatt klærne hun hadde på kroppen og et lite stykke brød i hånden, som et medfølende hjerte hadde gitt henne. Men hun var god og snill. Og fordi hun var forlatt av hele verden, gikk hun ut på marken i tillit til Gud. Da møtte hun en fattig mann som sa: «Å, gi meg noe å spise, jeg er så sulten.» Hun rakte ham hele brødstykket og sa: «Gud velsigne deg for det,» og gikk videre. Da kom det et barn som jamret og sa: «Jeg fryser så på hodet, gi meg noe å dekke det med.» Da tok hun av seg lua si og ga den til barnet. Og etter at hun hadde gått en stund til, kom det enda et barn uten trøye, som frøs — da ga hun bort sin egen. Og enda lenger, ba ett barn om et skjørt, og det ga hun også bort. Til slutt kom hun inn i en skog, og det var allerede blitt mørkt, da kom det enda ett barn og ba om en skjorte — og den snille jenta tenkte: «Det er mørk natt, ingen ser deg, du kan godt gi bort skjorta di også,» og tok av seg skjorta og ga den bort også. Og der hun sto og ikke hadde noe mer igjen, falt stjernene plutselig ned fra himmelen — og de var rene, blanke sølvmynter! Og selv om hun hadde gitt bort skjorta si, hadde hun nå en ny på seg, laget av det aller fineste lintøy. Da samlet hun sølvmyntene og var rik resten av livet.
+      <div class="dw-note" style="font-style:normal;margin-top:8px;">(Uoffisiell oversettelse, laget for Deutschwelt.)</div>
+    </div>
+
+    <h3 style="margin:18px 0 8px;color:var(--dw-primary);font-size:1rem;">📝 Gloseliste</h3>
+    <div class="dw-vocab">
+      <div><b>sterben</b><br>å dø</div>
+      <div><b>das Kämmerchen</b><br>lite kammer/rom</div>
+      <div><b>mitleidig</b><br>medfølende</div>
+      <div><b>fromm</b><br>gudfryktig, snill</div>
+      <div><b>verlassen</b><br>forlatt</div>
+      <div><b>hungerig</b><br>sulten</div>
+      <div><b>jammern</b><br>klage, jamre</div>
+      <div><b>die Mütze</b><br>lue</div>
+      <div><b>frieren</b><br>fryse</div>
+      <div><b>gelangen</b><br>komme frem til, nå</div>
+      <div><b>der Taler</b><br>gammel sølvmynt</div>
+      <div><b>das Linnen</b><br>lintøy</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Teste dich selbst</h2>
+    <p class="dw-note">Disse spørsmålene handler om hovedideen — ikke om hvert enkelt ord.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Was denkst du?</h2>
+    <p class="dw-note">Jenta gir bort alt hun eier, til tross for at hun selv har svært lite. Hva tror du eventyret vil lære oss? Skriv 2–3 setninger på tysk (det er lov å bruke enkle ord som <em>ich finde</em>, <em>weil</em>, <em>gut</em>, <em>wichtig</em>).</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Ich finde, das Mädchen ist …, weil …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function dwToggleTranslation(btn){
+    var el = document.getElementById('dw-translation');
+    el.classList.toggle('dw-show');
+    btn.textContent = el.classList.contains('dw-show') ? '🇳🇴 Skjul norsk oversettelse' : '🇳🇴 Vis norsk oversettelse';
+  }
+
+  var dwQuiz = [
+    {q:"Warum ist das Mädchen ganz allein?", opts:["Es ist von zu Hause weggelaufen","Vater und Mutter sind gestorben","Es hat sich verlaufen"], correct:1},
+    {q:"Was gibt das Mädchen dem hungrigen Mann?", opts:["Ihre Mütze","Ihr ganzes Stückchen Brot","Ihr Hemd"], correct:1},
+    {q:"Was gibt das Mädchen zuletzt weg, obwohl es dunkel und kalt ist?", opts:["Ihre Schuhe","Ihr Hemd","Ihre Haare"], correct:1},
+    {q:"Was passiert, nachdem das Mädchen alles weggegeben hat?", opts:["Es bekommt nichts zurück","Die Sterne werden zu Talern und fallen vom Himmel","Es findet einen Schatz im Wald"], correct:1}
+  ];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

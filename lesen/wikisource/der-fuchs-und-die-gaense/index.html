@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Lesen → Wikisource (nivådelt): "Der Fuchs und die Gänse" (8. trinn, A1)
+  KHM 86, brødrene Grimm. Klart offentlig eiendom (gemeinfrei). Teksten er
+  hentet ORDRETT fra sagen.at
+  (https://www.sagen.at/texte/maerchen/maerchen_deutschland/brueder_grimm/fuchsundgaense.html)
+  — de.wikisource.org selv var blokkert av miljøets nettverkspolicy denne
+  runden. Samme tekst/utgave finnes også på:
+  https://de.wikisource.org/wiki/Der_Fuchs_und_die_G%C3%A4nse
+  Ordforråd-glosser (hover/trykk-tooltip + liste) er laget av Claude.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Der Fuchs und die Gänse · Wikisource · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.6rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-section p{margin:0 0 10px;line-height:1.7;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-original{
+    font-family:Georgia,"Times New Roman",serif;font-size:1.02rem;line-height:1.9;
+    background:#f4f1e8;border-left:4px solid var(--dw-accent);padding:16px 18px;border-radius:8px;margin-bottom:8px;
+  }
+  .dw-original p{margin:0;}
+  .dw-hint{font-size:.8rem;color:var(--dw-muted);margin:0 0 12px;}
+
+  .dw-gloss{
+    border-bottom:2px dotted var(--dw-accent);cursor:help;position:relative;
+  }
+  .dw-gloss-tip{
+    visibility:hidden;opacity:0;position:absolute;bottom:125%;left:50%;transform:translateX(-50%);
+    background:var(--dw-primary);color:#fff;padding:6px 10px;border-radius:8px;font-size:.78rem;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.3;white-space:normal;max-width:200px;width:max-content;transition:opacity .15s ease;
+    pointer-events:none;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.2);
+  }
+  .dw-gloss:hover .dw-gloss-tip, .dw-gloss:focus .dw-gloss-tip{visibility:visible;opacity:1;}
+
+  .dw-toggle-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;margin-bottom:12px;
+  }
+  .dw-toggle-btn:hover{background:var(--dw-primary-light);}
+  .dw-translation{
+    display:none;background:#eef2f6;border-left:4px solid var(--dw-primary);padding:14px 18px;border-radius:8px;
+    font-size:.92rem;line-height:1.7;margin-bottom:12px;font-style:italic;
+  }
+  .dw-translation.dw-show{display:block;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-top:10px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:80px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">📖 Lesen</a> → <a href="../">Wikisource</a> → Der Fuchs und die Gänse</p>
+
+  <div class="dw-header">
+    <h1>Der Fuchs und die Gänse</h1>
+    <p>Et ekte Grimm-eventyr — reven som venter... og venter</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>📖 Om teksten</h2>
+    <p>En liten fabelaktig fortelling om en rev som overrasker en flokk gjess og sier han vil spise dem alle. Gjessene ber om å få be en bønn først — og reven venter... og venter. En kort, morsom tekst med mye dialog, fin å lese høyt i par.</p>
+    <p><strong>Tips:</strong> Ord med stiplet understrek kan du holde musepekeren over (eller trykke på, på nettbrett/mobil) for norsk oversettelse. Alle glosene finner du også samlet i listen under teksten.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🦊 Der Fuchs und die Gänse</h2>
+    <p class="dw-byline">Kinder- und Hausmärchen (KHM 86) · von den Brüdern Grimm</p>
+    <div class="dw-original">
+      <p>Der Fuchs kam einmal auf eine <span class="dw-gloss" tabindex="0">Wiese<span class="dw-gloss-tip">eng, gressmark</span></span>, wo eine <span class="dw-gloss" tabindex="0">Herde<span class="dw-gloss-tip">flokk</span></span> schöner <span class="dw-gloss" tabindex="0">fetter<span class="dw-gloss-tip">fete, velfôrede</span></span> Gänse saß, da lachte er und sprach „ich komme ja <span class="dw-gloss" tabindex="0">wie gerufen<span class="dw-gloss-tip">som ropt — uttrykk for «akkurat i rett tid»</span></span>, ihr sitzt hübsch beisammen, so kann ich eine nach der andern auffressen." Die Gänse <span class="dw-gloss" tabindex="0">gackerten<span class="dw-gloss-tip">kaklet</span></span> vor <span class="dw-gloss" tabindex="0">Schrecken<span class="dw-gloss-tip">skrekk</span></span>, sprangen auf, fingen an zu <span class="dw-gloss" tabindex="0">jammern<span class="dw-gloss-tip">klage, jamre</span></span> und <span class="dw-gloss" tabindex="0">kläglich<span class="dw-gloss-tip">klagende</span></span> um ihr Leben zu bitten. Der Fuchs aber wollte auf nichts hören und sprach „da ist keine <span class="dw-gloss" tabindex="0">Gnade<span class="dw-gloss-tip">nåde</span></span>, ihr müßt sterben." Endlich <span class="dw-gloss" tabindex="0">nahm sich eine das Herz<span class="dw-gloss-tip">tok mot til seg (idiom)</span></span> und sagte „sollen wir armen Gänse doch einmal unser jung frisch Leben lassen, so <span class="dw-gloss" tabindex="0">erzeige<span class="dw-gloss-tip">vis (gammeldags for erweise)</span></span> uns die einzige Gnade und erlaub uns noch ein <span class="dw-gloss" tabindex="0">Gebet<span class="dw-gloss-tip">bønn</span></span>, damit wir nicht in unsern <span class="dw-gloss" tabindex="0">Sünden<span class="dw-gloss-tip">synder</span></span> sterben: <span class="dw-gloss" tabindex="0">hernach<span class="dw-gloss-tip">deretter (gammeldags)</span></span> wollen wir uns auch in eine Reihe stellen, damit du dir immer die fetteste aussuchen kannst." „Ja," sagte der Fuchs, „das ist <span class="dw-gloss" tabindex="0">billig<span class="dw-gloss-tip">rimelig, rettferdig (gammel betydning — ikke «billig i pris»!)</span></span>, und ist eine fromme Bitte: betet, ich will so lange warten." Also fing die erste ein recht langes Gebet an, immer „ga! ga!" und weil sie gar nicht aufhören wollte, wartete die zweite nicht, bis die Reihe an sie kam, sondern fing auch an „ga! ga!" Die dritte und vierte folgte ihr, und bald gackerten sie alle zusammen. (Und wenn sie ausgebetet haben, soll das Märchen weitererzählt werden, sie beten aber <span class="dw-gloss" tabindex="0">alleweile<span class="dw-gloss-tip">fortsatt, stadig vekk (gammeldags dialektord)</span></span> noch immer fort.)</p>
+    </div>
+    <p class="dw-hint">Merk: teksten bruker eldre tysk rettskrivning (f.eks. «müßt» i stedet for moderne «müsst») og noen ord med gammel betydning, som «billig» (her: rettferdig, ikke «lav pris»).</p>
+
+    <button class="dw-toggle-btn" onclick="dwToggleTranslation(this)">🇳🇴 Vis norsk oversettelse</button>
+    <div class="dw-translation" id="dw-translation">
+      Reven kom en gang til en eng der en flokk vakre, fete gjess satt. Da lo han og sa: «Jeg kommer jo som bestilt — dere sitter så fint samlet, så jeg kan spise dere opp én etter én.» Gjessene kaklet av skrekk, spratt opp, begynte å jamre og bønnfalle klagende om livet sitt. Men reven ville ikke høre på noe og sa: «Der er ingen nåde, dere må dø.» Til slutt tok en av gjessene mot til seg og sa: «Skal vi stakkars gjess likevel miste vårt unge, friske liv, så vis oss i det minste den ene nåden å la oss be en bønn først, så vi ikke dør i våre synder — etterpå skal vi stille oss på rekke, så du alltid kan velge ut den feteste.» «Ja,» sa reven, «det er bare rimelig, og en fredelig bønn: be, jeg skal vente så lenge.» Så begynte den første en riktig lang bønn, bare «ga! ga!» — og fordi hun slett ikke ville slutte, ventet ikke den andre til det ble hennes tur, men begynte også «ga! ga!» Den tredje og fjerde fulgte etter, og snart kaklet de alle sammen. (Og når de er ferdige med å be, skal eventyret fortelles videre — men de ber fremdeles i vei, den dag i dag.)
+      <div class="dw-note" style="font-style:normal;margin-top:8px;">(Uoffisiell oversettelse, laget for Deutschwelt.)</div>
+    </div>
+
+    <h3 style="margin:18px 0 8px;color:var(--dw-primary);font-size:1rem;">📝 Gloseliste</h3>
+    <div class="dw-vocab">
+      <div><b>die Wiese</b><br>eng, gressmark</div>
+      <div><b>die Herde</b><br>flokk</div>
+      <div><b>gackern</b><br>kakle</div>
+      <div><b>der Schrecken</b><br>skrekk</div>
+      <div><b>jammern</b><br>klage, jamre</div>
+      <div><b>die Gnade</b><br>nåde</div>
+      <div><b>das Gebet</b><br>bønn</div>
+      <div><b>die Sünde</b><br>synd</div>
+      <div><b>hernach</b><br>deretter</div>
+      <div><b>billig</b> (her)<br>rimelig, rettferdig</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Teste dich selbst</h2>
+    <p class="dw-note">Disse spørsmålene handler om hovedideen — ikke om hvert enkelt ord.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Was denkst du?</h2>
+    <p class="dw-note">Gjessene finner en smart måte å utsette skjebnen sin på — men historien har egentlig ingen slutt! Hva tror du skjer til slutt, hvis du måtte dikte videre? Skriv 2–3 setninger på tysk.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Ich glaube, am Ende …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function dwToggleTranslation(btn){
+    var el = document.getElementById('dw-translation');
+    el.classList.toggle('dw-show');
+    btn.textContent = el.classList.contains('dw-show') ? '🇳🇴 Skjul norsk oversettelse' : '🇳🇴 Vis norsk oversettelse';
+  }
+
+  var dwQuiz = [
+    {q:"Was will der Fuchs am Anfang mit den Gänsen machen?", opts:["Mit ihnen spielen","Sie alle nacheinander auffressen","Sie zum Bauernhof zurückbringen"], correct:1},
+    {q:"Worum bittet eine der Gänse den Fuchs?", opts:["Um ein Gebet, bevor sie sterben","Um ein neues Zuhause","Um mehr Futter"], correct:0},
+    {q:"Warum wartet der Fuchs?", opts:["Er hat plötzlich Mitleid","Er findet die Bitte um ein Gebet fair","Er ist müde und schläft ein"], correct:1},
+    {q:"Wie endet die Geschichte eigentlich?", opts:["Der Fuchs frisst alle Gänse auf","Gar nicht richtig — die Gänse beten immer noch weiter","Die Gänse fliegen weg"], correct:1}
+  ];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

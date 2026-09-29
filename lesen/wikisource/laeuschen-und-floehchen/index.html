@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Lesen → Wikisource (nivådelt): "Läuschen und Flöhchen" (8. trinn, A1)
+  KHM 30, brødrene Grimm. Klart offentlig eiendom (gemeinfrei). Teksten er
+  hentet ORDRETT fra sagen.at
+  (https://www.sagen.at/texte/maerchen/maerchen_deutschland/brueder_grimm/laeuschen.html)
+  — de.wikisource.org selv var blokkert av miljøets nettverkspolicy denne
+  runden. Samme tekst/utgave finnes også på:
+  https://de.wikisource.org/wiki/L%C3%A4uschen_und_Fl%C3%B6hchen
+  Ordforråd-glosser (hover/trykk-tooltip + liste) er laget av Claude.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Läuschen und Flöhchen · Wikisource · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.6rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-section p{margin:0 0 10px;line-height:1.7;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-original{
+    font-family:Georgia,"Times New Roman",serif;font-size:1.02rem;line-height:1.9;
+    background:#f4f1e8;border-left:4px solid var(--dw-accent);padding:16px 18px;border-radius:8px;margin-bottom:8px;
+  }
+  .dw-original p{margin:0;}
+  .dw-hint{font-size:.8rem;color:var(--dw-muted);margin:0 0 12px;}
+
+  .dw-gloss{
+    border-bottom:2px dotted var(--dw-accent);cursor:help;position:relative;
+  }
+  .dw-gloss-tip{
+    visibility:hidden;opacity:0;position:absolute;bottom:125%;left:50%;transform:translateX(-50%);
+    background:var(--dw-primary);color:#fff;padding:6px 10px;border-radius:8px;font-size:.78rem;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.3;white-space:normal;max-width:200px;width:max-content;transition:opacity .15s ease;
+    pointer-events:none;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.2);
+  }
+  .dw-gloss:hover .dw-gloss-tip, .dw-gloss:focus .dw-gloss-tip{visibility:visible;opacity:1;}
+
+  .dw-toggle-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;margin-bottom:12px;
+  }
+  .dw-toggle-btn:hover{background:var(--dw-primary-light);}
+  .dw-translation{
+    display:none;background:#eef2f6;border-left:4px solid var(--dw-primary);padding:14px 18px;border-radius:8px;
+    font-size:.92rem;line-height:1.7;margin-bottom:12px;font-style:italic;
+  }
+  .dw-translation.dw-show{display:block;}
+
+  .dw-vocab{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-top:10px;}
+  .dw-vocab div{padding:8px 10px;background:#f4f1e8;border-radius:8px;font-size:.9rem;}
+  .dw-vocab b{color:var(--dw-primary);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:80px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">📖 Lesen</a> → <a href="../">Wikisource</a> → Läuschen und Flöhchen</p>
+
+  <div class="dw-header">
+    <h1>Läuschen und Flöhchen</h1>
+    <p>Et ekte Grimm-eventyr — det absurde kjede-uhellet</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>📖 Om teksten</h2>
+    <p>Et kort, absurd kjede-eventyr: en liten lus brenner seg mens den koker øl, og det utløser en kjedereaksjon der stadig flere ting og personer i huset blir ulykkelige — helt til historien ender i en liten flom. Gjentakelsene gjør det lett å følge med, selv om man ikke kan alle ordene.</p>
+    <p><strong>Tips:</strong> Ord med stiplet understrek kan du holde musepekeren over (eller trykke på, på nettbrett/mobil) for norsk oversettelse. Alle glosene finner du også samlet i listen under teksten.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🪳 Läuschen und Flöhchen</h2>
+    <p class="dw-byline">Kinder- und Hausmärchen (KHM 30) · von den Brüdern Grimm</p>
+    <div class="dw-original">
+      <p>Ein Läuschen und ein Flöhchen, die lebten zusammen in einem Haushalte und <span class="dw-gloss" tabindex="0">brauten<span class="dw-gloss-tip">brygget (av brauen)</span></span> das Bier in einer <span class="dw-gloss" tabindex="0">Eierschale<span class="dw-gloss-tip">eggeskall</span></span>. Da fiel das Läuschen hinein und <span class="dw-gloss" tabindex="0">verbrannte<span class="dw-gloss-tip">brente seg</span></span> sich. Darüber fing das Flöhchen an laut zu schreien. Da sprach die kleine <span class="dw-gloss" tabindex="0">Stubentüre<span class="dw-gloss-tip">stuedøren</span></span> „was schreist du, Flöhchen?" „Weil Läuschen sich verbrannt hat." Da fing das Türchen an zu <span class="dw-gloss" tabindex="0">knarren<span class="dw-gloss-tip">knirke</span></span>. Da sprach ein <span class="dw-gloss" tabindex="0">Besenchen<span class="dw-gloss-tip">liten kost/sopelime</span></span> in der Ecke „was knarrst du, Türchen?" „Soll ich nicht knarren? Läuschen hat sich verbrannt, Flöhchen weint." Da fing das Besenchen an <span class="dw-gloss" tabindex="0">entsetzlich<span class="dw-gloss-tip">forferdelig, voldsomt</span></span> zu <span class="dw-gloss" tabindex="0">kehren<span class="dw-gloss-tip">feie</span></span>. Da kam ein <span class="dw-gloss" tabindex="0">Wägelchen<span class="dw-gloss-tip">liten vogn/kjerre</span></span> vorbei und sprach „was kehrst du, Besenchen?" „Soll ich nicht kehren? Läuschen hat sich verbrannt, Flöhchen weint, Türchen knarrt." Da sprach das Wägelchen „so will ich <span class="dw-gloss" tabindex="0">rennen<span class="dw-gloss-tip">løpe, fare av gårde</span></span>," und fing an entsetzlich zu rennen. Da sprach das <span class="dw-gloss" tabindex="0">Mistchen<span class="dw-gloss-tip">liten møkkhaug</span></span>, an dem es vorbeirannte, „was rennst du, Wägelchen?" „Soll ich nicht rennen? Läuschen hat sich verbrannt Flöhchen weint, Türchen knarrt, Besenchen kehrt." Da sprach das Mistchen „so will ich entsetzlich <span class="dw-gloss" tabindex="0">brennen<span class="dw-gloss-tip">brenne</span></span>," und fing an in hellem Feuer zu brennen. Da stand ein <span class="dw-gloss" tabindex="0">Bäumchen<span class="dw-gloss-tip">lite tre</span></span> neben dem Mistchen, das sprach „Mistchen, warum brennst du?" „Soll ich nicht brennen? Läuschen hat sich verbrannt, Flöhchen weint, Türchen knarrt, Besenchen kehrt, Wägelchen rennt." Da sprach das Bäumchen „so will ich mich <span class="dw-gloss" tabindex="0">schütteln<span class="dw-gloss-tip">riste (seg)</span></span>," und fing an sich zu schütteln, daß all seine Blätter abfielen. Das sah ein Mädchen, das mit seinem <span class="dw-gloss" tabindex="0">Wasserkrügelchen<span class="dw-gloss-tip">liten vannkrukke</span></span> herankam und sprach „Bäumchen, was schüttelst du dich?" „Soll ich mich nicht schütteln? Läuschen hat sich verbrannt, Flöhchen weint, Türchen knarrt, Besenchen kehrt, Wägelchen rennt, Mistchen brennt." Da sprach das Mädchen „so will ich mein Wasserkrügelchen zerbrechen," und zerbrach das Wasserkrügelchen. Da sprach das <span class="dw-gloss" tabindex="0">Brünnlein<span class="dw-gloss-tip">liten kilde/bekk</span></span>, aus dem das Wasser <span class="dw-gloss" tabindex="0">quoll<span class="dw-gloss-tip">veltet frem, rant (av quellen)</span></span>, „Mädchen, was zerbrichst du dein Wasserkrügelchen?" „Soll ich mein Wasserkrügelchen nicht zerbrechen? Läuschen hat sich verbrannt, Flöhchen weint, Türchen knarrt, Besenchen kehrt, Wägelchen rennt, Mistchen brennt Bäumchen schüttelt sich." „Ei," sagte das Brünnchen, „so will ich anfangen zu fließen," und fing an entsetzlich zu fließen. Und in dem Wasser ist alles <span class="dw-gloss" tabindex="0">ertrunken<span class="dw-gloss-tip">druknet</span></span>, das Mädchen, das Bäumchen, das Mistchen, das Wägelchen, das Besenchen, das Türchen, das Flöhchen, das Läuschen, alles miteinander.</p>
+    </div>
+    <p class="dw-hint">Merk: teksten bruker eldre tysk rettskrivning (f.eks. «daß» i stedet for moderne «dass») og mange gamle diminutivformer (-chen/-lein-endelser på nesten alle substantiv) — akkurat det som gjør eventyret morsomt å lese høyt.</p>
+
+    <button class="dw-toggle-btn" onclick="dwToggleTranslation(this)">🇳🇴 Vis norsk oversettelse</button>
+    <div class="dw-translation" id="dw-translation">
+      En liten lus og en liten loppe bodde sammen i samme husstand og brygget øl i et eggeskall. Da falt lusa oppi og brente seg. Da begynte loppa å skrike høyt. Da sa den lille stuedøra: «Hvorfor skriker du, lille loppe?» «Fordi lille lus har brent seg.» Da begynte den lille døra å knirke. Da sa en liten kost i hjørnet: «Hvorfor knirker du, lille dør?» «Skal jeg ikke knirke? Lille lus har brent seg, lille loppe gråter.» Da begynte den lille kosten å feie voldsomt. Da kom en liten vogn forbi og sa: «Hvorfor feier du, lille kost?» «Skal jeg ikke feie? Lille lus har brent seg, lille loppe gråter, lille dør knirker.» Da sa den lille vogna: «Da vil jeg fare av gårde,» og begynte å fare voldsomt av gårde. Da sa den lille møkkhaugen, som den fór forbi: «Hvorfor farer du, lille vogn?» «Skal jeg ikke fare? Lille lus har brent seg, lille loppe gråter, lille dør knirker, lille kost feier.» Da sa den lille møkkhaugen: «Da vil jeg brenne voldsomt,» og begynte å brenne i klare flammer. Da sto det et lite tre ved siden av møkkhaugen, og det sa: «Lille møkkhaug, hvorfor brenner du?» «Skal jeg ikke brenne? Lille lus har brent seg, lille loppe gråter, lille dør knirker, lille kost feier, lille vogn farer.» Da sa det lille treet: «Da vil jeg riste meg,» og begynte å riste seg så alle bladene falt av. Det så en jente som kom med sin lille vannkrukke, og hun sa: «Lille tre, hvorfor rister du deg?» «Skal jeg ikke riste meg? Lille lus har brent seg, lille loppe gråter, lille dør knirker, lille kost feier, lille vogn farer, lille møkkhaug brenner.» Da sa jenta: «Da vil jeg knuse den lille vannkrukka mi,» og knuste vannkrukka. Da sa den lille bekken, som vannet rant fra: «Lille jente, hvorfor knuser du vannkrukka di?» «Skal jeg ikke knuse den? Lille lus har brent seg, lille loppe gråter, lille dør knirker, lille kost feier, lille vogn farer, lille møkkhaug brenner, lille tre rister seg.» «Nåvel,» sa den lille bekken, «da vil jeg begynne å flyte,» og begynte å flyte voldsomt. Og i vannet druknet alt sammen: jenta, treet, møkkhaugen, vogna, kosten, døra, loppa, lusa — alt sammen.
+      <div class="dw-note" style="font-style:normal;margin-top:8px;">(Uoffisiell oversettelse, laget for Deutschwelt.)</div>
+    </div>
+
+    <h3 style="margin:18px 0 8px;color:var(--dw-primary);font-size:1rem;">📝 Gloseliste</h3>
+    <div class="dw-vocab">
+      <div><b>brauen</b><br>brygge</div>
+      <div><b>die Eierschale</b><br>eggeskall</div>
+      <div><b>sich verbrennen</b><br>brenne seg</div>
+      <div><b>knarren</b><br>knirke</div>
+      <div><b>entsetzlich</b><br>forferdelig, voldsomt</div>
+      <div><b>kehren</b><br>feie</div>
+      <div><b>rennen</b><br>løpe, fare av gårde</div>
+      <div><b>brennen</b><br>brenne</div>
+      <div><b>sich schütteln</b><br>riste seg</div>
+      <div><b>quellen</b><br>velte frem, renne</div>
+      <div><b>ertrinken</b><br>drukne</div>
+      <div><b>-chen / -lein</b><br>endelser som gjør et ord «lite» (diminutiv), f.eks. Türchen = liten dør</div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Teste dich selbst</h2>
+    <p class="dw-note">Disse spørsmålene handler om hovedideen — ikke om hvert enkelt ord.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Was denkst du?</h2>
+    <p class="dw-note">Legg merke til hvordan hver nye figur i historien gjentar ALT som har skjedd før, med ett nytt ord lagt til. Hvorfor tror du eventyret er bygget opp sånn? Skriv 2–3 setninger på tysk.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Ich finde die Geschichte …, weil …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function dwToggleTranslation(btn){
+    var el = document.getElementById('dw-translation');
+    el.classList.toggle('dw-show');
+    btn.textContent = el.classList.contains('dw-show') ? '🇳🇴 Skjul norsk oversettelse' : '🇳🇴 Vis norsk oversettelse';
+  }
+
+  var dwQuiz = [
+    {q:"Womit verbrennt sich das Läuschen?", opts:["Mit heißem Bier in einer Eierschale","Mit einer Kerze","Mit dem Herd"], correct:0},
+    {q:"Was passiert mit jeder neuen Figur in der Geschichte?", opts:["Sie hilft, das Problem zu lösen","Sie fängt auch an, sich komisch zu verhalten (knarren, kehren, rennen …)","Sie ruft die Feuerwehr"], correct:1},
+    {q:"Womit endet die Geschichte?", opts:["Alle sind glücklich","Alles ertrinkt im Wasser","Läuschen und Flöhchen versöhnen sich"], correct:1},
+    {q:"Wie viele Figuren sind am Ende insgesamt beteiligt?", opts:["Nur zwei — Läuschen und Flöhchen","Nur drei","Acht — vom Läuschen bis zum Mädchen"], correct:2}
+  ];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>
