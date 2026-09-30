@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Wichtige Themen → 8. klasse: "Zu Weihnachten"
+  Monolog (tysk) laget av Claude for Deutschwelt, lest inn av Teach i
+  ElevenLabs: Leon forteller om hvordan han feirer jul i Tyskland.
+  Lydfil: audio.mp3 i samme mappe, 78,92 sekunder.
+
+  Tekstsynkronisering: proporsjonalt estimat kalibrert mot lydfilens
+  faktiske lengde (78,915875 sek), samme metode som de andre Wichtige
+  Themen-sidene (se die-einfache-unterhaltung/index.html for full
+  begrunnelse — ASR er ikke tilgjengelig i dette miljøet). Siden dette er
+  en sammenhengende monolog (ikke replikkveksling), er pausen mellom
+  setninger satt kortere (0,35 sek) enn samtale-pausen (0,22 sek) brukt på
+  dialogsidene — samme metode som meine-familie/index.html.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zu Weihnachten · Wichtige Themen · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.6rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-audio-wrap{margin-bottom:14px;}
+  audio{width:100%;}
+  .dw-sync-note{
+    font-size:.78rem;color:var(--dw-muted);background:#f4f1e8;border-radius:8px;
+    padding:8px 12px;margin-top:8px;line-height:1.5;
+  }
+
+  .dw-readalong{margin-top:4px;}
+  .dw-readline{
+    padding:10px 14px;border-radius:10px;font-size:.96rem;line-height:1.7;cursor:pointer;
+    border-left:4px solid transparent;transition:background .15s ease, border-color .15s ease;margin-bottom:2px;
+  }
+  .dw-readline:hover{background:#f4f1e8;}
+  .dw-readline.dw-active{background:#fff7e0;border-left-color:var(--dw-accent);}
+
+  .dw-gloss{border-bottom:2px dotted var(--dw-accent);cursor:help;position:relative;}
+  .dw-gloss-tip{
+    visibility:hidden;opacity:0;position:absolute;bottom:125%;left:50%;transform:translateX(-50%);
+    background:var(--dw-primary);color:#fff;padding:6px 10px;border-radius:8px;font-size:.78rem;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.3;white-space:normal;max-width:190px;width:max-content;transition:opacity .15s ease;
+    pointer-events:none;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.2);
+  }
+  .dw-gloss:hover .dw-gloss-tip, .dw-gloss:focus .dw-gloss-tip{visibility:visible;opacity:1;}
+
+  .dw-phrase-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px;}
+  @media(min-width:560px){ .dw-phrase-grid{grid-template-columns:1fr 1fr;} }
+  .dw-phrase{background:#f4f1e8;border-radius:10px;padding:10px 14px;font-size:.88rem;line-height:1.55;}
+  .dw-phrase b{color:var(--dw-primary);display:block;margin-bottom:3px;font-size:.85rem;}
+  .dw-phrase .dw-no{color:var(--dw-muted);font-style:italic;font-size:.82rem;margin-top:2px;}
+
+  .dw-tradition-box{
+    background:#eef6ef;border:1px solid #cfe6d1;border-radius:12px;padding:14px 18px;margin-top:14px;font-size:.88rem;line-height:1.6;
+  }
+  .dw-tradition-box b{color:var(--dw-good);display:block;margin-bottom:6px;}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:90px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">⭐ Wichtige Themen</a> → <a href="../">8. klasse</a> → Zu Weihnachten</p>
+
+  <div class="dw-header">
+    <h1>Zu Weihnachten</h1>
+    <p>Leon erzählt, wie er in Deutschland Weihnachten feiert</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>🎧 Om denne teksten</h2>
+    <p>Leon forteller om hvordan han og familien hans feirer jul i Tyskland — fra Adventskalender og Nikolaustag i desember, via Heiligabend (julaften, den store dagen i Tyskland) og familiemiddagen, til julaftens ønskeliste og julehøytidene i romjulen.</p>
+    <p>Trykk <strong>play</strong> og følg med i teksten — setningen som leses nå markeres i gult. Du kan også trykke direkte på en setning for å hoppe dit i lyden. Ord med <span class="dw-gloss" tabindex="0">stiplet understrek<span class="dw-gloss-tip">eksempel — hold musepekeren over eller trykk på ordet</span></span> kan du holde musepekeren over (eller trykke på) for norsk oversettelse.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🔊 Lytt til Leon</h2>
+    <p class="dw-byline">Innspilt med ElevenLabs · stemme: Leon</p>
+    <div class="dw-audio-wrap">
+      <audio id="dw-audio" controls preload="metadata">
+        <source src="audio.mp3" type="audio/mpeg">
+        Nettleseren din støtter ikke avspilling av lyd.
+      </audio>
+      <div class="dw-sync-note">🎯 <strong>Merk om synkroniseringen:</strong> markeringen følger lyden <em>omtrent</em> — tidspunktene er beregnet ut fra setningslengde, ikke ord-for-ord med talegjenkjenning. Bruk den som en veiledning, ikke som en fasit.</div>
+    </div>
+    <div class="dw-readalong" id="dw-text"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>🎄 Tyske juletradisjoner</h2>
+    <p class="dw-note">Noen av tradisjonene Leon nevner er spesielt tyske — her er en kort forklaring på hver:</p>
+    <div class="dw-tradition-box">
+      <b>📅 Adventskalender</b>
+      En kalender med 24 luker (én for hver dag i desember frem til julaften) — bak hver luke er det en liten godbit eller overraskelse.
+    </div>
+    <div class="dw-tradition-box">
+      <b>👞 Nikolaustag (6. desember)</b>
+      Barn setter skoene sine utenfor døren kvelden før. Om morgenen er de fylt med godteri, nøtter og små gaver fra Nikolaus (ikke samme figur som julenissen — han kommer allerede 6. desember).
+    </div>
+    <div class="dw-tradition-box">
+      <b>🕯️ Adventskranz</b>
+      En krans med fire lys — ett lys tennes hver søndag i adventstiden, slik at alle fire lys brenner samtidig rett før jul.
+    </div>
+    <div class="dw-tradition-box">
+      <b>🎁 Heiligabend (24. desember)</b>
+      Den viktigste dagen i den tyske julefeiringen (til forskjell fra Norge, der julaften også er sentral, men 1. juledag har en litt annen rolle). Familien spiser middag sammen, og etterpå er det Bescherung — man pakker opp gavene.
+    </div>
+    <div class="dw-tradition-box">
+      <b>⛪ Weihnachtsfeiertage (25.–26. desember)</b>
+      De to påfølgende juledagene er offisielle helligdager i Tyskland — tid for å besøke familie, som besteforeldre.
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>📝 Ord og uttrykk</h2>
+    <div class="dw-phrase-grid">
+      <div class="dw-phrase"><b>🎅 Nikolaus</b>Am sechsten Dezember ist der Nikolaustag.<div class="dw-no">Den sjette desember er det Nikolaus-dagen.</div></div>
+      <div class="dw-phrase"><b>🕯️ Adventskranz</b>Wir zünden jeden Sonntag eine neue Kerze an.<div class="dw-no">Vi tenner et nytt lys hver søndag.</div></div>
+      <div class="dw-phrase"><b>🎄 Heiligabend</b>Der vierundzwanzigste Dezember ist der wichtigste Tag.<div class="dw-no">Den 24. desember er den viktigste dagen.</div></div>
+      <div class="dw-phrase"><b>🎁 Bescherung</b>Danach gibt es die Bescherung.<div class="dw-no">Etterpå er det gaveutpakking.</div></div>
+      <div class="dw-phrase"><b>🎯 Ønske seg noe</b>Ich wünsche mir ein neues Fahrrad.<div class="dw-no">Jeg ønsker meg en ny sykkel.</div></div>
+      <div class="dw-phrase"><b>🍪 Plätzchen</b>Wir essen noch mehr Plätzchen.<div class="dw-no">Vi spiser enda flere julekaker.</div></div>
+    </div>
+
+    <h3 style="margin:18px 0 8px;color:var(--dw-primary);font-size:1rem;">📖 Flere ord fra teksten</h3>
+    <div class="dw-phrase-grid">
+      <div class="dw-phrase"><b>der Adventskalender</b>«mit dem Adventskalender»<div class="dw-no">adventskalenderen</div></div>
+      <div class="dw-phrase"><b>der Weihnachtsmarkt</b>«auf den Weihnachtsmarkt»<div class="dw-no">julemarkedet</div></div>
+      <div class="dw-phrase"><b>der Gänsebraten</b>«oft Gänsebraten»<div class="dw-no">gåsestek</div></div>
+      <div class="dw-phrase"><b>die Großeltern</b>«besuchen wir oft die Großeltern»<div class="dw-no">besteforeldrene</div></div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Teste dich selbst</h2>
+    <p class="dw-note">Spørsmålene handler om innholdet i Leons fortelling.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Deine eigene Weihnachten (oder ein anderes Fest)</h2>
+    <p class="dw-note">Skriv 4–5 setninger om hvordan du feirer jul — eller en annen høytid du feirer. Nevn gjerne tradisjoner, mat og eventuelt en ønskeliste. Bruk gjerne uttrykkene fra listen over!</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Bei uns ist … der wichtigste Tag. Wir … Ich wünsche mir …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  var dwLines = [
+    {start:0.000,  html:'Hallo! Ich heiße Leon und ich möchte euch erzählen, wie wir in Deutschland Weihnachten feiern.'},
+    {start:5.612,  html:'Die Weihnachtszeit beginnt bei uns schon im Dezember, mit dem <span class="dw-gloss" tabindex="0">Adventskalender<span class="dw-gloss-tip">adventskalenderen</span></span>. Jeden Tag öffne ich ein kleines Türchen und bekomme eine kleine Süßigkeit.'},
+    {start:14.239, html:'Am sechsten Dezember ist der Nikolaustag. Am Abend vorher stelle ich meine Schuhe vor die Tür, und am Morgen sind sie voll mit Süßigkeiten, Nüssen und kleinen Geschenken — das bringt der Nikolaus!'},
+    {start:25.062, html:'Wir haben auch einen Adventskranz mit vier Kerzen. Jeden Sonntag zünden wir eine neue Kerze an, bis alle vier brennen — dann ist Weihnachten ganz nah.'},
+    {start:33.535, html:'Bei uns ist der vierundzwanzigste Dezember, der Heiligabend, der wichtigste Tag. Am Nachmittag gehen wir oft auf den <span class="dw-gloss" tabindex="0">Weihnachtsmarkt<span class="dw-gloss-tip">julemarkedet</span></span> und trinken Kinderpunsch.'},
+    {start:42.417, html:'Am Abend kommt die ganze Familie zusammen. Wir essen zusammen, oft <span class="dw-gloss" tabindex="0">Gänsebraten<span class="dw-gloss-tip">gåsestek</span></span> oder Würstchen mit Kartoffelsalat, und danach gibt es die Bescherung — wir packen die Geschenke aus!'},
+    {start:52.372, html:'Dieses Jahr wünsche ich mir ein neues Fahrrad, ein Videospiel und vielleicht auch einen warmen Pullover.'},
+    {start:58.495, html:'Am fünfundzwanzigsten und sechsundzwanzigsten Dezember sind die Weihnachtsfeiertage. Dann besuchen wir oft die <span class="dw-gloss" tabindex="0">Großeltern<span class="dw-gloss-tip">besteforeldrene</span></span> und essen noch mehr Plätzchen!'},
+    {start:67.071, html:'Weihnachten ist für mich die schönste Zeit des Jahres. Ich liebe die Lichter, die Musik und die Zeit mit meiner Familie.'},
+    {start:74.011, html:'Frohe Weihnachten euch allen! Das war meine Geschichte über Weihnachten in Deutschland.'}
+  ];
+
+  function dwSetupReadAlong(containerId, audioId, lines){
+    var container = document.getElementById(containerId);
+    var audio = document.getElementById(audioId);
+    var els = [];
+    lines.forEach(function(line){
+      var div = document.createElement('div');
+      div.className = 'dw-readline';
+      div.innerHTML = line.html;
+      div.addEventListener('click', function(){
+        audio.currentTime = line.start;
+        audio.play();
+      });
+      container.appendChild(div);
+      els.push(div);
+    });
+    function highlight(t){
+      var idx = 0;
+      for(var i=0;i<lines.length;i++){
+        if(t >= lines[i].start) idx = i; else break;
+      }
+      els.forEach(function(el, i){
+        el.classList.toggle('dw-active', i === idx && !audio.paused);
+      });
+    }
+    audio.addEventListener('timeupdate', function(){ highlight(audio.currentTime); });
+    audio.addEventListener('play', function(){ highlight(audio.currentTime); });
+    audio.addEventListener('pause', function(){ els.forEach(function(el){ el.classList.remove('dw-active'); }); });
+    audio.addEventListener('ended', function(){ els.forEach(function(el){ el.classList.remove('dw-active'); }); });
+  }
+
+  dwSetupReadAlong('dw-text', 'dw-audio', dwLines);
+
+  var dwQuiz = [
+    {q:"Wann ist der Nikolaustag?", opts:["Am ersten Dezember","Am sechsten Dezember","Am vierundzwanzigsten Dezember"], correct:1},
+    {q:"Wie viele Kerzen hat der Adventskranz?", opts:["Zwei","Drei","Vier"], correct:2},
+    {q:"Welcher Tag ist für Leons Familie der wichtigste?", opts:["Der Heiligabend (24. Dezember)","Der Nikolaustag","Der erste Weihnachtsfeiertag"], correct:0},
+    {q:"Was isst die Familie oft am Heiligabend?", opts:["Pizza","Gänsebraten oder Würstchen mit Kartoffelsalat","Nur Plätzchen"], correct:1},
+    {q:"Was wünscht sich Leon dieses Jahr NICHT?", opts:["Ein Fahrrad","Ein Videospiel","Ein Handy"], correct:2}
+  ];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

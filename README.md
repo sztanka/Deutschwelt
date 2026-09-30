@@ -264,7 +264,7 @@ fortgeschritten/
 wichtige-themen/
 ├── index.html                        → hub: 3 kort (8./9./10. klasse)
 ├── 8-klasse/
-│   ├── index.html                    → hub: 8 temaer (4 bygget, 4 dw-soon — se «Ikke bygget ennå»)
+│   ├── index.html                    → hub: 8 temaer (6 bygget, 2 dw-soon — se «Ikke bygget ennå»)
 │   ├── die-einfache-unterhaltung/
 │   │   ├── index.html                → Mia/Tom-dialogen: lydspiller med
 │   │   │                                omtrentlig tekstsynkronisering,
@@ -279,10 +279,18 @@ wichtige-themen/
 │   ├── hobbys-und-freizeit/
 │   │   ├── index.html                → Sara/Jonas snakker om hobbyer — samme mønster
 │   │   └── audio.mp3                 → ElevenLabs-innspilling, 33,72 sek
-│   └── eine-verabredung/
-│       ├── index.html                → Jonas/Sara avtaler kino — samme mønster +
-│       │                                egen «Klokka på tysk»-note (24-timersformat)
-│       └── audio.mp3                 → ElevenLabs-innspilling, 30,93 sek
+│   ├── eine-verabredung/
+│   │   ├── index.html                → Jonas/Sara avtaler kino — samme mønster +
+│   │   │                                egen «Klokka på tysk»-note (24-timersformat)
+│   │   └── audio.mp3                 → ElevenLabs-innspilling, 30,93 sek
+│   ├── im-restaurant/
+│   │   ├── index.html                → Lisa/David/Kellner på restaurant — TRE talere
+│   │   │                                (ny, sentrert .c-chatteboble-stil for Kellner)
+│   │   └── audio.mp3                 → ElevenLabs-innspilling, 77,09 sek
+│   └── zu-weihnachten/
+│       ├── index.html                → Leons monolog om tysk julefeiring — «les-med»,
+│       │                                egen seksjon om tyske juletradisjoner
+│       └── audio.mp3                 → ElevenLabs-innspilling, 78,92 sek
 ├── 9-klasse/
 │   └── index.html                    → venteside, ingen temaer bestemt ennå
 └── 10-klasse/
@@ -1498,6 +1506,14 @@ Full verifisering: `node --check` på begge nye script-blokker (0 feil), en loka
     Gloser på «vorstellen», «arbeitet als», «nervig», «wichtig» (Lena) og «Geschwister», «Ärztin», «langweilig» (Finn). Én felles «Ord og uttrykk»-seksjon (familiemedlemmer, yrkesuttrykk, «wir sind … Personen») og én felles 7-spørsmuls quiz som blander spørsmål fra begge tekstene, pluss én skriveoppgave («skriv om din egen familie»).
 
     `wichtige-themen/8-klasse/index.html` fikk `dw-soon`-kortet for «Meine Familie» erstattet med en ekte lenke — hub-siden har nå 4 av 8 temaer bygget (Zu Weihnachten, Im Restaurant, Einkaufen, Mein Aussehen gjenstår, manus finnes i punkt 53 sitt Word-dokument). Søkeindeksen fikk 1 ny oppføring, ingen kollisjoner.
+
+**Wichtige Themen utvidet: Im Restaurant og Zu Weihnachten** — Teach spilte inn to av de fire gjenstående manusene fra TTS-manus-dokumentet i ElevenLabs (Im Restaurant nå med tre stemmer: Lisa, David og en egen Kellner-stemme) og lastet opp lydfilene (77,09 sek og 78,92 sek), og ba om at de ble lagt inn i 8.-klasse-delen av Wichtige Themen etter samme mønster som de andre delene.
+
+`wichtige-themen/8-klasse/im-restaurant/index.html` er den første dialogsiden med tre talere i stedet for to — chatteboble-mønsteret fikk derfor en ny, sentrert `.c`-stil (lilla) for Kellner-replikkene, i tillegg til de vanlige venstre-/høyrejusterte `.a`/`.b`-stilene for gjestene. 26 replikker dekker hele restaurantbesøket: velkomst, bordanvisning, meny, bestilling, servering, «Schmeckt es Ihnen?» og regningen.
+
+`wichtige-themen/8-klasse/zu-weihnachten/index.html` er en monolog (Leon forteller om sin egen julefeiring i Tyskland) og bruker derfor les-med-mønsteret fra Meine Familie-siden. Siden fikk i tillegg en egen «Tyske juletradisjoner»-seksjon med korte forklaringer av Adventskalender, Nikolaustag, Adventskranz, Heiligabend og Weihnachtsfeiertage, siden disse ikke nødvendigvis er kjent for norske elever fra før.
+
+`wichtige-themen/8-klasse/index.html` har nå 6 av 8 temaer bygget (kun Einkaufen og Mein Aussehen gjenstår). Søkeindeksen fikk 2 nye oppføringer; nøkkelordet «restaurant» ble bevisst unngått som egen nøkkel siden det allerede er en eksakt nøkkel for den eldre `sprechen/restaurant/`-siden.
 
     Full verifisering: `node --check` (0 feil), lokal HTTP-server bekreftet 200 OK på siden og begge lydfiler, og en Playwright-gjennomgang bekreftet at begge `<audio>`-elementenes rapporterte varighet er identisk med `ffprobe`-målingen, samt korrekt highlight-indeks mot flere tidspunkt på begge versjoner.
 
