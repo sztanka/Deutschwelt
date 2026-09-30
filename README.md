@@ -264,7 +264,7 @@ fortgeschritten/
 wichtige-themen/
 ├── index.html                        → hub: 3 kort (8./9./10. klasse)
 ├── 8-klasse/
-│   ├── index.html                    → hub: 8 temaer (6 bygget, 2 dw-soon — se «Ikke bygget ennå»)
+│   ├── index.html                    → hub: alle 8 temaer bygget
 │   ├── die-einfache-unterhaltung/
 │   │   ├── index.html                → Mia/Tom-dialogen: lydspiller med
 │   │   │                                omtrentlig tekstsynkronisering,
@@ -287,10 +287,19 @@ wichtige-themen/
 │   │   ├── index.html                → Lisa/David/Kellner på restaurant — TRE talere
 │   │   │                                (ny, sentrert .c-chatteboble-stil for Kellner)
 │   │   └── audio.mp3                 → ElevenLabs-innspilling, 77,09 sek
-│   └── zu-weihnachten/
-│       ├── index.html                → Leons monolog om tysk julefeiring — «les-med»,
-│       │                                egen seksjon om tyske juletradisjoner
-│       └── audio.mp3                 → ElevenLabs-innspilling, 78,92 sek
+│   ├── zu-weihnachten/
+│   │   ├── index.html                → Leons monolog om tysk julefeiring — «les-med»,
+│   │   │                                egen seksjon om tyske juletradisjoner
+│   │   └── audio.mp3                 → ElevenLabs-innspilling, 78,92 sek
+│   ├── einkaufen/
+│   │   ├── index.html                → Emma/Verkäuferin kjøper jakke — samme
+│   │   │                                to-taler-mønster som Hobbys und Freizeit
+│   │   └── audio.mp3                 → ElevenLabs-innspilling, 50,76 sek
+│   └── mein-aussehen/
+│       ├── index.html                → to monologer (Sophie/Ben), «les-med»-mønster,
+│       │                                én lydspiller + tekstblokk per versjon
+│       ├── audio-sophie.mp3          → ElevenLabs-innspilling, 29,57 sek
+│       └── audio-ben.mp3             → ElevenLabs-innspilling, 28,45 sek
 ├── 9-klasse/
 │   └── index.html                    → venteside, ingen temaer bestemt ennå
 └── 10-klasse/
@@ -1514,6 +1523,14 @@ Full verifisering: `node --check` på begge nye script-blokker (0 feil), en loka
 `wichtige-themen/8-klasse/zu-weihnachten/index.html` er en monolog (Leon forteller om sin egen julefeiring i Tyskland) og bruker derfor les-med-mønsteret fra Meine Familie-siden. Siden fikk i tillegg en egen «Tyske juletradisjoner»-seksjon med korte forklaringer av Adventskalender, Nikolaustag, Adventskranz, Heiligabend og Weihnachtsfeiertage, siden disse ikke nødvendigvis er kjent for norske elever fra før.
 
 `wichtige-themen/8-klasse/index.html` har nå 6 av 8 temaer bygget (kun Einkaufen og Mein Aussehen gjenstår). Søkeindeksen fikk 2 nye oppføringer; nøkkelordet «restaurant» ble bevisst unngått som egen nøkkel siden det allerede er en eksakt nøkkel for den eldre `sprechen/restaurant/`-siden.
+
+**Wichtige Themen fullført: Einkaufen og Mein Aussehen (siste to temaer)** — Teach spilte inn de to siste manusene fra TTS-manus-dokumentet i ElevenLabs (Einkaufen: 50,76 sek, Emma og Verkäuferin; Mein Aussehen: to separate filer, Sophie 29,57 sek og Ben 28,45 sek) og lastet dem opp, med samme ønske om samme mønster som resten av seksjonen.
+
+`wichtige-themen/8-klasse/einkaufen/index.html` bruker det vanlige to-taler-chatteboble-mønsteret (samme oppsett som Hobbys und Freizeit), med Emma til venstre og Verkäuferin til høyre. 17 replikker dekker hele handleturen: å be om hjelp, velge farge, bytte størrelse etter prøving, spørre om pris og betale med kort.
+
+`wichtige-themen/8-klasse/mein-aussehen/index.html` er to uavhengige monologer — Sophie og Ben beskriver hvert sitt utseende (høyde, hårfarge, øyefarge, kroppsfigur) — og bruker derfor les-med-mønsteret med to separate lydspillere/tekstblokker, samme struktur som Meine Familie-siden (Versjon A/Versjon B).
+
+`wichtige-themen/8-klasse/index.html` har nå **alle 8 temaer bygget** — hele listen Teach opprinnelig ga er dermed fullført som sider. Søkeindeksen fikk 2 nye oppføringer, ingen nye eksakte kollisjoner (én pre-eksisterende dupliserte nøkkel, «kellner», ble samtidig oppdaget og rettet — den lå både på Café-siden fra en tidligere runde og på Im Restaurant-siden fra forrige runde; Im Restaurant-siden bruker nå «kellner servitør» i stedet).
 
     Full verifisering: `node --check` (0 feil), lokal HTTP-server bekreftet 200 OK på siden og begge lydfiler, og en Playwright-gjennomgang bekreftet at begge `<audio>`-elementenes rapporterte varighet er identisk med `ffprobe`-målingen, samt korrekt highlight-indeks mot flere tidspunkt på begge versjoner.
 
