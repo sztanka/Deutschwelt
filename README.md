@@ -264,12 +264,18 @@ fortgeschritten/
 wichtige-themen/
 ├── index.html                        → hub: 3 kort (8./9./10. klasse)
 ├── 8-klasse/
-│   ├── index.html                    → hub: 8 temaer (3 bygget, 4 dw-soon — se «Ikke bygget ennå»)
+│   ├── index.html                    → hub: 8 temaer (4 bygget, 4 dw-soon — se «Ikke bygget ennå»)
 │   ├── die-einfache-unterhaltung/
 │   │   ├── index.html                → Mia/Tom-dialogen: lydspiller med
 │   │   │                                omtrentlig tekstsynkronisering,
 │   │   │                                gloser, ord/uttrykk, quiz, skriveoppgave
 │   │   └── audio.mp3                 → ElevenLabs-innspilling, 57,47 sek
+│   ├── meine-familie/
+│   │   ├── index.html                → to monologer (Lena/Finn), «les-med»-avsnitt
+│   │   │                                i stedet for chatteboble (ikke dialog),
+│   │   │                                én lydspiller + tekstblokk per versjon
+│   │   ├── audio-lena.mp3            → ElevenLabs-innspilling, 45,17 sek
+│   │   └── audio-finn.mp3            → ElevenLabs-innspilling, 52,61 sek
 │   ├── hobbys-und-freizeit/
 │   │   ├── index.html                → Sara/Jonas snakker om hobbyer — samme mønster
 │   │   └── audio.mp3                 → ElevenLabs-innspilling, 33,72 sek
@@ -1482,6 +1488,18 @@ Full verifisering: `node --check` på det nye script-blokken (0 feil, etter å h
 `wichtige-themen/8-klasse/index.html` fikk `dw-soon`-kortet for «Hobbys und Freizeit» erstattet med en ekte lenke, pluss et helt nytt kort for «Eine Verabredung» (som ikke var i Teachs opprinnelige sju-temaers liste som eget tema, men er del B av «Hobbys und Freizeit»-temaet i manuset — bygget som egen side siden Teach lastet den opp som egen lydfil). Hub-siden har nå 8 kort totalt (3 bygget, 4 fortsatt `dw-soon`: Meine Familie, Im Restaurant, Zu Weihnachten, Einkaufen, Mein Aussehen — manus for alle disse finnes allerede i punkt 53 sitt Word-dokument). Søkeindeksen fikk 2 nye oppføringer, ingen kollisjoner (én pre-eksisterende, allerede kjent duplikat — «wechselpräpositionen» — er urelatert til denne runden).
 
 Full verifisering: `node --check` på begge nye script-blokker (0 feil), en lokal HTTP-server som bekreftet 200 OK på begge sider og begge lydfiler, og en Playwright-gjennomgang som testet highlight-indeksberegningen direkte mot flere tidspunkt per side (traff riktig replikk hver gang) og bekreftet at `<audio>`-elementets rapporterte varighet er identisk med `ffprobe`-målingen på begge filer.
+
+**Wichtige Themen utvidet: Meine Familie (to monologer, Lena og Finn)** — Teach spilte inn de to siste manusene fra «Meine Familie»-temaet (punkt 53) i ElevenLabs, denne gangen navngitt med personnavn i filnavnet («Meine Familie - Lena», «Meine Familie - Finn») fremfor to helt separate temanavn. Siden begge filer delte samme temanavn og kun varierte i hvilken versjon (liten/stor familie), ble de bygget som ÉN side med to seksjoner — samme struktur som i det opprinnelige Word-manuset (Versjon A/Versjon B) — i stedet for to separate hub-kort slik Hobbys und Freizeit/Eine Verabredung ble (der lydfilene hadde helt distinkte temanavn).
+
+    Et nytt strukturelt element: Lena og Finns tekster er **monologer**, ikke dialoger med replikkveksling, så samme chatteboble-mønster som de tre andre sidene passet ikke. I stedet fikk siden et nytt, gjenbrukbart «les-med»-mønster (`.dw-readline`): hver setning er en egen blokk i én sammenhengende kolonne (ikke venstre/høyre-vekslende bobler), som får en gul venstrekant og bakgrunn når den leses — samme klikk-for-å-hoppe-funksjon som bobler har. Rendring og synkronisering er faktorert ut i en delt funksjon (`dwSetupReadAlong(containerId, audioId, lines)`) som kalles én gang per versjon, siden siden har to uavhengige lydspillere og tekstblokker på samme side.
+
+    Tidsestimeringen bruker samme proporsjonale metode som de andre sidene, men med en kortere antatt pause mellom setninger (0,35 sek, mot 0,22 sek for dialog-replikker) siden en sammenhengende monolog naturlig har kortere pust-pauser enn en samtale med replikkskifte. Kalibrert mot hver fils faktiske lengde (45,17 sek for Lena, 52,61 sek for Finn, begge bekreftet med `ffprobe`).
+
+    Gloser på «vorstellen», «arbeitet als», «nervig», «wichtig» (Lena) og «Geschwister», «Ärztin», «langweilig» (Finn). Én felles «Ord og uttrykk»-seksjon (familiemedlemmer, yrkesuttrykk, «wir sind … Personen») og én felles 7-spørsmuls quiz som blander spørsmål fra begge tekstene, pluss én skriveoppgave («skriv om din egen familie»).
+
+    `wichtige-themen/8-klasse/index.html` fikk `dw-soon`-kortet for «Meine Familie» erstattet med en ekte lenke — hub-siden har nå 4 av 8 temaer bygget (Zu Weihnachten, Im Restaurant, Einkaufen, Mein Aussehen gjenstår, manus finnes i punkt 53 sitt Word-dokument). Søkeindeksen fikk 1 ny oppføring, ingen kollisjoner.
+
+    Full verifisering: `node --check` (0 feil), lokal HTTP-server bekreftet 200 OK på siden og begge lydfiler, og en Playwright-gjennomgang bekreftet at begge `<audio>`-elementenes rapporterte varighet er identisk med `ffprobe`-målingen, samt korrekt highlight-indeks mot flere tidspunkt på begge versjoner.
 
 ## Slik legger du til en ny seksjon
 
