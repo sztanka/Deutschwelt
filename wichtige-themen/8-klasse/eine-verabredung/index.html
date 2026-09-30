@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Wichtige Themen → 8. klasse: "Eine Verabredung"
+  Manus (tysk) laget av Claude for Deutschwelt, lest inn av Teach i
+  ElevenLabs (Text to Dialogue, stemmene "Sara" og "Jonas").
+  Lydfil: audio.mp3 i samme mappe, 30,93 sekunder.
+
+  Tekstsynkronisering: proporsjonalt estimat kalibrert mot lydfilens
+  faktiske lengde (30,928938 sek), samme metode som "Die einfache
+  Unterhaltung" (se den filens kommentar for full begrunnelse).
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eine Verabredung · Wichtige Themen · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+    --dw-a:#1F4E79;
+    --dw-b:#A9231F;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.6rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-audio-wrap{margin-bottom:14px;}
+  audio{width:100%;}
+  .dw-sync-note{
+    font-size:.78rem;color:var(--dw-muted);background:#f4f1e8;border-radius:8px;
+    padding:8px 12px;margin-top:8px;line-height:1.5;
+  }
+
+  .dw-dialogue{display:flex;flex-direction:column;gap:10px;margin:6px 0 4px;}
+  .dw-line{
+    max-width:82%;padding:10px 14px;border-radius:14px;font-size:.96rem;line-height:1.55;
+    cursor:pointer;transition:box-shadow .15s ease, background .15s ease; border:1px solid transparent;
+  }
+  .dw-line .dw-spk{display:block;font-size:.7rem;font-weight:700;margin-bottom:2px;letter-spacing:.6px;opacity:.8;}
+  .dw-line.a{align-self:flex-start;background:#eef2f6;border-color:#d7e0ea;}
+  .dw-line.b{align-self:flex-end;background:#fdf1ea;border-color:#f0d9c2;text-align:right;}
+  .dw-line.a .dw-spk{color:var(--dw-a);}
+  .dw-line.b .dw-spk{color:var(--dw-b);}
+  .dw-line:hover{box-shadow:0 2px 8px rgba(0,0,0,.1);}
+  .dw-line.dw-active{box-shadow:0 0 0 3px var(--dw-accent);background:#fff7e0;}
+  .dw-line.b.dw-active{background:#fff7e0;}
+
+  .dw-gloss{border-bottom:2px dotted var(--dw-accent);cursor:help;position:relative;}
+  .dw-gloss-tip{
+    visibility:hidden;opacity:0;position:absolute;bottom:125%;left:50%;transform:translateX(-50%);
+    background:var(--dw-primary);color:#fff;padding:6px 10px;border-radius:8px;font-size:.78rem;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.3;white-space:normal;max-width:190px;width:max-content;transition:opacity .15s ease;
+    pointer-events:none;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.2);
+  }
+  .dw-gloss:hover .dw-gloss-tip, .dw-gloss:focus .dw-gloss-tip{visibility:visible;opacity:1;}
+
+  .dw-phrase-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px;}
+  @media(min-width:560px){ .dw-phrase-grid{grid-template-columns:1fr 1fr;} }
+  .dw-phrase{background:#f4f1e8;border-radius:10px;padding:10px 14px;font-size:.88rem;line-height:1.55;}
+  .dw-phrase b{color:var(--dw-primary);display:block;margin-bottom:3px;font-size:.85rem;}
+  .dw-phrase .dw-no{color:var(--dw-muted);font-style:italic;font-size:.82rem;margin-top:2px;}
+
+  .dw-clock-box{
+    background:#eef2f6;border-left:4px solid var(--dw-a);border-radius:8px;
+    padding:12px 16px;margin-top:12px;font-size:.88rem;line-height:1.6;
+  }
+  .dw-clock-box b{color:var(--dw-primary);}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:90px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">⭐ Wichtige Themen</a> → <a href="../">8. klasse</a> → Eine Verabredung</p>
+
+  <div class="dw-header">
+    <h1>Eine Verabredung</h1>
+    <p>Jonas und Sara verabreden sich fürs Kino</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>🎧 Om denne teksten</h2>
+    <p>Jonas spør om Sara har tid på lørdag, og de blir enige om å gå på kino sammen. Denne samtalen viser hvordan man foreslår noe, blir enige om en aktivitet, og — spesielt viktig her — avtaler et konkret klokkeslett og møtested på tysk.</p>
+    <p>Trykk <strong>play</strong> og følg med i teksten under — replikken som snakkes nå markeres i gult. Du kan også trykke direkte på en replikk for å hoppe dit i lyden. Ord med <span class="dw-gloss" tabindex="0">stiplet understrek<span class="dw-gloss-tip">eksempel — hold musepekeren over eller trykk på ordet</span></span> kan du holde musepekeren over (eller trykke på) for norsk oversettelse.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🔊 Lytt til samtalen</h2>
+    <p class="dw-byline">Innspilt med ElevenLabs (Text to Dialogue) · stemmer: Sara og Jonas</p>
+    <div class="dw-audio-wrap">
+      <audio id="dw-audio" controls preload="metadata">
+        <source src="audio.mp3" type="audio/mpeg">
+        Nettleseren din støtter ikke avspilling av lyd.
+      </audio>
+      <div class="dw-sync-note">🎯 <strong>Merk om synkroniseringen:</strong> markeringen av replikkene følger lyden <em>omtrent</em> — tidspunktene er beregnet ut fra hvor lang hver replikk er, ikke ord-for-ord med talegjenkjenning. Bruk den som en veiledning mens du lytter, ikke som en fasit.</div>
+    </div>
+
+    <div class="dw-dialogue" id="dw-dialogue"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>📝 Ord og uttrykk</h2>
+    <div class="dw-phrase-grid">
+      <div class="dw-phrase"><b>📅 Foreslå en dag</b>Hast du am Samstag Zeit?<div class="dw-no">Har du tid på lørdag?</div></div>
+      <div class="dw-phrase"><b>❓ Hva har du planlagt</b>Was hast du vor?<div class="dw-no">Hva har du tenkt å gjøre?</div></div>
+      <div class="dw-phrase"><b>🎬 Foreslå aktivitet</b>Sollen wir ins Kino gehen?<div class="dw-no">Skal vi gå på kino?</div></div>
+      <div class="dw-phrase"><b>🕒 Klokkeslett</b>Er startet um fünfzehn Uhr.<div class="dw-no">Den starter klokka 15.00.</div></div>
+      <div class="dw-phrase"><b>📍 Møtested</b>Wo sollen wir uns treffen?<div class="dw-no">Hvor skal vi møtes?</div></div>
+      <div class="dw-phrase"><b>😊 Glede seg</b>Ich freue mich schon!<div class="dw-no">Jeg gleder meg allerede!</div></div>
+    </div>
+
+    <div class="dw-clock-box">
+      <b>🕒 Klokka på tysk</b><br>
+      På tysk sier man ofte klokkeslett på 24-timers format, akkurat som på norsk («femten» i stedet for «tre om ettermiddagen»). I denne samtalen sier de: <strong>fünfzehn Uhr</strong> = 15.00 (kl. 15) og <strong>vierzehn Uhr vierzig</strong> = 14.40 (kl. 14.40). Legg merke til mønsteret: <em>[timer] Uhr [minutter]</em> — «vierzehn Uhr vierzig» er bokstavelig «fjorten klokke førti».
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Teste dich selbst</h2>
+    <p class="dw-note">Spørsmålene handler om innholdet i samtalen.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Deine eigene Verabredung</h2>
+    <p class="dw-note">Skriv din egen mini-dialog (4–6 setninger) der du avtaler å møte en venn: foreslå en dag, en aktivitet, et klokkeslett og et sted. Bruk gjerne uttrykkene fra listen over!</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Hast du am … Zeit? …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  var dwLines = [
+    {spk:'JONAS', cls:'b', start:0.0,   html:'Sara, hast du am Samstag Zeit?'},
+    {spk:'SARA',  cls:'a', start:2.214, html:'Vielleicht. Was <span class="dw-gloss" tabindex="0">hast du vor<span class="dw-gloss-tip">har du planlagt</span></span>?'},
+    {spk:'JONAS', cls:'b', start:4.325, html:'Ich wollte fragen, ob wir zusammen ins Kino gehen möchten.'},
+    {spk:'SARA',  cls:'a', start:7.97,  html:'Oh, das klingt gut! Welcher Film läuft denn?'},
+    {spk:'JONAS', cls:'b', start:10.899,html:'Der neue Actionfilm. Er startet um <span class="dw-gloss" tabindex="0">fünfzehn Uhr<span class="dw-gloss-tip">klokka 15.00</span></span>.'},
+    {spk:'SARA',  cls:'a', start:14.033,html:'Fünfzehn Uhr … das passt gut. Wo sollen wir uns <span class="dw-gloss" tabindex="0">treffen<span class="dw-gloss-tip">møtes</span></span>?'},
+    {spk:'JONAS', cls:'b', start:17.576,html:'Wollen wir uns vor dem Kino treffen? So um <span class="dw-gloss" tabindex="0">vierzehn Uhr vierzig<span class="dw-gloss-tip">klokka 14.40</span></span>?'},
+    {spk:'SARA',  cls:'a', start:21.528,html:'Okay, vierzehn Uhr vierzig vor dem Kino. Perfekt!'},
+    {spk:'JONAS', cls:'b', start:24.712,html:'Super! Ich freue mich schon.'},
+    {spk:'SARA',  cls:'a', start:26.824,html:'Ich mich auch! Bis Samstag, Jonas!'},
+    {spk:'JONAS', cls:'b', start:29.242,html:'Bis dann, Sara! Tschüss!'}
+  ];
+
+  var dwDialogueEl = document.getElementById('dw-dialogue');
+  var dwLineEls = [];
+  dwLines.forEach(function(line){
+    var div = document.createElement('div');
+    div.className = 'dw-line ' + line.cls;
+    div.innerHTML = '<span class="dw-spk">' + line.spk + '</span>' + line.html;
+    div.addEventListener('click', function(){
+      dwAudio.currentTime = line.start;
+      dwAudio.play();
+    });
+    dwDialogueEl.appendChild(div);
+    dwLineEls.push(div);
+  });
+
+  var dwAudio = document.getElementById('dw-audio');
+  function dwHighlightLine(t){
+    var idx = 0;
+    for(var i=0;i<dwLines.length;i++){
+      if(t >= dwLines[i].start) idx = i; else break;
+    }
+    dwLineEls.forEach(function(el, i){
+      el.classList.toggle('dw-active', i === idx && !dwAudio.paused);
+    });
+  }
+  dwAudio.addEventListener('timeupdate', function(){ dwHighlightLine(dwAudio.currentTime); });
+  dwAudio.addEventListener('play', function(){ dwHighlightLine(dwAudio.currentTime); });
+  dwAudio.addEventListener('pause', function(){ dwLineEls.forEach(function(el){ el.classList.remove('dw-active'); }); });
+  dwAudio.addEventListener('ended', function(){ dwLineEls.forEach(function(el){ el.classList.remove('dw-active'); }); });
+
+  var dwQuiz = [
+    {q:"Wann haben Jonas und Sara Zeit?", opts:["Am Freitag","Am Samstag","Am Sonntag"], correct:1},
+    {q:"Was möchten sie zusammen machen?", opts:["Schwimmen gehen","Ins Kino gehen","Fußball spielen"], correct:1},
+    {q:"Um wie viel Uhr startet der Film?", opts:["Um vierzehn Uhr","Um fünfzehn Uhr","Um sechzehn Uhr"], correct:1},
+    {q:"Wo treffen sie sich?", opts:["Vor der Schule","Vor dem Kino","Im Café"], correct:1},
+    {q:"Um wie viel Uhr treffen sie sich?", opts:["Um vierzehn Uhr vierzig","Um fünfzehn Uhr","Um vierzehn Uhr"], correct:0}
+  ];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

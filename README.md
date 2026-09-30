@@ -264,12 +264,19 @@ fortgeschritten/
 wichtige-themen/
 ├── index.html                        → hub: 3 kort (8./9./10. klasse)
 ├── 8-klasse/
-│   ├── index.html                    → hub: 7 temaer (1 bygget, 6 dw-soon)
-│   └── die-einfache-unterhaltung/
-│       ├── index.html                → Mia/Tom-dialogen: lydspiller med
-│       │                                omtrentlig tekstsynkronisering,
-│       │                                gloser, ord/uttrykk, quiz, skriveoppgave
-│       └── audio.mp3                 → ElevenLabs-innspilling, 57,47 sek
+│   ├── index.html                    → hub: 8 temaer (3 bygget, 4 dw-soon — se «Ikke bygget ennå»)
+│   ├── die-einfache-unterhaltung/
+│   │   ├── index.html                → Mia/Tom-dialogen: lydspiller med
+│   │   │                                omtrentlig tekstsynkronisering,
+│   │   │                                gloser, ord/uttrykk, quiz, skriveoppgave
+│   │   └── audio.mp3                 → ElevenLabs-innspilling, 57,47 sek
+│   ├── hobbys-und-freizeit/
+│   │   ├── index.html                → Sara/Jonas snakker om hobbyer — samme mønster
+│   │   └── audio.mp3                 → ElevenLabs-innspilling, 33,72 sek
+│   └── eine-verabredung/
+│       ├── index.html                → Jonas/Sara avtaler kino — samme mønster +
+│       │                                egen «Klokka på tysk»-note (24-timersformat)
+│       └── audio.mp3                 → ElevenLabs-innspilling, 30,93 sek
 ├── 9-klasse/
 │   └── index.html                    → venteside, ingen temaer bestemt ennå
 └── 10-klasse/
@@ -1467,6 +1474,14 @@ Full verifisering: alle 4 nye script-blokker sjekket med `node --check` (0 feil)
 `wichtige-themen/index.html` (hub, 3 kort) og `wichtige-themen/8-klasse/index.html` (hub, 7 temaer — kun «Die einfache Unterhaltung» bygget, de resterende seks fra Teachs opprinnelige liste ligger som `dw-soon`) følger samme kort-mønster som resten av siden. `9-klasse/` og `10-klasse/` er rene venteside-stubber siden Teach ikke har bestemt temaer for de trinnene ennå. Toppnavigasjonen fikk et nytt punkt (⭐ Wichtige Themen) satt inn i alle 148 HTML-filer (se over), forsiden fikk et nytt kort, og søkeindeksen fikk 2 nye oppføringer — ingen nøkkelkollisjoner funnet.
 
 Full verifisering: `node --check` på det nye script-blokken (0 feil, etter å ha luket ut en falsk positiv fra en `<script>`-omtale inni en HTML-kommentar), alle 148 sider verifisert med riktig relativ sti til den nye seksjonen via automatisk generert lenke-prefiks (stikkprøver på dybde 0/2/3 kontrollert manuelt), en lokal HTTP-server som bekreftet 200 OK på alle nye sider og på lydfilen, og en Playwright-gjennomgang med skjermbilder av forsiden, hub-siden og den nye dialogsiden. Highlight-logikkens indeksberegning ble testet direkte i nettleseren mot fem tidspunkt (0/5/22/40/56 sek) og traff riktig replikk hver gang.
+
+**Wichtige Themen utvidet: Hobbys und Freizeit og Eine Verabredung** — Teach spilte selv inn de to gjenstående dialogene fra TTS-manuset (punkt 53) i ElevenLabs og lastet opp lydfilene (33,72 sek og 30,93 sek), og ba om at de ble lagt inn i 8.-klasse-delen av Wichtige Themen «på samme måte som Die einfache Unterhaltung». Begge sider bygget etter nøyaktig samme mal (chatteboble-dialog med lyd-synkronisert fremheving, klikk-for-å-hoppe, hover-glosser, «Ord og uttrykk»-seksjon, 5-spørsmuls quiz, skriveoppgave), samme proporsjonale tidsestimeringsmetode som forrige runde, kalibrert mot hver fils faktiske, `ffprobe`-bekreftede lengde.
+
+`wichtige-themen/8-klasse/hobbys-und-freizeit/index.html` bruker dialogen mellom Sara og Jonas om hobbyer fra TTS-manuset (11 replikker) — gloser på «Freizeit», «Verein», «üben», «unterschiedlich». `wichtige-themen/8-klasse/eine-verabredung/index.html` bruker avtale-dialogen (også 11 replikker, samme to talere) — denne fikk i tillegg en egen liten faktaboks («🕒 Klokka på tysk») som forklarer det tyske 24-timersformatet for klokkeslett, siden nettopp klokkeslett-øving var et bevisst poeng med denne teksten allerede i det opprinnelige manuset. Begge sidene bruker generiske CSS-klassenavn (`.a`/`.b` i stedet for `.mia`/`.tom`) siden talerne er andre enn i den første dialogen.
+
+`wichtige-themen/8-klasse/index.html` fikk `dw-soon`-kortet for «Hobbys und Freizeit» erstattet med en ekte lenke, pluss et helt nytt kort for «Eine Verabredung» (som ikke var i Teachs opprinnelige sju-temaers liste som eget tema, men er del B av «Hobbys und Freizeit»-temaet i manuset — bygget som egen side siden Teach lastet den opp som egen lydfil). Hub-siden har nå 8 kort totalt (3 bygget, 4 fortsatt `dw-soon`: Meine Familie, Im Restaurant, Zu Weihnachten, Einkaufen, Mein Aussehen — manus for alle disse finnes allerede i punkt 53 sitt Word-dokument). Søkeindeksen fikk 2 nye oppføringer, ingen kollisjoner (én pre-eksisterende, allerede kjent duplikat — «wechselpräpositionen» — er urelatert til denne runden).
+
+Full verifisering: `node --check` på begge nye script-blokker (0 feil), en lokal HTTP-server som bekreftet 200 OK på begge sider og begge lydfiler, og en Playwright-gjennomgang som testet highlight-indeksberegningen direkte mot flere tidspunkt per side (traff riktig replikk hver gang) og bekreftet at `<audio>`-elementets rapporterte varighet er identisk med `ffprobe`-målingen på begge filer.
 
 ## Slik legger du til en ny seksjon
 
