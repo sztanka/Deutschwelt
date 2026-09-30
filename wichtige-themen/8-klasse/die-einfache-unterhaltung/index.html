@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Wichtige Themen → 8. klasse: "Die einfache Unterhaltung"
+  Første tekst i en ny seksjon med lengre, innspilte samtaler/tekster.
+  Manus (tysk) og norsk oversettelse laget av Claude for Deutschwelt, lest inn
+  av Teach i ElevenLabs (Text to Dialogue, stemmene "Ava" og "Odeon").
+  Lydfil: audio.mp3 i samme mappe, 57,47 sekunder.
+
+  VIKTIG om tekstsynkroniseringen: dette miljøet har ikke tilgang til
+  talegjenkjenning (ASR) som kunne gitt eksakte, ord-for-ord-tidspunkt for
+  hver replikk (nettverkstilgangen til modell-vertene som openaipublic.azure
+  edge.net og huggingface.co er blokkert av sandkasse-policyen). Fremhevingen
+  under er derfor et ESTIMAT: hver replikks starttidspunkt er beregnet
+  proporsjonalt ut fra tekstlengde, kalibrert mot lydfilens faktiske totale
+  lengde (57,469375 sek) og en anslått pause på ~0,22 sek mellom replikkene.
+  Det er omtrentlig, ikke bildeperfekt — se dwStarts-arrayet i <script> under.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Die einfache Unterhaltung · Wichtige Themen · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+    --dw-mia:#1F4E79;
+    --dw-tom:#A9231F;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.6rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  /* Lydspiller */
+  .dw-audio-wrap{margin-bottom:14px;}
+  audio{width:100%;}
+  .dw-sync-note{
+    font-size:.78rem;color:var(--dw-muted);background:#f4f1e8;border-radius:8px;
+    padding:8px 12px;margin-top:8px;line-height:1.5;
+  }
+
+  /* Dialog-bobler */
+  .dw-dialogue{display:flex;flex-direction:column;gap:10px;margin:6px 0 4px;}
+  .dw-line{
+    max-width:82%;padding:10px 14px;border-radius:14px;font-size:.96rem;line-height:1.55;
+    cursor:pointer;transition:box-shadow .15s ease, background .15s ease; border:1px solid transparent;
+  }
+  .dw-line .dw-spk{display:block;font-size:.7rem;font-weight:700;margin-bottom:2px;letter-spacing:.6px;opacity:.8;}
+  .dw-line.mia{align-self:flex-start;background:#eef2f6;border-color:#d7e0ea;}
+  .dw-line.tom{align-self:flex-end;background:#fdf1ea;border-color:#f0d9c2;text-align:right;}
+  .dw-line.mia .dw-spk{color:var(--dw-mia);}
+  .dw-line.tom .dw-spk{color:var(--dw-tom);}
+  .dw-line:hover{box-shadow:0 2px 8px rgba(0,0,0,.1);}
+  .dw-line.dw-active{box-shadow:0 0 0 3px var(--dw-accent);background:#fff7e0;}
+  .dw-line.tom.dw-active{background:#fff7e0;}
+
+  /* Hover/trykk-glosser */
+  .dw-gloss{border-bottom:2px dotted var(--dw-accent);cursor:help;position:relative;}
+  .dw-gloss-tip{
+    visibility:hidden;opacity:0;position:absolute;bottom:125%;left:50%;transform:translateX(-50%);
+    background:var(--dw-primary);color:#fff;padding:6px 10px;border-radius:8px;font-size:.78rem;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.3;white-space:normal;max-width:190px;width:max-content;transition:opacity .15s ease;
+    pointer-events:none;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.2);
+  }
+  .dw-gloss:hover .dw-gloss-tip, .dw-gloss:focus .dw-gloss-tip{visibility:visible;opacity:1;}
+
+  /* Faste uttrykk-kort */
+  .dw-phrase-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px;}
+  @media(min-width:560px){ .dw-phrase-grid{grid-template-columns:1fr 1fr;} }
+  .dw-phrase{background:#f4f1e8;border-radius:10px;padding:10px 14px;font-size:.88rem;line-height:1.55;}
+  .dw-phrase b{color:var(--dw-primary);display:block;margin-bottom:3px;font-size:.85rem;}
+  .dw-phrase .dw-no{color:var(--dw-muted);font-style:italic;font-size:.82rem;margin-top:2px;}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:90px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">⭐ Wichtige Themen</a> → <a href="../">8. klasse</a> → Die einfache Unterhaltung</p>
+
+  <div class="dw-header">
+    <h1>Die einfache Unterhaltung</h1>
+    <p>Mia und Tom treffen sich zum ersten Mal in der Schule</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>🎧 Om denne teksten</h2>
+    <p>Dette er den første teksten i <strong>Wichtige Themen</strong> — en ny del av siden med lengre, innspilte samtaler om sentrale temaer. Her møtes Mia og Tom på skolen for første gang, og samtalen deres viser de aller viktigste tingene du sier når du blir kjent med noen på tysk: å hilse, spørre hvordan det går, si navn, alder, hvor du kommer fra, hvor du bor, og hva hobbyen din er.</p>
+    <p>Trykk <strong>play</strong> og følg med i teksten under — replikken som snakkes nå markeres i gult. Du kan også trykke direkte på en replikk for å hoppe dit i lyden. Ord med <span class="dw-gloss" tabindex="0">stiplet understrek<span class="dw-gloss-tip">eksempel — hold musepekeren over eller trykk på ordet</span></span> kan du holde musepekeren over (eller trykke på) for norsk oversettelse.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🔊 Lytt til samtalen</h2>
+    <p class="dw-byline">Innspilt med ElevenLabs (Text to Dialogue) · stemmer: Ava (Mia) og Odeon (Tom)</p>
+    <div class="dw-audio-wrap">
+      <audio id="dw-audio" controls preload="metadata">
+        <source src="audio.mp3" type="audio/mpeg">
+        Nettleseren din støtter ikke avspilling av lyd.
+      </audio>
+      <div class="dw-sync-note">🎯 <strong>Merk om synkroniseringen:</strong> markeringen av replikkene følger lyden <em>omtrent</em> — tidspunktene er beregnet ut fra hvor lang hver replikk er (ikke ord-for-ord med talegjenkjenning), så det kan hende markeringen henger litt etter eller ligger litt foran noen steder. Bruk den som en veiledning mens du lytter, ikke som en fasit.</div>
+    </div>
+
+    <div class="dw-dialogue" id="dw-dialogue"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>📝 Ord og uttrykk</h2>
+    <p class="dw-note">Dette er de faste uttrykkene samtalen trener på — de samme du trenger i nesten enhver ny bekjentskap på tysk.</p>
+    <div class="dw-phrase-grid">
+      <div class="dw-phrase"><b>👋 Hilse</b>Hallo! / Hi!<div class="dw-no">Hei! / Hei!</div></div>
+      <div class="dw-phrase"><b>🙂 Wie geht's</b>Wie geht's dir? — Mir geht's gut, danke!<div class="dw-no">Hvordan går det? — Det går bra, takk!</div></div>
+      <div class="dw-phrase"><b>🏷️ Navn</b>Wie heißt du? — Ich heiße … / Mein Name ist …<div class="dw-no">Hva heter du? — Jeg heter …</div></div>
+      <div class="dw-phrase"><b>🎂 Alder</b>Wie alt bist du? — Ich bin vierzehn Jahre alt.<div class="dw-no">Hvor gammel er du? — Jeg er fjorten år.</div></div>
+      <div class="dw-phrase"><b>🌍 Kommer fra</b>Woher kommst du? — Ich komme aus …<div class="dw-no">Hvor kommer du fra? — Jeg kommer fra …</div></div>
+      <div class="dw-phrase"><b>🏠 Bosted</b>Wo wohnst du? — Ich wohne in …<div class="dw-no">Hvor bor du? — Jeg bor i …</div></div>
+      <div class="dw-phrase"><b>⚽ Hobby</b>Was ist dein Hobby? — Mein Hobby ist … / Ich spiele gern …<div class="dw-no">Hva er hobbyen din? — Hobbyen min er … / Jeg liker å spille …</div></div>
+      <div class="dw-phrase"><b>👋 Avskjed</b>Bis später! / Tschüss!<div class="dw-no">Vi sees! / Ha det!</div></div>
+    </div>
+
+    <h3 style="margin:18px 0 8px;color:var(--dw-primary);font-size:1rem;">📖 Flere ord fra teksten</h3>
+    <div class="dw-phrase-grid">
+      <div class="dw-phrase"><b>derselbe / dieselbe</b>«in derselben Klasse»<div class="dw-no">den/det samme</div></div>
+      <div class="dw-phrase"><b>ganz in der Nähe</b>«ganz in der Nähe von der Schule»<div class="dw-no">helt i nærheten</div></div>
+      <div class="dw-phrase"><b>das Klassenzimmer</b>«ich zeige dir das Klassenzimmer»<div class="dw-no">klasserommet</div></div>
+      <div class="dw-phrase"><b>übrigens</b>«Übrigens, welche Klasse bist du?»<div class="dw-no">forresten</div></div>
+      <div class="dw-phrase"><b>das freut mich</b>«Wirklich? Das freut mich!»<div class="dw-no">det gleder meg</div></div>
+      <div class="dw-phrase"><b>danke der Nachfrage</b>«danke der Nachfrage»<div class="dw-no">takk for at du spør</div></div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Teste dich selbst</h2>
+    <p class="dw-note">Spørsmålene handler om innholdet i samtalen.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>💭 Deine eigene Unterhaltung</h2>
+    <p class="dw-note">Skriv din egen mini-samtale (5–6 setninger) der du hilser, spør om navn, alder, hvor personen bor, og hobby — og avslutter med en avskjed. Bruk gjerne uttrykkene fra listen over!</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Hallo! Wie heißt du? …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Replikker med norske glosser inline. "start" er beregnet estimat (se
+  // kommentaren øverst i filen) — kalibrert mot lydfilens faktiske lengde.
+  var dwLines = [
+    {spk:'MIA', cls:'mia', start:0.0,   html:'Hallo!'},
+    {spk:'TOM', cls:'tom', start:0.919, html:"Hi! Wie geht's dir?"},
+    {spk:'MIA', cls:'mia', start:2.445, html:"Mir geht's gut, danke! Und dir?"},
+    {spk:'TOM', cls:'tom', start:4.53,  html:'Mir geht\'s auch super, <span class="dw-gloss" tabindex="0">danke der Nachfrage<span class="dw-gloss-tip">takk for at du spør</span></span>!'},
+    {spk:'TOM', cls:'tom', start:7.174, html:'Wie heißt du?'},
+    {spk:'MIA', cls:'mia', start:8.42,  html:'Ich heiße Mia. Und du?'},
+    {spk:'TOM', cls:'tom', start:10.085,html:'Mein Name ist Tom.'},
+    {spk:'TOM', cls:'tom', start:11.564,html:'Wie alt bist du, Mia?'},
+    {spk:'MIA', cls:'mia', start:13.182,html:'Ich bin <span class="dw-gloss" tabindex="0">vierzehn<span class="dw-gloss-tip">fjorten</span></span> Jahre alt. Und du?'},
+    {spk:'TOM', cls:'tom', start:15.453,html:'Ich bin auch vierzehn.'},
+    {spk:'TOM', cls:'tom', start:17.119,html:'Woher kommst du?'},
+    {spk:'MIA', cls:'mia', start:18.504,html:'Ich komme aus Hamburg. Und du, woher kommst du?'},
+    {spk:'TOM', cls:'tom', start:21.335,html:'Ich komme aus dieser <span class="dw-gloss" tabindex="0">Stadt<span class="dw-gloss-tip">by</span></span> hier.'},
+    {spk:'MIA', cls:'mia', start:23.467,html:'Und wo wohnst du jetzt genau?'},
+    {spk:'TOM', cls:'tom', start:25.458,html:'Ich wohne in der Gartenstraße, <span class="dw-gloss" tabindex="0">ganz in der Nähe<span class="dw-gloss-tip">helt i nærheten</span></span> von der Schule. Und du? Wo wohnst du?'},
+    {spk:'MIA', cls:'mia', start:30.06, html:'Ich wohne jetzt in der Bahnhofstraße.'},
+    {spk:'TOM', cls:'tom', start:32.425,html:'Was ist dein Hobby, Mia?'},
+    {spk:'MIA', cls:'mia', start:34.184,html:'Mein Hobby ist Lesen. Ich lese sehr gern <span class="dw-gloss" tabindex="0">Bücher<span class="dw-gloss-tip">bøker</span></span>, und ich spiele auch gern Gitarre.'},
+    {spk:'TOM', cls:'tom', start:38.646,html:'Cool! Ich spiele gern Fußball. Fußball ist mein Hobby.'},
+    {spk:'TOM', cls:'tom', start:41.803,html:'<span class="dw-gloss" tabindex="0">Übrigens<span class="dw-gloss-tip">forresten</span></span>, welche Klasse bist du?'},
+    {spk:'MIA', cls:'mia', start:43.935,html:'Ich bin in der Klasse 8B.'},
+    {spk:'TOM', cls:'tom', start:45.74, html:'Echt? Ich auch! Dann sind wir in <span class="dw-gloss" tabindex="0">derselben<span class="dw-gloss-tip">den samme</span></span> Klasse!'},
+    {spk:'MIA', cls:'mia', start:48.71, html:'Wirklich? <span class="dw-gloss" tabindex="0">Das freut mich<span class="dw-gloss-tip">det gleder meg</span></span>!'},
+    {spk:'TOM', cls:'tom', start:50.516,html:'Komm, ich zeige dir das <span class="dw-gloss" tabindex="0">Klassenzimmer<span class="dw-gloss-tip">klasserommet</span></span>.'},
+    {spk:'MIA', cls:'mia', start:52.927,html:'Ja, gerne! Danke, Tom.'},
+    {spk:'TOM', cls:'tom', start:54.592,html:'Bis später, Mia!'},
+    {spk:'MIA', cls:'mia', start:55.978,html:'Tschüss, Tom! Bis dann!'}
+  ];
+
+  var dwDialogueEl = document.getElementById('dw-dialogue');
+  var dwLineEls = [];
+  dwLines.forEach(function(line, i){
+    var div = document.createElement('div');
+    div.className = 'dw-line ' + line.cls;
+    div.innerHTML = '<span class="dw-spk">' + line.spk + '</span>' + line.html;
+    div.addEventListener('click', function(){
+      dwAudio.currentTime = line.start;
+      dwAudio.play();
+    });
+    dwDialogueEl.appendChild(div);
+    dwLineEls.push(div);
+  });
+
+  var dwAudio = document.getElementById('dw-audio');
+  function dwHighlightLine(t){
+    var idx = 0;
+    for(var i=0;i<dwLines.length;i++){
+      if(t >= dwLines[i].start) idx = i; else break;
+    }
+    dwLineEls.forEach(function(el, i){
+      el.classList.toggle('dw-active', i === idx && !dwAudio.paused);
+    });
+  }
+  dwAudio.addEventListener('timeupdate', function(){ dwHighlightLine(dwAudio.currentTime); });
+  dwAudio.addEventListener('play', function(){ dwHighlightLine(dwAudio.currentTime); });
+  dwAudio.addEventListener('pause', function(){ dwLineEls.forEach(function(el){ el.classList.remove('dw-active'); }); });
+  dwAudio.addEventListener('ended', function(){ dwLineEls.forEach(function(el){ el.classList.remove('dw-active'); }); });
+
+  var dwQuiz = [
+    {q:"Wie heißt das Mädchen im Dialog?", opts:["Lena","Mia","Sara"], correct:1},
+    {q:"Wie alt sind Mia und Tom?", opts:["15 Jahre","14 Jahre","13 Jahre"], correct:1},
+    {q:"Woher kommt Mia?", opts:["Berlin","München","Hamburg"], correct:2},
+    {q:"Was ist Toms Hobby?", opts:["Lesen","Fußball","Gitarre"], correct:1},
+    {q:"Warum freuen sich Mia und Tom am Ende besonders?", opts:["Sie haben Geburtstag","Sie sind in derselben Klasse","Sie wohnen im selben Haus"], correct:1}
+  ];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var html = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        html += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = html;
+      wrap.appendChild(block);
+    });
+  }
+
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

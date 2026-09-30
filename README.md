@@ -261,6 +261,19 @@ fortgeschritten/
                                          9.–10. trinn-nivå (A2/B1) — selve sidene bor i
                                          sin naturlige seksjon (f.eks. grammatikk/artikler/dativ/),
                                          og lenkes hit med .dw-level-tag-merket
+wichtige-themen/
+├── index.html                        → hub: 3 kort (8./9./10. klasse)
+├── 8-klasse/
+│   ├── index.html                    → hub: 7 temaer (1 bygget, 6 dw-soon)
+│   └── die-einfache-unterhaltung/
+│       ├── index.html                → Mia/Tom-dialogen: lydspiller med
+│       │                                omtrentlig tekstsynkronisering,
+│       │                                gloser, ord/uttrykk, quiz, skriveoppgave
+│       └── audio.mp3                 → ElevenLabs-innspilling, 57,47 sek
+├── 9-klasse/
+│   └── index.html                    → venteside, ingen temaer bestemt ennå
+└── 10-klasse/
+    └── index.html                    → venteside, ingen temaer bestemt ennå
 ```
 
 `grammatikk/artikler/dativ/` (🧭 Der Dativ-Kompass) er det første ferdigbygde
@@ -296,10 +309,15 @@ og Verb er delt tydelig i verbtider (Presens er bygget, resten er planlagt
 `dw-soon`-kort), akkurat som etterspurt. Se «Slik legger du til et nytt
 grammatikktema» lenger ned for konkret oppskrift på nye kort i riktig kategori.
 
-**Om toppnavigasjonen:** den har fortsatt 16 punkter (🏠 Forside ·
+**Om toppnavigasjonen:** den har nå 17 punkter (🏠 Forside ·
 🧩 Grammatik · 🏙️ Städte · 🕰️ Geschichte · 📖 Lesen · 🎧 Hören · ✍️ Schreiben ·
 🗺️ Reise · 🏆 Challenges · 🎬 Filme & Serien · 🎵 Musik · 🌍 Länder ·
-🎩 Normen & Regler · 📱 Deutsch im echten Leben · 🗣️ Sprechen · 🎓 9.–10. trinn —
+🎩 Normen & Regler · 📱 Deutsch im echten Leben · 🗣️ Sprechen ·
+⭐ Wichtige Themen · 🎓 9.–10. trinn — sistnevnte fikk følgeskap av
+⭐ Wichtige Themen rett foran seg i runden «Wichtige Themen (ny seksjon)»
+(se lenger ned), satt inn med et Python-script som gjenbrukte relativ
+sti-prefiks fra hver fils eksisterende 🎓-lenke for å garantere riktig
+dybde i alle 148 HTML-filer —
 punktet som pekte rett til `deutschland/` (🇩🇪 Deutschland) peker nå i stedet til
 `laender/` (🌍 Länder), se «Om Länder-seksjonen» lenger ned) og bruker `flex-wrap` i
 `assets/style.css`, så den bryter fint til to-tre linjer på smale skjermer.
@@ -1439,6 +1457,16 @@ Full verifisering: `node --check` på alle 4 nye script-blokker og de 2 berørte
 `lesen/wikisource/index.html` har nå 8 av 11 tekster bygget (opp fra 4): Brot zu Stein geworden og Der Zahnarzt er flyttet fra `dw-soon` til ekte kort under 9. trinn, John Maynard og Die Lorelei det samme under 10. trinn. Kannitverstan, Der Handschuh og Vor dem Gesetz venter fortsatt som `dw-soon` — samme praksis som før: bygges når/hvis Teach limer inn teksten. Søkeindeksen (`index.html` i rot) fikk 4 nye oppføringer, ingen nøkkelkollisjoner funnet.
 
 Full verifisering: alle 4 nye script-blokker sjekket med `node --check` (0 feil), balansert `<div>`/`</div>`-telling per fil (0 avvik), og en full lenke-integritetssjekk av alle 143 HTML-filer i hele nettstedet (0 ekte brutte lenker — treffet på `'+hit.target+'` i rotens `index.html` er en JS-malstreng, ikke en ekte lenke).
+
+**Wichtige Themen (ny seksjon) — første innspilte dialog med lydsynkronisert tekst.** Teach hadde fått Mia/Tom-dialogen «Die einfache Unterhaltung» (fra TTS-manus-runden, se over) lest inn i ElevenLabs (stemmene «Ava» og «Odeon», Text to Dialogue) og lastet opp den ferdige lydfilen (57,47 sekunder). Hun ba om en helt ny toppnivå-seksjon «Wichtige Themen» med undersider for 8./9./10. klasse, og at den første dialogen skulle bygges inn med introtekst, ord/uttrykk, lydavspilling, tekst som «markeres samstemt med lydfilen», hover-glosser, og noen småoppgaver — med en eksplisitt åpning for at synkroniseringen kunne vise seg for vanskelig.
+
+Ærlig svar om synkroniseringen: ekte, ord-for-ord-nøyaktig synkronisering krever talegjenkjenning (ASR) som kan tidsstemple hver replikk mot lydbølgen. Dette miljøet har ikke tilgang til det — både OpenAI Whisper sine modellvekter (`openaipublic.azureedge.net`) og Hugging Face (`huggingface.co`) er blokkert av sandkassens nettverkspolicy, bekreftet med direkte `curl`-testing (403/`connect_rejected`). Et forsøk på ren stillhets-deteksjon (`ffmpeg silencedetect`) ga heller ikke pålitelige linjegrenser — den fant ~46 pauser mot ~26 forventede replikkoverganger, uten tydelig skille mellom "pause mellom replikker" og "komma midt i en setning". Løsningen ble derfor en **proporsjonal tidsestimering**: hver replikks starttidspunkt er beregnet ut fra tekstlengden (med et lite fast tillegg per replikk så korte ord som «Hallo!» ikke får null varighet), skalert slik at summen alltid treffer lydfilens faktiske lengde nøyaktig (57,469375 sek, bekreftet med `ffprobe`), med en anslått pause på 0,22 sek mellom hver replikk. Dette gir en rimelig, men **omtrentlig** synkronisering — ikke bildeperfekt — og det står tydelig forklart i en note-boks direkte på siden, rett under lydspilleren, så elevene (og Teach) vet hva de ser.
+
+`wichtige-themen/8-klasse/die-einfache-unterhaltung/index.html` viser dialogen som chatteboble-replikker (Mia venstrejustert i blått, Tom høyrejustert i rødbrunt), der replikken som spilles nå får en gul kant/bakgrunn via `<audio>`-elementets `timeupdate`-hendelse. Man kan også trykke direkte på en replikk-boble for å hoppe dit i lyden (`audio.currentTime = replikk.start`). Et utvalg ord i replikkene (f.eks. «vierzehn», «ganz in der Nähe», «Klassenzimmer», «derselben», «das freut mich») har `.dw-gloss`-tooltip med norsk oversettelse, samme mønster som Wikisource-sidene. Under samtalen ligger en «Ord og uttrykk»-seksjon som gjenbruker de 8 uttrykkskategoriene fra Word-manuset (hilse, wie geht's, navn, alder, kommer fra, bosted, hobby, avskjed), pluss seks ekstra fraser hentet direkte fra teksten. Til slutt en 5-spørsmuls forståelsesquiz og en skriveoppgave («lag din egen mini-samtale») med ordteller og kopier-knapp.
+
+`wichtige-themen/index.html` (hub, 3 kort) og `wichtige-themen/8-klasse/index.html` (hub, 7 temaer — kun «Die einfache Unterhaltung» bygget, de resterende seks fra Teachs opprinnelige liste ligger som `dw-soon`) følger samme kort-mønster som resten av siden. `9-klasse/` og `10-klasse/` er rene venteside-stubber siden Teach ikke har bestemt temaer for de trinnene ennå. Toppnavigasjonen fikk et nytt punkt (⭐ Wichtige Themen) satt inn i alle 148 HTML-filer (se over), forsiden fikk et nytt kort, og søkeindeksen fikk 2 nye oppføringer — ingen nøkkelkollisjoner funnet.
+
+Full verifisering: `node --check` på det nye script-blokken (0 feil, etter å ha luket ut en falsk positiv fra en `<script>`-omtale inni en HTML-kommentar), alle 148 sider verifisert med riktig relativ sti til den nye seksjonen via automatisk generert lenke-prefiks (stikkprøver på dybde 0/2/3 kontrollert manuelt), en lokal HTTP-server som bekreftet 200 OK på alle nye sider og på lydfilen, og en Playwright-gjennomgang med skjermbilder av forsiden, hub-siden og den nye dialogsiden. Highlight-logikkens indeksberegning ble testet direkte i nettleseren mot fem tidspunkt (0/5/22/40/56 sek) og traff riktig replikk hver gang.
 
 ## Slik legger du til en ny seksjon
 
