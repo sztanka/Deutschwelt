@@ -1555,6 +1555,19 @@ Full verifisering: `node --check` på begge nye script-blokker (0 feil), en loka
 
     Full verifisering: `node --check` på datafilen og sidens inline JS (0 feil), en automatisk konsistenssjekk som bekreftet at alle 225 ord og alle 245 godkjente svarvarianter normaliserer til seg selv korrekt, lokal HTTP-server bekreftet 200 OK på siden og datafilen, en full lenke-integritetssjekk av alle 157 HTML-filer (0 ekte brudd), og en Playwright-gjennomgang som testet riktig svar (grønn hake + låst felt), feil svar ved fokustap (rød kant), en alternativ stavemåte («ben» for «Bein»), nullstilling og fasit-visning — alt fungerte som forventet.
 
+**Forsiden redesignet: fra sitemap-grid til oppdagelses-dashboard.** Forsiden hadde vokst til 19 like store kort i ett langt rutenett — all funksjonalitet var der, men hierarkiet var borte. Ingen eksisterende lenker, data eller funksjoner (søk, `dwIndex`, Wortschatz der Woche) ble fjernet — kun presentasjonen ble bygget om, i seks lag:
+
+    1. **Hero** — uendret innhold (tittel, søkefelt, DACH-flaggvelger), men lagt til to CTA-knapper: «🚀 Los geht's» (ankerlenke til ferdighets-seksjonen) og «🎲 Überrasche mich!» (hopper til et tilfeldig, allerede bygget sted — velger tilfeldig blant alle oppføringer i `dwIndex` med `built:true`).
+    2. **Velg en ferdighet** — Sprechen/Hören/Lesen/Schreiben løftet ut som fire store, likestilte kort øverst, siden disse fire ferdighetene er kjernen i faget.
+    3. **DACH-verden** — Städte-, Länder- og landsside-kortene (Deutschland/Österreich/Schweiz) slått sammen til tre fargede «landpaneler» med klikkbare by-piller (11 byer totalt) pluss en lenke videre til det eksisterende plasser-byene-selv-kartet i `laender/`. Ikke et geografisk nøyaktig kart — et stilisert reisekart-uttrykk, for å unngå et amatørmessig forsøk på presis kartografi.
+    4. **Heute auf Deutschwelt** — fire roterende fliser (Challenge des Tages → `challenges/taegliche-herausforderung/`, Stadt des Tages → en av de 11 byene, Film/Serie des Tages → en av de 8 filmene/seriene, Wort der Woche → samme `dwWeeks`-datasett som tickeren før). By/film velges deterministisk ut fra dag-i-året (`dwDayIndex`), så alle besøkende ser samme anbefaling samme dag, og den bytter automatisk neste dag — uten backend. Den gamle horisontalt rullende Wortschatz-tickeren er fjernet til fordel for denne ene rolige flisen, som fortsatt lenker til `grammatikk/wortschatz-woche/`.
+    5. **Deine Mission** — ett stort, fremhevet kort («Eine Reise durch Deutschland») som presenterer det eksisterende Reise-innholdet (`reiseplanlegger/`, `koffer/`, `reisetagebuch/`) som tre nummererte steg i ett oppdrag, med en tydelig «Start oppdraget»-knapp til `reise/`.
+    6. **Utforsk mer** — de resterende 12 seksjonene samlet i fire kompakte kategori-kort med korte lenkelister (Sprache, Entdecken, Medien, Extras) i stedet for 12 like store kort.
+
+    Teknisk: `dwIndex` (179 oppføringer, 550 nøkler) og `dwWeeks` (50 uker) er bevart helt uendret og gjenbrukt direkte fra det gamle scriptet — kun `dwSearch` sin DOM-tilkobling og en ny `dwBuildHeute()`-funksjon ble lagt til. By-pillene inni landpanelene bruker `onclick` med `event.preventDefault()` + `event.stopPropagation()` for å navigere til riktig by uten at klikket også trigger landpanelets egen lenke (en reell bug ble funnet og rettet her under testing — `stopPropagation()` alene stoppet ikke den omsluttende `<a>`-taggens native navigasjon, kun `preventDefault()` gjør det).
+
+    Full verifisering: `node --check` på hele det nye scriptet (0 feil), en automatisk sjekk som bekreftet at alle 179 `dwIndex`-oppføringer, 550 nøkler og 50 `dwWeeks`-uker er identiske med før redesignet (kun ett pre-eksisterende, kjent duplikat), en full lenke-integritetssjekk av alle ~3700 lokale lenker i hele nettstedet (0 ekte brudd), en `dw-nav-active`-sjekk (uendret — samme to pre-eksisterende sider som før), og en omfattende Playwright-gjennomgang: ingen JS-konsolfeil, søkefunksjonen fungerer uendret, alle 11 by-piller og alle 3 landpanel-lenker navigerer til riktig side, «Los geht's» scroller til riktig seksjon, «Überrasche mich!» ble testet flere ganger og landet hver gang på en ekte, fungerende side (200 OK), og skjermbilder ble tatt og visuelt inspisert på desktop- (1400px), nettbrett- (820px) og mobilbredde (390px) for å bekrefte at alle seks seksjoner bryter om til ett system pent.
+
     Full verifisering: `node --check` (0 feil), lokal HTTP-server bekreftet 200 OK på siden og begge lydfiler, og en Playwright-gjennomgang bekreftet at begge `<audio>`-elementenes rapporterte varighet er identisk med `ffprobe`-målingen, samt korrekt highlight-indeks mot flere tidspunkt på begge versjoner.
 
 ## Slik legger du til en ny seksjon
@@ -1858,6 +1871,12 @@ sidene og bekreftet 0 JavaScript-feil og ingen HTTP-feil.
   oversikt over elevsvar krever en database/backend — dette er utenfor
   hva et rent statisk nettsted kan gjøre, og må eventuelt løses med en
   enkel tilleggstjeneste senere.
+- **«Heute auf Deutschwelt» (Stadt/Film des Tages) bruker elevens egen
+  klokke, ikke en server.** Rotasjonen regnes ut fra `new Date()` i
+  nettleseren, så en elev med feil dato/klokkeslett innstilt på
+  enheten sin kan se en annen anbefaling enn klassekameratene — dette
+  påvirker kun hvilken by/film som fremheves, ikke noe annet
+  funksjonalitet, og alle forslagene er uansett ekte, fungerende sider.
 - **«Die Verwandlung», Dritter Teil, er ikke 100 % komplett.** Kun de tre
   første avsnittene kunne hentes ordrett fra kilden denne runden (se
   Klassikere-runden over for detaljer). Siden viser den ordrette teksten
