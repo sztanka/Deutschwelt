@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Zahlen (tall, ordenstall, årstall og klokka)
+  Oversiktsside + "Tall-søker": eleven skriver et tall (eller årstall, dato, klokkeslett,
+  beløp) og får vite hvordan det skrives/sies på tysk. Motoren (DWZ) lager alle ordene
+  med regler i JavaScript — ingen ekstern data, ingen backend. Se README.md.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zahlen · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:980px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:32px 26px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.9rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{font-size:.85rem;color:var(--dw-muted);margin:0 2px 14px;}
+  .dw-crumb a{color:var(--dw-primary-light);font-weight:600;text-decoration:none;}
+
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;}
+  .dw-jump a{
+    font-size:.84rem;font-weight:700;padding:6px 14px;border-radius:999px;border:1.5px solid #e4dfd2;
+    background:#fff;color:var(--dw-text);text-decoration:none;
+  }
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+
+  .dw-box{
+    background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);
+    padding:20px 22px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:22px;
+  }
+  .dw-sec{scroll-margin-top:72px;margin-top:34px;}
+  .dw-sec h2{margin:0 0 4px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.45rem;color:var(--dw-primary);}
+  .dw-sec .dw-lead{margin:0 0 14px;color:var(--dw-muted);font-size:.94rem;line-height:1.55;max-width:70ch;}
+  .dw-sec h3{margin:20px 0 8px;font-size:1.02rem;color:var(--dw-primary-light);}
+  .dw-sec p{line-height:1.6;font-size:.95rem;}
+  .dw-irr{color:var(--dw-primary-light);font-weight:800;}
+
+  /* ---------- Tall-søker ---------- */
+  .dw-find h2{margin:0 0 4px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.35rem;color:var(--dw-primary);}
+  .dw-find p.dw-lead{margin:0 0 12px;font-size:.9rem;color:var(--dw-muted);}
+  #dw-z-input{
+    width:100%;font-size:1.2rem;padding:14px 22px;border-radius:999px;border:2px solid #ece8df;outline:none;background:#fff;color:var(--dw-text);
+  }
+  #dw-z-input:focus{border-color:var(--dw-accent);}
+  .dw-ex{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px;align-items:center;font-size:.8rem;color:var(--dw-muted);}
+  .dw-ex button{
+    font-family:inherit;font-size:.82rem;font-weight:700;padding:5px 12px;border-radius:999px;border:1.5px solid #e4dfd2;background:#fff;color:var(--dw-text);cursor:pointer;
+  }
+  .dw-ex button:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  #dw-z-out{margin-top:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;}
+  .dw-res{background:var(--dw-bg);border:1px solid #ece8df;border-radius:14px;padding:14px 16px;position:relative;}
+  .dw-res.dw-wide{grid-column:1/-1;}
+  .dw-res-t{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--dw-muted);margin-bottom:6px;}
+  .dw-res-w{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.35rem;font-weight:700;color:var(--dw-primary-light);overflow-wrap:anywhere;-webkit-hyphens:auto;hyphens:auto;line-height:1.25;}
+  .dw-res-s{overflow-wrap:anywhere;}
+  .dw-res-w.dw-sm{font-size:1.1rem;}
+  .dw-res-alt{font-size:.85rem;color:var(--dw-muted);margin-top:2px;}
+  .dw-res-s{font-size:.86rem;line-height:1.5;margin-top:6px;color:var(--dw-text);}
+  .dw-res-s em{font-style:normal;font-weight:700;}
+  .dw-say{
+    position:absolute;top:10px;right:12px;border:1.5px solid #e4dfd2;background:#fff;border-radius:999px;font-size:.9rem;padding:2px 9px;cursor:pointer;
+  }
+  .dw-say:hover{border-color:var(--dw-accent);}
+  .dw-msg{grid-column:1/-1;color:var(--dw-muted);font-size:.92rem;padding:6px 2px;line-height:1.55;}
+  .dw-msg.dw-bad{color:var(--dw-bad);}
+  .dw-clock{float:right;margin:0 0 0 12px;}
+  .dw-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#fff;border:1px solid #ece8df;border-radius:999px;padding:2px 9px;color:var(--dw-muted);margin-right:4px;}
+
+  /* ---------- Tabeller / rutenett ---------- */
+  .dw-numgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;}
+  .dw-num{background:var(--dw-card);border:1px solid #ece8df;border-radius:12px;padding:10px 12px;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+  .dw-num .dw-d{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:1.25rem;color:var(--dw-accent);line-height:1;}
+  .dw-num .dw-de{font-weight:700;font-size:1rem;margin-top:2px;}
+  .dw-num .dw-no{font-size:.78rem;color:var(--dw-muted);}
+  .dw-num .dw-pr{font-size:.74rem;color:var(--dw-primary-light);}
+  .dw-tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;}
+  table.dw-t{border-collapse:collapse;width:100%;background:var(--dw-card);font-size:.92rem;}
+  table.dw-t th,table.dw-t td{padding:8px 12px;border-bottom:1px solid #efece4;text-align:left;vertical-align:top;}
+  table.dw-t th{background:#fbfaf6;font-size:.76rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);white-space:nowrap;}
+  table.dw-t td.dw-n{font-weight:800;color:var(--dw-accent);white-space:nowrap;}
+  table.dw-t td.dw-de{font-weight:700;}
+  table.dw-t td.dw-no{color:var(--dw-muted);}
+  table.dw-t.dw-mx td{font-size:.82rem;padding:6px 8px;white-space:nowrap;}
+  table.dw-t.dw-mx td b{color:var(--dw-accent);margin-right:4px;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:12px 16px;font-size:.9rem;line-height:1.6;margin:14px 0;}
+  .dw-tip strong{color:var(--dw-primary);}
+  .dw-warn{background:#fdecee;border:1px solid #f2c0c7;border-radius:12px;padding:12px 16px;font-size:.9rem;line-height:1.6;margin:14px 0;}
+  .dw-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;}
+  .dw-mini{background:var(--dw-card);border:1px solid #ece8df;border-radius:14px;padding:14px 16px;font-size:.9rem;line-height:1.6;}
+  .dw-mini h3{margin:0 0 6px;font-size:1rem;color:var(--dw-primary-light);}
+  .dw-mini .dw-ex-de{font-weight:700;}
+  details.dw-det{margin:12px 0;}
+  details.dw-det summary{cursor:pointer;font-weight:700;color:var(--dw-primary-light);font-size:.92rem;padding:6px 0;}
+  .dw-now{display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:var(--dw-card);border:1px solid #ece8df;border-radius:14px;padding:12px 16px;margin:14px 0;}
+  .dw-now b{color:var(--dw-primary-light);}
+
+  /* ---------- Øvelse ---------- */
+  .dw-prac-top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px;}
+  .dw-prac-top select{font-family:inherit;font-size:.92rem;padding:8px 12px;border-radius:10px;border:2px solid #ece8df;background:#fff;}
+  .dw-score{font-size:.88rem;font-weight:700;color:var(--dw-muted);}
+  .dw-q{display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:center;margin:10px 0 14px;min-height:90px;}
+  .dw-q-big{font-family:"Baloo 2",sans-serif;font-size:2.4rem;font-weight:800;color:var(--dw-primary);line-height:1.1;}
+  .dw-q-hint{font-size:.85rem;color:var(--dw-muted);text-align:center;margin-bottom:8px;}
+  .dw-inp-wrap{position:relative;display:flex;align-items:center;max-width:560px;margin:0 auto;}
+  #dw-p-input{
+    width:100%;font-family:inherit;font-size:1.05rem;padding:12px 40px 12px 18px;border-radius:999px;border:2px solid #ece8df;outline:none;background:#fff;
+  }
+  #dw-p-input.dw-ok{border-color:var(--dw-good);background:#eef7ee;color:var(--dw-good);font-weight:700;}
+  #dw-p-input.dw-wrong{border-color:var(--dw-bad);}
+  .dw-pcheck{position:absolute;right:16px;color:var(--dw-good);font-weight:800;font-size:1.2rem;opacity:0;transition:opacity .15s;}
+  #dw-p-input.dw-ok ~ .dw-pcheck{opacity:1;}
+  .dw-prac-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px;}
+  .dw-btn{font-family:inherit;font-size:.86rem;font-weight:700;padding:7px 16px;border-radius:999px;border:1.5px solid #e4dfd2;background:#fff;color:var(--dw-text);cursor:pointer;}
+  .dw-btn:hover{border-color:var(--dw-accent);}
+  .dw-btn.dw-solid{background:var(--dw-primary-light);border-color:var(--dw-primary-light);color:#fff;}
+  .dw-umlaut{display:flex;gap:6px;justify-content:center;margin-top:10px;font-size:.8rem;color:var(--dw-muted);align-items:center;}
+  .dw-umlaut button{font-family:inherit;font-size:1rem;font-weight:700;min-width:38px;padding:4px 10px;border-radius:8px;border:1.5px solid #ece8df;background:#fff;cursor:pointer;}
+  #dw-p-fb{text-align:center;min-height:1.6em;margin-top:10px;font-weight:700;}
+  #dw-p-fb.dw-good{color:var(--dw-good);}
+  #dw-p-fb.dw-info{color:var(--dw-muted);font-weight:600;}
+
+  .dw-footer{text-align:center;margin-top:34px;font-size:.82rem;color:var(--dw-muted);line-height:1.6;}
+  .dw-footer a{color:var(--dw-primary-light);}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.55rem;}
+    .dw-box{padding:16px 14px;}
+    .dw-clock{float:none;display:block;margin:0 auto 8px;}
+    .dw-q-big{font-size:1.9rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>🔢 Zahlen</h1>
+    <p>Tall, ordenstall, årstall og klokka — og en søker som skriver tallet med ord</p>
+  </div>
+
+  <p class="dw-crumb"><a href="../">🧩 Grammatik</a> → Zahlen</p>
+
+  <!-- ================== TALL-SØKER ================== -->
+  <div class="dw-box dw-find" id="dw-finder">
+    <h2>🔎 Tall-søker</h2>
+    <p class="dw-lead">Skriv et tall, et årstall, en dato, et klokkeslett eller et beløp — så får du vite hvordan det sies og skrives på tysk. Du kan også skrive et tysk tallord (f.eks. <em>dreiundzwanzig</em>) og få tallet tilbake.</p>
+    <input type="text" id="dw-z-input" placeholder="f.eks. 17, 1984, 3.10., 14:30, 12,50 €, dreiundzwanzig" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Skriv et tall, årstall, dato, klokkeslett eller beløp">
+    <div class="dw-ex" id="dw-z-ex">
+      <span>Prøv:</span>
+      <button type="button" data-q="17">17</button>
+      <button type="button" data-q="42">42</button>
+      <button type="button" data-q="100">100</button>
+      <button type="button" data-q="1984">1984</button>
+      <button type="button" data-q="2026">2026</button>
+      <button type="button" data-q="3.">3.</button>
+      <button type="button" data-q="17.5.">17.5.</button>
+      <button type="button" data-q="14:30">14:30</button>
+      <button type="button" data-q="9:45">9:45</button>
+      <button type="button" data-q="12,50 €">12,50 €</button>
+      <button type="button" data-q="3,14">3,14</button>
+      <button type="button" data-q="1.234.567">1.234.567</button>
+      <button type="button" data-q="dreiundzwanzig">dreiundzwanzig</button>
+    </div>
+    <div id="dw-z-out" aria-live="polite"></div>
+  </div>
+
+  <nav class="dw-jump" aria-label="Hopp til">
+    <a href="#tall">1 · Tall 0–100</a>
+    <a href="#store">2 · Store tall</a>
+    <a href="#orden">3 · Ordenstall</a>
+    <a href="#aar">4 · Årstall</a>
+    <a href="#klokka">5 · Klokka</a>
+    <a href="#hverdag">6 · Hverdagen</a>
+    <a href="#oev">7 · Øv selv</a>
+  </nav>
+
+  <!-- ================== 1. TALL 0–100 ================== -->
+  <section class="dw-sec" id="tall">
+    <h2>1 · Tallene 0–100</h2>
+    <p class="dw-lead">Lær tallene 0–20 godt — alle de andre bygges av dem. Rosa tekst under er uttale i «norsk skrift».</p>
+    <div class="dw-numgrid" id="dw-grid-20"></div>
+
+    <div class="dw-cols" style="margin-top:16px">
+      <div class="dw-mini">
+        <h3>1: «eins» eller «ein»?</h3>
+        Når du teller, sier du <span class="dw-ex-de">eins, zwei, drei …</span> Foran et substantiv blir det <span class="dw-ex-de">ein / eine</span>: <span class="dw-ex-de">ein Hund, eine Katze, ein Euro</span>. Klokka 01:00 heter <span class="dw-ex-de">ein Uhr</span> (ikke «eins Uhr»).
+      </div>
+      <div class="dw-mini">
+        <h3>13–19: enere + «-zehn»</h3>
+        13 = <span class="dw-ex-de">drei·zehn</span>, 14 = <span class="dw-ex-de">vier·zehn</span>. Pass på 16 og 17: <span class="dw-ex-de">sechzehn</span> (ikke «sechszehn») og <span class="dw-ex-de">siebzehn</span> (ikke «siebenzehn») — en bokstav faller bort.
+      </div>
+    </div>
+
+    <h3>20, 30, 40 … 100 — tierne</h3>
+    <div class="dw-numgrid" id="dw-grid-tens"></div>
+    <div class="dw-warn"><strong>Pass på:</strong> <span class="dw-irr">dreißig</span> skrives med ß (ikke «dreizig»), og på samme måte som 16 og 17 mister 6 og 7 noen bokstaver: <span class="dw-irr">sechzig</span> og <span class="dw-irr">siebzig</span>.</div>
+
+    <h3>21–99: enerne kommer først!</h3>
+    <div class="dw-tip">
+      <strong>Slik bygger du tallet:</strong> <em>ener + und + tier</em>. 21 = <strong>ein·und·zwanzig</strong> — bokstavelig «en-og-tjue». På norsk sier vi «tjue-en», så på tysk er rekkefølgen snudd. Tallet skrives i <strong>ett</strong> ord: <em>vierundachtzig</em>, <em>neunundneunzig</em>.<br>
+      <strong>Tips:</strong> Nettopp denne rekkefølgen gjør at telefonnumre og priser fort blir feil — på tysk kalles det «Zahlendreher». Les gjerne <a href="../../lesen/die-sms/">Die SMS</a> og hør <a href="../../hoeren/nicos-weg-zahlen-1-bis-100/">Nicos Weg: Zahlen von 1 bis 100</a>.
+    </div>
+    <details class="dw-det">
+      <summary>Vis alle tall fra 21 til 99</summary>
+      <div class="dw-tablewrap"><table class="dw-t dw-mx" id="dw-matrix"></table></div>
+    </details>
+  </section>
+
+  <!-- ================== 2. STORE TALL ================== -->
+  <section class="dw-sec" id="store">
+    <h2>2 · Hundre, tusen og millioner</h2>
+    <p class="dw-lead">Store tall bygges som legoklosser og skrives sammen til ett langt ord (opp til 999 999).</p>
+    <div class="dw-tablewrap"><table class="dw-t" id="dw-big"></table></div>
+    <div class="dw-cols" style="margin-top:16px">
+      <div class="dw-mini">
+        <h3>Ett langt ord</h3>
+        234 = <span class="dw-ex-de">zweihundertvierunddreißig</span>.<br>
+        <span class="dw-ex-de">hundert</span> og <span class="dw-ex-de">tausend</span> kan stå alene, eller med <span class="dw-ex-de">ein-</span> foran (<em>einhundert, eintausend</em>) — begge deler er riktig.
+      </div>
+      <div class="dw-mini">
+        <h3>Million og Milliarde</h3>
+        Dette er <strong>substantiver</strong>: de skrives for seg, med stor bokstav, og får flertall — <span class="dw-ex-de">eine Million, zwei Millionen</span>. <span class="dw-ex-de">Eine Milliarde</span> = 1 000 000 000 (norsk «milliard»), <span class="dw-ex-de">eine Billion</span> = 10¹² (norsk «billion») — i engelsk betyr «billion» noe annet!
+      </div>
+      <div class="dw-mini">
+        <h3>Komma og punktum</h3>
+        Tysk bruker <strong>komma</strong> som desimaltegn og <strong>punktum</strong> (eller mellomrom) som tusenskille: <span class="dw-ex-de">1.234,56</span>. Det leses «eintausendzweihundertvierunddreißig Komma fünf sechs» — desimalene leses ett og ett siffer.
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== 3. ORDENSTALL ================== -->
+  <section class="dw-sec" id="orden">
+    <h2>3 · Ordenstall</h2>
+    <p class="dw-lead">Første, andre, tredje … Brukes til datoer, rekkefølge og bursdager. På tysk skrives de med punktum: <strong>1.</strong> <strong>2.</strong> <strong>3.</strong></p>
+    <div class="dw-cols">
+      <div class="dw-mini">
+        <h3>1.–19.: tall + «-te»</h3>
+        4. = <span class="dw-ex-de">vierte</span>, 11. = <span class="dw-ex-de">elfte</span>, 13. = <span class="dw-ex-de">dreizehnte</span>.<br>
+        Fire må du lære: <span class="dw-irr">erste</span> (1.), <span class="dw-irr">dritte</span> (3.), <span class="dw-irr">siebte</span> (7.) og <span class="dw-irr">achte</span> (8., bare ett t).
+      </div>
+      <div class="dw-mini">
+        <h3>Fra 20.: tall + «-ste»</h3>
+        20. = <span class="dw-ex-de">zwanzigste</span>, 21. = <span class="dw-ex-de">einundzwanzigste</span>, 100. = <span class="dw-ex-de">hundertste</span>.
+      </div>
+      <div class="dw-mini">
+        <h3>De bøyes som adjektiv</h3>
+        <span class="dw-ex-de">der erste Tag</span> · <span class="dw-ex-de">die zweite Woche</span> · <span class="dw-ex-de">das dritte Mal</span><br>
+        Etter «am» (Dativ) får de <em>-en</em>: <span class="dw-ex-de">am ersten Mai</span>, <span class="dw-ex-de">am dritten Oktober</span>.
+      </div>
+    </div>
+
+    <h3>Datoer: dag og måned</h3>
+    <p style="margin-top:0">Spørsmålet er <strong>«Der Wievielte ist heute?»</strong> («Hvilken dato er det i dag?») — svaret er <em>«Heute ist der dritte Oktober.»</em> Skriver du det med tall: <em>«am 3. Oktober»</em>, men leser det som <em>«am dritten Oktober»</em>.</p>
+    <div class="dw-tablewrap"><table class="dw-t" id="dw-feiertage"></table></div>
+
+    <h3>1.–31. — alle datoene</h3>
+    <div class="dw-numgrid" id="dw-ord-grid"></div>
+
+    <h3>Månedene</h3>
+    <div class="dw-numgrid" id="dw-months"></div>
+  </section>
+
+  <!-- ================== 4. ÅRSTALL ================== -->
+  <section class="dw-sec" id="aar">
+    <h2>4 · Årstall</h2>
+    <p class="dw-lead">Årstall sies annerledes enn vanlige tall: 1100–1999 deles i «hundre-tall» (som på norsk: nitten-hundre-og-…), mens 2000 og senere sies som vanlige tall.</p>
+    <div class="dw-cols">
+      <div class="dw-mini">
+        <h3>1100–1999: «hundre-tall»</h3>
+        1984 = <span class="dw-ex-de">neunzehnhundertvierundachtzig</span> (19 · hundert · 84).<br>
+        1900 = <span class="dw-ex-de">neunzehnhundert</span>.
+      </div>
+      <div class="dw-mini">
+        <h3>Fra 2000: vanlig tall</h3>
+        2026 = <span class="dw-ex-de">zweitausendsechsundzwanzig</span>.<br>
+        Ikke «zwanzig sechsundzwanzig» som på engelsk.
+      </div>
+      <div class="dw-mini">
+        <h3>Slik bruker du dem</h3>
+        <span class="dw-ex-de">im Jahr 1989</span> eller bare <span class="dw-ex-de">1989</span> — ikke «in 1989».<br>
+        <span class="dw-ex-de">Ich bin 2012 geboren.</span><br>
+        <span class="dw-ex-de">in den Neunzigern</span> = på 90-tallet.
+      </div>
+    </div>
+    <h3>Eksempler</h3>
+    <div class="dw-tablewrap"><table class="dw-t" id="dw-years"></table></div>
+  </section>
+
+  <!-- ================== 5. KLOKKA ================== -->
+  <section class="dw-sec" id="klokka">
+    <h2>5 · Klokka</h2>
+    <p class="dw-lead">Tyskerne har to måter å si klokka på: den <strong>offisielle</strong> (24 timer — brukes i tog, radio, TV og timeplaner) og den <strong>uformelle</strong> (12 timer — slik vi snakker til hverandre).</p>
+
+    <div class="dw-cols">
+      <div class="dw-mini">
+        <h3>Spørre og svare</h3>
+        <span class="dw-ex-de">Wie spät ist es?</span> / <span class="dw-ex-de">Wie viel Uhr ist es?</span><br>
+        → <span class="dw-ex-de">Es ist halb vier.</span><br>
+        <span class="dw-ex-de">Um wie viel Uhr beginnt der Film?</span><br>
+        → <span class="dw-ex-de">Um Viertel nach acht.</span>
+      </div>
+      <div class="dw-mini">
+        <h3>Offisielt (24 timer)</h3>
+        Tall + <em>Uhr</em> + minutter:<br>
+        14:30 = <span class="dw-ex-de">vierzehn Uhr dreißig</span><br>
+        18:45 = <span class="dw-ex-de">achtzehn Uhr fünfundvierzig</span><br>
+        01:00 = <span class="dw-ex-de">ein Uhr</span><br>
+        00:05 = <span class="dw-ex-de">null Uhr fünf</span>
+      </div>
+      <div class="dw-mini">
+        <h3>«halb vier» = 3:30!</h3>
+        <span class="dw-ex-de">halb vier</span> betyr <strong>halvveis til fire</strong>, altså <strong>03:30</strong> — akkurat som norsk «halv fire». Pass på: det er IKKE 04:30.
+      </div>
+    </div>
+
+    <div class="dw-now" id="dw-now"></div>
+
+    <h3>Uformelt: klokka 3 — hele timen, steg for steg</h3>
+    <div class="dw-tablewrap"><table class="dw-t" id="dw-clock-table"></table></div>
+
+    <div class="dw-cols" style="margin-top:16px">
+      <div class="dw-mini">
+        <h3>nach / vor</h3>
+        <strong>nach</strong> = over, <strong>vor</strong> = på/før: <span class="dw-ex-de">fünf nach drei</span> = fem over tre, <span class="dw-ex-de">fünf vor vier</span> = fem på fire. Etter «halb» telles det videre fra halvtimen: <span class="dw-ex-de">fünf nach halb vier</span> = 3:35.
+      </div>
+      <div class="dw-mini">
+        <h3>Regionalt: «Viertel vier»</h3>
+        I Sør- og Øst-Tyskland sier mange <span class="dw-ex-de">Viertel vier</span> (= 3:15) og <span class="dw-ex-de">dreiviertel vier</span> (= 3:45). Standard i skolen er <span class="dw-ex-de">Viertel nach drei</span> og <span class="dw-ex-de">Viertel vor vier</span>.
+      </div>
+      <div class="dw-mini">
+        <h3>Tider på døgnet</h3>
+        <span class="dw-ex-de">morgens</span> (om morgenen) · <span class="dw-ex-de">vormittags</span> · <span class="dw-ex-de">mittags</span> · <span class="dw-ex-de">nachmittags</span> · <span class="dw-ex-de">abends</span> · <span class="dw-ex-de">nachts</span><br>
+        <span class="dw-ex-de">halb vier nachmittags</span> = 15:30.
+      </div>
+    </div>
+    <p>Se også <a href="../tidsuttrykk/" style="color:var(--dw-primary-light);font-weight:700">Tidsuttrykk</a> (ukedager, måneder og årstider).</p>
+  </section>
+
+  <!-- ================== 6. HVERDAGEN ================== -->
+  <section class="dw-sec" id="hverdag">
+    <h2>6 · Tall i hverdagen</h2>
+    <div class="dw-cols">
+      <div class="dw-mini">
+        <h3>💶 Priser</h3>
+        2,50 € = <span class="dw-ex-de">zwei Euro fünfzig</span><br>
+        0,99 € = <span class="dw-ex-de">neunundneunzig Cent</span><br>
+        <span class="dw-ex-de">Das kostet vierzehn Euro neunzig.</span>
+      </div>
+      <div class="dw-mini">
+        <h3>🎂 Alder</h3>
+        <span class="dw-ex-de">Wie alt bist du?</span><br>
+        → <span class="dw-ex-de">Ich bin vierzehn Jahre alt.</span> / <span class="dw-ex-de">Ich bin vierzehn.</span>
+      </div>
+      <div class="dw-mini">
+        <h3>📞 Telefonnummer</h3>
+        Leses ofte ett og ett siffer eller to og to. <span class="dw-ex-de">Zwei</span> sies ofte <span class="dw-ex-de">zwo</span> i telefonen, så det ikke forveksles med «drei».<br>
+        <span class="dw-ex-de">null eins sieben sechs …</span>
+      </div>
+      <div class="dw-mini">
+        <h3>➕ Regning</h3>
+        <span class="dw-ex-de">Drei plus vier ist sieben.</span><br>
+        <span class="dw-ex-de">Zehn minus drei ist sieben.</span><br>
+        <span class="dw-ex-de">Zwei mal fünf ist zehn.</span><br>
+        <span class="dw-ex-de">Zwölf geteilt durch vier ist drei.</span>
+      </div>
+      <div class="dw-mini">
+        <h3>🌡️ Temperatur og prosent</h3>
+        <span class="dw-ex-de">Es sind minus fünf Grad.</span><br>
+        <span class="dw-ex-de">Zehn Prozent</span> (10 %)
+      </div>
+      <div class="dw-mini">
+        <h3>🏠 Adresse og husnummer</h3>
+        <span class="dw-ex-de">Ich wohne in der Hauptstraße zwölf.</span><br>
+        Postnummeret (PLZ) leses siffer for siffer: 10115 = <em>eins null eins eins fünf</em>.
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== 7. ØV ================== -->
+  <section class="dw-sec" id="oev">
+    <h2>7 · Øv selv</h2>
+    <p class="dw-lead">Velg en øvelse, skriv svaret på tysk (med ord!) og få grønn hake når det er riktig. ß og «ss» godtas begge deler.</p>
+    <div class="dw-box">
+      <div class="dw-prac-top">
+        <label>Øvelse:
+          <select id="dw-p-mode" aria-label="Velg øvelse">
+            <option value="t20">Tall 0–20</option>
+            <option value="t100" selected>Tall 0–100</option>
+            <option value="t1000">Tall 100–1000</option>
+            <option value="tbig">Store tall (over 1000)</option>
+            <option value="ord">Ordenstall 1.–31.</option>
+            <option value="year">Årstall</option>
+            <option value="clk24">Klokka — offisielt (24 t)</option>
+            <option value="clk12">Klokka — uformelt</option>
+          </select>
+        </label>
+        <span class="dw-score" id="dw-p-score">0 riktige</span>
+      </div>
+      <div class="dw-q" id="dw-p-q"></div>
+      <div class="dw-q-hint" id="dw-p-hint"></div>
+      <div class="dw-inp-wrap">
+        <input type="text" id="dw-p-input" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Skriv svaret på tysk">
+        <span class="dw-pcheck">✓</span>
+      </div>
+      <div class="dw-umlaut"><span>Spesialtegn:</span><button type="button" data-ch="ä">ä</button><button type="button" data-ch="ö">ö</button><button type="button" data-ch="ü">ü</button><button type="button" data-ch="ß">ß</button></div>
+      <div id="dw-p-fb" aria-live="polite"></div>
+      <div class="dw-prac-btns">
+        <button type="button" class="dw-btn" id="dw-p-show">👁️ Vis svar</button>
+        <button type="button" class="dw-btn dw-solid" id="dw-p-next">Neste →</button>
+      </div>
+    </div>
+  </section>
+
+  <p class="dw-footer">
+    Alle tallordene på denne siden lages av regler i nettleseren din — ingen data sendes noe sted.
+    Sjekk gjerne med læreren din hvis noe virker rart. Se også <a href="../">Grammatik</a>, <a href="../tidsuttrykk/">Tidsuttrykk</a> og <a href="../wortschatz-woche/">Wortschatz der Woche</a>.
+  </p>
+
+</div>
+
+<script>
+/* ===== Zahlen-kjerne: tall → tyske ord (og tilbake), ordenstall, årstall, klokka ===== */
+var DWZ = (function(){
+  var UNITS = ['null','eins','zwei','drei','vier','fünf','sechs','sieben','acht','neun','zehn','elf','zwölf','dreizehn','vierzehn','fünfzehn','sechzehn','siebzehn','achtzehn','neunzehn'];
+  var TENS  = ['','','zwanzig','dreißig','vierzig','fünfzig','sechzig','siebzig','achtzig','neunzig'];
+  var ORD_TAIL = {
+    'eins':'erste','zwei':'zweite','drei':'dritte','vier':'vierte','fünf':'fünfte','sechs':'sechste','sieben':'siebte','acht':'achte','neun':'neunte',
+    'zehn':'zehnte','elf':'elfte','zwölf':'zwölfte','dreizehn':'dreizehnte','vierzehn':'vierzehnte','fünfzehn':'fünfzehnte','sechzehn':'sechzehnte',
+    'siebzehn':'siebzehnte','achtzehn':'achtzehnte','neunzehn':'neunzehnte'
+  };
+  var ORD_KEYS = Object.keys(ORD_TAIL).sort(function(a,b){ return b.length - a.length; });
+  var MONTHS = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+  var MONTHS_NO = ['januar','februar','mars','april','mai','juni','juli','august','september','oktober','november','desember'];
+
+  function below100(n, bare){
+    if(n < 20) return (n === 1 && !bare) ? 'ein' : UNITS[n];
+    var t = Math.floor(n / 10), u = n % 10;
+    if(u === 0) return TENS[t];
+    return (u === 1 ? 'ein' : UNITS[u]) + 'und' + TENS[t];
+  }
+  function below1000(n, bare){
+    var h = Math.floor(n / 100), r = n % 100, out = '';
+    if(h) out += (h === 1 ? 'ein' : UNITS[h]) + 'hundert';
+    if(r) out += below100(r, bare);
+    return out;
+  }
+  // Grunntall (kardinal). Gyldig 0 .. 999 999 999. opts.attr: «eins» → «ein» på slutten (foran substantiv)
+  function card(n, opts){
+    opts = opts || {};
+    if(n === 0) return 'null';
+    var out;
+    if(n === 100) out = 'hundert';
+    else if(n === 1000) out = 'tausend';
+    else {
+      var parts = [], m = Math.floor(n / 1e6), r = n % 1e6;
+      if(m) parts.push(m === 1 ? 'eine Million' : below1000(m, false) + ' Millionen');
+      if(r){
+        var t = Math.floor(r / 1000), rem = r % 1000, w = '';
+        if(t) w += below1000(t, false) + 'tausend';
+        if(rem) w += below1000(rem, true);
+        parts.push(w);
+      }
+      out = parts.join(' ');
+    }
+    if(opts.attr) out = out.replace(/eins$/, 'ein');
+    return out;
+  }
+  function cardAlt(n){
+    if(n === 100) return 'einhundert';
+    if(n === 1000) return 'eintausend';
+    return '';
+  }
+  // Ordenstall (stamme, f.eks. «dritte»). Gyldig 0 .. 999 999
+  function ord(n){
+    if(n === 0) return 'nullte';
+    var c = card(n).replace(/ /g, '');
+    if(n % 100 >= 1 && n % 100 <= 19){
+      for(var i = 0; i < ORD_KEYS.length; i++){
+        var k = ORD_KEYS[i];
+        if(c.slice(-k.length) === k) return c.slice(0, -k.length) + ORD_TAIL[k];
+      }
+    }
+    return c + 'ste';
+  }
+  // Årstall: 1100–1999 sies som «hundre-tall», ellers vanlig tall
+  function year(n){
+    if(n >= 1100 && n <= 1999){
+      var h = Math.floor(n / 100), r = n % 100;
+      return below100(h, true) + 'hundert' + (r ? below100(r, true) : '');
+    }
+    return card(n);
+  }
+  function decimal(intPart, digits){
+    var out = card(intPart) + ' Komma';
+    for(var i = 0; i < digits.length; i++) out += ' ' + UNITS[parseInt(digits.charAt(i), 10)];
+    return out;
+  }
+  function euro(e, c){
+    // spoken: «zwölf Euro fünfzig» / formal: «zwölf Euro und fünfzig Cent»
+    var us = card(e, {attr:true}) + ' Euro', cs = card(c, {attr:true});
+    if(c === 0) return {spoken:us, formal:us};
+    if(e === 0) return {spoken:cs + ' Cent', formal:cs + ' Cent'};
+    var formal = us + ' und ' + cs + ' Cent';
+    return {spoken: c < 10 ? formal : us + ' ' + cs, formal: formal};
+  }
+  // ----- Klokka -----
+  function hourWord(h){ return card(h, {attr:true}); }
+  function official(h, m){
+    var s = hourWord(h) + ' Uhr';
+    if(m > 0) s += ' ' + card(m);
+    return s;
+  }
+  function informalList(h, m){
+    var h12 = h % 12; if(h12 === 0) h12 = 12;
+    var nx = (h + 1) % 12; if(nx === 0) nx = 12;
+    var H = card(h12), N = card(nx);                    // «eins» (uten Uhr)
+    var res = [];
+    if(m === 0){ res.push(hourWord(h12) + ' Uhr'); return res; }
+    if(m === 5)  res.push('fünf nach ' + H);
+    else if(m === 10) res.push('zehn nach ' + H);
+    else if(m === 15){ res.push('Viertel nach ' + H); res.push('Viertel ' + N); }
+    else if(m === 20){ res.push('zwanzig nach ' + H); res.push('zehn vor halb ' + N); }
+    else if(m === 25){ res.push('fünf vor halb ' + N); res.push('fünfundzwanzig nach ' + H); }
+    else if(m === 30) res.push('halb ' + N);
+    else if(m === 35){ res.push('fünf nach halb ' + N); res.push('fünfundzwanzig vor ' + N); }
+    else if(m === 40){ res.push('zwanzig vor ' + N); res.push('zehn nach halb ' + N); }
+    else if(m === 45){ res.push('Viertel vor ' + N); res.push('dreiviertel ' + N); }
+    else if(m === 50) res.push('zehn vor ' + N);
+    else if(m === 55) res.push('fünf vor ' + N);
+    else if(m < 30) res.push(card(m) + ' nach ' + H);
+    else res.push(card(60 - m) + ' vor ' + N);
+    return res;
+  }
+  function dayPart(h){
+    if(h < 5) return 'nachts';
+    if(h < 10) return 'morgens';
+    if(h < 12) return 'vormittags';
+    if(h === 12) return 'mittags';
+    if(h < 18) return 'nachmittags';
+    if(h < 23) return 'abends';
+    return 'nachts';
+  }
+  // ----- Tysk tallord → tall -----
+  var TOK = [
+    ['null',0],['eins',1],['eine',1],['ein',1],['zwei',2],['drei',3],['vier',4],['fünf',5],['sechs',6],['sieben',7],['acht',8],['neun',9],['zehn',10],['elf',11],['zwölf',12],
+    ['dreizehn',13],['vierzehn',14],['fünfzehn',15],['sechzehn',16],['siebzehn',17],['achtzehn',18],['neunzehn',19],
+    ['zwanzig',20],['dreißig',30],['vierzig',40],['fünfzig',50],['sechzig',60],['siebzig',70],['achtzig',80],['neunzig',90],
+    ['hundert',-100],['tausend',-1000],['millionen',-1e6],['million',-1e6],['und',0.5]
+  ];
+  TOK.sort(function(a,b){ return b[0].length - a[0].length; });
+  function normWord(s){ return s.toLowerCase().replace(/ß/g,'ss').replace(/\s+/g,'').replace(/-/g,''); }
+  function canon(s){ return normWord(s).replace(/einhundert/g,'hundert').replace(/eintausend/g,'tausend').replace(/einemillion/g,'million'); }
+  function parseWords(input){
+    var s = input.toLowerCase().replace(/\s+/g,'').replace(/-/g,'').replace(/ss/g,'ß').replace(/ae/g,'ä').replace(/oe/g,'ö').replace(/ue/g,'ü');
+    // ss→ß kan ødelegge «ss» i sechs? ikke i noen tallord; ae/oe/ue brukes som nødløsning for tastatur
+    if(!s) return null;
+    var pos = 0, toks = [];
+    while(pos < s.length){
+      var hit = null;
+      for(var i = 0; i < TOK.length; i++){
+        var w = TOK[i][0].replace(/ß/g,'ß');
+        if(s.substr(pos, w.length) === w){ hit = TOK[i]; break; }
+      }
+      if(!hit) return null;
+      toks.push(hit[1]); pos += hit[0].length;
+    }
+    var total = 0, sub = 0, cur = 0, any = false;
+    for(var j = 0; j < toks.length; j++){
+      var v = toks[j];
+      if(v === 0.5) continue;
+      if(v >= 0){ cur += v; any = true; }
+      else if(v === -100){ cur = (cur === 0 ? 1 : cur) * 100; any = true; }
+      else if(v === -1000){ sub += (cur === 0 ? 1 : cur) * 1000; cur = 0; any = true; }
+      else { total += (sub + (cur === 0 ? 1 : cur)) * 1e6; sub = 0; cur = 0; any = true; }
+    }
+    if(!any) return null;
+    var n = total + sub + cur;
+    return {n:n, ok: n <= 999999999};
+  }
+  return {card:card, cardAlt:cardAlt, ord:ord, year:year, decimal:decimal, euro:euro, official:official, informalList:informalList, dayPart:dayPart,
+          parseWords:parseWords, canon:canon, normWord:normWord, MONTHS:MONTHS, MONTHS_NO:MONTHS_NO, UNITS:UNITS, TENS:TENS, below100:below100};
+})();
+
+</script>
+<script>
+(function(){
+  var Z = DWZ;
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  var canSpeak = ('speechSynthesis' in window) && ('SpeechSynthesisUtterance' in window);
+  function speak(text){
+    if(!canSpeak) return;
+    try{
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text); u.lang = 'de-DE'; u.rate = 0.9;
+      window.speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  function fmt(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+
+  // ================= STATISK INNHOLD =================
+  var NO20 = ['null','en / ett','to','tre','fire','fem','seks','sju','åtte','ni','ti','elleve','tolv','tretten','fjorten','femten','seksten','sytten','atten','nitten','tjue'];
+  var PRON = {0:'nul',1:'ains',2:'tsvai',3:'drai',4:'fiir',5:'fynf',6:'seks',7:'siiben',8:'akht',9:'noyn',10:'tseen',11:'elf',12:'tsvølf'};
+  var TENS_NO = {20:'tjue',30:'tretti',40:'førti',50:'femti',60:'seksti',70:'sytti',80:'åtti',90:'nitti',100:'hundre'};
+
+  function numCell(n, de, no, pr){
+    return '<div class="dw-num"><div class="dw-d">' + n + '</div><div class="dw-de">' + de + '</div><div class="dw-no">' + no + '</div>' + (pr ? '<div class="dw-pr">[' + pr + ']</div>' : '') + '</div>';
+  }
+  (function buildStatic(){
+    var h = '';
+    for(var i = 0; i <= 20; i++) h += numCell(i, Z.card(i), NO20[i], PRON[i]);
+    $('dw-grid-20').innerHTML = h;
+    h = '';
+    for(var t = 20; t <= 100; t += 10) h += numCell(t, Z.card(t), TENS_NO[t], '');
+    $('dw-grid-tens').innerHTML = h;
+    // matrise 21–99
+    h = '<tbody>';
+    for(var tn = 2; tn <= 9; tn++){
+      h += '<tr>';
+      for(var u = 1; u <= 9; u++){ var n = tn * 10 + u; h += '<td><b>' + n + '</b>' + Z.card(n) + '</td>'; }
+      h += '</tr>';
+    }
+    $('dw-matrix').innerHTML = h + '</tbody>';
+    // store tall
+    var big = [[100,'hundre'],[101,'hundre og en'],[250,'to hundre og femti'],[999,'ni hundre og nittini'],[1000,'tusen'],[1001,'tusen og en'],[1234,'tusen to hundre og tretti fire'],[10000,'ti tusen'],[100000,'hundre tusen'],[2500000,'to millioner fem hundre tusen']];
+    h = '<thead><tr><th>Tall</th><th>Tysk</th><th>Norsk</th></tr></thead><tbody>';
+    big.forEach(function(b){ h += '<tr><td class="dw-n">' + fmt(b[0]) + '</td><td class="dw-de">' + Z.card(b[0]) + '</td><td class="dw-no">' + b[1] + '</td></tr>'; });
+    h += '<tr><td class="dw-n">1&nbsp;000&nbsp;000&nbsp;000</td><td class="dw-de">eine Milliarde</td><td class="dw-no">en milliard</td></tr>';
+    $('dw-big').innerHTML = h + '</tbody>';
+    // ordenstall 1–31
+    h = '';
+    for(var d = 1; d <= 31; d++) h += numCell(d + '.', Z.ord(d), 'am ' + Z.ord(d) + 'n', '');
+    $('dw-ord-grid').innerHTML = h;
+    // måneder
+    h = '';
+    for(var m = 0; m < 12; m++) h += numCell(m + 1, Z.MONTHS[m], Z.MONTHS_NO[m], '');
+    $('dw-months').innerHTML = h;
+    // høytider
+    var fd = [[24,12,'Heiligabend','julaften'],[31,12,'Silvester','nyttårsaften'],[1,5,'Tag der Arbeit','arbeidernes dag'],[17,5,'Norwegens Nationalfeiertag','Norges nasjonaldag'],[3,10,'Tag der Deutschen Einheit','Tysklands enhetsdag']];
+    h = '<thead><tr><th>Dato</th><th>Tysk</th><th>Hva?</th></tr></thead><tbody>';
+    fd.forEach(function(f){ h += '<tr><td class="dw-n">' + f[0] + '. ' + f[1] + '.</td><td class="dw-de">am ' + Z.ord(f[0]) + 'n ' + Z.MONTHS[f[1] - 1] + '</td><td class="dw-no">' + f[2] + ' — ' + f[3] + '</td></tr>'; });
+    $('dw-feiertage').innerHTML = h + '</tbody>';
+    // årstall
+    var yr = [[1517,'Luthers 95 teser'],[1789,'Den franske revolusjon'],[1814,'Norges grunnlov'],[1905,'Unionsoppløsningen'],[1914,'Første verdenskrig begynner'],[1945,'Krigen slutter'],[1989,'Berlinmuren faller'],[1990,'Tysklands gjenforening'],[2000,'Årtusenskiftet'],[2010,''],[2026,'']];
+    h = '<thead><tr><th>Årstall</th><th>Tysk</th><th>Hva skjedde?</th></tr></thead><tbody>';
+    yr.forEach(function(y){ h += '<tr><td class="dw-n">' + y[0] + '</td><td class="dw-de">' + Z.year(y[0]) + '</td><td class="dw-no">' + y[1] + '</td></tr>'; });
+    $('dw-years').innerHTML = h + '</tbody>';
+    // klokketabell 3:00 – 3:55
+    var mins = [0,5,10,15,20,25,30,35,40,45,50,55];
+    var NO_CLK = {0:'klokka tre',5:'fem over tre',10:'ti over tre',15:'kvart over tre',20:'tjue over tre / ti på halv fire',25:'fem på halv fire',30:'halv fire',35:'fem over halv fire',40:'tjue på fire / ti over halv fire',45:'kvart på fire',50:'ti på fire',55:'fem på fire'};
+    h = '<thead><tr><th>Klokka</th><th>Uformelt (tysk)</th><th>Offisielt</th><th>Norsk</th></tr></thead><tbody>';
+    mins.forEach(function(mm){
+      var inf = Z.informalList(3, mm);
+      var tm = '3:' + (mm < 10 ? '0' + mm : mm);
+      h += '<tr><td class="dw-n">' + tm + '</td><td class="dw-de">' + inf.join(' <span style="color:#aaa;font-weight:400">/</span> ') + '</td><td class="dw-no">' + Z.official(3, mm) + '</td><td class="dw-no">' + NO_CLK[mm] + '</td></tr>';
+    });
+    $('dw-clock-table').innerHTML = h + '</tbody>';
+  })();
+
+  // ================= SVG-KLOKKE =================
+  function clockSVG(h, m, size){
+    size = size || 110;
+    var c = size / 2, r = c - 4, i, out = '<svg class="dw-clock" width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + ' ' + size + '" role="img" aria-label="Analog klokke som viser ' + h + ':' + (m < 10 ? '0' + m : m) + '">';
+    out += '<circle cx="' + c + '" cy="' + c + '" r="' + r + '" fill="#fff" stroke="#161616" stroke-width="3"/>';
+    for(i = 0; i < 12; i++){
+      var a = i * 30 * Math.PI / 180, r1 = r - (i % 3 === 0 ? 9 : 5), r2 = r - 1;
+      out += '<line x1="' + (c + r1 * Math.sin(a)).toFixed(1) + '" y1="' + (c - r1 * Math.cos(a)).toFixed(1) + '" x2="' + (c + r2 * Math.sin(a)).toFixed(1) + '" y2="' + (c - r2 * Math.cos(a)).toFixed(1) + '" stroke="#d9a91c" stroke-width="' + (i % 3 === 0 ? 3 : 1.5) + '"/>';
+    }
+    var ha = (((h % 12) * 30) + m * 0.5) * Math.PI / 180, ma = m * 6 * Math.PI / 180;
+    out += '<line x1="' + c + '" y1="' + c + '" x2="' + (c + (r * 0.5) * Math.sin(ha)).toFixed(1) + '" y2="' + (c - (r * 0.5) * Math.cos(ha)).toFixed(1) + '" stroke="#161616" stroke-width="4.5" stroke-linecap="round"/>';
+    out += '<line x1="' + c + '" y1="' + c + '" x2="' + (c + (r * 0.78) * Math.sin(ma)).toFixed(1) + '" y2="' + (c - (r * 0.78) * Math.cos(ma)).toFixed(1) + '" stroke="#9c1329" stroke-width="3" stroke-linecap="round"/>';
+    out += '<circle cx="' + c + '" cy="' + c + '" r="3.5" fill="#161616"/></svg>';
+    return out;
+  }
+
+  // klokka nå
+  (function nowClock(){
+    var d = new Date(), h = d.getHours(), m = d.getMinutes();
+    var inf = Z.informalList(h, m)[0];
+    $('dw-now').innerHTML = clockSVG(h, m, 84).replace('class="dw-clock"', 'style="flex-shrink:0"') +
+      '<div><div style="font-size:.78rem;color:var(--dw-muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em">Wie spät ist es? — akkurat nå (din klokke)</div>' +
+      '<div style="margin-top:4px"><strong>Offiziell:</strong> <b>Es ist ' + esc(Z.official(h, m)) + '.</b></div>' +
+      '<div><strong>Umgangssprachlich:</strong> <b>Es ist ' + esc(inf) + '.</b></div></div>';
+  })();
+
+  // ================= TALL-SØKER =================
+  function card(title, wordHTML, sub, o){
+    o = o || {};
+    var say = (canSpeak && o.say) ? '<button type="button" class="dw-say" data-say="' + esc(o.say) + '" aria-label="Les opp: ' + esc(o.say) + '" title="Lytt">🔊</button>' : '';
+    return '<div class="dw-res' + (o.wide ? ' dw-wide' : '') + '">' + say + '<div class="dw-res-t">' + title + '</div>' + (o.pre || '') +
+      '<div class="dw-res-w' + (o.sm ? ' dw-sm' : '') + '">' + wordHTML + '</div>' + (o.alt ? '<div class="dw-res-alt">' + o.alt + '</div>' : '') +
+      (sub ? '<div class="dw-res-s">' + sub + '</div>' : '') + '</div>';
+  }
+  function msg(t, bad){ return '<div class="dw-msg' + (bad ? ' dw-bad' : '') + '">' + t + '</div>'; }
+
+  function tipFor(n){
+    if(n === 0) return 'Null er «0». Husk også «null Uhr» (midnatt).';
+    if(n === 1) return 'Teller du, sier du <em>eins</em>. Foran et substantiv blir det <em>ein/eine</em>: <em>ein Euro</em>.';
+    if(n >= 13 && n <= 19) return '13–19 bygges med <em>enere + «-zehn»</em>. Pass på <em>sechzehn</em> og <em>siebzehn</em> — en bokstav faller bort.';
+    if(n === 30) return '<em>dreißig</em> skrives med ß (ikke «dreizig»).';
+    if(n === 60 || n === 70 || n === 16 || n === 17) return 'Her faller en bokstav bort: <em>sechs → sech-</em>, <em>sieben → sieb-</em>.';
+    if(n >= 21 && n <= 99 && n % 10 !== 0) return '<em>Enerne først!</em> ' + n + ' = ' + (n % 10 === 1 ? 'ein' : Z.UNITS[n % 10]) + '·und·' + Z.TENS[Math.floor(n / 10)] + ' — ener + und + tier, skrevet i ett ord. På norsk sier vi tieren først (tjue-en), på tysk kommer enerne først.';
+    if(n >= 100 && n < 1000000) return 'Store tall skrives sammen til <strong>ett ord</strong>. «hundert» og «tausend» kan stå med eller uten <em>ein-</em> foran.';
+    if(n >= 1000000) return '<em>Million</em> er et substantiv: skrives for seg, med stor bokstav, og får flertall (<em>zwei Millionen</em>).';
+    return '';
+  }
+
+  function intCards(n, typedOrdinal){
+    var c = [];
+    var w = Z.card(n);
+    var cardC = card('🔢 Grunntall', esc(w), tipFor(n), {say:w, alt: Z.cardAlt(n) ? 'også: ' + esc(Z.cardAlt(n)) : ''});
+    var ordC = '';
+    if(n >= 1 && n <= 999){
+      var o = Z.ord(n);
+      ordC = card('🥇 Ordenstall (' + n + '.)', 'der / die / das ' + esc(o), 'Skrives <em>' + n + '.</em> med punktum. Bøyes som adjektiv: <em>am ' + esc(o) + 'n Tag</em> (Dativ).', {say:o});
+    }
+    var yearC = '';
+    if(n >= 500 && n <= 2999){
+      var y = Z.year(n);
+      yearC = card('📆 Årstall', 'im Jahr ' + esc(y), (n >= 1100 && n <= 1999 ? '1100–1999 sies som <em>«hundre-tall»</em>: ' + Math.floor(n / 100) + ' · hundert · ' + (n % 100) + '.' : 'Fra 2000 sies årstall som vanlige tall.') + ' På tysk sier du «im Jahr …» eller bare årstallet — ikke «in ' + n + '».', {say:'im Jahr ' + y});
+    }
+    var dateC = '';
+    if(n >= 1 && n <= 31){
+      var mo = Z.MONTHS[(n + 4) % 12];
+      dateC = card('🗓️ Dato', 'am ' + esc(Z.ord(n)) + 'n', 'F.eks. <em>' + n + '. ' + mo + '</em> = <em>am ' + esc(Z.ord(n)) + 'n ' + mo + '</em>. «Der ' + esc(Z.ord(n)) + ' ' + mo + '» uten «am».', {say:'am ' + Z.ord(n) + 'n ' + mo});
+    }
+    var clockC = '';
+    if(n >= 0 && n <= 24){
+      var hh = n % 24, inf = Z.informalList(hh, 0)[0];
+      clockC = card('🕐 Klokka', esc(Z.official(hh, 0)), 'Uformelt: <em>' + esc(inf) + '</em>' + (hh > 12 ? ' (' + hh + ':00 = ' + (hh - 12) + ':00 om ettermiddagen/kvelden)' : '') + '. 1:00 heter <em>ein Uhr</em>, ikke «eins Uhr».', {say:Z.official(hh, 0), pre: clockSVG(hh, 0, 70)});
+    }
+    var sentC = '';
+    if(n >= 0 && n <= 999999){
+      var at = Z.card(n, {attr:true}), ln = '';
+      if(n === 1) ln += 'Ich bin <em>ein</em> Jahr alt.';
+      else if(n >= 2 && n <= 120) ln += 'Ich bin <em>' + esc(at) + '</em> Jahre alt.';
+      if(n % 10 === 1 && n % 100 !== 11) ln += (ln ? '<br>' : '') + '<span style="color:var(--dw-muted)">Merk: «eins» → «ein» foran substantiv.</span>';
+      sentC = card('💬 I en setning', 'Das kostet ' + esc(at) + ' Euro.', ln, {sm:true, say:'Das kostet ' + at + ' Euro.'});
+    }
+    if(typedOrdinal) c = [ordC, cardC, dateC, yearC, clockC, sentC];
+    else c = [cardC, ordC, yearC, dateC, clockC, sentC];
+    return c.filter(Boolean);
+  }
+
+  function analyze(raw){
+    var s = raw.trim();
+    if(!s) return msg('Skriv et tall (eller klikk på et eksempel over) — så vises hvordan det sies og skrives på tysk. 🔎');
+    var m;
+    // tysk tallord
+    if(/[a-zäöüß]/i.test(s) && !/\d/.test(s) && !/euro|eur/i.test(s)){
+      var pw = Z.parseWords(s);
+      if(!pw) return msg('Jeg forstår ikke «' + esc(s) + '» som et tallord. Tallord bygges av små deler: <em>eins, zwei, … zwanzig, dreißig … hundert, tausend, Million</em> — og <em>und</em> mellom enere og tiere (<em>dreiundzwanzig</em>).', true);
+      if(!pw.ok) return msg('Tallet er for stort (maks 999 999 999).', true);
+      var cw = Z.card(pw.n), good = Z.canon(s) === Z.canon(cw);
+      var out = [card('🔢 Tallet er', fmt(pw.n), good ? '✅ Riktig skrevet! «' + esc(s) + '» = ' + fmt(pw.n) + '.' : '✍️ Tallet er <em>' + fmt(pw.n) + '</em>, men det skal skrives <strong>' + esc(cw) + '</strong>.', {say: cw})];
+      if(!good) out.push(card('✍️ Riktig stavemåte', esc(cw), 'Rekkefølgen er <em>ener + und + tier</em>, og alt skrives i ett ord (unntatt Million/Milliarde).', {say:cw}));
+      return out.join('');
+    }
+    // beløp i euro
+    if(/(€|euro|eur)/i.test(s)){
+      var body = s.replace(/€|euro|eur/ig, '').trim();
+      m = body.match(/^(\d{1,9})(?:[.,](\d{1,2}))?$/);
+      if(!m) return msg('Skriv beløpet slik: <em>12,50 €</em> eller <em>3 Euro</em>.', true);
+      var e = parseInt(m[1], 10), cc = m[2] ? parseInt(m[2].length === 1 ? m[2] + '0' : m[2], 10) : 0, eu = Z.euro(e, cc);
+      return card('💶 Beløp', esc(eu.spoken), (eu.spoken !== eu.formal ? 'Skrevet ut: <em>' + esc(eu.formal) + '</em>. Når du snakker, sier du som regel bare «' + esc(eu.spoken) + '».' : 'Slik sier og skriver du beløpet.'), {say:eu.spoken, wide:true}) +
+        card('🔢 Tallene hver for seg', esc(Z.card(e, {attr:true})) + ' Euro' + (cc ? ' · ' + esc(Z.card(cc, {attr:true})) + ' Cent' : ''), 'Merk: <em>ein Euro</em>, <em>ein Cent</em> (ikke «eins»).', {sm:true});
+    }
+    // klokkeslett
+    m = s.match(/^(?:kl\.?\s*)?(\d{1,2})\s*:\s*(\d{2})\s*(?:uhr)?$/i) || s.match(/^(?:kl\.?\s*)?(\d{1,2})[.h](\d{2})\s*uhr$/i);
+    if(m){
+      var h = parseInt(m[1], 10), mi = parseInt(m[2], 10);
+      if(h > 24 || mi > 59 || (h === 24 && mi > 0)) return msg('Det er ikke et gyldig klokkeslett. Prøv f.eks. <em>14:30</em>.', true);
+      h = h % 24;
+      var inf = Z.informalList(h, mi), dp = Z.dayPart(h);
+      var h12 = h % 12 === 0 ? 12 : h % 12;
+      return card('🕐 Offisielt (24 timer)', esc(Z.official(h, mi)), 'Brukes i tog, radio, TV og timeplaner.', {say:Z.official(h, mi), pre: clockSVG(h, mi, 96)}) +
+        card('💬 Uformelt (slik vi snakker)', esc(inf[0]), (inf[1] ? 'Også: <em>' + esc(inf.slice(1).join(' / ')) + '</em><br>' : '') + '<span class="dw-tag">' + dp + '</span> Med tid på døgnet: <em>' + esc(inf[0] + ' ' + dp) + '</em>.<br>Svar på «Um wie viel Uhr …?»: <em>Um ' + esc(inf[0]) + '.</em>', {say:inf[0]}) +
+        (inf[0].indexOf('halb') === 0 ? msg('💡 <em>halb</em> betyr «halvveis til» neste time: «' + esc(inf[0]) + '» = ' + (h12 === 0 ? 12 : h12) + ':30 — samme tankegang som norsk «halv ' + esc(Z.card((h + 1) % 12 === 0 ? 12 : (h + 1) % 12)) + '».') : '');
+    }
+    // dato dd.mm.(yyyy)
+    m = s.match(/^(\d{1,2})\.(\d{1,2})\.(\d{2,4})?$/);
+    if(m){
+      var dd = parseInt(m[1], 10), mo = parseInt(m[2], 10), yy = m[3] ? parseInt(m[3], 10) : null;
+      if(dd < 1 || dd > 31 || mo < 1 || mo > 12) return msg('Det ser ikke ut som en gyldig dato. Prøv f.eks. <em>3.10.</em> eller <em>17.5.2026</em>.', true);
+      var odd = Z.ord(dd), mn = Z.MONTHS[mo - 1], txt = 'am ' + odd + 'n ' + mn + (yy ? ' ' + Z.year(yy < 100 ? 2000 + yy : yy) : '');
+      return card('🗓️ Dato', esc(txt), 'Skrives <em>' + dd + '. ' + mn + (yy ? ' ' + yy : '') + '</em>, men leses med ordenstall: <em>' + esc(txt) + '</em>.<br>Uten «am»: <em>der ' + esc(odd + ' ' + mn) + '</em>.', {say:txt, wide:true}) +
+        card('🥇 Dagen som ordenstall', 'der ' + esc(odd), 'Etter «am» (Dativ) får ordenstallet <em>-en</em>: am ' + esc(odd) + 'n.', {sm:true, say:odd}) +
+        card('📅 Måneden', esc(mn), 'På norsk: ' + Z.MONTHS_NO[mo - 1] + '.', {sm:true, say:mn}) +
+        (yy ? card('📆 Året', esc(Z.year(yy < 100 ? 2000 + yy : yy)), 'Årstall 1100–1999 sies som «hundre-tall», 2000 og senere som vanlige tall.', {sm:true, say:Z.year(yy < 100 ? 2000 + yy : yy)}) : '');
+    }
+    // ordenstall med punktum
+    var typedOrd = false;
+    m = s.match(/^(\d{1,6})\.$/);
+    if(m){ typedOrd = true; s = m[1]; }
+    // negativt?
+    var neg = false;
+    if(/^[-−–]/.test(s)){ neg = true; s = s.replace(/^[-−–]\s*/, ''); }
+    // tusenskille (1.234.567 / 1 234 567 / 1'234'567)
+    var clean = s.replace(/[\s'’]/g, '');
+    var note = '';
+    var dm;
+    if(/^\d{1,3}(\.\d{3})+(,\d+)?$/.test(clean)){
+      note = 'På tysk er <em>punktum</em> tusenskille og <em>komma</em> desimaltegn — så «' + esc(clean) + '» tolkes som ' + fmt(parseInt(clean.replace(/\./g, '').split(',')[0], 10)) + (clean.indexOf(',') > -1 ? ' med desimaler' : '') + '.';
+      clean = clean.replace(/\./g, '');
+    }
+    dm = clean.match(/^(\d{1,9})(?:[.,](\d{1,6}))?$/);
+    if(!dm){
+      if(/^\d{10,}/.test(clean)) return msg('Tallet er for stort — jeg klarer tall opp til 999 999 999.', true);
+      return msg('Det forsto jeg ikke 🤔. Prøv f.eks. <em>17</em>, <em>1984</em>, <em>3.10.</em>, <em>14:30</em> eller <em>12,50 €</em>.', true);
+    }
+    var ip = parseInt(dm[1], 10);
+    if(dm[2]){
+      var dec = Z.decimal(ip, dm[2]);
+      var html = card('🔢 Desimaltall', (neg ? 'minus ' : '') + esc(dec), 'Komma heter <em>Komma</em>, og desimalene leses <strong>ett og ett siffer</strong>. Skrives på tysk med komma: <em>' + (neg ? '−' : '') + dm[1] + ',' + dm[2] + '</em>.' + (note ? '<br>' + note : ''), {say:(neg ? 'minus ' : '') + dec, wide:true});
+      if(dm[2].length <= 2){
+        var cents = parseInt(dm[2].length === 1 ? dm[2] + '0' : dm[2], 10), eu2 = Z.euro(ip, cents);
+        html += card('💶 Som pris', esc(eu2.spoken), 'Hvis tallet er et beløp i euro.', {sm:true, say:eu2.spoken});
+      }
+      return html;
+    }
+    if(ip > 999999999) return msg('Tallet er for stort — jeg klarer tall opp til 999 999 999.', true);
+    var cards = intCards(ip, typedOrd);
+    if(neg){
+      var wn = 'minus ' + Z.card(ip);
+      cards.unshift(card('➖ Negativt tall', esc(wn), 'Negative tall sies med <em>minus</em> foran: <em>Es sind minus ' + esc(Z.card(ip, {attr:true})) + ' Grad.</em>', {say:wn, wide:true}));
+      cards = cards.slice(0, 1);
+    }
+    if(note) cards.unshift(msg(note));
+    return cards.join('');
+  }
+
+  var zin = $('dw-z-input'), zout = $('dw-z-out');
+  function runFinder(){ zout.innerHTML = analyze(zin.value); }
+  zin.addEventListener('input', runFinder);
+  $('dw-z-ex').addEventListener('click', function(e){
+    var b = e.target.closest('button'); if(!b) return;
+    zin.value = b.getAttribute('data-q'); runFinder(); zin.focus();
+  });
+  zout.addEventListener('click', function(e){
+    var b = e.target.closest('.dw-say'); if(!b) return;
+    speak(b.getAttribute('data-say'));
+  });
+  zin.value = '17'; runFinder();
+  zin.value = '';
+
+  // ================= ØVELSE =================
+  var pin = $('dw-p-input'), pq = $('dw-p-q'), phint = $('dw-p-hint'), pfb = $('dw-p-fb'), pscore = $('dw-p-score');
+  var cur = null, score = 0, tries = 0, locked = false, lastInput = pin;
+  function rnd(a, b){ return a + Math.floor(Math.random() * (b - a + 1)); }
+  function pn(s){ return Z.canon(String(s)).replace(/[!.,?]/g, ''); }
+  function pnClock(s){ return String(s).toLowerCase().replace(/ß/g, 'ss').replace(/[!.,?]/g, '').replace(/\s+/g, ' ').trim(); }
+
+  var GEN = {
+    t20:  function(){ var n = rnd(0, 20);   return {big:String(n), hint:'Skriv tallet med ord.', ans:[Z.card(n), Z.cardAlt(n)].filter(Boolean)}; },
+    t100: function(){ var n = rnd(0, 100);  return {big:String(n), hint:'Skriv tallet med ord (i ett ord!).', ans:[Z.card(n), Z.cardAlt(n)].filter(Boolean)}; },
+    t1000:function(){ var n = rnd(100, 1000); return {big:String(n), hint:'Skriv tallet med ord (i ett ord!).', ans:[Z.card(n), Z.cardAlt(n)].filter(Boolean)}; },
+    tbig: function(){ var n = rnd(1001, 99999); if(Math.random() < 0.3) n = rnd(1, 9) * 1000000 + rnd(0, 999) * 1000; return {big:fmt(n), hint:'Skriv tallet med ord. Million skrives for seg.', ans:[Z.card(n)]}; },
+    ord:  function(){ var n = rnd(1, 31); return {big:n + '.', hint:'Skriv ordenstallet (f.eks. «dritte»).', ans:[Z.ord(n)]}; },
+    year: function(){ var n = Math.random() < 0.6 ? rnd(1100, 1999) : rnd(2000, 2030); return {big:String(n), hint:'Skriv årstallet slik det sies på tysk (uten «im Jahr»).', ans:[Z.year(n)]}; },
+    clk24:function(){ var h = rnd(0, 23), m = rnd(0, 11) * 5; if(Math.random() < 0.25) m = rnd(1, 59); return {big:(h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m, clock:[h, m], hint:'Skriv klokka offisielt (24 timer): «… Uhr …».', ans:[Z.official(h, m)], clockMode:true}; },
+    clk12:function(){ var h = rnd(1, 12), m = rnd(0, 11) * 5; return {big:h + ':' + (m < 10 ? '0' : '') + m, clock:[h, m], hint:'Skriv klokka uformelt (slik vi snakker), f.eks. «halb vier».', ans:Z.informalList(h, m), clockMode:true}; }
+  };
+  function newQ(noFocus){
+    var q = GEN[$('dw-p-mode').value]();
+    cur = q; locked = false;
+    pq.innerHTML = (q.clock ? clockSVG(q.clock[0], q.clock[1], 110) .replace('class="dw-clock"', '') : '') + '<div class="dw-q-big">' + esc(q.big) + '</div>';
+    phint.textContent = q.hint;
+    pin.value = ''; pin.readOnly = false; pin.className = ''; pfb.textContent = ''; pfb.className = '';
+    if(!noFocus) pin.focus();
+  }
+  function matches(val){
+    var f = cur.clockMode ? pnClock : pn;
+    var v = f(val);
+    return v && cur.ans.some(function(a){ return f(a) === v; });
+  }
+  function onType(){
+    if(locked || !cur) return;
+    if(matches(pin.value)){
+      locked = true; tries++; score++; pin.classList.add('dw-ok'); pin.readOnly = true;
+      pscore.textContent = score + ' riktige av ' + tries;
+      pfb.className = 'dw-good'; pfb.textContent = '✅ Richtig!' + (cur.ans.length > 1 ? ' (Også riktig: ' + cur.ans.filter(function(a){ return pnClock(a) !== pnClock(pin.value); }).join(' / ') + ')' : '');
+      setTimeout(function(){ if(locked && pin.classList.contains('dw-ok')) newQ(); }, 1400);
+    } else pin.classList.remove('dw-ok');
+  }
+  pin.addEventListener('input', onType);
+  pin.addEventListener('focus', function(){ lastInput = pin; });
+  pin.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ if(locked) newQ(); else if(pin.value.trim()){ pin.classList.add('dw-wrong'); pfb.className = 'dw-info'; pfb.textContent = 'Ikke helt ennå — prøv igjen, eller trykk «Vis svar».'; } } });
+  pin.addEventListener('input', function(){ pin.classList.remove('dw-wrong'); if(!locked) pfb.textContent = ''; });
+  $('dw-p-next').addEventListener('click', function(){ if(!locked) tries++; pscore.textContent = score + ' riktige av ' + tries; newQ(); });
+  $('dw-p-show').addEventListener('click', function(){
+    if(!cur) return;
+    if(!locked){ tries++; pscore.textContent = score + ' riktige av ' + tries; }
+    locked = true; pin.value = cur.ans[0]; pin.readOnly = true; pin.className = '';
+    pfb.className = 'dw-info'; pfb.textContent = 'Svar: ' + cur.ans.join('  /  ');
+  });
+  $('dw-p-mode').addEventListener('change', function(){ score = 0; tries = 0; pscore.textContent = '0 riktige'; newQ(); });
+  document.querySelectorAll('.dw-umlaut button').forEach(function(b){
+    b.addEventListener('mousedown', function(e){ e.preventDefault(); });
+    b.addEventListener('click', function(){
+      if(pin.readOnly) return;
+      var s = pin.selectionStart || pin.value.length, e2 = pin.selectionEnd || s, ch = b.getAttribute('data-ch');
+      pin.value = pin.value.slice(0, s) + ch + pin.value.slice(e2); pin.focus();
+      try{ pin.setSelectionRange(s + 1, s + 1); }catch(x){}
+      onType();
+    });
+  });
+  newQ(true);
+})();
+</script>
+
+</body>
+</html>
