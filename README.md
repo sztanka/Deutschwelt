@@ -307,6 +307,12 @@ wichtige-themen/
 ordbok/
 ├── index.html                        → søkbar norsk ⇄ tysk ordbok (live-filter, ingen backend)
 └── ordbok.json                       → hele Heinzelnisse-ordlisten, komprimert JSON (45 141 oppføringer, 2,6 MB), hentes med fetch()
+aehnliche-woerter/
+├── index.html                        → "Snakker du nysk?" — 225 tysk-norske ordpar,
+│                                        eleven skriver inn oversettelsen og får en
+│                                        grønn hake ✓ ved riktig svar
+└── nysk_data.js                      → ordlisten (13 kategorier, fasit med godkjente
+                                         alternative stavemåter), lastes som eget script
 ```
 
 `grammatikk/artikler/dativ/` (🧭 Der Dativ-Kompass) er det første ferdigbygde
@@ -1540,6 +1546,14 @@ Full verifisering: `node --check` på begge nye script-blokker (0 feil), en loka
 `ordbok/index.html` er en enkel søkeside: et søkefelt henter `ordbok.json` én gang med `fetch()`, og søket filtrerer deretter live i nettleseren (ingen server, ingen indeksering på forhånd) — søket virker begge veier (skriv et norsk eller tysk ord), prioriterer eksakte treff først, så «starter med», så «inneholder», og viser maks 60 treff av gangen med en tydelig telling hvis det er flere. Kjønn/ordklasse-koder fra datasettet (m, f, n, adj, adv, osv.) vises som lesbare norske merkelapper. Siden fikk et nytt toppnivå-punkt i navigasjonsmenyen (📔 Ordbok, satt inn i alle 156 HTML-filer), et nytt kort på forsiden, og to nye søkeindeks-oppføringer — ingen nye nøkkelkollisjoner (samme pre-eksisterende «wechselpräpositionen»-duplikat som før, urelatert til denne runden).
 
     Full verifisering: `node --check` på all inline JS (0 feil), lokal HTTP-server bekreftet 200 OK på siden og `ordbok.json`, en lenke-integritetssjekk av alle ~3500 lokale lenker i alle 156 HTML-filer (0 ekte brudd), og en funksjonstest av søkelogikken mot kjente ordpar (f.eks. «hus»↔«Haus», «katt»↔«Katze») som bekreftet korrekt tosidig treff og riktig prioritering av eksakte treff.
+
+**Ny toppnivå-seksjon: Snakker du nysk? (tysk-norske lignende ord).** Teach lastet opp sitt eget Word-dokument `Snakker du nysk.docx` — en liste hun ofte bruker med nye 8.-klasseelever, med tyske ord som ligner på norske, gruppert i 13 kategorier (Am Körper, In der Küche, Tiere, Verb, Zahlen, osv.), med et tomt felt for den norske oversettelsen. Hun ba om et nytt kort i hovedmenyen basert på dokumentet, med utfyllingsfelt og en grønn hake ved riktig svar. Innholdet ble hentet ut av tabellen i dokumentet med `python-docx` (225 ord fordelt på 13 kategorier, identifisert ved at kategirads-rader har tekst i begge kolonner mens ordrader kun har det tyske ordet), og den norske fasiten for alle 225 ordene ble skrevet manuelt — noen ord godtar flere stavemåter (f.eks. «bein»/«ben», «sju»/«syv», «tykk»/«tjukk», «frisk»/«sunn») for å ikke straffe gyldige varianter.
+
+    `aehnliche-woerter/index.html` bygger hele siden fra en liten datafil (`nysk_data.js`, 225 ord, 13 kategorier) i stedet for håndskrevet HTML per ord. Hvert ord får et inputfelt: riktig svar (sammenlignet normalisert — små bokstaver, trimmet, uten tegnsetting) gir en grønn hake og låser feltet; feil svar markeres med rød kant først når eleven forlater feltet (ikke mens de skriver), slik at det ikke føles straffende midt i skrivingen. Enter-tasten hopper til neste felt. En sticky fremdriftslinje øverst («X av 225 riktige») oppdateres live, med en «🔄 Nullstill»-knapp og en «👁️ Vis fasit»-knapp (viser riktig svar i grå tekst ved siden av feltet, uten å overskrive det eleven har skrevet — nyttig for gjennomgang i etterkant). Ved alle 225 riktige vises en gratulasjonsmelding.
+
+    Siden fikk et nytt, 19. toppnivå-punkt i navigasjonsmenyen (🪄 Snakker du nysk?, satt inn i alle 157 HTML-filer), et nytt kort på forsiden, og to nye søkeindeks-oppføringer — ingen nye nøkkelkollisjoner.
+
+    Full verifisering: `node --check` på datafilen og sidens inline JS (0 feil), en automatisk konsistenssjekk som bekreftet at alle 225 ord og alle 245 godkjente svarvarianter normaliserer til seg selv korrekt, lokal HTTP-server bekreftet 200 OK på siden og datafilen, en full lenke-integritetssjekk av alle 157 HTML-filer (0 ekte brudd), og en Playwright-gjennomgang som testet riktig svar (grønn hake + låst felt), feil svar ved fokustap (rød kant), en alternativ stavemåte («ben» for «Bein»), nullstilling og fasit-visning — alt fungerte som forventet.
 
     Full verifisering: `node --check` (0 feil), lokal HTTP-server bekreftet 200 OK på siden og begge lydfiler, og en Playwright-gjennomgang bekreftet at begge `<audio>`-elementenes rapporterte varighet er identisk med `ffprobe`-målingen, samt korrekt highlight-indeks mot flere tidspunkt på begge versjoner.
 
