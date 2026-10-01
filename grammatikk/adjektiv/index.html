@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <!--
-  DEUTSCHWELT — Grammatik-kategori: "Adjektiv"
-  Ingen sider bygget ennå — kun planlagte temaer.
-  Se README.md i rotmappen for mønsteret for grammatikk-kategorier.
+  DEUTSCHWELT — Adjektiv
+  Forklaring av ordtypen, bruk (etter sein / foran substantiv), komparativ og superlativ,
+  samt et søkbart oppslagsverk for ca. 200 adjektiv på nivå A1–B1 med bøyningstabeller
+  (der-ord / ein-ord / uten artikkel), "Skriv selv"-modus og en endelsestrener.
+  Data ligger i adjektiv_data.js (generert av regler + håndplukket liste) — se README.md.
 -->
 <html lang="de">
 <head>
@@ -18,6 +20,8 @@
     --dw-primary:#161616;
     --dw-primary-light:#9c1329;
     --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
     --dw-bg:#f7f5f0;
     --dw-card:#ffffff;
     --dw-text:#232323;
@@ -25,31 +29,178 @@
     --dw-radius:16px;
   }
   *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
-  .dw-wrap{max-width:820px;margin:0 auto;padding:0 16px 60px;}
+  .dw-wrap{max-width:980px;margin:0 auto;padding:0 16px 60px;}
   .dw-header{
     background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
     color:#fff;border-radius:var(--dw-radius);padding:32px 26px;text-align:center;margin-bottom:10px;
   }
   .dw-header h1{margin:0 0 6px;font-size:1.8rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
   .dw-header p{margin:0;opacity:.95;}
-  .dw-crumb{
-    font-size:.85rem;margin:14px 0 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-  }
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
   .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
   .dw-crumb a:hover{text-decoration:underline;}
-  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
-  .dw-card{
-    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px;text-decoration:none;color:var(--dw-text);
-    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;
-    display:flex;flex-direction:column;gap:6px;
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;}
+  .dw-jump a{
+    font-size:.88rem;font-weight:700;padding:8px 16px;border-radius:999px;text-decoration:none;
+    background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);
   }
-  .dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
-  .dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
-  .dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-irr{color:var(--dw-primary-light);font-weight:800;}
 
-  /* Tematisk kort-mønster (erstatter emoji) */
-  .dw-card.dw-p-adjektiv{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cpolygon%20points%3D%228%2C46%2014%2C46%2014%2C38%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3Cpolygon%20points%3D%2223%2C46%2031%2C46%2031%2C28%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3Cpolygon%20points%3D%2240%2C46%2050%2C46%2050%2C16%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro strong{color:var(--dw-primary);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:34px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-sec-title:first-of-type{margin-top:6px;}
+
+  /* ---------- Søk ---------- */
+  .dw-v-box{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 20px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:22px;}
+  #dw-a-input{width:100%;font-size:1.1rem;padding:14px 20px;border-radius:999px;border:2px solid #ece8df;outline:none;background:#fff;color:var(--dw-text);}
+  #dw-a-input:focus{border-color:var(--dw-accent);}
+  .dw-v-tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-top:12px;}
+  .dw-v-levels{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:.82rem;color:var(--dw-muted);}
+  .dw-lvl-btn,.dw-v-btn,.dw-pill{
+    font-family:inherit;font-size:.82rem;font-weight:700;padding:6px 14px;border-radius:999px;
+    border:1.5px solid #ece8df;background:#fff;color:var(--dw-text);cursor:pointer;
+  }
+  .dw-lvl-btn:hover,.dw-v-btn:hover,.dw-pill:hover{border-color:var(--dw-accent);}
+  .dw-lvl-btn.dw-on,.dw-pill.dw-on{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .dw-pill[disabled]{opacity:.4;cursor:not-allowed;}
+  .dw-v-btn.dw-solid{background:var(--dw-primary-light);border-color:var(--dw-primary-light);color:#fff;}
+  .dw-v-btn.dw-solid:hover{filter:brightness(1.08);}
+  button:focus-visible,.dw-jump a:focus-visible,input:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  #dw-a-sugg{margin-top:12px;display:flex;flex-direction:column;gap:6px;}
+  .dw-sugg{
+    display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:center;text-align:left;
+    background:var(--dw-bg);border:1px solid #ece8df;border-radius:12px;padding:10px 14px;
+    font-family:inherit;font-size:.95rem;cursor:pointer;color:var(--dw-text);width:100%;
+  }
+  .dw-sugg:hover,.dw-sugg:focus-visible{border-color:var(--dw-accent);background:#fff;outline:none;}
+  .dw-sugg b{color:var(--dw-primary-light);font-size:1.02rem;}
+  .dw-sugg span.dw-sugg-no{color:var(--dw-muted);font-size:.88rem;}
+  .dw-sugg i{font-style:normal;font-size:.7rem;font-weight:700;background:#fff;border:1px solid #ece8df;border-radius:999px;padding:2px 9px;color:var(--dw-muted);}
+  .dw-sugg em{grid-column:1/-1;font-size:.78rem;color:var(--dw-muted);font-style:italic;}
+  .dw-v-empty{text-align:center;color:var(--dw-muted);padding:10px 0;font-size:.9rem;}
+
+  /* ---------- Detaljkort ---------- */
+  #dw-a-detail{display:none;margin-bottom:26px;scroll-margin-top:70px;}
+  .dw-d-head{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:20px 22px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:14px;}
+  .dw-d-title{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;}
+  .dw-d-title h2{margin:0;font-family:"Baloo 2",-apple-system,sans-serif;font-size:2rem;color:var(--dw-primary-light);}
+  .dw-d-no{font-size:1.05rem;color:var(--dw-text);font-weight:600;}
+  .dw-d-badges{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 12px;}
+  .dw-badge{font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--dw-bg);border:1px solid #ece8df;color:var(--dw-muted);}
+  .dw-badge.dw-b-irr{background:#fdecee;border-color:#f2c0c7;color:var(--dw-primary-light);}
+  .dw-badge.dw-b-reg{background:#eef7ee;border-color:#bfe0c0;color:var(--dw-good);}
+  .dw-ex{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 16px;font-size:1rem;}
+  .dw-ex small{display:block;color:var(--dw-muted);font-size:.84rem;margin-top:2px;}
+  .dw-ex b{color:var(--dw-primary-light);}
+  .dw-d-note{margin-top:12px;font-size:.86rem;line-height:1.55;background:#f3f6fb;border:1px solid #d7e1f0;border-radius:12px;padding:10px 14px;}
+  .dw-d-modes{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center;}
+  .dw-mode-btn{font-family:inherit;font-size:.88rem;font-weight:700;padding:8px 18px;border-radius:999px;border:2px solid #ece8df;background:#fff;color:var(--dw-text);cursor:pointer;}
+  .dw-mode-btn.dw-on{background:var(--dw-primary);border-color:var(--dw-primary);color:#fff;}
+  .dw-prog{margin-left:auto;font-size:.85rem;color:var(--dw-muted);font-weight:700;}
+  .dw-prog-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-top:12px;}
+  .dw-prog-fill{height:100%;width:0%;background:var(--dw-good);transition:width .25s ease;}
+  .dw-win{display:none;margin-top:12px;text-align:center;background:var(--dw-good);color:#fff;border-radius:12px;padding:10px 14px;font-weight:800;}
+  .dw-umlaut{display:flex;gap:6px;margin-top:12px;align-items:center;font-size:.8rem;color:var(--dw-muted);}
+  .dw-umlaut button{font-family:inherit;font-size:1rem;font-weight:700;min-width:38px;padding:4px 10px;border-radius:8px;border:1.5px solid #ece8df;background:#fff;cursor:pointer;}
+  .dw-umlaut button:hover{border-color:var(--dw-accent);}
+
+  .dw-deg{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-bottom:16px;}
+  .dw-tense{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.05);}
+  .dw-tense-h{padding:10px 16px;border-bottom:3px solid var(--dw-accent);background:#fbfaf6;display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  .dw-tense-h b{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.1rem;color:var(--dw-primary);}
+  .dw-tense-h span{font-size:.74rem;color:var(--dw-muted);}
+  .dw-rows{padding:6px 14px 10px;}
+  .dw-row{display:grid;grid-template-columns:104px 1fr;gap:10px;align-items:center;padding:6px 0;border-bottom:1px dashed #efece4;}
+  .dw-row:last-child{border-bottom:0;}
+  .dw-pron{color:var(--dw-muted);font-size:.84rem;}
+  .dw-form{font-size:1.02rem;font-weight:600;}
+  .dw-na{color:#8a8a8a;font-size:.9rem;line-height:1.5;}
+  .dw-inp-wrap{position:relative;display:flex;align-items:center;}
+  .dw-inp{width:100%;font-family:inherit;font-size:.98rem;padding:7px 28px 7px 12px;border-radius:10px;border:2px solid #ece8df;outline:none;background:#fff;color:var(--dw-text);}
+  .dw-inp:focus{border-color:var(--dw-accent);}
+  .dw-inp.dw-ok{border-color:var(--dw-good);background:#eef7ee;color:var(--dw-good);font-weight:700;}
+  .dw-inp.dw-wrong{border-color:var(--dw-bad);}
+  .dw-inp.dw-shown{border-color:#bbb;background:#f6f4ee;color:#555;}
+  .dw-check{position:absolute;right:9px;color:var(--dw-good);font-weight:800;opacity:0;transform:scale(.6);transition:all .15s ease;pointer-events:none;}
+  .dw-inp.dw-ok ~ .dw-check{opacity:1;transform:scale(1);}
+
+  .dw-degtabs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 12px;font-size:.84rem;color:var(--dw-muted);font-weight:700;}
+  .dw-decl{margin-bottom:16px;background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.05);}
+  .dw-decl-h{padding:10px 16px;border-bottom:3px solid var(--dw-accent);background:#fbfaf6;}
+  .dw-decl-h b{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.05rem;color:var(--dw-primary);}
+  .dw-decl-h span{display:block;font-size:.78rem;color:var(--dw-muted);margin-top:1px;}
+  .dw-tbl-wrap{overflow-x:auto;}
+  table.dw-dt{border-collapse:collapse;width:100%;min-width:600px;font-size:.95rem;}
+  .dw-dt th,.dw-dt td{padding:8px 10px;text-align:left;border-bottom:1px solid #f0ede5;vertical-align:middle;}
+  .dw-dt thead th{background:#fff;font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;color:var(--dw-muted);}
+  .dw-dt tbody th{font-size:.82rem;color:var(--dw-muted);white-space:nowrap;width:1%;}
+  .dw-dt tr:last-child td,.dw-dt tr:last-child th{border-bottom:0;}
+  .dw-dt .dw-art{color:var(--dw-muted);}
+  .dw-dt .dw-noun{color:var(--dw-text);}
+  .dw-dt .dw-adj{font-weight:700;color:var(--dw-text);}
+  .dw-end{color:var(--dw-primary-light);background:#fff3cf;border-radius:4px;padding:0 1px;}
+  .dw-dt td{white-space:nowrap;}
+  .dw-dt.dw-pr{min-width:860px;}
+  .dw-dt input.dw-inp{width:6.4em;padding:4px 8px;font-size:.92rem;border-radius:8px;}
+  .dw-dt .dw-inp-wrap{vertical-align:middle;}
+
+  /* ---------- Oversikt ---------- */
+  .dw-chips-v{display:flex;flex-wrap:wrap;gap:8px;}
+  .dw-chip-v{font-family:inherit;font-size:.9rem;font-weight:600;padding:6px 14px;border-radius:999px;border:1.5px solid #e4dfd2;background:#fff;color:var(--dw-text);cursor:pointer;}
+  .dw-chip-v:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-az-letter{width:100%;font-size:.78rem;font-weight:800;color:var(--dw-muted);letter-spacing:.08em;margin:8px 0 -2px;}
+
+  /* ---------- Forklaring ---------- */
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-exp .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-3col{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:10px 0 4px;}
+  .dw-mini{border:1px solid #ece8df;border-radius:12px;padding:12px 14px;background:#fbfaf6;}
+  .dw-mini b{display:block;margin-bottom:4px;color:var(--dw-primary);}
+  .dw-mini .dw-ex-l{font-size:.92rem;line-height:1.55;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  table.dw-sm{border-collapse:collapse;width:100%;font-size:.9rem;margin:8px 0;}
+  .dw-sm th,.dw-sm td{border:1px solid #ece8df;padding:6px 10px;text-align:left;}
+  .dw-sm th{background:#fbfaf6;font-size:.78rem;color:var(--dw-muted);text-transform:uppercase;letter-spacing:.03em;}
+  .dw-sm td.dw-e{font-weight:800;color:var(--dw-primary-light);text-align:center;}
+  .dw-sm td.dw-e.dw-e2{background:#fff3cf;}
+
+  /* ---------- Trener ---------- */
+  .dw-trainer{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:20px 22px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  .dw-tr-opts{display:flex;flex-wrap:wrap;gap:6px 18px;margin-bottom:14px;font-size:.84rem;color:var(--dw-muted);font-weight:700;}
+  .dw-tr-opts div{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+  .dw-tr-q{font-size:1.35rem;line-height:2.1;padding:14px 18px;border-radius:12px;background:#fff9ec;border:1px solid #f0dca8;font-weight:600;}
+  .dw-tr-q .dw-inp{display:inline-block;width:8.2em;padding:5px 10px;font-size:1.1rem;vertical-align:baseline;}
+  .dw-tr-q .dw-hint{font-size:.9rem;color:var(--dw-muted);font-weight:600;}
+  .dw-tr-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center;}
+  .dw-tr-fb{margin-top:12px;font-size:.92rem;line-height:1.55;min-height:1.5em;}
+  .dw-tr-fb.dw-good{color:var(--dw-good);}
+  .dw-tr-fb.dw-bad{color:var(--dw-bad);}
+  .dw-tr-score{margin-left:auto;font-size:.85rem;font-weight:700;color:var(--dw-muted);}
+
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-footer{text-align:center;margin-top:30px;font-size:.8rem;color:var(--dw-muted);line-height:1.6;}
+
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.5rem;}
+    .dw-d-title h2{font-size:1.65rem;}
+    .dw-prog{margin-left:0;width:100%;}
+    .dw-tr-q{font-size:1.1rem;}
+    .dw-tr-score{margin-left:0;width:100%;}
+  }
 </style>
 </head>
 <body>
@@ -77,6 +228,7 @@
       <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
       <a class="dw-nav-link" href="../../ordbok/">📔 Ordbok</a>
       <a class="dw-nav-link" href="../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../grammatikk/zahlen/">🔢 Zahlen</a>
       <a class="dw-nav-link" href="../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
     </div>
   </nav>
@@ -85,25 +237,663 @@
 <div class="dw-wrap">
 
   <div class="dw-header">
-    <h1>Adjektiv</h1>
-    <p>Beskriv ting og folk på tysk — og bøy adjektivet riktig</p>
+    <h1>🎨 Adjektiv</h1>
+    <p>Beskriv ting og folk på tysk — slå opp, gradbøy og bøy adjektivene</p>
   </div>
 
   <p class="dw-crumb"><a href="../">🧩 Grammatik</a> → Adjektiv</p>
 
-  <div class="dw-grid">
-    <a class="dw-card dw-p-adjektiv dw-soon" href="#">
-      <h2>Adjektivbøying etter der- og ein-ord</h2>
-      <p>Kommer snart</p>
-      <span class="dw-soon-tag">🔜 Kommer snart</span>
-    </a>
-    <a class="dw-card dw-p-adjektiv dw-soon" href="#">
-      <h2>Komparativ og superlativ</h2>
-      <p>Kommer snart</p>
-      <span class="dw-soon-tag">🔜 Kommer snart</span>
-    </a>
+  <div class="dw-jump">
+    <a href="#sok">🔍 Søk i adjektiv</a>
+    <a href="#forklaring">📘 Forklaring</a>
+    <a href="#trening">🎯 Tren endelser</a>
+    <a href="#alle">📚 Alle adjektiv</a>
   </div>
 
+  <!-- ===================== SØK ===================== -->
+  <h2 class="dw-sec-title" id="sok">🔍 Slå opp et adjektiv</h2>
+
+  <div class="dw-intro">
+    <strong>Slik bruker du siden:</strong> Skriv et adjektiv — norsk <em>eller</em> tysk, også en bøyd form som <em>älteren</em> eller <em>besten</em> — og trykk på treffet. Du får <strong>komparativ og superlativ</strong> og <strong>bøyningstabeller</strong> for alle kjønn og kasus. <span class="dw-irr">Røde bokstaver</span> viser uregelmessigheter (omlyd eller helt egne former), og <span class="dw-end">uthevede endelser</span> viser hva som skiftes ut i tabellene. Trykk <strong>✏️ Skriv selv</strong> for å teste deg selv.
+  </div>
+
+  <div class="dw-v-box">
+    <input type="text" id="dw-a-input" placeholder="Skriv et adjektiv … (f.eks. alt, gammel, schönsten, god)" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Søk etter et adjektiv">
+    <div class="dw-v-tools">
+      <div class="dw-v-levels" role="group" aria-label="Velg nivå">
+        <span>Nivå:</span>
+        <button type="button" class="dw-lvl-btn dw-on" data-lvl="">Alle</button>
+        <button type="button" class="dw-lvl-btn" data-lvl="A1">A1</button>
+        <button type="button" class="dw-lvl-btn" data-lvl="A2">A2</button>
+        <button type="button" class="dw-lvl-btn" data-lvl="B1">B1</button>
+      </div>
+      <button type="button" class="dw-v-btn dw-solid" id="dw-a-random">🎲 Tilfeldig adjektiv</button>
+    </div>
+    <div id="dw-a-sugg" aria-live="polite"></div>
+  </div>
+
+  <div id="dw-a-detail"></div>
+
+  <h3 class="dw-sec-title" style="font-size:1.1rem;margin-top:10px">⭐ Vanlige adjektiv</h3>
+  <div class="dw-chips-v" id="dw-a-common"></div>
+
+  <!-- ===================== FORKLARING ===================== -->
+  <h2 class="dw-sec-title" id="forklaring">📘 Forklaring: hva er et adjektiv?</h2>
+
+  <div class="dw-exp">
+    <h3>Hva slags ord er det?</h3>
+    <p>Et <strong>adjektiv</strong> er et ord som sier <em>hvordan</em> noe eller noen er: <span class="dw-de">alt</span> (gammel), <span class="dw-de">schnell</span> (rask), <span class="dw-de">schön</span> (pen). På tysk kalles de også <em>Eigenschaftswörter</em> («egenskapsord») eller <em>Wie-Wörter</em>, fordi de svarer på spørsmålet <em>Wie ist …?</em> (Hvordan er …?).</p>
+    <p>Adjektiv står stort sett i to posisjoner: <strong>etter</strong> et verb som <em>sein</em> (å være), <em>werden</em> (å bli) eller <em>bleiben</em> (å forbli), eller <strong>foran</strong> et substantiv. Og det er her tysk og norsk er ganske forskjellige.</p>
+  </div>
+
+  <div class="dw-exp">
+    <h3>Tre måter å bruke adjektiv på</h3>
+    <div class="dw-3col">
+      <div class="dw-mini">
+        <b>1. Etter sein / werden / bleiben</b>
+        <div class="dw-ex-l"><span class="dw-de">Das Haus ist <u>groß</u>.</span><br>Huset er <u>stort</u>.<br><span class="dw-de">Die Häuser sind <u>groß</u>.</span><br>Husene er <u>store</u>.</div>
+        <p style="margin-top:8px;font-size:.88rem">✅ Adjektivet er <strong>helt uforandret</strong> — ingen endelse. Norsk bøyer (stort/store), tysk gjør det ikke. Det gjør denne varianten enkel!</p>
+      </div>
+      <div class="dw-mini">
+        <b>2. Foran substantivet</b>
+        <div class="dw-ex-l"><span class="dw-de">ein groß<u>es</u> Haus</span><br><span class="dw-de">das groß<u>e</u> Haus</span><br><span class="dw-de">mit dem groß<u>en</u> Haus</span></div>
+        <p style="margin-top:8px;font-size:.88rem">⚠️ Her får adjektivet en <strong>endelse</strong> (-e, -en, -er, -es, -em) som avhenger av kjønn, kasus, tall og hva slags artikkel som står foran. Dette lærer du i bøyningstabellene under.</p>
+      </div>
+      <div class="dw-mini">
+        <b>3. Som adverb (om et verb)</b>
+        <div class="dw-ex-l"><span class="dw-de">Sie singt <u>schön</u>.</span><br>Hun synger <u>pent</u>.<br><span class="dw-de">Er läuft <u>schnell</u>.</span><br>Han løper <u>fort</u>.</div>
+        <p style="margin-top:8px;font-size:.88rem">✅ Samme form som grunnformen — ingen endelse. På norsk blir adjektivet ofte til en -t-form (pent, raskt); på tysk gjør det ingenting.</p>
+      </div>
+    </div>
+    <div class="dw-tip">💡 <strong>Husk:</strong> Ser du adjektivet <em>direkte foran et substantiv</em>, trenger det en endelse. Står det etter <em>ist / sind / wird / bleibt</em> (eller beskriver et verb), skal det <em>ikke</em> ha endelse.</div>
+  </div>
+
+  <div class="dw-exp" id="komparativ">
+    <h3>Komparativ og superlativ (gradbøying)</h3>
+    <p>Adjektiv kan <strong>sammenlignes</strong>. Det finnes tre trinn:</p>
+    <table class="dw-sm">
+      <thead><tr><th>Trinn</th><th>Tysk</th><th>Eksempel</th><th>Norsk</th></tr></thead>
+      <tbody>
+        <tr><th>Positiv</th><td>alt</td><td>Mein Bruder ist <strong>so alt wie</strong> ich.</td><td>… like gammel som jeg</td></tr>
+        <tr><th>Komparativ</th><td>älter</td><td>Mein Vater ist <strong>älter als</strong> ich.</td><td>… eldre enn jeg</td></tr>
+        <tr><th>Superlativ</th><td>am ältesten / der älteste</td><td>Mein Opa ist <strong>am ältesten</strong>.</td><td>… eldst</td></tr>
+      </tbody>
+    </table>
+    <ul>
+      <li><strong>Komparativ = adjektiv + <span class="dw-end">-er</span></strong> (<em>schnell → schneller</em>). Tysk har <em>ikke</em> «mer + adjektiv» slik norsk har («mer interessant»): man sier alltid <em>interessanter</em>, <em>komplizierter</em>, <em>modernst</em> osv.</li>
+      <li><strong>Superlativ = adjektiv + <span class="dw-end">-st</span></strong>, og når det står etter <em>sein</em> brukes <span class="dw-de">am … -sten</span>: <em>Er ist am schnellsten.</em> Foran et substantiv brukes artikkel + <span class="dw-de">-ste</span>: <em>der schnellste Läufer</em>.</li>
+      <li><strong>Likhet</strong> = <span class="dw-de">so … wie</span>, <strong>forskjell</strong> = <span class="dw-de">… -er <u>als</u></span>. Pass på! Norsk bruker «som» i begge tilfeller; tysk skiller mellom <em>wie</em> (like) og <em>als</em> (enn). <em>Er ist größer <u>als</u> ich</em> (ikke «wie»).</li>
+    </ul>
+
+    <h3 style="margin-top:16px">Regler du må vite</h3>
+    <ul>
+      <li><strong>-est i stedet for -st</strong> når adjektivet ender på <em>d, t, s, ß, x, z</em> eller <em>sch</em> (stavelsen er betont): <em>heiß → am heiß<strong>est</strong>en</em>, <em>nett → am nett<strong>est</strong>en</em>, <em>bunt → am bunt<strong>est</strong>en</em>. Ender ordet på ubetont <em>-isch</em> eller <em>-end</em>, blir det vanlig -st: <em>komisch → am komischsten</em>, <em>spannend → am spannendsten</em>. Ord på -ig, -lich, -bar, -sam får også bare -st.</li>
+      <li><strong>Omlyd</strong> (<em>a → ä, o → ö, u → ü</em>) i mange korte, vanlige adjektiv: <span class="dw-irr">alt → älter → am ältesten</span>, <em>jung → jünger</em>, <em>lang → länger</em>, <em>kurz → kürzer</em>, <em>stark → stärker</em>, <em>schwach</em>, <em>arm</em>, <em>klug</em>, <em>kalt</em>, <em>warm</em>, <em>hart</em>, <em>scharf</em>, <em>dumm</em>, <em>gesund</em>, <em>krank</em>. Det finnes ingen enkel regel — slå opp ordet her eller lær dem som en liste. Mange ord får <em>ikke</em> omlyd: <em>schnell → schneller</em>, <em>klein → kleiner</em>, <em>nett → netter</em>, <em>laut → lauter</em>.</li>
+      <li><strong>-el, -er:</strong> <em>dunkel → dunkler</em> (men <em>am dunkelsten</em>), <em>teuer → teurer</em> (men <em>am teuersten</em>), <em>sauer → saurer</em>. Andre -er-ord er regelmessige: <em>sicher → sicherer</em>.</li>
+      <li><strong>Uregelmessige:</strong> <span class="dw-irr">gut → besser → am besten</span> · <span class="dw-irr">viel → mehr → am meisten</span> · <span class="dw-irr">hoch → höher → am höchsten</span> · <span class="dw-irr">nah → näher → am nächsten</span> · <span class="dw-irr">groß → größer → am größten</span> · og adverbet <span class="dw-irr">gern → lieber → am liebsten</span> («gjerne – heller – helst»).</li>
+      <li><strong>Kan ikke gradbøyes:</strong> adjektiv som ikke kan bli «mer»: <em>tot, rund, einzig, fertig, verheiratet, schwanger, täglich</em>. Farger (<em>rot, blau, grün</em> …) gradbøyes sjelden. Fargene <em>orange, lila, rosa, beige</em> bøyes heller ikke foran substantiv: <em>ein rosa Kleid</em>.</li>
+    </ul>
+  </div>
+
+  <div class="dw-exp" id="boeyning">
+    <h3>Adjektivbøying: endelsene foran substantivet</h3>
+    <p>Foran et substantiv må adjektivet få en endelse. Hvilken endelse avhenger av <strong>kjønn</strong> (maskulin/feminin/nøytrum), <strong>kasus</strong> (nominativ, akkusativ, dativ, genitiv) og <strong>tall</strong> (entall/flertall) — og av hva som står <em>foran</em> adjektivet. Det er tre muligheter:</p>
+    <ul>
+      <li><strong>Svak bøyning</strong> — etter <em>der-ord</em> (<em>der, die, das, dieser, jeder, welcher, alle</em>). Artikkelen viser allerede kjønn og kasus, så adjektivet nøyer seg med <span class="dw-end">-e</span> eller <span class="dw-end">-en</span>.</li>
+      <li><strong>Blandet bøyning</strong> — etter <em>ein-ord</em> (<em>ein, kein, mein, dein, sein, ihr, unser, euer</em>). <em>Ein</em> mangler endelse i tre felt (nom. maskulin, nom./akk. nøytrum), og der må adjektivet «hjelpe til»: <em>ein alt<u>er</u> Mann</em>, <em>ein alt<u>es</u> Haus</em>.</li>
+      <li><strong>Sterk bøyning</strong> — <em>uten artikkel</em>. Da viser adjektivet selv kjønn og kasus, og får nesten samme endelse som artikkelen ville hatt: <em>alt<u>er</u> Wein</em> (der → -er), <em>alt<u>e</u> Kinder</em> (die → -e).</li>
+    </ul>
+    <p><strong>Oversikt over endelsene</strong> (de gule feltene er de som har <em>-e</em>/<em>-er</em>/<em>-es</em>/<em>-em</em>; alt annet er -en):</p>
+    <div class="dw-tbl-wrap">
+    <table class="dw-sm" style="min-width:520px">
+      <thead><tr><th rowspan="2">Kasus</th><th colspan="4">Svak (der-ord)</th><th colspan="4">Blandet (ein-ord)</th><th colspan="4">Sterk (uten artikkel)</th></tr>
+      <tr><th>m</th><th>f</th><th>n</th><th>fl</th><th>m</th><th>f</th><th>n</th><th>fl</th><th>m</th><th>f</th><th>n</th><th>fl</th></tr></thead>
+      <tbody>
+        <tr><th>Nom.</th><td class="dw-e dw-e2">-e</td><td class="dw-e dw-e2">-e</td><td class="dw-e dw-e2">-e</td><td class="dw-e">-en</td><td class="dw-e dw-e2">-er</td><td class="dw-e dw-e2">-e</td><td class="dw-e dw-e2">-es</td><td class="dw-e">-en</td><td class="dw-e dw-e2">-er</td><td class="dw-e dw-e2">-e</td><td class="dw-e dw-e2">-es</td><td class="dw-e dw-e2">-e</td></tr>
+        <tr><th>Akk.</th><td class="dw-e">-en</td><td class="dw-e dw-e2">-e</td><td class="dw-e dw-e2">-e</td><td class="dw-e">-en</td><td class="dw-e">-en</td><td class="dw-e dw-e2">-e</td><td class="dw-e dw-e2">-es</td><td class="dw-e">-en</td><td class="dw-e">-en</td><td class="dw-e dw-e2">-e</td><td class="dw-e dw-e2">-es</td><td class="dw-e dw-e2">-e</td></tr>
+        <tr><th>Dat.</th><td class="dw-e">-en</td><td class="dw-e">-en</td><td class="dw-e">-en</td><td class="dw-e">-en</td><td class="dw-e">-en</td><td class="dw-e">-en</td><td class="dw-e">-en</td><td class="dw-e">-en</td><td class="dw-e dw-e2">-em</td><td class="dw-e dw-e2">-er</td><td class="dw-e dw-e2">-em</td><td class="dw-e">-en</td></tr>
+        <tr><th>Gen.</th><td class="dw-e">-en</td><td class="dw-e">-en</td><td class="dw-e">-en</td><td class="dw-e">-en</td><td class="dw-e">-en</td><td class="dw-e">-en</td><td class="dw-e">-en</td><td class="dw-e">-en</td><td class="dw-e">-en</td><td class="dw-e dw-e2">-er</td><td class="dw-e">-en</td><td class="dw-e dw-e2">-er</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="dw-tip">💡 <strong>Huskeregel for den svake bøyningen:</strong> Adjektivet får <strong>-e</strong> bare i fem felt — <em>nominativ</em> (maskulin, feminin, nøytrum) og <em>akkusativ</em> (feminin, nøytrum). Overalt ellers er det <strong>-en</strong>: <em>der alte Mann</em>, <em>die alte Frau</em>, <em>das alte Kind</em>, men <em>den alten Mann</em>, <em>dem alten Kind</em>, <em>die alten Kinder</em>.</div>
+    <div class="dw-tip">💡 <strong>Flere adjektiv på rad</strong> får samme endelse: <em>ein schöner, großer Garten</em>. Og etter <em>viele, wenige, einige, alle</em> i flertall: <em>viele alte Bücher</em> (viele → sterk), <em>alle alten Bücher</em> (alle → svak).</div>
+    <div class="dw-tip dw-warn">⚠️ <strong>Små stavingsendringer:</strong> <em>hoch → ein <u>hoh</u>es Haus</em> · <em>teuer → ein <u>teur</u>es Auto</em> · <em>dunkel → ein <u>dunkl</u>es Zimmer</em> · <em>sauer → saure Milch</em>. Adjektiv som ender på -e (<em>müde, leise, böse</em>) mister ett e: <em>ein müder Mann</em>, <em>eine müde Frau</em>.</div>
+    <p>Slå opp et adjektiv øverst på siden — da får du tabellene med akkurat dette ordet, for positiv, komparativ og superlativ. Komparativ og superlativ bøyes nøyaktig likt: <em>der ältere Bruder</em>, <em>mit dem ältesten Bruder</em>.</p>
+  </div>
+
+  <!-- ===================== TRENING ===================== -->
+  <h2 class="dw-sec-title" id="trening">🎯 Tren endelsene</h2>
+  <div class="dw-trainer" id="dw-trainer">
+    <div class="dw-tr-opts">
+      <div id="dw-tr-deg"><span>Grad:</span>
+        <button type="button" class="dw-pill dw-on" data-v="pos">Positiv</button>
+        <button type="button" class="dw-pill" data-v="comp">Komparativ</button>
+        <button type="button" class="dw-pill" data-v="sup">Superlativ</button>
+        <button type="button" class="dw-pill" data-v="all">Alle</button>
+      </div>
+      <div id="dw-tr-typ"><span>Foran adjektivet:</span>
+        <button type="button" class="dw-pill dw-on" data-v="def">der-ord</button>
+        <button type="button" class="dw-pill" data-v="indef">ein-ord</button>
+        <button type="button" class="dw-pill" data-v="none">ingen artikkel</button>
+        <button type="button" class="dw-pill" data-v="all">Alle</button>
+      </div>
+    </div>
+    <div class="dw-tr-q" id="dw-tr-q"></div>
+    <div class="dw-umlaut" id="dw-tr-um"><span>Tegn:</span><button type="button" data-ch="ä">ä</button><button type="button" data-ch="ö">ö</button><button type="button" data-ch="ü">ü</button><button type="button" data-ch="ß">ß</button></div>
+    <div class="dw-tr-btns">
+      <button type="button" class="dw-v-btn dw-solid" id="dw-tr-check">Sjekk</button>
+      <button type="button" class="dw-v-btn" id="dw-tr-hint">💡 Hint</button>
+      <button type="button" class="dw-v-btn" id="dw-tr-skip">Hopp over ➜</button>
+      <span class="dw-tr-score" id="dw-tr-score"></span>
+    </div>
+    <div class="dw-tr-fb" id="dw-tr-fb" aria-live="polite"></div>
+  </div>
+
+  <!-- ===================== ALLE ===================== -->
+  <h2 class="dw-sec-title" id="alle">📚 Alle adjektiv (A–Å)</h2>
+  <div class="dw-chips-v" id="dw-a-all"></div>
+
+  <p class="dw-see-also">
+    <strong>Se også:</strong>
+    <a href="../">Grammatikk</a> ·
+    <a href="../verb/">Verben</a> ·
+    <a href="../../verben/">Verben-Konjugator</a> ·
+    <a href="../zahlen/">Zahlen</a> ·
+    <a href="../../schreiben/personenbeschreibung/">Personenbeschreibung</a> ·
+    <a href="../../ordbok/">Ordbok</a>
+  </p>
+
+  <p class="dw-footer">
+    Adjektivlisten er håndplukket for nivå A1–B1; komparativ, superlativ og bøyningsendelser er laget med faste regler pluss lister over omlyd og uregelmessige former. Det kan forekomme feil — spør læreren din eller sjekk i ordboka hvis noe virker rart.
+  </p>
+
 </div>
+
+<script src="adjektiv_data.js"></script>
+<script>
+(function(){
+  var adjs = dwAdj, byKey = {}, level = '', practice = false, curDeg = 'pos', current = null, lastInput = null;
+  var COMMON = ['alt','neu','groß','klein','gut','schön','schnell','teuer','billig','lang','kurz','hoch','nett','wichtig','interessant','schwer','leicht','warm','kalt'];
+  var CASES = ['Nominativ','Akkusativ','Dativ','Genitiv'];
+  var GEN = ['Maskulin','Feminin','Nøytrum','Flertall'];
+  var NOUNS = ['Mann','Frau','Kind','Kinder'];
+
+  // Bøyningsmønstre: [kasus][kjønn m,f,n,pl]
+  var END = {
+    weak:  [['e','e','e','en'],['en','e','e','en'],['en','en','en','en'],['en','en','en','en']],
+    mixed: [['er','e','es','en'],['en','e','es','en'],['en','en','en','en'],['en','en','en','en']],
+    strong:[['er','e','es','e'],['en','e','es','e'],['em','er','em','en'],['en','er','en','er']]
+  };
+  var ART = {
+    weak:  [['der','die','das','die'],['den','die','das','die'],['dem','der','dem','den'],['des','der','des','der']],
+    mixed: [['ein','eine','ein','keine'],['einen','eine','ein','keine'],['einem','einer','einem','keinen'],['eines','einer','eines','keiner']],
+    strong:[['','','',''],['','','',''],['','','',''],['','','','']]
+  };
+  var NOUNFORM = [['Mann','Frau','Kind','Kinder'],['Mann','Frau','Kind','Kinder'],['Mann','Frau','Kind','Kindern'],['Mannes','Frau','Kindes','Kinder']];
+  var TYPES = [
+    {k:'weak',  t:'Svak bøyning', h:'etter der-ord: der, die, das, dieser, jeder …'},
+    {k:'mixed', t:'Blandet bøyning', h:'etter ein-ord: ein, kein, mein, dein …'},
+    {k:'strong',t:'Sterk bøyning', h:'uten artikkel foran adjektivet'}
+  ];
+
+  var NOTES = {
+    'hoch':'Foran substantiv faller bokstaven <i>c</i> bort: <b>ein hohes Haus</b>, <b>der höchste Berg</b>. Etter «sein» er det vanlig «hoch»: Der Berg ist hoch.',
+    'teuer':'Foran substantiv faller ett e: <b>ein teures Auto</b>. I komparativ også: <b>teurer</b>. I superlativ beholdes e: <b>am teuersten</b>.',
+    'sauer':'Foran substantiv faller ett e: <b>saure Milch</b>. Komparativ: <b>saurer</b>.',
+    'dunkel':'Foran substantiv faller e: <b>ein dunkles Zimmer</b>. Komparativ: <b>dunkler</b>, men superlativ <b>am dunkelsten</b>.',
+    'gut':'Helt uregelmessig: <b>gut – besser – am besten</b>. Aldri «guter»/«gutest».',
+    'groß':'Husk ß: <b>größer</b>, <b>am größten</b> (ikke «am größesten»).',
+    'viel':'<b>viel</b> og <b>wenig</b> bøyes vanligvis ikke i entall uten artikkel: <b>viel Zeit</b>, <b>wenig Geld</b>. I flertall får de endelse: <b>viele Kinder</b>, <b>wenige Bücher</b>. Komparativ <b>mehr / weniger</b> bøyes aldri.',
+    'wenig':'<b>wenig</b> bøyes vanligvis ikke i entall uten artikkel: <b>wenig Geld</b>. I flertall: <b>wenige Kinder</b>. Komparativ <b>weniger</b> (også <b>minder</b>) bøyes aldri.',
+    'nah':'Superlativ er <b>am nächsten</b> (ikke «am nahsten»). Eksempel: Wo ist die nächste Haltestelle?',
+    'lieb':'Se også adverbet <b>gern – lieber – am liebsten</b>: Ich esse gern Pizza, lieber Pasta, am liebsten Eis.',
+    'möglich':'<b>möglichst</b> + positiv betyr «så … som mulig»: Komm möglichst schnell!',
+    'nass':'Begge former er riktige: <b>nässer</b> og <b>nasser</b>.',
+    'glatt':'Begge former er riktige: <b>glätter</b> og <b>glatter</b>.',
+    'schmal':'Begge former er riktige: <b>schmaler</b> og <b>schmäler</b>.',
+    'gesund':'Både <b>gesünder</b> (vanligst) og <b>gesunder</b> brukes.',
+    'früh':'<b>früher</b> betyr også «tidligere/før i tiden». Superlativ: <b>am frühesten</b>.',
+    'spät':'<b>später</b> = senere. Husk: <b>Wie spät ist es?</b> betyr «Hva er klokka?».',
+    'fertig':'Ikke gradbøybar — noe er enten ferdig eller ikke. Brukes som regel bare etter <em>sein</em>: Ich bin fertig.',
+    'tot':'Ikke gradbøybar — «dødere» finnes ikke.',
+    'rund':'Ikke gradbøybar i vanlig bruk.',
+    'einzig':'Ikke gradbøybar (<em>eneste</em>). Foran substantiv: <b>der einzige Weg</b>.',
+    'verheiratet':'Ikke gradbøybar. Brukes etter <em>sein</em>: Sie sind verheiratet.',
+    'schwanger':'Ikke gradbøybar. Brukes etter <em>sein</em>: Sie ist schwanger.',
+    'täglich':'Ikke gradbøybar. Foran substantiv: <b>die tägliche Routine</b>; også adverb: <b>täglich</b> = hver dag.',
+    'kostenlos':'Ikke gradbøybar. Brukes både etter <em>sein</em> og foran substantiv: <b>der kostenlose Eintritt</b>.',
+    'privat':'Ikke gradbøybar. Foran substantiv: <b>die private Frage</b>.',
+    'eigen':'Foran substantiv: <b>mein eigenes Zimmer</b>. Ofte brukt etter eiendomsord.',
+    'orange':'Fargene <b>orange, lila, rosa, beige</b> bøyes <u>ikke</u> foran substantiv: <b>ein rosa Kleid</b>, <b>die orange Jacke</b> (i talespråk hører du også «orangene»).',
+    'lila':'Fargene <b>orange, lila, rosa, beige</b> bøyes <u>ikke</u> foran substantiv: <b>eine lila Jacke</b>.',
+    'rosa':'Fargene <b>orange, lila, rosa, beige</b> bøyes <u>ikke</u> foran substantiv: <b>ein rosa Kleid</b>.',
+    'beige':'Fargene <b>orange, lila, rosa, beige</b> bøyes <u>ikke</u> foran substantiv: <b>ein beige Mantel</b>.',
+    'heiter':'Om vær: <em>heiter</em> = lett skyet/lyst. Om personer: lystig, glad.'
+  };
+  ['rot','blau','gelb','grün','schwarz','weiß','braun','grau'].forEach(function(c){
+    NOTES[c] = 'Farger kan i teorien gradbøyes (<em>blauer</em>), men det brukes sjelden. Foran substantiv bøyes de vanlig: <b>ein ' + (c==='grün'?'grünes':c==='rot'?'rotes':c==='weiß'?'weißes':c+'es') + ' Auto</b>.';
+  });
+
+  function keyOf(a){ return a.a; }
+  adjs.forEach(function(a){ byKey[keyOf(a)] = a; });
+
+  // ---------- hjelpefunksjoner ----------
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function hl(s){ return esc(s).replace(/‹/g,'<span class="dw-irr">').replace(/›/g,'</span>'); }
+  function norm(s){ return String(s).toLowerCase().replace(/ß/g,'ss').replace(/[!.,?]/g,'').replace(/\s+/g,' ').trim(); }
+  function stemOf(a, deg, alt){
+    if(deg === 'pos') return a.ps || a.a;
+    if(deg === 'comp') return alt ? a.c2 : a.c;
+    return alt ? a.s2 : a.s;
+  }
+  function canDecl(a){ return !a.ind && !a.nd; }
+  function degAvail(a, d){ return d === 'pos' ? true : !!(a.c && !a.ng && !a.nd); }
+  // stamme + endelse -> [stamme, endelse] slik at stamme+endelse er riktig skrevet
+  function join(stem, end){
+    if(/e$/.test(stem)) return [stem.slice(0,-1), end];
+    return [stem, end];
+  }
+  function word(stem, end){ var j = join(stem, end); return j[0] + j[1]; }
+  function wordHL(stem, end){ var j = join(stem, end); return esc(j[0]) + '<span class="dw-end">' + esc(j[1]) + '</span>'; }
+
+  // ---------- søkeindeks ----------
+  var formIdx = {};
+  function addForm(w, a){
+    w = norm(w); if(w.length < 2) return;
+    (formIdx[w] = formIdx[w] || []);
+    if(formIdx[w].indexOf(a) < 0) formIdx[w].push(a);
+  }
+  adjs.forEach(function(a){
+    addForm(a.a, a);
+    var stems = [];
+    if(canDecl(a)) stems.push(stemOf(a,'pos'));
+    if(a.c && !a.ng){ stems.push(a.c); stems.push(a.s); addForm(a.c, a); addForm(a.s + 'en', a); addForm('am ' + a.s + 'en', a); if(a.c2){ stems.push(a.c2, a.s2); addForm(a.c2, a); addForm(a.s2 + 'en', a); } }
+    stems.forEach(function(st){ ['e','en','er','es','em'].forEach(function(e){ addForm(word(st, e), a); }); });
+  });
+
+  function glossWords(a){ return norm(a.n).split(/[ ,()\/]+/).filter(Boolean); }
+  function matchAdj(q){
+    q = norm(q); if(!q) return [];
+    var seen = [], out = [];
+    function push(a, why){ if(seen.indexOf(a) < 0 && (!level || a.l === level)){ seen.push(a); out.push({a:a, why:why}); } }
+    adjs.forEach(function(a){ if(norm(a.a) === q) push(a,''); });
+    (formIdx[q] || []).slice().sort(function(x, y){ return x.a.length - y.a.length; }).forEach(function(a){
+      push(a, '«' + q + '» er en form av ' + a.a);
+    });
+    adjs.forEach(function(a){ if(norm(a.a).indexOf(q) === 0) push(a,''); });
+    adjs.forEach(function(a){
+      var m = glossWords(a);
+      for(var i = 0; i < m.length; i++){ if(m[i].indexOf(q) === 0){ push(a,''); break; } }
+    });
+    if(q.length >= 3) adjs.forEach(function(a){ if(norm(a.a).indexOf(q) >= 0) push(a,''); });
+    return out;
+  }
+
+  // ---------- søk-UI ----------
+  var input = document.getElementById('dw-a-input'), sugg = document.getElementById('dw-a-sugg');
+  function degLine(a){
+    if(a.ng) return '';
+    if(!a.c) return '';
+    return a.a + ' – ' + a.c + ' – ' + (a.nd ? a.s : 'am ' + a.s + 'en');
+  }
+  function renderSugg(){
+    var q = input.value.trim();
+    if(!q){ sugg.innerHTML = ''; return; }
+    var res = matchAdj(q);
+    if(!res.length){ sugg.innerHTML = '<div class="dw-v-empty">Ingen treff på «' + esc(q) + '»' + (level ? ' på nivå ' + level : '') + '. Prøv et annet ord, eller velg «Alle» nivåer.</div>'; return; }
+    sugg.innerHTML = res.slice(0,8).map(function(r){
+      var a = r.a, em = r.why || degLine(a);
+      return '<button type="button" class="dw-sugg" data-key="' + esc(keyOf(a)) + '"><b>' + esc(a.a) + '</b><span class="dw-sugg-no">' + esc(a.n) + '</span><i>' + a.l + '</i>' + (em ? '<em>' + esc(em) + '</em>' : '') + '</button>';
+    }).join('') + (res.length > 8 ? '<div class="dw-v-empty">… og ' + (res.length - 8) + ' flere. Skriv litt mer for å snevre inn.</div>' : '');
+  }
+  input.addEventListener('input', renderSugg);
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ var res = matchAdj(input.value); if(res.length){ show(res[0].a); sugg.innerHTML = ''; } }
+  });
+  sugg.addEventListener('click', function(e){
+    var b = e.target.closest('.dw-sugg'); if(!b) return;
+    show(byKey[b.getAttribute('data-key')]); sugg.innerHTML = '';
+  });
+  document.querySelectorAll('.dw-lvl-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.dw-lvl-btn').forEach(function(b){ b.classList.remove('dw-on'); });
+      btn.classList.add('dw-on'); level = btn.getAttribute('data-lvl'); renderSugg(); renderAll();
+    });
+  });
+  document.getElementById('dw-a-random').addEventListener('click', function(){
+    var pool = adjs.filter(function(a){ return !level || a.l === level; });
+    show(pool[Math.floor(Math.random() * pool.length)]);
+  });
+
+  // ---------- oversikt ----------
+  function chip(a){ return '<button type="button" class="dw-chip-v" data-key="' + esc(keyOf(a)) + '" title="' + esc(a.n) + '">' + esc(a.a) + '</button>'; }
+  function renderCommon(){ document.getElementById('dw-a-common').innerHTML = COMMON.map(function(k){ return byKey[k] ? chip(byKey[k]) : ''; }).join(''); }
+  function azKey(w){ return w.charAt(0).toUpperCase().replace('Ä','A').replace('Ö','O').replace('Ü','U'); }
+  function renderAll(){
+    var list = adjs.filter(function(a){ return !level || a.l === level; }), html = '', last = '';
+    list.forEach(function(a){ var L = azKey(a.a); if(L !== last){ html += '<div class="dw-az-letter">' + L + '</div>'; last = L; } html += chip(a); });
+    document.getElementById('dw-a-all').innerHTML = html;
+  }
+  ['dw-a-common','dw-a-all'].forEach(function(id){
+    document.getElementById(id).addEventListener('click', function(e){
+      var b = e.target.closest('.dw-chip-v'); if(!b) return; show(byKey[b.getAttribute('data-key')]);
+    });
+  });
+
+  // ---------- detaljvisning ----------
+  var detail = document.getElementById('dw-a-detail');
+
+  function badges(a){
+    var b = '<span class="dw-badge">' + a.l + '</span>';
+    if(a.ind) b += '<span class="dw-badge dw-b-irr">bøyes ikke</span>';
+    if(a.ng) b += '<span class="dw-badge">ingen gradbøying</span>';
+    else if(a.c){
+      var irr = !!(a.cm && /‹/.test(a.cm));
+      b += irr ? '<span class="dw-badge dw-b-irr">uregelmessig gradbøying</span>' : '<span class="dw-badge dw-b-reg">regelmessig gradbøying</span>';
+      if(a.cm && /‹[äöü]›/.test(a.cm)) b = b.replace('uregelmessig gradbøying','omlyd (a/o/u → ä/ö/ü)');
+    }
+    if(a.nd) b += '<span class="dw-badge">tallord/mengde</span>';
+    return '<div class="dw-d-badges">' + b + '</div>';
+  }
+  function exampleHTML(a){
+    var s = esc(a.e), key = (a.ps || a.a);
+    var re = new RegExp('(^|[^A-Za-zÄÖÜäöüß])(' + key.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '[a-zäöüß]*)', 'i');
+    var done = false;
+    s = s.replace(re, function(m, p1, p2){ done = true; return p1 + '<b>' + p2 + '</b>'; });
+    return '<div class="dw-ex">' + s + '<small>' + esc(a.en) + '</small></div>';
+  }
+  function inpCell(id, answers, raw){
+    return '<span class="dw-inp-wrap" style="display:inline-flex"><input type="text" id="' + id + '" class="dw-inp" data-ans="' + esc(answers.map(norm).join('|')) + '" data-raw="' + esc(raw) + '" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Skriv adjektivformen"><span class="dw-check">✓</span></span>';
+  }
+  var inpN = 0;
+  function degreeBlock(a){
+    var rows = '';
+    function row(lbl, form){ return '<div class="dw-row"><span class="dw-pron">' + lbl + '</span>' + form + '</div>'; }
+    function f(txt){ return '<span class="dw-form">' + txt + '</span>'; }
+    var posStr = esc(a.a);
+    var pos = '<section class="dw-tense"><div class="dw-tense-h"><b>Positiv</b><span>grunnform</span></div><div class="dw-rows">' +
+      row('Grunnform', f(posStr)) + row('Likhet', f('so ' + posStr + ' wie')) +
+      row('Foran subst.', canDecl(a) ? f('ein ' + wordHL(a.ps || a.a, 'er') + ' Mann') : '<span class="dw-na">bøyes ikke</span>') + '</div></section>';
+    var comp, sup;
+    if(a.ng){
+      var msg = '<span class="dw-na">Dette adjektivet kan vanligvis ikke gradbøyes.</span>';
+      comp = '<section class="dw-tense"><div class="dw-tense-h"><b>Komparativ</b><span>høyere grad</span></div><div class="dw-rows"><div class="dw-row" style="grid-template-columns:1fr">' + msg + '</div></div></section>';
+      sup = '<section class="dw-tense"><div class="dw-tense-h"><b>Superlativ</b><span>høyeste grad</span></div><div class="dw-rows"><div class="dw-row" style="grid-template-columns:1fr">' + msg + '</div></div></section>';
+    } else if(a.ind){
+      var msg2 = '<span class="dw-na">Dette adjektivet bøyes ikke og har ikke komparativ.</span>';
+      comp = '<section class="dw-tense"><div class="dw-tense-h"><b>Komparativ</b><span>høyere grad</span></div><div class="dw-rows"><div class="dw-row" style="grid-template-columns:1fr">' + msg2 + '</div></div></section>';
+      sup = '';
+    } else {
+      var cShow = a.cm ? hl(a.cm) : esc(a.c), sShow = a.sm ? hl(a.sm) : esc(a.s);
+      var cA = [a.c].concat(a.c2 ? [a.c2] : []), sA = [a.s + 'en'].concat(a.s2 ? [a.s2 + 'en'] : []);
+      var cmpRow, supRow;
+      if(practice){
+        cmpRow = row('Komparativ', inpCell('dw-i-c' + (inpN++), cA, a.c));
+        supRow = row('am …', '<span class="dw-form" style="display:flex;gap:6px;align-items:center"><span class="dw-art">am</span>' + inpCell('dw-i-s' + (inpN++), sA, a.s + 'en') + '</span>');
+      } else {
+        cmpRow = row('Komparativ', f(cShow));
+        supRow = row('am …', f('am ' + sShow + 'en'));
+      }
+      comp = '<section class="dw-tense"><div class="dw-tense-h"><b>Komparativ</b><span>høyere grad</span></div><div class="dw-rows">' +
+        cmpRow + row('Sammenligning', f(esc(a.c) + ' als')) +
+        row('Foran subst.', f('der ' + wordHL(a.c, 'e') + ' Mann')) + '</div></section>';
+      sup = '<section class="dw-tense"><div class="dw-tense-h"><b>Superlativ</b><span>høyeste grad</span></div><div class="dw-rows">' +
+        supRow + row('Foran subst.', f('der ' + wordHL(a.s, 'e') + ' Mann')) + '</div></section>';
+    }
+    if(a.nd){
+      comp = '<section class="dw-tense"><div class="dw-tense-h"><b>Komparativ</b><span>høyere grad</span></div><div class="dw-rows">' +
+        row('Grunnform', f(esc(a.c))) + row('Sammenligning', f(esc(a.c) + ' als')) + '</div></section>';
+      sup = '<section class="dw-tense"><div class="dw-tense-h"><b>Superlativ</b><span>høyeste grad</span></div><div class="dw-rows">' +
+        row('am …', f('am ' + esc(a.s) + 'en')) + '</div></section>';
+    }
+    return '<div class="dw-deg">' + pos + comp + sup + '</div>';
+  }
+  function declTable(a, type, deg){
+    var stem = stemOf(a, deg), alt = (deg === 'comp' && a.c2) ? [a.c2] : (deg === 'sup' && a.s2 ? [a.s2] : []);
+    var T = TYPES.filter(function(t){ return t.k === type; })[0];
+    var h = '<div class="dw-decl"><div class="dw-decl-h"><b>' + T.t + '</b><span>' + T.h + '</span></div><div class="dw-tbl-wrap"><table class="dw-dt"><thead><tr><th></th>';
+    GEN.forEach(function(g, gi){ h += '<th>' + g + '</th>'; });
+    h += '</tr></thead><tbody>';
+    for(var c = 0; c < 4; c++){
+      h += '<tr><th>' + CASES[c] + '</th>';
+      for(var g = 0; g < 4; g++){
+        var art = ART[type][c][g], end = END[type][c][g], noun = NOUNFORM[c][g];
+        var cell = art ? '<span class="dw-art">' + art + '</span> ' : '';
+        if(practice){
+          var answers = [word(stem, end)].concat(alt.map(function(s){ return word(s, end); }));
+          cell += inpCell('dw-i-d' + (inpN++), answers, word(stem, end));
+        } else {
+          cell += '<span class="dw-adj">' + wordHL(stem, end) + '</span>';
+        }
+        cell += ' <span class="dw-noun">' + noun + '</span>';
+        h += '<td>' + cell + '</td>';
+      }
+      h += '</tr>';
+    }
+    return h + '</tbody></table></div></div>';
+  }
+  function show(a, noScroll){
+    if(!a) return;
+    current = a; inpN = 0;
+    if(!degAvail(a, curDeg)) curDeg = 'pos';
+    var note = NOTES[a.a];
+    var html = '<div class="dw-d-head">' +
+      '<div class="dw-d-title"><h2>' + esc(a.a) + '</h2><span class="dw-d-no">= ' + esc(a.n) + '</span></div>' +
+      badges(a) + exampleHTML(a) +
+      (note ? '<div class="dw-d-note">💡 ' + note + '</div>' : '') +
+      '<div class="dw-d-modes">' +
+        '<button type="button" class="dw-mode-btn' + (practice ? '' : ' dw-on') + '" id="dw-m-view">📋 Se tabell</button>' +
+        '<button type="button" class="dw-mode-btn' + (practice ? ' dw-on' : '') + '" id="dw-m-practice">✏️ Skriv selv</button>' +
+        (practice ? '<button type="button" class="dw-v-btn" id="dw-m-facit">👁️ Vis fasit</button><button type="button" class="dw-v-btn" id="dw-m-reset">↺ Start på nytt</button><span class="dw-prog" id="dw-prog"></span>' : '') +
+      '</div>' +
+      (practice ? '<div class="dw-prog-bar"><div class="dw-prog-fill" id="dw-prog-fill"></div></div><div class="dw-win" id="dw-win">🎉 Alt riktig — bra jobba!</div><div class="dw-umlaut" id="dw-umlaut"><span>Tegn:</span><button type="button" data-ch="ä">ä</button><button type="button" data-ch="ö">ö</button><button type="button" data-ch="ü">ü</button><button type="button" data-ch="ß">ß</button></div>' : '') +
+      '</div>' + degreeBlock(a);
+    if(canDecl(a)){
+      var tabs = '<div class="dw-degtabs"><span>Bøyning foran substantiv:</span>' + [['pos','Positiv'],['comp','Komparativ'],['sup','Superlativ']].map(function(d){
+        var av = degAvail(a, d[0]);
+        return '<button type="button" class="dw-pill' + (curDeg === d[0] ? ' dw-on' : '') + '" data-deg="' + d[0] + '"' + (av ? '' : ' disabled') + '>' + d[1] + '</button>';
+      }).join('') + '</div>';
+      html += '<h3 class="dw-sec-title" style="font-size:1.1rem;margin-top:6px">🧱 Bøyningstabeller</h3>' + tabs;
+      html += TYPES.map(function(t){ return declTable(a, t.k, curDeg); }).join('');
+    } else if(a.ind){
+      html += '<div class="dw-d-note">«' + esc(a.a) + '» bøyes ikke foran substantiv, uansett kjønn eller kasus — det er derfor enkelt: <b>ein ' + esc(a.a) + ' Kleid</b> (også: <b>der ' + esc(a.a) + ' Mantel, die ' + esc(a.a) + ' Jacke</b>).</div>';
+    } else {
+      html += '<div class="dw-d-note">«' + esc(a.a) + '» brukes foran substantiv uten vanlig bøyningstabell — se forklaringen over.</div>';
+    }
+    detail.innerHTML = html;
+    detail.style.display = 'block';
+    wire();
+    try{ history.replaceState(null, '', '#' + encodeURIComponent(keyOf(a))); }catch(e){}
+    document.title = a.a + ' · Adjektiv · Deutschwelt';
+    if(!noScroll){
+      var top = detail.getBoundingClientRect().top;
+      if(top < 0 || top > window.innerHeight * 0.5) detail.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  }
+  function wire(){
+    document.getElementById('dw-m-view').addEventListener('click', function(){ practice = false; show(current, true); });
+    document.getElementById('dw-m-practice').addEventListener('click', function(){ practice = true; show(current, true); var f = detail.querySelector('.dw-inp'); if(f) f.focus(); });
+    detail.querySelectorAll('.dw-degtabs .dw-pill').forEach(function(b){
+      b.addEventListener('click', function(){ if(b.disabled) return; curDeg = b.getAttribute('data-deg'); show(current, true); });
+    });
+    if(practice) wirePractice();
+  }
+
+  // ---------- "Skriv selv" ----------
+  function wirePractice(){
+    var inputs = detail.querySelectorAll('.dw-inp');
+    function update(){
+      var ok = detail.querySelectorAll('.dw-inp.dw-ok').length, n = inputs.length;
+      document.getElementById('dw-prog').textContent = ok + ' / ' + n + ' riktige';
+      document.getElementById('dw-prog-fill').style.width = (n ? ok / n * 100 : 0) + '%';
+      document.getElementById('dw-win').style.display = (ok === n && n > 0) ? 'block' : 'none';
+    }
+    function nextInput(inp){
+      for(var i = 0; i < inputs.length; i++){
+        if(inputs[i] === inp){
+          for(var j = i + 1; j < inputs.length; j++){ if(!inputs[j].classList.contains('dw-ok') && !inputs[j].classList.contains('dw-shown')) return inputs[j]; }
+        }
+      }
+      return null;
+    }
+    function check(inp){
+      if(inp.classList.contains('dw-shown')) return;
+      var val = norm(inp.value), ans = inp.getAttribute('data-ans').split('|');
+      if(val && ans.indexOf(val) >= 0){
+        inp.classList.add('dw-ok'); inp.classList.remove('dw-wrong'); inp.readOnly = true;
+        var nx = nextInput(inp); if(nx) nx.focus();
+      } else inp.classList.remove('dw-ok');
+      update();
+    }
+    inputs.forEach(function(inp){
+      inp.addEventListener('input', function(){ check(inp); });
+      inp.addEventListener('focus', function(){ lastInput = inp; inp.classList.remove('dw-wrong'); });
+      inp.addEventListener('blur', function(){ if(inp.value.trim() && !inp.classList.contains('dw-ok') && !inp.classList.contains('dw-shown')) inp.classList.add('dw-wrong'); });
+      inp.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ var nx = nextInput(inp); if(nx) nx.focus(); } });
+    });
+    detail.querySelectorAll('#dw-umlaut button').forEach(function(b){
+      b.addEventListener('mousedown', function(e){ e.preventDefault(); });
+      b.addEventListener('click', function(){
+        var t = lastInput || detail.querySelector('.dw-inp'); if(!t || t.readOnly) return;
+        var s = t.selectionStart == null ? t.value.length : t.selectionStart, e2 = t.selectionEnd == null ? s : t.selectionEnd, ch = b.getAttribute('data-ch');
+        t.value = t.value.slice(0, s) + ch + t.value.slice(e2); t.focus();
+        try{ t.setSelectionRange(s + 1, s + 1); }catch(x){}
+        check(t);
+      });
+    });
+    document.getElementById('dw-m-facit').addEventListener('click', function(){
+      inputs.forEach(function(inp){ if(!inp.classList.contains('dw-ok')){ inp.value = inp.getAttribute('data-raw'); inp.classList.add('dw-shown'); inp.classList.remove('dw-wrong'); inp.readOnly = true; } });
+    });
+    document.getElementById('dw-m-reset').addEventListener('click', function(){ show(current, true); var f = detail.querySelector('.dw-inp'); if(f) f.focus(); });
+    update();
+  }
+
+  // ---------- endelsestrener ----------
+  var TN = [
+    {w:'Hund',g:0,pl:'Hunde',dpl:'Hunden'},{w:'Tisch',g:0,pl:'Tische',dpl:'Tischen'},{w:'Film',g:0,pl:'Filme',dpl:'Filmen'},{w:'Lehrer',g:0,pl:'Lehrer',dpl:'Lehrern'},
+    {w:'Katze',g:1,pl:'Katzen',dpl:'Katzen'},{w:'Stadt',g:1,pl:'Städte',dpl:'Städten'},{w:'Tasche',g:1,pl:'Taschen',dpl:'Taschen'},{w:'Jacke',g:1,pl:'Jacken',dpl:'Jacken'},{w:'Schule',g:1,pl:'Schulen',dpl:'Schulen'},
+    {w:'Haus',g:2,pl:'Häuser',dpl:'Häusern'},{w:'Auto',g:2,pl:'Autos',dpl:'Autos'},{w:'Buch',g:2,pl:'Bücher',dpl:'Büchern'},{w:'Fahrrad',g:2,pl:'Fahrräder',dpl:'Fahrrädern'},{w:'Zimmer',g:2,pl:'Zimmer',dpl:'Zimmern'}
+  ];
+  var DETS = {
+    def:  [[['der','die','das'],['den','die','das'],['dem','der','dem']], ['die','die','den']],
+    indef:[[['ein','eine','ein'],['einen','eine','ein'],['einem','einer','einem']], ['keine','keine','keinen']]
+  };
+  var TYPE_NAME = {def:'svak bøyning (der-ord)', indef:'blandet bøyning (ein-ord)', none:'sterk bøyning (uten artikkel)'};
+  var TYPE_KEY = {def:'weak', indef:'mixed', none:'strong'};
+  var CASE3 = ['Nominativ','Akkusativ','Dativ'];
+  var GNAME = ['maskulin','feminin','nøytrum','flertall'];
+  var trDeg = 'pos', trTyp = 'def', trQ = null, trOk = 0, trN = 0, trStreak = 0, trDone = false, trTries = 0;
+  var trPool = adjs.filter(function(a){ return a.t && a.c; });
+  var trIn = null;
+
+  function pick(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+  function newQ(noFocus){
+    var a = pick(trPool);
+    var deg = trDeg === 'all' ? pick(['pos','comp','sup']) : trDeg;
+    var typ = trTyp === 'all' ? pick(['def','indef','none']) : trTyp;
+    if(deg === 'sup' && typ !== 'def' && trTyp === 'all') typ = 'def';
+    var cs = Math.floor(Math.random() * 3), noun = pick(TN);
+    var pl = (typ === 'none') ? true : Math.random() < 0.3;
+    var g = pl ? 3 : noun.g;
+    var det = '', nounForm;
+    if(typ !== 'none') det = pl ? DETS[typ][1][cs] : DETS[typ][0][cs][noun.g];
+    nounForm = pl ? (cs === 2 ? noun.dpl : noun.pl) : noun.w;
+    var end = END[TYPE_KEY[typ]][cs][g];
+    var stem = stemOf(a, deg), ans = [word(stem, end)];
+    var alt = deg === 'comp' ? a.c2 : deg === 'sup' ? a.s2 : null;
+    if(alt) ans.push(word(alt, end));
+    trQ = {a:a, deg:deg, typ:typ, cs:cs, g:g, end:end, ans:ans, det:det, noun:nounForm, pl:pl};
+    trDone = false; trTries = 0;
+    var np = (det ? det + ' ' : '') + '@@ ' + nounForm;
+    var sent;
+    if(cs === 0) sent = np + (pl ? ' sind hier.' : ' ist hier.');
+    else if(cs === 1) sent = 'Ich sehe ' + np + '.';
+    else sent = 'Ich spiele mit ' + np + '.';
+    if(cs === 0 && det) sent = sent.charAt(0).toUpperCase() + sent.slice(1);
+    var hint = '(' + a.a + (deg === 'comp' ? ' → Komparativ' : deg === 'sup' ? ' → Superlativ' : '') + ')';
+    var html = esc(sent).replace('@@', '<input type="text" id="dw-tr-in" class="dw-inp" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Skriv adjektivet med riktig endelse"> <span class="dw-hint">' + esc(hint) + '</span>');
+    document.getElementById('dw-tr-q').innerHTML = html;
+    trIn = document.getElementById('dw-tr-in');
+    trIn.addEventListener('focus', function(){ lastInput = trIn; });
+    trIn.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); trDone ? newQ() : trCheck(); } });
+    var fb = document.getElementById('dw-tr-fb'); fb.className = 'dw-tr-fb'; fb.innerHTML = '';
+    document.getElementById('dw-tr-check').textContent = 'Sjekk';
+    renderScore();
+    if(!noFocus) trIn.focus();
+  }
+  function renderScore(){
+    document.getElementById('dw-tr-score').textContent = trN ? ('Riktig: ' + trOk + ' av ' + trN + ' · rekke: ' + trStreak) : '';
+  }
+  function ruleText(q){
+    var t = TYPE_NAME[q.typ];
+    return '<b>' + t + '</b>, ' + CASE3[q.cs] + ' ' + GNAME[q.g] + ' → <b>-' + q.end + '</b>';
+  }
+  function trCheck(){
+    if(trDone){ newQ(); return; }
+    var fb = document.getElementById('dw-tr-fb');
+    var v = norm(trIn.value);
+    if(!v){ trIn.focus(); return; }
+    trTries++;
+    if(q_ok(v)){
+      trDone = true; trN += (trTries === 1 ? 1 : 0); if(trTries === 1){ trOk++; trStreak++; }
+      trIn.classList.remove('dw-wrong'); trIn.classList.add('dw-ok'); trIn.readOnly = true;
+      fb.className = 'dw-tr-fb dw-good';
+      fb.innerHTML = '✅ Riktig! ' + ruleText(trQ) + '.';
+      document.getElementById('dw-tr-check').textContent = 'Neste ➜';
+      renderScore();
+    } else {
+      if(trTries === 1){ trN++; trStreak = 0; }
+      trIn.classList.add('dw-wrong');
+      fb.className = 'dw-tr-fb dw-bad';
+      fb.innerHTML = '❌ Ikke helt. Prøv igjen — trykk «💡 Hint» hvis du står fast.';
+      renderScore();
+    }
+  }
+  function q_ok(v){ return trQ.ans.map(norm).indexOf(v) >= 0; }
+  document.getElementById('dw-tr-check').addEventListener('click', trCheck);
+  document.getElementById('dw-tr-skip').addEventListener('click', function(){
+    if(!trDone && trTries === 0){ trN++; trStreak = 0; }
+    newQ();
+  });
+  document.getElementById('dw-tr-hint').addEventListener('click', function(){
+    if(trDone) return;
+    var fb = document.getElementById('dw-tr-fb');
+    fb.className = 'dw-tr-fb';
+    fb.innerHTML = '💡 ' + ruleText(trQ) + '. Riktig svar: <b>' + esc(trQ.ans[0]) + '</b>';
+    trIn.value = ''; trIn.focus();
+    trStreak = 0; if(trTries === 0) trN++; trTries++; renderScore();
+  });
+  document.querySelectorAll('#dw-tr-um button').forEach(function(b){
+    b.addEventListener('mousedown', function(e){ e.preventDefault(); });
+    b.addEventListener('click', function(){
+      var t = trIn; if(!t || t.readOnly) return;
+      var s = t.selectionStart == null ? t.value.length : t.selectionStart, e2 = t.selectionEnd == null ? s : t.selectionEnd;
+      t.value = t.value.slice(0, s) + b.getAttribute('data-ch') + t.value.slice(e2); t.focus();
+      try{ t.setSelectionRange(s + 1, s + 1); }catch(x){}
+    });
+  });
+  function wireOpt(id, setter){
+    document.querySelectorAll('#' + id + ' .dw-pill').forEach(function(b){
+      b.addEventListener('click', function(){
+        document.querySelectorAll('#' + id + ' .dw-pill').forEach(function(x){ x.classList.remove('dw-on'); });
+        b.classList.add('dw-on'); setter(b.getAttribute('data-v')); newQ(true);
+      });
+    });
+  }
+  wireOpt('dw-tr-deg', function(v){ trDeg = v; });
+  wireOpt('dw-tr-typ', function(v){ trTyp = v; });
+
+  // ---------- oppstart ----------
+  renderCommon(); renderAll(); newQ(true);
+  function fromHash(){
+    var h = decodeURIComponent((location.hash || '').replace(/^#/, ''));
+    if(h && byKey[h]) show(byKey[h], true);
+  }
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
+})();
+</script>
+
 </body>
 </html>

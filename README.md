@@ -55,7 +55,8 @@ deutschwelt-site/
 │   ├── adverbial/
 │   │   └── index.html                → kategori-hub (alt planlagt): TeKaMoLo, stedsadverbial
 │   ├── adjektiv/
-│   │   └── index.html                → kategori-hub (alt planlagt): adjektivbøying, komparativ/superlativ
+│   │   ├── index.html                → "Adjektiv": forklaring (ordklasse, bruk, komparativ/superlativ, bøyning), søk i ca. 200 adjektiv med bøyningstabeller, "Skriv selv" og endelsestrener
+│   │   └── adjektiv_data.js          → dataene: `var dwAdj=[…]` (generert av regler + håndplukket liste A1–B1)
 │   ├── eiendomsord/
 │   │   └── index.html                → kategori-hub (alt planlagt): possessivpronomen
 │   ├── konjunksjoner/
@@ -1599,6 +1600,17 @@ Teach savnet den rullende teksten som ble borte i forside-redesignet. Den er gje
 Teach ba om en side om tall under Grammatik/Språk: oversikt over tallene, årstall, ordenstall og klokka, med en søkefunksjon der eleven skriver tallet og ser hvordan det skrives på tysk. Bygget som `grammatikk/zahlen/index.html` — ett selvstendig dokument uten datafil. Alle tallordene lages av en liten regelmotor (`DWZ`, inline i siden): `card(n)` (grunntall opp til 999 999 999, med ein/eins-regelen, dreißig/sechzehn/siebzehn og «hundert/tausend» med og uten ein-), `ord(n)` (ordenstall: erste, dritte, siebte, achte, -te t.o.m. 19, -ste fra 20), `year(n)` (1100–1999 som «hundre-tall»: neunzehnhundertvierundachtzig), `decimal`, `euro`, `official(h,m)` og `informalList(h,m)` (klokka: halb, Viertel, nach/vor, regionale varianter) og `parseWords` (tysk tallord → tall). Motoren er enhetstestet mot ca. 70 kjente verdier, og `parseWords(card(n))` gir tilbake n for alle tall 0–2000 og en rekke store tall.
 
 **Tall-søkeren** øverst tolker det eleven skriver: heltall (også med tusenskille 1.234.567), ordenstall (`3.`), desimaltall (`3,14`), negative tall, beløp (`12,50 €`), klokkeslett (`14:30`, med analog SVG-klokke), datoer (`17.5.`, `3.10.2026`) og tyske tallord (`dreiundzwanzig` → 23, med stavekontroll: «zwanzigeins» gir «einundzwanzig»). Hvert resultat vises som egne kort (grunntall, ordenstall, årstall, dato, klokka, en setning) med forklaring og 🔊-knapp (nettleserens innebygde tale-syntese, vises bare hvis støttet). Resten av siden har seksjoner for tall 0–20 (med uttalehint), tierne og 21–99-regelen (enerne først), store tall/Million/Milliarde og tegnsetting, ordenstall med datoer/måneder/høytider, årstall med eksempler (inkl. 1814 og 1905), klokka (offisielt vs. uformelt, tabell for 3:00–3:55, «halb vier = 3:30», klokka akkurat nå), tall i hverdagen og en øvingsdel med 8 øvelser (tall, ordenstall, årstall, klokka offisielt/uformelt) med live-sjekk og grønn hake. Siden er lenket fra `grammatikk/index.html` (kort under «Ord for seg selv»), forsiden (Sprache-listen + søkeindeks, nye nøkler som «tall», «klokke», «ordenstall», «årstall»; ingen nye kollisjoner) og fra kortet «Klokka på tysk» i `grammatikk/tidsuttrykk/`, som tidligere var en «Kommer snart»-plassholder. Den ble ikke lagt i toppmenyen (den har allerede 20 punkter).
+
+
+### Toppmeny-lenke til Zahlen + Adjektiv-siden (`grammatikk/adjektiv/`)
+
+**Meny:** Teach syntes tallsiden var vanskelig å finne, så «🔢 Zahlen» er nå et eget punkt i toppmenyen (rett etter «🔄 Verben») på alle HTML-sider — menyen har dermed 21 punkter. På Zahlen-siden selv er punktet markert som aktivt (`dw-nav-active`).
+
+**Adjektiv-siden** (`grammatikk/adjektiv/index.html` + `adjektiv_data.js`) erstatter den gamle kategori-huben med «Kommer snart»-kort. Siden har fire deler, med hurtiglenker øverst: (1) **Søk** — skriv norsk eller tysk (også en bøyd form som «älteren» eller «besten»), nivåfilter A1–B1, «Tilfeldig adjektiv», direktelenker `#alt`; treffet viser eksempelsetning (tysk + norsk), Positiv/Komparativ/Superlativ (omlyd og uregelmessige former i rødt), og tre bøyningstabeller (svak/blandet/sterk) for alle fire kasus × m/f/n/flertall, for hvert av de tre gradene, med endelsen uthevet; «Skriv selv» gjør alle felt til inputs med grønn hake. (2) **Forklaring** på norsk: hva et adjektiv er, de tre bruksmåtene (etter sein = uten endelse, foran substantiv = med endelse, som adverb), komparativ/superlativ med alle regler (-er/-st, -est, omlyd, -el/-er-ord, uregelmessige, so…wie/…er als, ikke-gradbøybare), og bøyning med oversiktstabell og huskeregler. (3) **Endelsestrener** — tilfeldig setning («Ich sehe den ___ (alt) Hund.»), valg av grad og artikkeltype, hint, poengtelling. (4) Alle adjektiv A–Å.
+
+**Data:** `adjektiv_data.js` har 198 oppføringer (`a` adjektiv, `n` norsk, `l` nivå, `c` komparativ, `s` superlativ-stamme uten -en, `cm`/`sm` med røde markører ‹ ›, `ps` stamme før endelse (hoch→hoh, teuer→teur, dunkel→dunkl), `c2`/`s2` alternativ form, `ng` ikke gradbøybar, `ind` ubøyelig (orange/lila/rosa/beige), `nd` viel/wenig, `t` brukes i trener, `e`/`en` eksempelsetning). Dataene er laget av et Python-skript (regler for -er/-st/-est, listene over omlyd og uregelmessige former) og kontrollert mot ca. 50 kjente former. Endelsene i tabellene settes sammen i nettleseren av `END`/`ART`-tabellene i siden, så datafilen trenger bare stammene.
+
+**Lagt inn:** kortet i `grammatikk/index.html`, «🎨 Adjektiv» i Sprache-listen på forsiden, søkeindeks-oppføring (nøkler: adjektiv, komparativ, superlativ, steigern, deklination …). Ikke lagt i toppmenyen (den er allerede lang). Kjent begrensning: de tyske eksempelsetningene og norske oversettelsene er skrevet for hånd og ikke gjennomgått av en morsmålsbruker.
 
 ## Slik legger du til en ny seksjon
 
