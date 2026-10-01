@@ -313,6 +313,10 @@ aehnliche-woerter/
 │                                        grønn hake ✓ ved riktig svar
 └── nysk_data.js                      → ordlisten (13 kategorier, fasit med godkjente
                                          alternative stavemåter), lastes som eget script
+verben/
+├── index.html                        → Verben-Konjugator: søk, tabeller for Präsens/Präteritum/Perfekt/Futur I/Imperativ,
+│                                        «Skriv selv»-modus med grønn hake ✓
+└── verben_data.js                    → bøyningsdata for 338 verb (A1–B1), ferdig generert; lastes som eget script
 ```
 
 `grammatikk/artikler/dativ/` (🧭 Der Dativ-Kompass) er det første ferdigbygde
@@ -1575,6 +1579,14 @@ Full verifisering: `node --check` på begge nye script-blokker (0 feil), en loka
 ### Forsiden: ordbok-søk under «Eine Reise durch Deutschland»
 
 Forsiden har fått et lite ordbok-søkefelt («📔 Slå opp et ord») rett under Deine Mission-kortet (`#dw-ordsearch` i `index.html`). Søket virker begge veier (norsk ⇄ tysk) og viser de 5 beste treffene (eksakt → begynner med → inneholder), med lenken «Se alle N treff i ordboken →» til `ordbok/?q=…`. `ordbok/ordbok.json` (2,6 MB) hentes først når eleven begynner å skrive, slik at forsiden ikke laster tyngre. `ordbok/index.html` leser `?q=` og fyller inn søket automatisk.
+
+### Verben-Konjugator (`verben/`)
+
+Teach ba om en enkel verb-oversikt à la Reverso. Siden Deutschwelt er statisk og Reverso ikke kan bygges inn eller kopieres, ble det bygget en egen, gratis løsning. Grunnlaget er åpne bøyningsdata fra Wiktionary (lisens CC BY-SA), hentet fra samlingen `viorelsfetea/german-verbs-database` (8 047 verb med Präsens ich/du/er, Präteritum ich, Partizip II, Hilfsverb og Imperativ). Derfra ble 338 verb valgt ut for 8.–10. trinn (A1–B1, inkl. 33 refleksive og 59 adskillbare), med norsk betydning og omtrentlig nivå skrevet for hånd.
+
+Resten av formene er generert av en Python-motor (`build_verbs.py`, ikke del av nettstedet): wir/sie fra infinitiv, ihr fra stammen (+et etter d/t/chn osv.), alle Präteritum-personer fra ich-formen (svake: -te/-st/-n/-t, sterke: -/-st/-en/-t, med -est etter s/ß/z/t/d), Perfekt fra hjelpeverbet haben/sein + Partizip II, Futur I fra werden + infinitiv, og Imperativ (du/ihr/Sie). Adskillbare verb flytter partikkelen til slutten, og refleksive verb får mich/dich/… (Akkusativ eller Dativ) på riktig plass. «sein» er skrevet inn for hånd. Uregelmessige former merkes automatisk og vises i rødt. Modalverbene har ingen imperativ; «regnen» og «schneien» vises bare med «es». Noen få verb har en liten fotnote (haben/sein-valg, Dativ-verb, falske venner).
+
+`verben/index.html` søker i infinitiv, norsk betydning og alle bøyde former (så «ging» finner «gehen», og «spise» finner «essen»), har nivåfilter A1/A2/B1, «Tilfeldig verb», direktelenker via `#gehen`/`#sich-freuen`, og en «Skriv selv»-modus der hvert felt får grønn hake når svaret er riktig (ß og ss godtas begge deler, hjelpeknapper for ä/ö/ü/ß). Menypunktet «🔄 Verben» er satt inn i alle HTML-filer, forsiden har fått en lenke under «Sprache», søkeindeksen en ny oppføring (nøklene «verben» og «konjugieren» ble flyttet fra den eldre Präsens-oppføringen), og `grammatikk/verb/` har fått et kort øverst. **Datakvalitet:** formene er stikkprøvekontrollert, men ikke manuelt gjennomgått for alle 338 verb — verbene i Wiktionary-data kan ha avvik (f.eks. «du bäckst», «du hießest»), så Teach bør se gjennom listen over uregelmessige verb før elevene bruker den mye.
 
 ## Slik legger du til en ny seksjon
 

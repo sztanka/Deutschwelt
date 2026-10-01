@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Verben-Konjugator
+  Søkbar bøyningstabell for ca. 330 tyske verb på nivå A1–B1:
+  Präsens, Präteritum, Perfekt, Futur I og Imperativ, med "Skriv selv"-modus.
+  Data ligger i verben_data.js og er laget ut fra åpne Wiktionary-data
+  (lisens CC BY-SA) + bøyningsregler — se README.md for detaljer.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verben · Deutschwelt</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:980px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:32px 26px;text-align:center;margin-bottom:24px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.8rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:22px;font-size:.88rem;line-height:1.6;
+  }
+  .dw-intro strong{color:var(--dw-primary);}
+  .dw-intro a{color:var(--dw-primary-light);font-weight:600;}
+  .dw-irr{color:var(--dw-primary-light);font-weight:800;}
+
+  /* ---------- Søk ---------- */
+  .dw-v-box{
+    background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);
+    padding:18px 20px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:22px;
+  }
+  #dw-v-input{
+    width:100%;font-size:1.1rem;padding:14px 20px;border-radius:999px;
+    border:2px solid #ece8df;outline:none;background:#fff;color:var(--dw-text);
+  }
+  #dw-v-input:focus{border-color:var(--dw-accent);}
+  .dw-v-tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-top:12px;}
+  .dw-v-levels{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:.82rem;color:var(--dw-muted);}
+  .dw-lvl-btn,.dw-v-btn{
+    font-family:inherit;font-size:.82rem;font-weight:700;padding:6px 14px;border-radius:999px;
+    border:1.5px solid #ece8df;background:#fff;color:var(--dw-text);cursor:pointer;
+  }
+  .dw-lvl-btn:hover,.dw-v-btn:hover{border-color:var(--dw-accent);}
+  .dw-lvl-btn.dw-on{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .dw-v-btn.dw-solid{background:var(--dw-primary-light);border-color:var(--dw-primary-light);color:#fff;}
+  .dw-v-btn.dw-solid:hover{filter:brightness(1.08);}
+  .dw-v-btn:focus-visible,.dw-lvl-btn:focus-visible,.dw-chip-v:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  #dw-v-sugg{margin-top:12px;display:flex;flex-direction:column;gap:6px;}
+  .dw-sugg{
+    display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:center;text-align:left;
+    background:var(--dw-bg);border:1px solid #ece8df;border-radius:12px;padding:10px 14px;
+    font-family:inherit;font-size:.95rem;cursor:pointer;color:var(--dw-text);width:100%;
+  }
+  .dw-sugg:hover,.dw-sugg:focus-visible{border-color:var(--dw-accent);background:#fff;outline:none;}
+  .dw-sugg b{color:var(--dw-primary-light);font-size:1.02rem;}
+  .dw-sugg span.dw-sugg-no{color:var(--dw-muted);font-size:.88rem;}
+  .dw-sugg i{font-style:normal;font-size:.7rem;font-weight:700;background:#fff;border:1px solid #ece8df;border-radius:999px;padding:2px 9px;color:var(--dw-muted);}
+  .dw-sugg em{grid-column:1/-1;font-size:.78rem;color:var(--dw-muted);font-style:italic;}
+  .dw-v-empty{text-align:center;color:var(--dw-muted);padding:10px 0;font-size:.9rem;}
+
+  /* ---------- Detaljkort ---------- */
+  #dw-v-detail{display:none;margin-bottom:26px;scroll-margin-top:70px;}
+  .dw-d-head{
+    background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);
+    padding:20px 22px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:14px;
+  }
+  .dw-d-title{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;}
+  .dw-d-title h2{margin:0;font-family:"Baloo 2",-apple-system,sans-serif;font-size:2rem;color:var(--dw-primary-light);}
+  .dw-d-no{font-size:1.05rem;color:var(--dw-text);font-weight:600;}
+  .dw-d-badges{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 12px;}
+  .dw-badge{font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--dw-bg);border:1px solid #ece8df;color:var(--dw-muted);}
+  .dw-badge.dw-b-irr{background:#fdecee;border-color:#f2c0c7;color:var(--dw-primary-light);}
+  .dw-badge.dw-b-reg{background:#eef7ee;border-color:#bfe0c0;color:var(--dw-good);}
+  .dw-d-parts{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:12px 16px;
+    font-size:1.05rem;font-weight:700;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;
+  }
+  .dw-d-parts small{font-weight:600;font-size:.72rem;color:var(--dw-muted);text-transform:uppercase;letter-spacing:.04em;margin-right:4px;}
+  .dw-d-parts .dw-sep{color:var(--dw-accent);}
+  .dw-d-note{margin-top:12px;font-size:.86rem;line-height:1.55;background:#f3f6fb;border:1px solid #d7e1f0;border-radius:12px;padding:10px 14px;}
+  .dw-d-modes{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center;}
+  .dw-mode-btn{
+    font-family:inherit;font-size:.88rem;font-weight:700;padding:8px 18px;border-radius:999px;
+    border:2px solid #ece8df;background:#fff;color:var(--dw-text);cursor:pointer;
+  }
+  .dw-mode-btn.dw-on{background:var(--dw-primary);border-color:var(--dw-primary);color:#fff;}
+  .dw-mode-btn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-prog{margin-left:auto;font-size:.85rem;color:var(--dw-muted);font-weight:700;}
+  .dw-prog-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-top:12px;display:none;}
+  .dw-prog-fill{height:100%;width:0%;background:var(--dw-good);transition:width .25s ease;}
+  .dw-win{display:none;margin-top:12px;text-align:center;background:var(--dw-good);color:#fff;border-radius:12px;padding:10px 14px;font-weight:800;}
+  .dw-umlaut{display:none;gap:6px;margin-top:12px;align-items:center;font-size:.8rem;color:var(--dw-muted);}
+  .dw-umlaut button{font-family:inherit;font-size:1rem;font-weight:700;min-width:38px;padding:4px 10px;border-radius:8px;border:1.5px solid #ece8df;background:#fff;cursor:pointer;}
+  .dw-umlaut button:hover{border-color:var(--dw-accent);}
+
+  .dw-tenses{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;}
+  .dw-tense{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.05);}
+  .dw-tense-h{padding:10px 16px;border-bottom:3px solid var(--dw-accent);background:#fbfaf6;display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  .dw-tense-h b{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.1rem;color:var(--dw-primary);}
+  .dw-tense-h span{font-size:.74rem;color:var(--dw-muted);}
+  .dw-rows{padding:6px 14px 10px;}
+  .dw-row{display:grid;grid-template-columns:74px 1fr;gap:10px;align-items:center;padding:6px 0;border-bottom:1px dashed #efece4;}
+  .dw-row:last-child{border-bottom:0;}
+  .dw-pron{color:var(--dw-muted);font-size:.88rem;}
+  .dw-form{font-size:1.02rem;font-weight:600;}
+  .dw-na{color:#aaa;font-weight:400;font-size:.9rem;}
+  .dw-inp-wrap{position:relative;display:flex;align-items:center;}
+  .dw-inp{
+    width:100%;font-family:inherit;font-size:.98rem;padding:7px 30px 7px 12px;border-radius:10px;
+    border:2px solid #ece8df;outline:none;background:#fff;color:var(--dw-text);
+  }
+  .dw-inp:focus{border-color:var(--dw-accent);}
+  .dw-inp.dw-ok{border-color:var(--dw-good);background:#eef7ee;color:var(--dw-good);font-weight:700;}
+  .dw-inp.dw-wrong{border-color:var(--dw-bad);}
+  .dw-check{position:absolute;right:9px;color:var(--dw-good);font-weight:800;opacity:0;transform:scale(.6);transition:all .15s ease;pointer-events:none;}
+  .dw-inp.dw-ok ~ .dw-check{opacity:1;transform:scale(1);}
+  .dw-inp.dw-shown{border-color:#bbb;background:#f6f4ee;color:#555;}
+
+  /* ---------- Oversikt ---------- */
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.25rem;margin:26px 0 10px;color:var(--dw-primary);}
+  .dw-chips-v{display:flex;flex-wrap:wrap;gap:8px;}
+  .dw-chip-v{
+    font-family:inherit;font-size:.9rem;font-weight:600;padding:6px 14px;border-radius:999px;
+    border:1.5px solid #e4dfd2;background:#fff;color:var(--dw-text);cursor:pointer;
+  }
+  .dw-chip-v:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-az-letter{width:100%;font-size:.78rem;font-weight:800;color:var(--dw-muted);letter-spacing:.08em;margin:8px 0 -2px;}
+
+  .dw-see-also{margin-top:22px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-footer{text-align:center;margin-top:30px;font-size:.8rem;color:var(--dw-muted);line-height:1.6;}
+  .dw-footer a{color:var(--dw-primary-light);}
+
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.5rem;}
+    .dw-d-title h2{font-size:1.65rem;}
+    .dw-prog{margin-left:0;width:100%;}
+    .dw-row{grid-template-columns:62px 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link dw-nav-active" href="./">🔄 Verben</a>
+      <a class="dw-nav-link" href="../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>🔄 Verben</h1>
+    <p>Alle former på ett sted — Präsens, Präteritum, Perfekt, Futur I og Imperativ</p>
+  </div>
+
+  <div class="dw-intro">
+    <strong>Slik bruker du siden:</strong> Skriv et verb (norsk <em>eller</em> tysk — også en bøyd form som <em>ging</em> eller <em>bin</em>) og trykk på treffet. Du får en tabell med alle personer. <span class="dw-irr">Røde former</span> er uregelmessige: de endrer seg mer enn vanlig, så dem bør du lære utenat. Vil du øve? Trykk <strong>✏️ Skriv selv</strong>, fyll inn formene og få grønn hake når de er riktige.
+  </div>
+
+  <div class="dw-v-box">
+    <input type="text" id="dw-v-input" placeholder="Skriv et verb … (f.eks. gehen, ging, gå, spise)" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Søk etter et verb">
+    <div class="dw-v-tools">
+      <div class="dw-v-levels" role="group" aria-label="Velg nivå">
+        <span>Nivå:</span>
+        <button type="button" class="dw-lvl-btn dw-on" data-lvl="">Alle</button>
+        <button type="button" class="dw-lvl-btn" data-lvl="A1">A1</button>
+        <button type="button" class="dw-lvl-btn" data-lvl="A2">A2</button>
+        <button type="button" class="dw-lvl-btn" data-lvl="B1">B1</button>
+      </div>
+      <button type="button" class="dw-v-btn dw-solid" id="dw-v-random">🎲 Tilfeldig verb</button>
+    </div>
+    <div id="dw-v-sugg" aria-live="polite"></div>
+  </div>
+
+  <div id="dw-v-detail"></div>
+
+  <h2 class="dw-sec-title">⭐ Vanlige verb</h2>
+  <div class="dw-chips-v" id="dw-v-common"></div>
+
+  <h2 class="dw-sec-title">📚 Alle verb (A–Å)</h2>
+  <div class="dw-chips-v" id="dw-v-all"></div>
+
+  <p class="dw-see-also">
+    <strong>Se også:</strong>
+    <a href="../grammatikk/verb/">Grammatikk: Verben</a> ·
+    <a href="../grammatikk/verb/praesens-regelmaessig/">Präsens (regelmessig)</a> ·
+    <a href="../grammatikk/verb/praesens-unregelmaessig/">Präsens (uregelmessig)</a> ·
+    <a href="../grammatikk/verb/praeteritum/">Präteritum</a> ·
+    <a href="../grammatikk/verb/perfekt/">Perfekt</a> ·
+    <a href="../grammatikk/verb/futur-1/">Futur I</a> ·
+    <a href="../ordbok/">Ordbok</a>
+  </p>
+
+  <p class="dw-footer">
+    Verbdatabasen bygger på åpne bøyningsdata fra <a href="https://de.wiktionary.org" target="_blank" rel="noopener">Wiktionary</a> (lisens CC BY-SA), utvalgt og oversatt for A1–B1, og supplert med bøyningsregler for «wir», «ihr» og «sie», Perfekt og Futur I.
+    Det kan forekomme feil — sjekk gjerne med læreren din eller i Wiktionary hvis noe virker rart.
+  </p>
+
+</div>
+
+<script src="verben_data.js"></script>
+<script>
+(function(){
+  var PERS = ['ich','du','er/sie/es','wir','ihr','sie/Sie'];
+  var IMPERS_LBL = ['du','ihr','Sie'];
+  var TENSES = [
+    {k:'p', t:'Präsens', h:'nåtid'},
+    {k:'t', t:'Präteritum', h:'fortid (preteritum)'},
+    {k:'f', t:'Perfekt', h:'fortid (perfektum)'},
+    {k:'u', t:'Futur I', h:'framtid'},
+    {k:'m', t:'Imperativ', h:'bydeform'}
+  ];
+  var COMMON = ['sein','haben','werden','gehen','kommen','machen','fahren','essen','trinken','können','müssen','wollen','aufstehen','sich-freuen'];
+
+  var verbs = dwVerben;
+  var byKey = {};
+  var level = '';
+  var practice = false;
+  var lastInput = null;
+  var current = null;
+
+  function keyOf(v){ return v.k || v.i; }
+  verbs.forEach(function(v){ byKey[keyOf(v)] = v; });
+
+  // ---------- hjelpefunksjoner ----------
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function hl(s){ return esc(s).replace(/‹/g,'<span class="dw-irr">').replace(/›/g,'</span>'); }
+  function plain(s){ return String(s).replace(/[‹›]/g,''); }
+  function norm(s){
+    return String(s).toLowerCase().replace(/ß/g,'ss').replace(/[!.,?]/g,'').replace(/\s+/g,' ').trim();
+  }
+  function stripSich(i){ return i.replace(/^sich /,''); }
+  function lbl(v){ return v.i + (v.r === 'dat' ? ' (Dativ)' : ''); }
+
+  // ---------- søkeindeks ----------
+  var formIdx = {};     // bøyd form -> [verb]
+  function addForm(w, v){
+    w = norm(w);
+    if(w.length < 2) return;
+    (formIdx[w] = formIdx[w] || []);
+    if(formIdx[w].indexOf(v) < 0) formIdx[w].push(v);
+  }
+  verbs.forEach(function(v){
+    ['p','t'].forEach(function(k){ v[k].forEach(function(f){ addForm(plain(f).split(' ')[0], v); }); });
+    addForm(plain(v.pp), v);
+    if(v.m){ v.m.forEach(function(f){ addForm(plain(f).split(' ')[0], v); }); }
+  });
+
+  function matchVerbs(q){
+    q = norm(q);
+    if(q.length < 1) return [];
+    var seen = [], out = [];
+    function push(v, why){ if(seen.indexOf(v) < 0 && (!level || v.l === level)){ seen.push(v); out.push({v:v, why:why}); } }
+    var q2 = q.replace(/^sich /,'');
+    // 1) eksakt infinitiv
+    verbs.forEach(function(v){ if(norm(stripSich(v.i)) === q2) push(v,''); });
+    // 2) bøyd form
+    (formIdx[q2] || []).slice().sort(function(a, b){
+      var sa = a.p[0].indexOf(' ') > 0 && !a.r ? 1 : 0, sb = b.p[0].indexOf(' ') > 0 && !b.r ? 1 : 0;
+      return (sa - sb) || (a.i.length - b.i.length);
+    }).forEach(function(v){ push(v, '«' + q2 + '» er en form av ' + v.i); });
+    // 3) infinitiv begynner med
+    verbs.forEach(function(v){ if(norm(stripSich(v.i)).indexOf(q2) === 0) push(v,''); });
+    // 4) norsk betydning: ord begynner med søkeordet
+    verbs.forEach(function(v){
+      var m = norm(v.n).split(/[ ,]+/);
+      for(var i = 0; i < m.length; i++){ if(m[i].indexOf(q2) === 0){ push(v, ''); break; } }
+    });
+    // 5) infinitiv inneholder
+    if(q2.length >= 3) verbs.forEach(function(v){ if(norm(v.i).indexOf(q2) >= 0) push(v,''); });
+    return out;
+  }
+
+  // ---------- søk-UI ----------
+  var input = document.getElementById('dw-v-input');
+  var sugg = document.getElementById('dw-v-sugg');
+  function renderSugg(){
+    var q = input.value.trim();
+    if(!q){ sugg.innerHTML = ''; return; }
+    var res = matchVerbs(q);
+    if(!res.length){ sugg.innerHTML = '<div class="dw-v-empty">Ingen treff på «' + esc(q) + '»' + (level ? ' på nivå ' + level : '') + '. Prøv et annet ord, eller velg «Alle» nivåer.</div>'; return; }
+    sugg.innerHTML = res.slice(0,8).map(function(r){
+      return '<button type="button" class="dw-sugg" data-key="' + esc(keyOf(r.v)) + '"><b>' + esc(lbl(r.v)) + '</b><span class="dw-sugg-no">' + esc(r.v.n) + '</span><i>' + r.v.l + '</i>' + (r.why ? '<em>' + esc(r.why) + '</em>' : '') + '</button>';
+    }).join('') + (res.length > 8 ? '<div class="dw-v-empty">… og ' + (res.length - 8) + ' flere. Skriv litt mer for å snevre inn.</div>' : '');
+  }
+  input.addEventListener('input', renderSugg);
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){
+      var res = matchVerbs(input.value);
+      if(res.length){ show(res[0].v); sugg.innerHTML = ''; }
+    }
+  });
+  sugg.addEventListener('click', function(e){
+    var b = e.target.closest('.dw-sugg'); if(!b) return;
+    show(byKey[b.getAttribute('data-key')]);
+    sugg.innerHTML = '';
+  });
+
+  document.querySelectorAll('.dw-lvl-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.dw-lvl-btn').forEach(function(b){ b.classList.remove('dw-on'); });
+      btn.classList.add('dw-on');
+      level = btn.getAttribute('data-lvl');
+      renderSugg(); renderAll();
+    });
+  });
+  document.getElementById('dw-v-random').addEventListener('click', function(){
+    var pool = verbs.filter(function(v){ return !level || v.l === level; });
+    show(pool[Math.floor(Math.random() * pool.length)]);
+  });
+
+  // ---------- oversikt ----------
+  function chip(v){ return '<button type="button" class="dw-chip-v" data-key="' + esc(keyOf(v)) + '" title="' + esc(v.n) + '">' + esc(lbl(v)) + '</button>'; }
+  function renderCommon(){
+    document.getElementById('dw-v-common').innerHTML = COMMON.map(function(k){ return byKey[k] ? chip(byKey[k]) : ''; }).join('');
+  }
+  function renderAll(){
+    var list = verbs.filter(function(v){ return !level || v.l === level; });
+    var html = '', last = '';
+    list.forEach(function(v){
+      var L = stripSich(v.i).charAt(0).toUpperCase();
+      if(L !== last){ html += '<div class="dw-az-letter">' + L + '</div>'; last = L; }
+      html += chip(v);
+    });
+    document.getElementById('dw-v-all').innerHTML = html;
+  }
+  ['dw-v-common','dw-v-all'].forEach(function(id){
+    document.getElementById(id).addEventListener('click', function(e){
+      var b = e.target.closest('.dw-chip-v'); if(!b) return;
+      show(byKey[b.getAttribute('data-key')]);
+    });
+  });
+
+  // ---------- detaljvisning ----------
+  var detail = document.getElementById('dw-v-detail');
+
+  function isIrregular(v){
+    return /[‹]/.test(v.t.join('') + v.pp);
+  }
+  function principal(v){
+    var ti = v.x ? 0 : 2;
+    return [v.i, hl(v.t[ti]), (v.h === 'sein' ? 'ist ' : 'hat ') + '' + hl(v.f[ti].replace(/^\S+ /, '')) ];
+  }
+  function rowHTML(tIdx, v, i){
+    var T = TENSES[tIdx], arr = v[T.k];
+    var label = (T.k === 'm') ? IMPERS_LBL[i] : (v.x ? 'es' : PERS[i]);
+    var form = arr[i];
+    if(practice){
+      var id = 'dw-i-' + T.k + i;
+      return '<div class="dw-row"><span class="dw-pron">' + label + '</span><div class="dw-inp-wrap"><input type="text" id="' + id + '" class="dw-inp" data-ans="' + esc(norm(plain(form))) + '" data-raw="' + esc(plain(form)) + '" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="' + esc(T.t + ', ' + label) + '"><span class="dw-check">✓</span></div></div>';
+    }
+    return '<div class="dw-row"><span class="dw-pron">' + label + '</span><span class="dw-form">' + hl(form) + '</span></div>';
+  }
+  function tenseHTML(tIdx, v){
+    var T = TENSES[tIdx], arr = v[T.k], body = '';
+    if(arr === null || arr === undefined){
+      body = '<div class="dw-row" style="grid-template-columns:1fr"><span class="dw-na">Dette verbet har ingen vanlig imperativ.</span></div>';
+    } else {
+      for(var i = 0; i < arr.length; i++) body += rowHTML(tIdx, v, i);
+    }
+    return '<section class="dw-tense"><div class="dw-tense-h"><b>' + T.t + '</b><span>' + T.h + '</span></div><div class="dw-rows">' + body + '</div></section>';
+  }
+  function badges(v){
+    var b = '<span class="dw-badge">' + v.l + '</span>';
+    b += '<span class="dw-badge">Perfekt med «' + v.h + '»</span>';
+    b += isIrregular(v) ? '<span class="dw-badge dw-b-irr">uregelmessig</span>' : '<span class="dw-badge dw-b-reg">regelmessig</span>';
+    if(v.r) b += '<span class="dw-badge">refleksivt (' + (v.r === 'dat' ? 'Dativ: mir, dir …' : 'Akkusativ: mich, dich …') + ')</span>';
+    if(/ (an|auf|aus|ab|ein|mit|zu|um|weg|vor|nach|fern|zurück|statt|teil)$/.test(plain(v.p[0])) && v.p[0].indexOf(' ') > 0) b += '<span class="dw-badge">adskillbart</span>';
+    if(v.x) b += '<span class="dw-badge">upersonlig</span>';
+    return '<div class="dw-d-badges">' + b + '</div>';
+  }
+  function show(v, noScroll){
+    if(!v) return;
+    current = v;
+    var pr = principal(v);
+    var html = '<div class="dw-d-head">' +
+      '<div class="dw-d-title"><h2>' + esc(v.i) + '</h2><span class="dw-d-no">= ' + esc(v.n) + '</span></div>' +
+      badges(v) +
+      '<div class="dw-d-parts"><small>Grunnformer</small><span>' + esc(pr[0]) + '</span><span class="dw-sep">–</span><span>' + pr[1] + '</span><span class="dw-sep">–</span><span>' + pr[2] + '</span></div>' +
+      (v.o ? '<div class="dw-d-note">💡 ' + esc(v.o) + '</div>' : '') +
+      '<div class="dw-d-modes">' +
+        '<button type="button" class="dw-mode-btn' + (practice ? '' : ' dw-on') + '" id="dw-m-view">📋 Se tabell</button>' +
+        '<button type="button" class="dw-mode-btn' + (practice ? ' dw-on' : '') + '" id="dw-m-practice">✏️ Skriv selv</button>' +
+        (practice ? '<button type="button" class="dw-v-btn" id="dw-m-facit">👁️ Vis fasit</button><button type="button" class="dw-v-btn" id="dw-m-reset">↺ Start på nytt</button><span class="dw-prog" id="dw-prog"></span>' : '') +
+      '</div>' +
+      (practice ? '<div class="dw-prog-bar" id="dw-prog-bar" style="display:block"><div class="dw-prog-fill" id="dw-prog-fill"></div></div><div class="dw-win" id="dw-win">🎉 Alle former riktige — bra jobba!</div><div class="dw-umlaut" id="dw-umlaut" style="display:flex"><span>Spesialtegn:</span><button type="button" data-ch="ä">ä</button><button type="button" data-ch="ö">ö</button><button type="button" data-ch="ü">ü</button><button type="button" data-ch="ß">ß</button></div>' : '') +
+      '</div>' +
+      '<div class="dw-tenses">' + [0,1,2,3,4].map(function(i){ return tenseHTML(i, v); }).join('') + '</div>';
+    detail.innerHTML = html;
+    detail.style.display = 'block';
+    document.getElementById('dw-m-view').addEventListener('click', function(){ practice = false; show(current, true); });
+    document.getElementById('dw-m-practice').addEventListener('click', function(){ practice = true; show(current, true); var f = detail.querySelector('.dw-inp'); if(f) f.focus(); });
+    if(practice) wirePractice();
+    try{ history.replaceState(null, '', '#' + encodeURIComponent(keyOf(v))); }catch(e){}
+    document.title = v.i + ' · Verben · Deutschwelt';
+    if(!noScroll){
+      var top = detail.getBoundingClientRect().top;
+      if(top < 0 || top > window.innerHeight * 0.5) detail.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  }
+
+  // ---------- "Skriv selv" ----------
+  function wirePractice(){
+    var inputs = detail.querySelectorAll('.dw-inp');
+    function update(){
+      var ok = detail.querySelectorAll('.dw-inp.dw-ok').length, n = inputs.length;
+      document.getElementById('dw-prog').textContent = ok + ' / ' + n + ' riktige';
+      document.getElementById('dw-prog-fill').style.width = (n ? ok / n * 100 : 0) + '%';
+      document.getElementById('dw-win').style.display = (ok === n && n > 0) ? 'block' : 'none';
+    }
+    function check(inp){
+      if(inp.classList.contains('dw-shown')) return;
+      var val = norm(inp.value);
+      if(val && val === inp.getAttribute('data-ans')){
+        inp.classList.add('dw-ok'); inp.classList.remove('dw-wrong'); inp.readOnly = true;
+        var next = nextInput(inp); if(next) next.focus();
+      } else {
+        inp.classList.remove('dw-ok');
+      }
+      update();
+    }
+    function nextInput(inp){
+      for(var i = 0; i < inputs.length; i++){
+        if(inputs[i] === inp){
+          for(var j = i + 1; j < inputs.length; j++){ if(!inputs[j].classList.contains('dw-ok') && !inputs[j].classList.contains('dw-shown')) return inputs[j]; }
+        }
+      }
+      return null;
+    }
+    inputs.forEach(function(inp){
+      inp.addEventListener('input', function(){ check(inp); });
+      inp.addEventListener('focus', function(){ lastInput = inp; inp.classList.remove('dw-wrong'); });
+      inp.addEventListener('blur', function(){
+        if(inp.value.trim() && !inp.classList.contains('dw-ok') && !inp.classList.contains('dw-shown')) inp.classList.add('dw-wrong');
+      });
+      inp.addEventListener('keydown', function(e){
+        if(e.key === 'Enter'){ var nx = nextInput(inp); if(nx) nx.focus(); }
+      });
+    });
+    detail.querySelectorAll('#dw-umlaut button').forEach(function(b){
+      b.addEventListener('mousedown', function(e){ e.preventDefault(); });
+      b.addEventListener('click', function(){
+        var t = lastInput || detail.querySelector('.dw-inp'); if(!t || t.readOnly) return;
+        var s = t.selectionStart || t.value.length, e2 = t.selectionEnd || s, ch = b.getAttribute('data-ch');
+        t.value = t.value.slice(0, s) + ch + t.value.slice(e2);
+        t.focus(); try{ t.setSelectionRange(s + 1, s + 1); }catch(x){}
+        check(t);
+      });
+    });
+    document.getElementById('dw-m-facit').addEventListener('click', function(){
+      inputs.forEach(function(inp){
+        if(!inp.classList.contains('dw-ok')){ inp.value = inp.getAttribute('data-raw'); inp.classList.add('dw-shown'); inp.classList.remove('dw-wrong'); inp.readOnly = true; }
+      });
+    });
+    document.getElementById('dw-m-reset').addEventListener('click', function(){ show(current, true); var f = detail.querySelector('.dw-inp'); if(f) f.focus(); });
+    update();
+  }
+
+  // ---------- oppstart ----------
+  renderCommon();
+  renderAll();
+  function fromHash(){
+    var h = decodeURIComponent((location.hash || '').replace(/^#/, ''));
+    if(h && byKey[h]) show(byKey[h], true);
+  }
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
+})();
+</script>
+
+</body>
+</html>
