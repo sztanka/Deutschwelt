@@ -220,7 +220,7 @@ deutschwelt-site/
 │   └── escape-room/
 │       └── index.html                → "Der verschlossene Klassenraum" — fire gåter gir en kode
 ├── filme-serien/
-│   └── index.html                    → "Filme & Serien" — 17 filmer + 5 serier med trailerlenker
+│   └── index.html                    → "Filme & Serien" — 17 filmer + 10 serier med trailerlenker
 ├── musik/
 │   └── index.html                    → "Musik" — 27 tyske sanger med innebygd YouTube-spiller
 ├── deutschland/
@@ -1621,6 +1621,11 @@ Teach ga tre tabeller med tre kjente sanger per år fra 1996 til 2025 (90 plasse
 ### Filme & Serien: seks nye filmer
 
 Teach ba om å legge til Harte Jungs (2000), Mädchen, Mädchen (2001), Knallharte Jungs (2002), Türkisch für Anfänger (2012), Willkommen bei den Hartmanns (2016) og Das perfekte Geheimnis (2019) etter samme mønster som de eksisterende kortene (tittel, år · sjanger · regi, FSK-merke, beskrivelse, eventuell «Merk:»-linje og trailerknapp). Siden har nå 17 filmer + 5 serier. Regissør og aldersgrense er sjekket mot flere filmsider (Filmstarts, Moviepilot, artechock, Wikipedia), og alle seks YouTube-trailer-ID-ene er bekreftet å finnes (via YouTubes oEmbed-endepunkt). Aldersgrenser: Harte Jungs 12, Mädchen Mädchen 12, Knallharte Jungs 12 (Wikipedia oppgir FSK 16 for kinofassungen og 12 for TV-versjonen — dette står i merknaden), Türkisch für Anfänger 12, Hartmanns 6, Das perfekte Geheimnis 12. Fire av filmene (Harte Jungs, Mädchen Mädchen, Knallharte Jungs, Das perfekte Geheimnis) har en tydelig «Merk:»-linje om at innholdet (seksualitet, grov humor, utroskap) er mer voksent enn FSK 12 skulle tilsi, og at de passer best for eldre elever. Søkeindeksen på forsiden har fått nøkler for alle seks titlene. «Heute auf Deutschwelt» (`dwHeuteFilms`) er med vilje ikke utvidet med de nye filmene. Kjent begrensning: «Türkisch für Anfänger» oppgis som produsert 2011 i noen kilder; kinopremieren var 2012, og det står i kortet. Beskrivelsene er skrevet av Claude ut fra filmsidene og ikke sett mot selve filmene.
+
+
+### Filme & Serien: fem nye serier (og siden gjelder nå hele ungdomstrinnet)
+
+Teach ba om å legge til Kleo (2022), Babylon Berlin (2017), Deutschland 83 (2015), Das Boot (2018) og Berlin, Berlin (2002). Teach presiserte at listen ikke bare er for 8. trinn, men også for 10. trinn og elever på vei til videregående, at noen titler har høyere aldersgrense, og at serien sjelden blir sett (vanskelig å få tak i, sjelden med norsk tekst) — listen er et overblikk. Introteksten og filkommentaren er derfor endret til «ungdomstrinnet (8.–10. trinn)» og forklarer dette. Siden har nå 17 filmer + 10 serier. Alle fem trailer-ID-er er bekreftet å finnes (oEmbed). Aldersgrenser fra DVD/FSK: Babylon Berlin 12 (alle sesonger), Deutschland 83 12, Das Boot 12 (sesong 1), Berlin, Berlin 12. Kleo er en Netflix-serie uten FSK-merke i det jeg fant, så den er merket «Ikke FSK-klassifisert · anbefalt 16+» (Netflix selv markerer den som for modent publikum). Babylon Berlin og Das Boot har «Merk:»-linje om at innholdet er tyngre enn FSK 12 skulle tilsi (begge har 18-årsgrense i Storbritannia), og Das Boot nevner at dialogen er flerspråklig. Trailerlenken for Babylon Berlin gjelder siste (femte) sesong, som ble vist i ARD i september 2026; trailerlenken for Berlin, Berlin går til Netflix-filmen «Berlin, Berlin: Lolle on the Run» (2020) fordi selve TV-serien ikke har en trailer. Deutschland 83-kortet lenker til Geschichte-sidene om Den kalde krigen og Berlinmuren. Søkeindeksen har fått nøkler for alle titlene. Beskrivelsene er skrevet av Claude ut fra nettkilder; ingen av seriene er sett av oss.
 
 ## Slik legger du til en ny seksjon
 
