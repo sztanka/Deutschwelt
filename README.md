@@ -220,7 +220,7 @@ deutschwelt-site/
 │   └── escape-room/
 │       └── index.html                → "Der verschlossene Klassenraum" — fire gåter gir en kode
 ├── filme-serien/
-│   └── index.html                    → "Filme & Serien" — 11 filmer + 5 serier med trailerlenker
+│   └── index.html                    → "Filme & Serien" — 17 filmer + 5 serier med trailerlenker
 ├── musik/
 │   └── index.html                    → "Musik" — 27 tyske sanger med innebygd YouTube-spiller
 ├── deutschland/
@@ -1616,6 +1616,11 @@ Teach ba om en side om tall under Grammatik/Språk: oversikt over tallene, årst
 ### Musikk: «Hits år for år (1996–2025)»
 
 Teach ga tre tabeller med tre kjente sanger per år fra 1996 til 2025 (90 plasseringer) og ba om å få dem inn på musikksiden, bortsett fra de som allerede lå der. Løst som en egen seksjon («📅 Hits år for år») under sangkortene i `musik/index.html`, med fanene 1996–2005 / 2006–2015 / 2016–2025 / Alle. Dataene ligger i `dwYears` i siden (år → tre sanger). Sanger som allerede finnes i spilleren (13 plasseringer, f.eks. Du hast, Tage wie diese, Komet, Roller, Chöre) får knappen «▶ Spill her» som spiller dem i den eksisterende spilleren; matchingen skjer på tittel + artist. De øvrige får «🔎 Finn på YouTube», en lenke til YouTube-søk i ny fane, fordi det ikke er verifiserte video-ID-er for dem (de 27 sangene i spilleren er sjekket enkeltvis, disse er det ikke). Seksjonen sier tydelig at sangene ikke er innholdsvurdert. Tre sanger har merknad: Shirin David – Bauch Beine Po (🔞), Brothers Keepers – Adriano (⚠️, rasistisk drap), Nina Chuba – Wildberry Lillet (⚠️, alkohol), samt Die Ärzte – Ein Schwein namens Männer (⚠️, sjekk først). Kjente begrensninger: enkelte sanger står under to år slik Teach oppga (f.eks. MfG 1999/2000, Auf uns 2013/2014, Leiser 2017/2018, Komet 2022/2023); den uryddige oppføringen «Benson Boone / alternativ: Apache 207 – Miami» for 2024 er erstattet med «Apache 207 – Miami»; årstallene for de nyeste sangene er stikkprøvekontrollert mot nettet, men ikke alle 90 er kontrollert enkeltvis.
+
+
+### Filme & Serien: seks nye filmer
+
+Teach ba om å legge til Harte Jungs (2000), Mädchen, Mädchen (2001), Knallharte Jungs (2002), Türkisch für Anfänger (2012), Willkommen bei den Hartmanns (2016) og Das perfekte Geheimnis (2019) etter samme mønster som de eksisterende kortene (tittel, år · sjanger · regi, FSK-merke, beskrivelse, eventuell «Merk:»-linje og trailerknapp). Siden har nå 17 filmer + 5 serier. Regissør og aldersgrense er sjekket mot flere filmsider (Filmstarts, Moviepilot, artechock, Wikipedia), og alle seks YouTube-trailer-ID-ene er bekreftet å finnes (via YouTubes oEmbed-endepunkt). Aldersgrenser: Harte Jungs 12, Mädchen Mädchen 12, Knallharte Jungs 12 (Wikipedia oppgir FSK 16 for kinofassungen og 12 for TV-versjonen — dette står i merknaden), Türkisch für Anfänger 12, Hartmanns 6, Das perfekte Geheimnis 12. Fire av filmene (Harte Jungs, Mädchen Mädchen, Knallharte Jungs, Das perfekte Geheimnis) har en tydelig «Merk:»-linje om at innholdet (seksualitet, grov humor, utroskap) er mer voksent enn FSK 12 skulle tilsi, og at de passer best for eldre elever. Søkeindeksen på forsiden har fått nøkler for alle seks titlene. «Heute auf Deutschwelt» (`dwHeuteFilms`) er med vilje ikke utvidet med de nye filmene. Kjent begrensning: «Türkisch für Anfänger» oppgis som produsert 2011 i noen kilder; kinopremieren var 2012, og det står i kortet. Beskrivelsene er skrevet av Claude ut fra filmsidene og ikke sett mot selve filmene.
 
 ## Slik legger du til en ny seksjon
 
