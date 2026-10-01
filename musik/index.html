@@ -96,6 +96,26 @@
   }
   .dw-song-badge.dw-tier-note{background:#fdf3e0;color:var(--dw-warn);}
   .dw-song-badge.dw-tier-warning{background:#fdecea;color:var(--dw-bad);}
+
+  /* Hits år for år */
+  .dw-yr-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px;}
+  .dw-yr-tab{font-family:inherit;font-size:.88rem;font-weight:700;padding:8px 18px;border-radius:999px;border:2px solid #ece8df;background:#fff;color:var(--dw-text);cursor:pointer;}
+  .dw-yr-tab:hover{border-color:var(--dw-accent);}
+  .dw-yr-tab.dw-on{background:var(--dw-primary);border-color:var(--dw-primary);color:#fff;}
+  .dw-yr-tab:focus-visible,.dw-yr-act:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-yr-row{display:grid;grid-template-columns:70px 1fr;gap:10px 14px;background:var(--dw-card);border:1px solid #ece8df;border-radius:14px;padding:12px 16px;margin-bottom:10px;box-shadow:0 1px 5px rgba(0,0,0,.04);}
+  .dw-yr-year{font-size:1.35rem;font-weight:800;color:var(--dw-primary-light);font-family:"Baloo 2",-apple-system,sans-serif;align-self:start;padding-top:2px;}
+  .dw-yr-songs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;}
+  .dw-yr-song{background:var(--dw-bg);border:1px solid #ece8df;border-radius:10px;padding:9px 12px;display:flex;flex-direction:column;gap:3px;min-width:0;}
+  .dw-yr-song b{font-size:.95rem;color:var(--dw-primary);overflow-wrap:anywhere;}
+  .dw-yr-song span.dw-yr-art{font-size:.84rem;color:var(--dw-text);}
+  .dw-yr-act{align-self:flex-start;margin-top:3px;font-family:inherit;font-size:.78rem;font-weight:700;padding:4px 11px;border-radius:999px;border:1.5px solid #e4dfd2;background:#fff;color:var(--dw-primary-light);cursor:pointer;text-decoration:none;}
+  .dw-yr-act:hover{border-color:var(--dw-primary-light);}
+  .dw-yr-act.dw-play{background:var(--dw-primary-light);border-color:var(--dw-primary-light);color:#fff;}
+  .dw-yr-flag{font-size:.74rem;line-height:1.4;border-radius:8px;padding:5px 8px;margin-top:3px;}
+  .dw-yr-flag.dw-tier-note{background:#fdf3e0;color:var(--dw-warn);}
+  .dw-yr-flag.dw-tier-warning{background:#fdecea;color:var(--dw-bad);font-weight:600;}
+  @media(max-width:560px){.dw-yr-row{grid-template-columns:1fr;}.dw-yr-year{padding-top:0;}}
 </style>
 </head>
 <body>
@@ -133,7 +153,7 @@
 
   <div class="dw-header">
     <h1>Musik</h1>
-    <p>27 kjente tyske sanger — fra Falco til Apache 207</p>
+    <p>27 kjente tyske sanger — fra Falco til Apache 207 — pluss hits år for år fra 1996 til 2025</p>
   </div>
 
   <div class="dw-section">
@@ -167,6 +187,14 @@
 
   <h2 class="dw-group-title">🎶 Alle sanger</h2>
   <div class="dw-song-grid" id="dw-song-grid"></div>
+
+  <h2 class="dw-group-title" id="aar">📅 Hits år for år (1996–2025)</h2>
+  <div class="dw-section">
+    <p style="margin-top:0">Tre kjente sanger fra hvert år i 30 år — en reise gjennom tysk pop, rock og hiphop. Sanger som allerede ligger i spilleren øverst kan spilles der (<strong>▶ Spill her</strong>). De andre får en lenke som søker opp sangen på YouTube i en ny fane (<strong>🔎 Finn på YouTube</strong>).</p>
+    <p class="dw-note" style="margin-bottom:0">Disse sangene er ikke gjennomgått innholdsmessig slik som sangene i spilleren, og YouTube-søket kan gi andre versjoner enn originalen. Noen få sanger er merket med en merknad. Se gjennom teksten selv først hvis du skal bruke en sang i klassen. Samme sang kan stå under flere år hvis den lå høyt på listene begge årene.</p>
+  </div>
+  <div class="dw-yr-tabs" id="dw-yr-tabs" role="group" aria-label="Velg tiår"></div>
+  <div id="dw-yr-list"></div>
 
 </div>
 
@@ -284,6 +312,52 @@
   }
 
   dwPlay(0);
+
+  var dwYears = [{"y":1996,"s":[{"a":"Die Fantastischen Vier","t":"Sie ist weg"},{"a":"Echt","t":"Du trägst keine Liebe in dir"},{"a":"Die Toten Hosen","t":"Bonnie & Clyde"}]},{"y":1997,"s":[{"a":"Rammstein","t":"Engel"},{"a":"Tic Tac Toe","t":"Warum?"},{"a":"Sabrina Setlur","t":"Du liebst mich nicht"}]},{"y":1998,"s":[{"a":"Die Ärzte","t":"Ein Schwein namens Männer","k":"n","n":"Samme type humor som «Männer sind Schweine» — sjekk teksten først."},{"a":"Oli.P","t":"Flugzeuge im Bauch"},{"a":"Rammstein","t":"Du hast"}]},{"y":1999,"s":[{"a":"Die Fantastischen Vier","t":"MfG"},{"a":"Blümchen","t":"Heut' ist mein Tag"},{"a":"Echt","t":"Du trägst keine Liebe in dir"}]},{"y":2000,"s":[{"a":"Anton aus Tirol","t":"Anton aus Tirol"},{"a":"Xavier Naidoo","t":"Sie sieht mich nicht"},{"a":"Die Fantastischen Vier","t":"MfG"}]},{"y":2001,"s":[{"a":"Brothers Keepers","t":"Adriano (Letzte Warnung)","k":"n","n":"Tung tematikk: sangen tar opp et rasistisk drap og rasisme i Tyskland. Egner seg til samtale med læreren."},{"a":"Xavier Naidoo","t":"Ich kenne nichts"},{"a":"Die Söhne Mannheims","t":"Geh davon aus"}]},{"y":2002,"s":[{"a":"Herbert Grönemeyer","t":"Mensch"},{"a":"Die Gerd Show","t":"Der Steuersong"},{"a":"Xavier Naidoo","t":"Wo willst du hin?"}]},{"y":2003,"s":[{"a":"Yvonne Catterfeld","t":"Für dich"},{"a":"Die Ärzte","t":"Unrockbar"},{"a":"Wolfsheim","t":"Kein zurück"}]},{"y":2004,"s":[{"a":"Juli","t":"Perfekte Welle"},{"a":"Die Toten Hosen","t":"Friss oder stirb"},{"a":"Die Fantastischen Vier","t":"Troy"}]},{"y":2005,"s":[{"a":"Tokio Hotel","t":"Durch den Monsun"},{"a":"Söhne Mannheims","t":"Und wenn ein Lied"},{"a":"Die Firma","t":"Die Eine 2005"}]},{"y":2006,"s":[{"a":"Silbermond","t":"Das Beste"},{"a":"Sportfreunde Stiller","t":"'54, '74, '90, 2006"},{"a":"Seeed","t":"Ding"}]},{"y":2007,"s":[{"a":"Culcha Candela","t":"Hamma!"},{"a":"Ich + Ich","t":"Vom selben Stern"},{"a":"Tokio Hotel","t":"Spring nicht"}]},{"y":2008,"s":[{"a":"Ich + Ich","t":"So soll es bleiben"},{"a":"Fettes Brot","t":"Bettina"},{"a":"Revolverheld","t":"Helden 2008"}]},{"y":2009,"s":[{"a":"Peter Fox","t":"Haus am See"},{"a":"Silbermond","t":"Irgendwas bleibt"},{"a":"Cassandra Steen","t":"Stadt"}]},{"y":2010,"s":[{"a":"Unheilig","t":"Geboren um zu leben"},{"a":"Lena","t":"Satellite"},{"a":"Culcha Candela","t":"Monsta"}]},{"y":2011,"s":[{"a":"Tim Bendzko","t":"Nur noch kurz die Welt retten"},{"a":"Andreas Bourani","t":"Eisberg"},{"a":"Frida Gold","t":"Wovon sollen wir träumen"}]},{"y":2012,"s":[{"a":"Die Toten Hosen","t":"Tage wie diese"},{"a":"Cro","t":"Du"},{"a":"Silbermond","t":"Himmel auf"}]},{"y":2013,"s":[{"a":"Sportfreunde Stiller","t":"Applaus, Applaus"},{"a":"Andreas Bourani","t":"Auf uns"},{"a":"Casper","t":"Im Ascheregen"}]},{"y":2014,"s":[{"a":"Helene Fischer","t":"Atemlos durch die Nacht"},{"a":"Andreas Bourani","t":"Auf uns"},{"a":"Cro","t":"Traum"}]},{"y":2015,"s":[{"a":"Namika","t":"Lieblingsmensch"},{"a":"Mark Forster","t":"Bauch und Kopf"},{"a":"Joris","t":"Herz über Kopf"}]},{"y":2016,"s":[{"a":"Mark Forster","t":"Au revoir"},{"a":"Max Giesinger","t":"80 Millionen"},{"a":"Silbermond","t":"Leichtes Gepäck"}]},{"y":2017,"s":[{"a":"Mark Forster","t":"Sowieso"},{"a":"Wincent Weiss","t":"Musik sein"},{"a":"LEA","t":"Leiser"}]},{"y":2018,"s":[{"a":"LEA","t":"Leiser"},{"a":"Namika","t":"Je ne parle pas français"},{"a":"Mark Forster","t":"Chöre"}]},{"y":2019,"s":[{"a":"Apache 207","t":"Roller"},{"a":"Sarah Connor","t":"Vincent"},{"a":"Mark Forster","t":"194 Länder"}]},{"y":2020,"s":[{"a":"LEA","t":"110"},{"a":"Apache 207","t":"Bläulich"},{"a":"Mark Forster","t":"Übermorgen"}]},{"y":2021,"s":[{"a":"AnnenMayKantereit","t":"3 Tage am Meer"},{"a":"Nina Chuba","t":"Neben mir"},{"a":"Mark Forster","t":"Bist du okay"}]},{"y":2022,"s":[{"a":"Nina Chuba","t":"Wildberry Lillet","k":"n","n":"Alkohol i tittel og tekst."},{"a":"Miksu / Macloud feat. Makko","t":"Nachts wach"},{"a":"Udo Lindenberg & Apache 207","t":"Komet"}]},{"y":2023,"s":[{"a":"Udo Lindenberg & Apache 207","t":"Komet"},{"a":"Nina Chuba","t":"Mangos mit Chili"},{"a":"Ski Aggu, Joost & Otto Waalkes","t":"Friesenjung"}]},{"y":2024,"s":[{"a":"Shirin David","t":"Bauch Beine Po","k":"w","n":"Seksuelt ladet tekst og tydelig voksent uttrykk. Ikke egnet uten at læreren har vurdert det først."},{"a":"Ayliva & Apache 207","t":"Wunder"},{"a":"Apache 207","t":"Miami"}]},{"y":2025,"s":[{"a":"Oimara","t":"Wackelkontakt"},{"a":"Zartmann","t":"Tau mich auf"},{"a":"Jazeek","t":"Akon"}]}];
+  var dwYrRange = [1996, 2005];
+  function dwNormSong(s){ return String(s).toLowerCase().replace(/[^a-z0-9äöüß]/g,''); }
+  function dwFindExisting(a, t){
+    for(var i = 0; i < dwSongs.length; i++){
+      var s = dwSongs[i];
+      if(dwNormSong(s.title) === dwNormSong(t) && (dwNormSong(a).indexOf(dwNormSong(s.artist.split(' ')[0])) >= 0 || dwNormSong(s.artist).indexOf(dwNormSong(a.split(' ')[0])) >= 0)) return i;
+    }
+    return -1;
+  }
+  function dwEsc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function dwRenderYears(){
+    var list = document.getElementById('dw-yr-list');
+    var html = '';
+    dwYears.forEach(function(r){
+      if(r.y < dwYrRange[0] || r.y > dwYrRange[1]) return;
+      html += '<div class="dw-yr-row"><div class="dw-yr-year">' + r.y + '</div><div class="dw-yr-songs">';
+      r.s.forEach(function(s){
+        var idx = dwFindExisting(s.a, s.t);
+        html += '<div class="dw-yr-song"><b>' + dwEsc(s.t) + '</b><span class="dw-yr-art">' + dwEsc(s.a) + '</span>';
+        if(idx >= 0) html += '<button type="button" class="dw-yr-act dw-play" data-idx="' + idx + '">▶ Spill her</button>';
+        else html += '<a class="dw-yr-act" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/results?search_query=' + encodeURIComponent(s.a + ' ' + s.t) + '">🔎 Finn på YouTube</a>';
+        if(s.k) html += '<div class="dw-yr-flag dw-tier-' + (s.k === 'w' ? 'warning' : 'note') + '">' + (s.k === 'w' ? '🔞 ' : '⚠️ ') + dwEsc(s.n) + '</div>';
+        html += '</div>';
+      });
+      html += '</div></div>';
+    });
+    list.innerHTML = html;
+    list.querySelectorAll('.dw-play').forEach(function(b){
+      b.addEventListener('click', function(){ dwPlay(parseInt(b.getAttribute('data-idx'), 10)); window.scrollTo({top: document.querySelector('.dw-player-section').offsetTop - 12, behavior:'smooth'}); });
+    });
+  }
+  (function(){
+    var tabs = document.getElementById('dw-yr-tabs');
+    var opts = [['1996–2005',1996,2005],['2006–2015',2006,2015],['2016–2025',2016,2025],['Alle',1996,2025]];
+    tabs.innerHTML = opts.map(function(o, i){ return '<button type="button" class="dw-yr-tab' + (i === 0 ? ' dw-on' : '') + '" data-a="' + o[1] + '" data-b="' + o[2] + '">' + o[0] + '</button>'; }).join('');
+    tabs.addEventListener('click', function(e){
+      var b = e.target.closest('.dw-yr-tab'); if(!b) return;
+      tabs.querySelectorAll('.dw-yr-tab').forEach(function(x){ x.classList.remove('dw-on'); });
+      b.classList.add('dw-on');
+      dwYrRange = [parseInt(b.getAttribute('data-a'), 10), parseInt(b.getAttribute('data-b'), 10)];
+      dwRenderYears();
+    });
+    dwRenderYears();
+  })();
 </script>
 </body>
 </html>

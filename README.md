@@ -1612,6 +1612,11 @@ Teach ba om en side om tall under Grammatik/Språk: oversikt over tallene, årst
 
 **Lagt inn:** kortet i `grammatikk/index.html`, «🎨 Adjektiv» i Sprache-listen på forsiden, søkeindeks-oppføring (nøkler: adjektiv, komparativ, superlativ, steigern, deklination …). Ikke lagt i toppmenyen (den er allerede lang). Kjent begrensning: de tyske eksempelsetningene og norske oversettelsene er skrevet for hånd og ikke gjennomgått av en morsmålsbruker.
 
+
+### Musikk: «Hits år for år (1996–2025)»
+
+Teach ga tre tabeller med tre kjente sanger per år fra 1996 til 2025 (90 plasseringer) og ba om å få dem inn på musikksiden, bortsett fra de som allerede lå der. Løst som en egen seksjon («📅 Hits år for år») under sangkortene i `musik/index.html`, med fanene 1996–2005 / 2006–2015 / 2016–2025 / Alle. Dataene ligger i `dwYears` i siden (år → tre sanger). Sanger som allerede finnes i spilleren (13 plasseringer, f.eks. Du hast, Tage wie diese, Komet, Roller, Chöre) får knappen «▶ Spill her» som spiller dem i den eksisterende spilleren; matchingen skjer på tittel + artist. De øvrige får «🔎 Finn på YouTube», en lenke til YouTube-søk i ny fane, fordi det ikke er verifiserte video-ID-er for dem (de 27 sangene i spilleren er sjekket enkeltvis, disse er det ikke). Seksjonen sier tydelig at sangene ikke er innholdsvurdert. Tre sanger har merknad: Shirin David – Bauch Beine Po (🔞), Brothers Keepers – Adriano (⚠️, rasistisk drap), Nina Chuba – Wildberry Lillet (⚠️, alkohol), samt Die Ärzte – Ein Schwein namens Männer (⚠️, sjekk først). Kjente begrensninger: enkelte sanger står under to år slik Teach oppga (f.eks. MfG 1999/2000, Auf uns 2013/2014, Leiser 2017/2018, Komet 2022/2023); den uryddige oppføringen «Benson Boone / alternativ: Apache 207 – Miami» for 2024 er erstattet med «Apache 207 – Miami»; årstallene for de nyeste sangene er stikkprøvekontrollert mot nettet, men ikke alle 90 er kontrollert enkeltvis.
+
 ## Slik legger du til en ny seksjon
 
 1. **Kopier den mappen som ligner mest** på det du skal lage:
