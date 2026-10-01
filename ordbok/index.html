@@ -227,6 +227,8 @@
       input.disabled = false;
       input.placeholder = 'Skriv et norsk eller tysk ord …';
       input.focus();
+      var qs = new URLSearchParams(location.search).get('q');
+      if(qs){ input.value = qs; dwOrdSearch(); }
       input.addEventListener('input', dwOrdOnInput);
       input.addEventListener('keydown', function(ev){ if(ev.key === 'Enter'){ clearTimeout(dwOrdTimer); dwOrdSearch(); } });
     }).catch(function(err){

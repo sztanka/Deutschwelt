@@ -1572,6 +1572,10 @@ Full verifisering: `node --check` på begge nye script-blokker (0 feil), en loka
 
 **Forsiden: «⭐ Wichtige Themen» løftet opp som fremhevet kjerneseksjon.** Seksjonen lå som en vanlig lenke i «Sprache»-listen nederst på siden, men er et av de viktigste startpunktene for elevene. Den ligger nå som egen seksjon rett under «Velg en ferdighet» (nest øverst på siden), med en annen visuell behandling enn de øvrige kortene: varm kremfarget flate med gull-ramme og en burgunder/gull-aksent i venstre kant, et «Kjerneinnhold»-merke, stor overskrift og lead-tekst («Die wichtigsten Themen für deinen Deutschunterricht – übersichtlich gesammelt.»), en tydelig burgunder knapp «Alle wichtigen Themen →» til `wichtige-themen/`, nivå-piller (8./9./10. klasse) og et rutenett med alle 8 temaer fra 8. klasse som direktelenker (Die einfache Unterhaltung, Meine Familie, Hobbys und Freizeit, Eine Verabredung, Im Restaurant, Zu Weihnachten, Einkaufen, Mein Aussehen). Lenken er tatt ut av «Sprache»-listen siden den nå er fremhevet; toppmenyen har den fortsatt. Responsivt: to kolonner på desktop, én kolonne under 860 px, ett tema per rad under 520 px. Verifisert med Playwright (ingen JS-feil, CTA og tema-lenker navigerer riktig, alle 12 lenker i seksjonen finnes) og skjermbilder på desktop/nettbrett/mobil.
 
+### Forsiden: ordbok-søk under «Eine Reise durch Deutschland»
+
+Forsiden har fått et lite ordbok-søkefelt («📔 Slå opp et ord») rett under Deine Mission-kortet (`#dw-ordsearch` i `index.html`). Søket virker begge veier (norsk ⇄ tysk) og viser de 5 beste treffene (eksakt → begynner med → inneholder), med lenken «Se alle N treff i ordboken →» til `ordbok/?q=…`. `ordbok/ordbok.json` (2,6 MB) hentes først når eleven begynner å skrive, slik at forsiden ikke laster tyngre. `ordbok/index.html` leser `?q=` og fyller inn søket automatisk.
+
 ## Slik legger du til en ny seksjon
 
 1. **Kopier den mappen som ligner mest** på det du skal lage:

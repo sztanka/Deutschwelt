@@ -246,6 +246,33 @@
   }
   .dw-mission-cta:hover{transform:translateY(-2px);filter:brightness(1.06);}
 
+  /* ---------- 5b. ORDBOK-SØK ---------- */
+  .dw-ordsearch{
+    background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius-lg);
+    padding:24px 26px 20px;box-shadow:0 2px 10px rgba(0,0,0,.05);
+  }
+  .dw-ordsearch-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px;}
+  .dw-ordsearch-head h2{margin:0;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;font-size:1.25rem;color:var(--dw-primary);}
+  .dw-ordsearch-head a{font-size:.82rem;font-weight:700;color:var(--dw-primary-light);text-decoration:none;}
+  .dw-ordsearch-head a:hover{text-decoration:underline;}
+  .dw-ordsearch input{
+    width:100%;font-size:1rem;padding:12px 20px;border-radius:999px;border:2px solid #ece8df;
+    outline:none;background:#fff;color:var(--dw-text);transition:border-color .15s ease;
+  }
+  .dw-ordsearch input:focus{border-color:var(--dw-accent);}
+  #dw-ords-status{font-size:.78rem;color:var(--dw-muted);margin:8px 4px 0;min-height:1.1em;}
+  #dw-ords-results{margin-top:8px;display:flex;flex-direction:column;gap:6px;}
+  .dw-ords-row{
+    display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:baseline;
+    padding:9px 14px;border-radius:12px;background:var(--dw-bg);font-size:.92rem;
+  }
+  .dw-ords-row b.no{color:var(--dw-primary-light);}
+  .dw-ords-row b.de{color:var(--dw-primary);}
+  .dw-ords-row i{font-style:normal;color:var(--dw-accent);font-weight:800;}
+  .dw-ords-row small{color:var(--dw-muted);font-weight:500;margin-left:4px;font-size:.72rem;}
+  .dw-ords-more{display:inline-block;margin:8px 4px 0;font-size:.85rem;font-weight:700;color:var(--dw-primary-light);text-decoration:none;}
+  .dw-ords-more:hover{text-decoration:underline;}
+
   /* ---------- 6. EXPLORE MORE ---------- */
   .dw-explore{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
   .dw-explore-cat{background:var(--dw-card);border-radius:var(--dw-radius);padding:18px 18px 14px;border:1px solid #ece8df;box-shadow:0 2px 8px rgba(0,0,0,.05);}
@@ -269,6 +296,8 @@
   }
   @media(max-width:520px){
     .dw-themen-chips{grid-template-columns:1fr;}
+    .dw-ords-row{grid-template-columns:1fr;gap:2px;}
+    .dw-ords-row i{display:none;}
     .dw-skills{grid-template-columns:1fr;}
     .dw-heute{grid-template-columns:1fr;}
     .dw-explore{grid-template-columns:1fr;}
@@ -478,6 +507,19 @@
         </a>
       </div>
       <a class="dw-mission-cta" href="reise/">Start oppdraget →</a>
+    </div>
+  </section>
+
+  <!-- 5b. ORDBOK-SØK -->
+  <section class="dw-sec" id="dw-ordsearch">
+    <div class="dw-ordsearch">
+      <div class="dw-ordsearch-head">
+        <h2>📔 Slå opp et ord</h2>
+        <a href="ordbok/">Åpne hele ordboken →</a>
+      </div>
+      <input type="text" id="dw-ords-input" placeholder="Norsk eller tysk ord … (f.eks. hus, Haus, skole)" autocomplete="off" autocapitalize="off" spellcheck="false">
+      <div id="dw-ords-status">Skriv minst 2 bokstaver — søket virker begge veier.</div>
+      <div id="dw-ords-results"></div>
     </div>
   </section>
 
@@ -886,6 +928,68 @@
     var pick = built[Math.floor(Math.random() * built.length)];
     if(pick){ location.href = pick.target; }
   }
+
+  // ---------- Ordbok-søk på forsiden (laster ordbok.json først når eleven begynner å søke) ----------
+  var dwOrdsData = null, dwOrdsLoading = false, dwOrdsTimer = null;
+  var dwOrdsMap = {m:'hankjønn',f:'hunkjønn',n:'intetkjønn',v:'verb',adj:'adjektiv',adv:'adverb',pl:'flertall',prep:'preposisjon',pron:'pronomen',konj:'konjunksjon',interj:'interjeksjon',pf:'verb',et:'intetkjønn'};
+  function dwOrdsEsc(s){ var d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; }
+  function dwOrdsTag(code){
+    if(!code) return '';
+    return ' <small>' + dwOrdsEsc(code.split('/').map(function(x){ x = x.trim(); return dwOrdsMap[x] || x; }).join('/')) + '</small>';
+  }
+  function dwOrdsLoad(cb){
+    if(dwOrdsData){ cb(); return; }
+    if(dwOrdsLoading) return;
+    dwOrdsLoading = true;
+    document.getElementById('dw-ords-status').textContent = 'Laster ordboken …';
+    fetch('ordbok/ordbok.json').then(function(r){
+      if(!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    }).then(function(d){
+      dwOrdsData = d; dwOrdsLoading = false; cb();
+    }).catch(function(){
+      dwOrdsLoading = false;
+      document.getElementById('dw-ords-status').textContent = 'Klarte ikke å laste ordboken akkurat nå — prøv «Åpne hele ordboken».';
+    });
+  }
+  function dwOrdsSearch(){
+    var q = document.getElementById('dw-ords-input').value.trim().toLowerCase();
+    var out = document.getElementById('dw-ords-results');
+    var st = document.getElementById('dw-ords-status');
+    if(q.length < 2){
+      out.innerHTML = '';
+      st.textContent = 'Skriv minst 2 bokstaver — søket virker begge veier.';
+      return;
+    }
+    dwOrdsLoad(function(){
+      var exact = [], starts = [], contains = [];
+      for(var i = 0; i < dwOrdsData.length; i++){
+        var e = dwOrdsData[i], no = (e.no || '').toLowerCase(), de = (e.de || '').toLowerCase();
+        if(no === q || de === q) exact.push(e);
+        else if(no.indexOf(q) === 0 || de.indexOf(q) === 0) starts.push(e);
+        else if(no.indexOf(q) !== -1 || de.indexOf(q) !== -1) contains.push(e);
+      }
+      var all = exact.concat(starts, contains), total = all.length;
+      if(!total){
+        out.innerHTML = '';
+        st.textContent = 'Ingen treff på «' + document.getElementById('dw-ords-input').value.trim() + '».';
+        return;
+      }
+      st.textContent = total === 1 ? '1 treff' : (total > 5 ? 'Viser 5 av ' + total + ' treff' : total + ' treff');
+      var html = all.slice(0, 5).map(function(e){
+        return '<div class="dw-ords-row"><span><b class="no">' + dwOrdsEsc(e.no) + '</b>' + dwOrdsTag(e.ng) + '</span><i>⇄</i><span><b class="de">' + dwOrdsEsc(e.de) + '</b>' + dwOrdsTag(e.dg) + '</span></div>';
+      }).join('');
+      if(total > 5){
+        html += '<a class="dw-ords-more" href="ordbok/?q=' + encodeURIComponent(document.getElementById('dw-ords-input').value.trim()) + '">Se alle ' + total + ' treff i ordboken →</a>';
+      }
+      out.innerHTML = html;
+    });
+  }
+  (function(){
+    var inp = document.getElementById('dw-ords-input');
+    inp.addEventListener('input', function(){ clearTimeout(dwOrdsTimer); dwOrdsTimer = setTimeout(dwOrdsSearch, 150); });
+    inp.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ clearTimeout(dwOrdsTimer); dwOrdsSearch(); } });
+  })();
 
   dwBuildHeute();
 </script>
