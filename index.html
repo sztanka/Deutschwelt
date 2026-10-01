@@ -129,6 +129,59 @@
   .dw-skill-go span{transition:transform .18s ease;}
   .dw-skill:hover .dw-skill-go span{transform:translateX(4px);}
 
+  /* ---------- 2b. WICHTIGE THEMEN (fremhevet kjerneseksjon) ---------- */
+  .dw-themen{
+    position:relative;overflow:hidden;
+    background:linear-gradient(180deg,#fffaf0 0%,#fff4dc 100%);
+    border:2px solid var(--dw-accent);border-radius:var(--dw-radius-lg);
+    padding:30px 30px 26px;
+    box-shadow:0 10px 28px rgba(217,169,28,.18);
+    display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:30px;align-items:center;
+  }
+  .dw-themen::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:8px;
+    background:linear-gradient(180deg,var(--dw-primary-light),var(--dw-accent));
+  }
+  .dw-themen-badge{
+    display:inline-flex;align-items:center;gap:6px;background:var(--dw-primary-light);color:#fff;
+    font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    padding:5px 12px;border-radius:999px;margin-bottom:12px;
+  }
+  .dw-themen h2{
+    margin:0 0 8px;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-weight:800;font-size:clamp(1.7rem,4vw,2.2rem);color:var(--dw-primary);line-height:1.1;
+  }
+  .dw-themen-lead{margin:0 0 6px;font-size:1rem;color:var(--dw-text);line-height:1.5;max-width:44ch;}
+  .dw-themen-sub{margin:0 0 18px;font-size:.85rem;color:var(--dw-muted);}
+  .dw-themen-cta{
+    display:inline-flex;align-items:center;gap:8px;background:var(--dw-primary-light);color:#fff;
+    font-weight:800;font-size:.98rem;padding:13px 26px;border-radius:999px;text-decoration:none;
+    box-shadow:0 6px 16px rgba(156,19,41,.28);transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .dw-themen-cta:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(156,19,41,.34);background:#85101f;}
+  .dw-themen-cta span{transition:transform .15s ease;}
+  .dw-themen-cta:hover span{transform:translateX(4px);}
+  .dw-themen-levels{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;}
+  .dw-themen-level{
+    font-size:.75rem;font-weight:800;padding:5px 12px;border-radius:999px;text-decoration:none;
+    border:1.5px solid rgba(22,22,22,.18);color:var(--dw-muted);transition:border-color .15s ease,color .15s ease;
+  }
+  .dw-themen-level:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-themen-level.dw-on{background:var(--dw-primary);border-color:var(--dw-primary);color:#fff;}
+  .dw-themen-chips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;position:relative;z-index:1;}
+  .dw-chip{
+    display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #ecdcb2;border-radius:14px;
+    padding:11px 13px;text-decoration:none;color:var(--dw-text);font-size:.88rem;font-weight:700;line-height:1.25;
+    box-shadow:0 2px 6px rgba(0,0,0,.04);
+    transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  }
+  .dw-chip:hover{transform:translateY(-3px);box-shadow:0 10px 18px rgba(156,19,41,.14);border-color:var(--dw-primary-light);}
+  .dw-chip-ico{
+    flex-shrink:0;width:34px;height:34px;border-radius:10px;background:#fdf1d3;
+    display:flex;align-items:center;justify-content:center;font-size:1.1rem;
+  }
+  .dw-chip small{display:block;font-weight:500;color:var(--dw-muted);font-size:.72rem;margin-top:1px;}
+
   /* ---------- 3. DACH MAP ---------- */
   .dw-dach{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
   .dw-country{
@@ -208,12 +261,14 @@
 
   /* ---------- Responsive ---------- */
   @media(max-width:860px){
+    .dw-themen{grid-template-columns:1fr;gap:22px;padding:26px 22px 22px 26px;}
     .dw-skills{grid-template-columns:repeat(2,1fr);}
     .dw-dach{grid-template-columns:1fr;}
     .dw-heute{grid-template-columns:repeat(2,1fr);}
     .dw-explore{grid-template-columns:repeat(2,1fr);}
   }
   @media(max-width:520px){
+    .dw-themen-chips{grid-template-columns:1fr;}
     .dw-skills{grid-template-columns:1fr;}
     .dw-heute{grid-template-columns:1fr;}
     .dw-explore{grid-template-columns:1fr;}
@@ -309,6 +364,34 @@
         <p>SMS-chatter, presentasjoner og skriverammer med grammatikk-tips.</p>
         <span class="dw-skill-go">Start <span>→</span></span>
       </a>
+    </div>
+  </section>
+
+  <!-- 2b. WICHTIGE THEMEN (fremhevet kjerneseksjon) -->
+  <section class="dw-sec" id="dw-themen">
+    <div class="dw-themen">
+      <div>
+        <span class="dw-themen-badge">⭐ Kjerneinnhold</span>
+        <h2>⭐ Wichtige Themen</h2>
+        <p class="dw-themen-lead">Die wichtigsten Themen für deinen Deutschunterricht – übersichtlich gesammelt.</p>
+        <p class="dw-themen-sub">Lengre samtaler og tekster med lyd, ord og uttrykk og små oppgaver — de sentrale temaene du skal kunne på tysk.</p>
+        <a class="dw-themen-cta" href="wichtige-themen/">Alle wichtigen Themen <span>→</span></a>
+        <div class="dw-themen-levels">
+          <a class="dw-themen-level dw-on" href="wichtige-themen/8-klasse/">8. klasse</a>
+          <a class="dw-themen-level" href="wichtige-themen/9-klasse/">9. klasse</a>
+          <a class="dw-themen-level" href="wichtige-themen/10-klasse/">10. klasse</a>
+        </div>
+      </div>
+      <div class="dw-themen-chips">
+        <a class="dw-chip" href="wichtige-themen/8-klasse/die-einfache-unterhaltung/"><span class="dw-chip-ico">👋</span><span>Die einfache Unterhaltung<small>Hilse og snakke sammen</small></span></a>
+        <a class="dw-chip" href="wichtige-themen/8-klasse/meine-familie/"><span class="dw-chip-ico">👪</span><span>Meine Familie<small>Fortell om familien din</small></span></a>
+        <a class="dw-chip" href="wichtige-themen/8-klasse/hobbys-und-freizeit/"><span class="dw-chip-ico">⚽</span><span>Hobbys und Freizeit<small>Hva gjør du på fritida?</small></span></a>
+        <a class="dw-chip" href="wichtige-themen/8-klasse/eine-verabredung/"><span class="dw-chip-ico">🕒</span><span>Eine Verabredung<small>Avtale tid og sted</small></span></a>
+        <a class="dw-chip" href="wichtige-themen/8-klasse/im-restaurant/"><span class="dw-chip-ico">🍽️</span><span>Im Restaurant<small>Bestille og betale</small></span></a>
+        <a class="dw-chip" href="wichtige-themen/8-klasse/zu-weihnachten/"><span class="dw-chip-ico">🎄</span><span>Zu Weihnachten<small>Jul i Tyskland</small></span></a>
+        <a class="dw-chip" href="wichtige-themen/8-klasse/einkaufen/"><span class="dw-chip-ico">🛍️</span><span>Einkaufen<small>Kjøpe klær</small></span></a>
+        <a class="dw-chip" href="wichtige-themen/8-klasse/mein-aussehen/"><span class="dw-chip-ico">🙂</span><span>Mein Aussehen<small>Beskrive utseende</small></span></a>
+      </div>
     </div>
   </section>
 
@@ -414,7 +497,6 @@
           <li><a href="grammatikk/">🧩 Grammatik</a></li>
           <li><a href="ordbok/">📔 Ordbok</a></li>
           <li><a href="aehnliche-woerter/">🪄 Snakker du nysk?</a></li>
-          <li><a href="wichtige-themen/">⭐ Wichtige Themen</a></li>
           <li><a href="leben/">📱 Deutsch im echten Leben</a></li>
         </ul>
       </div>

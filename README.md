@@ -1570,6 +1570,8 @@ Full verifisering: `node --check` på begge nye script-blokker (0 feil), en loka
 
     Full verifisering: `node --check` (0 feil), lokal HTTP-server bekreftet 200 OK på siden og begge lydfiler, og en Playwright-gjennomgang bekreftet at begge `<audio>`-elementenes rapporterte varighet er identisk med `ffprobe`-målingen, samt korrekt highlight-indeks mot flere tidspunkt på begge versjoner.
 
+**Forsiden: «⭐ Wichtige Themen» løftet opp som fremhevet kjerneseksjon.** Seksjonen lå som en vanlig lenke i «Sprache»-listen nederst på siden, men er et av de viktigste startpunktene for elevene. Den ligger nå som egen seksjon rett under «Velg en ferdighet» (nest øverst på siden), med en annen visuell behandling enn de øvrige kortene: varm kremfarget flate med gull-ramme og en burgunder/gull-aksent i venstre kant, et «Kjerneinnhold»-merke, stor overskrift og lead-tekst («Die wichtigsten Themen für deinen Deutschunterricht – übersichtlich gesammelt.»), en tydelig burgunder knapp «Alle wichtigen Themen →» til `wichtige-themen/`, nivå-piller (8./9./10. klasse) og et rutenett med alle 8 temaer fra 8. klasse som direktelenker (Die einfache Unterhaltung, Meine Familie, Hobbys und Freizeit, Eine Verabredung, Im Restaurant, Zu Weihnachten, Einkaufen, Mein Aussehen). Lenken er tatt ut av «Sprache»-listen siden den nå er fremhevet; toppmenyen har den fortsatt. Responsivt: to kolonner på desktop, én kolonne under 860 px, ett tema per rad under 520 px. Verifisert med Playwright (ingen JS-feil, CTA og tema-lenker navigerer riktig, alle 12 lenker i seksjonen finnes) og skjermbilder på desktop/nettbrett/mobil.
+
 ## Slik legger du til en ny seksjon
 
 1. **Kopier den mappen som ligner mest** på det du skal lage:
