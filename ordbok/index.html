@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Ordbok (norsk ⇄ tysk)
+  Søkbar ordbok bygget på hele Heinzelnisse-ordlisten (heinzelnisse.info),
+  åpen kildekode, lisens GPL-2.0 / CC BY-NC-SA 3.0. Data ligger i
+  ordbok.json (45 141 oppføringer) og hentes med fetch() — se README.md
+  for mer om hvordan datasettet ble laget.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ordbok · Deutschwelt</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:820px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:32px 26px;text-align:center;margin-bottom:24px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.8rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:22px;font-size:.88rem;line-height:1.6;
+  }
+  .dw-intro strong{color:var(--dw-primary);}
+  .dw-intro a{color:var(--dw-primary-light);font-weight:600;}
+
+  .dw-ord-box{
+    background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);
+    padding:18px 20px 10px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:18px;
+  }
+  .dw-ord-input-wrap{position:relative;}
+  #dw-ord-input{
+    width:100%;font-size:1.1rem;padding:14px 20px;border-radius:999px;
+    border:2px solid #ece8df;outline:none;background:#fff;color:var(--dw-text);
+  }
+  #dw-ord-input:focus{border-color:var(--dw-accent);}
+  #dw-ord-input:disabled{background:#f3f2ee;color:#999;}
+  #dw-ord-status{text-align:center;font-size:.82rem;color:var(--dw-muted);margin:10px 0 6px;min-height:1.1em;}
+  #dw-ord-count{text-align:center;font-size:.85rem;color:var(--dw-muted);margin:6px 0 2px;min-height:1.1em;}
+
+  .dw-ord-results{display:flex;flex-direction:column;gap:10px;margin-top:6px;}
+  .dw-ord-row{
+    background:var(--dw-card);border:1px solid #ece8df;border-radius:12px;padding:14px 18px;
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:6px 10px;
+    box-shadow:0 1px 4px rgba(0,0,0,.04);
+  }
+  .dw-ord-no,.dw-ord-de{display:flex;flex-direction:column;gap:3px;}
+  .dw-ord-no b{font-size:1.05rem;color:var(--dw-primary-light);}
+  .dw-ord-de b{font-size:1.05rem;color:var(--dw-primary);}
+  .dw-ord-arrow{color:var(--dw-accent);font-weight:700;font-size:1.2rem;justify-self:center;}
+  .dw-ord-tag{
+    display:inline-block;width:fit-content;font-size:.7rem;background:var(--dw-bg);color:var(--dw-muted);
+    padding:2px 9px;border-radius:999px;border:1px solid #ece8df;
+  }
+  .dw-ord-hint{grid-column:1/-1;font-size:.82rem;color:var(--dw-muted);font-style:italic;margin-top:2px;}
+  .dw-ord-cat{grid-column:1/-1;font-size:.72rem;color:var(--dw-primary-light);font-weight:700;letter-spacing:.02em;}
+  .dw-ord-empty{text-align:center;color:var(--dw-muted);padding:18px 0;}
+
+  @media(max-width:560px){
+    .dw-ord-row{grid-template-columns:1fr;}
+    .dw-ord-arrow{justify-self:start;margin:-4px 0;}
+  }
+
+  .dw-footer{text-align:center;margin-top:30px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-footer a{color:var(--dw-primary-light);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link dw-nav-active" href="./">📔 Ordbok</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>📔 Ordbok</h1>
+    <p>Søk norsk ⇄ tysk — skriv et ord på hvilket som helst av språkene</p>
+  </div>
+
+  <div class="dw-intro">
+    <strong>Hva er dette?</strong> Dette er hele Heinzelnisse-ordboken — ei åpen, gratis norsk-tysk ordbok med over 45 000 oppføringer, fra vanlige hverdagsord til fagord og faste uttrykk. Søket virker begge veier: skriv et norsk <em>eller</em> et tysk ord. Siden det er hele ordboken, kan du også finne ord som ligger utenfor det dere jobber med på skolen akkurat nå — bruk gjerne ordboken sammen med en lærer hvis du er usikker på et treff.<br><br>
+    Kilde: <a href="https://heinzelnisse.info" target="_blank" rel="noopener">Heinzelnisse</a> (heinzelnisse.info), åpen kildekode under GPL-2.0 / CC BY-NC-SA 3.0.
+  </div>
+
+  <div class="dw-ord-box">
+    <div class="dw-ord-input-wrap">
+      <input type="text" id="dw-ord-input" placeholder="Laster ordboken …" disabled autocomplete="off" autocapitalize="off" spellcheck="false">
+    </div>
+    <div id="dw-ord-status">Laster ordboken …</div>
+    <div id="dw-ord-count"></div>
+    <div class="dw-ord-results" id="dw-ord-results"></div>
+  </div>
+
+  <p class="dw-footer">Ordforrådet er hentet fra <a href="https://heinzelnisse.info" target="_blank" rel="noopener">Heinzelnisse</a> og brukt ikke-kommersielt til undervisning, med kildeangivelse, i tråd med lisensen.</p>
+
+</div>
+
+<script>
+  var dwDict = [];
+  var dwDictLoaded = false;
+
+  var dwGenderMap = {
+    'm':'hankjønn','f':'hunkjønn','n':'intetkjønn','v':'verb','adj':'adjektiv','adv':'adverb',
+    'pl':'flertall','prep':'preposisjon','pron':'pronomen','konj':'konjunksjon','interj':'interjeksjon','pf':'verb','et':'intetkjønn'
+  };
+
+  function dwGenderLabel(code){
+    if(!code) return '';
+    return code.split('/').map(function(part){
+      part = part.trim();
+      return dwGenderMap[part] || part;
+    }).join('/');
+  }
+
+  function dwEscape(s){
+    var d = document.createElement('div');
+    d.textContent = s == null ? '' : s;
+    return d.innerHTML;
+  }
+
+  function dwOrdRow(e){
+    var noTag = e.ng ? '<span class="dw-ord-tag">'+dwEscape(dwGenderLabel(e.ng))+'</span>' : '';
+    var deTag = e.dg ? '<span class="dw-ord-tag">'+dwEscape(dwGenderLabel(e.dg))+'</span>' : '';
+    var extra = '';
+    if(e.x) extra += '<div class="dw-ord-hint">'+dwEscape(e.x)+'</div>';
+    if(e.cat) extra += '<div class="dw-ord-cat">'+dwEscape(e.cat)+'</div>';
+    return '<div class="dw-ord-row">'+
+      '<div class="dw-ord-no"><b>'+dwEscape(e.no||'')+'</b>'+noTag+'</div>'+
+      '<div class="dw-ord-arrow">⇄</div>'+
+      '<div class="dw-ord-de"><b>'+dwEscape(e.de||'')+'</b>'+deTag+'</div>'+
+      extra+
+    '</div>';
+  }
+
+  var dwOrdTimer = null;
+  function dwOrdOnInput(){
+    clearTimeout(dwOrdTimer);
+    dwOrdTimer = setTimeout(dwOrdSearch, 120);
+  }
+
+  function dwOrdSearch(){
+    var out = document.getElementById('dw-ord-results');
+    var countEl = document.getElementById('dw-ord-count');
+    if(!dwDictLoaded) return;
+    var q = document.getElementById('dw-ord-input').value.trim().toLowerCase();
+    if(q.length < 2){
+      out.innerHTML = '';
+      countEl.textContent = q.length === 1 ? 'Skriv minst 2 bokstaver …' : '';
+      return;
+    }
+    var exact = [], starts = [], contains = [];
+    for(var i=0;i<dwDict.length;i++){
+      var e = dwDict[i];
+      var no = (e.no||'').toLowerCase();
+      var de = (e.de||'').toLowerCase();
+      if(no === q || de === q){ exact.push(e); }
+      else if(no.indexOf(q) === 0 || de.indexOf(q) === 0){ starts.push(e); }
+      else if(no.indexOf(q) !== -1 || de.indexOf(q) !== -1){ contains.push(e); }
+    }
+    var all = exact.concat(starts, contains);
+    var total = all.length;
+    if(total === 0){
+      out.innerHTML = '<p class="dw-ord-empty">Ingen treff på «'+dwEscape(q)+'». Prøv et annet ord, eller sjekk stavemåten.</p>';
+      countEl.textContent = '';
+      return;
+    }
+    var shown = all.slice(0, 60);
+    countEl.textContent = total > 60
+      ? ('Viser de 60 beste treffene av ' + total + '.')
+      : (total === 1 ? '1 treff' : total + ' treff');
+    out.innerHTML = shown.map(dwOrdRow).join('');
+  }
+
+  function dwLoadDict(){
+    var status = document.getElementById('dw-ord-status');
+    var input = document.getElementById('dw-ord-input');
+    fetch('ordbok.json').then(function(r){
+      if(!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    }).then(function(data){
+      dwDict = data;
+      dwDictLoaded = true;
+      status.textContent = 'Ordboken er klar — ' + dwDict.length + ' oppføringer.';
+      input.disabled = false;
+      input.placeholder = 'Skriv et norsk eller tysk ord …';
+      input.focus();
+      input.addEventListener('input', dwOrdOnInput);
+      input.addEventListener('keydown', function(ev){ if(ev.key === 'Enter'){ clearTimeout(dwOrdTimer); dwOrdSearch(); } });
+    }).catch(function(err){
+      status.textContent = 'Klarte ikke å laste ordboken akkurat nå. Prøv å laste siden på nytt.';
+      console.error(err);
+    });
+  }
+
+  dwLoadDict();
+</script>
+</body>
+</html>

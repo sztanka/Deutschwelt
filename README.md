@@ -304,6 +304,9 @@ wichtige-themen/
 │   └── index.html                    → venteside, ingen temaer bestemt ennå
 └── 10-klasse/
     └── index.html                    → venteside, ingen temaer bestemt ennå
+ordbok/
+├── index.html                        → søkbar norsk ⇄ tysk ordbok (live-filter, ingen backend)
+└── ordbok.json                       → hele Heinzelnisse-ordlisten, komprimert JSON (45 141 oppføringer, 2,6 MB), hentes med fetch()
 ```
 
 `grammatikk/artikler/dativ/` (🧭 Der Dativ-Kompass) er det første ferdigbygde
@@ -1531,6 +1534,12 @@ Full verifisering: `node --check` på begge nye script-blokker (0 feil), en loka
 `wichtige-themen/8-klasse/mein-aussehen/index.html` er to uavhengige monologer — Sophie og Ben beskriver hvert sitt utseende (høyde, hårfarge, øyefarge, kroppsfigur) — og bruker derfor les-med-mønsteret med to separate lydspillere/tekstblokker, samme struktur som Meine Familie-siden (Versjon A/Versjon B).
 
 `wichtige-themen/8-klasse/index.html` har nå **alle 8 temaer bygget** — hele listen Teach opprinnelig ga er dermed fullført som sider. Søkeindeksen fikk 2 nye oppføringer, ingen nye eksakte kollisjoner (én pre-eksisterende dupliserte nøkkel, «kellner», ble samtidig oppdaget og rettet — den lå både på Café-siden fra en tidligere runde og på Im Restaurant-siden fra forrige runde; Im Restaurant-siden bruker nå «kellner servitør» i stedet).
+
+**Ny toppnivå-seksjon: Ordbok.** Teach ønsket en integrert norsk-tysk ordbok på siden. Siden Deutschwelt er et statisk nettsted uten backend, var alternativet å slå opp mot en ekstern ordbok-API (upraktisk pga. CORS og driftsavhengighet) eller å bygge inn et eget, bundlet datasett med klientsidesøk — Teach valgte det siste. Datakilden er Heinzelnisse (heinzelnisse.info), en åpen kildekode norsk-tysk ordbok (GPL-2.0 / CC BY-NC-SA 3.0). Siden heinzelnisse.info ikke var tilgjengelig fra byggemiljøet, lastet Teach selv ned og lastet opp `heinzelliste.txt`-filen; formatet ble reverse-engineert fra den åpne konverteringskoden til prosjektet `Wunderfitz/heinzelnisse-sqlite` på GitHub (enkel bit-vis XOR-liknende obfuskering av hver byte, deretter en 10-kolonners TSV med norsk/tysk ord, kjønn/ordklasse, valgfri tilleggsinfo og kategori). Hele ordlisten — 45 141 oppføringer, ikke en filtrert delmengde — ble pakket til en kompakt `ordbok.json` (2,6 MB) med korte feltnavn (`no`, `de`, `ng`, `dg`, `x`, `cat`) og lagt i en ny `ordbok/`-mappe.
+
+`ordbok/index.html` er en enkel søkeside: et søkefelt henter `ordbok.json` én gang med `fetch()`, og søket filtrerer deretter live i nettleseren (ingen server, ingen indeksering på forhånd) — søket virker begge veier (skriv et norsk eller tysk ord), prioriterer eksakte treff først, så «starter med», så «inneholder», og viser maks 60 treff av gangen med en tydelig telling hvis det er flere. Kjønn/ordklasse-koder fra datasettet (m, f, n, adj, adv, osv.) vises som lesbare norske merkelapper. Siden fikk et nytt toppnivå-punkt i navigasjonsmenyen (📔 Ordbok, satt inn i alle 156 HTML-filer), et nytt kort på forsiden, og to nye søkeindeks-oppføringer — ingen nye nøkkelkollisjoner (samme pre-eksisterende «wechselpräpositionen»-duplikat som før, urelatert til denne runden).
+
+    Full verifisering: `node --check` på all inline JS (0 feil), lokal HTTP-server bekreftet 200 OK på siden og `ordbok.json`, en lenke-integritetssjekk av alle ~3500 lokale lenker i alle 156 HTML-filer (0 ekte brudd), og en funksjonstest av søkelogikken mot kjente ordpar (f.eks. «hus»↔«Haus», «katt»↔«Katze») som bekreftet korrekt tosidig treff og riktig prioritering av eksakte treff.
 
     Full verifisering: `node --check` (0 feil), lokal HTTP-server bekreftet 200 OK på siden og begge lydfiler, og en Playwright-gjennomgang bekreftet at begge `<audio>`-elementenes rapporterte varighet er identisk med `ffprobe`-målingen, samt korrekt highlight-indeks mot flere tidspunkt på begge versjoner.
 
