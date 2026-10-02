@@ -284,8 +284,10 @@ deutschwelt-site/
 │   │   └── index.html                → "Jugend & Schule" — skolehverdag i Tyskland vs. Norge
 │   ├── alltagssituationen/
 │   │   └── index.html                → "Alltagssituationen" — 6 hverdagssituasjoner + skilt/meldinger i 8 faner
-│   └── gleiches-wort/
-│       └── index.html                → "Gleiches Wort, andere Welt" — falske venner, falsk engelsk, D-A-CH-ord, test (5 faner)
+│   ├── gleiches-wort/
+│   │   └── index.html                → "Gleiches Wort, andere Welt" — falske venner, falsk engelsk, D-A-CH-ord, test (5 faner)
+│   └── gaming-internet/
+│       └── index.html                → "Gaming & Internet" — Spielwelt, Teamchat, Apps & Internet, Sicher im Netz, test (6 faner)
 └── sprechen/
     ├── index.html                    → hub-side: velg samtalesituasjon
     ├── cafe/
@@ -653,7 +655,7 @@ tidligere aksepterte kollisjonene — ingen nye.
 **Om «Deutsch im echten Leben»-seksjonen:** dette er nettstedets
 "autentiske tysk"-seksjon — mens de andre delene lærer eleven tysk, viser
 denne hvordan tysk faktisk brukes av folk (særlig ungdom) utenfor
-læreboka. `leben/index.html` er en hub med 8 kort: 7 er bygget ut (Alltagssituationen og Gleiches Wort kom til senere, se eget avsnitt nederst i denne seksjonen; teksten under beskriver tilstanden før det)
+læreboka. `leben/index.html` er en hub med 8 kort: alle er nå bygget ut (Alltagssituationen, Gleiches Wort og Gaming & Internet kom til senere, se eget avsnitt nederst i denne seksjonen; teksten under beskriver tilstanden før det)
 (`alltagssprache/`, `chat/`, `jugendwoerter/`, `sprichwoerter/`, `schule/`)
 og 3 er `dw-soon`-plassholdere (Gaming & Internet, Alltagssituationen, Gleiches
 Wort andere Welt) som venter på fremtidige runder. **Alltagssprache**
@@ -1995,6 +1997,18 @@ Siste ordtema som tidligere var «kommer snart» (utenom Gaming & Internet). **F
 - **Test deg selv**: 8 utfyll-setninger og 6 valgspørsmål på tvers av alle tre temaene.
 
 Bygges av `leben-work/build_gleiches.py` + `sitcommon.py` + `fillcommon.py`. Merk: norsk «gift» betyr både giftstoff og «gift med noen»; siden forklarer at tysk *Gift* bare har betydningen giftstoff. Tysk innhold er ikke lest av morsmålstaler. D-A-CH-ordene er valgt konservativt (typiske, godt dokumenterte varianter).
+
+## Gaming & Internet (`leben/gaming-internet/`)
+
+Siste av de tre «kommer snart»-temaene i Deutsch im echten Leben (alle åtte kort i `leben/index.html` er nå bygget). **Seks faner** (`#start`, `#spiel`, `#team`, `#app`, `#sicher`, `#test`; id-er inni en fane åpner riktig fane, uten JavaScript vises alt under hverandre):
+
+- **Spielwelt**: 14 spillord (zocken, Gegner, Mitspieler, Runde, Spielstand, gewinnen, aufgeben …) som vendekort + tabell, utfyll og valgspørsmål. Merknad om USK-aldersgrense på Start.
+- **Teamchat**: dialog i bobler (Vis norsk / Øv deg), fair-spill-uttrykk, utfyll/valg og en **skriveoppgave** (tekstfelt med sjekkliste og «Se et eksempel». Teksten lagres ikke, siden nettstedet ikke bruker localStorage).
+- **Apps & Internet**: 12 knapper (Anmelden, Abmelden, Einstellungen, Benachrichtigungen, Löschen …) som vendekort og «Hvilken knapp trykker du på?», nett-verb (herunterladen, hochladen, streamen, abonnieren, folgen + dativ) med skillbare verb og perfektum.
+- **Sicher im Netz**: seks regler i imperativ (Gib …! Teile …! Sprich …!), utfyll og valg, samtaleforslag til klassen.
+- **Test deg selv**: 8 utfyll og 6 valgspørsmål.
+
+Bygges av `leben-work/build_gaming.py` + `sitcommon.py` + `fillcommon.py`. Vendekort (`sign_cards`) er nå to kolonner og mindre skrift på mobil (gjelder alle tre leben-sidene som bruker dem). Tysk innhold er ikke lest av morsmålstaler.
 
 ## Kjente begrensninger
 

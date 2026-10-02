@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Deutsch im echten Leben: "Gaming & Internet" (leben/gaming-internet/)
+  Fanebasert side: Spielwelt, Teamchat (dialog + skriveoppgave), Apps & Internet (UI-knapper, nett-ord), Sicher im Netz, test. Gjenbruker sitcommon.py og fillcommon.py.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaming & Internet · Deutsch im echten Leben · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:860px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .dw-jump a{font-size:.86rem;font-weight:700;padding:7px 15px;border-radius:999px;text-decoration:none;background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:32px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t tbody th{background:#fbfaf6;font-size:.84rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t td.dw-hl{background:#fff3cf;}
+  .dw-t td.dw-c{text-align:center;}
+  .dw-t td.dw-x{color:#aaa;text-align:center;}
+  .dw-t tr.dw-grp td,.dw-t tr.dw-grp th{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:14px 0;}
+  a.dw-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;text-decoration:none;color:var(--dw-text);box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;gap:6px;}
+  a.dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  a.dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  a.dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
+
+  /* Øvelser */
+  .dw-ex-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+  .dw-ex-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:8px;}
+  .dw-ex-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:16px;}
+  .dw-ex-fill{height:100%;width:0;background:var(--dw-good);transition:width .25s ease;}
+  .dw-ex-cue{font-size:.88rem;color:var(--dw-muted);margin-bottom:4px;}
+  .dw-ex-sent{font-size:1.3rem;font-weight:600;color:var(--dw-primary);line-height:1.5;margin:2px 0 18px;}
+  .dw-ex-sent .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);text-align:center;}
+  .dw-ex-sent .dw-blank.dw-filled{color:var(--dw-good);border-color:var(--dw-good);}
+  .dw-ex-sent .dw-blank.dw-filled.dw-bad{color:var(--dw-bad);border-color:var(--dw-bad);}
+  .dw-ex-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .dw-ex-choice{flex:1 1 110px;max-width:170px;padding:12px 8px;font-family:inherit;font-size:1.1rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;}
+  .dw-ex-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-ex-choice:disabled{cursor:default;opacity:.55;}
+  .dw-ex-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-ex-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .dw-ex-choice:focus-visible,.dw-ex-btn:focus-visible,.dw-ex-hintbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-ex-hintbtn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:.85rem;padding:0;margin-bottom:8px;}
+  .dw-ex-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:10px 14px;margin:6px 0 14px;background:#f4f1e8;}
+  .dw-ex-fb.dw-show{display:block;}
+  .dw-ex-fb.dw-good{background:#eef7ee;color:#1f5d23;}
+  .dw-ex-fb.dw-bad{background:#fdecee;color:#8c1d1d;}
+  .dw-ex-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:11px 26px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .dw-ex-btn:hover{background:var(--dw-primary-light);}
+  .dw-ex-btn.dw-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-ex-result{display:none;text-align:center;}
+  .dw-ex-result.dw-show{display:block;}
+  .dw-ex-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .dw-ex-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:12px 18px;margin:14px 0;font-size:.9rem;}
+  .dw-ex-review li{margin-bottom:6px;}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .dw-ex-sent{font-size:1.12rem;}
+  }
+
+  /* ---- faner ---- */
+  .dw-tabs{display:none;flex-wrap:wrap;gap:8px;margin:14px 0 6px;}
+  .dw-js .dw-tabs{display:flex;}
+  .dw-tabs button{font-family:inherit;font-size:.95rem;font-weight:800;padding:10px 18px;border-radius:999px;border:2px solid #e4dfd2;background:#fff;color:var(--dw-text);cursor:pointer;}
+  .dw-tabs button:hover{border-color:var(--dw-primary-light);}
+  .dw-tabs button[aria-selected="true"]{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .dw-tabs button:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-tabpanel[hidden]{display:none;}
+  .dw-tabnext{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:18px 0 6px;}
+  .dw-tabnext button{font-family:inherit;font-weight:800;font-size:.9rem;padding:9px 18px;border-radius:999px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;}
+  .dw-tabnext button:hover{background:var(--dw-primary);color:#fff;}
+  .dw-js .dw-tabnext{display:flex;} .dw-tabnext{display:none;}
+  /* ---- utfyll-widgets ---- */
+  .dw-fill{background:#f8f6ef;border:2px dashed #d9d3c4;border-radius:14px;padding:14px 16px;margin:14px 0;}
+  .dw-fill h4{margin:0 0 4px;font-size:1rem;color:var(--dw-primary-light);}
+  .dw-fill .dw-fi-intro{font-size:.88rem;color:var(--dw-muted);margin:0 0 8px;}
+  .dw-fill-modes{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px;}
+  .dw-fill-modes button{font-family:inherit;font-size:.8rem;font-weight:700;padding:5px 12px;border-radius:999px;border:1.5px solid #cfd8e6;background:#fff;cursor:pointer;color:var(--dw-text);}
+  .dw-fill-modes button.dw-on{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .dw-fill table{border-collapse:collapse;margin:4px 0 8px;font-size:.95rem;background:#fff;}
+  .dw-fill th,.dw-fill td{border:1px solid #ece8df;padding:6px 9px;text-align:center;}
+  .dw-fill th{background:#fbfaf6;font-size:.78rem;color:var(--dw-muted);}
+  .dw-fill th small{display:block;font-weight:400;font-size:.72rem;}
+  .dw-fill td.dw-pr{text-align:left;font-weight:700;color:var(--dw-muted);background:#fbfaf6;white-space:nowrap;}
+  .dw-fill td.dw-given{font-weight:700;color:#232323;}
+  .dw-fill td.dw-hlc{background:#fff8e4;}
+  .dw-fill .dw-tw{overflow-x:auto;}
+  .dw-fi{font-family:inherit;font-size:1rem;font-weight:700;width:7.6em;max-width:100%;padding:6px 8px;border:2px solid #cfc8b5;border-radius:8px;text-align:center;background:#fff;color:#232323;}
+  .dw-fi:focus{outline:none;border-color:var(--dw-primary-light);box-shadow:0 0 0 3px rgba(156,19,41,.15);}
+  .dw-fi.dw-st-ok{background:#e3f4e3;border-color:#2e7d32;color:#1f5d23;}
+  .dw-fi.dw-st-near{background:#fff3cf;border-color:#d9a91c;}
+  .dw-fi.dw-st-bad{background:#fdecee;border-color:#c62828;color:#8c1d1d;}
+  .dw-fi.dw-st-shown{background:#e6eefb;border-color:#5b8bd6;color:#1e3f7a;}
+  .dw-keys{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:6px 0;font-size:.8rem;color:var(--dw-muted);}
+  .dw-key{font-family:inherit;font-size:1rem;font-weight:800;width:36px;height:34px;border-radius:8px;border:1.5px solid #cfd8e6;background:#fff;cursor:pointer;color:var(--dw-text);}
+  .dw-key:hover{background:var(--dw-primary);color:#fff;}
+  .dw-frow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px;}
+  .dw-fbtn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:8px 18px;border-radius:999px;font-size:.9rem;font-weight:700;cursor:pointer;}
+  .dw-fbtn.dw-sec{background:#fff;color:var(--dw-primary);border:2px solid #d9d3c4;}
+  .dw-fbtn:hover{background:var(--dw-primary-light);color:#fff;}
+  .dw-fstat{font-size:.9rem;font-weight:700;margin-left:auto;}
+  .dw-fstat.dw-all{color:var(--dw-good);}
+  .dw-fmsg{display:none;margin-top:8px;border-radius:10px;padding:8px 12px;font-size:.88rem;background:#fff9ec;color:#5a4500;line-height:1.5;}
+  .dw-fmsg.dw-show{display:block;}
+  .dw-fg ol{list-style:none;margin:6px 0;padding:0;counter-reset:g;}
+  .dw-fg li{counter-increment:g;display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:7px 0;border-bottom:1px solid #ece8df;line-height:1.9;}
+  .dw-fg li::before{content:counter(g)".";font-weight:800;color:var(--dw-muted);min-width:1.6em;}
+  .dw-fg li .dw-gv{font-size:.82rem;color:var(--dw-muted);font-style:italic;}
+  .dw-fg li .dw-gm{margin-left:2px;min-width:1.4em;}
+  .dw-fg .dw-fi{width:6.4em;}
+  @media(max-width:560px){.dw-fi{width:6.2em;font-size:.95rem;padding:5px 5px;}.dw-fill{padding:12px 10px;}.dw-fill th,.dw-fill td{padding:5px 5px;}}
+
+  .dw-dlg-wrap{margin:12px 0;}
+  .dw-dlg-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;font-size:.95rem;}
+  .dw-dlg-bar b{margin-right:auto;}
+  .dw-dbtn{font-family:inherit;font-size:.8rem;font-weight:700;padding:6px 12px;border-radius:999px;border:1.5px solid #cfd8e6;background:#fff;cursor:pointer;color:var(--dw-text);}
+  .dw-dbtn[aria-pressed="true"]{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .dw-dlg{display:flex;flex-direction:column;gap:10px;}
+  .dw-bub{max-width:84%;padding:9px 14px 10px;border-radius:14px;border:1px solid transparent;font-size:.98rem;line-height:1.5;}
+  .dw-bub.a{align-self:flex-start;background:#eef2f6;border-color:#d7e0ea;}
+  .dw-bub.b{align-self:flex-end;background:#fdf1ea;border-color:#f0d9c2;}
+  .dw-spk{display:block;font-size:.68rem;font-weight:800;letter-spacing:.5px;margin-bottom:1px;opacity:.7;text-transform:uppercase;}
+  .dw-spk:empty{display:none;}
+  .dw-t{display:block;font-weight:600;}
+  .dw-nol{display:none;margin-top:3px;font-size:.84rem;font-style:italic;color:var(--dw-muted);font-weight:400;}
+  .dw-dlg-wrap.dw-shown .dw-nol{display:block;}
+  .dw-dlg-wrap.dw-rehearse .dw-bub.b:not(.dw-rev) .dw-t{filter:blur(7px);cursor:pointer;user-select:none;}
+  .dw-dlg-wrap.dw-rehearse .dw-bub.b:not(.dw-rev){cursor:pointer;}
+  .dw-ch{background:#f8f6ef;border:2px dashed #d9d3c4;border-radius:14px;padding:14px 16px;margin:14px 0;}
+  .dw-ch h4{margin:0 0 4px;font-size:1rem;color:var(--dw-primary-light);}
+  .dw-ch .dw-ch-intro{font-size:.88rem;color:var(--dw-muted);margin:0 0 8px;}
+  .dw-ch-q{background:#fff;border:1px solid #ece8df;border-radius:12px;padding:10px 14px;margin:10px 0;}
+  .dw-ch-q p{margin:0 0 6px;font-weight:700;line-height:1.5;}
+  .dw-ch-sub{margin:6px 0 8px;}
+  .dw-ch-opts{display:flex;flex-direction:column;gap:7px;}
+  .dw-ch-opts button{font-family:inherit;text-align:left;font-size:.95rem;font-weight:600;padding:9px 14px;border-radius:10px;border:2px solid #d9d3c4;background:#fff;color:var(--dw-text);cursor:pointer;}
+  .dw-ch-opts button:hover:not(:disabled){border-color:var(--dw-primary-light);}
+  .dw-ch-opts button.dw-g{background:#e3f4e3;border-color:#2e7d32;color:#1f5d23;}
+  .dw-ch-opts button.dw-r{background:#fdecee;border-color:#c62828;color:#8c1d1d;}
+  .dw-ch-opts button:disabled{cursor:default;}
+  .dw-ch-why{display:none;margin-top:8px;font-size:.88rem;line-height:1.5;color:#3d3d3d;background:#fff9ec;border-radius:8px;padding:7px 11px;}
+  .dw-ch-why.dw-show{display:block;}
+  .dw-ch-foot{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px;}
+  .dw-ch-st{font-weight:800;font-size:.92rem;} .dw-ch-st.dw-all{color:var(--dw-good);}
+  .dw-ch-foot button{font-family:inherit;background:#fff;color:var(--dw-primary);border:2px solid #d9d3c4;padding:6px 14px;border-radius:999px;font-weight:700;font-size:.85rem;cursor:pointer;}
+  .dw-sign{display:inline-block;font-weight:800;font-size:1rem;padding:7px 14px;border-radius:6px;border:3px solid #fff;box-shadow:0 0 0 2px #444;line-height:1.2;letter-spacing:.2px;}
+  .dw-sg-blue{background:#1565c0;color:#fff;} .dw-sg-green{background:#2e7d32;color:#fff;} .dw-sg-red{background:#c62828;color:#fff;} .dw-sg-yellow{background:#fbc02d;color:#222;} .dw-sg-white{background:#fff;color:#222;} .dw-sg-black{background:#222;color:#fff;}
+  .dw-signs{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin:12px 0;}
+  @media(max-width:520px){.dw-signs{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;} .dw-sign{font-size:.76rem;padding:6px 6px;letter-spacing:0;}}
+  .dw-sign{max-width:100%;box-sizing:border-box;overflow-wrap:anywhere;hyphens:auto;} .dw-sign-card{min-width:0;}
+  .dw-sign-card{font-family:inherit;background:#fff;border:1.5px solid #e4dfd2;border-radius:12px;padding:14px 10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;min-height:92px;justify-content:center;}
+  .dw-sign-card:hover{border-color:var(--dw-primary-light);}
+  .dw-sign-no{display:none;font-size:.88rem;font-weight:600;color:#3d3d3d;text-align:center;}
+  .dw-sign-card.dw-flip .dw-sign-no{display:block;}
+  .dw-scene{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.88rem;margin:6px 0 10px;}
+  .dw-scene span{background:#f4f1e8;border-radius:999px;padding:3px 12px;}
+  .dw-cards3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:10px 0;}
+  .dw-cards3 button{font-family:inherit;text-align:left;background:#fff;border:1.5px solid #e4dfd2;border-radius:12px;padding:12px 14px;cursor:pointer;color:var(--dw-text);display:flex;flex-direction:column;gap:3px;}
+  .dw-cards3 button:hover{border-color:var(--dw-primary-light);}
+  .dw-cards3 b{color:var(--dw-primary-light);font-size:1rem;} .dw-cards3 span{font-size:.84rem;color:var(--dw-muted);}
+  @media(max-width:560px){.dw-bub{max-width:94%;}}
+
+  .dw-write{width:100%;box-sizing:border-box;font-family:inherit;font-size:1rem;padding:10px 12px;border:2px solid #cfc8b5;border-radius:10px;background:#fff;color:var(--dw-text);margin:6px 0 10px;resize:vertical;}
+  .dw-write:focus{outline:none;border-color:var(--dw-primary-light);box-shadow:0 0 0 3px rgba(156,19,41,.15);}
+  .dw-model{background:#fff9ec;border:1px solid #eadfc2;border-radius:10px;padding:8px 14px;margin:8px 0;}
+  .dw-model summary{cursor:pointer;font-weight:800;}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link dw-nav-active" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>Gaming &amp; Internet</h1>
+    <p>Ord for spill, teamchat, apper og trygg bruk av nettet</p>
+  </div>
+
+  <p class="dw-crumb"><a href="../">📱 Deutsch im echten Leben</a> → Gaming &amp; Internet <span class="dw-level-tag">8.–10. trinn · A1/A2</span></p>
+
+  <div class="dw-tabs" id="dw-tabs" role="tablist" aria-label="Velg tema"><button type="button" role="tab" data-tab="start" aria-controls="start" aria-selected="true">🧭 Start</button><button type="button" role="tab" data-tab="spiel" aria-controls="spiel" aria-selected="false">🎮 Spielwelt</button><button type="button" role="tab" data-tab="team" aria-controls="team" aria-selected="false">💬 Teamchat</button><button type="button" role="tab" data-tab="app" aria-controls="app" aria-selected="false">📲 Apps & Internet</button><button type="button" role="tab" data-tab="sicher" aria-controls="sicher" aria-selected="false">🔐 Sicher im Netz</button><button type="button" role="tab" data-tab="test" aria-controls="test" aria-selected="false">🏆 Test deg selv</button></div>
+
+  <section class="dw-tabpanel" id="start" aria-label="🧭 Start">
+  <h2 class="dw-sec-title" id="start-intro">🎮 Gaming & Internet</h2>
+  <div class="dw-exp">
+<p>Mange elever spiller, chatter og bruker apper hver dag, men vet ikke hva det heter på tysk. Her lærer du ordene du faktisk trenger: i spillet, i teamchatten, i innstillingene og når du vil være trygg på nettet. Hver fane har oversikt, kort du kan trykke på, utfyllingsoppgaver og et spørsmålssett.</p><div class="dw-cards3"><button type="button" data-go="spiel"><b>🎮 Spielwelt</b><span>Ord du trenger når du spiller: Level, Runde, Gegner, gewinnen …</span></button><button type="button" data-go="team"><b>💬 Teamchat</b><span>Dialog med lagkamerat, uttrykk for fair spill og en egen melding du skriver.</span></button><button type="button" data-go="app"><b>📲 Apps & Internet</b><span>Hva står det på knappene? Anmelden, Einstellungen, Herunterladen …</span></button><button type="button" data-go="sicher"><b>🔐 Sicher im Netz</b><span>Regler for trygg bruk: passord, fremmede, blokkere og melde.</span></button><button type="button" data-go="test"><b>🏆 Test deg selv</b><span>Blandet quiz og utfyllingsoppgaver.</span></button></div><div class="dw-tip">🔞 <b>Visste du?</b> I Tyskland har alle spill en <b>USK-aldersgrense</b> (<i>Unterhaltungssoftware Selbstkontrolle</i>): 0, 6, 12, 16 eller 18. Det er nesten som PEGI i Norge. «<i>Ab 12 Jahren</i>» betyr «fra 12 år».</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="start-par">🗣️ Snakk om det (i par)</h2>
+  <div class="dw-exp">
+<p>Spør hverandre på tysk. Svar med hele setninger. Trykk på «Vis norsk» hvis du står fast.</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:480px"><thead><tr><th>Spørsmål</th><th>Mulig svar</th></tr></thead><tbody><tr><td class="dw-f">Was spielst du gern?</td><td><span class="dw-de">Ich spiele gern Fußball-Spiele.</span><br><span class="dw-no">Jeg spiller gjerne fotballspill.</span></td></tr><tr><td class="dw-f">Wie oft spielst du?</td><td><span class="dw-de">Ich spiele dreimal pro Woche.</span><br><span class="dw-no">Jeg spiller tre ganger i uka.</span></td></tr><tr><td class="dw-f">Spielst du allein oder mit Freunden?</td><td><span class="dw-de">Ich spiele meistens mit Freunden.</span><br><span class="dw-no">Jeg spiller oftest med venner.</span></td></tr><tr><td class="dw-f">Wie lange spielst du am Tag?</td><td><span class="dw-de">Ich spiele eine Stunde am Tag.</span><br><span class="dw-no">Jeg spiller en time om dagen.</span></td></tr><tr><td class="dw-f">Welche Apps benutzt du am meisten?</td><td><span class="dw-de">Ich benutze Chat-Apps und Videos.</span><br><span class="dw-no">Jeg bruker chat-apper og videoer.</span></td></tr></tbody></table></div><p>Grammatikk du bruker mye her: <a href="../../grammatikk/ordstilling/skillbare-verb/">skillbare verb (einloggen, herunterladen)</a> · <a href="../../grammatikk/ordstilling/modalverb/">modalverb (wir müssen, wir wollen)</a> · <a href="../../grammatikk/ordstilling/ja-nei-sporsmal/">ja/nei-spørsmål</a>.</p>
+  </div>
+<div class="dw-tabnext"><span></span><button type="button" data-go="spiel">🎮 Videre til Spielwelt →</button></div></section><section class="dw-tabpanel" id="spiel" aria-label="🎮 Spielwelt">
+  <h2 class="dw-sec-title" id="spiel-intro">🎮 Spielwelt</h2>
+  <div class="dw-exp">
+<p>Trykk på et kort for å se hva ordet betyr:</p><div class="dw-signs"><button type="button" class="dw-sign-card" aria-label="zocken – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">zocken</span><span class="dw-sign-no">spille dataspill (uformelt)</span></button><button type="button" class="dw-sign-card" aria-label="Gegner – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Gegner</span><span class="dw-sign-no">motstander</span></button><button type="button" class="dw-sign-card" aria-label="Mitspieler – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Mitspieler</span><span class="dw-sign-no">medspiller</span></button><button type="button" class="dw-sign-card" aria-label="Runde – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Runde</span><span class="dw-sign-no">runde</span></button><button type="button" class="dw-sign-card" aria-label="Spielstand – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Spielstand</span><span class="dw-sign-no">stilling / lagret spill</span></button><button type="button" class="dw-sign-card" aria-label="gewinnen – trykk for å se betydningen"><span class="dw-sign dw-sg-green">gewinnen</span><span class="dw-sign-no">vinne</span></button><button type="button" class="dw-sign-card" aria-label="verlieren – trykk for å se betydningen"><span class="dw-sign dw-sg-red">verlieren</span><span class="dw-sign-no">tape</span></button><button type="button" class="dw-sign-card" aria-label="aufgeben – trykk for å se betydningen"><span class="dw-sign dw-sg-red">aufgeben</span><span class="dw-sign-no">gi opp</span></button><button type="button" class="dw-sign-card" aria-label="Verbindung – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Verbindung</span><span class="dw-sign-no">forbindelse</span></button><button type="button" class="dw-sign-card" aria-label="Bildschirm – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Bildschirm</span><span class="dw-sign-no">skjerm</span></button><button type="button" class="dw-sign-card" aria-label="Tastatur – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Tastatur</span><span class="dw-sign-no">tastatur</span></button><button type="button" class="dw-sign-card" aria-label="Maus – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Maus</span><span class="dw-sign-no">mus (datamus)</span></button></div><div class="dw-tip">🕹️ <b>zocken</b> er et uformelt ord som mange unge bruker om å spille dataspill: <i>Wir zocken heute Abend</i>. Det passer med venner, men i en høflig sammenheng sier du <i>spielen</i>.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="spiel-tabell">📖 Oversikt</h2>
+  <div class="dw-exp">
+<div class="dw-tbl-wrap"><table class="dw-t" style="min-width:600px"><thead><tr><th>Tysk</th><th>Norsk</th><th>Eksempel</th></tr></thead><tbody><tr><td class="dw-f">das Spiel</td><td>spillet</td><td><span class="dw-de">Das Spiel macht Spaß.</span><br><span class="dw-no">Spillet er morsomt.</span></td></tr><tr><td class="dw-f">spielen / zocken</td><td>spille / «gamble» (uformelt for å spille dataspill)</td><td><span class="dw-de">Wir zocken heute Abend.</span><br><span class="dw-no">Vi spiller i kveld.</span></td></tr><tr><td class="dw-f">der Spieler / die Spielerin</td><td>spiller</td><td><span class="dw-de">Sie ist eine gute Spielerin.</span><br><span class="dw-no">Hun er en god spiller.</span></td></tr><tr><td class="dw-f">der Mitspieler</td><td>medspiller</td><td><span class="dw-de">Meine Mitspieler sind nett.</span><br><span class="dw-no">Medspillerne mine er hyggelige.</span></td></tr><tr><td class="dw-f">der Gegner</td><td>motstander</td><td><span class="dw-de">Der Gegner ist stark.</span><br><span class="dw-no">Motstanderen er sterk.</span></td></tr><tr><td class="dw-f">das Team</td><td>laget</td><td><span class="dw-de">Unser Team gewinnt!</span><br><span class="dw-no">Laget vårt vinner!</span></td></tr><tr><td class="dw-f">die Runde</td><td>runden</td><td><span class="dw-de">Die nächste Runde beginnt.</span><br><span class="dw-no">Neste runde begynner.</span></td></tr><tr><td class="dw-f">das Level</td><td>nivået</td><td><span class="dw-de">Ich bin jetzt in Level zehn.</span><br><span class="dw-no">Jeg er nå på nivå ti.</span></td></tr><tr><td class="dw-f">der Spielstand</td><td>stillingen / lagret spill</td><td><span class="dw-de">Speichere den Spielstand!</span><br><span class="dw-no">Lagre spillet!</span></td></tr><tr><td class="dw-f">gewinnen</td><td>vinne</td><td><span class="dw-de">Wir gewinnen das Spiel.</span><br><span class="dw-no">Vi vinner spillet.</span></td></tr><tr><td class="dw-f">verlieren</td><td>tape</td><td><span class="dw-de">Leider verlieren wir.</span><br><span class="dw-no">Dessverre taper vi.</span></td></tr><tr><td class="dw-f">aufgeben</td><td>gi opp (skillbart)</td><td><span class="dw-de">Ich gebe nie auf.</span><br><span class="dw-no">Jeg gir aldri opp.</span></td></tr><tr><td class="dw-f">die Verbindung</td><td>forbindelsen</td><td><span class="dw-de">Die Verbindung ist schlecht.</span><br><span class="dw-no">Forbindelsen er dårlig.</span></td></tr><tr><td class="dw-f">der Bildschirm</td><td>skjermen</td><td><span class="dw-de">Der Bildschirm ist zu klein.</span><br><span class="dw-no">Skjermen er for liten.</span></td></tr></tbody></table></div><div class="dw-tip">📎 <b>Artikler:</b> Lær ordet sammen med <i>der / die / das</i>: <i>der Gegner, die Runde, das Level</i>. Se <a href="../../grammatikk/artikler/">Artikler</a>. «<i>aufgeben</i>» er skillbart: <i>Ich gebe auf</i> (ikke «Ich aufgebe»).</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="spiel-ovelse">✏️ Din tur</h2>
+  <div class="dw-exp">
+<div class="dw-fill dw-fg"><script type="application/json">{"title": "Fullfør setningene", "items": [{"s": "Unser ___ gewinnt das Spiel.", "a": "Team", "v": "laget"}, {"s": "Die ___ ist schlecht. Ich bin offline.", "a": "Verbindung", "v": "forbindelsen"}, {"s": "Der ___ ist stark, aber wir gewinnen.", "a": "Gegner", "v": "motstanderen"}, {"s": "Wir spielen die nächste ___.", "a": "Runde", "v": "runden"}, {"s": "Ich gebe nie ___.", "a": "auf", "v": "opp (skillbart verb)"}, {"s": "Wir ___ das Spiel! Juhu!", "a": "gewinnen", "v": "vinner"}], "hint": "Bruk tabellen over.", "intro": "Skriv ordet som mangler. Det norske ordet i parentes viser hva som menes."}</script></div><div class="dw-ch"><script type="application/json">{"title": "Hva sier du?", "intro": "Velg det riktige svaret.", "qs": [{"q": "Du vil si at du aldri gir opp.", "opts": ["Ich gebe nie auf.", "Ich aufgebe nie.", "Ich gebe nie aufgeben."], "a": 0, "why": "«Aufgeben» er skillbart. Verbet står på plass 2 (gebe), og prefikset kommer sist (auf)."}, {"q": "Hva betyr «Mein Gegner ist stark»?", "opts": ["Motstanderen min er sterk.", "Medspilleren min er sterk.", "Skjermen min er sterk."], "a": 0, "why": "Gegner = motstander. Medspiller heter «Mitspieler»."}, {"q": "Hva er «zocken»?", "opts": ["spille dataspill (uformelt)", "kjøpe et spill", "tape en kamp"], "a": 0, "why": "«Zocken» er uformelt, og passer best mellom venner."}, {"q": "Du vil foreslå å spille sammen. Hva spør du?", "opts": ["Wollen wir zusammen spielen?", "Wir wollen spielen zusammen?", "Wollen zusammen wir spielen?"], "a": 0, "why": "Ja/nei-spørsmål: verbet først (Wollen), så subjektet (wir), og infinitiv sist (spielen)."}]}</script></div><p>Hører til: <a href="../../grammatikk/ordstilling/modalverb/">Ordstilling: modalverb</a> · <a href="../../grammatikk/ordstilling/skillbare-verb/">Skillbare verb</a> · <a href="../alltagssprache/">Alltagssprache</a></p>
+  </div>
+<div class="dw-tabnext"><button type="button" data-go="start">← 🧭 Start</button><button type="button" data-go="team">💬 Teamchat →</button></div></section><section class="dw-tabpanel" id="team" aria-label="💬 Teamchat">
+  <h2 class="dw-sec-title" id="team-dlg">💬 Teamchat</h2>
+  <div class="dw-exp">
+<div class="dw-scene"><span>📍 Online-spill</span><span>👥 Du og en lagkamerat (Jonas)</span><span>🎯 Starte en runde sammen</span></div><div class="dw-dlg-wrap"><div class="dw-dlg-bar"><b>💬 Dialogen</b><button type="button" class="dw-dbtn" data-act="no" aria-pressed="false">🇳🇴 Vis norsk</button><button type="button" class="dw-dbtn" data-act="reh" aria-pressed="false">🎭 Øv deg: skjul dine replikker</button></div><div class="dw-dlg"><div class="dw-bub a"><span class="dw-spk">Jonas</span><span class="dw-t">Hey! Bist du bereit? Wir starten gleich eine neue Runde.</span><span class="dw-nol">Hei! Er du klar? Vi starter snart en ny runde.</span></div><div class="dw-bub b"><span class="dw-spk">Du</span><span class="dw-t">Ja, ich bin online. Aber mein Mikrofon geht nicht.</span><span class="dw-nol">Ja, jeg er pålogget. Men mikrofonen min fungerer ikke.</span></div><div class="dw-bub a"><span class="dw-spk">Jonas</span><span class="dw-t">Kein Problem. Dann schreib einfach im Chat.</span><span class="dw-nol">Ikke noe problem. Da skriver du bare i chatten.</span></div><div class="dw-bub b"><span class="dw-spk">Du</span><span class="dw-t">Okay. Wo ist unser Team?</span><span class="dw-nol">Greit. Hvor er laget vårt?</span></div><div class="dw-bub a"><span class="dw-spk">Jonas</span><span class="dw-t">Die anderen sind schon im Spiel. Komm, wir spielen zusammen!</span><span class="dw-nol">De andre er allerede i spillet. Kom, vi spiller sammen!</span></div><div class="dw-bub b"><span class="dw-spk">Du</span><span class="dw-t">Warte kurz, meine Verbindung ist schlecht. Ich logge mich neu ein.</span><span class="dw-nol">Vent litt, forbindelsen min er dårlig. Jeg logger meg inn på nytt.</span></div><div class="dw-bub a"><span class="dw-spk">Jonas</span><span class="dw-t">Alles klar. Wir warten auf dich.</span><span class="dw-nol">Greit. Vi venter på deg.</span></div><div class="dw-bub b"><span class="dw-spk">Du</span><span class="dw-t">Ich bin wieder da! Wer ist der Gegner?</span><span class="dw-nol">Jeg er tilbake! Hvem er motstanderen?</span></div><div class="dw-bub a"><span class="dw-spk">Jonas</span><span class="dw-t">Ein Team aus Hamburg. Wir müssen zusammenspielen!</span><span class="dw-nol">Et lag fra Hamburg. Vi må spille sammen!</span></div><div class="dw-bub b"><span class="dw-spk">Du</span><span class="dw-t">Gut gespielt, alle zusammen! Das war ein toller Sieg.</span><span class="dw-nol">Godt spilt, alle sammen! Det var en flott seier.</span></div></div></div><p class="dw-no" style="margin-top:10px">💡 «Du»-replikkene kan du skjule og øve på. Hvis du ikke har mikrofon, skriver du i chatten, som mange gjør.</p>
+  </div>
+
+  <h2 class="dw-sec-title" id="team-fair">🤝 Fair spill: høflig i chatten</h2>
+  <div class="dw-exp">
+<div class="dw-tbl-wrap"><table class="dw-t" style="min-width:440px"><thead><tr><th>Tysk</th><th>Norsk</th></tr></thead><tbody><tr><td class="dw-f">Gut gespielt!</td><td>Godt spilt!</td></tr><tr><td class="dw-f">Danke fürs Mitspielen!</td><td>Takk for at du spilte med!</td></tr><tr><td class="dw-f">Entschuldigung, mein Fehler.</td><td>Beklager, min feil.</td></tr><tr><td class="dw-f">Kannst du mir helfen?</td><td>Kan du hjelpe meg?</td></tr><tr><td class="dw-f">Wollen wir noch eine Runde spielen?</td><td>Skal vi spille en runde til?</td></tr><tr><td class="dw-f">Ich muss jetzt aufhören.</td><td>Jeg må slutte nå.</td></tr><tr><td class="dw-f">Bis morgen!</td><td>Vi sees i morgen!</td></tr></tbody></table></div><div class="dw-tip">🛡️ <b>Chat-regel:</b> Vær alltid høflig, også mot motstanderne. Skriver noen stygge ting til deg, kan du <i>blockieren</i> (blokkere) og <i>melden</i> (rapportere) personen. Se fanen «Sicher im Netz».</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="team-ovelse">✏️ Din tur</h2>
+  <div class="dw-exp">
+<div class="dw-fill dw-fg"><script type="application/json">{"title": "Fullfør replikkene", "items": [{"s": "Bist du ___?", "a": "bereit", "v": "klar"}, {"s": "Ich bin ___. Ich sehe euch.", "a": "online", "v": "pålogget"}, {"s": "Mein ___ geht nicht.", "a": "Mikrofon", "v": "mikrofon"}, {"s": "Meine ___ ist schlecht.", "a": "Verbindung", "v": "forbindelse"}, {"s": "Ich ___ mich neu ein.", "a": "logge", "v": "logger … inn (einloggen)"}, {"s": "Wir ___ zusammenspielen!", "a": "müssen", "v": "må"}], "hint": "Se på dialogen over.", "intro": "Skriv ordet som mangler. Det norske ordet i parentes viser hva som menes."}</script></div><div class="dw-ch"><script type="application/json">{"title": "Hva sier du?", "intro": "Velg det beste svaret.", "qs": [{"q": "Mikrofonen din virker ikke. Hva sier du?", "opts": ["Mein Mikrofon geht nicht.", "Ich Mikrofon nicht habe geht.", "Mikrofon mein nicht."], "a": 0, "why": "Verbet «geht» står på plass 2, og «nicht» kommer etter."}, {"q": "Du vil foreslå en runde til.", "opts": ["Wollen wir noch eine Runde spielen?", "Wir noch eine Runde wollen spielen?", "Spielen wir wollen noch Runde?"], "a": 0, "why": "Ja/nei-spørsmål: Verbet først."}, {"q": "Laget ditt har vunnet. Hva skriver du i chatten?", "opts": ["Gut gespielt, Team!", "Schlecht gespielt!", "Ich gewinne nie."], "a": 0, "why": "Godt spilt, og det er hyggelig å si det til alle."}, {"q": "Du må slutte nå. Hva sier du?", "opts": ["Ich muss jetzt aufhören.", "Ich aufhöre jetzt.", "Ich aufhören muss jetzt."], "a": 0, "why": "Modalverb + infinitiv sist: «Ich muss … aufhören»."}]}</script></div><p>Hører til: <a href="../chat/">Chat &amp; Social Media</a> · <a href="../../schreiben/sms-chat/">Schreiben: SMS &amp; Chat</a> · <a href="../../normen/hoeflichkeit/">Höflichkeit</a></p>
+  </div>
+
+  <h2 class="dw-sec-title" id="team-skriv">✍️ Skriv din egen melding</h2>
+  <div class="dw-exp">
+<p>Du vil spille med noen i klassen i kveld. Skriv en melding på tysk (3–4 setninger) med:</p><ul><li>en <b>hilsen</b> (<i>Hallo! / Hi!</i>)</li><li>et <b>forslag</b> (<i>Wollen wir heute Abend spielen?</i>)</li><li>et <b>klokkeslett</b> (<i>Um 19 Uhr. / Um sieben.</i>)</li><li>en <b>avslutning</b> (<i>Bis später! / Bis dann!</i>)</li></ul><textarea class="dw-write" rows="5" placeholder="Hallo …" aria-label="Skriv meldingen din her"></textarea><details class="dw-model"><summary>Se et eksempel</summary><p class="dw-de">Hi Anna! Wollen wir heute Abend zusammen spielen? Ich habe um 19 Uhr Zeit. Hast du auch Lust? Bis später!</p><p class="dw-no">Hei Anna! Skal vi spille sammen i kveld? Jeg har tid klokka 19. Har du også lyst? Vi sees senere!</p></details><div class="dw-tip">📝 Teksten du skriver blir ikke lagret. Du kan vise den til læreren eller kopiere den før du lukker siden.</div>
+  </div>
+<div class="dw-tabnext"><button type="button" data-go="spiel">← 🎮 Spielwelt</button><button type="button" data-go="app">📲 Apps & Internet →</button></div></section><section class="dw-tabpanel" id="app" aria-label="📲 Apps & Internet">
+  <h2 class="dw-sec-title" id="app-knapper">📲 Kan du lese appen?</h2>
+  <div class="dw-exp">
+<p>Når appene eller spillene dine står på tysk, ser du ofte disse knappene. Trykk på et kort for å se hva det betyr:</p><div class="dw-signs"><button type="button" class="dw-sign-card" aria-label="Anmelden – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Anmelden</span><span class="dw-sign-no">logge inn</span></button><button type="button" class="dw-sign-card" aria-label="Registrieren – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Registrieren</span><span class="dw-sign-no">registrere deg</span></button><button type="button" class="dw-sign-card" aria-label="Abmelden – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Abmelden</span><span class="dw-sign-no">logge ut</span></button><button type="button" class="dw-sign-card" aria-label="Passwort vergessen? – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Passwort vergessen?</span><span class="dw-sign-no">glemt passord?</span></button><button type="button" class="dw-sign-card" aria-label="Einstellungen – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Einstellungen</span><span class="dw-sign-no">innstillinger</span></button><button type="button" class="dw-sign-card" aria-label="Benachrichtigungen – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Benachrichtigungen</span><span class="dw-sign-no">varsler</span></button><button type="button" class="dw-sign-card" aria-label="Herunterladen – trykk for å se betydningen"><span class="dw-sign dw-sg-green">Herunterladen</span><span class="dw-sign-no">laste ned</span></button><button type="button" class="dw-sign-card" aria-label="Teilen – trykk for å se betydningen"><span class="dw-sign dw-sg-green">Teilen</span><span class="dw-sign-no">dele</span></button><button type="button" class="dw-sign-card" aria-label="Speichern – trykk for å se betydningen"><span class="dw-sign dw-sg-green">Speichern</span><span class="dw-sign-no">lagre</span></button><button type="button" class="dw-sign-card" aria-label="Löschen – trykk for å se betydningen"><span class="dw-sign dw-sg-red">Löschen</span><span class="dw-sign-no">slette</span></button><button type="button" class="dw-sign-card" aria-label="Abbrechen – trykk for å se betydningen"><span class="dw-sign dw-sg-red">Abbrechen</span><span class="dw-sign-no">avbryte</span></button><button type="button" class="dw-sign-card" aria-label="Akzeptieren – trykk for å se betydningen"><span class="dw-sign dw-sg-green">Akzeptieren</span><span class="dw-sign-no">godta</span></button></div><div class="dw-ch"><script type="application/json">{"title": "Hvilken knapp trykker du på?", "intro": "Velg det riktige svaret.", "qs": [{"q": "Du vil logge deg ut av appen.", "sub": "<span class=\"dw-sign dw-sg-blue\">Abmelden<\/span> <span class=\"dw-sign dw-sg-blue\">Anmelden<\/span> <span class=\"dw-sign dw-sg-green\">Teilen<\/span>", "opts": ["Abmelden", "Anmelden", "Teilen"], "a": 0, "why": "Abmelden = logge ut. Anmelden = logge inn. Teilen = dele."}, {"q": "Du vil slette et bilde.", "sub": "<span class=\"dw-sign dw-sg-red\">Löschen<\/span> <span class=\"dw-sign dw-sg-green\">Speichern<\/span> <span class=\"dw-sign dw-sg-red\">Abbrechen<\/span>", "opts": ["Löschen", "Speichern", "Abbrechen"], "a": 0, "why": "Löschen = slette. Speichern = lagre. Abbrechen = avbryte."}, {"q": "Du har glemt passordet ditt.", "sub": "<span class=\"dw-sign dw-sg-blue\">Passwort vergessen?<\/span>", "opts": ["Passwort vergessen?", "Einstellungen", "Weiter"], "a": 0, "why": "«Vergessen» = glemme."}, {"q": "Du vil endre varslene. Hvor går du?", "sub": "<span class=\"dw-sign dw-sg-blue\">Einstellungen<\/span> <span class=\"dw-sign dw-sg-blue\">Benachrichtigungen<\/span> <span class=\"dw-sign dw-sg-green\">Teilen<\/span>", "opts": ["Benachrichtigungen (innstillinger)", "Teilen", "Abmelden"], "a": 0, "why": "Benachrichtigungen = varsler. De styres i innstillingene (Einstellungen)."}]}</script></div>
+  </div>
+
+  <h2 class="dw-sec-title" id="app-ord">🌐 Nettet og sosiale medier</h2>
+  <div class="dw-exp">
+<div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th>Tysk</th><th>Norsk</th><th>Eksempel</th></tr></thead><tbody><tr><td class="dw-f">herunterladen</td><td>laste ned</td><td><span class="dw-de">Ich lade die App herunter.</span><br><span class="dw-no">Jeg laster ned appen.</span></td></tr><tr><td class="dw-f">hochladen</td><td>laste opp</td><td><span class="dw-de">Ich lade ein Video hoch.</span><br><span class="dw-no">Jeg laster opp en video.</span></td></tr><tr><td class="dw-f">sich einloggen / anmelden</td><td>logge seg inn</td><td><span class="dw-de">Ich logge mich ein.</span><br><span class="dw-no">Jeg logger meg inn.</span></td></tr><tr><td class="dw-f">aktualisieren</td><td>oppdatere</td><td><span class="dw-de">Wir müssen die App aktualisieren.</span><br><span class="dw-no">Vi må oppdatere appen.</span></td></tr><tr><td class="dw-f">streamen</td><td>strømme / se på nett</td><td><span class="dw-de">Wir streamen einen Film.</span><br><span class="dw-no">Vi strømmer en film.</span></td></tr><tr><td class="dw-f">abonnieren</td><td>abonnere</td><td><span class="dw-de">Ich abonniere diesen Kanal.</span><br><span class="dw-no">Jeg abonnerer på denne kanalen.</span></td></tr><tr><td class="dw-f">folgen</td><td>følge (+ dativ)</td><td><span class="dw-de">Ich folge diesem Kanal.</span><br><span class="dw-no">Jeg følger denne kanalen.</span></td></tr><tr><td class="dw-f">kommentieren</td><td>kommentere</td><td><span class="dw-de">Sie kommentiert das Foto.</span><br><span class="dw-no">Hun kommenterer bildet.</span></td></tr><tr><td class="dw-f">das Passwort</td><td>passordet</td><td><span class="dw-de">Dein Passwort ist geheim.</span><br><span class="dw-no">Passordet ditt er hemmelig.</span></td></tr></tbody></table></div><div class="dw-tip">📎 <b>Skillbare verb:</b> <i>herunterladen, hochladen, einloggen, anmelden</i> splittes: <i>Ich lade die App herunter</i>, <i>Ich melde mich an</i>. I perfektum står partisippet sist: <i>Ich habe die App heruntergeladen</i>. Se <a href="../../grammatikk/ordstilling/skillbare-verb/">Skillbare verb</a> og <a href="../../grammatikk/verb/perfekt/">Perfekt</a>. Merk: <i>folgen</i> tar dativ: <i>Ich folge dir / diesem Kanal</i>.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="app-ovelse">✏️ Din tur</h2>
+  <div class="dw-exp">
+<div class="dw-fill dw-fg"><script type="application/json">{"title": "Fullfør setningene", "items": [{"s": "Ich lade das Video ___.", "a": "hoch", "v": "opp"}, {"s": "Bitte ___ dich mit deinem Passwort an.", "a": "melde", "v": "logg deg på (anmelden)"}, {"s": "Ich habe das Spiel ___.", "a": "heruntergeladen", "v": "lastet ned"}, {"s": "Wir müssen die App ___.", "a": "aktualisieren", "v": "oppdatere"}, {"s": "Ich ___ diesem Kanal.", "a": "folge", "v": "følger"}], "hint": "Bruk tabellen over.", "intro": "Skriv ordet som mangler. Det norske ordet i parentes viser hva som menes."}</script></div><p>Hører til: <a href="../../grammatikk/ordstilling/skillbare-verb/">Skillbare verb</a> · <a href="../../grammatikk/verb/perfekt/">Perfekt</a> · <a href="../chat/">Chat &amp; Social Media</a></p>
+  </div>
+<div class="dw-tabnext"><button type="button" data-go="team">← 💬 Teamchat</button><button type="button" data-go="sicher">🔐 Sicher im Netz →</button></div></section><section class="dw-tabpanel" id="sicher" aria-label="🔐 Sicher im Netz">
+  <h2 class="dw-sec-title" id="sicher-regeln">🔐 Sicher im Netz</h2>
+  <div class="dw-exp">
+<p>Spill og apper er gøy, men det finnes regler som holder deg trygg. Les reglene og oversettelsen:</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:540px"><thead><tr><th>Tysk</th><th>Norsk</th></tr></thead><tbody><tr><td class="dw-f">Gib dein Passwort niemals weiter.</td><td>Gi aldri fra deg passordet ditt.</td></tr><tr><td class="dw-f">Teile keine privaten Fotos mit Fremden.</td><td>Ikke del private bilder med fremmede.</td></tr><tr><td class="dw-f">Du musst nicht alles glauben, was im Internet steht.</td><td>Du trenger ikke tro på alt som står på nettet.</td></tr><tr><td class="dw-f">Wenn dich jemand beleidigt, blockiere ihn und melde ihn.</td><td>Hvis noen fornærmer deg, blokker og rapporter vedkommende.</td></tr><tr><td class="dw-f">Sprich mit einem Erwachsenen, wenn du dich unsicher fühlst.</td><td>Snakk med en voksen hvis du føler deg utrygg.</td></tr><tr><td class="dw-f">Kaufe nichts ohne Erlaubnis.</td><td>Kjøp ikke noe uten tillatelse.</td></tr></tbody></table></div><div class="dw-tip">📎 <b>Imperativ:</b> I reglene brukes «du»-befalingsform: <i>Gib …! Teile …! Sprich …! Kaufe …!</i> Det er verbet uten «du». Noen verb skifter vokal: <i>geben → Gib!</i>, <i>sprechen → Sprich!</i> (jf. <a href="../../grammatikk/verb/praesens-unregelmaessig/#vokal">vokalskifte-verb</a>).</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="sicher-ovelse">✏️ Din tur</h2>
+  <div class="dw-exp">
+<div class="dw-fill dw-fg"><script type="application/json">{"title": "Fullfør reglene", "items": [{"s": "Gib dein ___ niemals weiter.", "a": "Passwort", "v": "passord"}, {"s": "Teile keine privaten Fotos mit ___.", "a": "Fremden", "v": "fremmede (dativ flertall)"}, {"s": "Wenn dich jemand beleidigt, ___ ihn.", "a": "blockiere", "v": "blokker"}, {"s": "Sprich mit einem ___.", "a": "Erwachsenen", "v": "voksen (dativ)"}], "hint": "Se på reglene over.", "intro": "Skriv ordet som mangler. Det norske ordet i parentes viser hva som menes."}</script></div><div class="dw-ch"><script type="application/json">{"title": "Hva gjør du?", "intro": "Velg det riktige svaret.", "qs": [{"q": "Noen du ikke kjenner ber om passordet ditt. Hva gjør du?", "opts": ["Jeg gir det ikke fra meg.", "Jeg sier det til dem.", "Jeg skriver det i chatten."], "a": 0, "why": "«Gib dein Passwort niemals weiter.» Passordet er privat."}, {"q": "Noen er slem mot deg i spillet. Hva kan du gjøre?", "opts": ["blockieren und melden", "mehr spielen", "Passwort ändern und nichts sagen"], "a": 0, "why": "Blokkere og rapportere. Det finnes knapper for dette i de fleste apper. Fortell også en voksen."}, {"q": "Hva betyr «Fremde»?", "opts": ["fremmede", "venner", "lærere"], "a": 0, "why": "Die Fremden = fremmede. «Mit Fremden» står i dativ flertall."}, {"q": "Du er usikker på en melding. Hva gjør du?", "opts": ["Jeg snakker med en voksen.", "Jeg svarer med en gang.", "Jeg gir fra meg adressen min."], "a": 0, "why": "«Sprich mit einem Erwachsenen.» Du trenger ikke å løse alt alene."}]}</script></div><div class="dw-tip">💬 <b>Snakk om det:</b> Hva gjør du hvis noen i spillet er slem? Hvem kan du fortelle det til? Diskuter i klassen (på norsk eller tysk).</div>
+  </div>
+<div class="dw-tabnext"><button type="button" data-go="app">← 📲 Apps & Internet</button><button type="button" data-go="test">🏆 Test deg selv →</button></div></section><section class="dw-tabpanel" id="test" aria-label="🏆 Test deg selv">
+  <h2 class="dw-sec-title" id="test-intro">🏆 Test deg selv</h2>
+  <div class="dw-exp">
+<p>Nå blander vi alt fra fanene. Prøv uten å se i tabellene først.</p><div class="dw-fill dw-fg"><script type="application/json">{"title": "Fullfør setningene", "items": [{"s": "Wir spielen die nächste ___.", "a": "Runde", "v": "runden"}, {"s": "Der ___ ist stark, aber wir gewinnen.", "a": "Gegner", "v": "motstanderen"}, {"s": "Mein ___ geht nicht. Ich schreibe im Chat.", "a": "Mikrofon", "v": "mikrofon"}, {"s": "Ich ___ mich mit meinem Passwort ein.", "a": "logge", "v": "logger … inn"}, {"s": "Ich lade die App ___.", "a": "herunter", "v": "ned"}, {"s": "Wir müssen das Spiel ___.", "a": "aktualisieren", "v": "oppdatere"}, {"s": "Gib dein ___ niemals weiter.", "a": "Passwort", "v": "passord"}, {"s": "Sprich mit einem ___, wenn du unsicher bist.", "a": "Erwachsenen", "v": "voksen"}], "hint": "Alt er tatt opp i fanene før denne.", "intro": "Skriv ordet som mangler. Det norske ordet i parentes viser hva som menes."}</script></div><div class="dw-ch"><script type="application/json">{"title": "Velg riktig svar", "intro": "Velg det riktige svaret.", "qs": [{"q": "Hva betyr «Benachrichtigungen»?", "opts": ["varsler", "innstillinger", "passord"], "a": 0, "why": "Benachrichtigungen = varsler."}, {"q": "Hvilken knapp bruker du for å logge ut?", "sub": "<span class=\"dw-sign dw-sg-blue\">Abmelden<\/span> <span class=\"dw-sign dw-sg-blue\">Anmelden<\/span>", "opts": ["Abmelden", "Anmelden"], "a": 0, "why": "Abmelden = logge ut."}, {"q": "Du vil sende invitasjonen «Skal vi spille?» Hvilken setning er riktig?", "opts": ["Wollen wir spielen?", "Wir spielen wollen?", "Wollen spielen wir?"], "a": 0, "why": "Ja/nei-spørsmål: verbet først."}, {"q": "Hva er USK?", "opts": ["aldersgrense for spill i Tyskland", "et spill", "en app"], "a": 0, "why": "USK = Unterhaltungssoftware Selbstkontrolle. Den setter aldersgrenser på spill (0, 6, 12, 16, 18)."}, {"q": "Hva betyr «Gut gespielt!»?", "opts": ["Godt spilt!", "Dårlig spilt!", "Du tapte!"], "a": 0, "why": "Gut = godt, gespielt = spilt."}, {"q": "Hva heter «laste opp» på tysk?", "opts": ["hochladen", "herunterladen", "abmelden"], "a": 0, "why": "Hochladen = laste opp. Herunterladen = laste ned."}]}</script></div><div class="dw-tip">🎉 Du kan nå en god del tysk om spill, apper og trygg bruk. Prøv også <a href="../chat/">Chat &amp; Social Media</a> og <a href="../jugendwoerter/">Jugendwörter</a>.</div>
+  </div>
+<div class="dw-tabnext"><button type="button" data-go="sicher">← 🔐 Sicher im Netz</button></div></section>
+
+  <p class="dw-see-also"><strong>Se også:</strong> <a href="../chat/">Chat &amp; Social Media</a> · <a href="../jugendwoerter/">Jugendwörter</a> · <a href="../alltagssprache/">Alltagssprache</a> · <a href="../alltagssituationen/">Alltagssituationen</a> · <a href="../../schreiben/sms-chat/">Schreiben: SMS &amp; Chat</a></p>
+
+</div>
+<script>
+(function(){
+'use strict';
+document.documentElement.classList.add('dw-js');
+var PRON=['ich','du','er / sie / es','wir','ihr','sie / Sie'];
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+function norm(s){return String(s).trim().toLowerCase().replace(/\s+/g,' ');}
+function tl(s){return s.replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss');}
+function grade(val,ans){
+  var v=norm(val);if(!v)return 'empty';
+  var a=[].concat(ans),i;
+  for(i=0;i<a.length;i++)if(v===norm(a[i]))return 'ok';
+  for(i=0;i<a.length;i++)if(tl(v)===tl(norm(a[i]))&&/[äöüß]/.test(a[i]))return 'near';
+  return 'bad';
+}
+function mark(inp,st){inp.classList.remove('dw-st-ok','dw-st-near','dw-st-bad','dw-st-shown');if(st)inp.classList.add('dw-st-'+st);}
+function ins(inp,ch){var s=inp.selectionStart,e=inp.selectionEnd;if(s==null){inp.value+=ch;}else{inp.value=inp.value.slice(0,s)+ch+inp.value.slice(e);inp.selectionStart=inp.selectionEnd=s+1;}inp.focus();inp.dispatchEvent(new Event('input',{bubbles:true}));}
+function keyRow(host){
+  var r=el('div','dw-keys');r.appendChild(el('span','','Spesialtegn:'));
+  ['ä','ö','ü','ß'].forEach(function(k){
+    var b=el('button','dw-key',k);b.type='button';b.setAttribute('aria-label','Sett inn '+k);
+    b.addEventListener('mousedown',function(e){e.preventDefault();});
+    b.addEventListener('click',function(){var i=host._last||host.querySelector('input.dw-fi:not([readonly])');if(i)ins(i,k);});
+    r.appendChild(b);});
+  return r;
+}
+function wire(host,inputs,onchange){
+  inputs.forEach(function(inp,n){
+    inp.setAttribute('autocomplete','off');inp.setAttribute('autocapitalize','off');inp.setAttribute('autocorrect','off');inp.setAttribute('spellcheck','false');
+    inp.addEventListener('focus',function(){host._last=inp;});
+    inp.addEventListener('input',onchange);
+    inp.addEventListener('keydown',function(e){
+      if(e.key==='Enter'){e.preventDefault();var nx=inputs[n+1];if(nx)nx.focus();else host._check();}
+    });
+  });
+}
+function cfgOf(root){return JSON.parse(root.querySelector('script[type="application/json"]').textContent);}
+
+/* ---------- utfyllingstabell ---------- */
+function initTable(root){
+  var cfg=cfgOf(root),mode=cfg.default||0,checked=false;
+  root.innerHTML='';
+  var h=el('h4','','📝 '+cfg.title);root.appendChild(h);
+  if(cfg.intro)root.appendChild(el('p','dw-fi-intro',cfg.intro));
+  var mb=el('div','dw-fill-modes');root.appendChild(mb);
+  var tw=el('div','dw-tw');root.appendChild(tw);
+  root.appendChild(keyRow(root));
+  var row=el('div','dw-frow');
+  var bC=el('button','dw-fbtn','Sjekk');bC.type='button';
+  var bS=el('button','dw-fbtn dw-sec','Vis fasit');bS.type='button';
+  var bR=el('button','dw-fbtn dw-sec','Nullstill');bR.type='button';
+  var st=el('span','dw-fstat','');
+  row.appendChild(bC);row.appendChild(bS);row.appendChild(bR);row.appendChild(st);root.appendChild(row);
+  var msg=el('div','dw-fmsg');root.appendChild(msg);
+  var cells=[];
+  function build(){
+    tw.innerHTML='';cells=[];checked=false;msg.className='dw-fmsg';
+    mb.innerHTML='';
+    if(cfg.modes.length>1)cfg.modes.forEach(function(m,i){var b=el('button',i===mode?'dw-on':'',m.l);b.type='button';b.onclick=function(){mode=i;build();};mb.appendChild(b);});
+    var blanks=cfg.modes[mode].b;
+    var t=el('table'),thead=el('thead'),trh=el('tr');
+    trh.appendChild(el('th','',''));
+    cfg.verbs.forEach(function(v){var th=el('th','',v.inf);if(v.no){th.appendChild(el('small','',v.no));}trh.appendChild(th);});
+    thead.appendChild(trh);t.appendChild(thead);
+    var tb=el('tbody');
+    PRON.forEach(function(p,ri){
+      var tr=el('tr');tr.appendChild(el('td','dw-pr',p));
+      cfg.verbs.forEach(function(v){
+        var td=el('td',cfg.hl.indexOf(ri)>=0?'dw-hlc':'');
+        if(blanks.indexOf(ri)>=0){
+          var inp=el('input','dw-fi');inp.type='text';inp.setAttribute('aria-label',v.inf+' – '+p);
+          cells.push({inp:inp,ans:v.f[ri],irr:(cfg.hl.length===0||cfg.hl.indexOf(ri)>=0)});td.appendChild(inp);
+        }else{td.className+=' dw-given';td.textContent=v.f[ri];}
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb);tw.appendChild(t);
+    wire(root,cells.map(function(c){return c.inp;}),function(){update();});
+    update();
+  }
+  function update(){
+    var ok=0,bad=0,total=cells.length;
+    cells.forEach(function(c){
+      if(c.inp.classList.contains('dw-st-shown'))return;
+      var g=grade(c.inp.value,c.ans);
+      if(g==='ok'){ok++;mark(c.inp,'ok');c.inp.title='';}
+      else if(g==='near'){mark(c.inp,'near');c.inp.title='Nesten! Bruk ä, ö, ü eller ß (knappene under tabellen).';}
+      else if(checked){mark(c.inp,'bad');bad++;}
+      else mark(c.inp,'');
+    });
+    st.textContent='✅ '+ok+' av '+total;
+    st.className='dw-fstat'+(ok===total&&total?' dw-all':'');
+    if(ok===total&&total){msg.className='dw-fmsg dw-show';msg.textContent='🎉 Alle riktige! Prøv gjerne «Vis alle»-modus hvis du har brukt hjelpen.';}
+    else if(checked&&bad){
+      var irr=cells.some(function(c){return c.irr&&c.inp.classList.contains('dw-st-bad');});
+      msg.className='dw-fmsg dw-show';msg.textContent=(cfg.hint&&irr)?'💡 '+cfg.hint:'Røde ruter er ikke riktige ennå – prøv igjen. Gule ruter mangler bare ä/ö/ü/ß.';
+    }else if(!ok||!checked)msg.className='dw-fmsg';
+  }
+  root._check=function(){checked=true;update();};
+  bC.onclick=function(){checked=true;update();};
+  bS.onclick=function(){cells.forEach(function(c){c.inp.value=[].concat(c.ans)[0];mark(c.inp,'shown');});st.textContent='Fasit vist';st.className='dw-fstat';msg.className='dw-fmsg';};
+  bR.onclick=function(){build();};
+  build();
+}
+
+/* ---------- utfyll-setninger ---------- */
+function initGap(root){
+  var cfg=cfgOf(root),checked=false;
+  root.innerHTML='';
+  root.appendChild(el('h4','','✍️ '+cfg.title));
+  root.appendChild(el('p','dw-fi-intro',cfg.intro||'Skriv riktig verbform i hullet. Rutene blir grønne når svaret er riktig.'));
+  var ol=el('ol');root.appendChild(ol);
+  var rows=[];
+  cfg.items.forEach(function(it){
+    var li=el('li');var parts=it.s.split('___');
+    li.appendChild(document.createTextNode(parts[0]));
+    var inp=el('input','dw-fi');inp.type='text';var a0=[].concat(it.a)[0];inp.size=Math.max(5,a0.length+2);inp.setAttribute('aria-label','Svar');
+    li.appendChild(inp);
+    if(parts[1])li.appendChild(document.createTextNode(parts[1]));
+    if(it.v)li.appendChild(el('span','dw-gv','('+it.v+')'));
+    var m=el('span','dw-gm','');li.appendChild(m);
+    ol.appendChild(li);rows.push({inp:inp,ans:it.a,m:m});
+  });
+  root.appendChild(keyRow(root));
+  var row=el('div','dw-frow');
+  var bC=el('button','dw-fbtn','Sjekk svar');bC.type='button';
+  var bS=el('button','dw-fbtn dw-sec','Vis fasit');bS.type='button';
+  var bR=el('button','dw-fbtn dw-sec','Nullstill');bR.type='button';
+  var st=el('span','dw-fstat','');
+  row.appendChild(bC);row.appendChild(bS);row.appendChild(bR);row.appendChild(st);root.appendChild(row);
+  var msg=el('div','dw-fmsg');root.appendChild(msg);
+  function update(){
+    var ok=0,bad=0;
+    rows.forEach(function(r){
+      if(r.inp.classList.contains('dw-st-shown'))return;
+      var g=grade(r.inp.value,r.ans);
+      if(g==='ok'){ok++;mark(r.inp,'ok');r.m.textContent='✅';}
+      else if(g==='near'){mark(r.inp,'near');r.m.textContent='🟡';}
+      else if(checked){mark(r.inp,'bad');r.m.textContent='❌';bad++;}
+      else{mark(r.inp,'');r.m.textContent='';}
+    });
+    st.textContent='✅ '+ok+' av '+rows.length;st.className='dw-fstat'+(ok===rows.length?' dw-all':'');
+    if(ok===rows.length){msg.className='dw-fmsg dw-show';msg.textContent='🎉 Alle riktige!';}
+    else if(checked&&bad){msg.className='dw-fmsg dw-show';msg.textContent=cfg.hint?'💡 '+cfg.hint:'Prøv igjen på de røde.';}
+    else msg.className='dw-fmsg';
+  }
+  root._check=function(){checked=true;update();};
+  wire(root,rows.map(function(r){return r.inp;}),update);
+  bC.onclick=function(){checked=true;update();};
+  bS.onclick=function(){rows.forEach(function(r){r.inp.value=[].concat(r.ans)[0];mark(r.inp,'shown');r.m.textContent='';});st.textContent='Fasit vist';st.className='dw-fstat';msg.className='dw-fmsg';};
+  bR.onclick=function(){checked=false;rows.forEach(function(r){r.inp.value='';mark(r.inp,'');r.m.textContent='';});msg.className='dw-fmsg';update();};
+  update();
+}
+
+/* ---------- faner ---------- */
+function initTabs(){
+  var bar=document.getElementById('dw-tabs');if(!bar)return;
+  var btns=[].slice.call(bar.querySelectorAll('button'));
+  var panels=[].slice.call(document.querySelectorAll('.dw-tabpanel'));
+  function show(name,noHash){
+    var found=false;
+    panels.forEach(function(p){var on=p.id===name;if(on)found=true;p.hidden=!on;});
+    if(!found){name=panels[0].id;panels[0].hidden=false;}
+    btns.forEach(function(b){b.setAttribute('aria-selected',b.getAttribute('data-tab')===name?'true':'false');});
+    if(!noHash){try{history.replaceState(null,'','#'+name);}catch(e){}}
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.getAttribute('data-tab'));bar.scrollIntoView({behavior:'smooth',block:'start'});});});
+  [].forEach.call(document.querySelectorAll('[data-go]'),function(b){b.addEventListener('click',function(){show(b.getAttribute('data-go'));bar.scrollIntoView({behavior:'smooth',block:'start'});});});
+  function fromHash(){
+    var h=decodeURIComponent((location.hash||'').slice(1));
+    if(!h){show(panels[0].id,true);return;}
+    var tgt=document.getElementById(h);
+    if(tgt&&tgt.classList.contains('dw-tabpanel')){show(h,true);bar.scrollIntoView();return;}
+    if(tgt){var p=tgt.closest('.dw-tabpanel');if(p){show(p.id,true);setTimeout(function(){tgt.scrollIntoView();},30);return;}}
+    show(panels[0].id,true);
+  }
+  window.addEventListener('hashchange',fromHash);
+  fromHash();
+}
+[].forEach.call(document.querySelectorAll('.dw-ft'),initTable);
+[].forEach.call(document.querySelectorAll('.dw-fg'),initGap);
+initTabs();
+})();
+</script>
+<script>
+(function(){
+'use strict';
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+/* dialoger */
+[].forEach.call(document.querySelectorAll('.dw-dlg-wrap'),function(w){
+  [].forEach.call(w.querySelectorAll('.dw-dbtn'),function(b){
+    b.addEventListener('click',function(){
+      var on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on?'true':'false');
+      w.classList.toggle(b.getAttribute('data-act')==='no'?'dw-shown':'dw-rehearse',on);
+      if(b.getAttribute('data-act')==='reh'&&!on)[].forEach.call(w.querySelectorAll('.dw-bub.b'),function(x){x.classList.remove('dw-rev');});
+    });
+  });
+  [].forEach.call(w.querySelectorAll('.dw-bub.b'),function(x){x.addEventListener('click',function(){if(w.classList.contains('dw-rehearse'))x.classList.add('dw-rev');});});
+});
+/* skilt-kort */
+[].forEach.call(document.querySelectorAll('.dw-sign-card'),function(c){c.addEventListener('click',function(){c.classList.toggle('dw-flip');});});
+/* valgspørsmål */
+function initCh(root){
+  var cfg=JSON.parse(root.querySelector('script[type="application/json"]').textContent);
+  function build(){
+    root.innerHTML='';
+    root.appendChild(el('h4','','🗣️ '+cfg.title));
+    if(cfg.intro)root.appendChild(el('p','dw-ch-intro',cfg.intro));
+    var done=0,good=0,total=cfg.qs.length;
+    var foot=el('div','dw-ch-foot');var st=el('span','dw-ch-st','✅ 0 av '+total);
+    var rb=el('button','','Prøv på nytt');rb.type='button';rb.onclick=build;
+    function upd(){st.textContent='✅ '+good+' av '+total+(done===total?(good===total?' – 🎉 Alle riktige!':' – se de røde igjen og prøv på nytt'):'');st.className='dw-ch-st'+(done===total&&good===total?' dw-all':'');}
+    cfg.qs.forEach(function(q){
+      var box=el('div','dw-ch-q');var p=el('p','',q.q);box.appendChild(p);
+      if(q.sub){var s=el('div','dw-ch-sub');s.innerHTML=q.sub;box.appendChild(s);}
+      var ob=el('div','dw-ch-opts');var order=shuffle(q.opts.map(function(o,i){return i;}));var answered=false;
+      var why=el('div','dw-ch-why',q.why||'');
+      order.forEach(function(i){
+        var b=el('button','',q.opts[i]);b.type='button';b.setAttribute('data-i',i);
+        b.onclick=function(){
+          if(answered)return;answered=true;done++;
+          [].forEach.call(ob.children,function(x){x.disabled=true;if(+x.getAttribute('data-i')===q.a)x.classList.add('dw-g');});
+          if(i===q.a)good++;else b.classList.add('dw-r');
+          if(q.why)why.classList.add('dw-show');upd();
+        };
+        ob.appendChild(b);
+      });
+      box.appendChild(ob);box.appendChild(why);root.appendChild(box);
+    });
+    foot.appendChild(st);foot.appendChild(rb);root.appendChild(foot);
+  }
+  build();
+}
+[].forEach.call(document.querySelectorAll('.dw-ch'),initCh);
+})();
+</script>
+</body>
+</html>

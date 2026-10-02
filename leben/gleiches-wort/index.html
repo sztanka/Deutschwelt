@@ -189,7 +189,8 @@
   .dw-sign{display:inline-block;font-weight:800;font-size:1rem;padding:7px 14px;border-radius:6px;border:3px solid #fff;box-shadow:0 0 0 2px #444;line-height:1.2;letter-spacing:.2px;}
   .dw-sg-blue{background:#1565c0;color:#fff;} .dw-sg-green{background:#2e7d32;color:#fff;} .dw-sg-red{background:#c62828;color:#fff;} .dw-sg-yellow{background:#fbc02d;color:#222;} .dw-sg-white{background:#fff;color:#222;} .dw-sg-black{background:#222;color:#fff;}
   .dw-signs{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin:12px 0;}
-  @media(max-width:520px){.dw-signs{grid-template-columns:repeat(2,1fr);gap:8px;}}
+  @media(max-width:520px){.dw-signs{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;} .dw-sign{font-size:.76rem;padding:6px 6px;letter-spacing:0;}}
+  .dw-sign{max-width:100%;box-sizing:border-box;overflow-wrap:anywhere;hyphens:auto;} .dw-sign-card{min-width:0;}
   .dw-sign-card{font-family:inherit;background:#fff;border:1.5px solid #e4dfd2;border-radius:12px;padding:14px 10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;min-height:92px;justify-content:center;}
   .dw-sign-card:hover{border-color:var(--dw-primary-light);}
   .dw-sign-no{display:none;font-size:.88rem;font-weight:600;color:#3d3d3d;text-align:center;}
