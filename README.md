@@ -53,7 +53,15 @@ deutschwelt-site/
 │   │   └── wechsel/
 │   │       └── index.html            → "Wechselpräpositionen" — an/auf/hinter/in/neben/über/unter/vor/zwischen (Wo?→Dativ / Wohin?→Akkusativ), med 9 egne inline-SVG-illustrasjoner + 18-spørsmålsquiz i to bolker — 🎓 9.–10. trinn (A2/B1)
 │   ├── adverbial/
-│   │   └── index.html                → kategori-hub (alt planlagt): TeKaMoLo, stedsadverbial
+│   │   ├── index.html                → kategori-hub «Adverbial»: hva er et adverbial (vs. adverb), spørre-/flytteprøve, åtte kort, oversiktstabell, TeKaMoLo-seksjon (#tekamolo)
+│   │   ├── lokal/index.html          → «Lokaladverbial» (Wo/Wohin/Woher): kasus- og adverbtabeller, byer/land, 13 øvelser
+│   │   ├── temporal/index.html       → «Temporaladverbial» (Wann/Wie oft/Wie lange): am/um/im/vor/in/seit, frekvensskala, 13 øvelser
+│   │   ├── modal/index.html          → «Modaladverbial» (Wie/Womit): adjektiv som adverb, mit/ohne/durch/auf, gern–lieber, 13 øvelser
+│   │   ├── kausal/index.html         → «Kausaladverbial» (Warum): vor/aus/wegen/dank, weil/da/denn/deshalb, 13 øvelser
+│   │   ├── final/index.html          → «Finaladverbial» (Wozu): um…zu/damit/zum, 13 øvelser — 🎓 9.–10. trinn
+│   │   ├── konditional/index.html    → «Konditionaladverbial»: wenn/falls/bei/ohne/sonst, wenn–wann–als, 13 øvelser — 🎓 9.–10. trinn
+│   │   ├── konzessiv/index.html      → «Konzessivadverbial»: trotz/obwohl/trotzdem/zwar…aber, 13 øvelser — 🎓 9.–10. trinn
+│   │   └── konsekutiv/index.html     → «Konsekutivadverbial»: so…dass/sodass/zu…um…zu/also, 13 øvelser — 🎓 9.–10. trinn
 │   ├── adjektiv/
 │   │   ├── index.html                → "Adjektiv": forklaring (ordklasse, bruk, komparativ/superlativ, bøyning), søk i ca. 200 adjektiv med bøyningstabeller, "Skriv selv" og endelsestrener
 │   │   └── adjektiv_data.js          → dataene: `var dwAdj=[…]` (generert av regler + håndplukket liste A1–B1)
@@ -1633,6 +1641,10 @@ Teach ba om å legge til Kleo (2022), Babylon Berlin (2017), Deutschland 83 (201
 ### Pronomen med underkategorier (`grammatikk/pronomen/`)
 
 Teach ba om underkategorier for pronomen i Grammatikk (personlig, refleksiv, demonstrativ, indefinitt), hver med egen side som har forklaring, sammenligning med norsk, når og hvorfor man bruker dem i skriving, tabelloversikt over kasus og enkle øvelser. Kategorien `grammatikk/personlig-pronomen/` er derfor flyttet til `grammatikk/pronomen/personlig/` (nominativ-, akkusativ- og dativsidene er flyttet uendret, med relative lenker omregnet og brødsmuler utvidet til Grammatik → Pronomen → Personlig pronomen → …). På de gamle adressene ligger små omdirigeringssider (meta refresh + canonical), så eksisterende lenker og bokmerker virker. Den gamle hub-siden er erstattet av en rikere «Personlig pronomen»-side, og `grammatikk/pronomen/index.html` er ny hub med fire kort og en oversiktstabell. Grammatik-hubens kort heter nå «Pronomen»; 9.–10. trinn-siden har fått kort for Demonstrativ og Indefinit; søkeindeksen på forsiden har nøkler for hub og alle fire sider. Siden bruker en felles øvingsmotor (flervalg med hint, tilbakemelding, poengsum og repetisjon av feil). Nivåmerking: Demonstrativ og Indefinit er merket 🎓 9.–10. trinn; Refleksiv er ikke merket (verb som «sich freuen» møter elevene tidlig). Tysk innhold er skrevet av Claude og ikke gjennomlest av en tysk morsmålstaler.
+
+### Adverbial med underkategorier (`grammatikk/adverbial/`)
+
+Teach ba om underkategorier for de åtte formene for adverbial (Lokal, Temporal, Modal, Kausal, Final, Konditional, Konzessiv, Konsekutiv) med samme type innhold som på Pronomen-sidene. De to gamle «Kommer snart»-kortene (TeKaMoLo og Stedsadverbial) i `adverbial/index.html` er erstattet av en fullverdig hub med åtte kort, en oversiktstabell med norske termer (stedsadverbial, tidsadverbial, måtesadverbial, årsaksadverbial, formålsadverbial, betingelsesadverbial, innrømmelsesadverbial, følgeadverbial) og en kort TeKaMoLo-seksjon (`#tekamolo`). Hver undeside har samme oppbygning som Pronomen: forklaring (spørreord, former), tabelloversikt (preposisjoner med kasus, konjunksjoner med verbplassering, adverb), sammenligning med norsk, «Når og hvorfor i skriving» og 13 flervalgsøvelser (felles øvingsmotor, `DWQ`). Sidene bygges av Python-skript (`advcommon.py`, `pagesA.py`, `pagesB.py`, `pagesHub.py`) som gjenbruker `common.py` fra Pronomen-runden; skriptene er ikke en del av nettstedet. Nivåmerking: Final, Konditional, Konzessiv og Konsekutiv er merket 🎓 9.–10. trinn og har kort på 9.–10. trinn-siden; de fire første er ikke merket. Søkeindeksen på forsiden har nøkler for hub og alle åtte sider; «tekamolo»-oppføringen peker fortsatt til huben. Faglig merknad: eksempelsetningen «Vor lauter Glück lachte sie» (Konsekutiv) kan også regnes som kausal; dette står i en «Merk:»-boks på siden. Tysk innhold er skrevet av Claude og ikke gjennomlest av en tysk morsmålstaler. Ikke bygget: en egen TeKaMoLo-treningsside.
 
 ## Slik legger du til en ny seksjon
 

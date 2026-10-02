@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <!--
   DEUTSCHWELT — Grammatik-kategori: "Adverbial"
-  Ingen sider bygget ennå — kun planlagte temaer.
-  Se README.md i rotmappen for mønsteret for grammatikk-kategorier.
+  Hub med åtte undersider (lokal, temporal, modal, kausal, final, konditional, konzessiv, konsekutiv) og en kort TeKaMoLo-seksjon.
 -->
 <html lang="de">
 <head>
@@ -15,41 +14,92 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --dw-primary:#161616;
-    --dw-primary-light:#9c1329;
-    --dw-accent:#d9a91c;
-    --dw-bg:#f7f5f0;
-    --dw-card:#ffffff;
-    --dw-text:#232323;
-    --dw-muted:#6b6b6b;
-    --dw-radius:16px;
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
   }
   *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
-  .dw-wrap{max-width:820px;margin:0 auto;padding:0 16px 60px;}
-  .dw-header{
-    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
-    color:#fff;border-radius:var(--dw-radius);padding:32px 26px;text-align:center;margin-bottom:10px;
-  }
-  .dw-header h1{margin:0 0 6px;font-size:1.8rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-wrap{max-width:860px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
   .dw-header p{margin:0;opacity:.95;}
-  .dw-crumb{
-    font-size:.85rem;margin:14px 0 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-  }
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
   .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
   .dw-crumb a:hover{text-decoration:underline;}
-  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
-  .dw-card{
-    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px;text-decoration:none;color:var(--dw-text);
-    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;
-    display:flex;flex-direction:column;gap:6px;
-  }
-  .dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
-  .dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
-  .dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .dw-jump a{font-size:.86rem;font-weight:700;padding:7px 15px;border-radius:999px;text-decoration:none;background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:32px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t tbody th{background:#fbfaf6;font-size:.84rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t td.dw-hl{background:#fff3cf;}
+  .dw-t td.dw-c{text-align:center;}
+  .dw-t td.dw-x{color:#aaa;text-align:center;}
+  .dw-t tr.dw-grp td,.dw-t tr.dw-grp th{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:14px 0;}
+  a.dw-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;text-decoration:none;color:var(--dw-text);box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;gap:6px;}
+  a.dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  a.dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  a.dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
 
-  /* Tematisk kort-mønster (erstatter emoji) */
-  .dw-card.dw-p-adverbial{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cpath%20d%3D%22M28%208%20L33%2026%20L28%2048%20L23%2026%20Z%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.09%22%2F%3E%3Cpath%20d%3D%22M8%2028%20L26%2023%20L48%2028%20L26%2033%20Z%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.09%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  /* Øvelser */
+  .dw-ex-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+  .dw-ex-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:8px;}
+  .dw-ex-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:16px;}
+  .dw-ex-fill{height:100%;width:0;background:var(--dw-good);transition:width .25s ease;}
+  .dw-ex-cue{font-size:.88rem;color:var(--dw-muted);margin-bottom:4px;}
+  .dw-ex-sent{font-size:1.3rem;font-weight:600;color:var(--dw-primary);line-height:1.5;margin:2px 0 18px;}
+  .dw-ex-sent .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);text-align:center;}
+  .dw-ex-sent .dw-blank.dw-filled{color:var(--dw-good);border-color:var(--dw-good);}
+  .dw-ex-sent .dw-blank.dw-filled.dw-bad{color:var(--dw-bad);border-color:var(--dw-bad);}
+  .dw-ex-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .dw-ex-choice{flex:1 1 110px;max-width:170px;padding:12px 8px;font-family:inherit;font-size:1.1rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;}
+  .dw-ex-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-ex-choice:disabled{cursor:default;opacity:.55;}
+  .dw-ex-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-ex-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .dw-ex-choice:focus-visible,.dw-ex-btn:focus-visible,.dw-ex-hintbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-ex-hintbtn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:.85rem;padding:0;margin-bottom:8px;}
+  .dw-ex-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:10px 14px;margin:6px 0 14px;background:#f4f1e8;}
+  .dw-ex-fb.dw-show{display:block;}
+  .dw-ex-fb.dw-good{background:#eef7ee;color:#1f5d23;}
+  .dw-ex-fb.dw-bad{background:#fdecee;color:#8c1d1d;}
+  .dw-ex-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:11px 26px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .dw-ex-btn:hover{background:var(--dw-primary-light);}
+  .dw-ex-btn.dw-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-ex-result{display:none;text-align:center;}
+  .dw-ex-result.dw-show{display:block;}
+  .dw-ex-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .dw-ex-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:12px 18px;margin:14px 0;font-size:.9rem;}
+  .dw-ex-review li{margin-bottom:6px;}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .dw-ex-sent{font-size:1.12rem;}
+  }
 </style>
 </head>
 <body>
@@ -59,7 +109,7 @@
     <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
     <div class="dw-nav-links">
       <a class="dw-nav-link" href="../../">🏠 Forside</a>
-      <a class="dw-nav-link dw-nav-active" href="../">🧩 Grammatik</a>
+      <a class="dw-nav-link dw-nav-active" href="../../grammatikk/">🧩 Grammatik</a>
       <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
       <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
       <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
@@ -86,24 +136,86 @@
 <div class="dw-wrap">
 
   <div class="dw-header">
-    <h1>Adverbial</h1>
-    <p>Tid, sted og måte — og hvor adverbialet skal stå i setningen</p>
+    <h1>🧭 Adverbial</h1>
+    <p>Tid, sted, måte, årsak … — det som forteller mer om hva som skjer i setningen</p>
   </div>
 
   <p class="dw-crumb"><a href="../">🧩 Grammatik</a> → Adverbial</p>
 
+  <div class="dw-exp">
+    <h3>Hva er et adverbial?</h3>
+    <p>Et <strong>adverbial</strong> er et <em>setningsledd</em> som forteller <strong>når, hvor, hvordan, hvorfor</strong> osv. noe skjer. Du kjenner det fra norsk: stedsadverbial, tidsadverbial, måtesadverbial og så videre. Tysk bruker de samme begrepene, bare med latinske navn: <em>Lokal-, Temporal-, Modal-, Kausal-adverbial</em> …</p>
+    <p>Adverbialet kan være <strong>ett ord</strong> (<span class="dw-de">heute</span>), <strong>en gruppe ord</strong> (<span class="dw-de">in der Stadt</span>) eller <strong>en hel leddsetning</strong> (<span class="dw-de">weil ich krank bin</span>).</p>
+    <div class="dw-tip">💡 <strong>Adverbial eller adverb?</strong> <em>Adverb</em> er en <em>ordklasse</em> (ett ord som <span class="dw-de">hier, heute, gern</span>). <em>Adverbial</em> er et <em>setningsledd</em> – det kan være et adverb, men like gjerne en preposisjonsfrase eller en leddsetning. I <span class="dw-de">Ich gehe heute in die Stadt</span> er både <em>heute</em> (adverb) og <em>in die Stadt</em> (preposisjonsfrase) adverbial.</div>
+    <h3 style="margin-top:14px">Slik finner du adverbialet</h3>
+    <ul>
+      <li><strong>Spørreprøven:</strong> Still et spørsmål til setningen. «Wohin gehen wir?» → <em>in die Stadt</em>.</li>
+      <li><strong>Flytteprøven:</strong> Flytt leddet fremst. Det går i ett stykke: <span class="dw-de">In die Stadt gehen wir.</span> Verbet blir da fortsatt nummer to.</li>
+      <li><strong>Utelatelsesprøven:</strong> Adverbialet kan som regel fjernes uten at setningen faller fra hverandre (det er «ekstra informasjon»).</li>
+    </ul>
+  </div>
+
+  <h2 class="dw-sec-title" style="margin-top:20px">📚 De åtte typene</h2>
   <div class="dw-grid">
-    <a class="dw-card dw-p-adverbial dw-soon" href="#">
-      <h2>TeKaMoLo — rekkefølgen på adverbial</h2>
-      <p>Kommer snart</p>
-      <span class="dw-soon-tag">🔜 Kommer snart</span>
+    <a class="dw-card" href="lokal/">
+      <h2>📍 Lokaladverbial</h2>
+      <p>Wo? Woher? Wohin? — «Wir gehen in die Stadt.» Sted, retning og opphav.</p>
     </a>
-    <a class="dw-card dw-p-adverbial dw-soon" href="#">
-      <h2>Stedsadverbial: wo, wohin, woher</h2>
-      <p>Kommer snart</p>
-      <span class="dw-soon-tag">🔜 Kommer snart</span>
+    <a class="dw-card" href="temporal/">
+      <h2>⏰ Temporaladverbial</h2>
+      <p>Wann? Wie oft? Wie lange? — «Ich gehe morgens joggen.» Tid, hyppighet og varighet.</p>
+    </a>
+    <a class="dw-card" href="modal/">
+      <h2>🎨 Modaladverbial</h2>
+      <p>Wie? Womit? — «Sie spielt laut Trompete.» Måten noe skjer på.</p>
+    </a>
+    <a class="dw-card" href="kausal/">
+      <h2>❓ Kausaladverbial</h2>
+      <p>Warum? Weshalb? — «Er zittert vor Kälte.» Årsaken.</p>
+    </a>
+    <a class="dw-card" href="final/">
+      <h2>🎯 Finaladverbial <span class="dw-level-tag">🎓 9.–10. trinn</span></h2>
+      <p>Wozu? — «Zum Lernen braucht er Ruhe.» Hensikten og formålet.</p>
+    </a>
+    <a class="dw-card" href="konditional/">
+      <h2>🔀 Konditionaladverbial <span class="dw-level-tag">🎓 9.–10. trinn</span></h2>
+      <p>Unter welcher Bedingung? — «Bei Regen fällt das Fest aus.» Betingelsen.</p>
+    </a>
+    <a class="dw-card" href="konzessiv/">
+      <h2>↔️ Konzessivadverbial <span class="dw-level-tag">🎓 9.–10. trinn</span></h2>
+      <p>Trotz welchen Umstands? — «Trotz des Sturms ging sie spazieren.» Innrømmelsen.</p>
+    </a>
+    <a class="dw-card" href="konsekutiv/">
+      <h2>➡️ Konsekutivadverbial <span class="dw-level-tag">🎓 9.–10. trinn</span></h2>
+      <p>Mit welcher Folge? — «Vor lauter Glück lachte sie.» Følgen og resultatet.</p>
     </a>
   </div>
+
+  <h2 class="dw-sec-title">🔎 Oversikt</h2>
+  <div class="dw-exp">
+    <div class="dw-tbl-wrap"><table class="dw-t" style="min-width:660px"><thead><tr><th>Type</th><th>Norsk</th><th>Spørsmål</th><th>Eksempel</th></tr></thead><tbody><tr><th><a href="lokal/">Lokal (Ort)</a></th><td>stedsadverbial</td><td>Wo? Wohin? Woher?</td><td><span class="dw-de">Wir gehen <u>in die Stadt</u>.</span></td></tr><tr><th><a href="temporal/">Temporal (Zeit)</a></th><td>tidsadverbial</td><td>Wann? Wie oft? Wie lange?</td><td><span class="dw-de">Ich gehe <u>morgens</u> joggen.</span></td></tr><tr><th><a href="modal/">Modal (Art und Weise)</a></th><td>måtesadverbial</td><td>Wie? Womit?</td><td><span class="dw-de">Sie spielt <u>laut</u> Trompete.</span></td></tr><tr><th><a href="kausal/">Kausal (Grund)</a></th><td>årsaksadverbial</td><td>Warum? Weshalb?</td><td><span class="dw-de">Er zittert <u>vor Kälte</u>.</span></td></tr><tr><th><a href="final/">Final (Zweck)</a> <span class="dw-level-tag">🎓</span></th><td>formålsadverbial</td><td>Wozu? Zu welchem Zweck?</td><td><span class="dw-de"><u>Zum Lernen</u> braucht er Ruhe.</span></td></tr><tr><th><a href="konditional/">Konditional (Bedingung)</a> <span class="dw-level-tag">🎓</span></th><td>betingelsesadverbial</td><td>Unter welcher Bedingung?</td><td><span class="dw-de"><u>Bei Regen</u> fällt das Fest aus.</span></td></tr><tr><th><a href="konzessiv/">Konzessiv (Einräumung)</a> <span class="dw-level-tag">🎓</span></th><td>innrømmelsesadverbial</td><td>Trotz welchen Umstands?</td><td><span class="dw-de"><u>Trotz des Sturms</u> ging sie spazieren.</span></td></tr><tr><th><a href="konsekutiv/">Konsekutiv (Folge)</a> <span class="dw-level-tag">🎓</span></th><td>følgeadverbial</td><td>Mit welcher Folge?</td><td><span class="dw-de"><u>Vor lauter Glück</u> lachte sie.</span></td></tr></tbody></table></div>
+    <p class="dw-no" style="font-size:.88rem;margin-top:8px">🎓 = best for 9.–10. trinn. De fire første typene (sted, tid, måte, årsak) trenger du helt fra starten av.</p>
+  </div>
+
+  <h2 class="dw-sec-title" id="tekamolo">🧱 TeKaMoLo: rekkefølgen på adverbial</h2>
+  <div class="dw-exp">
+    <p>Når en setning har <em>flere</em> adverbial i midtfeltet (etter verbet), følger de vanligvis denne rekkefølgen – derav navnet <strong>Te-Ka-Mo-Lo</strong>:</p>
+    <div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th>Te</th><th>Ka</th><th>Mo</th><th>Lo</th></tr></thead><tbody><tr><td class="dw-f">Temporal</td><td class="dw-f">Kausal</td><td class="dw-f">Modal</td><td class="dw-f">Lokal</td></tr><tr><th>Wann?</th><td>Warum?</td><td>Wie?</td><td>Wo? / Wohin?</td></tr><tr><th><span class="dw-de">heute</span></th><td><span class="dw-de">wegen des Regens</span></td><td><span class="dw-de">mit dem Bus</span></td><td><span class="dw-de">in die Stadt</span></td></tr><tr><th>i dag</th><td>på grunn av regnet</td><td>med bussen</td><td>til byen</td></tr></tbody></table></div>
+    <p style="margin-top:10px">Samlet: <span class="dw-de">Ich fahre <u>heute</u> <u>wegen des Regens</u> <u>mit dem Bus</u> <u>in die Stadt</u>.</span></p>
+    <div class="dw-cmp">
+      <div><b class="dw-lang">Tysk</b>Ich fahre <strong>heute</strong> mit dem Bus <strong>in die Stadt</strong>.<br><span class="dw-no">tid → måte → sted</span></div>
+      <div><b class="dw-lang">Norsk</b>Jeg kjører med bussen <strong>til byen</strong> <strong>i dag</strong>.<br><span class="dw-no">måte → sted → tid</span></div>
+    </div>
+    <ul>
+      <li><strong>Forskjell fra norsk:</strong> På norsk står sted gjerne før tid. På tysk kommer tid <em>først</em>.</li>
+      <li><strong>Et adverbial kan stå først:</strong> Da kommer verbet på plass to: <span class="dw-de"><u>Heute</u> fahre ich mit dem Bus in die Stadt.</span></li>
+      <li><strong>Pronomen går foran:</strong> <span class="dw-de">Ich gebe <u>ihm</u> morgen das Buch.</span></li>
+      <li><strong>Reglene er tommelfingerregler,</strong> ikke lover. Det som er nytt eller viktig for deg, kan flyttes fremover eller bakover.</li>
+    </ul>
+    <p class="dw-no" style="font-size:.88rem">En egen side med TeKaMoLo-trening (sortere ledd i riktig rekkefølge) er ikke bygget ennå.</p>
+  </div>
+
+  <p class="dw-see-also"><strong>Se også:</strong> <a href="../sporreord/">Spørreord (W-Fragen)</a> · <a href="../preposisjoner/">Preposisjoner</a> · <a href="../konjunksjoner/">Konjunksjoner</a> · <a href="../tidsuttrykk/">Tidsuttrykk</a></p>
 
 </div>
 </body>
