@@ -252,8 +252,10 @@ deutschwelt-site/
 │   │   └── index.html                → tilfeldig trukket mini-oppgave (sprechen/schreiben/hören/wortschatz)
 │   ├── wortschatz-jagd/
 │   │   └── index.html                → memory-spill: match tysk/norske ordpar mot klokken
-│   └── escape-room/
-│       └── index.html                → "Der verschlossene Klassenraum" — fire gåter gir en kode
+│   ├── escape-room/
+│   │   └── index.html                → "Der verschlossene Klassenraum" — fire gåter gir en kode
+│   └── kommissar-lupe/
+│       └── index.html                → "Kommissar Lupe" — 8 logikkgåter i Murdle-stil (notatblokk, tips, anklage)
 ├── filme-serien/
 │   └── index.html                    → "Filme & Serien" — 17 filmer + 10 serier med trailerlenker
 ├── musik/
@@ -2009,6 +2011,18 @@ Siste av de tre «kommer snart»-temaene i Deutsch im echten Leben (alle åtte k
 - **Test deg selv**: 8 utfyll og 6 valgspørsmål.
 
 Bygges av `leben-work/build_gaming.py` + `sitcommon.py` + `fillcommon.py`. Vendekort (`sign_cards`) er nå to kolonner og mindre skrift på mobil (gjelder alle tre leben-sidene som bruker dem). Tysk innhold er ikke lest av morsmålstaler.
+
+## Kommissar Lupe (`challenges/kommissar-lupe/`)
+
+Murdle-inspirerte detektivgåter under Challenges. **Åtte saker** i tre nivåer: 🟢 Leicht (fall 1–3: 3–4 mistenkte), 🟡 Mittel (fall 4–6: 4–5 mistenkte), 🔴 Schwer (fall 7–8: 5 mistenkte). Blanding av mildere forbrytelser (Diebstahl, Einbruch, Sabotage) og mord (Mord am Waldsee, Nachtzug, Schloss, Hotel).
+
+**Spillet:** hver sak har mistenkte, gjenstander (våpen/verktøy) og rom. Hver person var i hvert sitt rom med hver sin gjenstand. Ledetrådene er korte tyske setninger (A1/A2), med «Vis norsk» (på som standard i de tre lette sakene). Eleven fører en **notatblokk** med tre rutenett (Wer↔Waffe/Werkzeug, Wer↔Raum, Waffe/Werkzeug↔Raum; trykk: ✗ → ✓ → tom, med valgfrie auto-kryss), kan be om **tips** (sanne «ikke»-opplysninger, ikke allerede gitt som ledetråd) og til slutt **anklage** (Täter/Waffe/Tatort). Resultat: løsning, slutt-tekst, motiv («Warum?») og ⭐⭐⭐ (høyst 1 tips og 1 feil anklage), ⭐⭐ (høyst 3 tips og 2 feil), ellers ⭐. Fremdriften lagres ikke (ingen localStorage/backend). `#fall-N` åpner en bestemt sak.
+
+**Hvordan gåtene lages (viktig for videre arbeid):** `krimi-work/lupe_cases.py` inneholder per sak handling, personer (med attributter som Brille/Hut/Bart), gjenstander og rom (med egenskaper som scharf/schwer/draußen) og den **valgte løsningen**. `lupe_gen.py` genererer ledetrådene automatisk: først velges tilfeldige sanne ledetråder til en løser («menneskelig logikk» uten gjetting: rad/kolonne-eliminering, trekant-regelen mellom de tre rutenettene og snitt av kandidat-tripler) finner entydig svar, deretter fjernes unødvendige ledetråder. Til slutt bekrefter en brute-force-sjekk at **bare ett** svar er mulig. Setningene (tysk og norsk) lages av maler. `build_lupe.py` + `lupe_js.py` bygger siden; hele sakene ligger som JSON i `#lp-data`.
+
+**Slik legger du til en ny sak:** legg en ny `CASES.append(mk(...))` i `lupe_cases.py` (kopier en eksisterende), kjør `python3 build_lupe.py`, og kjør `krimi-work/ltest.py` (Playwright-test). Husk at svaret kan ses i sidekilden (`sol` i JSON), noe som er greit for et klasseromsspill.
+
+Tysk og norsk er ikke lest av morsmålstaler. Emoji er bevisst valgt fra eldre Unicode-versjoner for å vises på eldre skole-PCer.
 
 ## Kjente begrensninger
 

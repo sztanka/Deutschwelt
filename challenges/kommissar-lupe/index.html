@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Challenges: "Kommissar Lupe" (challenges/kommissar-lupe/)
+  Murdle-inspirerte logikkgåter. Hver sak er generert av en løser (krimi-work/lupe_gen.py) som beviser at svaret er entydig og kan finnes uten gjetting. Data i #lp-data; JS rendrer notatblokk (3 rutenett), tips, anklage.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kommissar Lupe · Challenges · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:860px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .dw-jump a{font-size:.86rem;font-weight:700;padding:7px 15px;border-radius:999px;text-decoration:none;background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:32px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t tbody th{background:#fbfaf6;font-size:.84rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t td.dw-hl{background:#fff3cf;}
+  .dw-t td.dw-c{text-align:center;}
+  .dw-t td.dw-x{color:#aaa;text-align:center;}
+  .dw-t tr.dw-grp td,.dw-t tr.dw-grp th{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:14px 0;}
+  a.dw-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;text-decoration:none;color:var(--dw-text);box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;gap:6px;}
+  a.dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  a.dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  a.dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
+
+  /* Øvelser */
+  .dw-ex-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+  .dw-ex-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:8px;}
+  .dw-ex-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:16px;}
+  .dw-ex-fill{height:100%;width:0;background:var(--dw-good);transition:width .25s ease;}
+  .dw-ex-cue{font-size:.88rem;color:var(--dw-muted);margin-bottom:4px;}
+  .dw-ex-sent{font-size:1.3rem;font-weight:600;color:var(--dw-primary);line-height:1.5;margin:2px 0 18px;}
+  .dw-ex-sent .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);text-align:center;}
+  .dw-ex-sent .dw-blank.dw-filled{color:var(--dw-good);border-color:var(--dw-good);}
+  .dw-ex-sent .dw-blank.dw-filled.dw-bad{color:var(--dw-bad);border-color:var(--dw-bad);}
+  .dw-ex-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .dw-ex-choice{flex:1 1 110px;max-width:170px;padding:12px 8px;font-family:inherit;font-size:1.1rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;}
+  .dw-ex-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-ex-choice:disabled{cursor:default;opacity:.55;}
+  .dw-ex-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-ex-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .dw-ex-choice:focus-visible,.dw-ex-btn:focus-visible,.dw-ex-hintbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-ex-hintbtn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:.85rem;padding:0;margin-bottom:8px;}
+  .dw-ex-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:10px 14px;margin:6px 0 14px;background:#f4f1e8;}
+  .dw-ex-fb.dw-show{display:block;}
+  .dw-ex-fb.dw-good{background:#eef7ee;color:#1f5d23;}
+  .dw-ex-fb.dw-bad{background:#fdecee;color:#8c1d1d;}
+  .dw-ex-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:11px 26px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .dw-ex-btn:hover{background:var(--dw-primary-light);}
+  .dw-ex-btn.dw-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-ex-result{display:none;text-align:center;}
+  .dw-ex-result.dw-show{display:block;}
+  .dw-ex-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .dw-ex-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:12px 18px;margin:14px 0;font-size:.9rem;}
+  .dw-ex-review li{margin-bottom:6px;}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .dw-ex-sent{font-size:1.12rem;}
+  }
+
+  .lp-intro{background:#fff;border:1px solid #ece8df;border-radius:14px;padding:16px 18px;margin:0 0 14px;line-height:1.6;}
+  .lp-intro h2{margin:0 0 6px;font-size:1.15rem;}
+  .lp-intro details{margin-top:8px;} .lp-intro summary{cursor:pointer;font-weight:800;color:var(--dw-primary-light);}
+  .lp-intro ol{margin:8px 0 4px;padding-left:22px;} .lp-intro li{margin:4px 0;}
+  .lp-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin:12px 0;}
+  .lp-card{font-family:inherit;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:3px;background:#fff;border:2px solid #e4dfd2;border-radius:14px;padding:12px 14px;color:var(--dw-text);position:relative;}
+  .lp-card:hover{border-color:var(--dw-primary-light);transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.08);}
+  .lp-card:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .lp-card-top{display:flex;justify-content:space-between;align-items:center;font-size:.75rem;font-weight:800;}
+  .lp-card-no{color:var(--dw-muted);text-transform:uppercase;letter-spacing:.5px;}
+  .lp-lv{border-radius:999px;padding:2px 9px;background:#f1efe8;}
+  .lp-l-leicht .lp-lv{background:#e3f4e3;color:#1f5d23;} .lp-l-mittel .lp-lv{background:#fff3cf;color:#7a5a00;} .lp-l-schwer .lp-lv{background:#fdecee;color:#8c1d1d;}
+  .lp-card-ico{font-size:2rem;line-height:1.2;margin-top:4px;}
+  .lp-card-title{font-size:1.05rem;line-height:1.25;}
+  .lp-card-no2{font-size:.82rem;color:var(--dw-muted);font-style:italic;}
+  .lp-card-meta{font-size:.78rem;color:var(--dw-muted);margin-top:4px;}
+  .lp-card-done{font-size:.8rem;font-weight:800;color:var(--dw-good);margin-top:2px;}
+  .lp-card.lp-done{border-color:#bfe0bf;background:#f7fcf7;}
+  .lp-case[hidden],.lp-list[hidden]{display:none;}
+  .lp-top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:6px 0 10px;}
+  .lp-btn{font-family:inherit;font-weight:800;font-size:.92rem;padding:9px 18px;border-radius:999px;border:2px solid var(--dw-primary);background:var(--dw-primary);color:#fff;cursor:pointer;}
+  .lp-btn:hover:not(:disabled){background:var(--dw-primary-light);border-color:var(--dw-primary-light);}
+  .lp-btn:disabled{opacity:.5;cursor:default;}
+  .lp-btn.lp-ghost{background:#fff;color:var(--dw-primary);border-color:#d9d3c4;} .lp-btn.lp-ghost:hover{background:#f6f3ea;color:var(--dw-primary);border-color:var(--dw-primary-light);}
+  .lp-btn.lp-ghost[aria-pressed="true"]{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .lp-btn.lp-go{background:var(--dw-primary-light);border-color:var(--dw-primary-light);}
+  .lp-btn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .lp-title{margin:6px 0 2px;font-size:1.5rem;} .lp-sub{color:var(--dw-muted);font-size:.9rem;margin-bottom:10px;}
+  .lp-sec{background:#fff;border:1px solid #ece8df;border-radius:14px;padding:14px 16px;margin:12px 0;}
+  .lp-sec h3{margin:0 0 8px;font-size:1.1rem;}
+  .lp-story{margin:6px 0;line-height:1.55;} .lp-q{background:#fff9ec;border-radius:10px;padding:8px 12px;}
+  .lp-no{display:none;color:var(--dw-muted);font-style:italic;font-weight:400;font-size:.9em;}
+  .lp-no-on .lp-no{display:block;}
+  .lp-cast h4{margin:12px 0 6px;font-size:.95rem;} .lp-cast h4 small{font-weight:400;color:var(--dw-muted);}
+  .lp-cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;}
+  .lp-cc{background:#faf8f2;border:1px solid #ece8df;border-radius:10px;padding:8px 10px;font-size:.88rem;line-height:1.4;display:flex;flex-direction:column;gap:2px;}
+  .lp-cc b{font-size:.95rem;} .lp-em{font-size:1.5rem;line-height:1.1;} .lp-pf{font-size:.84rem;}
+  .lp-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px;} .lp-chips i{font-style:normal;font-size:.75rem;background:#eef1f6;border-radius:999px;padding:1px 8px;}
+  .lp-chips i .lp-no{display:none;} .lp-no-on .lp-chips i .lp-no{display:inline;} .lp-no-on .lp-chips i .lp-de:after{content:" / ";color:var(--dw-muted);}
+  .lp-clues{margin:0;padding-left:24px;} .lp-clues li{margin:8px 0;line-height:1.5;font-weight:600;}
+  .lp-clues li .lp-no{font-weight:400;}
+  .lp-help{font-size:.9rem;margin:0 0 8px;} .lp-auto{display:block;font-size:.88rem;margin:4px 0 10px;cursor:pointer;}
+  .lp-grids{display:flex;flex-wrap:wrap;gap:14px;}
+  .lp-gwrap{max-width:100%;} .lp-gt{font-weight:800;font-size:.88rem;margin-bottom:4px;} .lp-gscroll{overflow-x:auto;max-width:100%;}
+  .lp-grid{border-collapse:separate;border-spacing:0;font-size:.82rem;}
+  .lp-grid th,.lp-grid td{border:1px solid #d9d3c4;padding:0;text-align:center;background:#fff;}
+  .lp-grid td,.lp-grid th{border-width:0 1px 1px 0;} .lp-grid thead th{border-top-width:1px;} .lp-grid tr>*:first-child{border-left-width:1px;}
+  .lp-corner{background:#f6f3ea !important;}
+  .lp-ch{background:#f6f3ea !important;vertical-align:bottom;min-width:36px;padding:4px 2px !important;}
+  .lp-chin{display:flex;flex-direction:column;align-items:center;gap:2px;} .lp-ch .lp-em{font-size:1.1rem;}
+  .lp-vt{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;font-size:.76rem;font-weight:700;max-height:130px;}
+  .lp-rh{background:#f6f3ea !important;text-align:left !important;padding:3px 8px !important;white-space:nowrap;font-weight:700;} .lp-rh .lp-em{font-size:1.1rem;}
+  .lp-cell{display:block;width:38px;height:38px;border:0;background:transparent;font-family:inherit;font-size:1.15rem;font-weight:800;cursor:pointer;color:#c62828;padding:0;}
+  .lp-cell:hover{background:#fff3cf;} .lp-cell:focus-visible{outline:3px solid var(--dw-accent);outline-offset:-3px;}
+  .lp-cell.lp-v{color:#1f7a2a;background:#e3f4e3;} .lp-cell.lp-x{color:#c62828;} .lp-cell.lp-auto-x{color:#e2b0b0;}
+  .lp-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+  .lp-hints{display:flex;flex-direction:column;gap:6px;margin-bottom:8px;} .lp-hint{background:#fff9ec;border-radius:10px;padding:7px 12px;font-weight:600;line-height:1.45;}
+  .lp-hcount{font-size:.85rem;color:var(--dw-muted);margin-left:6px;}
+  .lp-sels{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 12px;} .lp-sels label{display:flex;flex-direction:column;font-size:.85rem;font-weight:700;gap:3px;flex:1 1 180px;}
+  .lp-sels select{font-family:inherit;font-size:1rem;padding:9px 10px;border:2px solid #cfc8b5;border-radius:10px;background:#fff;color:var(--dw-text);}
+  .lp-sels select:focus{outline:none;border-color:var(--dw-primary-light);}
+  .lp-msg{margin-top:10px;font-weight:700;} .lp-msg.lp-bad{background:#fdecee;color:#8c1d1d;border-radius:10px;padding:8px 12px;} .lp-msg.lp-warn{background:#fff3cf;color:#7a5a00;border-radius:10px;padding:8px 12px;}
+  .lp-win{margin-top:14px;background:linear-gradient(135deg,#e9f7e9,#fffbea);border:2px solid #2e7d32;border-radius:14px;padding:16px 18px;}
+  .lp-win-h{font-size:1.3rem;font-weight:800;margin-bottom:8px;}
+  .lp-win-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:8px 0 10px;}
+  .lp-win-grid>div{background:#fff;border-radius:10px;padding:10px;text-align:center;display:flex;flex-direction:column;gap:2px;} .lp-win-grid small{color:var(--dw-muted);}
+  .lp-win-t{margin:8px 0;line-height:1.55;} .lp-stars{font-size:1.4rem;margin:8px 0;} .lp-dim{opacity:.35;} .lp-stars small{font-size:.8rem;color:var(--dw-muted);}
+  .lp-nojs{background:#fff3cf;border-radius:10px;padding:12px 14px;}
+  @media(max-width:520px){.lp-title{font-size:1.25rem;} .lp-cell{width:36px;height:36px;} .lp-sec{padding:12px 12px;}}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link dw-nav-active" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>🔎 Kommissar Lupe</h1>
+    <p>Detektivgåter: Wer war es? Womit? Wo? Lies die Hinweise und finde den Täter.</p>
+  </div>
+
+  <p class="dw-crumb"><a href="../">🏆 Challenges</a> → Kommissar Lupe <span class="dw-level-tag">8.–10. trinn · A1/A2</span></p>
+
+  <div id="lp-app">
+  <noscript><p class="lp-nojs">Kommissar Lupe trenger JavaScript for å fungere. Slå på JavaScript i nettleseren din og last siden på nytt.</p></noscript>
+  <div id="lp-list" class="lp-list">
+    <div class="lp-intro">
+      <h2>Willkommen im Detektivbüro!</h2>
+      <p>Hver sak har noen mistenkte, noen gjenstander (våpen eller verktøy) og noen rom. Hver person var i <b>hvert sitt rom</b> og hadde <b>hver sin gjenstand</b>. Ledetrådene er skrevet på enkel tysk. Finn ut <b>hvem</b> som gjorde det, <b>med hva</b> og <b>hvor</b>.</p>
+      <details><summary>🧭 Slik løser du en sak</summary>
+        <ol>
+          <li>Les <b>«Der Fall»</b> og se på menneskene, tingene og rommene. Trykk på «🇳🇴 Vis norsk» hvis du trenger hjelp.</li>
+          <li>Les <b>ledetrådene</b> én og én. Hver ledetråd er alltid sann.</li>
+          <li>Bruk <b>notatblokken</b>: trykk på en rute for å sette <b>✗</b> (nei) eller <b>✓</b> (ja). Har en person fått ✓ for en ting, kan ingen andre ha den.</li>
+          <li>Tenk: «Hvis frk. Berg ikke var i hallen og ikke hadde saksen, så …» Det er logikk, ikke gjetting!</li>
+          <li>Når du vet svaret, velger du gjerningsperson, våpen/verktøy og sted under <b>«Anklage»</b>.</li>
+        </ol>
+        <p>⭐⭐⭐ får du hvis du bruker høyst ett tips og har høyst én feil anklage.</p>
+      </details>
+    </div>
+    <div class="lp-cards" id="lp-cards"></div>
+    <p class="dw-see-also"><strong>Se også:</strong> <a href="../escape-room/">Der verschlossene Klassenraum</a> · <a href="../wortschatz-jagd/">Wortschatz-Jagd</a> · <a href="../taegliche-herausforderung/">Tägliche Herausforderung</a> · <a href="../../leben/alltagssituationen/">Alltagssituationen</a> · <a href="../../grammatikk/ordstilling/ja-nei-sporsmal/">Ordstilling: ja/nei-spørsmål</a></p>
+  </div>
+  <div id="lp-case" class="lp-case" hidden></div>
+  </div>
+  <script type="application/json" id="lp-data">{"cases": [{"id": 1, "title": "Das verschwundene Gemälde", "title_no": "Det forsvunne maleriet", "type": "Diebstahl", "ico": "💎", "level": "leicht", "story": ["Im Stadtmuseum ist heute Nacht ein Gemälde verschwunden.", "Der Dieb war in einem Raum des Museums und hatte ein Werkzeug.", "Es gibt drei Verdächtige."], "story_no": ["I bymuseet har et maleri forsvunnet i natt.", "Tyven var i et rom i museet og hadde et verktøy.", "Det er tre mistenkte."], "suspects": [{"name": "Herr Stein", "emoji": "💂", "pde": "Herr Stein ist Wachmann. Er trägt einen Hut und hat einen Bart.", "pno": "Herr Stein er vaktmann. Han har hatt og har skjegg."}, {"name": "Frau Berg", "emoji": "👩‍🎨", "pde": "Frau Berg ist Restauratorin. Sie trägt eine Brille und hat rote Haare.", "pno": "Frau Berg er restaurator. Hun har briller og har rødt hår."}, {"name": "Herr Kraft", "emoji": "🧑", "pde": "Herr Kraft ist Besucher. Er trägt eine Brille und trägt Handschuhe.", "pno": "Herr Kraft er besøkende. Han har briller og har på seg hansker."}], "weapons": [{"n": "die Taschenlampe", "word": "Taschenlampe", "emoji": "🔦", "no": "en lommelykt", "chips": [["klein", "liten"]]}, {"n": "das Brecheisen", "word": "Brecheisen", "emoji": "🔧", "no": "et brekkjern", "chips": [["schwer", "tung"], ["aus Metall", "av metall"], ["laut", "støyende"]]}, {"n": "die Schere", "word": "Schere", "emoji": "✂️", "no": "en saks", "chips": [["scharf", "skarp"], ["klein", "liten"], ["aus Metall", "av metall"]]}], "rooms": [{"n": "die Eingangshalle", "word": "Eingangshalle", "emoji": "🚪", "no": "en inngangshall", "loc": "in der Eingangshalle", "chips": [["groß", "stort"], ["Fenster", "vindu"]]}, {"n": "das Lager", "word": "Lager", "emoji": "📦", "no": "et lager", "loc": "im Lager", "chips": [["dunkel", "mørkt"]]}, {"n": "das Café", "word": "Café", "emoji": "☕", "no": "en kafé", "loc": "im Café", "chips": [["Fenster", "vindu"], ["warm", "varmt"]]}], "clues": [["Herr Stein hatte die Taschenlampe.", "Herr Stein hadde lommelykten."], ["Herr Stein war nicht im Lager.", "Herr Stein var ikke på lageret."], ["Herr Kraft war im Café.", "Herr Kraft var på kafeen."], ["Der Dieb trägt keinen Hut.", "Tyven har ikke hatt."], ["Das Tatwerkzeug ist klein.", "Verktøyet er lite."], ["Der Tatort ist nicht warm.", "Åstedet er ikke varmt."]], "hints": [["Herr Stein ist nicht der Dieb.", "Herr Stein er ikke tyven."], ["Das Tatwerkzeug war nicht das Brecheisen.", "Verktøyet var ikke brekkjernet."], ["Der Tatort war nicht in der Eingangshalle.", "Åstedet var ikke i inngangshallen."], ["Herr Kraft ist nicht der Dieb.", "Herr Kraft er ikke tyven."], ["Das Tatwerkzeug war nicht die Taschenlampe.", "Verktøyet var ikke lommelykten."], ["Der Tatort war nicht im Café.", "Åstedet var ikke på kafeen."]], "sol": [1, 2, 1], "motive": ["Frau Berg verdiente nur wenig Geld. Sie wollte das Bild verkaufen.", "Fru Berg tjente lite penger. Hun ville selge bildet."], "end": ["Frau Berg hat das Gemälde im Lager mit der Schere aus dem Rahmen geschnitten.", "Fru Berg skar maleriet ut av rammen på lageret med saksen."], "wlab": ["Werkzeug", "Werkzeuge", "verktøy"], "T": {"cd": "Der Dieb", "pd": "Der Tatort", "qd": ["Wer war der Dieb?", "Mit welchem Werkzeug?", "Wo war der Tatort?"], "qn": ["Hvem var tyven?", "Med hvilket verktøy?", "Hvor var åstedet?"]}}, {"id": 2, "title": "Tod im Hotel Sonnenhof", "title_no": "Død på Hotel Sonnenhof", "type": "Mord", "ico": "🔪", "level": "leicht", "story": ["Im Hotel Sonnenhof wurde Herr Weiß tot gefunden.", "Es war ein Mord.", "Drei Personen waren im Hotel."], "story_no": ["På Hotel Sonnenhof ble herr Weiß funnet død.", "Det var et mord.", "Tre personer var på hotellet."], "suspects": [{"name": "Frau Lindner", "emoji": "👩‍🍳", "pde": "Frau Lindner ist Köchin. Sie trägt einen Hut und ist Linkshänderin.", "pno": "Frau Lindner er kokk. Hun har hatt og er venstrehendt."}, {"name": "Herr Roth", "emoji": "🧔", "pde": "Herr Roth ist Portier. Er hat einen Bart und trägt eine Brille.", "pno": "Herr Roth er portier. Han har skjegg og har briller."}, {"name": "Dr. Wolf", "emoji": "👨‍⚕️", "pde": "Dr. Wolf ist Gast. Er trägt eine Brille und ist Linkshänder.", "pno": "Dr. Wolf er gjest. Han har briller og er venstrehendt."}], "weapons": [{"n": "das Messer", "word": "Messer", "emoji": "🔪", "no": "en kniv", "chips": [["scharf", "skarp"], ["aus Metall", "av metall"]]}, {"n": "der Kerzenständer", "word": "Kerzenständer", "emoji": "🕯️", "no": "en lysestake", "chips": [["schwer", "tung"], ["aus Metall", "av metall"]]}, {"n": "der Schal", "word": "Schal", "emoji": "🧣", "no": "et skjerf", "chips": [["lang", "lang"]]}], "rooms": [{"n": "die Küche", "word": "Küche", "emoji": "🍽️", "no": "et kjøkken", "loc": "in der Küche", "chips": [["warm", "varmt"]]}, {"n": "die Bibliothek", "word": "Bibliothek", "emoji": "📚", "no": "et bibliotek", "loc": "in der Bibliothek", "chips": [["oben", "oppe"], ["Fenster", "vindu"]]}, {"n": "der Keller", "word": "Keller", "emoji": "🍷", "no": "en kjeller", "loc": "im Keller", "chips": [["dunkel", "mørkt"]]}], "clues": [["Dr. Wolf hatte nicht den Schal.", "Dr. Wolf hadde ikke skjerfet."], ["Herr Roth war im Keller.", "Herr Roth var i kjelleren."], ["Dr. Wolf war nicht in der Küche.", "Dr. Wolf var ikke på kjøkkenet."], ["Die Person mit dem Messer war nicht in der Bibliothek.", "Personen med kniven var ikke i biblioteket."], ["Der Tatort liegt oben.", "Åstedet ligger oppe."]], "hints": [["Herr Roth ist nicht der Mörder.", "Herr Roth er ikke morderen."], ["Die Tatwaffe war nicht der Schal.", "Mordvåpenet var ikke skjerfet."], ["Der Tatort war nicht in der Küche.", "Åstedet var ikke på kjøkkenet."], ["Frau Lindner ist nicht der Mörder.", "Frau Lindner er ikke morderen."], ["Die Tatwaffe war nicht das Messer.", "Mordvåpenet var ikke kniven."], ["Der Tatort war nicht im Keller.", "Åstedet var ikke i kjelleren."]], "sol": [2, 1, 1], "motive": ["Herr Weiß hatte von Dr. Wolf viel Geld geliehen. Er wollte es nicht zurückgeben.", "Herr Weiß hadde lånt mye penger av dr. Wolf. Han ville ikke betale dem tilbake."], "end": ["Dr. Wolf hat Herrn Weiß in der Bibliothek mit dem Kerzenständer erschlagen.", "Dr. Wolf slo herr Weiß i hjel med lysestaken i biblioteket."], "wlab": ["Waffe", "Waffen", "våpen"], "T": {"cd": "Der Mörder", "pd": "Der Tatort", "qd": ["Wer war der Mörder?", "Mit welcher Waffe?", "Wo war der Tatort?"], "qn": ["Hvem var morderen?", "Med hvilket våpen?", "Hvor var åstedet?"]}}, {"id": 3, "title": "Einbruch in der Villa Rosental", "title_no": "Innbrudd i Villa Rosental", "type": "Einbruch", "ico": "🔓", "level": "leicht", "story": ["In der Villa Rosental hat jemand eingebrochen.", "Der Safe ist leer!", "Vier Personen waren heute Abend in der Villa."], "story_no": ["Noen har brutt seg inn i Villa Rosental.", "Safen er tom!", "Fire personer var i villaen i kveld."], "suspects": [{"name": "Frau Sommer", "emoji": "👩", "pde": "Frau Sommer ist Haushälterin. Sie trägt Handschuhe und hat eine Tasche.", "pno": "Frau Sommer er husholderske. Hun har på seg hansker og har en veske."}, {"name": "Herr Brandt", "emoji": "👨‍🌾", "pde": "Herr Brandt ist Gärtner. Er trägt einen Hut, hat einen Bart und trägt Handschuhe.", "pno": "Herr Brandt er gartner. Han har hatt, har skjegg og har på seg hansker."}, {"name": "Lena Rose", "emoji": "👧", "pde": "Lena Rose ist Nichte. Sie hat rote Haare und hat eine Tasche.", "pno": "Lena Rose er niese. Hun har rødt hår og har en veske."}, {"name": "Dr. Faber", "emoji": "👨‍⚕️", "pde": "Dr. Faber ist Arzt. Er trägt eine Brille und hat einen Bart.", "pno": "Dr. Faber er lege. Han har briller og har skjegg."}], "weapons": [{"n": "der Hammer", "word": "Hammer", "emoji": "🔨", "no": "en hammer", "chips": [["schwer", "tung"], ["aus Metall", "av metall"], ["laut", "støyende"]]}, {"n": "die Taschenlampe", "word": "Taschenlampe", "emoji": "🔦", "no": "en lommelykt", "chips": [["klein", "liten"]]}, {"n": "die Schere", "word": "Schere", "emoji": "✂️", "no": "en saks", "chips": [["scharf", "skarp"], ["klein", "liten"], ["aus Metall", "av metall"]]}, {"n": "der Schraubenschlüssel", "word": "Schraubenschlüssel", "emoji": "🔧", "no": "en skrunøkkel", "chips": [["schwer", "tung"], ["aus Metall", "av metall"]]}], "rooms": [{"n": "das Arbeitszimmer", "word": "Arbeitszimmer", "emoji": "🖥️", "no": "et arbeidsrom", "loc": "im Arbeitszimmer", "chips": [["oben", "oppe"], ["Fenster", "vindu"]]}, {"n": "der Garten", "word": "Garten", "emoji": "🌳", "no": "en hage", "loc": "im Garten", "chips": [["draußen", "utendørs"], ["dunkel", "mørkt"]]}, {"n": "die Garage", "word": "Garage", "emoji": "🚗", "no": "en garasje", "loc": "in der Garage", "chips": [["dunkel", "mørkt"], ["groß", "stort"]]}, {"n": "das Wohnzimmer", "word": "Wohnzimmer", "emoji": "🛋️", "no": "en stue", "loc": "im Wohnzimmer", "chips": [["warm", "varmt"], ["Fenster", "vindu"], ["groß", "stort"]]}], "clues": [["Herr Brandt hatte nicht die Schere.", "Herr Brandt hadde ikke saksen."], ["Dr. Faber hatte den Schraubenschlüssel.", "Dr. Faber hadde skrunøkkelen."], ["Frau Sommer war im Wohnzimmer.", "Frau Sommer var i stuen."], ["Herr Brandt war nicht im Arbeitszimmer.", "Herr Brandt var ikke på arbeidsrommet."], ["Herr Brandt war nicht in der Garage.", "Herr Brandt var ikke i garasjen."], ["Die Person mit der Taschenlampe war in der Garage.", "Personen med lommelykten var i garasjen."], ["Das Tatwerkzeug ist schwer.", "Verktøyet er tungt."], ["Herr Brandt ist nicht der Einbrecher.", "Herr Brandt er ikke innbruddstyven."]], "hints": [["Lena Rose ist nicht der Einbrecher.", "Lena Rose er ikke innbruddstyven."], ["Das Tatwerkzeug war nicht der Hammer.", "Verktøyet var ikke hammeren."], ["Der Tatort war nicht im Garten.", "Åstedet var ikke i hagen."], ["Frau Sommer ist nicht der Einbrecher.", "Frau Sommer er ikke innbruddstyven."], ["Das Tatwerkzeug war nicht die Schere.", "Verktøyet var ikke saksen."], ["Der Tatort war nicht in der Garage.", "Åstedet var ikke i garasjen."], ["Das Tatwerkzeug war nicht die Taschenlampe.", "Verktøyet var ikke lommelykten."], ["Der Tatort war nicht im Wohnzimmer.", "Åstedet var ikke i stuen."]], "sol": [3, 3, 0], "motive": ["Dr. Faber hatte viele Schulden. Er wollte das Geld aus dem Safe nehmen.", "Dr. Faber hadde mye gjeld. Han ville ta pengene fra safen."], "end": ["Dr. Faber hat den Safe im Arbeitszimmer mit dem Schraubenschlüssel geöffnet.", "Dr. Faber åpnet safen på arbeidsrommet med skrunøkkelen."], "wlab": ["Werkzeug", "Werkzeuge", "verktøy"], "T": {"cd": "Der Einbrecher", "pd": "Der Tatort", "qd": ["Wer war der Einbrecher?", "Mit welchem Werkzeug?", "Wo war der Tatort?"], "qn": ["Hvem var innbruddstyven?", "Med hvilket verktøy?", "Hvor var åstedet?"]}}, {"id": 4, "title": "Mord am Waldsee", "title_no": "Mord ved skogsjøen", "type": "Mord", "ico": "🔪", "level": "mittel", "story": ["Am Waldsee wurde ein Mann tot gefunden.", "Vier Personen waren am See.", "Die Polizei sucht den Mörder."], "story_no": ["Ved skogsjøen ble en mann funnet død.", "Fire personer var ved sjøen.", "Politiet leter etter morderen."], "suspects": [{"name": "Herr Fischer", "emoji": "🎣", "pde": "Herr Fischer ist Angler. Er trägt einen Hut und hat einen Bart.", "pno": "Herr Fischer er fisker. Han har hatt og har skjegg."}, {"name": "Frau Förster", "emoji": "👩‍🌾", "pde": "Frau Förster ist Försterin. Sie hat rote Haare und trägt Handschuhe.", "pno": "Frau Förster er skogforvalter. Hun har rødt hår og har på seg hansker."}, {"name": "Mia Bauer", "emoji": "👱‍♀️", "pde": "Mia Bauer ist Touristin. Sie trägt eine Brille und hat eine Tasche.", "pno": "Mia Bauer er turist. Hun har briller og har en veske."}, {"name": "Herr Lang", "emoji": "🧑‍✈️", "pde": "Herr Lang ist Bootsverleiher. Er ist Linkshänder und trägt eine Brille.", "pno": "Herr Lang er båtutleier. Han er venstrehendt og har briller."}], "weapons": [{"n": "die Angel", "word": "Angel", "emoji": "🎣", "no": "en fiskestang", "chips": [["lang", "lang"]]}, {"n": "der Anker", "word": "Anker", "emoji": "⚓", "no": "et anker", "chips": [["schwer", "tung"], ["aus Metall", "av metall"]]}, {"n": "die Flasche", "word": "Flasche", "emoji": "🍾", "no": "en flaske", "chips": [["aus Glas", "av glass"], ["schwer", "tung"]]}, {"n": "das Messer", "word": "Messer", "emoji": "🔪", "no": "en kniv", "chips": [["scharf", "skarp"], ["aus Metall", "av metall"]]}], "rooms": [{"n": "das Bootshaus", "word": "Bootshaus", "emoji": "🚤", "no": "et båthus", "loc": "im Bootshaus", "chips": [["Wasser", "vann"], ["dunkel", "mørkt"]]}, {"n": "der Steg", "word": "Steg", "emoji": "🌉", "no": "en brygge", "loc": "auf dem Steg", "chips": [["draußen", "utendørs"], ["Wasser", "vann"]]}, {"n": "der Wald", "word": "Wald", "emoji": "🌲", "no": "en skog", "loc": "im Wald", "chips": [["draußen", "utendørs"], ["dunkel", "mørkt"]]}, {"n": "die Hütte", "word": "Hütte", "emoji": "🏠", "no": "en hytte", "loc": "in der Hütte", "chips": [["Fenster", "vindu"], ["warm", "varmt"]]}], "clues": [["Herr Fischer hatte die Angel.", "Herr Fischer hadde fiskestangen."], ["Frau Förster war im Wald.", "Frau Förster var i skogen."], ["Herr Lang war nicht im Bootshaus.", "Herr Lang var ikke i båthuset."], ["Die Person mit dem Anker war nicht im Wald.", "Personen med ankeret var ikke i skogen."], ["Die Person mit der Flasche war nicht im Wald.", "Personen med flasken var ikke i skogen."], ["Der Mörder ist Linkshänder.", "Morderen er venstrehendt."], ["Die Tatwaffe ist aus Metall.", "Mordvåpenet er av metall."], ["Der Tatort hat Wasser.", "Åstedet har vann."]], "hints": [["Frau Förster ist nicht der Mörder.", "Frau Förster er ikke morderen."], ["Die Tatwaffe war nicht die Flasche.", "Mordvåpenet var ikke flasken."], ["Der Tatort war nicht im Wald.", "Åstedet var ikke i skogen."], ["Mia Bauer ist nicht der Mörder.", "Mia Bauer er ikke morderen."], ["Die Tatwaffe war nicht die Angel.", "Mordvåpenet var ikke fiskestangen."], ["Der Tatort war nicht in der Hütte.", "Åstedet var ikke i hytta."], ["Herr Fischer ist nicht der Mörder.", "Herr Fischer er ikke morderen."], ["Die Tatwaffe war nicht das Messer.", "Mordvåpenet var ikke kniven."], ["Der Tatort war nicht im Bootshaus.", "Åstedet var ikke i båthuset."]], "sol": [3, 1, 1], "motive": ["Das Opfer wollte ein großes Hotel am See bauen. Herr Lang hatte Angst um sein kleines Geschäft.", "Offeret ville bygge et stort hotell ved sjøen. Herr Lang var redd for den lille virksomheten sin."], "end": ["Herr Lang hat den Mann auf dem Steg mit dem Anker erschlagen.", "Herr Lang slo mannen i hjel på bryggen med ankeret."], "wlab": ["Waffe", "Waffen", "våpen"], "T": {"cd": "Der Mörder", "pd": "Der Tatort", "qd": ["Wer war der Mörder?", "Mit welcher Waffe?", "Wo war der Tatort?"], "qn": ["Hvem var morderen?", "Med hvilket våpen?", "Hvor var åstedet?"]}}, {"id": 5, "title": "Sabotage beim Schulkonzert", "title_no": "Sabotasje på skolekonserten", "type": "Sabotage", "ico": "⚡", "level": "mittel", "story": ["Beim Schulkonzert ist plötzlich das Licht ausgegangen!", "Jemand hat das Stromkabel kaputt gemacht.", "Vier Personen waren hinter der Bühne."], "story_no": ["På skolekonserten gikk lyset plutselig!", "Noen har ødelagt strømkabelen.", "Fire personer var bak scenen."], "suspects": [{"name": "Herr Metz", "emoji": "👷", "pde": "Herr Metz ist Hausmeister. Er trägt Handschuhe und hat einen Bart.", "pno": "Herr Metz er vaktmester. Han har på seg hansker og har skjegg."}, {"name": "Frau Vogel", "emoji": "👩‍🏫", "pde": "Frau Vogel ist Musiklehrerin. Sie trägt eine Brille und hat rote Haare.", "pno": "Frau Vogel er musikklærer. Hun har briller og har rødt hår."}, {"name": "Jonas Klein", "emoji": "🧒", "pde": "Jonas Klein ist Schüler. Er trägt einen Hut und ist Linkshänder.", "pno": "Jonas Klein er elev. Han har hatt og er venstrehendt."}, {"name": "Frau Haas", "emoji": "👩‍🔧", "pde": "Frau Haas ist Technikerin. Sie hat eine Tasche und trägt Handschuhe.", "pno": "Frau Haas er tekniker. Hun har en veske og har på seg hansker."}], "weapons": [{"n": "die Schere", "word": "Schere", "emoji": "✂️", "no": "en saks", "chips": [["scharf", "skarp"], ["klein", "liten"], ["aus Metall", "av metall"]]}, {"n": "der Hammer", "word": "Hammer", "emoji": "🔨", "no": "en hammer", "chips": [["schwer", "tung"], ["aus Metall", "av metall"], ["laut", "støyende"]]}, {"n": "die Taschenlampe", "word": "Taschenlampe", "emoji": "🔦", "no": "en lommelykt", "chips": [["klein", "liten"]]}, {"n": "der Feuerlöscher", "word": "Feuerlöscher", "emoji": "🧯", "no": "en brannslukker", "chips": [["schwer", "tung"], ["laut", "støyende"]]}], "rooms": [{"n": "die Bühne", "word": "Bühne", "emoji": "🎭", "no": "en scene", "loc": "auf der Bühne", "chips": [["groß", "stort"], ["warm", "varmt"]]}, {"n": "der Technikraum", "word": "Technikraum", "emoji": "🎛️", "no": "et teknikkrom", "loc": "im Technikraum", "chips": [["dunkel", "mørkt"], ["warm", "varmt"]]}, {"n": "die Garderobe", "word": "Garderobe", "emoji": "🧥", "no": "en garderobe", "loc": "in der Garderobe", "chips": [["oben", "oppe"], ["Fenster", "vindu"]]}, {"n": "der Keller", "word": "Keller", "emoji": "🍷", "no": "en kjeller", "loc": "im Keller", "chips": [["dunkel", "mørkt"], ["groß", "stort"]]}], "clues": [["Herr Metz hatte nicht die Schere.", "Herr Metz hadde ikke saksen."], ["Herr Metz hatte nicht den Feuerlöscher.", "Herr Metz hadde ikke brannslukkeren."], ["Herr Metz war nicht im Technikraum.", "Herr Metz var ikke i teknikkrommet."], ["Frau Vogel war auf der Bühne.", "Frau Vogel var på scenen."], ["Die Person mit dem Hammer war nicht in der Garderobe.", "Personen med hammeren var ikke i garderoben."], ["Die Person mit der Taschenlampe war auf der Bühne.", "Personen med lommelykten var på scenen."], ["Die Person mit dem Feuerlöscher war nicht im Technikraum.", "Personen med brannslukkeren var ikke i teknikkrommet."], ["Der Täter ist Linkshänder.", "Gjerningsmannen er venstrehendt."], ["Der Tatort ist dunkel.", "Åstedet er mørkt."]], "hints": [["Herr Metz ist nicht der Täter.", "Herr Metz er ikke gjerningsmannen."], ["Das Tatwerkzeug war nicht der Feuerlöscher.", "Verktøyet var ikke brannslukkeren."], ["Der Tatort war nicht im Keller.", "Åstedet var ikke i kjelleren."], ["Frau Vogel ist nicht der Täter.", "Frau Vogel er ikke gjerningsmannen."], ["Das Tatwerkzeug war nicht die Taschenlampe.", "Verktøyet var ikke lommelykten."], ["Der Tatort war nicht in der Garderobe.", "Åstedet var ikke i garderoben."], ["Frau Haas ist nicht der Täter.", "Frau Haas er ikke gjerningsmannen."], ["Das Tatwerkzeug war nicht der Hammer.", "Verktøyet var ikke hammeren."], ["Der Tatort war nicht auf der Bühne.", "Åstedet var ikke på scenen."]], "sol": [2, 0, 1], "motive": ["Jonas wollte nicht auf der Bühne spielen. Er hatte Angst vor dem Konzert.", "Jonas ville ikke spille på scenen. Han var redd for konserten."], "end": ["Jonas hat im Technikraum das Kabel mit der Schere durchgeschnitten.", "Jonas klippet over kabelen i teknikkrommet med saksen."], "wlab": ["Werkzeug", "Werkzeuge", "verktøy"], "T": {"cd": "Der Täter", "pd": "Der Tatort", "qd": ["Wer war der Täter?", "Mit welchem Werkzeug?", "Wo war der Tatort?"], "qn": ["Hvem var gjerningsmannen?", "Med hvilket verktøy?", "Hvor var åstedet?"]}}, {"id": 6, "title": "Mord im Nachtzug", "title_no": "Mord i nattoget", "type": "Mord", "ico": "🔪", "level": "mittel", "story": ["Im Nachtzug nach Wien wurde ein Mann tot gefunden.", "Fünf Personen waren im Zug.", "Der Zug fährt weiter. Niemand darf aussteigen!"], "story_no": ["I nattoget til Wien ble en mann funnet død.", "Fem personer var på toget.", "Toget kjører videre. Ingen får gå av!"], "suspects": [{"name": "Frau Adler", "emoji": "👩‍⚕️", "pde": "Frau Adler ist Ärztin. Sie trägt eine Brille und hat eine Tasche.", "pno": "Frau Adler er lege. Hun har briller og har en veske."}, {"name": "Herr Bär", "emoji": "💂", "pde": "Herr Bär ist Schaffner. Er trägt einen Hut und hat einen Bart.", "pno": "Herr Bär er konduktør. Han har hatt og har skjegg."}, {"name": "Frau Rosen", "emoji": "👩‍🎤", "pde": "Frau Rosen ist Sängerin. Sie hat rote Haare, trägt Handschuhe und trägt einen Hut.", "pno": "Frau Rosen er sangerinne. Hun har rødt hår, har på seg hansker og har hatt."}, {"name": "Herr Eich", "emoji": "🧔", "pde": "Herr Eich ist Händler. Er ist Linkshänder, hat einen Bart und hat eine Tasche.", "pno": "Herr Eich er selger. Han er venstrehendt, har skjegg og har en veske."}, {"name": "Paul Stern", "emoji": "🧑‍🎓", "pde": "Paul Stern ist Student. Er trägt eine Brille und ist Linkshänder.", "pno": "Paul Stern er student. Han har briller og er venstrehendt."}], "weapons": [{"n": "das Gift", "word": "Gift", "emoji": "🧪", "no": "et gift", "chips": [["giftig", "giftig"], ["klein", "liten"]]}, {"n": "der Schal", "word": "Schal", "emoji": "🧣", "no": "et skjerf", "chips": [["lang", "lang"]]}, {"n": "der Koffer", "word": "Koffer", "emoji": "🧳", "no": "en koffert", "chips": [["schwer", "tung"]]}, {"n": "das Messer", "word": "Messer", "emoji": "🔪", "no": "en kniv", "chips": [["scharf", "skarp"], ["aus Metall", "av metall"]]}, {"n": "die Flasche", "word": "Flasche", "emoji": "🍾", "no": "en flaske", "chips": [["aus Glas", "av glass"], ["schwer", "tung"]]}], "rooms": [{"n": "der Speisewagen", "word": "Speisewagen", "emoji": "🍽️", "no": "en spisevogn", "loc": "im Speisewagen", "chips": [["warm", "varmt"], ["groß", "stort"], ["Fenster", "vindu"]]}, {"n": "der Schlafwagen", "word": "Schlafwagen", "emoji": "🛏️", "no": "en sovevogn", "loc": "im Schlafwagen", "chips": [["dunkel", "mørkt"], ["warm", "varmt"]]}, {"n": "der Gepäckwagen", "word": "Gepäckwagen", "emoji": "📦", "no": "en bagasjevogn", "loc": "im Gepäckwagen", "chips": [["dunkel", "mørkt"], ["kalt", "kaldt"], ["groß", "stort"]]}, {"n": "die Bar", "word": "Bar", "emoji": "🍸", "no": "en bar", "loc": "in der Bar", "chips": [["warm", "varmt"], ["Fenster", "vindu"]]}, {"n": "die Lok", "word": "Lok", "emoji": "🚂", "no": "en lokomotiv", "loc": "in der Lok", "chips": [["laut", "bråkete"], ["warm", "varmt"], ["Fenster", "vindu"]]}], "clues": [["Herr Eich hatte nicht die Flasche.", "Herr Eich hadde ikke flasken."], ["Paul Stern hatte nicht die Flasche.", "Paul Stern hadde ikke flasken."], ["Herr Bär war nicht im Schlafwagen.", "Herr Bär var ikke i sovevognen."], ["Frau Rosen war in der Bar.", "Frau Rosen var i baren."], ["Die Person mit der Flasche war im Schlafwagen.", "Personen med flasken var i sovevognen."], ["Der Mörder hat eine Tasche.", "Morderen har en veske."], ["Die Tatwaffe ist klein.", "Mordvåpenet er lite."], ["Der Tatort ist nicht laut.", "Åstedet er ikke bråkete."], ["Der Tatort war nicht im Gepäckwagen.", "Åstedet var ikke i bagasjevognen."]], "hints": [["Frau Rosen ist nicht der Mörder.", "Frau Rosen er ikke morderen."], ["Die Tatwaffe war nicht die Flasche.", "Mordvåpenet var ikke flasken."], ["Der Tatort war nicht in der Bar.", "Åstedet var ikke i baren."], ["Herr Bär ist nicht der Mörder.", "Herr Bär er ikke morderen."], ["Die Tatwaffe war nicht das Messer.", "Mordvåpenet var ikke kniven."], ["Der Tatort war nicht im Schlafwagen.", "Åstedet var ikke i sovevognen."], ["Paul Stern ist nicht der Mörder.", "Paul Stern er ikke morderen."], ["Die Tatwaffe war nicht der Schal.", "Mordvåpenet var ikke skjerfet."], ["Der Tatort war nicht in der Lok.", "Åstedet var ikke i lokomotivet."], ["Frau Adler ist nicht der Mörder.", "Frau Adler er ikke morderen."], ["Die Tatwaffe war nicht der Koffer.", "Mordvåpenet var ikke kofferten."]], "sol": [3, 0, 0], "motive": ["Das Opfer wusste, dass Herr Eich falsche Uhren verkauft.", "Offeret visste at herr Eich selger falske klokker."], "end": ["Herr Eich hat das Gift in das Essen im Speisewagen getan.", "Herr Eich puttet giften i maten i spisevognen."], "wlab": ["Waffe", "Waffen", "våpen"], "T": {"cd": "Der Mörder", "pd": "Der Tatort", "qd": ["Wer war der Mörder?", "Mit welcher Waffe?", "Wo war der Tatort?"], "qn": ["Hvem var morderen?", "Med hvilket våpen?", "Hvor var åstedet?"]}}, {"id": 7, "title": "Das Schloss des Grafen", "title_no": "Grevens slott", "type": "Mord", "ico": "🔪", "level": "schwer", "story": ["Im Schloss Falkenstein wurde der Graf tot gefunden.", "Fünf Personen waren im Schloss.", "Alle sagen: „Ich war es nicht!“"], "story_no": ["På slottet Falkenstein ble greven funnet død.", "Fem personer var på slottet.", "Alle sier: «Det var ikke meg!»"], "suspects": [{"name": "Frau Winter", "emoji": "👩‍🍳", "pde": "Frau Winter ist Köchin. Sie trägt einen Hut und ist Linkshänderin.", "pno": "Frau Winter er kokk. Hun har hatt og er venstrehendt."}, {"name": "Herr Lorenz", "emoji": "🤵", "pde": "Herr Lorenz ist Butler. Er trägt Handschuhe und hat einen Bart.", "pno": "Herr Lorenz er butler. Han har på seg hansker og har skjegg."}, {"name": "Lady Rose", "emoji": "👸", "pde": "Lady Rose ist Gast. Sie hat rote Haare, trägt eine Brille und hat eine Tasche.", "pno": "Lady Rose er gjest. Hun har rødt hår, har briller og har en veske."}, {"name": "Dr. Falk", "emoji": "👨‍⚕️", "pde": "Dr. Falk ist Arzt. Er trägt eine Brille und hat einen Bart.", "pno": "Dr. Falk er lege. Han har briller og har skjegg."}, {"name": "Anna Meyer", "emoji": "👩‍🌾", "pde": "Anna Meyer ist Gärtnerin. Sie ist Linkshänderin, hat eine Tasche und trägt Handschuhe.", "pno": "Anna Meyer er gartner. Hun er venstrehendt, har en veske og har på seg hansker."}], "weapons": [{"n": "das Schwert", "word": "Schwert", "emoji": "🗡️", "no": "et sverd", "chips": [["scharf", "skarp"], ["aus Metall", "av metall"], ["lang", "lang"]]}, {"n": "der Kerzenständer", "word": "Kerzenständer", "emoji": "🕯️", "no": "en lysestake", "chips": [["schwer", "tung"], ["aus Metall", "av metall"]]}, {"n": "das Gift", "word": "Gift", "emoji": "🧪", "no": "et gift", "chips": [["giftig", "giftig"], ["klein", "liten"]]}, {"n": "der Schal", "word": "Schal", "emoji": "🧣", "no": "et skjerf", "chips": [["lang", "lang"]]}, {"n": "die Flasche", "word": "Flasche", "emoji": "🍾", "no": "en flaske", "chips": [["aus Glas", "av glass"], ["schwer", "tung"]]}], "rooms": [{"n": "die Bibliothek", "word": "Bibliothek", "emoji": "📚", "no": "et bibliotek", "loc": "in der Bibliothek", "chips": [["oben", "oppe"], ["Fenster", "vindu"]]}, {"n": "der Ballsaal", "word": "Ballsaal", "emoji": "💃", "no": "en ballsal", "loc": "im Ballsaal", "chips": [["groß", "stort"], ["warm", "varmt"], ["Fenster", "vindu"]]}, {"n": "der Turm", "word": "Turm", "emoji": "🏰", "no": "et tårn", "loc": "im Turm", "chips": [["oben", "oppe"], ["kalt", "kaldt"], ["dunkel", "mørkt"]]}, {"n": "der Keller", "word": "Keller", "emoji": "🍷", "no": "en kjeller", "loc": "im Keller", "chips": [["dunkel", "mørkt"], ["kalt", "kaldt"]]}, {"n": "die Küche", "word": "Küche", "emoji": "🍽️", "no": "et kjøkken", "loc": "in der Küche", "chips": [["warm", "varmt"]]}], "clues": [["Frau Winter hatte nicht den Kerzenständer.", "Frau Winter hadde ikke lysestaken."], ["Lady Rose hatte die Flasche.", "Lady Rose hadde flasken."], ["Anna Meyer hatte nicht den Kerzenständer.", "Anna Meyer hadde ikke lysestaken."], ["Frau Winter war nicht im Turm.", "Frau Winter var ikke i tårnet."], ["Frau Winter war nicht im Keller.", "Frau Winter var ikke i kjelleren."], ["Herr Lorenz war nicht in der Bibliothek.", "Herr Lorenz var ikke i biblioteket."], ["Herr Lorenz war nicht im Ballsaal.", "Herr Lorenz var ikke i ballsalen."], ["Herr Lorenz war nicht in der Küche.", "Herr Lorenz var ikke på kjøkkenet."], ["Anna Meyer war nicht im Turm.", "Anna Meyer var ikke i tårnet."], ["Die Person mit dem Schwert war im Turm.", "Personen med sverdet var i tårnet."], ["Die Person mit dem Schal war im Keller.", "Personen med skjerfet var i kjelleren."], ["Der Mörder hat einen Bart.", "Morderen har skjegg."], ["Der Tatort ist dunkel.", "Åstedet er mørkt."]], "hints": [["Anna Meyer ist nicht der Mörder.", "Anna Meyer er ikke morderen."], ["Die Tatwaffe war nicht der Schal.", "Mordvåpenet var ikke skjerfet."], ["Der Tatort war nicht in der Küche.", "Åstedet var ikke på kjøkkenet."], ["Dr. Falk ist nicht der Mörder.", "Dr. Falk er ikke morderen."], ["Die Tatwaffe war nicht die Flasche.", "Mordvåpenet var ikke flasken."], ["Der Tatort war nicht im Ballsaal.", "Åstedet var ikke i ballsalen."], ["Lady Rose ist nicht der Mörder.", "Lady Rose er ikke morderen."], ["Die Tatwaffe war nicht das Gift.", "Mordvåpenet var ikke giften."], ["Der Tatort war nicht im Keller.", "Åstedet var ikke i kjelleren."], ["Frau Winter ist nicht der Mörder.", "Frau Winter er ikke morderen."], ["Die Tatwaffe war nicht der Kerzenständer.", "Mordvåpenet var ikke lysestaken."], ["Der Tatort war nicht in der Bibliothek.", "Åstedet var ikke i biblioteket."]], "sol": [1, 0, 2], "motive": ["Herr Lorenz arbeitete seit dreißig Jahren im Schloss. Der Graf wollte ihn wegschicken.", "Herr Lorenz hadde jobbet på slottet i tretti år. Greven ville sende ham bort."], "end": ["Herr Lorenz hat den Grafen im Turm mit dem Schwert getötet. Der Butler war es also doch!", "Herr Lorenz drepte greven i tårnet med sverdet. Det var altså butleren likevel!"], "wlab": ["Waffe", "Waffen", "våpen"], "T": {"cd": "Der Mörder", "pd": "Der Tatort", "qd": ["Wer war der Mörder?", "Mit welcher Waffe?", "Wo war der Tatort?"], "qn": ["Hvem var morderen?", "Med hvilket våpen?", "Hvor var åstedet?"]}}, {"id": 8, "title": "Der Juwelenraub", "title_no": "Juveltyveriet", "type": "Diebstahl", "ico": "💎", "level": "schwer", "story": ["Beim Juwelier „Gold & Glanz“ sind die teuersten Juwelen verschwunden.", "Der Tresor war nicht kaputt.", "Fünf Personen waren im Haus."], "story_no": ["Hos juveleren «Gold & Glanz» har de dyreste juvelene forsvunnet.", "Safen var ikke ødelagt.", "Fem personer var i huset."], "suspects": [{"name": "Herr Gold", "emoji": "👨‍💼", "pde": "Herr Gold ist Juwelier. Er trägt eine Brille und hat einen Bart.", "pno": "Herr Gold er gullsmed. Han har briller og har skjegg."}, {"name": "Frau Perl", "emoji": "👩‍💼", "pde": "Frau Perl ist Verkäuferin. Sie hat rote Haare und hat eine Tasche.", "pno": "Frau Perl er selger. Hun har rødt hår og har en veske."}, {"name": "Max Kern", "emoji": "💂", "pde": "Max Kern ist Wachmann. Er trägt einen Hut und trägt Handschuhe.", "pno": "Max Kern er vaktmann. Han har hatt og har på seg hansker."}, {"name": "Herr Neumann", "emoji": "🧑", "pde": "Herr Neumann ist Kunde. Er ist Linkshänder und trägt einen Hut.", "pno": "Herr Neumann er kunde. Han er venstrehendt og har hatt."}, {"name": "Dr. Stahl", "emoji": "👩‍💻", "pde": "Dr. Stahl ist Reporterin. Sie trägt eine Brille und hat eine Tasche.", "pno": "Dr. Stahl er reporter. Hun har briller og har en veske."}], "weapons": [{"n": "das Brecheisen", "word": "Brecheisen", "emoji": "🔧", "no": "et brekkjern", "chips": [["schwer", "tung"], ["aus Metall", "av metall"], ["laut", "støyende"]]}, {"n": "die Taschenlampe", "word": "Taschenlampe", "emoji": "🔦", "no": "en lommelykt", "chips": [["klein", "liten"]]}, {"n": "der Rucksack", "word": "Rucksack", "emoji": "🎒", "no": "en ryggsekk", "chips": [["groß", "stor"]]}, {"n": "die Schere", "word": "Schere", "emoji": "✂️", "no": "en saks", "chips": [["scharf", "skarp"], ["klein", "liten"], ["aus Metall", "av metall"]]}, {"n": "der Hammer", "word": "Hammer", "emoji": "🔨", "no": "en hammer", "chips": [["schwer", "tung"], ["laut", "støyende"]]}], "rooms": [{"n": "das Juweliergeschäft", "word": "Juweliergeschäft", "emoji": "💍", "no": "en juvelerbutikk", "loc": "im Juweliergeschäft", "chips": [["Fenster", "vindu"], ["groß", "stort"]]}, {"n": "der Hinterhof", "word": "Hinterhof", "emoji": "🧱", "no": "en bakgård", "loc": "im Hinterhof", "chips": [["draußen", "utendørs"], ["dunkel", "mørkt"]]}, {"n": "das Dach", "word": "Dach", "emoji": "🏠", "no": "et tak", "loc": "auf dem Dach", "chips": [["draußen", "utendørs"], ["oben", "oppe"]]}, {"n": "der Tresorraum", "word": "Tresorraum", "emoji": "🔐", "no": "et safe-rom", "loc": "im Tresorraum", "chips": [["dunkel", "mørkt"], ["kalt", "kaldt"]]}, {"n": "das Büro", "word": "Büro", "emoji": "🖥️", "no": "et kontor", "loc": "im Büro", "chips": [["warm", "varmt"], ["oben", "oppe"], ["Fenster", "vindu"]]}], "clues": [["Herr Gold hatte nicht das Brecheisen.", "Herr Gold hadde ikke brekkjernet."], ["Max Kern hatte nicht das Brecheisen.", "Max Kern hadde ikke brekkjernet."], ["Herr Neumann hatte die Schere.", "Herr Neumann hadde saksen."], ["Dr. Stahl hatte nicht das Brecheisen.", "Dr. Stahl hadde ikke brekkjernet."], ["Max Kern war auf dem Dach.", "Max Kern var på taket."], ["Dr. Stahl war nicht im Tresorraum.", "Dr. Stahl var ikke i safe-rommet."], ["Dr. Stahl war nicht im Büro.", "Dr. Stahl var ikke på kontoret."], ["Die Person mit der Schere war nicht im Hinterhof.", "Personen med saksen var ikke i bakgården."], ["Die Person mit der Schere war nicht im Tresorraum.", "Personen med saksen var ikke i safe-rommet."], ["Die Person mit der Schere war nicht im Büro.", "Personen med saksen var ikke på kontoret."], ["Der Dieb hat rote Haare.", "Tyven har rødt hår."], ["Der Tatort ist nicht warm.", "Åstedet er ikke varmt."]], "hints": [["Dr. Stahl ist nicht der Dieb.", "Dr. Stahl er ikke tyven."], ["Das Tatwerkzeug war nicht der Rucksack.", "Verktøyet var ikke ryggsekken."], ["Der Tatort war nicht auf dem Dach.", "Åstedet var ikke på taket."], ["Herr Neumann ist nicht der Dieb.", "Herr Neumann er ikke tyven."], ["Das Tatwerkzeug war nicht die Taschenlampe.", "Verktøyet var ikke lommelykten."], ["Der Tatort war nicht im Büro.", "Åstedet var ikke på kontoret."], ["Max Kern ist nicht der Dieb.", "Max Kern er ikke tyven."], ["Das Tatwerkzeug war nicht die Schere.", "Verktøyet var ikke saksen."], ["Der Tatort war nicht im Hinterhof.", "Åstedet var ikke i bakgården."], ["Herr Gold ist nicht der Dieb.", "Herr Gold er ikke tyven."], ["Das Tatwerkzeug war nicht der Hammer.", "Verktøyet var ikke hammeren."], ["Der Tatort war nicht im Juweliergeschäft.", "Åstedet var ikke i butikken."]], "sol": [1, 0, 3], "motive": ["Frau Perl kannte den Code für den Tresor. Sie wollte nicht mehr arbeiten und lieber reisen.", "Fru Perl kjente koden til safen. Hun ville ikke jobbe mer og heller reise."], "end": ["Frau Perl hat die Juwelen im Tresorraum genommen und das Brecheisen als Ablenkung benutzt.", "Fru Perl tok juvelene i safe-rommet og brukte brekkjernet for å lede oppmerksomheten bort."], "wlab": ["Werkzeug", "Werkzeuge", "verktøy"], "T": {"cd": "Der Dieb", "pd": "Der Tatort", "qd": ["Wer war der Dieb?", "Mit welchem Werkzeug?", "Wo war der Tatort?"], "qn": ["Hvem var tyven?", "Med hvilket verktøy?", "Hvor var åstedet?"]}}], "rules_de": "Jede Person war in einem anderen Raum und hatte einen anderen Gegenstand.", "rules_no": "Hver person var i et eget rom og hadde en egen gjenstand."}</script>
+
+</div>
+<script>
+(function(){
+  var D=JSON.parse(document.getElementById('lp-data').textContent);
+  var CASES=D.cases, STATE={}, DONE={}, cur=-1;
+  var listV=document.getElementById('lp-list'), caseV=document.getElementById('lp-case'), root=document.getElementById('lp-app');
+  function H(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function two(de,no,cls){return '<span class="lp-de">'+H(de)+'</span><span class="lp-no">'+H(no)+'</span>';}
+  function mkState(i){var n=CASES[i].suspects.length;function m(){var a=[];for(var r=0;r<n;r++){var row=[];for(var c=0;c<n;c++)row.push(0);a.push(row);}return a;}
+    return {sw:m(),sr:m(),wr:m(),hints:0,wrong:0,solved:false,stars:0,no:(CASES[i].level==='leicht')};}
+  var LV={leicht:'🟢 Leicht',mittel:'🟡 Mittel',schwer:'🔴 Schwer'};
+
+  function renderList(){
+    var h='';
+    CASES.forEach(function(c,i){
+      var d=DONE[i];
+      h+='<button type="button" class="lp-card lp-l-'+c.level+(d?' lp-done':'')+'" data-i="'+i+'">'
+        +'<span class="lp-card-top"><span class="lp-card-no">Fall '+(i+1)+'</span><span class="lp-lv">'+LV[c.level]+'</span></span>'
+        +'<span class="lp-card-ico">'+c.ico+'</span>'
+        +'<b class="lp-card-title">'+H(c.title)+'</b>'
+        +'<span class="lp-card-no2">'+H(c.title_no)+'</span>'
+        +'<span class="lp-card-meta">'+c.suspects.length+' Verdächtige · '+H(c.type)+'</span>'
+        +(d?'<span class="lp-card-done">✅ gelöst '+('⭐'.repeat(d))+'</span>':'')
+        +'</button>';
+    });
+    document.getElementById('lp-cards').innerHTML=h;
+  }
+
+  function castCards(c){
+    var h='<div class="lp-cast">';
+    h+='<h4>🕵️ Verdächtige <small>(mistenkte)</small></h4><div class="lp-cg">';
+    c.suspects.forEach(function(s){h+='<div class="lp-cc"><span class="lp-em">'+s.emoji+'</span><b>'+H(s.name)+'</b><span class="lp-de lp-pf">'+H(s.pde)+'</span><span class="lp-no">'+H(s.pno)+'</span></div>';});
+    h+='</div><h4>'+(c.wlab[1]==='Waffen'?'🔪 Waffen':'🧰 Werkzeuge')+' <small>('+c.wlab[2]+')</small></h4><div class="lp-cg">';
+    c.weapons.forEach(function(w){h+='<div class="lp-cc"><span class="lp-em">'+w.emoji+'</span><b>'+H(w.n)+'</b><span class="lp-no">'+H(w.no)+'</span><span class="lp-chips">'+w.chips.map(function(x){return '<i><span class="lp-de">'+H(x[0])+'</span><span class="lp-no">'+H(x[1])+'</span></i>';}).join('')+'</span></div>';});
+    h+='</div><h4>🏚️ Räume <small>(rom)</small></h4><div class="lp-cg">';
+    c.rooms.forEach(function(r){h+='<div class="lp-cc"><span class="lp-em">'+r.emoji+'</span><b>'+H(r.n)+'</b><span class="lp-no">'+H(r.no)+'</span><span class="lp-chips">'+r.chips.map(function(x){return '<i><span class="lp-de">'+H(x[0])+'</span><span class="lp-no">'+H(x[1])+'</span></i>';}).join('')+'</span></div>';});
+    return h+'</div></div>';
+  }
+
+  function gridHtml(key,title,rows,cols,rlab,clab){
+    var n=rows.length;
+    var h='<div class="lp-gwrap"><div class="lp-gt">'+H(title)+'</div><div class="lp-gscroll"><table class="lp-grid" data-g="'+key+'"><thead><tr><th class="lp-corner"></th>';
+    cols.forEach(function(c){h+='<th class="lp-ch"><span class="lp-chin"><span class="lp-em">'+c.e+'</span><span class="lp-vt">'+H(c.t)+'</span></span></th>';});
+    h+='</tr></thead><tbody>';
+    rows.forEach(function(r,i){
+      h+='<tr><th class="lp-rh"><span class="lp-em">'+r.e+'</span> <span class="lp-rt">'+H(r.t)+'</span></th>';
+      for(var j=0;j<n;j++)h+='<td><button type="button" class="lp-cell" data-g="'+key+'" data-r="'+i+'" data-c="'+j+'" aria-label="'+H(r.t+' – '+cols[j].t)+': leer"></button></td>';
+      h+='</tr>';
+    });
+    return h+'</tbody></table></div></div>';
+  }
+
+  function ents(arr,kind){return arr.map(function(x){return {e:x.emoji,t:kind==='s'?x.name:x.word};});}
+
+  function openCase(i,skipHash){
+    cur=i; var c=CASES[i]; if(!STATE[i])STATE[i]=mkState(i); var st=STATE[i];
+    var T=c.T;
+    var h='';
+    h+='<div class="lp-top"><button type="button" class="lp-btn lp-ghost" id="lp-back">← Alle Fälle</button>'
+      +'<button type="button" class="lp-btn lp-ghost" id="lp-notog" aria-pressed="'+st.no+'">🇳🇴 Vis norsk</button></div>';
+    h+='<h2 class="lp-title">'+c.ico+' Fall '+(i+1)+': '+H(c.title)+'</h2><div class="lp-sub">'+H(c.title_no)+' · '+LV[c.level]+'</div>';
+    h+='<section class="lp-sec"><h3>📂 Der Fall</h3>';
+    c.story.forEach(function(s,k){h+='<p class="lp-story">'+two(s,c.story_no[k])+'</p>';});
+    h+='<p class="lp-story lp-rule">'+two(D.rules_de,D.rules_no)+'</p>';
+    h+='<p class="lp-story lp-q"><b>'+H(T.qd[0])+' '+H(T.qd[1])+' '+H(T.qd[2])+'</b><span class="lp-no">'+H(T.qn[0]+' '+T.qn[1]+' '+T.qn[2])+'</span></p></section>';
+    h+='<section class="lp-sec"><h3>👥 Die Beteiligten</h3>'+castCards(c)+'</section>';
+    h+='<section class="lp-sec"><h3>🔎 Die Hinweise</h3><ol class="lp-clues">';
+    c.clues.forEach(function(cl){h+='<li>'+two(cl[0],cl[1])+'</li>';});
+    h+='</ol></section>';
+    h+='<section class="lp-sec"><h3>📝 Dein Notizblock</h3><p class="lp-help">Tippe auf ein Feld: <b>✗</b> = nein, <b>✓</b> = ja, noch einmal = leer. Pro Zeile und Spalte gibt es nur ein ✓.<span class="lp-no">Trykk på en rute: ✗ = nei, ✓ = ja, igjen = tom. Det finnes bare ett ✓ per rad og kolonne.</span></p>'
+      +'<label class="lp-auto"><input type="checkbox" id="lp-auto" checked> Automatische ✗ (auto-kryss)</label><div class="lp-grids">'
+      +gridHtml('sw','Wer ↔ '+c.wlab[0],ents(c.suspects,'s'),ents(c.weapons,'w'))
+      +gridHtml('sr','Wer ↔ Raum',ents(c.suspects,'s'),ents(c.rooms,'r'))
+      +gridHtml('wr',c.wlab[0]+' ↔ Raum',ents(c.weapons,'w'),ents(c.rooms,'r'))
+      +'</div><div class="lp-row"><button type="button" class="lp-btn lp-ghost" id="lp-reset">↺ Notizblock leeren</button></div></section>';
+    h+='<section class="lp-sec"><h3>💡 Brauchst du einen Tipp?</h3><div id="lp-hints" class="lp-hints"></div><button type="button" class="lp-btn" id="lp-hint">💡 Tipp anzeigen</button> <span class="lp-hcount" id="lp-hcount"></span></section>';
+    h+='<section class="lp-sec lp-accuse"><h3>⚖️ Anklage</h3><p>'+two('Wer war es? Womit? Wo?','Hvem var det? Med hva? Hvor?')+'</p><div class="lp-sels">'
+      +'<label>'+H(T.cd)+'<select id="lp-sel-c"><option value="">–</option>'+c.suspects.map(function(s,k){return '<option value="'+k+'">'+H(s.emoji+' '+s.name)+'</option>';}).join('')+'</select></label>'
+      +'<label>'+H(c.wlab[0])+'<select id="lp-sel-w"><option value="">–</option>'+c.weapons.map(function(s,k){return '<option value="'+k+'">'+H(s.emoji+' '+s.n)+'</option>';}).join('')+'</select></label>'
+      +'<label>'+H(T.pd)+'<select id="lp-sel-r"><option value="">–</option>'+c.rooms.map(function(s,k){return '<option value="'+k+'">'+H(s.emoji+' '+s.n)+'</option>';}).join('')+'</select></label></div>'
+      +'<button type="button" class="lp-btn lp-go" id="lp-accuse">⚖️ Anklage erheben</button><div id="lp-msg" class="lp-msg" aria-live="polite"></div><div id="lp-result"></div></section>';
+    caseV.innerHTML=h;
+    caseV.className='lp-case'+(st.no?' lp-no-on':'');
+    listV.hidden=true; caseV.hidden=false;
+    wire(i); paint(); showHints(); if(st.solved)showResult(true);
+    if(!skipHash){try{history.replaceState(null,'','#fall-'+(i+1));}catch(e){location.hash='#fall-'+(i+1);}}
+    window.scrollTo(0,0);
+  }
+
+  function paint(){
+    var st=STATE[cur]; if(!st)return; var n=CASES[cur].suspects.length;
+    var autoOn=document.getElementById('lp-auto')&&document.getElementById('lp-auto').checked;
+    ['sw','sr','wr'].forEach(function(g){
+      var M=st[g];
+      var cells=caseV.querySelectorAll('.lp-cell[data-g="'+g+'"]');
+      for(var k=0;k<cells.length;k++){
+        var b=cells[k],r=+b.getAttribute('data-r'),c=+b.getAttribute('data-c'),v=M[r][c];
+        var auto=false;
+        if(v===0&&autoOn){for(var x=0;x<n;x++){if(M[r][x]===2||M[x][c]===2){auto=true;break;}}}
+        b.className='lp-cell'+(v===1?' lp-x':'')+(v===2?' lp-v':'')+(auto?' lp-auto-x':'');
+        b.textContent=v===1?'✗':(v===2?'✓':(auto?'✗':''));
+      }
+    });
+  }
+
+  function showHints(){
+    var st=STATE[cur],c=CASES[cur],box=document.getElementById('lp-hints'),h='';
+    for(var k=0;k<st.hints&&k<c.hints.length;k++)h+='<div class="lp-hint">💡 '+two(c.hints[k][0],c.hints[k][1])+'</div>';
+    box.innerHTML=h;
+    var hb=document.getElementById('lp-hint');
+    document.getElementById('lp-hcount').textContent=st.hints?('Tipps verwendet: '+st.hints):'';
+    if(st.hints>=c.hints.length)hb.disabled=true;
+  }
+
+  function showResult(again){
+    var st=STATE[cur],c=CASES[cur],T=c.T,s=c.suspects[c.sol[0]],w=c.weapons[c.sol[1]],r=c.rooms[c.sol[2]];
+    var stars=st.stars;
+    var h='<div class="lp-win"><div class="lp-win-h">🎉 Fall gelöst!<span class="lp-no">Saken er løst!</span></div>'
+      +'<div class="lp-win-grid"><div><span class="lp-em">'+s.emoji+'</span><small>'+H(T.cd)+'</small><b>'+H(s.name)+'</b></div>'
+      +'<div><span class="lp-em">'+w.emoji+'</span><small>'+H(c.wlab[0])+'</small><b>'+H(w.n)+'</b></div>'
+      +'<div><span class="lp-em">'+r.emoji+'</span><small>'+H(T.pd)+'</small><b>'+H(r.loc)+'</b></div></div>'
+      +'<p class="lp-win-t">'+two(c.end[0],c.end[1])+'</p>'
+      +'<p class="lp-win-t"><b>Warum? </b>'+two(c.motive[0],c.motive[1])+'</p>'
+      +'<p class="lp-stars">'+'⭐'.repeat(stars)+'<span class="lp-dim">'+'☆'.repeat(3-stars)+'</span> <small>('+st.hints+' Tipps, '+st.wrong+' falsche Anklagen)</small></p>'
+      +'<div class="lp-row"><button type="button" class="lp-btn lp-ghost" id="lp-tolist">← Alle Fälle</button>'
+      +(cur+1<CASES.length?'<button type="button" class="lp-btn lp-go" id="lp-next">Nächster Fall →</button>':'')+'</div></div>';
+    document.getElementById('lp-result').innerHTML=h;
+    document.getElementById('lp-tolist').addEventListener('click',toList);
+    var nx=document.getElementById('lp-next'); if(nx)nx.addEventListener('click',function(){openCase(cur+1);});
+    document.getElementById('lp-accuse').disabled=true;
+    ['c','w','r'].forEach(function(k,x){var sel=document.getElementById('lp-sel-'+k);sel.value=String(c.sol[x]);sel.disabled=true;});
+    if(!again){var res=document.getElementById('lp-result');res.scrollIntoView({behavior:'smooth',block:'center'});}
+  }
+
+  function toList(){
+    cur=-1; caseV.hidden=true; listV.hidden=false; renderList();
+    try{history.replaceState(null,'',location.pathname+location.search);}catch(e){}
+    window.scrollTo(0,0);
+  }
+
+  function wire(i){
+    var st=STATE[i],c=CASES[i];
+    document.getElementById('lp-back').addEventListener('click',toList);
+    var nb=document.getElementById('lp-notog');
+    nb.addEventListener('click',function(){st.no=!st.no;caseV.classList.toggle('lp-no-on',st.no);nb.setAttribute('aria-pressed',st.no);});
+    caseV.querySelectorAll('.lp-cell').forEach(function(b){
+      b.addEventListener('click',function(){var g=b.getAttribute('data-g'),r=+b.getAttribute('data-r'),k=+b.getAttribute('data-c');st[g][r][k]=(st[g][r][k]+1)%3;paint();
+        var v=st[g][r][k];b.setAttribute('aria-label',b.getAttribute('aria-label').replace(/: .*$/,'')+': '+(v===1?'nein':(v===2?'ja':'leer')));});
+    });
+    document.getElementById('lp-auto').addEventListener('change',paint);
+    document.getElementById('lp-reset').addEventListener('click',function(){var n=c.suspects.length;['sw','sr','wr'].forEach(function(g){for(var r=0;r<n;r++)for(var k=0;k<n;k++)st[g][r][k]=0;});paint();});
+    document.getElementById('lp-hint').addEventListener('click',function(){if(st.hints<c.hints.length){st.hints++;showHints();}});
+    document.getElementById('lp-accuse').addEventListener('click',function(){
+      var a=document.getElementById('lp-sel-c').value,b=document.getElementById('lp-sel-w').value,d=document.getElementById('lp-sel-r').value,msg=document.getElementById('lp-msg');
+      if(a===''||b===''||d===''){msg.className='lp-msg lp-warn';msg.innerHTML=two('Wähle erst alle drei Dinge aus.','Velg først alle tre tingene.');return;}
+      if(+a===c.sol[0]&&+b===c.sol[1]&&+d===c.sol[2]){
+        st.solved=true; st.stars=(st.hints<=1&&st.wrong<=1)?3:((st.hints<=3&&st.wrong<=2)?2:1);
+        DONE[i]=Math.max(DONE[i]||0,st.stars); msg.className='lp-msg'; msg.innerHTML=''; showResult(false);
+      }else{
+        st.wrong++; msg.className='lp-msg lp-bad';
+        msg.innerHTML=two('Das stimmt noch nicht. Lies die Hinweise noch einmal! ('+st.wrong+')','Det stemmer ikke ennå. Les ledetrådene en gang til!');
+      }
+    });
+  }
+
+  document.getElementById('lp-cards').addEventListener('click',function(e){
+    var b=e.target.closest('.lp-card'); if(b)openCase(+b.getAttribute('data-i'));
+  });
+  function fromHash(){
+    var m=/^#fall-(\d+)$/.exec(location.hash||''); 
+    if(m&&CASES[+m[1]-1]){openCase(+m[1]-1,true);} else if(cur!==-1&&!location.hash){toList();}
+  }
+  window.addEventListener('hashchange',fromHash);
+  renderList(); fromHash();
+  root.classList.add('lp-ready');
+})();
+</script></body>
+</html>
