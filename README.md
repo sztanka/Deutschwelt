@@ -95,6 +95,13 @@ deutschwelt-site/
 │   │   ├── welcher-was-fuer/index.html → welcher-bøying og was für ein, 13 øvelser
 │   │   ├── ordstilling/index.html    → ja/nei- og W-spørsmål, doch, indirekte spørsmål, 14 øvelser
 │   │   └── wo-woerter/index.html     → womit/worauf/wofür og damit/darauf/dafür, 14 øvelser — 🎓 9.–10. trinn
+│   ├── ordstilling/
+│   │   ├── index.html                → hub «Ordstilling»: 🟢🟡🔴-oversikt, kortversjon «hvor står verbet?», spill-liste, anbefalt rekkefølge
+│   │   ├── ordstilling_data.js       → `var DWO` = setningsbank til spillene (166 bygg, 54 feil, 71 verb, 85 type); bygges av /ord-work/bank.py
+│   │   ├── spill/index.html          → 7 spill: Setz den Satz zusammen!, Satz-Puzzle, Was ist falsch?, Verb auf Platz 2, Hauptsatz oder Nebensatz?, Übersetzungs-Challenge, Schnellster Satz (+ klassemodus for lærer); URL-parametere ?modus=&nivaa=&tema=
+│   │   ├── 🟢 plass-2/, ja-nei-sporsmal/, sporreord/, og-men-eller/
+│   │   ├── 🟡 leddsetninger/, leddsetning-forst/, modalverb/, skillbare-verb/, perfekt/, verbene/
+│   │   └── 🔴 tekamolo/, objekt-pronomen/, negasjon/, relativsetninger/, avansert/   — 🎓 9.–10. trinn
 │   ├── tidsuttrykk/
 │   │   ├── index.html                → kategori-hub (lenker også til Zahlen-siden)
 │   │   ├── klokka/index.html         → uformelt/offisielt, halb/Viertel, um/gegen/von … bis, 14 øvelser
@@ -1666,6 +1673,14 @@ Teach ba om underkategorier for de åtte formene for adverbial (Lokal, Temporal,
 ### Eiendomsord, Konjunksjoner, Spørreord og Tidsuttrykk med underkategorier
 
 Teach ba om å bygge ut de fire gjenværende «Kommer snart»-kategoriene på samme måte som Pronomen og Adverbial (grundige forklaringer, tabeller, sammenligning med norsk, bruk i skriving og øvelser). Hver kategori har fått en ny hub (erstatter plassholder-hubben) og undersider med 13–14 flervalgsøvelser hver (totalt 17 undersider, 238 øvelser): Eiendomsord (4 sider), Konjunksjoner (4), Spørreord (5), Tidsuttrykk (4). Sidene er bygget av Python-skript (`pages_*.py` og `build_*.py` + `catcommon.py`, `advcommon.py`, `common.py`), skrevet av parallelle delagenter og så gjennomgått, testet (Playwright desktop og 390 px, alle øvelser løses, ingen JS-feil, 0 brutte lenker) og koblet inn av Claude. Nivåmerking: 🎓 9.–10. trinn på Eiendomsord: Dativ og Genitiv, Konjunksjoner: Doble og Bindeadverb, Spørreord: Wo(r)-/da(r)-ord. Det er kort til disse fem på 9.–10. trinn-siden. Grammatik-hubens kort og forsidens søkeindeks (hub + alle undersider) er oppdatert. Tidsuttrykk-sidene overlapper bevisst delvis med Zahlen-siden (klokke, ordenstall, måneder) og lenker dit for den interaktive klokke-omformeren. Søkenøklene «uhrzeit», «wie spät ist es», «dato», «datum» og «wessen» peker fortsatt til de eldre sidene (Zahlen/Genitiv). Tysk innhold er skrevet av Claude og ikke gjennomlest av en tysk morsmålstaler; punkter vi er mindre sikre på: komma foran «oder» ved «entweder … oder», genitiv-s-apostrof ved navn, regionale klokkeslettuttrykk («Viertel drei», «zwanzig nach»), og «Bindeadverb» som norsk arbeidsbetegnelse for Konjunktionaladverbien.
+
+### Ordstilling som egen seksjon (`grammatikk/ordstilling/`)
+
+Teach ba om en trinnvis ordstillingsdel (regel → eksempler → ordkort → mini-oppgave → spill). Løsningen: en hub + 15 leksjonssider i tre nivåer (🟢 grunnleggende, 🟡 videre, 🔴 viderekomne) + en spillside. Hver leksjon er bygget i små `.dw-step`-bokser med **fargede ordkort** (`chips()`: subjekt blå, verb rødt, andre verbdeler oransje, bindeord grønt, tid/måte/sted egne farger, ❌ gjennomstreket), **mini-bygger** (trykk ordbrikker i riktig rekkefølge; `bi()` med alle godkjente rekkefølger) og 8 flervalgsøvelser («Test deg selv»). Alt bygges av Python-skript (`ordcommon.py`, `pages_grunn/videre/avansert.py`, `build_hub.py`, `bank.py`, `game_js.py`) som bygger på `common.py`/`catcommon.py`.
+
+Spillsiden leser `ordstilling_data.js` og støtter `?modus=bygg|puzzle|feil|plass|type|oversett|rase`, `&nivaa=1|2|3` og `&tema=…`. Poeng lagres bare i minnet (ingen localStorage). Schreiben har et kort som lenker hit, og Konjunksjoner/Adverbial/Spørreord/Analyse har «Se også»-lenker. Søkeindeksen har egne oppføringer (nøkkelen «ordstilling» går nå til den nye hubben; gamle V2-siden under Analyse nås via «v2-regelen»).
+
+**Usikre punkter (ikke lest av morsmålstaler):** godkjente rekkefølger i bygg-oppgavene er bevisst konservative (kontrastive varianter som «Schwimmen kann ich gut» er ikke godtatt); på 🔴-sidene finnes «myke» varianter («Ich fahre nach Hause mit dem Bus morgen») som gir mildere tilbakemelding enn «ikke helt»; Ersatzinfinitiv er utelatt; negasjonssiden bruker bare standard eksempler.
 
 ## Slik legger du til en ny seksjon
 

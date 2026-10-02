@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Ordstilling: spillside (7 spill). Data hentes fra ../ordstilling_data.js (var DWO).
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ordstilling-spill · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:860px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .dw-jump a{font-size:.86rem;font-weight:700;padding:7px 15px;border-radius:999px;text-decoration:none;background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:32px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t tbody th{background:#fbfaf6;font-size:.84rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t td.dw-hl{background:#fff3cf;}
+  .dw-t td.dw-c{text-align:center;}
+  .dw-t td.dw-x{color:#aaa;text-align:center;}
+  .dw-t tr.dw-grp td,.dw-t tr.dw-grp th{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:14px 0;}
+  a.dw-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;text-decoration:none;color:var(--dw-text);box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;gap:6px;}
+  a.dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  a.dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  a.dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
+
+  /* Øvelser */
+  .dw-ex-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+  .dw-ex-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:8px;}
+  .dw-ex-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:16px;}
+  .dw-ex-fill{height:100%;width:0;background:var(--dw-good);transition:width .25s ease;}
+  .dw-ex-cue{font-size:.88rem;color:var(--dw-muted);margin-bottom:4px;}
+  .dw-ex-sent{font-size:1.3rem;font-weight:600;color:var(--dw-primary);line-height:1.5;margin:2px 0 18px;}
+  .dw-ex-sent .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);text-align:center;}
+  .dw-ex-sent .dw-blank.dw-filled{color:var(--dw-good);border-color:var(--dw-good);}
+  .dw-ex-sent .dw-blank.dw-filled.dw-bad{color:var(--dw-bad);border-color:var(--dw-bad);}
+  .dw-ex-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .dw-ex-choice{flex:1 1 110px;max-width:170px;padding:12px 8px;font-family:inherit;font-size:1.1rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;}
+  .dw-ex-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-ex-choice:disabled{cursor:default;opacity:.55;}
+  .dw-ex-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-ex-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .dw-ex-choice:focus-visible,.dw-ex-btn:focus-visible,.dw-ex-hintbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-ex-hintbtn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:.85rem;padding:0;margin-bottom:8px;}
+  .dw-ex-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:10px 14px;margin:6px 0 14px;background:#f4f1e8;}
+  .dw-ex-fb.dw-show{display:block;}
+  .dw-ex-fb.dw-good{background:#eef7ee;color:#1f5d23;}
+  .dw-ex-fb.dw-bad{background:#fdecee;color:#8c1d1d;}
+  .dw-ex-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:11px 26px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .dw-ex-btn:hover{background:var(--dw-primary-light);}
+  .dw-ex-btn.dw-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-ex-result{display:none;text-align:center;}
+  .dw-ex-result.dw-show{display:block;}
+  .dw-ex-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .dw-ex-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:12px 18px;margin:14px 0;font-size:.9rem;}
+  .dw-ex-review li{margin-bottom:6px;}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .dw-ex-sent{font-size:1.12rem;}
+  }
+
+  /* ---- Ordstilling: ordkort ---- */
+  .dw-sent{display:flex;flex-wrap:wrap;gap:8px 6px;align-items:flex-end;margin:10px 0 4px;}
+  .dw-sw{position:relative;display:inline-block;padding:7px 12px 6px;border-radius:10px;border:2px solid #d9d3c4;background:#f1efe8;font-weight:700;font-size:1rem;line-height:1.25;color:#232323;}
+  .dw-sw i{position:absolute;top:-9px;left:6px;font-style:normal;font-size:.68rem;font-weight:800;background:#fff;color:#6b6b6b;border:1px solid #d9d3c4;border-radius:999px;padding:0 6px;line-height:1.35;}
+  .dw-sw-s{background:#dcebff;border-color:#8db7ee;}
+  .dw-sw-v{background:#ffdde2;border-color:#c62828;color:#8c1d1d;box-shadow:0 0 0 2px rgba(198,40,40,.12);}
+  .dw-sw-w{background:#ffe8c4;border-color:#e09b2d;color:#7a4a00;}
+  .dw-sw-c{background:#dcf3dc;border-color:#5bb05b;}
+  .dw-sw-f,.dw-sw-t{background:#ece3ff;border-color:#a98be0;}
+  .dw-sw-m{background:#d9f2f2;border-color:#4fb3b3;}
+  .dw-sw-l{background:#fde7d2;border-color:#e0a266;}
+  .dw-sw-d{background:#f3e3f0;border-color:#c991bd;}
+  .dw-sw-n{background:#e6e6e6;border-color:#8a8a8a;}
+  .dw-sw-o{background:#f1efe8;}
+  .dw-sw-x{background:#fff;border:2px dashed #c62828;color:#c62828;text-decoration:line-through;}
+  .dw-sent .dw-punct{align-self:flex-end;font-weight:800;color:#6b6b6b;padding-bottom:6px;}
+  .dw-sentrow{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;margin:6px 0;}
+  .dw-sentrow .dw-mark{font-size:1.1rem;flex:0 0 auto;padding-top:6px;}
+  .dw-legend{display:flex;flex-wrap:wrap;gap:6px 10px;font-size:.78rem;color:var(--dw-muted);margin:6px 0 2px;}
+  .dw-legend span{display:inline-flex;align-items:center;gap:5px;}
+  .dw-legend b{display:inline-block;width:14px;height:14px;border-radius:4px;border:2px solid #d9d3c4;}
+  .dw-regel{background:#fdf6e3;border:2px solid #d9a91c;border-radius:14px;padding:12px 16px;margin:12px 0;font-size:1.02rem;font-weight:700;line-height:1.5;color:#3d2e00;}
+  .dw-regel small{display:block;font-weight:400;font-size:.84rem;color:#6a5600;margin-top:2px;}
+  .dw-step{background:#fff;border:1px solid #ece8df;border-radius:16px;padding:16px 20px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,.05);line-height:1.65;font-size:.95rem;}
+  .dw-step h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);display:flex;gap:10px;align-items:center;}
+  .dw-step h3 .dw-num{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--dw-primary);color:#fff;font-size:.95rem;display:inline-flex;align-items:center;justify-content:center;}
+  .dw-step p{margin:0 0 10px;} .dw-step ul{margin:6px 0 10px;padding-left:20px;} .dw-step li{margin-bottom:5px;}
+  .dw-step a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-step h4{margin:14px 0 4px;font-size:.88rem;text-transform:uppercase;letter-spacing:.04em;color:var(--dw-muted);}
+  .dw-ok{color:var(--dw-good);font-weight:800;} .dw-bad{color:var(--dw-bad);font-weight:800;}
+  .dw-ex-pair{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0;}
+  .dw-playbox{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:#f3f6fb;border:1px solid #d7e1f0;border-radius:14px;padding:12px 16px;margin:14px 0;font-size:.92rem;}
+  .dw-playbox a{background:var(--dw-primary);color:#fff;text-decoration:none;font-weight:700;border-radius:999px;padding:8px 18px;font-size:.9rem;}
+  .dw-playbox a:hover{background:var(--dw-primary-light);}
+  .dw-lv{display:inline-block;font-size:.72rem;font-weight:700;border-radius:999px;padding:2px 10px;background:#eef1f6;color:#161616;}
+  .dw-lv-1{background:#dff3df;} .dw-lv-2{background:#fff0c2;} .dw-lv-3{background:#fddadd;}
+  /* ---- mini-bygger ---- */
+  .dw-mb{background:#f8f6ef;border:2px dashed #d9d3c4;border-radius:14px;padding:14px 16px;margin:14px 0;}
+  .dw-mb-title{font-weight:800;font-size:.92rem;color:var(--dw-primary-light);margin-bottom:4px;}
+  .dw-mb-nor{font-size:1rem;margin:2px 0 8px;} .dw-mb-nor b{color:var(--dw-muted);font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;margin-right:6px;}
+  .dw-mb-ans{min-height:52px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-bottom:3px solid var(--dw-accent);padding:6px 2px 8px;margin-bottom:10px;background:#fff;border-radius:10px 10px 0 0;}
+  .dw-mb-ans:empty::before{content:"Trykk på ordene i riktig rekkefølge …";color:#aaa;font-size:.85rem;padding-left:8px;}
+  .dw-mb-pool{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;min-height:44px;}
+  .dw-chip{font-family:inherit;font-size:1rem;font-weight:700;padding:8px 13px;border-radius:10px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;}
+  .dw-chip:hover{background:var(--dw-primary);color:#fff;}
+  .dw-chip.dw-in{background:#ece3ff;border-color:#a98be0;color:#2c1a5a;}
+  .dw-chip.dw-in:hover{background:#a98be0;color:#fff;}
+  .dw-chip:focus-visible,.dw-mb-btn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-mb-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+  .dw-mb-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:8px 18px;border-radius:999px;font-size:.9rem;font-weight:700;cursor:pointer;}
+  .dw-mb-btn.dw-sec{background:#fff;color:var(--dw-primary);border:2px solid #d9d3c4;}
+  .dw-mb-btn:hover{background:var(--dw-primary-light);color:#fff;}
+  .dw-mb-fb{display:none;margin-top:10px;border-radius:10px;padding:9px 13px;font-size:.92rem;line-height:1.5;}
+  .dw-mb-fb.dw-show{display:block;} .dw-mb-fb.dw-good{background:#eef7ee;color:#1f5d23;} .dw-mb-fb.dw-bad{background:#fdecee;color:#8c1d1d;} .dw-mb-fb.dw-hint{background:#fff9ec;color:#5a4500;}
+  .dw-mb-prog{font-size:.78rem;color:var(--dw-muted);margin-bottom:6px;}
+  @media(max-width:560px){.dw-sw{font-size:.92rem;padding:6px 9px 5px;}.dw-step{padding:14px 14px 16px;}}
+
+  .dw-g-modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin:12px 0;}
+  .dw-g-mode{font-family:inherit;text-align:left;background:#fff;border:2px solid #e4dfd2;border-radius:14px;padding:12px 14px;cursor:pointer;display:flex;flex-direction:column;gap:3px;color:var(--dw-text);}
+  .dw-g-mode b{font-size:1rem;color:var(--dw-primary);} .dw-g-mode span{font-size:.8rem;color:var(--dw-muted);line-height:1.4;}
+  .dw-g-mode:hover{border-color:var(--dw-primary-light);}
+  .dw-g-mode.dw-on{border-color:var(--dw-primary-light);background:#fff4f5;box-shadow:0 0 0 3px rgba(156,19,41,.12);}
+  .dw-g-filter{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;background:#f3f6fb;border:1px solid #d7e1f0;border-radius:14px;padding:10px 14px;margin:10px 0;font-size:.88rem;}
+  .dw-g-filter label{font-weight:700;} .dw-g-filter select{font-family:inherit;font-size:.9rem;padding:6px 8px;border-radius:8px;border:1.5px solid #cfd8e6;background:#fff;}
+  .dw-g-seg{display:inline-flex;gap:4px;flex-wrap:wrap;}
+  .dw-g-seg button{font-family:inherit;font-size:.84rem;font-weight:700;padding:6px 12px;border-radius:999px;border:1.5px solid #cfd8e6;background:#fff;cursor:pointer;color:var(--dw-text);}
+  .dw-g-seg button.dw-on{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .dw-g-count{margin-left:auto;color:var(--dw-muted);font-size:.8rem;}
+  .dw-g-stage{background:#fff;border:1px solid #ece8df;border-radius:16px;padding:18px 20px 20px;margin:12px 0;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+  .dw-g-bar{display:flex;gap:10px 18px;flex-wrap:wrap;align-items:center;font-size:.86rem;font-weight:700;color:var(--dw-muted);margin-bottom:10px;}
+  .dw-g-bar .dw-pts{color:var(--dw-primary-light);}
+  .dw-g-prog{flex:1 1 120px;height:8px;border-radius:99px;background:#eee9dc;overflow:hidden;min-width:90px;}
+  .dw-g-prog i{display:block;height:100%;background:var(--dw-accent);width:0;transition:width .25s;}
+  .dw-g-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.05rem;color:var(--dw-primary-light);margin:0 0 6px;}
+  .dw-g-nor{font-size:1.08rem;margin:4px 0 10px;} .dw-g-nor b{color:var(--dw-muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;margin-right:6px;}
+  .dw-g-slots{display:flex;flex-wrap:wrap;gap:10px 8px;margin:10px 0 12px;}
+  .dw-slot{min-width:84px;min-height:46px;border:2px dashed #cdc6b3;border-radius:10px;padding:14px 8px 4px;position:relative;display:inline-flex;align-items:center;justify-content:center;background:#fbfaf6;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;color:var(--dw-text);}
+  .dw-slot i{position:absolute;top:-9px;left:6px;font-style:normal;font-size:.68rem;font-weight:800;background:#fff;border:1px solid #d9d3c4;border-radius:999px;padding:0 6px;color:#6b6b6b;}
+  .dw-slot.dw-full{background:#ece3ff;border:2px solid #a98be0;border-style:solid;} .dw-slot.dw-right{background:#dcf3dc;border-color:#5bb05b;border-style:solid;} .dw-slot.dw-wrong{background:#fdecee;border-color:#c62828;border-style:solid;}
+  .dw-g-tiles{display:flex;flex-wrap:wrap;gap:8px 6px;align-items:center;margin:10px 0;}
+  .dw-tile{font-family:inherit;font-size:1.02rem;font-weight:700;padding:9px 14px;border-radius:10px;border:2px solid #d9d3c4;background:#f1efe8;color:#232323;cursor:pointer;}
+  .dw-tile:hover{border-color:var(--dw-primary-light);} .dw-tile:disabled{cursor:default;}
+  .dw-tile.dw-tv{background:#ffdde2;border-color:#c62828;color:#8c1d1d;} .dw-tile.dw-tgood{background:#dcf3dc;border-color:#2e7d32;} .dw-tile.dw-tbad{background:#fdecee;border-color:#c62828;text-decoration:line-through;}
+  .dw-gapbtn{font-family:inherit;width:30px;height:38px;border-radius:8px;border:2px dashed #b9b19a;background:#fff;color:#8a8266;font-weight:800;cursor:pointer;font-size:1rem;padding:0;}
+  .dw-gapbtn:hover{background:#fff4f5;border-color:var(--dw-primary-light);color:var(--dw-primary-light);} .dw-gapbtn:disabled{opacity:.35;cursor:default;} .dw-gapbtn.dw-tgood{background:#dcf3dc;border-color:#2e7d32;} .dw-gapbtn.dw-tbad{background:#fdecee;border-color:#c62828;}
+  .dw-g-verb{display:inline-block;background:#ffdde2;border:2px solid #c62828;color:#8c1d1d;font-weight:800;border-radius:10px;padding:6px 14px;font-size:1.1rem;}
+  .dw-g-bigsent{font-size:1.3rem;font-weight:700;line-height:1.7;margin:10px 0;padding:12px 14px;background:#fbfaf6;border-radius:12px;border:1px solid #ece8df;}
+  .dw-g-bigsent .dw-vhl{background:#ffdde2;color:#8c1d1d;border:2px solid #c62828;border-radius:8px;padding:0 8px;}
+  .dw-g-choices{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0;}
+  .dw-g-choices button{font-family:inherit;font-size:.95rem;font-weight:700;padding:10px 16px;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;flex:1 1 150px;}
+  .dw-g-choices button small{display:block;font-weight:400;font-size:.76rem;color:var(--dw-muted);}
+  .dw-g-choices button:hover:not(:disabled){background:var(--dw-primary);color:#fff;} .dw-g-choices button:hover:not(:disabled) small{color:#ddd;}
+  .dw-g-choices button.dw-tgood{background:#dcf3dc;border-color:#2e7d32;color:#1f5d23;} .dw-g-choices button.dw-tbad{background:#fdecee;border-color:#c62828;color:#8c1d1d;}
+  .dw-g-timer{font-family:"Baloo 2",sans-serif;font-size:1.5rem;font-weight:800;color:var(--dw-primary-light);}
+  .dw-g-timer.dw-low{color:#c62828;}
+  .dw-g-end{text-align:center;padding:10px 0;} .dw-g-end .dw-big{font-family:"Baloo 2",sans-serif;font-size:2.2rem;font-weight:800;color:var(--dw-primary-light);}
+  .dw-g-end .dw-mb-row{justify-content:center;margin-top:12px;}
+  .dw-shake{animation:dwshake .35s;} @keyframes dwshake{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+  .dw-g-note{font-size:.82rem;color:var(--dw-muted);margin:6px 0;}
+  @media(max-width:560px){.dw-g-stage{padding:14px 12px 16px;}.dw-g-bigsent{font-size:1.1rem;}.dw-slot{min-width:70px;}}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>🎮 Ordstilling-spill</h1>
+    <p>Sju spill som trener verbet på riktig plass.</p>
+  </div>
+
+  <p class="dw-crumb"><a href="../../">🧩 Grammatik</a> → <a href="../">Ordstilling</a> → Spill</p>
+
+  <noscript><p class="dw-tip dw-warn">Spillene trenger JavaScript.</p></noscript>
+  <h2 class="dw-sec-title" style="margin-top:12px">Velg spill</h2>
+  <div class="dw-g-modes" id="g-modes"></div>
+
+  <div class="dw-g-filter">
+    <label>Nivå:</label><span class="dw-g-seg" id="g-lv"></span>
+    <label for="g-tema">Tema:</label><select id="g-tema"></select>
+    <span id="g-opts" style="display:none;gap:10px;align-items:center">
+      <label for="g-secs">Tid:</label><select id="g-secs"><option value="60">60 s</option><option value="90">90 s</option><option value="45">45 s</option></select>
+      <label><input type="checkbox" id="g-cls"> 👩‍🏫 Klassemodus (lærer)</label>
+    </span>
+    <span class="dw-g-count" id="g-count"></span>
+  </div>
+
+  <div class="dw-g-stage" id="g-stage" style="display:none">
+    <div class="dw-g-bar" id="g-bar"></div>
+    <div id="game"></div>
+  </div>
+
+  <div class="dw-exp" style="margin-top:18px">
+    <h3>💡 Slik fungerer det</h3>
+    <ul>
+      <li>Du får <b>10 poeng</b> for riktig svar på første forsøk, <b>5</b> på andre forsøk og <b>0</b> hvis du ser fasit.</li>
+      <li>Poengene lagres ikke etter at du lukker siden.</li>
+      <li><b>Lærer:</b> velg «Schnellster Satz» og kryss av for klassemodus. Da vises norsk setning og blandede ordkort stort på skjermen, med nedtelling og «Vis fasit». Lenken kan deles, for eksempel <code>?modus=rase&amp;nivaa=2&amp;tema=leddsetning</code>.</li>
+    </ul>
+    <p>Trenger du å lese reglene først? Gå til <a href="../">Ordstilling (oversikt)</a>.</p>
+  </div>
+
+</div>
+<script src="../ordstilling_data.js"></script>
+<script>
+(function(){
+'use strict';
+var D = window.DWO || {bygg:[],feil:[],verb:[],type:[]};
+var TEMA = {plass2:'Verb på plass 2',janei:'Ja/nei-spørsmål',sporreord:'Spørsmål med spørreord',ogmen:'Og, men, eller, denn',leddsetning:'Leddsetninger',modal:'Modalverb',skillbar:'Skillbare verb',perfekt:'Perfekt',objekt:'Objekt og pronomen',tekamolo:'Tid – måte – sted',negasjon:'Nekting',relativ:'Relativsetninger',avansert:'Avansert leddsetning'};
+var MODES = [
+ {k:'bygg',ico:'🧩',name:'Setz den Satz zusammen!',desc:'Trykk på ordkortene i riktig rekkefølge.',bank:'bygg'},
+ {k:'puzzle',ico:'🔢',name:'Satz-Puzzle',desc:'Fyll nummererte plasser, og se hvilke som sitter riktig.',bank:'bygg'},
+ {k:'feil',ico:'🔍',name:'Was ist falsch?',desc:'Finn ordet som står på feil sted.',bank:'feil'},
+ {k:'plass',ico:'2️⃣',name:'Verb auf Platz 2',desc:'Hvor skal verbet settes inn?',bank:'verb'},
+ {k:'type',ico:'⚖️',name:'Hauptsatz oder Nebensatz?',desc:'Hovedsetning, leddsetning eller verb først?',bank:'type'},
+ {k:'oversett',ico:'🇳🇴',name:'Übersetzungs-Challenge',desc:'Oversett fra norsk – ett og ett ord.',bank:'bygg'},
+ {k:'rase',ico:'⚡',name:'Schnellster Satz',desc:'Bygg flest mulig setninger på tid. Egen klassemodus for lærer.',bank:'bygg'}
+];
+var N_ROUNDS = 10;
+var S = {mode:null,lv:0,tema:'',secs:60,cls:false,q:[],i:0,score:0,max:0,streak:0,att:0,locked:false,timer:null,left:0,solved:0,raseBest:0,item:null};
+var $ = function(id){return document.getElementById(id);};
+function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function norm(s){return s.toLowerCase().replace(/[.,!?;:«»"“”]/g,'').replace(/\s+/g,' ').trim();}
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function shuffledNot(arr,bad){var r,n=0;do{r=shuffle(arr);n++;}while(n<12&&arr.length>1&&r.join(' ')===bad);return r;}
+function fmod(){for(var i=0;i<MODES.length;i++)if(MODES[i].k===S.mode)return MODES[i];return null;}
+function bank(){var m=fmod();if(!m)return[];return D[m.bank].filter(function(x){return(!S.lv||x.lv===S.lv)&&(!S.tema||x.tema===S.tema);});}
+
+/* pen visning av en godkjent variant (riktig store/små bokstaver ut fra brikkene) */
+function pretty(item,variant){
+  var map={};
+  item.ch.forEach(function(c){c.split(' ').forEach(function(w){var core=w.replace(/[.,!?;:]/g,'');if(core)map[core.toLowerCase()]=core;});});
+  var out=variant.split(' ').map(function(w){
+    var m=/^(.*?)([.,!?;:]*)$/.exec(w);var core=m[1],p=m[2];
+    return (map[core.toLowerCase()]||core)+p;});
+  return cap(out.join(' '));
+}
+function findVariant(item,s){var n=norm(s);for(var i=0;i<item.ok.length;i++)if(norm(item.ok[i])===n)return item.ok[i];return null;}
+
+/* ---------- felles UI ---------- */
+function bar(){
+  var b=$('g-bar');b.innerHTML='';
+  if(S.mode==='rase'&&!S.cls){
+    b.appendChild(el('span','dw-g-timer'+(S.left<=10?' dw-low':''),'⏱ '+S.left+' s'));
+    b.appendChild(el('span','dw-pts','✅ '+S.solved+' setninger'));
+    b.appendChild(el('span','', S.raseBest?'Beste i dag: '+S.raseBest:''));
+    return;
+  }
+  if(S.mode==='rase'&&S.cls){b.appendChild(el('span','','👩‍🏫 Klassemodus · setning '+(S.i+1)));return;}
+  b.appendChild(el('span','','Oppgave '+Math.min(S.i+1,S.q.length)+' / '+S.q.length));
+  var p=el('div','dw-g-prog');var ii=el('i');ii.style.width=(100*S.i/Math.max(1,S.q.length))+'%';p.appendChild(ii);b.appendChild(p);
+  b.appendChild(el('span','dw-pts','⭐ '+S.score+' poeng'));
+  if(S.streak>1)b.appendChild(el('span','','🔥 '+S.streak+' på rad'));
+}
+function fbBox(){var f=el('div','dw-mb-fb');f.setAttribute('aria-live','polite');return f;}
+function showFb(f,cls,html){f.className='dw-mb-fb dw-show dw-'+cls;f.innerHTML=html;}
+function award(pts){S.score+=pts;S.max+=10;if(pts>=5)S.streak++;else S.streak=0;bar();}
+function nextBtn(host){
+  var last=S.i>=S.q.length-1;
+  var b=el('button','dw-mb-btn',last?'Se resultat →':'Neste →');b.type='button';
+  b.onclick=function(){S.i++;next();};
+  var r=el('div','dw-mb-row');r.style.marginTop='10px';r.appendChild(b);host.appendChild(r);b.focus();
+}
+function norNode(item){var d=el('div','dw-g-nor');d.innerHTML='<b>Norsk</b>'+esc(item.nor);return d;}
+function ptsFor(att){return att===0?10:(att===1?5:0);}
+
+/* ---------- bygg / puzzle / oversett / rase (brikker) ---------- */
+function buildGame(item,host,o){
+  var words=!!o.words,slots=!!o.slots;
+  var toks=[];
+  item.ch.forEach(function(c){(words?c.split(' '):[c]).forEach(function(w){toks.push(w);});});
+  var order=shuffledNot(toks.map(function(t,i){return i;}),toks.map(function(t,i){return i;}).join(' '));
+  var best=item.ok[0];
+  var ans=[];            // bygg: liste av token-id; puzzle: plass -> token-id eller -1
+  if(slots){for(var k=0;k<toks.length;k++)ans.push(-1);}
+  var nor=norNode(item);
+  if(o.hideNor){nor.style.display='none';var nb=el('button','dw-mb-btn dw-sec','👁 Vis norsk');nb.type='button';nb.onclick=function(){nor.style.display='';nb.style.display='none';S.usedNor=true;};host.appendChild(nb);}
+  host.appendChild(nor);
+  var ansBox=el('div',slots?'dw-g-slots':'dw-mb-ans');var pool=el('div','dw-mb-pool');
+  var fb=fbBox();var row=el('div','dw-mb-row');
+  host.appendChild(ansBox);host.appendChild(pool);
+  var done=false,wrong=0,hinted=false;
+  function sentence(){
+    var parts=[];
+    if(slots){ans.forEach(function(t){if(t>=0)parts.push(toks[t]);});}
+    else ans.forEach(function(t){parts.push(toks[t]);});
+    return parts.join(' ');
+  }
+  function full(){return slots?ans.every(function(t){return t>=0;}):ans.length===toks.length;}
+  function draw(){
+    ansBox.innerHTML='';pool.innerHTML='';
+    var used={};
+    if(slots){
+      ans.forEach(function(t,si){
+        var s=el('button','dw-slot'+(t>=0?' dw-full':''));s.type='button';
+        s.appendChild(el('i','',String(si+1)));
+        if(t>=0){used[t]=1;s.appendChild(document.createTextNode(toks[t]));s.title='Trykk for å ta bort';
+          s.onclick=function(){if(done)return;ans[si]=-1;draw();};}
+        else s.disabled=true;
+        ansBox.appendChild(s);
+      });
+    }else{
+      ans.forEach(function(t,ai){used[t]=1;
+        var c=el('button','dw-chip dw-in',toks[t]);c.type='button';
+        c.onclick=function(){if(done)return;ans.splice(ai,1);draw();};ansBox.appendChild(c);});
+    }
+    order.forEach(function(t){
+      if(used[t])return;
+      var c=el('button','dw-chip',toks[t]);c.type='button';
+      c.onclick=function(){
+        if(done)return;
+        if(slots){var f=ans.indexOf(-1);if(f<0)return;ans[f]=t;}else ans.push(t);
+        draw();
+        if(o.auto&&full())check();
+      };
+      pool.appendChild(c);
+    });
+  }
+  function slotMarks(){
+    // «riktig så langt»: hver plass sammenlignes med forrige plasser + egen mot godkjente varianter
+    var kids=ansBox.children;var prefix=[];var consistent=true;
+    for(var i=0;i<ans.length;i++){
+      prefix.push(toks[ans[i]]);
+      var pn=norm(prefix.join(' '));
+      var okp=false;
+      if(consistent){for(var v=0;v<item.ok.length;v++){var vn=norm(item.ok[v]);if(vn===pn||vn.indexOf(pn+' ')===0){okp=true;break;}}}
+      if(!okp)consistent=false;
+      kids[i].className='dw-slot '+(okp?'dw-right':'dw-wrong');
+    }
+  }
+  function check(){
+    if(done)return;
+    if(!full()){showFb(fb,'hint','Du har ikke brukt alle ordene ennå.');return;}
+    var v=findVariant(item,sentence());
+    if(v){
+      done=true;
+      var pts=o.score?ptsFor(wrong+(hinted?1:0)):0;
+      var others=item.ok.filter(function(x){return norm(x)!==norm(v);});
+      var h='✅ <b>Riktig!</b> '+esc(pretty(item,v));
+      if(others.length)h+='<br><small>Flere rekkefølger er mulige her: '+others.slice(0,4).map(function(x){return esc(pretty(item,x));}).join(' · ')+'</small>';
+      if(item.hint)h+='<br><small>💡 '+esc(item.hint)+'</small>';
+      if(slots){ans.forEach(function(t,i){ansBox.children[i].className='dw-slot dw-right';});}
+      showFb(fb,'good',h);
+      if(o.onCorrect)o.onCorrect(pts,host);
+    }else{
+      wrong++;
+      ansBox.classList.remove('dw-shake');void ansBox.offsetWidth;ansBox.classList.add('dw-shake');
+      if(slots)slotMarks();
+      var m='❌ <b>Ikke helt.</b> '+(slots?'Røde plasser stemmer ikke med noen riktig rekkefølge – trykk på dem for å ta dem bort.':'Trykk på ord i svarlinjen for å ta dem bort, og prøv igjen.');
+      if(wrong>=2&&item.hint)m+='<br>💡 '+esc(item.hint);
+      showFb(fb,'bad',m);
+      if(o.onWrong)o.onWrong(wrong);
+    }
+  }
+  var bCheck=el('button','dw-mb-btn','Sjekk');bCheck.type='button';bCheck.onclick=check;
+  var bReset=el('button','dw-mb-btn dw-sec','Nullstill');bReset.type='button';bReset.onclick=function(){if(done)return;if(slots){ans=ans.map(function(){return -1;});}else ans=[];draw();fb.className='dw-mb-fb';};
+  row.appendChild(bCheck);row.appendChild(bReset);
+  if(o.hint!==false&&item.hint){var bH=el('button','dw-mb-btn dw-sec','💡 Hint');bH.type='button';bH.onclick=function(){hinted=true;showFb(fb,'hint','💡 '+esc(item.hint));};row.appendChild(bH);}
+  if(o.skip){var bS=el('button','dw-mb-btn dw-sec','Hopp over');bS.type='button';bS.onclick=function(){if(done)return;done=true;o.onSkip();};row.appendChild(bS);}
+  else{var bF=el('button','dw-mb-btn dw-sec','Vis fasit');bF.type='button';bF.onclick=function(){if(done)return;done=true;showFb(fb,'hint','Fasit: <b>'+esc(pretty(item,best))+'</b>');if(o.onGiveUp)o.onGiveUp(host);};row.appendChild(bF);}
+  host.appendChild(row);host.appendChild(fb);
+  draw();
+}
+
+/* ---------- bygg-lignende spill ---------- */
+function renderBygg(item,host,variant){
+  host.appendChild(el('h3','dw-g-title',variant==='puzzle'?'🔢 Fyll plassene i riktig rekkefølge':variant==='oversett'?'🇳🇴➡️🇩🇪 Oversett til tysk – sett ordene i riktig rekkefølge':'🧩 Sett ordkortene i riktig rekkefølge'));
+  buildGame(item,host,{
+    words:variant==='oversett',slots:variant==='puzzle',hideNor:variant==='bygg',score:true,
+    onCorrect:function(pts){award(pts);nextBtn(host);},
+    onGiveUp:function(){award(0);nextBtn(host);}
+  });
+}
+
+/* ---------- Was ist falsch? ---------- */
+function renderFeil(item,host){
+  host.appendChild(el('h3','dw-g-title','🔍 Trykk på ordet (eller gruppen) som står feil'));
+  host.appendChild(norNode(item));
+  var box=el('div','dw-g-tiles');var fb=fbBox();var wrong=0,done=false;var tiles=[];
+  item.ch.forEach(function(c,i){
+    var t=el('button','dw-tile',c);t.type='button';tiles.push(t);
+    t.onclick=function(){
+      if(done)return;
+      if(item.err.indexOf(i)>=0){
+        done=true;item.err.forEach(function(e){tiles[e].classList.add('dw-tgood');});
+        var pts=ptsFor(wrong);
+        showFb(fb,'good','✅ <b>Riktig!</b> Riktig setning: <b>'+esc(item.fix)+'</b><br><small>💡 '+esc(item.regel)+'</small>');
+        tiles.forEach(function(x){x.disabled=true;});award(pts);nextBtn(host);
+      }else{
+        wrong++;t.classList.add('dw-tbad');t.disabled=true;
+        if(wrong>=2){
+          done=true;item.err.forEach(function(e){tiles[e].classList.add('dw-tgood');});
+          showFb(fb,'bad','❌ Det var markert i grønt. Riktig setning: <b>'+esc(item.fix)+'</b><br><small>💡 '+esc(item.regel)+'</small>');
+          tiles.forEach(function(x){x.disabled=true;});award(0);nextBtn(host);
+        }else showFb(fb,'bad','❌ Den står riktig. Tenk på hvor verbet skal stå – prøv igjen.');
+      }
+    };
+    box.appendChild(t);
+  });
+  host.appendChild(box);host.appendChild(fb);
+}
+
+/* ---------- Verb auf Platz 2 ---------- */
+function renderPlass(item,host){
+  host.appendChild(el('h3','dw-g-title','2️⃣ Hvor skal verbet settes inn? Trykk på riktig plass.'));
+  host.appendChild(norNode(item));
+  var vb=el('p','');vb.innerHTML='Verbet som skal inn: ';var vv=el('span','dw-g-verb',item.v);vb.appendChild(vv);host.appendChild(vb);
+  var box=el('div','dw-g-tiles');var fb=fbBox();var done=false,wrong=0;var btns=[];
+  var ok=[item.gap].concat(item.alt||[]);
+  function final(g){
+    var parts=item.ch.slice();var first=g===0;
+    var out=[];
+    for(var i=0;i<=parts.length;i++){
+      if(i===g)out.push(first?cap(item.v):item.v);
+      if(i<parts.length){var p=parts[i];if(i===0&&g!==0)p=cap(p);out.push(p);}
+    }
+    var s=out.join(' ');if(!/[.?!]$/.test(s))s+=(item.end||'.');return s;
+  }
+  function gapBtn(g){
+    var b=el('button','dw-gapbtn','＋');b.type='button';b.setAttribute('aria-label','Sett inn verbet her (plass '+(g+1)+')');btns.push(b);
+    b.onclick=function(){
+      if(done)return;
+      if(ok.indexOf(g)>=0){
+        done=true;b.classList.add('dw-tgood');b.textContent='✓';
+        showFb(fb,'good','✅ <b>Riktig!</b> '+esc(final(g))+'<br><small>💡 '+esc(item.regel)+'</small>');
+        btns.forEach(function(x){x.disabled=true;});award(ptsFor(wrong));nextBtn(host);
+      }else{
+        wrong++;b.classList.add('dw-tbad');b.textContent='✗';b.disabled=true;
+        if(wrong>=2){
+          done=true;btns[item.gap].classList.add('dw-tgood');btns[item.gap].textContent='✓';
+          showFb(fb,'bad','❌ Riktig plass er markert. Setningen: <b>'+esc(final(item.gap))+'</b><br><small>💡 '+esc(item.regel)+'</small>');
+          btns.forEach(function(x){x.disabled=true;});award(0);nextBtn(host);
+        }else showFb(fb,'bad','❌ Ikke der. Prøv en annen plass.');
+      }
+    };
+    return b;
+  }
+  for(var i=0;i<=item.ch.length;i++){
+    box.appendChild(gapBtn(i));
+    if(i<item.ch.length){var c=item.ch[i];var t=el('span','dw-tile',(i===0?cap(c):c)+(i===item.ch.length-1&&!/[.?!]$/.test(c)?'':''));t.style.cursor='default';box.appendChild(t);}
+  }
+  host.appendChild(box);host.appendChild(fb);
+}
+
+/* ---------- Hauptsatz oder Nebensatz? ---------- */
+function renderType(item,host){
+  host.appendChild(el('h3','dw-g-title','⚖️ Hva slags setning er dette? (se på det røde verbet)'));
+  var big=el('div','dw-g-bigsent');
+  var toks=item.s.split(' ');var hit=false;
+  toks.forEach(function(w,i){
+    var core=w.replace(/[.,!?;:]/g,'');
+    if(!hit&&core.toLowerCase()===item.v.toLowerCase()){hit=true;var sp=el('span','dw-vhl',w);big.appendChild(sp);}
+    else big.appendChild(document.createTextNode(w));
+    if(i<toks.length-1)big.appendChild(document.createTextNode(' '));
+  });
+  host.appendChild(big);
+  var ch=el('div','dw-g-choices');var fb=fbBox();var done=false,wrong=0;
+  var opts=[['H','Hovedsetning','verbet på plass 2'],['N','Leddsetning','verbet sist'],['S','Verbet først','spørsmål / befaling']];
+  var bs=[];
+  opts.forEach(function(o){
+    var b=el('button','');b.type='button';b.innerHTML=esc(o[1])+'<small>'+esc(o[2])+'</small>';bs.push([o[0],b]);
+    b.onclick=function(){
+      if(done)return;
+      if(o[0]===item.t){
+        done=true;b.classList.add('dw-tgood');
+        showFb(fb,'good','✅ <b>Riktig!</b> '+esc(item.why));
+        bs.forEach(function(x){x[1].disabled=true;});award(ptsFor(wrong));nextBtn(host);
+      }else{
+        wrong++;b.classList.add('dw-tbad');b.disabled=true;
+        if(wrong>=2){done=true;bs.forEach(function(x){x[1].disabled=true;if(x[0]===item.t)x[1].classList.add('dw-tgood');});
+          showFb(fb,'bad','❌ Riktig svar er markert grønt. '+esc(item.why));award(0);nextBtn(host);}
+        else showFb(fb,'bad','❌ Ikke helt. Se på hvor det røde verbet står – prøv igjen.');
+      }
+    };
+    ch.appendChild(b);
+  });
+  host.appendChild(ch);host.appendChild(fb);
+}
+
+/* ---------- Schnellster Satz ---------- */
+function stopTimer(){if(S.timer){clearInterval(S.timer);S.timer=null;}}
+function renderRase(host){
+  stopTimer();
+  host.innerHTML='';
+  var intro=el('div','');
+  intro.innerHTML='<h3 class="dw-g-title">⚡ Schnellster Satz</h3><p>Bygg så mange riktige setninger du rekker på <b>'+S.secs+' sekunder</b>. Setningen sjekkes automatisk når alle ordene er brukt.</p>';
+  var go=el('button','dw-mb-btn','▶ Start');go.type='button';
+  go.onclick=function(){runRase();};
+  intro.appendChild(go);host.appendChild(intro);bar0();
+}
+function bar0(){var b=$('g-bar');b.innerHTML='';b.appendChild(el('span','dw-g-timer','⏱ '+S.secs+' s'));if(S.raseBest)b.appendChild(el('span','','Beste i dag: '+S.raseBest));}
+function runRase(){
+  S.solved=0;S.left=S.secs;S.i=0;S.q=shuffle(bank());bar();
+  S.timer=setInterval(function(){S.left--;bar();if(S.left<=0){stopTimer();endRase();}},1000);
+  raseNext();
+}
+function raseNext(){
+  var host=$('game');host.innerHTML='';
+  if(!S.q.length)return;
+  var item=S.q[S.i%S.q.length];if(S.i>0&&S.i%S.q.length===0)S.q=shuffle(S.q);
+  host.appendChild(el('h3','dw-g-title','⚡ Bygg setningen – fort!'));
+  buildGame(item,host,{auto:true,score:false,skip:true,hint:false,
+    onCorrect:function(){S.solved++;bar();setTimeout(function(){if(S.timer){S.i++;raseNext();}},450);},
+    onSkip:function(){S.i++;raseNext();}});
+}
+function endRase(){
+  var host=$('game');host.innerHTML='';
+  if(S.solved>S.raseBest)S.raseBest=S.solved;
+  var e=el('div','dw-g-end');
+  e.innerHTML='<div class="dw-big">'+S.solved+' setninger</div><p>på '+S.secs+' sekunder'+(S.solved>=S.raseBest&&S.solved>0?' – ny beste i dag! 🏆':'')+'</p>';
+  var r=el('div','dw-mb-row');var a=el('button','dw-mb-btn','Spill igjen');a.type='button';a.onclick=function(){renderRase(host);};r.appendChild(a);e.appendChild(r);host.appendChild(e);bar0();
+}
+/* klassemodus (lærer) */
+function renderClass(){
+  stopTimer();var host=$('game');host.innerHTML='';
+  var items=shuffle(bank());S.q=items;S.i=0;
+  if(!items.length)return;
+  function show(){
+    host.innerHTML='';bar();
+    var item=S.q[S.i%S.q.length];
+    host.appendChild(el('h3','dw-g-title','👩‍🏫 Klassemodus – elevene bygger setningen på papir eller i skrivebok'));
+    var nor=el('div','dw-g-bigsent');nor.innerHTML='<small style="font-size:.7rem;text-transform:uppercase;color:#6b6b6b;display:block">Norsk</small>'+esc(item.nor);host.appendChild(nor);
+    var tiles=el('div','dw-g-tiles');shuffledNot(item.ch,item.ch.join(' ')).forEach(function(c){var t=el('span','dw-tile',c);t.style.fontSize='1.25rem';t.style.cursor='default';tiles.appendChild(t);});
+    host.appendChild(tiles);
+    var tm=el('div','dw-g-timer','');tm.id='cls-timer';host.appendChild(tm);
+    var ans=el('div','dw-mb-fb');ans.setAttribute('aria-live','polite');
+    var row=el('div','dw-mb-row');
+    [30,60,90].forEach(function(s){var b=el('button','dw-mb-btn dw-sec','⏱ '+s+' s');b.type='button';b.onclick=function(){stopTimer();var left=s;tm.textContent='⏱ '+left+' s';S.timer=setInterval(function(){left--;tm.textContent=left>0?'⏱ '+left+' s':'⏰ Tiden er ute!';tm.className='dw-g-timer'+(left<=10?' dw-low':'');if(left<=0)stopTimer();},1000);};row.appendChild(b);});
+    var vis=el('button','dw-mb-btn','Vis fasit');vis.type='button';vis.onclick=function(){stopTimer();var h='✅ <b>'+esc(pretty(item,item.ok[0]))+'</b>';var oth=item.ok.slice(1);if(oth.length)h+='<br><small>Også riktig: '+oth.slice(0,4).map(function(x){return esc(pretty(item,x));}).join(' · ')+'</small>';if(item.hint)h+='<br><small>💡 '+esc(item.hint)+'</small>';showFb(ans,'good',h);};row.appendChild(vis);
+    var nx=el('button','dw-mb-btn dw-sec','Neste setning →');nx.type='button';nx.onclick=function(){stopTimer();S.i++;show();};row.appendChild(nx);
+    host.appendChild(row);host.appendChild(ans);
+  }
+  show();
+}
+
+/* ---------- flyt ---------- */
+function next(){
+  var host=$('game');host.innerHTML='';S.locked=false;
+  if(S.i>=S.q.length){return finish();}
+  var item=S.q[S.i];S.item=item;bar();
+  var k=S.mode;
+  if(k==='bygg'||k==='puzzle'||k==='oversett')renderBygg(item,host,k);
+  else if(k==='feil')renderFeil(item,host);
+  else if(k==='plass')renderPlass(item,host);
+  else if(k==='type')renderType(item,host);
+}
+function finish(){
+  var host=$('game');host.innerHTML='';
+  var pct=S.max?Math.round(100*S.score/S.max):0;
+  var msg=pct>=90?'Fantastisk! 🏆':pct>=70?'Bra jobba! 👏':pct>=50?'Du er på god vei 💪':'Øv litt til – du får det til! 🌱';
+  var e=el('div','dw-g-end');e.innerHTML='<div class="dw-big">'+S.score+' / '+S.max+' poeng</div><p>'+pct+' % · '+msg+'</p>';
+  var r=el('div','dw-mb-row');
+  var a=el('button','dw-mb-btn','Spill igjen');a.type='button';a.onclick=start;
+  var b=el('button','dw-mb-btn dw-sec','Velg et annet spill');b.type='button';b.onclick=function(){$('game').innerHTML='';$('g-bar').innerHTML='';S.mode=null;markModes();sync();window.scrollTo({top:$('g-modes').offsetTop-20,behavior:'smooth'});};
+  r.appendChild(a);r.appendChild(b);e.appendChild(r);host.appendChild(e);
+  var p=el('div','dw-g-bar');bar();$('g-bar').innerHTML='';
+}
+function start(){
+  stopTimer();
+  var host=$('game');host.innerHTML='';$('g-bar').innerHTML='';
+  $('g-opts').style.display=(S.mode==='rase')?'inline-flex':'none';
+  if(!S.mode){$('g-stage').style.display='none';return;}
+  $('g-stage').style.display='';
+  var bk=bank();
+  $('g-count').textContent=bk.length+' oppgaver i utvalget';
+  if(!bk.length){
+    var m=el('div','dw-g-note');m.innerHTML='Ingen oppgaver i dette spillet for valgt nivå/tema. <button type="button" class="dw-mb-btn dw-sec" id="g-reset">Vis alle</button>';
+    host.appendChild(m);$('g-reset').onclick=function(){S.lv=0;S.tema='';markFilters();start();};return;
+  }
+  S.score=0;S.max=0;S.streak=0;S.i=0;
+  if(S.mode==='rase'){S.solved=0;if(S.cls)renderClass();else renderRase(host);return;}
+  S.q=shuffle(bk).slice(0,N_ROUNDS);
+  next();
+}
+
+/* ---------- valgpanel ---------- */
+function markModes(){
+  var bs=$('g-modes').children;
+  for(var i=0;i<bs.length;i++)bs[i].classList.toggle('dw-on',bs[i].getAttribute('data-k')===S.mode);
+}
+function markFilters(){
+  var bs=$('g-lv').children;
+  for(var i=0;i<bs.length;i++)bs[i].classList.toggle('dw-on',+bs[i].getAttribute('data-lv')===S.lv);
+  $('g-tema').value=S.tema;
+  $('g-cls').checked=S.cls;$('g-secs').value=String(S.secs);
+}
+function sync(){
+  try{
+    var q=[];if(S.mode)q.push('modus='+S.mode);if(S.lv)q.push('nivaa='+S.lv);if(S.tema)q.push('tema='+S.tema);
+    history.replaceState(null,'',location.pathname+(q.length?'?'+q.join('&'):''));
+  }catch(e){}
+}
+function init(){
+  var qs={};location.search.replace(/^\?/,'').split('&').forEach(function(p){if(!p)return;var kv=p.split('=');qs[decodeURIComponent(kv[0])]=decodeURIComponent(kv[1]||'');});
+  if(qs.modus&&MODES.some(function(m){return m.k===qs.modus;}))S.mode=qs.modus;
+  if(qs.nivaa&&/^[123]$/.test(qs.nivaa))S.lv=+qs.nivaa;
+  if(qs.tema&&TEMA[qs.tema])S.tema=qs.tema;
+  var gm=$('g-modes');
+  MODES.forEach(function(m){
+    var b=el('button','dw-g-mode');b.type='button';b.setAttribute('data-k',m.k);
+    b.innerHTML='<b>'+m.ico+' '+esc(m.name)+'</b><span>'+esc(m.desc)+'</span>';
+    b.onclick=function(){S.mode=m.k;markModes();sync();start();$('g-stage').scrollIntoView({behavior:'smooth',block:'start'});};
+    gm.appendChild(b);
+  });
+  var lv=$('g-lv');
+  [[0,'Alle nivå'],[1,'🟢 Grunnleggende'],[2,'🟡 Videre'],[3,'🔴 Viderekomne']].forEach(function(x){
+    var b=el('button','',x[1]);b.type='button';b.setAttribute('data-lv',x[0]);
+    b.onclick=function(){S.lv=x[0];markFilters();sync();start();};lv.appendChild(b);
+  });
+  var ts=$('g-tema');ts.appendChild(new Option('Alle temaer',''));
+  Object.keys(TEMA).forEach(function(k){ts.appendChild(new Option(TEMA[k],k));});
+  ts.onchange=function(){S.tema=ts.value;sync();start();};
+  $('g-cls').onchange=function(){S.cls=this.checked;start();};
+  $('g-secs').onchange=function(){S.secs=+this.value;start();};
+  markModes();markFilters();start();
+}
+init();
+})();
+</script>
+</body>
+</html>

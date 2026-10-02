@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Grammatikk: "Relativsetninger" (ordstilling/relativsetninger/)
+  Trinnvis: hva er en relativsetning, kjønn og tall, kasus, preposisjon foran pronomenet, henvisninger, mini-byggere og MC.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relativsetninger · Ordstilling · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:860px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .dw-jump a{font-size:.86rem;font-weight:700;padding:7px 15px;border-radius:999px;text-decoration:none;background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:32px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t tbody th{background:#fbfaf6;font-size:.84rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t td.dw-hl{background:#fff3cf;}
+  .dw-t td.dw-c{text-align:center;}
+  .dw-t td.dw-x{color:#aaa;text-align:center;}
+  .dw-t tr.dw-grp td,.dw-t tr.dw-grp th{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:14px 0;}
+  a.dw-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;text-decoration:none;color:var(--dw-text);box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;gap:6px;}
+  a.dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  a.dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  a.dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
+
+  /* Øvelser */
+  .dw-ex-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+  .dw-ex-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:8px;}
+  .dw-ex-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:16px;}
+  .dw-ex-fill{height:100%;width:0;background:var(--dw-good);transition:width .25s ease;}
+  .dw-ex-cue{font-size:.88rem;color:var(--dw-muted);margin-bottom:4px;}
+  .dw-ex-sent{font-size:1.3rem;font-weight:600;color:var(--dw-primary);line-height:1.5;margin:2px 0 18px;}
+  .dw-ex-sent .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);text-align:center;}
+  .dw-ex-sent .dw-blank.dw-filled{color:var(--dw-good);border-color:var(--dw-good);}
+  .dw-ex-sent .dw-blank.dw-filled.dw-bad{color:var(--dw-bad);border-color:var(--dw-bad);}
+  .dw-ex-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .dw-ex-choice{flex:1 1 110px;max-width:170px;padding:12px 8px;font-family:inherit;font-size:1.1rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;}
+  .dw-ex-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-ex-choice:disabled{cursor:default;opacity:.55;}
+  .dw-ex-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-ex-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .dw-ex-choice:focus-visible,.dw-ex-btn:focus-visible,.dw-ex-hintbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-ex-hintbtn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:.85rem;padding:0;margin-bottom:8px;}
+  .dw-ex-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:10px 14px;margin:6px 0 14px;background:#f4f1e8;}
+  .dw-ex-fb.dw-show{display:block;}
+  .dw-ex-fb.dw-good{background:#eef7ee;color:#1f5d23;}
+  .dw-ex-fb.dw-bad{background:#fdecee;color:#8c1d1d;}
+  .dw-ex-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:11px 26px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .dw-ex-btn:hover{background:var(--dw-primary-light);}
+  .dw-ex-btn.dw-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-ex-result{display:none;text-align:center;}
+  .dw-ex-result.dw-show{display:block;}
+  .dw-ex-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .dw-ex-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:12px 18px;margin:14px 0;font-size:.9rem;}
+  .dw-ex-review li{margin-bottom:6px;}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .dw-ex-sent{font-size:1.12rem;}
+  }
+
+  /* ---- Ordstilling: ordkort ---- */
+  .dw-sent{display:flex;flex-wrap:wrap;gap:8px 6px;align-items:flex-end;margin:10px 0 4px;}
+  .dw-sw{position:relative;display:inline-block;padding:7px 12px 6px;border-radius:10px;border:2px solid #d9d3c4;background:#f1efe8;font-weight:700;font-size:1rem;line-height:1.25;color:#232323;}
+  .dw-sw i{position:absolute;top:-9px;left:6px;font-style:normal;font-size:.68rem;font-weight:800;background:#fff;color:#6b6b6b;border:1px solid #d9d3c4;border-radius:999px;padding:0 6px;line-height:1.35;}
+  .dw-sw-s{background:#dcebff;border-color:#8db7ee;}
+  .dw-sw-v{background:#ffdde2;border-color:#c62828;color:#8c1d1d;box-shadow:0 0 0 2px rgba(198,40,40,.12);}
+  .dw-sw-w{background:#ffe8c4;border-color:#e09b2d;color:#7a4a00;}
+  .dw-sw-c{background:#dcf3dc;border-color:#5bb05b;}
+  .dw-sw-f,.dw-sw-t{background:#ece3ff;border-color:#a98be0;}
+  .dw-sw-m{background:#d9f2f2;border-color:#4fb3b3;}
+  .dw-sw-l{background:#fde7d2;border-color:#e0a266;}
+  .dw-sw-d{background:#f3e3f0;border-color:#c991bd;}
+  .dw-sw-n{background:#e6e6e6;border-color:#8a8a8a;}
+  .dw-sw-o{background:#f1efe8;}
+  .dw-sw-x{background:#fff;border:2px dashed #c62828;color:#c62828;text-decoration:line-through;}
+  .dw-sent .dw-punct{align-self:flex-end;font-weight:800;color:#6b6b6b;padding-bottom:6px;}
+  .dw-sentrow{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;margin:6px 0;}
+  .dw-sentrow .dw-mark{font-size:1.1rem;flex:0 0 auto;padding-top:6px;}
+  .dw-legend{display:flex;flex-wrap:wrap;gap:6px 10px;font-size:.78rem;color:var(--dw-muted);margin:6px 0 2px;}
+  .dw-legend span{display:inline-flex;align-items:center;gap:5px;}
+  .dw-legend b{display:inline-block;width:14px;height:14px;border-radius:4px;border:2px solid #d9d3c4;}
+  .dw-regel{background:#fdf6e3;border:2px solid #d9a91c;border-radius:14px;padding:12px 16px;margin:12px 0;font-size:1.02rem;font-weight:700;line-height:1.5;color:#3d2e00;}
+  .dw-regel small{display:block;font-weight:400;font-size:.84rem;color:#6a5600;margin-top:2px;}
+  .dw-step{background:#fff;border:1px solid #ece8df;border-radius:16px;padding:16px 20px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,.05);line-height:1.65;font-size:.95rem;}
+  .dw-step h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);display:flex;gap:10px;align-items:center;}
+  .dw-step h3 .dw-num{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--dw-primary);color:#fff;font-size:.95rem;display:inline-flex;align-items:center;justify-content:center;}
+  .dw-step p{margin:0 0 10px;} .dw-step ul{margin:6px 0 10px;padding-left:20px;} .dw-step li{margin-bottom:5px;}
+  .dw-step a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-step h4{margin:14px 0 4px;font-size:.88rem;text-transform:uppercase;letter-spacing:.04em;color:var(--dw-muted);}
+  .dw-ok{color:var(--dw-good);font-weight:800;} .dw-bad{color:var(--dw-bad);font-weight:800;}
+  .dw-ex-pair{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0;}
+  .dw-playbox{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:#f3f6fb;border:1px solid #d7e1f0;border-radius:14px;padding:12px 16px;margin:14px 0;font-size:.92rem;}
+  .dw-playbox a{background:var(--dw-primary);color:#fff;text-decoration:none;font-weight:700;border-radius:999px;padding:8px 18px;font-size:.9rem;}
+  .dw-playbox a:hover{background:var(--dw-primary-light);}
+  .dw-lv{display:inline-block;font-size:.72rem;font-weight:700;border-radius:999px;padding:2px 10px;background:#eef1f6;color:#161616;}
+  .dw-lv-1{background:#dff3df;} .dw-lv-2{background:#fff0c2;} .dw-lv-3{background:#fddadd;}
+  /* ---- mini-bygger ---- */
+  .dw-mb{background:#f8f6ef;border:2px dashed #d9d3c4;border-radius:14px;padding:14px 16px;margin:14px 0;}
+  .dw-mb-title{font-weight:800;font-size:.92rem;color:var(--dw-primary-light);margin-bottom:4px;}
+  .dw-mb-nor{font-size:1rem;margin:2px 0 8px;} .dw-mb-nor b{color:var(--dw-muted);font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;margin-right:6px;}
+  .dw-mb-ans{min-height:52px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-bottom:3px solid var(--dw-accent);padding:6px 2px 8px;margin-bottom:10px;background:#fff;border-radius:10px 10px 0 0;}
+  .dw-mb-ans:empty::before{content:"Trykk på ordene i riktig rekkefølge …";color:#aaa;font-size:.85rem;padding-left:8px;}
+  .dw-mb-pool{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;min-height:44px;}
+  .dw-chip{font-family:inherit;font-size:1rem;font-weight:700;padding:8px 13px;border-radius:10px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;}
+  .dw-chip:hover{background:var(--dw-primary);color:#fff;}
+  .dw-chip.dw-in{background:#ece3ff;border-color:#a98be0;color:#2c1a5a;}
+  .dw-chip.dw-in:hover{background:#a98be0;color:#fff;}
+  .dw-chip:focus-visible,.dw-mb-btn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-mb-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+  .dw-mb-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:8px 18px;border-radius:999px;font-size:.9rem;font-weight:700;cursor:pointer;}
+  .dw-mb-btn.dw-sec{background:#fff;color:var(--dw-primary);border:2px solid #d9d3c4;}
+  .dw-mb-btn:hover{background:var(--dw-primary-light);color:#fff;}
+  .dw-mb-fb{display:none;margin-top:10px;border-radius:10px;padding:9px 13px;font-size:.92rem;line-height:1.5;}
+  .dw-mb-fb.dw-show{display:block;} .dw-mb-fb.dw-good{background:#eef7ee;color:#1f5d23;} .dw-mb-fb.dw-bad{background:#fdecee;color:#8c1d1d;} .dw-mb-fb.dw-hint{background:#fff9ec;color:#5a4500;}
+  .dw-mb-prog{font-size:.78rem;color:var(--dw-muted);margin-bottom:6px;}
+  @media(max-width:560px){.dw-sw{font-size:.92rem;padding:6px 9px 5px;}.dw-step{padding:14px 14px 16px;}}
+
+  .dw-sw-k{background:#f4f7c8;border-color:#b5bd2e;color:#4a4f00;}
+  .dw-sw-a{background:#f3e3f0;border-color:#c991bd;}
+  .dw-sw-e{background:#ebddcd;border-color:#a9744f;color:#4a2f14;}
+  .dw-sw-r{background:#dcf3dc;border-color:#3f9a3f;color:#14501a;}
+  .dw-step p.dw-nb{margin:-2px 0 10px 34px;font-size:.84rem;color:#6b6b6b;line-height:1.45;}
+  .dw-step .dw-cmp small{color:#6b6b6b;}
+  .dw-step .dw-sentrow{flex-wrap:nowrap;} .dw-step .dw-sentrow .dw-sent{flex:1 1 auto;min-width:0;}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>🔗 Relativsetninger</h1>
+    <p>der, die, das: setninger som beskriver et substantiv</p>
+  </div>
+
+  <p class="dw-crumb"><a href="../../">🧩 Grammatik</a> → <a href="../">Ordstilling</a> → Relativsetninger <span class="dw-level-tag">🔴 For viderekomne · 🎓 9.–10. trinn</span></p>
+
+  <div class="dw-jump">
+    <a href="#forste">👋 Hva er det?</a><a href="#kjonn">👪 Kjønn og tall</a><a href="#kasus">🧩 Kasus</a><a href="#preposisjon">➡️ Preposisjon</a><a href="#henvisninger">🔗 Henvisninger</a><a href="#ovelser">🎯 Test deg selv</a><a href="../spill/">🎮 Spill</a>
+  </div>
+
+  <div class="dw-step" id="forste">
+    <h3><span class="dw-num">1</span>Hva er en relativsetning?</h3>
+<p>En <strong>relativsetning</strong> er en leddsetning som forteller mer om et substantiv. Den starter med et <strong>relativpronomen</strong> (der, die, das …), og <strong>verbet står sist</strong>.</p><div class="dw-sentrow"><span class="dw-mark">✅</span><div class="dw-sent"><span class="dw-sw dw-sw-o">Das ist der Mann,</span><span class="dw-sw dw-sw-r">der</span><span class="dw-sw dw-sw-o">hier</span><span class="dw-sw dw-sw-v">wohnt</span><span class="dw-punct">.</span></div></div><div class="dw-sentrow"><span class="dw-mark">✅</span><div class="dw-sent"><span class="dw-sw dw-sw-o">Das Buch,</span><span class="dw-sw dw-sw-r">das</span><span class="dw-sw dw-sw-s">ich</span><span class="dw-sw dw-sw-v">lese,</span><span class="dw-sw dw-sw-o">ist gut</span><span class="dw-punct">.</span></div></div><div class="dw-sentrow"><span class="dw-mark">✅</span><div class="dw-sent"><span class="dw-sw dw-sw-o">Die Frau,</span><span class="dw-sw dw-sw-r">die</span><span class="dw-sw dw-sw-s">ich</span><span class="dw-sw dw-sw-v">kenne,</span><span class="dw-sw dw-sw-o">ist nett</span><span class="dw-punct">.</span></div></div><div class="dw-sentrow"><span class="dw-mark">❌</span><div class="dw-sent"><span class="dw-sw dw-sw-o">Das ist der Mann,</span><span class="dw-sw dw-sw-r">der</span><span class="dw-sw dw-sw-v">wohnt</span><span class="dw-sw dw-sw-o">hier</span><span class="dw-punct">.</span></div></div><p class="dw-nb">❌ Verbet må stå sist i relativsetningen.</p><div class="dw-legend"><span><b class="dw-sw-o"></b>resten</span><span><b class="dw-sw-r"></b>relativpronomen</span><span><b class="dw-sw-s"></b>subjekt</span><span><b class="dw-sw-v"></b>verbet (finitt)</span></div><div class="dw-regel">Relativsetning: komma foran (og etter), relativpronomen først, verbet sist.<small><i>Das ist der Mann, der hier wohnt.</i> – Står relativsetningen midt i setningen, får den komma på begge sider.</small></div><div class="dw-cmp"><div><b class="dw-lang">Norsk</b>Det er mannen <b>som</b> bor her.<br>Boka <b>som</b> jeg leser, er god.<br><small>Norsk bruker «som» uansett.</small></div><div><b class="dw-lang">Tysk</b>Das ist der Mann, <b>der</b> hier wohnt.<br>Das Buch, <b>das</b> ich lese, ist gut.<br><small>Tysk har ikke ett «som». Pronomenet endrer seg (der, die, das …).</small></div></div><div class="dw-mb" data-title="🧩 Mini-oppgave: bygg setningen"><script type="application/json">[{"nor": "Det er mannen som bor her.", "ch": ["das ist der Mann", "der", "hier", "wohnt"], "ok": ["Das ist der Mann, der hier wohnt."], "hint": "Pronomen først, verbet sist.", "soft": []}, {"nor": "Boka som jeg leser, er god.", "ch": ["das Buch", "das", "ich", "lese", "ist gut"], "ok": ["Das Buch, das ich lese, ist gut."], "hint": "Relativsetningen står midt i, med komma på begge sider.", "soft": []}, {"nor": "Kvinnen som jeg kjenner, er hyggelig.", "ch": ["die Frau", "die", "ich", "kenne", "ist nett"], "ok": ["Die Frau, die ich kenne, ist nett."], "hint": "Verbet sist i relativsetningen.", "soft": []}, {"nor": "Det er en mann som ofte ler.", "ch": ["das ist ein Mann", "der", "oft", "lacht"], "ok": ["Das ist ein Mann, der oft lacht."], "hint": "Verbet sist.", "soft": []}]</script></div><div class="dw-playbox"><span>🎮 Bygg relativsetninger</span><a href="../spill/?modus=bygg&amp;nivaa=3&amp;tema=relativ">Spill dette →</a></div>
+  </div>
+
+  <div class="dw-step" id="kjonn">
+    <h3><span class="dw-num">2</span>Kjønn og tall: der, die, das, die</h3>
+<p>Relativpronomenet henter <strong>kjønn og tall</strong> fra ordet det viser tilbake til (substantivet foran). Det er de samme ordene som bestemt artikkel: <em>der, die, das, die</em>.</p><div class="dw-tbl-wrap"><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th>Ordet foran</th><th>Kjønn / tall</th><th>Relativpronomen</th><th>Eksempel</th></tr></thead><tbody><tr><td class="dw-f">der Mann</td><td>hankjønn</td><td><b>der</b></td><td>Das ist der Mann, <b>der</b> hier wohnt.</td></tr><tr><td class="dw-f">die Frau</td><td>hunkjønn</td><td><b>die</b></td><td>Das ist die Frau, <b>die</b> hier arbeitet.</td></tr><tr><td class="dw-f">das Kind</td><td>intetkjønn</td><td><b>das</b></td><td>Das ist das Kind, <b>das</b> dort steht.</td></tr><tr><td class="dw-f">die Kinder</td><td>flertall</td><td><b>die</b></td><td>Das sind die Kinder, <b>die</b> laut spielen.</td></tr></tbody></table></div></div><div class="dw-sentrow"><span class="dw-mark">✅</span><div class="dw-sent"><span class="dw-sw dw-sw-o">Das ist das Kind,</span><span class="dw-sw dw-sw-r">das</span><span class="dw-sw dw-sw-o">hier</span><span class="dw-sw dw-sw-v">wohnt</span><span class="dw-punct">.</span></div></div><div class="dw-sentrow"><span class="dw-mark">❌</span><div class="dw-sent"><span class="dw-sw dw-sw-o">Das ist das Kind,</span><span class="dw-sw dw-sw-x">der</span><span class="dw-sw dw-sw-o">hier</span><span class="dw-sw dw-sw-v">wohnt</span><span class="dw-punct">.</span></div></div><p class="dw-nb">❌ «Kind» er intetkjønn, så pronomenet må være <i>das</i>.</p><div class="dw-regel">Kjønn og tall følger ordet foran: der Mann → der, die Frau → die, das Kind → das, die Kinder → die.</div><div class="dw-cmp"><div><b class="dw-lang">Norsk</b>mannen <b>som</b> …<br>kvinnen <b>som</b> …<br>barnet <b>som</b> …<br>barna <b>som</b> …</div><div><b class="dw-lang">Tysk</b>der Mann, <b>der</b> …<br>die Frau, <b>die</b> …<br>das Kind, <b>das</b> …<br>die Kinder, <b>die</b> …</div></div><p>Genusene kjenner du fra <a href="../../artikler/">artiklene</a>. Ordene <i>der, die, das</i> brukes også som pekeord: <a href="../../pronomen/demonstrativ/">demonstrativ</a>.</p><div class="dw-mb" data-title="🧩 Mini-oppgave: bygg setningen"><script type="application/json">[{"nor": "Det er kvinnen som jobber her.", "ch": ["das ist die Frau", "die", "hier", "arbeitet"], "ok": ["Das ist die Frau, die hier arbeitet."], "hint": "Hunkjønn: die.", "soft": []}, {"nor": "Jeg kjenner jenta som står der.", "ch": ["ich kenne das Mädchen", "das", "dort", "steht"], "ok": ["Ich kenne das Mädchen, das dort steht."], "hint": "Intetkjønn: das.", "soft": []}, {"nor": "Vi ser barna som leker høyt.", "ch": ["wir sehen die Kinder", "die", "laut", "spielen"], "ok": ["Wir sehen die Kinder, die laut spielen."], "hint": "Flertall: die.", "soft": []}, {"nor": "Det er hunden som ofte bjeffer.", "ch": ["das ist der Hund", "der", "oft", "bellt"], "ok": ["Das ist der Hund, der oft bellt."], "hint": "Hankjønn: der.", "soft": []}]</script></div><div class="dw-playbox"><span>🎮 Velg riktig relativpronomen</span><a href="../spill/?modus=type&amp;nivaa=3&amp;tema=relativ">Spill dette →</a></div>
+  </div>
+
+  <div class="dw-step" id="kasus">
+    <h3><span class="dw-num">3</span>Kasus: den, dem, der, denen</h3>
+<p>Kjønn og tall hentes fra ordet foran, men <strong>kasus</strong> hentes fra jobben pronomenet har <em>inne i</em> relativsetningen. Er det subjekt, er det nominativ. Er det objekt, er det akkusativ eller dativ.</p><div class="dw-tbl-wrap"><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:540px"><thead><tr><th></th><th>hankjønn</th><th>hunkjønn</th><th>intetkjønn</th><th>flertall</th></tr></thead><tbody><tr><td class="dw-f">Nominativ (subjekt)</td><td>der</td><td>die</td><td>das</td><td>die</td></tr><tr><td class="dw-f">Akkusativ (objekt)</td><td class="dw-f dw-hl">den</td><td>die</td><td>das</td><td>die</td></tr><tr><td class="dw-f">Dativ (til …)</td><td class="dw-f dw-hl">dem</td><td class="dw-f dw-hl">der</td><td class="dw-f dw-hl">dem</td><td class="dw-f dw-hl">denen</td></tr></tbody></table></div></div><div class="dw-sentrow"><span class="dw-mark">✅</span><div class="dw-sent"><span class="dw-sw dw-sw-o">Das ist der Mann,</span><span class="dw-sw dw-sw-r">der</span><span class="dw-sw dw-sw-o">hier</span><span class="dw-sw dw-sw-v">wohnt</span><span class="dw-punct">.</span></div></div><p class="dw-nb">Subjekt (<i>der Mann wohnt hier</i>) → nominativ: <b>der</b></p><div class="dw-sentrow"><span class="dw-mark">✅</span><div class="dw-sent"><span class="dw-sw dw-sw-o">Das ist der Mann,</span><span class="dw-sw dw-sw-r">den</span><span class="dw-sw dw-sw-s">ich</span><span class="dw-sw dw-sw-v">kenne</span><span class="dw-punct">.</span></div></div><p class="dw-nb">Objekt (<i>ich kenne den Mann</i>) → akkusativ: <b>den</b></p><div class="dw-sentrow"><span class="dw-mark">✅</span><div class="dw-sent"><span class="dw-sw dw-sw-o">Das ist der Mann,</span><span class="dw-sw dw-sw-r">dem</span><span class="dw-sw dw-sw-s">ich</span><span class="dw-sw dw-sw-v">helfe</span><span class="dw-punct">.</span></div></div><p class="dw-nb">Dativ (<i>ich helfe dem Mann</i>) → dativ: <b>dem</b></p><div class="dw-sentrow"><span class="dw-mark">❌</span><div class="dw-sent"><span class="dw-sw dw-sw-o">Das ist der Mann,</span><span class="dw-sw dw-sw-x">der</span><span class="dw-sw dw-sw-s">ich</span><span class="dw-sw dw-sw-v">kenne</span><span class="dw-punct">.</span></div></div><p class="dw-nb">❌ «ich kenne <i>der</i> Mann» finnes ikke – objektet er akkusativ: <i>den</i>.</p><div class="dw-legend"><span><b class="dw-sw-o"></b>resten</span><span><b class="dw-sw-r"></b>relativpronomen</span><span><b class="dw-sw-s"></b>subjekt</span><span><b class="dw-sw-v"></b>verbet (finitt)</span></div><div class="dw-regel">Kjønn og tall fra ordet foran. Kasus fra jobben i relativsetningen.<small>Triks: Lag en vanlig setning av relativsetningen («ich kenne <u>den Mann</u>») og se hvilken kasus ordet får.</small></div><div class="dw-tip">💡 Det finnes også en genitivsform (<i>dessen, deren</i>). Den venter vi med.</div><p>Gjenta kasusene: <a href="../../artikler/akkusativ/">akkusativ</a> · <a href="../../artikler/dativ/">dativ</a>.</p><div class="dw-mb" data-title="🧩 Mini-oppgave: bygg setningen"><script type="application/json">[{"nor": "Det er mannen som jeg kjenner.", "ch": ["das ist der Mann", "den", "ich", "kenne"], "ok": ["Das ist der Mann, den ich kenne."], "hint": "Objekt, hankjønn: den.", "soft": []}, {"nor": "Det er kvinnen som jeg hjelper.", "ch": ["das ist die Frau", "der", "ich", "helfe"], "ok": ["Das ist die Frau, der ich helfe."], "hint": "helfen + dativ, hunkjønn: der.", "soft": []}, {"nor": "Det er barna som jeg hjelper.", "ch": ["das sind die Kinder", "denen", "ich", "helfe"], "ok": ["Das sind die Kinder, denen ich helfe."], "hint": "helfen + dativ, flertall: denen.", "soft": []}, {"nor": "Det er filmen som jeg så i går.", "ch": ["das ist der Film", "den", "ich", "gestern", "gesehen", "habe"], "ok": ["Das ist der Film, den ich gestern gesehen habe."], "hint": "Partisipp, så finitt verb helt sist.", "soft": []}]</script></div><div class="dw-playbox"><span>🎮 Finn feilene</span><a href="../spill/?modus=feil&amp;nivaa=3&amp;tema=relativ">Spill dette →</a></div>
+  </div>
+
+  <div class="dw-step" id="preposisjon">
+    <h3><span class="dw-num">4</span>Preposisjon foran pronomenet</h3>
+<p>Norsk setter gjerne preposisjonen helt til slutt: «kvinnen jeg snakker <em>med</em>». På tysk <strong>flytter preposisjonen foran pronomenet</strong>, og pronomenet får den kasusen preposisjonen krever.</p><div class="dw-sentrow"><span class="dw-mark">✅</span><div class="dw-sent"><span class="dw-sw dw-sw-o">Das ist die Frau,</span><span class="dw-sw dw-sw-r">mit der</span><span class="dw-sw dw-sw-s">ich</span><span class="dw-sw dw-sw-v">spreche</span><span class="dw-punct">.</span></div></div><div class="dw-sentrow"><span class="dw-mark">✅</span><div class="dw-sent"><span class="dw-sw dw-sw-o">Das ist das Haus,</span><span class="dw-sw dw-sw-r">in dem</span><span class="dw-sw dw-sw-s">ich</span><span class="dw-sw dw-sw-v">wohne</span><span class="dw-punct">.</span></div></div><div class="dw-sentrow"><span class="dw-mark">✅</span><div class="dw-sent"><span class="dw-sw dw-sw-o">Das ist der Freund,</span><span class="dw-sw dw-sw-r">mit dem</span><span class="dw-sw dw-sw-s">ich</span><span class="dw-sw dw-sw-d">Fußball</span><span class="dw-sw dw-sw-v">spiele</span><span class="dw-punct">.</span></div></div><div class="dw-sentrow"><span class="dw-mark">❌</span><div class="dw-sent"><span class="dw-sw dw-sw-o">Das ist die Frau,</span><span class="dw-sw dw-sw-x">die</span><span class="dw-sw dw-sw-s">ich</span><span class="dw-sw dw-sw-x">mit</span><span class="dw-sw dw-sw-v">spreche</span><span class="dw-punct">.</span></div></div><p class="dw-nb">❌ Slik sier du det på norsk («som jeg snakker med»). På tysk må preposisjonen stå foran pronomenet.</p><div class="dw-legend"><span><b class="dw-sw-o"></b>resten</span><span><b class="dw-sw-r"></b>relativpronomen</span><span><b class="dw-sw-s"></b>subjekt</span><span><b class="dw-sw-v"></b>verbet (finitt)</span></div><div class="dw-regel">Preposisjon + relativpronomen: <i>mit der, in dem, mit denen</i> …<small><i>mit</i> og <i>in</i> (ved Wo?) tar dativ: mit dem / mit der / mit denen, in dem / in der.</small></div><div class="dw-cmp"><div><b class="dw-lang">Norsk</b>Det er kvinnen jeg snakker <b>med</b>.<br>Det er huset jeg bor <b>i</b>.<br><small>Preposisjonen står sist.</small></div><div><b class="dw-lang">Tysk</b>Das ist die Frau, <b>mit der</b> ich spreche.<br>Das ist das Haus, <b>in dem</b> ich wohne.<br><small>Preposisjonen står foran pronomenet.</small></div></div><div class="dw-mb" data-title="🧩 Mini-oppgave: bygg setningen"><script type="application/json">[{"nor": "Det er kvinnen jeg snakker med.", "ch": ["das ist die Frau", "mit der", "ich", "spreche"], "ok": ["Das ist die Frau, mit der ich spreche."], "hint": "Preposisjon + pronomen først.", "soft": []}, {"nor": "Det er huset jeg bor i.", "ch": ["das ist das Haus", "in dem", "ich", "wohne"], "ok": ["Das ist das Haus, in dem ich wohne."], "hint": "in dem = i huset (Wo? → dativ).", "soft": []}, {"nor": "Det er vennen jeg spiller fotball med.", "ch": ["das ist der Freund", "mit dem", "ich", "Fußball", "spiele"], "ok": ["Das ist der Freund, mit dem ich Fußball spiele."], "hint": "mit + dativ: mit dem.", "soft": []}, {"nor": "Det er vennene jeg spiller fotball med.", "ch": ["das sind die Freunde", "mit denen", "ich", "Fußball", "spiele"], "ok": ["Das sind die Freunde, mit denen ich Fußball spiele."], "hint": "mit + dativ flertall: mit denen.", "soft": []}]</script></div><div class="dw-playbox"><span>🎮 Øv på relativsetninger med preposisjon</span><a href="../spill/?modus=oversett&amp;nivaa=3&amp;tema=relativ">Spill dette →</a></div>
+  </div>
+
+  <div class="dw-step" id="henvisninger">
+    <h3><span class="dw-num">5</span>Henvisninger</h3>
+<p>Her er steder på nettstedet som henger tett sammen med denne siden:</p><ul><li><a href="../../artikler/">Artikler</a> – der, die, das og kasus</li><li><a href="../../pronomen/demonstrativ/">Demonstrativpronomen</a> – der, die, das som pekeord</li><li><a href="../leddsetninger/">Leddsetninger: verbet sist</a> – relativsetninger er en slags leddsetning</li><li><a href="../../konjunksjoner/underordnende/">Underordnende konjunksjoner</a> – weil, dass, wenn … som setter verbet sist</li></ul><div class="dw-playbox"><span>🎮 Klar for å spille? Prøv hele ordstilling-spillet</span><a href="../spill/?modus=rase&amp;nivaa=3">Spill dette →</a></div>
+  </div>
+
+  <p class="dw-see-also"><strong>Se også:</strong> <a href="../">Ordstilling (oversikt)</a> · <a href="../spill/">🎮 Ordstilling-spill</a><br>Andre sider i kategorien: <a href="../plass-2/">Verbet på plass 2</a> · <a href="../ja-nei-sporsmal/">Ja/nei-spørsmål</a> · <a href="../sporreord/">Spørsmål med spørreord</a> · <a href="../og-men-eller/">Og, men, eller …</a> · <a href="../leddsetninger/">Leddsetninger: verbet sist</a> · <a href="../leddsetning-forst/">Leddsetning først</a> · <a href="../modalverb/">Modalverb</a> · <a href="../skillbare-verb/">Skillbare verb</a> · <a href="../perfekt/">Perfekt</a> · <a href="../verbene/">Hva skjer med verbene?</a> · <a href="../tekamolo/">Tid – måte – sted</a> · <a href="../objekt-pronomen/">Objekt og pronomen</a> · <a href="../negasjon/">Nekting: nicht og kein</a> · <a href="../avansert/">Avansert leddsetningsstruktur</a></p>
+
+  <h2 class="dw-sec-title" id="ovelser">🎯 Øvelser</h2>
+  <div class="dw-ex-card" id="dw-ex">
+    <div id="dw-ex-play">
+      <div class="dw-ex-top"><span id="dw-ex-count"></span><span id="dw-ex-score-live"></span></div>
+      <div class="dw-ex-bar"><div class="dw-ex-fill" id="dw-ex-fill"></div></div>
+      <div class="dw-ex-cue" id="dw-ex-cue"></div>
+      <div class="dw-ex-sent" id="dw-ex-sent"></div>
+      <div class="dw-ex-choices" id="dw-ex-choices" role="group" aria-label="Svaralternativer"></div>
+      <button type="button" class="dw-ex-hintbtn" id="dw-ex-hintbtn">💡 Vis hint</button>
+      <div class="dw-ex-fb" id="dw-ex-fb" aria-live="polite"></div>
+      <button type="button" class="dw-ex-btn" id="dw-ex-next" style="display:none">Neste →</button>
+    </div>
+    <div class="dw-ex-result" id="dw-ex-result">
+      <h3 style="margin:0;font-family:'Baloo 2',sans-serif;font-size:1.4rem">Ferdig! 🎉</h3>
+      <div class="dw-ex-score" id="dw-ex-final"></div>
+      <p id="dw-ex-msg"></p>
+      <div class="dw-ex-review" id="dw-ex-review"></div>
+      <button type="button" class="dw-ex-btn dw-gold" id="dw-ex-restart">🔁 Spill på nytt</button>
+    </div>
+  </div>
+
+</div>
+<script>
+var DWQ = [
+ {
+  "s": "Das ist der Mann, ___ hier wohnt.",
+  "cue": "subjekt, hankjønn",
+  "a": "der",
+  "c": [
+   "der",
+   "den",
+   "dem"
+  ],
+  "e": "Pronomenet er subjekt (nominativ) og viser til «der Mann»: der.",
+  "h": "nominativ hankjønn"
+ },
+ {
+  "s": "Das ist die Frau, ___ ich kenne.",
+  "cue": "objekt (akkusativ), hunkjønn",
+  "a": "die",
+  "c": [
+   "die",
+   "der",
+   "den"
+  ],
+  "e": "Hunkjønn akkusativ er «die».",
+  "h": "akkusativ hunkjønn"
+ },
+ {
+  "s": "Das Buch, ___ ich lese, ist gut.",
+  "cue": "objekt, intetkjønn",
+  "a": "das",
+  "c": [
+   "das",
+   "dem",
+   "der"
+  ],
+  "e": "Buch er intetkjønn. Akkusativ intetkjønn er «das».",
+  "h": "Buch = das"
+ },
+ {
+  "s": "Der Mann, ___ ich sehe, ist nett.",
+  "cue": "objekt (akkusativ), hankjønn",
+  "a": "den",
+  "c": [
+   "den",
+   "der",
+   "dem"
+  ],
+  "e": "Hankjønn akkusativ er «den».",
+  "h": "akkusativ hankjønn"
+ },
+ {
+  "s": "Die Kinder, ___ ich helfe, sind nett.",
+  "cue": "helfen + dativ, flertall",
+  "a": "denen",
+  "c": [
+   "denen",
+   "die",
+   "den"
+  ],
+  "e": "Dativ flertall av relativpronomenet er «denen».",
+  "h": "dativ flertall"
+ },
+ {
+  "s": "Das ist die Frau, mit ___ ich spreche.",
+  "cue": "mit + dativ, hunkjønn",
+  "a": "der",
+  "c": [
+   "der",
+   "die",
+   "den"
+  ],
+  "e": "«mit» tar dativ. Dativ hunkjønn er «der».",
+  "h": "mit + dativ"
+ },
+ {
+  "s": "Das ist das Haus, in ___ ich wohne.",
+  "cue": "Wo? → dativ, intetkjønn",
+  "a": "dem",
+  "c": [
+   "dem",
+   "das",
+   "den"
+  ],
+  "e": "«in» ved Wo? tar dativ. Dativ intetkjønn er «dem».",
+  "h": "dativ intetkjønn"
+ },
+ {
+  "s": "Das ist der Mann, der ___.",
+  "cue": "relativsetning: verbet sist",
+  "a": "hier wohnt",
+  "c": [
+   "hier wohnt",
+   "wohnt hier",
+   "hier wohnen"
+  ],
+  "e": "I relativsetningen står verbet sist: der hier wohnt.",
+  "h": "verbet sist"
+ }
+];
+
+(function(){
+  var ALL = DWQ, Q = [], i = 0, score = 0, done = false, missed = [];
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function shuffle(a){ a = a.slice(); for(var k = a.length - 1; k > 0; k--){ var j = Math.floor(Math.random() * (k + 1)); var t = a[k]; a[k] = a[j]; a[j] = t; } return a; }
+  var $ = function(id){ return document.getElementById(id); };
+  function start(){
+    Q = shuffle(ALL); i = 0; score = 0; missed = [];
+    $('dw-ex-play').style.display = 'block'; $('dw-ex-result').classList.remove('dw-show');
+    render();
+  }
+  function render(){
+    var q = Q[i]; done = false;
+    $('dw-ex-count').textContent = 'Oppgave ' + (i + 1) + ' av ' + Q.length;
+    $('dw-ex-score-live').textContent = 'Poeng: ' + score;
+    $('dw-ex-fill').style.width = (i / Q.length * 100) + '%';
+    $('dw-ex-cue').textContent = q.cue || '';
+    $('dw-ex-sent').innerHTML = esc(q.s).replace('___', '<span class="dw-blank" id="dw-ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;</span>');
+    $('dw-ex-choices').innerHTML = shuffle(q.c).map(function(c){ return '<button type="button" class="dw-ex-choice" data-v="' + esc(c) + '">' + esc(c) + '</button>'; }).join('');
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb'; fb.innerHTML = '';
+    $('dw-ex-hintbtn').style.display = 'inline'; $('dw-ex-next').style.display = 'none';
+  }
+  $('dw-ex-choices').addEventListener('click', function(e){
+    var b = e.target.closest('.dw-ex-choice'); if(!b || done) return;
+    done = true; var q = Q[i], v = b.getAttribute('data-v'), ok = v === q.a;
+    document.querySelectorAll('.dw-ex-choice').forEach(function(x){
+      x.disabled = true;
+      if(x.getAttribute('data-v') === q.a) x.classList.add('dw-correct');
+    });
+    if(!ok) b.classList.add('dw-wrong');
+    var bl = $('dw-ex-blank'); bl.textContent = q.a; bl.classList.add('dw-filled'); if(!ok) bl.classList.add('dw-bad');
+    if(ok) score++; else missed.push(q);
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb dw-show ' + (ok ? 'dw-good' : 'dw-bad');
+    fb.innerHTML = (ok ? '✅ Riktig! ' : '❌ Riktig svar er <b>' + esc(q.a) + '</b>. ') + esc(q.e);
+    $('dw-ex-hintbtn').style.display = 'none';
+    $('dw-ex-score-live').textContent = 'Poeng: ' + score;
+    var nx = $('dw-ex-next'); nx.style.display = 'inline-block'; nx.textContent = (i === Q.length - 1) ? 'Se resultatet →' : 'Neste →'; nx.focus();
+  });
+  $('dw-ex-hintbtn').addEventListener('click', function(){
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb dw-show'; fb.innerHTML = '💡 ' + esc(Q[i].h);
+  });
+  $('dw-ex-next').addEventListener('click', function(){
+    if(i < Q.length - 1){ i++; render(); return; }
+    $('dw-ex-play').style.display = 'none'; $('dw-ex-result').classList.add('dw-show');
+    $('dw-ex-final').textContent = score + ' / ' + Q.length;
+    var pct = score / Q.length;
+    $('dw-ex-msg').textContent = pct === 1 ? 'Perfekt — ingen feil!' : pct >= 0.75 ? 'Veldig bra! Les gjennom de få feilene under.' : pct >= 0.5 ? 'Greit på vei — se på tabellene og prøv igjen.' : 'Les forklaringen en gang til, og prøv på nytt.';
+    $('dw-ex-review').innerHTML = missed.length ? '<b>Dette bør du se på igjen:</b><ul>' + missed.map(function(q){ return '<li>' + esc(q.s).replace('___', '<b>' + esc(q.a) + '</b>') + ' — ' + esc(q.e) + '</li>'; }).join('') + '</ul>' : '🎉 Du hadde alt riktig!';
+    $('dw-ex-fill').style.width = '100%';
+  });
+  $('dw-ex-restart').addEventListener('click', start);
+  start();
+})();
+</script>
+
+<script>
+(function(){
+  function norm(s){return s.toLowerCase().replace(/[.,!?;:«»"“”]/g,'').replace(/\s+/g,' ').trim();}
+  function shuffle(a){a=a.slice();for(var k=a.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1));var t=a[k];a[k]=a[j];a[j]=t;}return a;}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  document.querySelectorAll('.dw-mb').forEach(function(box){
+    var items=JSON.parse(box.querySelector('script').textContent), title=box.getAttribute('data-title')||'🧩 Mini-oppgave';
+    var i=0,score=0,tries=0,placed=[],pool=[],done=false;
+    box.insertAdjacentHTML('beforeend','<div class="dw-mb-title"></div><div class="dw-mb-prog"></div><div class="dw-mb-nor"></div><div class="dw-mb-ans" aria-label="Din setning"></div><div class="dw-mb-pool"></div><div class="dw-mb-row"><button type="button" class="dw-mb-btn">Sjekk</button><button type="button" class="dw-mb-btn dw-sec">Nullstill</button><button type="button" class="dw-mb-btn dw-sec">💡 Hint</button><button type="button" class="dw-mb-btn" style="display:none">Neste →</button></div><div class="dw-mb-fb" aria-live="polite"></div>');
+    var q=function(s){return box.querySelector(s);};
+    var ans=q('.dw-mb-ans'),poolEl=q('.dw-mb-pool'),fb=q('.dw-mb-fb'),btns=box.querySelectorAll('.dw-mb-btn');
+    var bCheck=btns[0],bReset=btns[1],bHint=btns[2],bNext=btns[3];
+    q('.dw-mb-title').textContent=title;
+    function say(cls,html){fb.className='dw-mb-fb dw-show '+cls;fb.innerHTML=html;}
+    function draw(){
+      ans.innerHTML='';poolEl.innerHTML='';
+      placed.forEach(function(c,ix){var b=document.createElement('button');b.type='button';b.className='dw-chip dw-in';b.textContent=c.t;b.onclick=function(){if(done)return;placed.splice(ix,1);pool.push(c);draw();};ans.appendChild(b);});
+      pool.forEach(function(c,ix){var b=document.createElement('button');b.type='button';b.className='dw-chip';b.textContent=c.t;b.onclick=function(){if(done)return;pool.splice(ix,1);placed.push(c);draw();};poolEl.appendChild(b);});
+    }
+    function load(){
+      var it=items[i];done=false;tries=0;fb.className='dw-mb-fb';fb.innerHTML='';
+      placed=[];pool=shuffle(it.ch.map(function(t,n){return{t:t,n:n};}));
+      q('.dw-mb-prog').textContent='Oppgave '+(i+1)+' av '+items.length;
+      q('.dw-mb-nor').innerHTML=it.nor?'<b>Norsk</b>'+esc(it.nor):'';
+      bCheck.style.display='';bReset.style.display='';bHint.style.display=it.hint?'':'none';bNext.style.display='none';draw();
+    }
+    bReset.onclick=function(){if(done)return;pool=pool.concat(placed);placed=[];draw();fb.className='dw-mb-fb';};
+    bHint.onclick=function(){say('dw-hint','💡 '+esc(items[i].hint));};
+    bCheck.onclick=function(){
+      if(done)return;var it=items[i];
+      if(placed.length<it.ch.length){say('dw-hint','Bruk alle ordene først.');return;}
+      var mine=norm(placed.map(function(c){return c.t;}).join(' ')),hit=null;
+      it.ok.forEach(function(s){if(norm(s)===mine)hit=s;});
+      if(hit){done=true;if(tries===0)score++;say('dw-good','✅ Riktig! <b>'+esc(hit)+'</b>'+(it.ok.length>1?'<br><small>Flere rekkefølger er mulige her.</small>':''));bCheck.style.display='none';bReset.style.display='none';bHint.style.display='none';bNext.style.display='';bNext.textContent=i<items.length-1?'Neste →':'Ferdig';}
+      else if(it.soft&&it.soft.some(function(s){return norm(s)===mine;})){tries++;say('dw-hint','🤔 Det går an å si det slik, men det er ikke den <b>nøytrale</b> rekkefølgen. Oppgaven spør etter hovedregelen – prøv igjen.');}else{tries++;say('dw-bad','❌ Ikke helt. Husk regelen over og prøv igjen.'+(tries>=2&&items[i].hint?'<br>💡 '+esc(items[i].hint):''));}
+    };
+    bNext.onclick=function(){
+      if(i<items.length-1){i++;load();}
+      else{ans.innerHTML='';poolEl.innerHTML='';q('.dw-mb-nor').innerHTML='';q('.dw-mb-prog').textContent='';btns.forEach(function(b){b.style.display='none';});say('dw-good','🎉 Ferdig! '+score+' av '+items.length+' riktige på første forsøk.');}
+    };
+    load();
+  });
+})();
+</script>
+</body>
+</html>

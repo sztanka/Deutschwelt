@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Grammatik-kategori: "Ordstilling"
+  Hub med 15 trinnvise sider (🟢🟡🔴), oversikt over verbplassering og spillsiden.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ordstilling · Grammatik · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:860px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .dw-jump a{font-size:.86rem;font-weight:700;padding:7px 15px;border-radius:999px;text-decoration:none;background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:32px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t tbody th{background:#fbfaf6;font-size:.84rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t td.dw-hl{background:#fff3cf;}
+  .dw-t td.dw-c{text-align:center;}
+  .dw-t td.dw-x{color:#aaa;text-align:center;}
+  .dw-t tr.dw-grp td,.dw-t tr.dw-grp th{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:14px 0;}
+  a.dw-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;text-decoration:none;color:var(--dw-text);box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;gap:6px;}
+  a.dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  a.dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  a.dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
+
+  /* Øvelser */
+  .dw-ex-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+  .dw-ex-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:8px;}
+  .dw-ex-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:16px;}
+  .dw-ex-fill{height:100%;width:0;background:var(--dw-good);transition:width .25s ease;}
+  .dw-ex-cue{font-size:.88rem;color:var(--dw-muted);margin-bottom:4px;}
+  .dw-ex-sent{font-size:1.3rem;font-weight:600;color:var(--dw-primary);line-height:1.5;margin:2px 0 18px;}
+  .dw-ex-sent .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);text-align:center;}
+  .dw-ex-sent .dw-blank.dw-filled{color:var(--dw-good);border-color:var(--dw-good);}
+  .dw-ex-sent .dw-blank.dw-filled.dw-bad{color:var(--dw-bad);border-color:var(--dw-bad);}
+  .dw-ex-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .dw-ex-choice{flex:1 1 110px;max-width:170px;padding:12px 8px;font-family:inherit;font-size:1.1rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;}
+  .dw-ex-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-ex-choice:disabled{cursor:default;opacity:.55;}
+  .dw-ex-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-ex-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .dw-ex-choice:focus-visible,.dw-ex-btn:focus-visible,.dw-ex-hintbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-ex-hintbtn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:.85rem;padding:0;margin-bottom:8px;}
+  .dw-ex-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:10px 14px;margin:6px 0 14px;background:#f4f1e8;}
+  .dw-ex-fb.dw-show{display:block;}
+  .dw-ex-fb.dw-good{background:#eef7ee;color:#1f5d23;}
+  .dw-ex-fb.dw-bad{background:#fdecee;color:#8c1d1d;}
+  .dw-ex-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:11px 26px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .dw-ex-btn:hover{background:var(--dw-primary-light);}
+  .dw-ex-btn.dw-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-ex-result{display:none;text-align:center;}
+  .dw-ex-result.dw-show{display:block;}
+  .dw-ex-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .dw-ex-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:12px 18px;margin:14px 0;font-size:.9rem;}
+  .dw-ex-review li{margin-bottom:6px;}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .dw-ex-sent{font-size:1.12rem;}
+  }
+
+  /* ---- Ordstilling: ordkort ---- */
+  .dw-sent{display:flex;flex-wrap:wrap;gap:8px 6px;align-items:flex-end;margin:10px 0 4px;}
+  .dw-sw{position:relative;display:inline-block;padding:7px 12px 6px;border-radius:10px;border:2px solid #d9d3c4;background:#f1efe8;font-weight:700;font-size:1rem;line-height:1.25;color:#232323;}
+  .dw-sw i{position:absolute;top:-9px;left:6px;font-style:normal;font-size:.68rem;font-weight:800;background:#fff;color:#6b6b6b;border:1px solid #d9d3c4;border-radius:999px;padding:0 6px;line-height:1.35;}
+  .dw-sw-s{background:#dcebff;border-color:#8db7ee;}
+  .dw-sw-v{background:#ffdde2;border-color:#c62828;color:#8c1d1d;box-shadow:0 0 0 2px rgba(198,40,40,.12);}
+  .dw-sw-w{background:#ffe8c4;border-color:#e09b2d;color:#7a4a00;}
+  .dw-sw-c{background:#dcf3dc;border-color:#5bb05b;}
+  .dw-sw-f,.dw-sw-t{background:#ece3ff;border-color:#a98be0;}
+  .dw-sw-m{background:#d9f2f2;border-color:#4fb3b3;}
+  .dw-sw-l{background:#fde7d2;border-color:#e0a266;}
+  .dw-sw-d{background:#f3e3f0;border-color:#c991bd;}
+  .dw-sw-n{background:#e6e6e6;border-color:#8a8a8a;}
+  .dw-sw-o{background:#f1efe8;}
+  .dw-sw-x{background:#fff;border:2px dashed #c62828;color:#c62828;text-decoration:line-through;}
+  .dw-sent .dw-punct{align-self:flex-end;font-weight:800;color:#6b6b6b;padding-bottom:6px;}
+  .dw-sentrow{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;margin:6px 0;}
+  .dw-sentrow .dw-mark{font-size:1.1rem;flex:0 0 auto;padding-top:6px;}
+  .dw-legend{display:flex;flex-wrap:wrap;gap:6px 10px;font-size:.78rem;color:var(--dw-muted);margin:6px 0 2px;}
+  .dw-legend span{display:inline-flex;align-items:center;gap:5px;}
+  .dw-legend b{display:inline-block;width:14px;height:14px;border-radius:4px;border:2px solid #d9d3c4;}
+  .dw-regel{background:#fdf6e3;border:2px solid #d9a91c;border-radius:14px;padding:12px 16px;margin:12px 0;font-size:1.02rem;font-weight:700;line-height:1.5;color:#3d2e00;}
+  .dw-regel small{display:block;font-weight:400;font-size:.84rem;color:#6a5600;margin-top:2px;}
+  .dw-step{background:#fff;border:1px solid #ece8df;border-radius:16px;padding:16px 20px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,.05);line-height:1.65;font-size:.95rem;}
+  .dw-step h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);display:flex;gap:10px;align-items:center;}
+  .dw-step h3 .dw-num{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--dw-primary);color:#fff;font-size:.95rem;display:inline-flex;align-items:center;justify-content:center;}
+  .dw-step p{margin:0 0 10px;} .dw-step ul{margin:6px 0 10px;padding-left:20px;} .dw-step li{margin-bottom:5px;}
+  .dw-step a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-step h4{margin:14px 0 4px;font-size:.88rem;text-transform:uppercase;letter-spacing:.04em;color:var(--dw-muted);}
+  .dw-ok{color:var(--dw-good);font-weight:800;} .dw-bad{color:var(--dw-bad);font-weight:800;}
+  .dw-ex-pair{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0;}
+  .dw-playbox{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:#f3f6fb;border:1px solid #d7e1f0;border-radius:14px;padding:12px 16px;margin:14px 0;font-size:.92rem;}
+  .dw-playbox a{background:var(--dw-primary);color:#fff;text-decoration:none;font-weight:700;border-radius:999px;padding:8px 18px;font-size:.9rem;}
+  .dw-playbox a:hover{background:var(--dw-primary-light);}
+  .dw-lv{display:inline-block;font-size:.72rem;font-weight:700;border-radius:999px;padding:2px 10px;background:#eef1f6;color:#161616;}
+  .dw-lv-1{background:#dff3df;} .dw-lv-2{background:#fff0c2;} .dw-lv-3{background:#fddadd;}
+  /* ---- mini-bygger ---- */
+  .dw-mb{background:#f8f6ef;border:2px dashed #d9d3c4;border-radius:14px;padding:14px 16px;margin:14px 0;}
+  .dw-mb-title{font-weight:800;font-size:.92rem;color:var(--dw-primary-light);margin-bottom:4px;}
+  .dw-mb-nor{font-size:1rem;margin:2px 0 8px;} .dw-mb-nor b{color:var(--dw-muted);font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;margin-right:6px;}
+  .dw-mb-ans{min-height:52px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-bottom:3px solid var(--dw-accent);padding:6px 2px 8px;margin-bottom:10px;background:#fff;border-radius:10px 10px 0 0;}
+  .dw-mb-ans:empty::before{content:"Trykk på ordene i riktig rekkefølge …";color:#aaa;font-size:.85rem;padding-left:8px;}
+  .dw-mb-pool{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;min-height:44px;}
+  .dw-chip{font-family:inherit;font-size:1rem;font-weight:700;padding:8px 13px;border-radius:10px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;}
+  .dw-chip:hover{background:var(--dw-primary);color:#fff;}
+  .dw-chip.dw-in{background:#ece3ff;border-color:#a98be0;color:#2c1a5a;}
+  .dw-chip.dw-in:hover{background:#a98be0;color:#fff;}
+  .dw-chip:focus-visible,.dw-mb-btn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-mb-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+  .dw-mb-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:8px 18px;border-radius:999px;font-size:.9rem;font-weight:700;cursor:pointer;}
+  .dw-mb-btn.dw-sec{background:#fff;color:var(--dw-primary);border:2px solid #d9d3c4;}
+  .dw-mb-btn:hover{background:var(--dw-primary-light);color:#fff;}
+  .dw-mb-fb{display:none;margin-top:10px;border-radius:10px;padding:9px 13px;font-size:.92rem;line-height:1.5;}
+  .dw-mb-fb.dw-show{display:block;} .dw-mb-fb.dw-good{background:#eef7ee;color:#1f5d23;} .dw-mb-fb.dw-bad{background:#fdecee;color:#8c1d1d;} .dw-mb-fb.dw-hint{background:#fff9ec;color:#5a4500;}
+  .dw-mb-prog{font-size:.78rem;color:var(--dw-muted);margin-bottom:6px;}
+  @media(max-width:560px){.dw-sw{font-size:.92rem;padding:6px 9px 5px;}.dw-step{padding:14px 14px 16px;}}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>🧱 Ordstilling</h1>
+    <p>Hvor skal verbet stå? Steg for steg, fra enkle setninger til leddsetninger.</p>
+  </div>
+
+  <p class="dw-crumb"><a href="../">🧩 Grammatik</a> → Ordstilling</p>
+
+  <div class="dw-exp">
+<h3>🧭 Ordstilling: der tysk og norsk skiller lag</h3><p>I norsk kan vi nesten gjøre som vi vil med verbene. I tysk har verbet en <b>fast plass</b> – og plassen avhenger av hva slags setning det er. Lærer du denne ene tanken skikkelig, løser du en stor del av alle ordstillingsfeil.</p><div class="dw-regel">Det finitte verbet har alltid sin faste plass: plass 2, plass 1 eller helt sist.<small>Resten av ordene flytter seg rundt verbet.</small></div><div class="dw-sentrow"><span class="dw-mark">✅</span><div class="dw-sent"><span class="dw-sw dw-sw-f"><i>1</i>Heute</span><span class="dw-sw dw-sw-v"><i>2</i>spiele</span><span class="dw-sw dw-sw-s"><i>3</i>ich</span><span class="dw-sw dw-sw-o"><i>4</i>Fußball</span><span class="dw-punct">.</span></div></div><div class="dw-sentrow"><span class="dw-mark">✅</span><div class="dw-sent"><span class="dw-sw dw-sw-s">Ich</span><span class="dw-sw dw-sw-v">bleibe</span><span class="dw-sw dw-sw-o">zu Hause,</span><span class="dw-sw dw-sw-c">weil</span><span class="dw-sw dw-sw-s">ich</span><span class="dw-sw dw-sw-o">krank</span><span class="dw-sw dw-sw-v">bin</span><span class="dw-punct">.</span></div></div><div class="dw-legend"><span><b class="dw-sw-f"></b>første ledd (tid/sted …)</span><span><b class="dw-sw-s"></b>subjekt</span><span><b class="dw-sw-v"></b>verbet (finitt)</span><span><b class="dw-sw-c"></b>bindeord / spørreord</span><span><b class="dw-sw-o"></b>resten</span></div><h4 style="margin:12px 0 4px">Slik er hver side bygget</h4><ul><li><b>Regel</b> – én enkel regel om gangen.</li><li><b>2–3 eksempler</b>, ofte som ✅/❌-par.</li><li><b>Fargede ordkort</b> som viser hvor verbet står.</li><li><b>Mini-oppgave</b> der du bygger setningen selv.</li><li><b>Spill</b> som lar deg øve mer på akkurat dette.</li></ul><div class="dw-tip"><b>Tips:</b> Start på 🟢 og ta ett trinn om gangen. Du trenger ikke ta alle sidene i én økt. Hopp til <a href="spill/">🎮 spillene</a> når du vil øve uten å lese.</div>
+  </div>
+<h2 class="dw-sec-title">🟢 Grunnleggende</h2>
+<p style="margin:0 0 6px;color:var(--dw-muted);font-size:.92rem">8. trinn · A1 – de første reglene</p>
+<div class="dw-grid">
+    <a class="dw-card" href="plass-2/">
+      <h2>2️⃣ Verbet på plass 2</h2>
+      <p>Det viktigste først: verbet står på plass 2 – også når noe annet enn subjektet står først.</p>
+    </a>
+    <a class="dw-card" href="ja-nei-sporsmal/">
+      <h2>❔ Ja/nei-spørsmål</h2>
+      <p>Spielst du Fußball? Verbet flytter helt fremst – og svaret blir ja, nein eller doch.</p>
+    </a>
+    <a class="dw-card" href="sporreord/">
+      <h2>🔎 Spørsmål med spørreord</h2>
+      <p>Wo wohnst du? Spørreord først, så verb og subjekt.</p>
+    </a>
+    <a class="dw-card" href="og-men-eller/">
+      <h2>➕ Og, men, eller …</h2>
+      <p>und, aber, oder, denn, sondern: bindeord som ikke endrer ordstillingen.</p>
+    </a>
+</div>
+<h2 class="dw-sec-title">🟡 Videre</h2>
+<p style="margin:0 0 6px;color:var(--dw-muted);font-size:.92rem">8.–9. trinn · A2 – leddsetninger, modalverb, perfekt og skillbare verb</p>
+<div class="dw-grid">
+    <a class="dw-card" href="leddsetninger/">
+      <h2>⬇️ Leddsetninger: verbet sist</h2>
+      <p>weil, dass, wenn, obwohl: verbet hopper helt til slutt.</p>
+    </a>
+    <a class="dw-card" href="leddsetning-forst/">
+      <h2>↪️ Leddsetning først</h2>
+      <p>Weil ich krank bin, bleibe ich …: verbet kommer rett etter kommaet.</p>
+    </a>
+    <a class="dw-card" href="modalverb/">
+      <h2>💪 Modalverb</h2>
+      <p>Ich muss Hausaufgaben machen: modalverbet på plass 2, infinitiv helt sist.</p>
+    </a>
+    <a class="dw-card" href="skillbare-verb/">
+      <h2>✂️ Skillbare verb</h2>
+      <p>Ich stehe früh auf: prefikset sendes til slutten.</p>
+    </a>
+    <a class="dw-card" href="perfekt/">
+      <h2>⏮️ Perfekt</h2>
+      <p>Ich habe Pizza gegessen: hjelpeverb på plass 2, partisipp sist.</p>
+    </a>
+    <a class="dw-card" href="verbene/">
+      <h2>🧮 Hva skjer med verbene?</h2>
+      <p>Oversikten: hvor står verbet i vanlige setninger, modal, perfekt, skillbare og leddsetninger?</p>
+    </a>
+</div>
+<h2 class="dw-sec-title">🔴 For viderekomne</h2>
+<p style="margin:0 0 6px;color:var(--dw-muted);font-size:.92rem">9.–10. trinn · A2/B1 – rekkefølge i midtfeltet og lengre setninger</p>
+<div class="dw-grid">
+    <a class="dw-card" href="tekamolo/">
+      <h2>🧭 Tid – måte – sted</h2>
+      <p>Wann – Wie – Wo? Tid før måte før sted, og hvorfor norsk gjør det litt annerledes.</p>
+    </a>
+    <a class="dw-card" href="objekt-pronomen/">
+      <h2>🎯 Objekt og pronomen</h2>
+      <p>Ich gebe ihm das Buch: dativ og akkusativ, substantiv og pronomen.</p>
+    </a>
+    <a class="dw-card" href="negasjon/">
+      <h2>🚫 Nekting: nicht og kein</h2>
+      <p>Hvor står nicht, og når bruker vi kein?</p>
+    </a>
+    <a class="dw-card" href="relativsetninger/">
+      <h2>🔗 Relativsetninger</h2>
+      <p>Der Mann, der hier wohnt: relativpronomen og verbet sist.</p>
+    </a>
+    <a class="dw-card" href="avansert/">
+      <h2>🏗️ Avansert leddsetningsstruktur</h2>
+      <p>Flere verb og flere leddsetninger: modal i leddsetning, zu + infinitiv, ob, nachdem.</p>
+    </a>
+</div>
+<h2 class="dw-sec-title">🧮 Kortversjon: hvor står verbet?</h2>
+<div class="dw-exp">
+<div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th>Setningstype</th><th>Eksempel</th><th>Hvor står verbet?</th></tr></thead><tbody><tr><th>Vanlig påstand</th><td>Ich spiele Fußball. · Heute spiele ich Fußball.</td><td class="dw-f">Plass 2</td></tr><tr><th>Ja/nei-spørsmål</th><td>Spielst du Fußball?</td><td class="dw-f">Plass 1 (først)</td></tr><tr><th>Spørsmål med spørreord</th><td>Was spielst du?</td><td class="dw-f">Plass 2 (etter spørreordet)</td></tr><tr><th>Etter und / aber / oder / denn</th><td>…, aber ich spiele Fußball.</td><td class="dw-f">Plass 2 som vanlig</td></tr><tr><th>Modalverb</th><td>Ich will Fußball spielen.</td><td class="dw-f">Modalverb plass 2 – infinitiv sist</td></tr><tr><th>Skillbart verb</th><td>Ich stehe um sieben auf.</td><td class="dw-f">Verb plass 2 – prefiks sist</td></tr><tr><th>Perfekt</th><td>Ich habe Fußball gespielt.</td><td class="dw-f">haben/sein plass 2 – partisipp sist</td></tr><tr><th>Leddsetning (weil, dass, wenn …)</th><td>…, weil ich Fußball spiele.</td><td class="dw-f">Helt sist</td></tr><tr><th>Leddsetning først</th><td>Weil ich müde bin, gehe ich schlafen.</td><td class="dw-f">Verb rett etter kommaet</td></tr></tbody></table></div><p>Full oversikt med ordkort finner du på <a href="verbene/">🧮 Hva skjer med verbene?</a></p>
+</div>
+<h2 class="dw-sec-title">🎮 Spill</h2>
+<div class="dw-exp">
+<p>Sju spill øver ordstilling på ulike måter. Du kan velge nivå og tema, og lærere kan bruke <b>klassemodus</b>.</p>
+<ul><li><b>Setz den Satz zusammen!</b> – sett ordkortene i riktig rekkefølge.</li><li><b>Satz-Puzzle</b> – fyll nummererte plasser og se hvilke som sitter riktig.</li><li><b>Was ist falsch?</b> – finn ordet som står feil.</li><li><b>Verb auf Platz 2</b> – velg hvor verbet skal inn.</li><li><b>Hauptsatz oder Nebensatz?</b> – kjenn igjen setningstypen på verbet.</li><li><b>Übersetzungs-Challenge</b> – oversett fra norsk.</li><li><b>Schnellster Satz</b> – bygg flest mulig setninger på tid.</li></ul><p><a class="dw-card" style="display:inline-flex;padding:10px 20px" href="spill/"><b>🎮 Åpne spillene →</b></a></p>
+</div>
+<h2 class="dw-sec-title">📌 Hva bør jeg ta først?</h2>
+<div class="dw-exp">
+<p>Anbefalt rekkefølge: <a href="plass-2/">plass 2</a> → <a href="ja-nei-sporsmal/">ja/nei-spørsmål</a> → <a href="sporreord/">spørreord</a> → <a href="og-men-eller/">og/men/eller</a> → <a href="leddsetninger/">leddsetninger</a> → <a href="leddsetning-forst/">leddsetning først</a> → <a href="modalverb/">modalverb</a> → <a href="skillbare-verb/">skillbare verb</a> → <a href="perfekt/">perfekt</a> → <a href="verbene/">oversikten</a>. Når dette sitter, tar du de røde sidene.</p>
+</div>
+
+  <p class="dw-see-also"><strong>Se også:</strong> <a href="../">Grammatikk</a> · <a href="../konjunksjoner/">Konjunksjoner</a> · <a href="../adverbial/">Adverbial</a> · <a href="../sporreord/">Spørreord</a> · <a href="../verb/">Verb</a> · <a href="../../schreiben/">✍️ Schreiben</a> · <a href="../../verben/">Verben-Konjugator</a></p>
+
+</div>
+</body>
+</html>
