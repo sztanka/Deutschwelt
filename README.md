@@ -108,6 +108,8 @@ deutschwelt-site/
 │   │   ├── ukedager/index.html       → Wochentage, Tageszeiten, am/montags/jeden, hilsener, 14 øvelser
 │   │   ├── maaneder-aarstider/index.html → måneder, årstider, dato og ordenstall, årstall, 14 øvelser
 │   │   └── tidsord/index.html        → heute/gestern/vorgestern …, tekstbinding, bevor/nachdem/während, 14 øvelser
+│   ├── farben/
+│   │   └── index.html                → "Farben": fargeord med fargeprøver, nyanser, endelser, hår/øyne/klær, flagg D-A-CH, uttrykk, blanding + test
 │   ├── zahlen/
 │   │   └── index.html                → "Zahlen": tall 0–100, store tall, ordenstall, årstall, klokka + Tall-søker og øvelser (alt generert av regler i JS, ingen datafil)
 │   └── wortschatz-woche/
@@ -223,7 +225,7 @@ deutschwelt-site/
 │   └── nicos-weg-eine-pizza-bitte/
 │       └── index.html                → video + oppgaver: Nicos Weg, Folge 15 (Eine Pizza, bitte!)
 ├── schreiben/
-│   ├── index.html                    → hub-side: velg skriveoppgave (8 kort, 1 «kommer snart»)
+│   ├── index.html                    → hub-side: velg skriveoppgave (9 kort, 1 «kommer snart»)
 │   ├── sms-chat/
 │   │   └── index.html                → "SMS-Chat" — eleven skriver begge sider av en chat
 │   ├── wortkiste/
@@ -236,8 +238,11 @@ deutschwelt-site/
 │   │   └── index.html                → skriveramme: beskriv en by/et sted
 │   ├── mein-tag/
 │   │   └── index.html                → skriveramme: beskriv en vanlig dag (fokus: trennbare Verben)
-│   └── wo-ist-was/
-│       └── index.html                → skriveramme: forklar hvor ting er (fokus: stedspreposisjoner + Dativ)
+│   ├── wo-ist-was/
+│   │   └── index.html                → skriveramme: forklar hvor ting er (fokus: stedspreposisjoner + Dativ)
+│   └── bilder-beschreiben/
+│       ├── index.html                → "Bilder beschreiben": 8 faner (Start, Einfach, Mehr, Profi, Farben, Beispiele, Üben, Sprechen) — også lenket fra Sprechen-huben (#sprechen)
+│       └── bilder/                   → 8 bilder (Unsplash + Wikimedia Commons), hver som <navn>.jpg (stor) og <navn>-s.jpg (miniatyr)
 ├── reise/
 │   ├── index.html                    → hub-side: velg reiseoppgave
 │   ├── reiseplanlegger/
@@ -2023,6 +2028,22 @@ Murdle-inspirerte detektivgåter under Challenges. **Åtte saker** i tre nivåer
 **Slik legger du til en ny sak:** legg en ny `CASES.append(mk(...))` i `lupe_cases.py` (kopier en eksisterende), kjør `python3 build_lupe.py`, og kjør `krimi-work/ltest.py` (Playwright-test). Husk at svaret kan ses i sidekilden (`sol` i JSON), noe som er greit for et klasseromsspill.
 
 Tysk og norsk er ikke lest av morsmålstaler. Emoji er bevisst valgt fra eldre Unicode-versjoner for å vises på eldre skole-PCer.
+
+## Bilder beschreiben (`schreiben/bilder-beschreiben/`) og Farben (`grammatikk/farben/`)
+
+**Bilder beschreiben** er en egen side for å beskrive bilder, plassert under Schreiben, med et kort også i Sprechen-huben (`../schreiben/bilder-beschreiben/#sprechen` åpner Sprechen-fanen). Åtte faner: 🧭 Start (planen: Was? Wo? Wie? Mening), 🟢 Einfach (A1), 🟡 Mehr (A2–B1: dativ, aktive verb, antakelser), 🔴 Profi (B1+: oppbygging, bildespråk, passiv, relativsetninger), 🎨 Farben, 🖼️ Beispiele, ✏️ Üben og 🗣️ Sprechen.
+
+**Bildene:** åtte bilder i `bilder/` (fotballbane, Oeschinensee, Lauterbrunnen, Kölner Dom, Zermatt/Matterhorn, bukt med foss, venner på kafé, Brandenburger Tor). Syv er fra Unsplash (fotografene er kreditert med navn og lenke til bildesiden) og ett (Brandenburger Tor) fra Wikimedia Commons (kreditert med lenke til filsiden – **fotograf og lisens står på Commons-siden og bør sjekkes/føres inn**). Hvert bilde finnes i to størrelser: `<id>.jpg` (maks 1200 px) og `<id>-s.jpg` (420 px, miniatyr).
+
+**Innhold per bilde:** ordhjelp (12 ord med norsk), modelltekst på tre nivåer (Einfach/Mehr/Profi) med norsk oversettelse, og to quizspørsmål. I fanen Beispiele er byggeklossene i modellteksten markert med farger (bildeinnledning, plassering, farger, bindeord, mening) – knapp «Markering» slår dem av/på.
+
+**Skriv og sjekk (fanen Üben):** eleven velger bilde og nivå og skriver en tekst. Siden sjekker med enkle regulære uttrykk om byggeklossene er med (bildet nevnt, plassering, farger, aktive verb, vær/himmel, bindeord, mening, to leddsetninger og stemning på Profi, bonus for passiv og relativsetning), teller ord og ordhjelp-ord, og gir enkle skrivetips (stor forbokstav på substantiv, punktum). Det er en huskeliste, ikke en grammatikksjekk. **Sprechen-fanen** har bildekort med tidtaker (30/60/90/120 sek), sjekkliste og partneroppgaver.
+
+**Slik legger du til flere bilder (viktig for videre arbeid):** bildedata ligger i `bild-work/bb_data.py` (`PHOTOS`-listen: `id`, `title`, `land`, `cat`, `alt`, `credit=(navn, url)`, `vocab`, tekstene `e`/`m`/`p` som (tysk, norsk) og `q` = quizspørsmål). Legg `<id>.jpg` og `<id>-s.jpg` i `bilder/`, legg til `id` i `ORDER` i `build_bilder.py`, og kjør `python3 build_bilder.py`. Alle widgets (skrivesjekk, bildekort, quiz) plukker opp det nye bildet automatisk fra JSON-en `#bd-data`. Det er ingen bilder fra Østerrike ennå (kun D og CH) – et naturlig neste steg.
+
+**Farben** (`grammatikk/farben/`) er en vanlig side med hoppeknapper: fargeprøver (CSS-farger) for 16 farger, hell-/dunkel-/sammensetninger, endelser (etter «sein» ingen, foran substantiv ja; orange/rosa/lila/beige bøyes tradisjonelt ikke), hår/øyne/klær, flagg som SVG (D: Schwarz-Rot-Gold, A: Rot-Weiß-Rot, CH: kvadratisk rødt med hvitt kors), ti uttrykk (blaumachen, schwarzfahren, rotsehen …), fargeblanding og en test. Kortversjonen er fanen 🎨 Farben i bildesiden. Før Farben-siden fantes ingen egen fargeseksjon; farger forekom bare i forbifarten (Mein Aussehen, Einkaufen, Sprechen/butikken m.fl.).
+
+Tysk og norsk er ikke lest av morsmålstaler. Bildebeskrivelsene er skrevet av Claude ut fra å se bildene; kontroller at de stemmer med det dere ser.
 
 ## Kjente begrensninger
 

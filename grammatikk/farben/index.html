@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Grammatikk: "Farben" (grammatikk/farben/)
+  Fargeord, nyanser, endelser, hår/øyne/klær, flagg D-A-CH, uttrykk, blanding + test. Gjenbruker fillcommon/sitcommon.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farben · Grammatik · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:860px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .dw-jump a{font-size:.86rem;font-weight:700;padding:7px 15px;border-radius:999px;text-decoration:none;background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:32px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t tbody th{background:#fbfaf6;font-size:.84rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t td.dw-hl{background:#fff3cf;}
+  .dw-t td.dw-c{text-align:center;}
+  .dw-t td.dw-x{color:#aaa;text-align:center;}
+  .dw-t tr.dw-grp td,.dw-t tr.dw-grp th{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:14px 0;}
+  a.dw-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;text-decoration:none;color:var(--dw-text);box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;gap:6px;}
+  a.dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  a.dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  a.dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
+
+  /* Øvelser */
+  .dw-ex-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+  .dw-ex-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:8px;}
+  .dw-ex-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:16px;}
+  .dw-ex-fill{height:100%;width:0;background:var(--dw-good);transition:width .25s ease;}
+  .dw-ex-cue{font-size:.88rem;color:var(--dw-muted);margin-bottom:4px;}
+  .dw-ex-sent{font-size:1.3rem;font-weight:600;color:var(--dw-primary);line-height:1.5;margin:2px 0 18px;}
+  .dw-ex-sent .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);text-align:center;}
+  .dw-ex-sent .dw-blank.dw-filled{color:var(--dw-good);border-color:var(--dw-good);}
+  .dw-ex-sent .dw-blank.dw-filled.dw-bad{color:var(--dw-bad);border-color:var(--dw-bad);}
+  .dw-ex-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .dw-ex-choice{flex:1 1 110px;max-width:170px;padding:12px 8px;font-family:inherit;font-size:1.1rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;}
+  .dw-ex-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-ex-choice:disabled{cursor:default;opacity:.55;}
+  .dw-ex-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-ex-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .dw-ex-choice:focus-visible,.dw-ex-btn:focus-visible,.dw-ex-hintbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-ex-hintbtn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:.85rem;padding:0;margin-bottom:8px;}
+  .dw-ex-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:10px 14px;margin:6px 0 14px;background:#f4f1e8;}
+  .dw-ex-fb.dw-show{display:block;}
+  .dw-ex-fb.dw-good{background:#eef7ee;color:#1f5d23;}
+  .dw-ex-fb.dw-bad{background:#fdecee;color:#8c1d1d;}
+  .dw-ex-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:11px 26px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .dw-ex-btn:hover{background:var(--dw-primary-light);}
+  .dw-ex-btn.dw-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-ex-result{display:none;text-align:center;}
+  .dw-ex-result.dw-show{display:block;}
+  .dw-ex-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .dw-ex-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:12px 18px;margin:14px 0;font-size:.9rem;}
+  .dw-ex-review li{margin-bottom:6px;}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .dw-ex-sent{font-size:1.12rem;}
+  }
+
+  /* ---- faner ---- */
+  .dw-tabs{display:none;flex-wrap:wrap;gap:8px;margin:14px 0 6px;}
+  .dw-js .dw-tabs{display:flex;}
+  .dw-tabs button{font-family:inherit;font-size:.95rem;font-weight:800;padding:10px 18px;border-radius:999px;border:2px solid #e4dfd2;background:#fff;color:var(--dw-text);cursor:pointer;}
+  .dw-tabs button:hover{border-color:var(--dw-primary-light);}
+  .dw-tabs button[aria-selected="true"]{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .dw-tabs button:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-tabpanel[hidden]{display:none;}
+  .dw-tabnext{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:18px 0 6px;}
+  .dw-tabnext button{font-family:inherit;font-weight:800;font-size:.9rem;padding:9px 18px;border-radius:999px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;}
+  .dw-tabnext button:hover{background:var(--dw-primary);color:#fff;}
+  .dw-js .dw-tabnext{display:flex;} .dw-tabnext{display:none;}
+  /* ---- utfyll-widgets ---- */
+  .dw-fill{background:#f8f6ef;border:2px dashed #d9d3c4;border-radius:14px;padding:14px 16px;margin:14px 0;}
+  .dw-fill h4{margin:0 0 4px;font-size:1rem;color:var(--dw-primary-light);}
+  .dw-fill .dw-fi-intro{font-size:.88rem;color:var(--dw-muted);margin:0 0 8px;}
+  .dw-fill-modes{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px;}
+  .dw-fill-modes button{font-family:inherit;font-size:.8rem;font-weight:700;padding:5px 12px;border-radius:999px;border:1.5px solid #cfd8e6;background:#fff;cursor:pointer;color:var(--dw-text);}
+  .dw-fill-modes button.dw-on{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .dw-fill table{border-collapse:collapse;margin:4px 0 8px;font-size:.95rem;background:#fff;}
+  .dw-fill th,.dw-fill td{border:1px solid #ece8df;padding:6px 9px;text-align:center;}
+  .dw-fill th{background:#fbfaf6;font-size:.78rem;color:var(--dw-muted);}
+  .dw-fill th small{display:block;font-weight:400;font-size:.72rem;}
+  .dw-fill td.dw-pr{text-align:left;font-weight:700;color:var(--dw-muted);background:#fbfaf6;white-space:nowrap;}
+  .dw-fill td.dw-given{font-weight:700;color:#232323;}
+  .dw-fill td.dw-hlc{background:#fff8e4;}
+  .dw-fill .dw-tw{overflow-x:auto;}
+  .dw-fi{font-family:inherit;font-size:1rem;font-weight:700;width:7.6em;max-width:100%;padding:6px 8px;border:2px solid #cfc8b5;border-radius:8px;text-align:center;background:#fff;color:#232323;}
+  .dw-fi:focus{outline:none;border-color:var(--dw-primary-light);box-shadow:0 0 0 3px rgba(156,19,41,.15);}
+  .dw-fi.dw-st-ok{background:#e3f4e3;border-color:#2e7d32;color:#1f5d23;}
+  .dw-fi.dw-st-near{background:#fff3cf;border-color:#d9a91c;}
+  .dw-fi.dw-st-bad{background:#fdecee;border-color:#c62828;color:#8c1d1d;}
+  .dw-fi.dw-st-shown{background:#e6eefb;border-color:#5b8bd6;color:#1e3f7a;}
+  .dw-keys{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:6px 0;font-size:.8rem;color:var(--dw-muted);}
+  .dw-key{font-family:inherit;font-size:1rem;font-weight:800;width:36px;height:34px;border-radius:8px;border:1.5px solid #cfd8e6;background:#fff;cursor:pointer;color:var(--dw-text);}
+  .dw-key:hover{background:var(--dw-primary);color:#fff;}
+  .dw-frow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px;}
+  .dw-fbtn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:8px 18px;border-radius:999px;font-size:.9rem;font-weight:700;cursor:pointer;}
+  .dw-fbtn.dw-sec{background:#fff;color:var(--dw-primary);border:2px solid #d9d3c4;}
+  .dw-fbtn:hover{background:var(--dw-primary-light);color:#fff;}
+  .dw-fstat{font-size:.9rem;font-weight:700;margin-left:auto;}
+  .dw-fstat.dw-all{color:var(--dw-good);}
+  .dw-fmsg{display:none;margin-top:8px;border-radius:10px;padding:8px 12px;font-size:.88rem;background:#fff9ec;color:#5a4500;line-height:1.5;}
+  .dw-fmsg.dw-show{display:block;}
+  .dw-fg ol{list-style:none;margin:6px 0;padding:0;counter-reset:g;}
+  .dw-fg li{counter-increment:g;display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:7px 0;border-bottom:1px solid #ece8df;line-height:1.9;}
+  .dw-fg li::before{content:counter(g)".";font-weight:800;color:var(--dw-muted);min-width:1.6em;}
+  .dw-fg li .dw-gv{font-size:.82rem;color:var(--dw-muted);font-style:italic;}
+  .dw-fg li .dw-gm{margin-left:2px;min-width:1.4em;}
+  .dw-fg .dw-fi{width:6.4em;}
+  @media(max-width:560px){.dw-fi{width:6.2em;font-size:.95rem;padding:5px 5px;}.dw-fill{padding:12px 10px;}.dw-fill th,.dw-fill td{padding:5px 5px;}}
+
+  .dw-dlg-wrap{margin:12px 0;}
+  .dw-dlg-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;font-size:.95rem;}
+  .dw-dlg-bar b{margin-right:auto;}
+  .dw-dbtn{font-family:inherit;font-size:.8rem;font-weight:700;padding:6px 12px;border-radius:999px;border:1.5px solid #cfd8e6;background:#fff;cursor:pointer;color:var(--dw-text);}
+  .dw-dbtn[aria-pressed="true"]{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .dw-dlg{display:flex;flex-direction:column;gap:10px;}
+  .dw-bub{max-width:84%;padding:9px 14px 10px;border-radius:14px;border:1px solid transparent;font-size:.98rem;line-height:1.5;}
+  .dw-bub.a{align-self:flex-start;background:#eef2f6;border-color:#d7e0ea;}
+  .dw-bub.b{align-self:flex-end;background:#fdf1ea;border-color:#f0d9c2;}
+  .dw-spk{display:block;font-size:.68rem;font-weight:800;letter-spacing:.5px;margin-bottom:1px;opacity:.7;text-transform:uppercase;}
+  .dw-spk:empty{display:none;}
+  .dw-t{display:block;font-weight:600;}
+  .dw-nol{display:none;margin-top:3px;font-size:.84rem;font-style:italic;color:var(--dw-muted);font-weight:400;}
+  .dw-dlg-wrap.dw-shown .dw-nol{display:block;}
+  .dw-dlg-wrap.dw-rehearse .dw-bub.b:not(.dw-rev) .dw-t{filter:blur(7px);cursor:pointer;user-select:none;}
+  .dw-dlg-wrap.dw-rehearse .dw-bub.b:not(.dw-rev){cursor:pointer;}
+  .dw-ch{background:#f8f6ef;border:2px dashed #d9d3c4;border-radius:14px;padding:14px 16px;margin:14px 0;}
+  .dw-ch h4{margin:0 0 4px;font-size:1rem;color:var(--dw-primary-light);}
+  .dw-ch .dw-ch-intro{font-size:.88rem;color:var(--dw-muted);margin:0 0 8px;}
+  .dw-ch-q{background:#fff;border:1px solid #ece8df;border-radius:12px;padding:10px 14px;margin:10px 0;}
+  .dw-ch-q p{margin:0 0 6px;font-weight:700;line-height:1.5;}
+  .dw-ch-sub{margin:6px 0 8px;}
+  .dw-ch-opts{display:flex;flex-direction:column;gap:7px;}
+  .dw-ch-opts button{font-family:inherit;text-align:left;font-size:.95rem;font-weight:600;padding:9px 14px;border-radius:10px;border:2px solid #d9d3c4;background:#fff;color:var(--dw-text);cursor:pointer;}
+  .dw-ch-opts button:hover:not(:disabled){border-color:var(--dw-primary-light);}
+  .dw-ch-opts button.dw-g{background:#e3f4e3;border-color:#2e7d32;color:#1f5d23;}
+  .dw-ch-opts button.dw-r{background:#fdecee;border-color:#c62828;color:#8c1d1d;}
+  .dw-ch-opts button:disabled{cursor:default;}
+  .dw-ch-why{display:none;margin-top:8px;font-size:.88rem;line-height:1.5;color:#3d3d3d;background:#fff9ec;border-radius:8px;padding:7px 11px;}
+  .dw-ch-why.dw-show{display:block;}
+  .dw-ch-foot{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px;}
+  .dw-ch-st{font-weight:800;font-size:.92rem;} .dw-ch-st.dw-all{color:var(--dw-good);}
+  .dw-ch-foot button{font-family:inherit;background:#fff;color:var(--dw-primary);border:2px solid #d9d3c4;padding:6px 14px;border-radius:999px;font-weight:700;font-size:.85rem;cursor:pointer;}
+  .dw-sign{display:inline-block;font-weight:800;font-size:1rem;padding:7px 14px;border-radius:6px;border:3px solid #fff;box-shadow:0 0 0 2px #444;line-height:1.2;letter-spacing:.2px;}
+  .dw-sg-blue{background:#1565c0;color:#fff;} .dw-sg-green{background:#2e7d32;color:#fff;} .dw-sg-red{background:#c62828;color:#fff;} .dw-sg-yellow{background:#fbc02d;color:#222;} .dw-sg-white{background:#fff;color:#222;} .dw-sg-black{background:#222;color:#fff;}
+  .dw-signs{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin:12px 0;}
+  @media(max-width:520px){.dw-signs{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;} .dw-sign{font-size:.76rem;padding:6px 6px;letter-spacing:0;}}
+  .dw-sign{max-width:100%;box-sizing:border-box;overflow-wrap:anywhere;hyphens:auto;} .dw-sign-card{min-width:0;}
+  .dw-sign-card{font-family:inherit;background:#fff;border:1.5px solid #e4dfd2;border-radius:12px;padding:14px 10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;min-height:92px;justify-content:center;}
+  .dw-sign-card:hover{border-color:var(--dw-primary-light);}
+  .dw-sign-no{display:none;font-size:.88rem;font-weight:600;color:#3d3d3d;text-align:center;}
+  .dw-sign-card.dw-flip .dw-sign-no{display:block;}
+  .dw-scene{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.88rem;margin:6px 0 10px;}
+  .dw-scene span{background:#f4f1e8;border-radius:999px;padding:3px 12px;}
+  .dw-cards3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:10px 0;}
+  .dw-cards3 button{font-family:inherit;text-align:left;background:#fff;border:1.5px solid #e4dfd2;border-radius:12px;padding:12px 14px;cursor:pointer;color:var(--dw-text);display:flex;flex-direction:column;gap:3px;}
+  .dw-cards3 button:hover{border-color:var(--dw-primary-light);}
+  .dw-cards3 b{color:var(--dw-primary-light);font-size:1rem;} .dw-cards3 span{font-size:.84rem;color:var(--dw-muted);}
+  @media(max-width:560px){.dw-bub{max-width:94%;}}
+
+  .bd-fig{margin:10px 0 12px;}
+  .bd-fig img{display:block;width:100%;height:auto;border-radius:12px;background:#e9e4d6;}
+  .bd-fig.bd-port{max-width:340px;margin-left:auto;margin-right:auto;}
+  .bd-fig figcaption,.bd-credit{font-size:.76rem;color:var(--dw-muted);margin-top:5px;line-height:1.4;}
+  .bd-credit a{color:var(--dw-muted);}
+  .bd-photo{background:#fff;border:1px solid #ece8df;border-radius:16px;padding:16px 18px;margin:0 0 20px;box-shadow:0 2px 8px rgba(0,0,0,.05);scroll-margin-top:70px;}
+  .bd-photo h3{margin:0 0 2px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.18rem;color:var(--dw-primary-light);}
+  .bd-meta{display:flex;gap:6px;flex-wrap:wrap;margin:2px 0 6px;}
+  .bd-pill{font-size:.72rem;font-weight:800;padding:2px 10px;border-radius:999px;background:#eef1f6;color:var(--dw-primary);}
+  .bd-pill.bd-d{background:#fdecee;color:#8c1d1d;} .bd-pill.bd-a{background:#fff3cf;color:#6a4b00;} .bd-pill.bd-ch{background:#fde4e4;color:#a01616;}
+  .bd-lvl{border:1px solid #eadfc2;border-radius:10px;background:#fff9ec;margin:8px 0;padding:6px 14px;}
+  .bd-lvl>summary{cursor:pointer;font-weight:800;padding:4px 0;}
+  .bd-lvl p{margin:6px 0;line-height:1.7;}
+  .bd-lvl details{margin:4px 0 8px;} .bd-lvl details summary{cursor:pointer;font-size:.86rem;font-weight:700;color:var(--dw-muted);}
+  .bd-vocab{width:100%;}
+  .bd-jumpimg{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;margin:10px 0 18px;}
+  .bd-jumpimg a{display:block;text-decoration:none;color:var(--dw-text);font-size:.74rem;font-weight:700;text-align:center;line-height:1.25;}
+  .bd-jumpimg img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:10px;display:block;border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.18);margin-bottom:3px;}
+  /* markering av byggeklosser */
+  .bd-hl-off .hl{background:none!important;border:none!important;}
+  .hl{border-radius:4px;padding:0 2px;}
+  .hl-bild{background:#e0ecff;} .hl-ort{background:#d8f3dc;} .hl-farbe{background:#ffe3c2;} .hl-konj{background:#f3dcff;} .hl-meinung{background:#ffd9df;}
+  .bd-legend{display:flex;flex-wrap:wrap;gap:8px;font-size:.78rem;margin:6px 0 10px;align-items:center;}
+  .bd-legend .hl{padding:2px 8px;font-weight:700;}
+  .bd-sw{display:inline-block;width:44px;height:44px;border-radius:10px;border:2px solid rgba(0,0,0,.18);vertical-align:middle;}
+  .bd-sw.sm{width:20px;height:20px;border-radius:5px;margin-right:6px;}
+  .bd-sw.rainbow{background:linear-gradient(90deg,#d32f2f,#fb8c00,#fdd835,#2e7d32,#1e5bb8,#8e24aa);}
+  .bd-flag{display:inline-block;width:84px;height:56px;border-radius:6px;border:1px solid rgba(0,0,0,.25);vertical-align:middle;overflow:hidden;}
+  /* Skriv-og-sjekk */
+  .bd-tool{background:#f8f6ef;border:2px dashed #d9d3c4;border-radius:14px;padding:14px 16px;margin:14px 0;}
+  .bd-tool h4{margin:0 0 6px;font-size:1.05rem;color:var(--dw-primary-light);}
+  .bd-thumbs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;}
+  .bd-thumbs button{border:3px solid transparent;padding:0;border-radius:10px;background:none;cursor:pointer;line-height:0;}
+  .bd-thumbs button img{width:76px;height:56px;object-fit:cover;border-radius:7px;display:block;}
+  .bd-thumbs button[aria-pressed="true"]{border-color:var(--dw-primary-light);}
+  .bd-lv{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0;}
+  .bd-lv button{font-family:inherit;font-size:.86rem;font-weight:800;padding:6px 14px;border-radius:999px;border:2px solid #cfd8e6;background:#fff;cursor:pointer;color:var(--dw-text);}
+  .bd-lv button[aria-pressed="true"]{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .bd-stage{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start;}
+  .bd-stage .bd-fig{margin-top:0;} .bd-stage .bd-fig img{max-height:420px;object-fit:contain;background:#222;}
+  @media(max-width:700px){.bd-stage{grid-template-columns:1fr;}}
+  .bd-chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0;}
+  .bd-chip{font-size:.8rem;font-weight:700;padding:4px 10px;border-radius:999px;background:#fff;border:1.5px solid #d9d3c4;color:var(--dw-muted);}
+  .bd-chip.ok{background:#e3f4e3;border-color:#2e7d32;color:#1f5d23;}
+  .bd-chip.bonus{border-style:dashed;} .bd-chip.bonus.ok{background:#fff3cf;border-color:#d9a91c;color:#6a4b00;}
+  .bd-count{font-size:.85rem;font-weight:700;color:var(--dw-muted);margin:2px 0 6px;}
+  .bd-count.ok{color:var(--dw-good);}
+  .bd-note{font-size:.86rem;line-height:1.5;margin:6px 0;color:#5a4500;background:#fff9ec;border-radius:10px;padding:6px 10px;display:none;}
+  .bd-note.show{display:block;}
+  .bd-helpbox{display:none;font-size:.88rem;margin:8px 0;} .bd-helpbox.show{display:block;}
+  .bd-helpbox td,.bd-helpbox th{padding:4px 8px;}
+  .bd-modelbox{display:none;background:#fff9ec;border:1px solid #eadfc2;border-radius:10px;padding:8px 14px;margin:8px 0;line-height:1.7;font-size:.94rem;}
+  .bd-modelbox.show{display:block;}
+  .bd-modelbox .dw-no{display:block;margin-top:6px;font-size:.86rem;}
+  /* Sprechen */
+  .bd-timer{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0;}
+  .bd-clock{font-size:2rem;font-weight:800;font-variant-numeric:tabular-nums;min-width:3.6em;color:var(--dw-primary);}
+  .bd-clock.low{color:var(--dw-bad);}
+  .bd-bar{flex:1 1 140px;height:10px;background:#ece8df;border-radius:999px;overflow:hidden;}
+  .bd-bar i{display:block;height:100%;width:100%;background:var(--dw-good);transition:width .25s linear;}
+  .bd-bar.low i{background:var(--dw-bad);}
+  .bd-checks{list-style:none;padding:0;margin:6px 0;}
+  .bd-checks li{padding:3px 0;font-size:.92rem;}
+  .bd-checks label{cursor:pointer;display:flex;gap:8px;align-items:flex-start;}
+  .bd-tasks{counter-reset:t;list-style:none;padding:0;margin:8px 0;}
+  .bd-tasks>li{counter-increment:t;background:#fff;border:1px solid #ece8df;border-radius:12px;padding:10px 14px 10px 46px;margin:8px 0;position:relative;line-height:1.55;font-size:.94rem;}
+  .bd-tasks>li::before{content:counter(t);position:absolute;left:12px;top:9px;width:26px;height:26px;border-radius:50%;background:var(--dw-primary);color:#fff;font-weight:800;text-align:center;line-height:26px;font-size:.88rem;}
+  .bd-tasks .lv{font-size:.7rem;font-weight:800;padding:1px 8px;border-radius:999px;margin-right:6px;background:#eef1f6;}
+  .bd-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:10px 0;}
+  .bd-three>div{border:1px solid #ece8df;border-radius:12px;padding:10px 12px;background:#fbfaf6;font-size:.9rem;line-height:1.5;}
+  .bd-three b{display:block;margin-bottom:3px;}
+  @media(max-width:640px){.bd-three{grid-template-columns:1fr;}}
+  .bd-quizimg{display:block;max-width:100%;width:260px;height:auto;border-radius:10px;margin:6px 0;}
+  .bd-quizrow{display:flex;gap:8px;flex-wrap:wrap;}
+  .bd-quizrow figure{margin:0;flex:1 1 90px;max-width:160px;text-align:center;font-weight:800;font-size:.9rem;}
+  .bd-quizrow img{width:100%;height:auto;border-radius:8px;display:block;}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>🎨 Farben</h1>
+    <p>Alle fargene på tysk – med endelser, nyanser, flagg og uttrykk</p>
+  </div>
+
+  <p class="dw-crumb"><a href="../">🧩 Grammatik</a> → Farben <span class="dw-level-tag">6.–10. trinn · A1–B1</span></p>
+
+  <div class="dw-jump">
+    <a href="#farben">🎨 Farben</a><a href="#nuancen">🌈 Nyanser</a><a href="#endungen">✍️ Endelser</a><a href="#menschen">🧑 Hår, øyne, klær</a><a href="#flaggen">🚩 Flagg &amp; hverdag</a><a href="#redewendungen">🗯️ Uttrykk</a><a href="#mischen">🔬 Blande</a><a href="#test">🏆 Test</a>
+  </div>
+
+  <h2 class="dw-sec-title" id="farben">🎨 Die Farben</h2>
+  <div class="dw-exp">
+<p>Fargene er <b>adjektiv</b>. Spør slik: <span class="dw-de">Welche Farbe hat …?</span> (Hvilken farge har …?) · <span class="dw-de">Was ist deine Lieblingsfarbe?</span> (Hva er favorittfargen din?)</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:380px"><thead><tr><th></th><th>Tysk</th><th>Norsk</th></tr></thead><tbody><tr><td><span class="bd-sw sm" style="background:#ffffff"></span></td><td class="dw-f">weiß</td><td>hvit</td></tr><tr><td><span class="bd-sw sm" style="background:#111111"></span></td><td class="dw-f">schwarz</td><td>svart</td></tr><tr><td><span class="bd-sw sm" style="background:#8a8a8a"></span></td><td class="dw-f">grau</td><td>grå</td></tr><tr><td><span class="bd-sw sm" style="background:#d32f2f"></span></td><td class="dw-f">rot</td><td>rød</td></tr><tr><td><span class="bd-sw sm" style="background:#1e5bb8"></span></td><td class="dw-f">blau</td><td>blå</td></tr><tr><td><span class="bd-sw sm" style="background:#fdd835"></span></td><td class="dw-f">gelb</td><td>gul</td></tr><tr><td><span class="bd-sw sm" style="background:#2e7d32"></span></td><td class="dw-f">grün</td><td>grønn</td></tr><tr><td><span class="bd-sw sm" style="background:#6d4c41"></span></td><td class="dw-f">braun</td><td>brun</td></tr><tr><td><span class="bd-sw sm" style="background:#fb8c00"></span></td><td class="dw-f">orange</td><td>oransje</td></tr><tr><td><span class="bd-sw sm" style="background:#f48fb1"></span></td><td class="dw-f">rosa</td><td>rosa</td></tr><tr><td><span class="bd-sw sm" style="background:#8e24aa"></span></td><td class="dw-f">lila</td><td>lilla</td></tr><tr><td><span class="bd-sw sm" style="background:#1fc8c8"></span></td><td class="dw-f">türkis</td><td>turkis</td></tr><tr><td><span class="bd-sw sm" style="background:#e6d5b8"></span></td><td class="dw-f">beige</td><td>beige</td></tr><tr><td><span class="bd-sw sm" style="background:#d4af37"></span></td><td class="dw-f">golden</td><td>gyllen / gull</td></tr><tr><td><span class="bd-sw sm" style="background:#c0c0c0"></span></td><td class="dw-f">silbern</td><td>sølv</td></tr><tr><td><span class="bd-sw sm rainbow"></span></td><td class="dw-f">bunt</td><td>flerfarget</td></tr></tbody></table></div><div class="dw-dlg-wrap"><div class="dw-dlg-bar"><b>💬 Kurzdialog</b><button type="button" class="dw-dbtn" data-act="no" aria-pressed="false">🇳🇴 Vis norsk</button><button type="button" class="dw-dbtn" data-act="reh" aria-pressed="false">🎭 Øv deg: skjul dine replikker</button></div><div class="dw-dlg"><div class="dw-bub a"><span class="dw-spk"></span><span class="dw-t">Welche Farbe hat dein Fahrrad?</span><span class="dw-nol">Hvilken farge har sykkelen din?</span></div><div class="dw-bub b"><span class="dw-spk">Du</span><span class="dw-t">Mein Fahrrad ist blau und schwarz.</span><span class="dw-nol">Sykkelen min er blå og svart.</span></div><div class="dw-bub a"><span class="dw-spk"></span><span class="dw-t">Und was ist deine Lieblingsfarbe?</span><span class="dw-nol">Og hva er favorittfargen din?</span></div><div class="dw-bub b"><span class="dw-spk">Du</span><span class="dw-t">Meine Lieblingsfarbe ist grün.</span><span class="dw-nol">Favorittfargen min er grønn.</span></div></div></div><div class="dw-tip">📎 <b>Merk:</b> «türkis» skrives med <b>ü</b> og uttales omtrent [tyr-kiis]. På tysk skrives fargeordene med <b>liten</b> forbokstav når de er adjektiv (<i>das Auto ist rot</i>), men med <b>stor</b> når de er substantiv (<i>das Rot der Flagge</i>, <i>in Blau</i>).</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="nuancen">🌈 Nyanser og sammensetninger</h2>
+  <div class="dw-exp">
+<div class="dw-tbl-wrap"><table class="dw-t" style="min-width:540px"><thead><tr><th>Mønster</th><th>Eksempel</th></tr></thead><tbody><tr><td class="dw-f">hell- / dunkel-</td><td><span class="dw-de">hellblau · dunkelgrün · hellgrau</span><br><span class="dw-no">lyseblå · mørkegrønn · lysegrå</span></td></tr><tr><td class="dw-f">-lich</td><td><span class="dw-de">grünlich · gelblich · rötlich</span><br><span class="dw-no">grønnlig · gulaktig · rødlig</span></td></tr><tr><td class="dw-f">farge + farge</td><td><span class="dw-de">blaugrün · rotbraun · schwarzweiß</span><br><span class="dw-no">blågrønn · rødbrun · svart-hvit</span></td></tr><tr><td class="dw-f">ting + farge</td><td><span class="dw-de">himmelblau · grasgrün · schneeweiß · zitronengelb · blutrot</span><br><span class="dw-no">himmelblå · gressgrønn · snøhvit · sitrongul · blodrød</span></td></tr><tr><td class="dw-f">forsterket</td><td><span class="dw-de">knallrot · tiefblau · pechschwarz · dunkelrot</span><br><span class="dw-no">knallrød · dypblå · kullsvart · mørkerød</span></td></tr><tr><td class="dw-f">lys og styrke</td><td><span class="dw-de">leuchtend · kräftig · blass · gedämpft · bunt</span><br><span class="dw-no">lysende · kraftig · bleik · dempet · fargerik</span></td></tr></tbody></table></div><div class="dw-fill dw-fg"><script type="application/json">{"title": "Fullfør", "items": [{"s": "Der Himmel ist ___. (lyseblå)", "a": "hellblau", "v": "lys + blå"}, {"s": "Das Gras ist ___. (gressgrønt)", "a": "grasgrün", "v": "gress + grønn"}, {"s": "Der Schnee ist ___. (snøhvit)", "a": "schneeweiß", "v": "snø + hvit"}, {"s": "Der Pullover ist ___. (mørkegrønn)", "a": "dunkelgrün", "v": "mørk + grønn"}], "hint": "Slå sammen de to ordene til ett ord.", "intro": "Skriv ordet som mangler. Det som står i parentes hjelper deg."}</script></div>
+  </div>
+
+  <h2 class="dw-sec-title" id="endungen">✍️ Farger og endelser</h2>
+  <div class="dw-exp">
+<p>Reglene er de samme som for alle adjektiv:</p><ul><li><b>Etter «sein» (er):</b> ingen endelse → <span class="dw-de">Der Pullover ist rot.</span></li><li><b>Foran substantivet:</b> endelse → <span class="dw-de">der rote Pullover</span></li></ul><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:620px"><thead><tr><th></th><th>maskulin (der)</th><th>feminin (die)</th><th>nøytrum (das)</th><th>flertall (die)</th></tr></thead><tbody><tr><td class="dw-f">bestemt artikkel</td><td>der <b>rote</b> Pullover</td><td>die <b>rote</b> Jacke</td><td>das <b>rote</b> Kleid</td><td>die <b>roten</b> Schuhe</td></tr><tr><td class="dw-f">ubestemt artikkel</td><td>ein <b>roter</b> Pullover</td><td>eine <b>rote</b> Jacke</td><td>ein <b>rotes</b> Kleid</td><td>(keine) <b>roten</b> Schuhe</td></tr><tr><td class="dw-f">akkusativ (ich kaufe …)</td><td>einen <b>roten</b> Pullover</td><td>eine <b>rote</b> Jacke</td><td>ein <b>rotes</b> Kleid</td><td><b>rote</b> Schuhe</td></tr></tbody></table></div><div class="dw-tip">📎 <b>orange, rosa, lila, beige</b> bøyes tradisjonelt ikke: <i>ein rosa Kleid</i>, <i>die beige Jacke</i>. I dagligtale hører du også <i>lilane / orange(n)e</i>. Tryggest er å si <i>ein orangefarbenes Kleid</i> eller bare <i>Das Kleid ist rosa</i>.</div><div class="dw-fill dw-fg"><script type="application/json">{"title": "Fargen foran substantivet", "items": [{"s": "Ich trage eine ___ Jacke. (rød)", "a": "rote", "v": "feminin, ubestemt"}, {"s": "Sie hat ___ Haare. (blond)", "a": "blonde", "v": "flertall"}, {"s": "Er kauft einen ___ Pullover. (grønn)", "a": "grünen", "v": "maskulin akkusativ"}, {"s": "Das ___ Auto ist schnell. (gul)", "a": "gelbe", "v": "nøytrum, bestemt"}, {"s": "Ich liebe das ___ Kleid. (svart)", "a": "schwarze", "v": "nøytrum, bestemt"}, {"s": "Sie hat ___ Augen. (brun)", "a": "braune", "v": "flertall"}, {"s": "Wir sehen ein ___ Haus. (hvit)", "a": "weißes", "v": "nøytrum, ubestemt"}, {"s": "Die Katze hat ein ___ Fell. (grå)", "a": "graues", "v": "nøytrum, ubestemt"}], "hint": "Se på tabellen over.", "intro": "Skriv ordet som mangler. Det som står i parentes hjelper deg."}</script></div><p>Mer: <a href="../adjektiv/">Adjektiv: alle endelser</a></p>
+  </div>
+
+  <h2 class="dw-sec-title" id="menschen">🧑 Hår, øyne og klær</h2>
+  <div class="dw-exp">
+<div class="dw-tbl-wrap"><table class="dw-t" style="min-width:520px"><thead><tr><th>Tysk</th><th>Norsk</th></tr></thead><tbody><tr><td class="dw-f">Er hat blaue Augen und kurze braune Haare.</td><td>Han har blå øyne og kort brunt hår.</td></tr><tr><td class="dw-f">Sie hat lange blonde Haare und grüne Augen.</td><td>Hun har langt blondt hår og grønne øyne.</td></tr><tr><td class="dw-f">Er trägt einen grauen Pullover und eine blaue Jeans.</td><td>Han har på seg en grå genser og blå jeans.</td></tr><tr><td class="dw-f">Sie trägt ein weißes T-Shirt und eine schwarze Jacke.</td><td>Hun har på seg en hvit T-skjorte og en svart jakke.</td></tr><tr><td class="dw-f">Seine Haare sind dunkel, ihre Haare sind hell.</td><td>Håret hans er mørkt, håret hennes er lyst.</td></tr></tbody></table></div><p>Flere ord for utseende: <a href="../../schreiben/personenbeschreibung/">Personenbeschreibung</a> · <a href="../../wichtige-themen/8-klasse/mein-aussehen/">Mein Aussehen</a> · <a href="../../schreiben/bilder-beschreiben/#farben">Bilder beschreiben</a></p>
+  </div>
+
+  <h2 class="dw-sec-title" id="flaggen">🚩 Flagg og farger i hverdagen</h2>
+  <div class="dw-exp">
+<div class="dw-tbl-wrap"><table class="dw-t" style="min-width:520px"><thead><tr><th>Land</th><th>Flagge</th><th>Farben</th></tr></thead><tbody><tr><th>Deutschland</th><td><svg class="bd-flag" viewBox="0 0 5 3" role="img" aria-label="Flagge Deutschlands"><rect width="5" height="1" fill="#000"/><rect y="1" width="5" height="1" fill="#dd0000"/><rect y="2" width="5" height="1" fill="#ffce00"/></svg></td><td><span class="dw-de">Schwarz-Rot-Gold</span><br><span class="dw-no">svart-rød-gull (vannrette striper)</span></td></tr><tr><th>Österreich</th><td><svg class="bd-flag" viewBox="0 0 3 2" role="img" aria-label="Flagge Österreichs"><rect width="3" height="2" fill="#ed2939"/><rect y=".667" width="3" height=".667" fill="#fff"/></svg></td><td><span class="dw-de">Rot-Weiß-Rot</span><br><span class="dw-no">rød-hvit-rød</span></td></tr><tr><th>Schweiz</th><td><svg class="bd-flag" viewBox="0 0 32 32" role="img" aria-label="Flagge der Schweiz" style="width:56px;height:56px"><rect width="32" height="32" fill="#da291c"/><path d="M13 6h6v7h7v6h-7v7h-6v-7H6v-6h7z" fill="#fff"/></svg></td><td><span class="dw-de">Rot mit weißem Kreuz</span><br><span class="dw-no">rødt med hvitt kors – flagget er <b>kvadratisk</b>!</span></td></tr></tbody></table></div><div class="dw-tip">💡 <b>Farger du møter i hverdagen:</b> Ampel: <i>Rot – Gelb – Grün</i> (trafikklys) · Die Post ist <i>gelb</i> (i Tyskland, Østerrike og Sveits) · Der ICE ist <i>weiß mit rotem Streifen</i>. Deutsche Flagge: <i>Schwarz, Rot, Gold</i> – på tysk sier vi «gold», ikke «gul».</div><div class="dw-ch"><script type="application/json">{"title": "Flaggen", "intro": "Velg riktig svar.", "qs": [{"q": "Hvilke farger har det tyske flagget?", "opts": ["Schwarz-Rot-Gold", "Rot-Weiß-Rot", "Blau-Weiß-Rot"], "a": 0, "why": "Tyskland: Schwarz-Rot-Gold."}, {"q": "Hvilke farger har det østerrikske flagget?", "opts": ["Rot-Weiß-Rot", "Schwarz-Rot-Gold", "Rot-Gelb-Grün"], "a": 0, "why": "Østerrike: Rot-Weiß-Rot."}, {"q": "Hva er spesielt med det sveitsiske flagget?", "opts": ["Det er kvadratisk, rødt med hvitt kors.", "Det er blått med hvitt kors.", "Det har tre striper."], "a": 0, "why": "Sveits: rødt med hvitt kors, og flagget er kvadratisk."}]}</script></div>
+  </div>
+
+  <h2 class="dw-sec-title" id="redewendungen">🗯️ Uttrykk med farger</h2>
+  <div class="dw-exp">
+<p>Fargene brukes også i faste uttrykk – og de er ikke alltid lik norsk:</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:600px"><thead><tr><th>Tysk</th><th>Betyr</th><th>Norsk uttrykk (omtrent)</th></tr></thead><tbody><tr><td class="dw-f">blaumachen</td><td>ta seg fri uten grunn, skulke</td><td>å skulke</td></tr><tr><td class="dw-f">schwarzfahren</td><td>å reise uten billett</td><td>å snike på</td></tr><tr><td class="dw-f">rotsehen</td><td>å bli rasende</td><td>å se rødt</td></tr><tr><td class="dw-f">grün (gelb) vor Neid sein</td><td>å være misunnelig</td><td>å være grønn av misunnelse</td></tr><tr><td class="dw-f">ins Blaue fahren</td><td>å dra på tur uten mål</td><td>å kjøre ut i det blå</td></tr><tr><td class="dw-f">schwarzsehen</td><td>å være pessimistisk</td><td>å svartmale</td></tr><tr><td class="dw-f">grünes Licht geben</td><td>å gi tillatelse</td><td>å gi grønt lys</td></tr><tr><td class="dw-f">mit einem blauen Auge davonkommen</td><td>å slippe unna med skrekken</td><td>å slippe unna med et blått øye</td></tr><tr><td class="dw-f">etwas schwarz auf weiß haben</td><td>å ha noe skriftlig</td><td>å ha noe svart på hvitt</td></tr><tr><td class="dw-f">die Welt durch die rosarote Brille sehen</td><td>å se alt positivt</td><td>å se verden gjennom rosa briller</td></tr></tbody></table></div><div class="dw-ch"><script type="application/json">{"title": "Uttrykk", "intro": "Velg riktig forklaring.", "qs": [{"q": "Hva betyr «Er fährt schwarz»?", "opts": ["Han reiser uten billett.", "Han kjører en svart bil.", "Han kjører om natten."], "a": 0, "why": "schwarzfahren = reise uten billett (på buss/tog)."}, {"q": "Hva betyr «Ich sehe rot»?", "opts": ["Jeg blir sint.", "Jeg ser noe rødt.", "Jeg er trøtt."], "a": 0, "why": "rotsehen = bli rasende."}, {"q": "Hva betyr «Heute mache ich blau»?", "opts": ["Jeg tar meg fri / skulker i dag.", "Jeg er trist i dag.", "Jeg maler blått i dag."], "a": 0, "why": "blaumachen = ta seg fri uten grunn."}, {"q": "«Wir fahren ins Blaue.» betyr …", "opts": ["Vi drar ut på tur uten å vite hvor.", "Vi kjører til sjøen.", "Vi kjører en blå bil."], "a": 0, "why": "ins Blaue fahren = dra av sted uten bestemt mål."}]}</script></div>
+  </div>
+
+  <h2 class="dw-sec-title" id="mischen">🔬 Fargeblanding</h2>
+  <div class="dw-exp">
+<p>Hva blir det? Skriv fargen på tysk.</p><div class="dw-fill dw-fg"><script type="application/json">{"title": "Mischen", "items": [{"s": "Blau und Gelb ist ___.", "a": "grün", "v": "blå + gul"}, {"s": "Rot und Gelb ist ___.", "a": "orange", "v": "rød + gul"}, {"s": "Rot und Weiß ist ___.", "a": "rosa", "v": "rød + hvit"}, {"s": "Schwarz und Weiß ist ___.", "a": "grau", "v": "svart + hvit"}, {"s": "Rot und Blau ist ___.", "a": ["lila", "violett"], "v": "rød + blå"}], "hint": "Tenk på malekassen!", "intro": "Skriv ordet som mangler. Det som står i parentes hjelper deg."}</script></div>
+  </div>
+
+  <h2 class="dw-sec-title" id="test">🏆 Test deg selv</h2>
+  <div class="dw-exp">
+<div class="dw-ch"><script type="application/json">{"title": "Welche Farbe ist das?", "intro": "Hvilken farge ser du?", "qs": [{"q": "Welche Farbe ist das?", "sub": "<span class=\"bd-sw\" style=\"background:#d32f2f\"><\/span>", "opts": ["rot", "gelb", "rosa"], "a": 0, "why": "rot = rød."}, {"q": "Welche Farbe ist das?", "sub": "<span class=\"bd-sw\" style=\"background:#1e5bb8\"><\/span>", "opts": ["blau", "braun", "grün"], "a": 0, "why": "blau = blå."}, {"q": "Welche Farbe ist das?", "sub": "<span class=\"bd-sw\" style=\"background:#fdd835\"><\/span>", "opts": ["gelb", "grau", "lila"], "a": 0, "why": "gelb = gul."}, {"q": "Welche Farbe ist das?", "sub": "<span class=\"bd-sw\" style=\"background:#2e7d32\"><\/span>", "opts": ["grün", "blau", "gelb"], "a": 0, "why": "grün = grønn."}, {"q": "Welche Farbe ist das?", "sub": "<span class=\"bd-sw\" style=\"background:#6d4c41\"><\/span>", "opts": ["braun", "lila", "orange"], "a": 0, "why": "braun = brun."}, {"q": "Welche Farbe ist das?", "sub": "<span class=\"bd-sw\" style=\"background:#fb8c00\"><\/span>", "opts": ["orange", "türkis", "rosa"], "a": 0, "why": "orange = oransje."}, {"q": "Welche Farbe ist das?", "sub": "<span class=\"bd-sw\" style=\"background:#8e24aa\"><\/span>", "opts": ["lila", "orange", "gelb"], "a": 0, "why": "lila = lilla."}, {"q": "Welche Farbe ist das?", "sub": "<span class=\"bd-sw\" style=\"background:#f48fb1\"><\/span>", "opts": ["rosa", "blau", "grau"], "a": 0, "why": "rosa = rosa."}]}</script></div><div class="dw-fill dw-fg"><script type="application/json">{"title": "Blandet", "items": [{"s": "Der Himmel ist ___. (blå)", "a": "blau", "v": "blå"}, {"s": "Die Banane ist ___. (gul)", "a": "gelb", "v": "gul"}, {"s": "Der Schnee ist ___. (hvit)", "a": "weiß", "v": "hvit"}, {"s": "Ich habe einen ___ Pullover. (grønn)", "a": "grünen", "v": "akkusativ"}, {"s": "Sie hat ___ Augen. (blå)", "a": "blaue", "v": "flertall"}, {"s": "Die ___ Katze schläft. (svart)", "a": "schwarze", "v": "bestemt, feminin"}], "hint": "Husk endelser foran substantiv.", "intro": "Skriv ordet som mangler. Det som står i parentes hjelper deg."}</script></div><p class="dw-see-also"><strong>Se også:</strong> <a href="../adjektiv/">Adjektiv</a> · <a href="../../schreiben/bilder-beschreiben/">Bilder beschreiben</a> · <a href="../../schreiben/personenbeschreibung/">Personenbeschreibung</a> · <a href="../zahlen/">Zahlen</a></p>
+  </div>
+
+</div>
+<script>
+(function(){
+'use strict';
+document.documentElement.classList.add('dw-js');
+var PRON=['ich','du','er / sie / es','wir','ihr','sie / Sie'];
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+function norm(s){return String(s).trim().toLowerCase().replace(/\s+/g,' ');}
+function tl(s){return s.replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss');}
+function grade(val,ans){
+  var v=norm(val);if(!v)return 'empty';
+  var a=[].concat(ans),i;
+  for(i=0;i<a.length;i++)if(v===norm(a[i]))return 'ok';
+  for(i=0;i<a.length;i++)if(tl(v)===tl(norm(a[i]))&&/[äöüß]/.test(a[i]))return 'near';
+  return 'bad';
+}
+function mark(inp,st){inp.classList.remove('dw-st-ok','dw-st-near','dw-st-bad','dw-st-shown');if(st)inp.classList.add('dw-st-'+st);}
+function ins(inp,ch){var s=inp.selectionStart,e=inp.selectionEnd;if(s==null){inp.value+=ch;}else{inp.value=inp.value.slice(0,s)+ch+inp.value.slice(e);inp.selectionStart=inp.selectionEnd=s+1;}inp.focus();inp.dispatchEvent(new Event('input',{bubbles:true}));}
+function keyRow(host){
+  var r=el('div','dw-keys');r.appendChild(el('span','','Spesialtegn:'));
+  ['ä','ö','ü','ß'].forEach(function(k){
+    var b=el('button','dw-key',k);b.type='button';b.setAttribute('aria-label','Sett inn '+k);
+    b.addEventListener('mousedown',function(e){e.preventDefault();});
+    b.addEventListener('click',function(){var i=host._last||host.querySelector('input.dw-fi:not([readonly])');if(i)ins(i,k);});
+    r.appendChild(b);});
+  return r;
+}
+function wire(host,inputs,onchange){
+  inputs.forEach(function(inp,n){
+    inp.setAttribute('autocomplete','off');inp.setAttribute('autocapitalize','off');inp.setAttribute('autocorrect','off');inp.setAttribute('spellcheck','false');
+    inp.addEventListener('focus',function(){host._last=inp;});
+    inp.addEventListener('input',onchange);
+    inp.addEventListener('keydown',function(e){
+      if(e.key==='Enter'){e.preventDefault();var nx=inputs[n+1];if(nx)nx.focus();else host._check();}
+    });
+  });
+}
+function cfgOf(root){return JSON.parse(root.querySelector('script[type="application/json"]').textContent);}
+
+/* ---------- utfyllingstabell ---------- */
+function initTable(root){
+  var cfg=cfgOf(root),mode=cfg.default||0,checked=false;
+  root.innerHTML='';
+  var h=el('h4','','📝 '+cfg.title);root.appendChild(h);
+  if(cfg.intro)root.appendChild(el('p','dw-fi-intro',cfg.intro));
+  var mb=el('div','dw-fill-modes');root.appendChild(mb);
+  var tw=el('div','dw-tw');root.appendChild(tw);
+  root.appendChild(keyRow(root));
+  var row=el('div','dw-frow');
+  var bC=el('button','dw-fbtn','Sjekk');bC.type='button';
+  var bS=el('button','dw-fbtn dw-sec','Vis fasit');bS.type='button';
+  var bR=el('button','dw-fbtn dw-sec','Nullstill');bR.type='button';
+  var st=el('span','dw-fstat','');
+  row.appendChild(bC);row.appendChild(bS);row.appendChild(bR);row.appendChild(st);root.appendChild(row);
+  var msg=el('div','dw-fmsg');root.appendChild(msg);
+  var cells=[];
+  function build(){
+    tw.innerHTML='';cells=[];checked=false;msg.className='dw-fmsg';
+    mb.innerHTML='';
+    if(cfg.modes.length>1)cfg.modes.forEach(function(m,i){var b=el('button',i===mode?'dw-on':'',m.l);b.type='button';b.onclick=function(){mode=i;build();};mb.appendChild(b);});
+    var blanks=cfg.modes[mode].b;
+    var t=el('table'),thead=el('thead'),trh=el('tr');
+    trh.appendChild(el('th','',''));
+    cfg.verbs.forEach(function(v){var th=el('th','',v.inf);if(v.no){th.appendChild(el('small','',v.no));}trh.appendChild(th);});
+    thead.appendChild(trh);t.appendChild(thead);
+    var tb=el('tbody');
+    PRON.forEach(function(p,ri){
+      var tr=el('tr');tr.appendChild(el('td','dw-pr',p));
+      cfg.verbs.forEach(function(v){
+        var td=el('td',cfg.hl.indexOf(ri)>=0?'dw-hlc':'');
+        if(blanks.indexOf(ri)>=0){
+          var inp=el('input','dw-fi');inp.type='text';inp.setAttribute('aria-label',v.inf+' – '+p);
+          cells.push({inp:inp,ans:v.f[ri],irr:(cfg.hl.length===0||cfg.hl.indexOf(ri)>=0)});td.appendChild(inp);
+        }else{td.className+=' dw-given';td.textContent=v.f[ri];}
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb);tw.appendChild(t);
+    wire(root,cells.map(function(c){return c.inp;}),function(){update();});
+    update();
+  }
+  function update(){
+    var ok=0,bad=0,total=cells.length;
+    cells.forEach(function(c){
+      if(c.inp.classList.contains('dw-st-shown'))return;
+      var g=grade(c.inp.value,c.ans);
+      if(g==='ok'){ok++;mark(c.inp,'ok');c.inp.title='';}
+      else if(g==='near'){mark(c.inp,'near');c.inp.title='Nesten! Bruk ä, ö, ü eller ß (knappene under tabellen).';}
+      else if(checked){mark(c.inp,'bad');bad++;}
+      else mark(c.inp,'');
+    });
+    st.textContent='✅ '+ok+' av '+total;
+    st.className='dw-fstat'+(ok===total&&total?' dw-all':'');
+    if(ok===total&&total){msg.className='dw-fmsg dw-show';msg.textContent='🎉 Alle riktige! Prøv gjerne «Vis alle»-modus hvis du har brukt hjelpen.';}
+    else if(checked&&bad){
+      var irr=cells.some(function(c){return c.irr&&c.inp.classList.contains('dw-st-bad');});
+      msg.className='dw-fmsg dw-show';msg.textContent=(cfg.hint&&irr)?'💡 '+cfg.hint:'Røde ruter er ikke riktige ennå – prøv igjen. Gule ruter mangler bare ä/ö/ü/ß.';
+    }else if(!ok||!checked)msg.className='dw-fmsg';
+  }
+  root._check=function(){checked=true;update();};
+  bC.onclick=function(){checked=true;update();};
+  bS.onclick=function(){cells.forEach(function(c){c.inp.value=[].concat(c.ans)[0];mark(c.inp,'shown');});st.textContent='Fasit vist';st.className='dw-fstat';msg.className='dw-fmsg';};
+  bR.onclick=function(){build();};
+  build();
+}
+
+/* ---------- utfyll-setninger ---------- */
+function initGap(root){
+  var cfg=cfgOf(root),checked=false;
+  root.innerHTML='';
+  root.appendChild(el('h4','','✍️ '+cfg.title));
+  root.appendChild(el('p','dw-fi-intro',cfg.intro||'Skriv riktig verbform i hullet. Rutene blir grønne når svaret er riktig.'));
+  var ol=el('ol');root.appendChild(ol);
+  var rows=[];
+  cfg.items.forEach(function(it){
+    var li=el('li');var parts=it.s.split('___');
+    li.appendChild(document.createTextNode(parts[0]));
+    var inp=el('input','dw-fi');inp.type='text';var a0=[].concat(it.a)[0];inp.size=Math.max(5,a0.length+2);inp.setAttribute('aria-label','Svar');
+    li.appendChild(inp);
+    if(parts[1])li.appendChild(document.createTextNode(parts[1]));
+    if(it.v)li.appendChild(el('span','dw-gv','('+it.v+')'));
+    var m=el('span','dw-gm','');li.appendChild(m);
+    ol.appendChild(li);rows.push({inp:inp,ans:it.a,m:m});
+  });
+  root.appendChild(keyRow(root));
+  var row=el('div','dw-frow');
+  var bC=el('button','dw-fbtn','Sjekk svar');bC.type='button';
+  var bS=el('button','dw-fbtn dw-sec','Vis fasit');bS.type='button';
+  var bR=el('button','dw-fbtn dw-sec','Nullstill');bR.type='button';
+  var st=el('span','dw-fstat','');
+  row.appendChild(bC);row.appendChild(bS);row.appendChild(bR);row.appendChild(st);root.appendChild(row);
+  var msg=el('div','dw-fmsg');root.appendChild(msg);
+  function update(){
+    var ok=0,bad=0;
+    rows.forEach(function(r){
+      if(r.inp.classList.contains('dw-st-shown'))return;
+      var g=grade(r.inp.value,r.ans);
+      if(g==='ok'){ok++;mark(r.inp,'ok');r.m.textContent='✅';}
+      else if(g==='near'){mark(r.inp,'near');r.m.textContent='🟡';}
+      else if(checked){mark(r.inp,'bad');r.m.textContent='❌';bad++;}
+      else{mark(r.inp,'');r.m.textContent='';}
+    });
+    st.textContent='✅ '+ok+' av '+rows.length;st.className='dw-fstat'+(ok===rows.length?' dw-all':'');
+    if(ok===rows.length){msg.className='dw-fmsg dw-show';msg.textContent='🎉 Alle riktige!';}
+    else if(checked&&bad){msg.className='dw-fmsg dw-show';msg.textContent=cfg.hint?'💡 '+cfg.hint:'Prøv igjen på de røde.';}
+    else msg.className='dw-fmsg';
+  }
+  root._check=function(){checked=true;update();};
+  wire(root,rows.map(function(r){return r.inp;}),update);
+  bC.onclick=function(){checked=true;update();};
+  bS.onclick=function(){rows.forEach(function(r){r.inp.value=[].concat(r.ans)[0];mark(r.inp,'shown');r.m.textContent='';});st.textContent='Fasit vist';st.className='dw-fstat';msg.className='dw-fmsg';};
+  bR.onclick=function(){checked=false;rows.forEach(function(r){r.inp.value='';mark(r.inp,'');r.m.textContent='';});msg.className='dw-fmsg';update();};
+  update();
+}
+
+/* ---------- faner ---------- */
+function initTabs(){
+  var bar=document.getElementById('dw-tabs');if(!bar)return;
+  var btns=[].slice.call(bar.querySelectorAll('button'));
+  var panels=[].slice.call(document.querySelectorAll('.dw-tabpanel'));
+  function show(name,noHash){
+    var found=false;
+    panels.forEach(function(p){var on=p.id===name;if(on)found=true;p.hidden=!on;});
+    if(!found){name=panels[0].id;panels[0].hidden=false;}
+    btns.forEach(function(b){b.setAttribute('aria-selected',b.getAttribute('data-tab')===name?'true':'false');});
+    if(!noHash){try{history.replaceState(null,'','#'+name);}catch(e){}}
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.getAttribute('data-tab'));bar.scrollIntoView({behavior:'smooth',block:'start'});});});
+  [].forEach.call(document.querySelectorAll('[data-go]'),function(b){b.addEventListener('click',function(){show(b.getAttribute('data-go'));bar.scrollIntoView({behavior:'smooth',block:'start'});});});
+  function fromHash(){
+    var h=decodeURIComponent((location.hash||'').slice(1));
+    if(!h){show(panels[0].id,true);return;}
+    var tgt=document.getElementById(h);
+    if(tgt&&tgt.classList.contains('dw-tabpanel')){show(h,true);bar.scrollIntoView();return;}
+    if(tgt){var p=tgt.closest('.dw-tabpanel');if(p){show(p.id,true);setTimeout(function(){tgt.scrollIntoView();},30);return;}}
+    show(panels[0].id,true);
+  }
+  window.addEventListener('hashchange',fromHash);
+  fromHash();
+}
+[].forEach.call(document.querySelectorAll('.dw-ft'),initTable);
+[].forEach.call(document.querySelectorAll('.dw-fg'),initGap);
+initTabs();
+})();
+</script>
+<script>
+(function(){
+'use strict';
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+/* dialoger */
+[].forEach.call(document.querySelectorAll('.dw-dlg-wrap'),function(w){
+  [].forEach.call(w.querySelectorAll('.dw-dbtn'),function(b){
+    b.addEventListener('click',function(){
+      var on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on?'true':'false');
+      w.classList.toggle(b.getAttribute('data-act')==='no'?'dw-shown':'dw-rehearse',on);
+      if(b.getAttribute('data-act')==='reh'&&!on)[].forEach.call(w.querySelectorAll('.dw-bub.b'),function(x){x.classList.remove('dw-rev');});
+    });
+  });
+  [].forEach.call(w.querySelectorAll('.dw-bub.b'),function(x){x.addEventListener('click',function(){if(w.classList.contains('dw-rehearse'))x.classList.add('dw-rev');});});
+});
+/* skilt-kort */
+[].forEach.call(document.querySelectorAll('.dw-sign-card'),function(c){c.addEventListener('click',function(){c.classList.toggle('dw-flip');});});
+/* valgspørsmål */
+function initCh(root){
+  var cfg=JSON.parse(root.querySelector('script[type="application/json"]').textContent);
+  function build(){
+    root.innerHTML='';
+    root.appendChild(el('h4','','🗣️ '+cfg.title));
+    if(cfg.intro)root.appendChild(el('p','dw-ch-intro',cfg.intro));
+    var done=0,good=0,total=cfg.qs.length;
+    var foot=el('div','dw-ch-foot');var st=el('span','dw-ch-st','✅ 0 av '+total);
+    var rb=el('button','','Prøv på nytt');rb.type='button';rb.onclick=build;
+    function upd(){st.textContent='✅ '+good+' av '+total+(done===total?(good===total?' – 🎉 Alle riktige!':' – se de røde igjen og prøv på nytt'):'');st.className='dw-ch-st'+(done===total&&good===total?' dw-all':'');}
+    cfg.qs.forEach(function(q){
+      var box=el('div','dw-ch-q');var p=el('p','',q.q);box.appendChild(p);
+      if(q.sub){var s=el('div','dw-ch-sub');s.innerHTML=q.sub;box.appendChild(s);}
+      var ob=el('div','dw-ch-opts');var order=shuffle(q.opts.map(function(o,i){return i;}));var answered=false;
+      var why=el('div','dw-ch-why',q.why||'');
+      order.forEach(function(i){
+        var b=el('button','',q.opts[i]);b.type='button';b.setAttribute('data-i',i);
+        b.onclick=function(){
+          if(answered)return;answered=true;done++;
+          [].forEach.call(ob.children,function(x){x.disabled=true;if(+x.getAttribute('data-i')===q.a)x.classList.add('dw-g');});
+          if(i===q.a)good++;else b.classList.add('dw-r');
+          if(q.why)why.classList.add('dw-show');upd();
+        };
+        ob.appendChild(b);
+      });
+      box.appendChild(ob);box.appendChild(why);root.appendChild(box);
+    });
+    foot.appendChild(st);foot.appendChild(rb);root.appendChild(foot);
+  }
+  build();
+}
+[].forEach.call(document.querySelectorAll('.dw-ch'),initCh);
+})();
+</script>
+</body>
+</html>
