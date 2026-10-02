@@ -282,8 +282,10 @@ deutschwelt-site/
 │   │                                    (ordliste i to grupper) + 14-spørsmål betydningsquiz
 │   ├── schule/
 │   │   └── index.html                → "Jugend & Schule" — skolehverdag i Tyskland vs. Norge
-│   └── alltagssituationen/
-│       └── index.html                → "Alltagssituationen" — 6 hverdagssituasjoner + skilt/meldinger i 8 faner
+│   ├── alltagssituationen/
+│   │   └── index.html                → "Alltagssituationen" — 6 hverdagssituasjoner + skilt/meldinger i 8 faner
+│   └── gleiches-wort/
+│       └── index.html                → "Gleiches Wort, andere Welt" — falske venner, falsk engelsk, D-A-CH-ord, test (5 faner)
 └── sprechen/
     ├── index.html                    → hub-side: velg samtalesituasjon
     ├── cafe/
@@ -651,7 +653,7 @@ tidligere aksepterte kollisjonene — ingen nye.
 **Om «Deutsch im echten Leben»-seksjonen:** dette er nettstedets
 "autentiske tysk"-seksjon — mens de andre delene lærer eleven tysk, viser
 denne hvordan tysk faktisk brukes av folk (særlig ungdom) utenfor
-læreboka. `leben/index.html` er en hub med 8 kort: 6 er bygget ut (Alltagssituationen kom til senere, se eget avsnitt nederst i denne seksjonen; teksten under beskriver tilstanden før det)
+læreboka. `leben/index.html` er en hub med 8 kort: 7 er bygget ut (Alltagssituationen og Gleiches Wort kom til senere, se eget avsnitt nederst i denne seksjonen; teksten under beskriver tilstanden før det)
 (`alltagssprache/`, `chat/`, `jugendwoerter/`, `sprichwoerter/`, `schule/`)
 og 3 er `dw-soon`-plassholdere (Gaming & Internet, Alltagssituationen, Gleiches
 Wort andere Welt) som venter på fremtidige runder. **Alltagssprache**
@@ -1982,6 +1984,17 @@ Ny side i «Deutsch im echten Leben» med **åtte faner** (🧭 Start, 🚆 Fahr
 Hver situasjon har: scene-chips, en **dialog** i bobler (knapp «Vis norsk» og «Øv deg: skjul dine replikker», der «Du»-replikkene blir uskarpe til man klikker på dem), en tabell med nyttige uttrykk, en tips-boks (Pfand, Sie/du, 112, Jugendherberge osv.), **utfyll-setninger** som blir grønne når de er riktige (samme motor som uregelmessige verb) og et **«Hva sier du?»-valgspørsmål** med forklaring. Skilt-fanen har snu-kort for 12 skilt, et skilt-quiz og stasjonsmeldinger.
 
 Bygges av `leben-work/build_alltag.py` + `sitcommon.py` (dialog, valg, skilt) + `fillcommon.py`. Tysken er skrevet konservativt, men er ikke gjennomlest av en tysk morsmålsbruker.
+
+## Gleiches Wort, andere Welt (`leben/gleiches-wort/`)
+
+Siste ordtema som tidligere var «kommer snart» (utenom Gaming & Internet). **Fem faner** (`#start`, `#falsk`, `#denglisch`, `#dach`, `#test`; id-er inni en fane åpner riktig fane, uten JavaScript vises alt under hverandre):
+
+- **Falske venner**: 12 tyske ord som lurer norske elever (Gift, bekommen, also, fast, bald, Rente, Mist, Rock, Dom, Kind, Hut, Boden) som vendekort + oversiktstabell (betydning, «pass opp», eksempel), 6 utfyll-setninger og 5 valgspørsmål.
+- **Falsk engelsk** (Scheinanglizismen): Handy, Beamer, Oldtimer, Public Viewing, Shooting, Homeoffice, Pony, Evergreen.
+- **D-A-CH**: tabeller for mat, hverdag/skole og hilsener i Tyskland/Østerrike/Sveits (Semmel/Weggli, Paradeiser, Velo, Trottoir, Jänner, Matura, Grüezi, Servus …) + «Pfannkuchen-fellen» (Berlin).
+- **Test deg selv**: 8 utfyll-setninger og 6 valgspørsmål på tvers av alle tre temaene.
+
+Bygges av `leben-work/build_gleiches.py` + `sitcommon.py` + `fillcommon.py`. Merk: norsk «gift» betyr både giftstoff og «gift med noen»; siden forklarer at tysk *Gift* bare har betydningen giftstoff. Tysk innhold er ikke lest av morsmålstaler. D-A-CH-ordene er valgt konservativt (typiske, godt dokumenterte varianter).
 
 ## Kjente begrensninger
 

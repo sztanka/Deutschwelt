@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Deutsch im echten Leben: "Gleiches Wort, andere Welt" (leben/gleiches-wort/)
+  Fanebasert side: falske venner (norsk–tysk), falsk engelsk (Handy, Beamer …), D-A-CH-ordforskjeller + blandet test. Gjenbruker sitcommon.py (choose/sign_cards) og fillcommon.py (fill_gap).
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gleiches Wort, andere Welt · Deutsch im echten Leben · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:860px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .dw-jump a{font-size:.86rem;font-weight:700;padding:7px 15px;border-radius:999px;text-decoration:none;background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:32px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t tbody th{background:#fbfaf6;font-size:.84rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t td.dw-hl{background:#fff3cf;}
+  .dw-t td.dw-c{text-align:center;}
+  .dw-t td.dw-x{color:#aaa;text-align:center;}
+  .dw-t tr.dw-grp td,.dw-t tr.dw-grp th{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:14px 0;}
+  a.dw-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;text-decoration:none;color:var(--dw-text);box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;gap:6px;}
+  a.dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  a.dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  a.dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
+
+  /* Øvelser */
+  .dw-ex-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+  .dw-ex-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:8px;}
+  .dw-ex-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:16px;}
+  .dw-ex-fill{height:100%;width:0;background:var(--dw-good);transition:width .25s ease;}
+  .dw-ex-cue{font-size:.88rem;color:var(--dw-muted);margin-bottom:4px;}
+  .dw-ex-sent{font-size:1.3rem;font-weight:600;color:var(--dw-primary);line-height:1.5;margin:2px 0 18px;}
+  .dw-ex-sent .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);text-align:center;}
+  .dw-ex-sent .dw-blank.dw-filled{color:var(--dw-good);border-color:var(--dw-good);}
+  .dw-ex-sent .dw-blank.dw-filled.dw-bad{color:var(--dw-bad);border-color:var(--dw-bad);}
+  .dw-ex-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .dw-ex-choice{flex:1 1 110px;max-width:170px;padding:12px 8px;font-family:inherit;font-size:1.1rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;}
+  .dw-ex-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-ex-choice:disabled{cursor:default;opacity:.55;}
+  .dw-ex-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-ex-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .dw-ex-choice:focus-visible,.dw-ex-btn:focus-visible,.dw-ex-hintbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-ex-hintbtn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:.85rem;padding:0;margin-bottom:8px;}
+  .dw-ex-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:10px 14px;margin:6px 0 14px;background:#f4f1e8;}
+  .dw-ex-fb.dw-show{display:block;}
+  .dw-ex-fb.dw-good{background:#eef7ee;color:#1f5d23;}
+  .dw-ex-fb.dw-bad{background:#fdecee;color:#8c1d1d;}
+  .dw-ex-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:11px 26px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .dw-ex-btn:hover{background:var(--dw-primary-light);}
+  .dw-ex-btn.dw-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-ex-result{display:none;text-align:center;}
+  .dw-ex-result.dw-show{display:block;}
+  .dw-ex-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .dw-ex-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:12px 18px;margin:14px 0;font-size:.9rem;}
+  .dw-ex-review li{margin-bottom:6px;}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .dw-ex-sent{font-size:1.12rem;}
+  }
+
+  /* ---- faner ---- */
+  .dw-tabs{display:none;flex-wrap:wrap;gap:8px;margin:14px 0 6px;}
+  .dw-js .dw-tabs{display:flex;}
+  .dw-tabs button{font-family:inherit;font-size:.95rem;font-weight:800;padding:10px 18px;border-radius:999px;border:2px solid #e4dfd2;background:#fff;color:var(--dw-text);cursor:pointer;}
+  .dw-tabs button:hover{border-color:var(--dw-primary-light);}
+  .dw-tabs button[aria-selected="true"]{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .dw-tabs button:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-tabpanel[hidden]{display:none;}
+  .dw-tabnext{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:18px 0 6px;}
+  .dw-tabnext button{font-family:inherit;font-weight:800;font-size:.9rem;padding:9px 18px;border-radius:999px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;}
+  .dw-tabnext button:hover{background:var(--dw-primary);color:#fff;}
+  .dw-js .dw-tabnext{display:flex;} .dw-tabnext{display:none;}
+  /* ---- utfyll-widgets ---- */
+  .dw-fill{background:#f8f6ef;border:2px dashed #d9d3c4;border-radius:14px;padding:14px 16px;margin:14px 0;}
+  .dw-fill h4{margin:0 0 4px;font-size:1rem;color:var(--dw-primary-light);}
+  .dw-fill .dw-fi-intro{font-size:.88rem;color:var(--dw-muted);margin:0 0 8px;}
+  .dw-fill-modes{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px;}
+  .dw-fill-modes button{font-family:inherit;font-size:.8rem;font-weight:700;padding:5px 12px;border-radius:999px;border:1.5px solid #cfd8e6;background:#fff;cursor:pointer;color:var(--dw-text);}
+  .dw-fill-modes button.dw-on{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .dw-fill table{border-collapse:collapse;margin:4px 0 8px;font-size:.95rem;background:#fff;}
+  .dw-fill th,.dw-fill td{border:1px solid #ece8df;padding:6px 9px;text-align:center;}
+  .dw-fill th{background:#fbfaf6;font-size:.78rem;color:var(--dw-muted);}
+  .dw-fill th small{display:block;font-weight:400;font-size:.72rem;}
+  .dw-fill td.dw-pr{text-align:left;font-weight:700;color:var(--dw-muted);background:#fbfaf6;white-space:nowrap;}
+  .dw-fill td.dw-given{font-weight:700;color:#232323;}
+  .dw-fill td.dw-hlc{background:#fff8e4;}
+  .dw-fill .dw-tw{overflow-x:auto;}
+  .dw-fi{font-family:inherit;font-size:1rem;font-weight:700;width:7.6em;max-width:100%;padding:6px 8px;border:2px solid #cfc8b5;border-radius:8px;text-align:center;background:#fff;color:#232323;}
+  .dw-fi:focus{outline:none;border-color:var(--dw-primary-light);box-shadow:0 0 0 3px rgba(156,19,41,.15);}
+  .dw-fi.dw-st-ok{background:#e3f4e3;border-color:#2e7d32;color:#1f5d23;}
+  .dw-fi.dw-st-near{background:#fff3cf;border-color:#d9a91c;}
+  .dw-fi.dw-st-bad{background:#fdecee;border-color:#c62828;color:#8c1d1d;}
+  .dw-fi.dw-st-shown{background:#e6eefb;border-color:#5b8bd6;color:#1e3f7a;}
+  .dw-keys{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:6px 0;font-size:.8rem;color:var(--dw-muted);}
+  .dw-key{font-family:inherit;font-size:1rem;font-weight:800;width:36px;height:34px;border-radius:8px;border:1.5px solid #cfd8e6;background:#fff;cursor:pointer;color:var(--dw-text);}
+  .dw-key:hover{background:var(--dw-primary);color:#fff;}
+  .dw-frow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px;}
+  .dw-fbtn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:8px 18px;border-radius:999px;font-size:.9rem;font-weight:700;cursor:pointer;}
+  .dw-fbtn.dw-sec{background:#fff;color:var(--dw-primary);border:2px solid #d9d3c4;}
+  .dw-fbtn:hover{background:var(--dw-primary-light);color:#fff;}
+  .dw-fstat{font-size:.9rem;font-weight:700;margin-left:auto;}
+  .dw-fstat.dw-all{color:var(--dw-good);}
+  .dw-fmsg{display:none;margin-top:8px;border-radius:10px;padding:8px 12px;font-size:.88rem;background:#fff9ec;color:#5a4500;line-height:1.5;}
+  .dw-fmsg.dw-show{display:block;}
+  .dw-fg ol{list-style:none;margin:6px 0;padding:0;counter-reset:g;}
+  .dw-fg li{counter-increment:g;display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:7px 0;border-bottom:1px solid #ece8df;line-height:1.9;}
+  .dw-fg li::before{content:counter(g)".";font-weight:800;color:var(--dw-muted);min-width:1.6em;}
+  .dw-fg li .dw-gv{font-size:.82rem;color:var(--dw-muted);font-style:italic;}
+  .dw-fg li .dw-gm{margin-left:2px;min-width:1.4em;}
+  .dw-fg .dw-fi{width:6.4em;}
+  @media(max-width:560px){.dw-fi{width:6.2em;font-size:.95rem;padding:5px 5px;}.dw-fill{padding:12px 10px;}.dw-fill th,.dw-fill td{padding:5px 5px;}}
+
+  .dw-dlg-wrap{margin:12px 0;}
+  .dw-dlg-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;font-size:.95rem;}
+  .dw-dlg-bar b{margin-right:auto;}
+  .dw-dbtn{font-family:inherit;font-size:.8rem;font-weight:700;padding:6px 12px;border-radius:999px;border:1.5px solid #cfd8e6;background:#fff;cursor:pointer;color:var(--dw-text);}
+  .dw-dbtn[aria-pressed="true"]{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .dw-dlg{display:flex;flex-direction:column;gap:10px;}
+  .dw-bub{max-width:84%;padding:9px 14px 10px;border-radius:14px;border:1px solid transparent;font-size:.98rem;line-height:1.5;}
+  .dw-bub.a{align-self:flex-start;background:#eef2f6;border-color:#d7e0ea;}
+  .dw-bub.b{align-self:flex-end;background:#fdf1ea;border-color:#f0d9c2;}
+  .dw-spk{display:block;font-size:.68rem;font-weight:800;letter-spacing:.5px;margin-bottom:1px;opacity:.7;text-transform:uppercase;}
+  .dw-spk:empty{display:none;}
+  .dw-t{display:block;font-weight:600;}
+  .dw-nol{display:none;margin-top:3px;font-size:.84rem;font-style:italic;color:var(--dw-muted);font-weight:400;}
+  .dw-dlg-wrap.dw-shown .dw-nol{display:block;}
+  .dw-dlg-wrap.dw-rehearse .dw-bub.b:not(.dw-rev) .dw-t{filter:blur(7px);cursor:pointer;user-select:none;}
+  .dw-dlg-wrap.dw-rehearse .dw-bub.b:not(.dw-rev){cursor:pointer;}
+  .dw-ch{background:#f8f6ef;border:2px dashed #d9d3c4;border-radius:14px;padding:14px 16px;margin:14px 0;}
+  .dw-ch h4{margin:0 0 4px;font-size:1rem;color:var(--dw-primary-light);}
+  .dw-ch .dw-ch-intro{font-size:.88rem;color:var(--dw-muted);margin:0 0 8px;}
+  .dw-ch-q{background:#fff;border:1px solid #ece8df;border-radius:12px;padding:10px 14px;margin:10px 0;}
+  .dw-ch-q p{margin:0 0 6px;font-weight:700;line-height:1.5;}
+  .dw-ch-sub{margin:6px 0 8px;}
+  .dw-ch-opts{display:flex;flex-direction:column;gap:7px;}
+  .dw-ch-opts button{font-family:inherit;text-align:left;font-size:.95rem;font-weight:600;padding:9px 14px;border-radius:10px;border:2px solid #d9d3c4;background:#fff;color:var(--dw-text);cursor:pointer;}
+  .dw-ch-opts button:hover:not(:disabled){border-color:var(--dw-primary-light);}
+  .dw-ch-opts button.dw-g{background:#e3f4e3;border-color:#2e7d32;color:#1f5d23;}
+  .dw-ch-opts button.dw-r{background:#fdecee;border-color:#c62828;color:#8c1d1d;}
+  .dw-ch-opts button:disabled{cursor:default;}
+  .dw-ch-why{display:none;margin-top:8px;font-size:.88rem;line-height:1.5;color:#3d3d3d;background:#fff9ec;border-radius:8px;padding:7px 11px;}
+  .dw-ch-why.dw-show{display:block;}
+  .dw-ch-foot{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px;}
+  .dw-ch-st{font-weight:800;font-size:.92rem;} .dw-ch-st.dw-all{color:var(--dw-good);}
+  .dw-ch-foot button{font-family:inherit;background:#fff;color:var(--dw-primary);border:2px solid #d9d3c4;padding:6px 14px;border-radius:999px;font-weight:700;font-size:.85rem;cursor:pointer;}
+  .dw-sign{display:inline-block;font-weight:800;font-size:1rem;padding:7px 14px;border-radius:6px;border:3px solid #fff;box-shadow:0 0 0 2px #444;line-height:1.2;letter-spacing:.2px;}
+  .dw-sg-blue{background:#1565c0;color:#fff;} .dw-sg-green{background:#2e7d32;color:#fff;} .dw-sg-red{background:#c62828;color:#fff;} .dw-sg-yellow{background:#fbc02d;color:#222;} .dw-sg-white{background:#fff;color:#222;} .dw-sg-black{background:#222;color:#fff;}
+  .dw-signs{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin:12px 0;}
+  @media(max-width:520px){.dw-signs{grid-template-columns:repeat(2,1fr);gap:8px;}}
+  .dw-sign-card{font-family:inherit;background:#fff;border:1.5px solid #e4dfd2;border-radius:12px;padding:14px 10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;min-height:92px;justify-content:center;}
+  .dw-sign-card:hover{border-color:var(--dw-primary-light);}
+  .dw-sign-no{display:none;font-size:.88rem;font-weight:600;color:#3d3d3d;text-align:center;}
+  .dw-sign-card.dw-flip .dw-sign-no{display:block;}
+  .dw-scene{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.88rem;margin:6px 0 10px;}
+  .dw-scene span{background:#f4f1e8;border-radius:999px;padding:3px 12px;}
+  .dw-cards3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:10px 0;}
+  .dw-cards3 button{font-family:inherit;text-align:left;background:#fff;border:1.5px solid #e4dfd2;border-radius:12px;padding:12px 14px;cursor:pointer;color:var(--dw-text);display:flex;flex-direction:column;gap:3px;}
+  .dw-cards3 button:hover{border-color:var(--dw-primary-light);}
+  .dw-cards3 b{color:var(--dw-primary-light);font-size:1rem;} .dw-cards3 span{font-size:.84rem;color:var(--dw-muted);}
+  @media(max-width:560px){.dw-bub{max-width:94%;}}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link dw-nav-active" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>Gleiches Wort, andere Welt</h1>
+    <p>Falske venner, falsk engelsk og ord som er ulike i Tyskland, Østerrike og Sveits</p>
+  </div>
+
+  <p class="dw-crumb"><a href="../">📱 Deutsch im echten Leben</a> → Gleiches Wort, andere Welt <span class="dw-level-tag">8.–10. trinn · A2</span></p>
+
+  <div class="dw-tabs" id="dw-tabs" role="tablist" aria-label="Velg tema"><button type="button" role="tab" data-tab="start" aria-controls="start" aria-selected="true">🧭 Start</button><button type="button" role="tab" data-tab="falsk" aria-controls="falsk" aria-selected="false">🪤 Falske venner</button><button type="button" role="tab" data-tab="denglisch" aria-controls="denglisch" aria-selected="false">🎭 Falsk engelsk</button><button type="button" role="tab" data-tab="dach" aria-controls="dach" aria-selected="false">🌍 D-A-CH</button><button type="button" role="tab" data-tab="test" aria-controls="test" aria-selected="false">🏆 Test deg selv</button></div>
+
+  <section class="dw-tabpanel" id="start" aria-label="🧭 Start">
+  <h2 class="dw-sec-title" id="start-intro">🌍 Gleiches Wort, andere Welt</h2>
+  <div class="dw-exp">
+<p>«Samme ord, annen verden.» Her ser du ord som <b>ligner</b> på norske eller engelske ord, men betyr noe annet, og ord som er <b>forskjellige</b> i Tyskland, Østerrike og Sveits. Hver fane har en oversikt, kort du kan trykke på, utfyllingsoppgaver og et spørsmålssett.</p><div class="dw-cards3"><button type="button" data-go="falsk"><b>🪤 Falske venner</b><span>Gift, bekommen, also, fast … ord som ser norske ut, men lurer deg.</span></button><button type="button" data-go="denglisch"><b>🎭 Falsk engelsk</b><span>Handy, Beamer, Oldtimer: tyske «engelske» ord som engelskmenn ikke kjenner.</span></button><button type="button" data-go="dach"><b>🌍 D-A-CH</b><span>Semmel, Weggli, Paradeiser og Velo: ord i Østerrike og Sveits.</span></button><button type="button" data-go="test"><b>🏆 Test deg selv</b><span>Blandet quiz og utfyllingsoppgaver.</span></button></div><div class="dw-tip">💡 <b>Tommelfingerregel:</b> Bare fordi et ord <i>ser</i> kjent ut, betyr det ikke at det <i>er</i> det samme. Ser du et ord som ligner norsk, så sjekk alltid at meningen passer i setningen.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="start-hvorfor">🔎 Hvorfor skjer dette?</h2>
+  <div class="dw-exp">
+<ul><li>Norsk og tysk er <b>slektninger</b>. Mange ord har samme opprinnelse (<i>Haus – hus</i>), men betydningen har endret seg i hvert språk.</li><li>Noen ord har <b>delt seg</b> i flere betydninger. Norsk «gift» betyr både giftstoff og «gift med noen». Tysk <i>Gift</i> har bare den ene betydningen.</li><li>Tyskerne låner engelske ord, og lager noen <b>nye</b> som ikke finnes på engelsk (<i>Handy, Beamer</i>).</li><li>Tysk snakkes i flere land, og <b>hverdagsordene</b> varierer (<i>Tomate – Paradeiser</i>).</li></ul><p>Se også: <a href="../../aehnliche-woerter/">Snakker du nysk? (ord som er <i>like</i> på norsk og tysk)</a> · <a href="../jugendwoerter/">Jugendwörter</a> · <a href="../alltagssprache/">Alltagssprache</a>.</p>
+  </div>
+<div class="dw-tabnext"><span></span><button type="button" data-go="falsk">🪤 Videre til falske venner →</button></div></section><section class="dw-tabpanel" id="falsk" aria-label="🪤 Falske venner">
+  <h2 class="dw-sec-title" id="falsk-intro">🪤 Falske venner – ord som lurer deg</h2>
+  <div class="dw-exp">
+<p>Noen tyske ord ser ut som norske ord, men betyr noe helt annet. Kalles <b>falske venner</b> (<i>falsche Freunde</i>). De er farlige fordi du tror du forstår, og så blir det misforståelser. Trykk på et kort for å se hva ordet betyr:</p><div class="dw-signs"><button type="button" class="dw-sign-card" aria-label="Gift – trykk for å se betydningen"><span class="dw-sign dw-sg-yellow">Gift</span><span class="dw-sign-no">giftstoff (som rottegift)</span></button><button type="button" class="dw-sign-card" aria-label="bekommen – trykk for å se betydningen"><span class="dw-sign dw-sg-yellow">bekommen</span><span class="dw-sign-no">få</span></button><button type="button" class="dw-sign-card" aria-label="also – trykk for å se betydningen"><span class="dw-sign dw-sg-yellow">also</span><span class="dw-sign-no">altså, så, dermed</span></button><button type="button" class="dw-sign-card" aria-label="fast – trykk for å se betydningen"><span class="dw-sign dw-sg-yellow">fast</span><span class="dw-sign-no">nesten</span></button><button type="button" class="dw-sign-card" aria-label="bald – trykk for å se betydningen"><span class="dw-sign dw-sg-yellow">bald</span><span class="dw-sign-no">snart</span></button><button type="button" class="dw-sign-card" aria-label="Rente – trykk for å se betydningen"><span class="dw-sign dw-sg-yellow">Rente</span><span class="dw-sign-no">pensjon</span></button><button type="button" class="dw-sign-card" aria-label="Mist – trykk for å se betydningen"><span class="dw-sign dw-sg-yellow">Mist</span><span class="dw-sign-no">søppel, gjødsel (og: «So ein Mist!» = Så dumt!)</span></button><button type="button" class="dw-sign-card" aria-label="Rock – trykk for å se betydningen"><span class="dw-sign dw-sg-yellow">Rock</span><span class="dw-sign-no">skjørt</span></button><button type="button" class="dw-sign-card" aria-label="Dom – trykk for å se betydningen"><span class="dw-sign dw-sg-yellow">Dom</span><span class="dw-sign-no">domkirke</span></button><button type="button" class="dw-sign-card" aria-label="Kind – trykk for å se betydningen"><span class="dw-sign dw-sg-yellow">Kind</span><span class="dw-sign-no">barn</span></button><button type="button" class="dw-sign-card" aria-label="Hut – trykk for å se betydningen"><span class="dw-sign dw-sg-yellow">Hut</span><span class="dw-sign-no">hatt</span></button><button type="button" class="dw-sign-card" aria-label="Boden – trykk for å se betydningen"><span class="dw-sign dw-sg-yellow">Boden</span><span class="dw-sign-no">gulv, bakke, jord</span></button></div><div class="dw-tip">🧠 <b>Husk:</b> «<i>bekommen</i>» er klassikeren. «<i>Ich bekomme Lehrer</i>» betyr <b>ikke</b> «jeg blir lærer», men «jeg får lærer». Og «<i>Gift</i>» betyr giftstoff, som det norske «gift» i «rottegift». Men er du <i>gift med</i> noen, er du <i>verheiratet</i>, og en gave heter <i>Geschenk</i>.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="falsk-tabell">📖 Oversikt: hva betyr det egentlig?</h2>
+  <div class="dw-exp">
+<div class="dw-tbl-wrap"><table class="dw-t" style="min-width:640px"><thead><tr><th>Tysk</th><th>Betyr på norsk</th><th>Pass opp</th><th>Eksempel</th></tr></thead><tbody><tr><td class="dw-f">Gift</td><td>giftstoff (som rottegift)</td><td>ikke «gift med» (= verheiratet) og ikke «gave» (= Geschenk)</td><td><span class="dw-de">Vorsicht, das ist Gift!</span><br><span class="dw-no">Pass opp, det er giftstoff!</span></td></tr><tr><td class="dw-f">bekommen</td><td>få</td><td>ikke «bli» (= werden)</td><td><span class="dw-de">Ich bekomme ein Eis.</span><br><span class="dw-no">Jeg får en is.</span></td></tr><tr><td class="dw-f">also</td><td>altså, så, dermed</td><td>ikke «også» (= auch)</td><td><span class="dw-de">Es regnet, also bleibe ich zu Hause.</span><br><span class="dw-no">Det regner, så jeg blir hjemme.</span></td></tr><tr><td class="dw-f">fast</td><td>nesten</td><td>ikke «fast» (= fest)</td><td><span class="dw-de">Ich bin fast fertig.</span><br><span class="dw-no">Jeg er nesten ferdig.</span></td></tr><tr><td class="dw-f">bald</td><td>snart</td><td>ikke «skallet» (= kahl)</td><td><span class="dw-de">Bis bald!</span><br><span class="dw-no">Vi sees snart!</span></td></tr><tr><td class="dw-f">die Rente</td><td>pensjon</td><td>ikke «rente» (= die Zinsen)</td><td><span class="dw-de">Mein Opa ist in Rente.</span><br><span class="dw-no">Bestefar er pensjonist.</span></td></tr><tr><td class="dw-f">der Mist</td><td>søppel, gjødsel (og: «So ein Mist!» = Så dumt!)</td><td>ikke «mist» av miste</td><td><span class="dw-de">So ein Mist! Ich habe meinen Schlüssel vergessen.</span><br><span class="dw-no">Så dumt! Jeg har glemt nøkkelen.</span></td></tr><tr><td class="dw-f">der Rock</td><td>skjørt</td><td>ikke «rock» (musikk)</td><td><span class="dw-de">Sie trägt einen roten Rock.</span><br><span class="dw-no">Hun har på seg et rødt skjørt.</span></td></tr><tr><td class="dw-f">der Dom</td><td>domkirke</td><td>ikke «dom» (= das Urteil)</td><td><span class="dw-de">Der Kölner Dom ist riesig.</span><br><span class="dw-no">Domkirken i Köln er enorm.</span></td></tr><tr><td class="dw-f">das Kind</td><td>barn</td><td>ikke «kinn» (= die Wange)</td><td><span class="dw-de">Das Kind spielt im Garten.</span><br><span class="dw-no">Barnet leker i hagen.</span></td></tr><tr><td class="dw-f">der Hut</td><td>hatt</td><td>ikke «hytte» (= die Hütte)</td><td><span class="dw-de">Er trägt einen Hut.</span><br><span class="dw-no">Han har på seg en hatt.</span></td></tr><tr><td class="dw-f">der Boden</td><td>gulv, bakke, jord</td><td>ikke «bod» (lagerrom)</td><td><span class="dw-de">Das Buch liegt auf dem Boden.</span><br><span class="dw-no">Boka ligger på gulvet.</span></td></tr></tbody></table></div><div class="dw-tip">📎 <b>Verb-feilen nr. 1:</b> «bli» på tysk er <i>werden</i>, ikke <i>bekommen</i>: <i>Ich werde Lehrer</i> (jeg blir lærer) – <i>Ich bekomme ein Geschenk</i> (jeg får en gave). Se <a href="../../grammatikk/verb/praesens-unregelmaessig/#flere">werden</a>.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="falsk-ovelse">✏️ Din tur</h2>
+  <div class="dw-exp">
+<div class="dw-fill dw-fg"><script type="application/json">{"title": "Fullfør setningene", "items": [{"s": "Ich ___ ein Eis.", "a": "bekomme", "v": "få"}, {"s": "Es regnet, ___ bleibe ich zu Hause.", "a": "also", "v": "så / derfor"}, {"s": "Ich bin ___ fertig.", "a": "fast", "v": "nesten"}, {"s": "Bis ___!", "a": "bald", "v": "snart"}, {"s": "Mein Opa ist in ___.", "a": "Rente", "v": "pensjon"}, {"s": "Sie trägt einen roten ___.", "a": "Rock", "v": "skjørt"}], "hint": "Bruk tabellen over.", "intro": "Skriv ordet som mangler. Det norske ordet i parentes viser hva som menes."}</script></div><div class="dw-ch"><script type="application/json">{"title": "Hva betyr det – og hva sier du?", "intro": "Velg det riktige svaret.", "qs": [{"q": "«Ich bekomme ein Eis» betyr …", "opts": ["Jeg får en is.", "Jeg blir en is.", "Jeg kjøper en is."], "a": 0, "why": "«Bekommen» = få. Det er en klassisk falsk venn: det ligner «bli», men betyr «få»."}, {"q": "Du vil si «Jeg blir lærer». Hva sier du?", "opts": ["Ich werde Lehrer.", "Ich bekomme Lehrer.", "Ich bleibe Lehrer."], "a": 0, "why": "«Bli» = werden. «Bleiben» betyr å bli værende, å forbli."}, {"q": "På en flaske står «Vorsicht, Gift!». Hva betyr det?", "opts": ["Pass opp, giftstoff!", "Pass opp, gave!", "Pass opp, hun er gift med ham!"], "a": 0, "why": "«Gift» er giftstoff. «Gift med noen» heter «verheiratet», og gave heter «Geschenk»."}, {"q": "«Es ist fast zehn Uhr» betyr …", "opts": ["Klokka er nesten ti.", "Klokka er fast ti.", "Klokka er etter ti."], "a": 0, "why": "«Fast» = nesten. Tysk for norsk «fast» (stabil) er «fest»."}, {"q": "Hvilket tysk ord betyr «skjørt»?", "opts": ["der Rock", "die Hose", "die Jacke"], "a": 0, "why": "Der Rock = skjørt. Die Hose = bukse. Rockmusikk heter også «Rock», men artikkelen er annerledes: die Rockmusik / der Rock."}]}</script></div><p>Hører til: <a href="../../aehnliche-woerter/">Snakker du nysk? (ord som er like på norsk og tysk)</a> · <a href="../../grammatikk/verb/praesens-unregelmaessig/#flere">werden og modalverb</a> · <a href="../../grammatikk/artikler/">Artikler</a></p>
+  </div>
+<div class="dw-tabnext"><button type="button" data-go="start">← 🧭 Start</button><button type="button" data-go="denglisch">🎭 Falsk engelsk →</button></div></section><section class="dw-tabpanel" id="denglisch" aria-label="🎭 Falsk engelsk">
+  <h2 class="dw-sec-title" id="deng-intro">🎭 Falsk engelsk: ord som høres engelske ut</h2>
+  <div class="dw-exp">
+<p>Tyskerne låner mange ord fra engelsk. Noen ord har de <b>funnet på selv</b>: de høres engelske ut, men finnes ikke på engelsk, eller betyr noe annet. Det kalles <i>Scheinanglizismen</i> («skinn-anglisismer»). Trykk på et kort:</p><div class="dw-signs"><button type="button" class="dw-sign-card" aria-label="Handy – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Handy</span><span class="dw-sign-no">mobiltelefon</span></button><button type="button" class="dw-sign-card" aria-label="Beamer – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Beamer</span><span class="dw-sign-no">prosjektor (videokanon)</span></button><button type="button" class="dw-sign-card" aria-label="Oldtimer – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Oldtimer</span><span class="dw-sign-no">veteranbil</span></button><button type="button" class="dw-sign-card" aria-label="Public Viewing – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Public Viewing</span><span class="dw-sign-no">storskjermvisning ute (f.eks. fotball-VM)</span></button><button type="button" class="dw-sign-card" aria-label="Shooting – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Shooting</span><span class="dw-sign-no">fotoshoot</span></button><button type="button" class="dw-sign-card" aria-label="Homeoffice – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Homeoffice</span><span class="dw-sign-no">hjemmekontor (jobbe hjemmefra)</span></button><button type="button" class="dw-sign-card" aria-label="Pony – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Pony</span><span class="dw-sign-no">pannelugg (hårfrisyre)</span></button><button type="button" class="dw-sign-card" aria-label="Evergreen – trykk for å se betydningen"><span class="dw-sign dw-sg-blue">Evergreen</span><span class="dw-sign-no">gammel slager (klassiker)</span></button></div><div class="dw-tip">🎤 <b>Test deg selv:</b> Spør en engelsktalende om «Handy». Hen forstår sannsynligvis ikke. Tyskere sier «Handy», mens engelsktalende sier «mobile» eller «cell phone». Du kan bruke ordet fritt på tysk, men ikke på engelsk.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="deng-tabell">📖 Oversikt</h2>
+  <div class="dw-exp">
+<div class="dw-tbl-wrap"><table class="dw-t" style="min-width:640px"><thead><tr><th>Tysk</th><th>Betyr på norsk</th><th>På engelsk heter det</th><th>Eksempel</th></tr></thead><tbody><tr><td class="dw-f">das Handy</td><td>mobiltelefon</td><td>English: cell phone / mobile</td><td><span class="dw-de">Mein Handy ist leer.</span><br><span class="dw-no">Mobilen min er tom (for strøm).</span></td></tr><tr><td class="dw-f">der Beamer</td><td>prosjektor (videokanon)</td><td>English: projector</td><td><span class="dw-de">Der Lehrer schaltet den Beamer ein.</span><br><span class="dw-no">Læreren slår på prosjektoren.</span></td></tr><tr><td class="dw-f">der Oldtimer</td><td>veteranbil</td><td>English: vintage car</td><td><span class="dw-de">Opa hat einen Oldtimer.</span><br><span class="dw-no">Bestefar har en veteranbil.</span></td></tr><tr><td class="dw-f">das Public Viewing</td><td>storskjermvisning ute (f.eks. fotball-VM)</td><td>English: public screening</td><td><span class="dw-de">Wir sehen das Spiel beim Public Viewing.</span><br><span class="dw-no">Vi ser kampen på storskjerm utendørs.</span></td></tr><tr><td class="dw-f">das Shooting</td><td>fotoshoot</td><td>English: photo shoot</td><td><span class="dw-de">Heute gibt es ein Shooting.</span><br><span class="dw-no">I dag er det fotoshoot.</span></td></tr><tr><td class="dw-f">das Homeoffice</td><td>hjemmekontor (jobbe hjemmefra)</td><td>English: working from home</td><td><span class="dw-de">Papa arbeitet heute im Homeoffice.</span><br><span class="dw-no">Pappa jobber hjemmefra i dag.</span></td></tr><tr><td class="dw-f">der Pony</td><td>pannelugg (hårfrisyre)</td><td>English: fringe / bangs</td><td><span class="dw-de">Sie hat einen neuen Pony.</span><br><span class="dw-no">Hun har fått ny pannelugg.</span></td></tr><tr><td class="dw-f">der Evergreen</td><td>gammel slager (klassiker)</td><td>English: evergreen (song)</td><td><span class="dw-de">Dieses Lied ist ein Evergreen.</span><br><span class="dw-no">Denne sangen er en gammel slager.</span></td></tr></tbody></table></div><div class="dw-tip">📎 <b>Artikkel:</b> Lån får ofte kjønn etter hva som høres riktig ut, men må læres sammen med ordet: <i>das Handy</i>, <i>der Beamer</i>, <i>der Oldtimer</i>. Skal du huske kjønnet, øv på det sammen med ordet. Se <a href="../../grammatikk/artikler/">Artikler</a>.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="deng-ovelse">✏️ Din tur</h2>
+  <div class="dw-exp">
+<div class="dw-fill dw-fg"><script type="application/json">{"title": "Fullfør setningene", "items": [{"s": "Mein ___ ist leer. Ich brauche ein Ladekabel.", "a": "Handy", "v": "mobil"}, {"s": "Der Lehrer schaltet den ___ ein.", "a": "Beamer", "v": "prosjektor"}, {"s": "Opas ___ ist über fünfzig Jahre alt.", "a": "Oldtimer", "v": "veteranbil"}, {"s": "Heute arbeitet Papa im ___.", "a": "Homeoffice", "v": "hjemmekontor"}, {"s": "Sie hat jetzt einen ___.", "a": "Pony", "v": "pannelugg"}], "hint": "Bruk tabellen over.", "intro": "Skriv ordet som mangler. Det norske ordet i parentes viser hva som menes."}</script></div><div class="dw-ch"><script type="application/json">{"title": "Hva heter det på tysk?", "intro": "Velg det riktige svaret.", "qs": [{"q": "Du vil snakke om mobilen din. Hvilket ord bruker tyskere?", "opts": ["das Handy", "das Mobile", "das Cellphone"], "a": 0, "why": "«Handy» er tysk. «Das Mobile» betyr noe helt annet (en hengende dekorasjon over barneseng) og «Cellphone» brukes ikke."}, {"q": "Læreren vil vise bilder på veggen. Hva bruker hun?", "opts": ["den Beamer", "den Projekt", "den Lichtschirm"], "a": 0, "why": "Beamer = prosjektor. Merk deg at ordet ikke finnes på engelsk i den betydningen."}, {"q": "Hva er et «Shooting» på tysk?", "opts": ["et fotoshoot", "en skyteøvelse", "en fotballkamp"], "a": 0, "why": "«Das Shooting» = fotoshoot. Det kommer fra engelsk «shoot», men tyskerne har gitt det en egen betydning."}, {"q": "En venninne «hat jetzt einen Pony». Hva har hun fått?", "opts": ["pannelugg", "en liten hest", "en ny sykkel"], "a": 0, "why": "Der Pony = pannelugg. Det lille dyret heter «das Pony». Ordet har altså to kjønn og to betydninger."}]}</script></div><p>Hører til: <a href="../jugendwoerter/">Jugendwörter</a> · <a href="../alltagssprache/">Alltagssprache</a> · <a href="../chat/">Chat &amp; Social Media</a></p>
+  </div>
+<div class="dw-tabnext"><button type="button" data-go="falsk">← 🪤 Falske venner</button><button type="button" data-go="dach">🌍 D-A-CH →</button></div></section><section class="dw-tabpanel" id="dach" aria-label="🌍 D-A-CH">
+  <h2 class="dw-sec-title" id="dach-intro">🌍 D-A-CH: tre land, mange ord</h2>
+  <div class="dw-exp">
+<p>Tysk er offisielt språk i <b>D</b>eutschland, <b>Ö</b>sterreich (A) og i <b>CH</b> (Schweiz). Alle forstår hverandre, men noen hverdagsord er ulike, litt som <i>fotball</i> og <i>fotbal</i>. Trykk på et kort og se hva ordet betyr:</p><div class="dw-signs"><button type="button" class="dw-sign-card" aria-label="Semmel – trykk for å se betydningen"><span class="dw-sign dw-sg-green">Semmel</span><span class="dw-sign-no">rundstykke (🇦🇹)</span></button><button type="button" class="dw-sign-card" aria-label="Weggli – trykk for å se betydningen"><span class="dw-sign dw-sg-green">Weggli</span><span class="dw-sign-no">rundstykke (🇨🇭)</span></button><button type="button" class="dw-sign-card" aria-label="Paradeiser – trykk for å se betydningen"><span class="dw-sign dw-sg-green">Paradeiser</span><span class="dw-sign-no">tomat (🇦🇹)</span></button><button type="button" class="dw-sign-card" aria-label="Erdapfel – trykk for å se betydningen"><span class="dw-sign dw-sg-green">Erdapfel</span><span class="dw-sign-no">potet (🇦🇹)</span></button><button type="button" class="dw-sign-card" aria-label="Topfen – trykk for å se betydningen"><span class="dw-sign dw-sg-green">Topfen</span><span class="dw-sign-no">kvarg (🇦🇹)</span></button><button type="button" class="dw-sign-card" aria-label="Marille – trykk for å se betydningen"><span class="dw-sign dw-sg-green">Marille</span><span class="dw-sign-no">aprikos (🇦🇹)</span></button><button type="button" class="dw-sign-card" aria-label="Velo – trykk for å se betydningen"><span class="dw-sign dw-sg-green">Velo</span><span class="dw-sign-no">sykkel (🇨🇭)</span></button><button type="button" class="dw-sign-card" aria-label="Trottoir – trykk for å se betydningen"><span class="dw-sign dw-sg-green">Trottoir</span><span class="dw-sign-no">fortau (🇨🇭)</span></button><button type="button" class="dw-sign-card" aria-label="Gehsteig – trykk for å se betydningen"><span class="dw-sign dw-sg-green">Gehsteig</span><span class="dw-sign-no">fortau (🇦🇹)</span></button><button type="button" class="dw-sign-card" aria-label="Sackerl – trykk for å se betydningen"><span class="dw-sign dw-sg-green">Sackerl</span><span class="dw-sign-no">plastpose (🇦🇹)</span></button><button type="button" class="dw-sign-card" aria-label="Jänner – trykk for å se betydningen"><span class="dw-sign dw-sg-green">Jänner</span><span class="dw-sign-no">januar (🇦🇹)</span></button><button type="button" class="dw-sign-card" aria-label="Matura – trykk for å se betydningen"><span class="dw-sign dw-sg-green">Matura</span><span class="dw-sign-no">avsluttende eksamen (🇦🇹/🇨🇭)</span></button></div><div class="dw-tip">📝 <b>Hva bør du lære?</b> I norskundervisning og på prøver bruker du standardtysk fra Tyskland (<i>Brötchen, Tomate, Fahrrad</i>). Men når du reiser til Wien eller Zürich, er det nyttig å kjenne ordene over. Alle forstår deg likevel.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="dach-mat">🥐 Mat</h2>
+  <div class="dw-exp">
+<div class="dw-tbl-wrap"><table class="dw-t" style="min-width:520px"><thead><tr><th>Norsk</th><th>🇩🇪 Tyskland</th><th>🇦🇹 Østerrike</th><th>🇨🇭 Sveits</th></tr></thead><tbody><tr><th>rundstykke</th><td class="dw-f">Brötchen</td><td class="dw-f">Semmel</td><td class="dw-f">Weggli / Brötli</td></tr><tr><th>potet</th><td class="dw-f">Kartoffel</td><td class="dw-f">Erdapfel</td><td class="dw-f">Kartoffel</td></tr><tr><th>tomat</th><td class="dw-f">Tomate</td><td class="dw-f">Paradeiser</td><td class="dw-f">Tomate</td></tr><tr><th>kesam / kvarg</th><td class="dw-f">Quark</td><td class="dw-f">Topfen</td><td class="dw-f">Quark</td></tr><tr><th>pisket krem</th><td class="dw-f">Schlagsahne</td><td class="dw-f">Schlagobers</td><td class="dw-f">Schlagrahm</td></tr><tr><th>blomkål</th><td class="dw-f">Blumenkohl</td><td class="dw-f">Karfiol</td><td class="dw-f">Blumenkohl</td></tr><tr><th>aprikos</th><td class="dw-f">Aprikose</td><td class="dw-f">Marille</td><td class="dw-f">Aprikose</td></tr></tbody></table></div><div class="dw-tip">🥞 <b>Pfannkuchen-fellen:</b> I mesteparten av Tyskland er «Pfannkuchen» en pannekake. I Berlin betyr «Pfannkuchen» derimot en <i>smultring med syltetøy</i> (det som ellers kalles «Berliner»). Pannekaken heter i Berlin «Eierkuchen». Østerrikere sier «Palatschinken» for tynne pannekaker.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="dach-alltag">🚲 Hverdag og skole</h2>
+  <div class="dw-exp">
+<div class="dw-tbl-wrap"><table class="dw-t" style="min-width:520px"><thead><tr><th>Norsk</th><th>🇩🇪 Tyskland</th><th>🇦🇹 Østerrike</th><th>🇨🇭 Sveits</th></tr></thead><tbody><tr><th>sykkel</th><td class="dw-f">Fahrrad</td><td class="dw-f">Fahrrad</td><td class="dw-f">Velo</td></tr><tr><th>fortau</th><td class="dw-f">Bürgersteig</td><td class="dw-f">Gehsteig</td><td class="dw-f">Trottoir</td></tr><tr><th>plastpose</th><td class="dw-f">Tüte</td><td class="dw-f">Sackerl</td><td class="dw-f">Sack</td></tr><tr><th>parkere</th><td class="dw-f">parken</td><td class="dw-f">parken</td><td class="dw-f">parkieren</td></tr><tr><th>januar</th><td class="dw-f">Januar</td><td class="dw-f">Jänner</td><td class="dw-f">Januar</td></tr><tr><th>artium / avsluttende eksamen</th><td class="dw-f">Abitur</td><td class="dw-f">Matura</td><td class="dw-f">Matura</td></tr></tbody></table></div>
+  </div>
+
+  <h2 class="dw-sec-title" id="dach-hilsen">👋 Hilsener</h2>
+  <div class="dw-exp">
+<div class="dw-tbl-wrap"><table class="dw-t" style="min-width:520px"><thead><tr><th>Norsk</th><th>🇩🇪 Tyskland</th><th>🇦🇹 Østerrike</th><th>🇨🇭 Sveits</th></tr></thead><tbody><tr><th>god dag (høflig)</th><td class="dw-f">Guten Tag</td><td class="dw-f">Guten Tag / Grüß Gott</td><td class="dw-f">Grüezi</td></tr><tr><th>hei (til venner)</th><td class="dw-f">Hallo / Moin (nord)</td><td class="dw-f">Servus / Hallo</td><td class="dw-f">Hoi / Hallo</td></tr><tr><th>ha det</th><td class="dw-f">Tschüss / Auf Wiedersehen</td><td class="dw-f">Servus / Baba (uformelt) / Auf Wiederschauen</td><td class="dw-f">Tschüss / Ciao</td></tr></tbody></table></div><div class="dw-tip">🗣️ <b>Servus</b> betyr både «hei» og «ha det». Brukes mest i Østerrike og Sør-Tyskland. «<b>Moin</b>» sier de i Nord-Tyskland til alle tider på dagen. «<b>Grüezi</b>» er den høflige hilsenen i Sveits.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="dach-ovelse">✏️ Din tur</h2>
+  <div class="dw-exp">
+<div class="dw-fill dw-fg"><script type="application/json">{"title": "Hvilket ord bruker de?", "items": [{"s": "In Österreich sagt man ___ statt Tomate.", "a": "Paradeiser", "v": "tomat"}, {"s": "In der Schweiz sagt man ___ für Fahrrad.", "a": "Velo", "v": "sykkel"}, {"s": "Statt Januar sagen Österreicher ___.", "a": "Jänner", "v": "januar"}, {"s": "In Österreich heißt das Brötchen oft ___.", "a": "Semmel", "v": "rundstykke"}, {"s": "In der Schweiz sagt man ___ für Bürgersteig.", "a": "Trottoir", "v": "fortau"}], "hint": "Se på tabellene og kortene over.", "intro": "Skriv ordet som mangler (bruk stor forbokstav der det er et substantiv)."}</script></div><div class="dw-ch"><script type="application/json">{"title": "Hva er riktig?", "intro": "Velg det riktige svaret.", "qs": [{"q": "Du er i Wien og vil ha en «Marille». Hva får du?", "opts": ["en aprikos", "en jordbær", "en melon"], "a": 0, "why": "Marille = aprikos (Østerrike). I Tyskland sier de «Aprikose»."}, {"q": "I hvilket land sier man «Velo» om sykkel?", "opts": ["Sveits", "Østerrike", "Nord-Tyskland"], "a": 0, "why": "«Velo» er det vanlige ordet i Sveits. I Tyskland og Østerrike heter det «Fahrrad»."}, {"q": "Du møter en voksen i Zürich. Hva sier du høflig?", "opts": ["Grüezi!", "Moin!", "Servus!"], "a": 0, "why": "«Grüezi» er den vanlige høflige hilsenen i Sveits. «Moin» hører til i nord i Tyskland, og «Servus» først og fremst i Østerrike og Sør-Tyskland."}, {"q": "Du bestiller en «Pfannkuchen» i Berlin. Hva får du sannsynligvis?", "opts": ["en smultring med syltetøy", "en pannekake", "en omelett"], "a": 0, "why": "I Berlin er «Pfannkuchen» det samme som «Berliner». Pannekake heter der «Eierkuchen»."}, {"q": "«Paradeiser» er …", "opts": ["tomat", "agurk", "paprika"], "a": 0, "why": "Paradeiser = tomat (Østerrike)."}]}</script></div><p>Hører til: <a href="../../normen/hoeflichkeit/">Höflichkeit</a> · <a href="../../laender/">Länder (Tyskland, Østerrike, Sveits)</a> · <a href="../schule/">Jugend &amp; Schule</a></p>
+  </div>
+<div class="dw-tabnext"><button type="button" data-go="denglisch">← 🎭 Falsk engelsk</button><button type="button" data-go="test">🏆 Test deg selv →</button></div></section><section class="dw-tabpanel" id="test" aria-label="🏆 Test deg selv">
+  <h2 class="dw-sec-title" id="test-intro">🏆 Test deg selv</h2>
+  <div class="dw-exp">
+<p>Nå blander vi alt: falske venner, falsk engelsk og D-A-CH. Prøv uten å se i tabellene først.</p><div class="dw-fill dw-fg"><script type="application/json">{"title": "Fullfør setningene", "items": [{"s": "Das ist ___ – nicht trinken!", "a": "Gift", "v": "giftstoff"}, {"s": "Ich ___ morgen ein Handy zum Geburtstag.", "a": "bekomme", "v": "få"}, {"s": "Wir haben ___ keine Zeit mehr.", "a": "fast", "v": "nesten"}, {"s": "Meine Oma bekommt jetzt ___.", "a": "Rente", "v": "pensjon"}, {"s": "Es ist kalt, ___ ziehe ich eine Jacke an.", "a": "also", "v": "derfor / så"}, {"s": "Der Lehrer benutzt den ___.", "a": "Beamer", "v": "prosjektor"}, {"s": "In der Schweiz fährt man mit dem ___ zur Schule.", "a": "Velo", "v": "sykkel"}, {"s": "In Österreich isst man zum Frühstück eine ___.", "a": "Semmel", "v": "rundstykke"}], "hint": "Alt er tatt opp i de tre fanene før denne.", "intro": "Skriv ordet som mangler. Det norske ordet i parentes viser hva som menes."}</script></div><div class="dw-ch"><script type="application/json">{"title": "Hvilket svar er riktig?", "intro": "Velg det riktige svaret.", "qs": [{"q": "«Bis bald!» betyr …", "opts": ["Vi sees snart!", "Vi sees ikke mer.", "Vi sees i morgen."], "a": 0, "why": "Bald = snart."}, {"q": "Hvilken setning betyr «Jeg blir ingeniør»?", "opts": ["Ich werde Ingenieur.", "Ich bekomme Ingenieur.", "Ich bin Ingenieur bekommen."], "a": 0, "why": "«Bli» = werden. Bekommen = få."}, {"q": "Hva er «der Dom»?", "opts": ["en domkirke", "en dom i retten", "en dommer"], "a": 0, "why": "Der Dom = domkirke (f.eks. Kölner Dom). Dom i retten heter «das Urteil»."}, {"q": "«Das Kind» betyr …", "opts": ["barnet", "kinnet", "kunden"], "a": 0, "why": "Das Kind = barnet. Kinn heter «das Kinn» på tysk."}, {"q": "Hva heter «veteranbil» på tysk?", "opts": ["der Oldtimer", "das Altauto", "der Uraltwagen"], "a": 0, "why": "«Der Oldtimer» er det vanlige ordet, og det er et av de falske engelske ordene."}, {"q": "Hvilket ord hører ikke hjemme i Østerrike?", "opts": ["Velo", "Paradeiser", "Topfen"], "a": 0, "why": "«Velo» sier de i Sveits. «Paradeiser» og «Topfen» er typisk østerrikske."}]}</script></div><div class="dw-tip">🎉 Fikk du til mesteparten? Da er du godt forberedt på tur til Tyskland, Østerrike eller Sveits. Prøv også <a href="../alltagssituationen/">Alltagssituationen</a> og <a href="../../aehnliche-woerter/">Snakker du nysk?</a>.</div>
+  </div>
+<div class="dw-tabnext"><button type="button" data-go="dach">← 🌍 D-A-CH</button></div></section>
+
+  <p class="dw-see-also"><strong>Se også:</strong> <a href="../../aehnliche-woerter/">Snakker du nysk?</a> · <a href="../alltagssituationen/">Alltagssituationen</a> · <a href="../jugendwoerter/">Jugendwörter</a> · <a href="../alltagssprache/">Alltagssprache</a> · <a href="../../laender/">Länder</a></p>
+
+</div>
+<script>
+(function(){
+'use strict';
+document.documentElement.classList.add('dw-js');
+var PRON=['ich','du','er / sie / es','wir','ihr','sie / Sie'];
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+function norm(s){return String(s).trim().toLowerCase().replace(/\s+/g,' ');}
+function tl(s){return s.replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss');}
+function grade(val,ans){
+  var v=norm(val);if(!v)return 'empty';
+  var a=[].concat(ans),i;
+  for(i=0;i<a.length;i++)if(v===norm(a[i]))return 'ok';
+  for(i=0;i<a.length;i++)if(tl(v)===tl(norm(a[i]))&&/[äöüß]/.test(a[i]))return 'near';
+  return 'bad';
+}
+function mark(inp,st){inp.classList.remove('dw-st-ok','dw-st-near','dw-st-bad','dw-st-shown');if(st)inp.classList.add('dw-st-'+st);}
+function ins(inp,ch){var s=inp.selectionStart,e=inp.selectionEnd;if(s==null){inp.value+=ch;}else{inp.value=inp.value.slice(0,s)+ch+inp.value.slice(e);inp.selectionStart=inp.selectionEnd=s+1;}inp.focus();inp.dispatchEvent(new Event('input',{bubbles:true}));}
+function keyRow(host){
+  var r=el('div','dw-keys');r.appendChild(el('span','','Spesialtegn:'));
+  ['ä','ö','ü','ß'].forEach(function(k){
+    var b=el('button','dw-key',k);b.type='button';b.setAttribute('aria-label','Sett inn '+k);
+    b.addEventListener('mousedown',function(e){e.preventDefault();});
+    b.addEventListener('click',function(){var i=host._last||host.querySelector('input.dw-fi:not([readonly])');if(i)ins(i,k);});
+    r.appendChild(b);});
+  return r;
+}
+function wire(host,inputs,onchange){
+  inputs.forEach(function(inp,n){
+    inp.setAttribute('autocomplete','off');inp.setAttribute('autocapitalize','off');inp.setAttribute('autocorrect','off');inp.setAttribute('spellcheck','false');
+    inp.addEventListener('focus',function(){host._last=inp;});
+    inp.addEventListener('input',onchange);
+    inp.addEventListener('keydown',function(e){
+      if(e.key==='Enter'){e.preventDefault();var nx=inputs[n+1];if(nx)nx.focus();else host._check();}
+    });
+  });
+}
+function cfgOf(root){return JSON.parse(root.querySelector('script[type="application/json"]').textContent);}
+
+/* ---------- utfyllingstabell ---------- */
+function initTable(root){
+  var cfg=cfgOf(root),mode=cfg.default||0,checked=false;
+  root.innerHTML='';
+  var h=el('h4','','📝 '+cfg.title);root.appendChild(h);
+  if(cfg.intro)root.appendChild(el('p','dw-fi-intro',cfg.intro));
+  var mb=el('div','dw-fill-modes');root.appendChild(mb);
+  var tw=el('div','dw-tw');root.appendChild(tw);
+  root.appendChild(keyRow(root));
+  var row=el('div','dw-frow');
+  var bC=el('button','dw-fbtn','Sjekk');bC.type='button';
+  var bS=el('button','dw-fbtn dw-sec','Vis fasit');bS.type='button';
+  var bR=el('button','dw-fbtn dw-sec','Nullstill');bR.type='button';
+  var st=el('span','dw-fstat','');
+  row.appendChild(bC);row.appendChild(bS);row.appendChild(bR);row.appendChild(st);root.appendChild(row);
+  var msg=el('div','dw-fmsg');root.appendChild(msg);
+  var cells=[];
+  function build(){
+    tw.innerHTML='';cells=[];checked=false;msg.className='dw-fmsg';
+    mb.innerHTML='';
+    if(cfg.modes.length>1)cfg.modes.forEach(function(m,i){var b=el('button',i===mode?'dw-on':'',m.l);b.type='button';b.onclick=function(){mode=i;build();};mb.appendChild(b);});
+    var blanks=cfg.modes[mode].b;
+    var t=el('table'),thead=el('thead'),trh=el('tr');
+    trh.appendChild(el('th','',''));
+    cfg.verbs.forEach(function(v){var th=el('th','',v.inf);if(v.no){th.appendChild(el('small','',v.no));}trh.appendChild(th);});
+    thead.appendChild(trh);t.appendChild(thead);
+    var tb=el('tbody');
+    PRON.forEach(function(p,ri){
+      var tr=el('tr');tr.appendChild(el('td','dw-pr',p));
+      cfg.verbs.forEach(function(v){
+        var td=el('td',cfg.hl.indexOf(ri)>=0?'dw-hlc':'');
+        if(blanks.indexOf(ri)>=0){
+          var inp=el('input','dw-fi');inp.type='text';inp.setAttribute('aria-label',v.inf+' – '+p);
+          cells.push({inp:inp,ans:v.f[ri],irr:(cfg.hl.length===0||cfg.hl.indexOf(ri)>=0)});td.appendChild(inp);
+        }else{td.className+=' dw-given';td.textContent=v.f[ri];}
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb);tw.appendChild(t);
+    wire(root,cells.map(function(c){return c.inp;}),function(){update();});
+    update();
+  }
+  function update(){
+    var ok=0,bad=0,total=cells.length;
+    cells.forEach(function(c){
+      if(c.inp.classList.contains('dw-st-shown'))return;
+      var g=grade(c.inp.value,c.ans);
+      if(g==='ok'){ok++;mark(c.inp,'ok');c.inp.title='';}
+      else if(g==='near'){mark(c.inp,'near');c.inp.title='Nesten! Bruk ä, ö, ü eller ß (knappene under tabellen).';}
+      else if(checked){mark(c.inp,'bad');bad++;}
+      else mark(c.inp,'');
+    });
+    st.textContent='✅ '+ok+' av '+total;
+    st.className='dw-fstat'+(ok===total&&total?' dw-all':'');
+    if(ok===total&&total){msg.className='dw-fmsg dw-show';msg.textContent='🎉 Alle riktige! Prøv gjerne «Vis alle»-modus hvis du har brukt hjelpen.';}
+    else if(checked&&bad){
+      var irr=cells.some(function(c){return c.irr&&c.inp.classList.contains('dw-st-bad');});
+      msg.className='dw-fmsg dw-show';msg.textContent=(cfg.hint&&irr)?'💡 '+cfg.hint:'Røde ruter er ikke riktige ennå – prøv igjen. Gule ruter mangler bare ä/ö/ü/ß.';
+    }else if(!ok||!checked)msg.className='dw-fmsg';
+  }
+  root._check=function(){checked=true;update();};
+  bC.onclick=function(){checked=true;update();};
+  bS.onclick=function(){cells.forEach(function(c){c.inp.value=[].concat(c.ans)[0];mark(c.inp,'shown');});st.textContent='Fasit vist';st.className='dw-fstat';msg.className='dw-fmsg';};
+  bR.onclick=function(){build();};
+  build();
+}
+
+/* ---------- utfyll-setninger ---------- */
+function initGap(root){
+  var cfg=cfgOf(root),checked=false;
+  root.innerHTML='';
+  root.appendChild(el('h4','','✍️ '+cfg.title));
+  root.appendChild(el('p','dw-fi-intro',cfg.intro||'Skriv riktig verbform i hullet. Rutene blir grønne når svaret er riktig.'));
+  var ol=el('ol');root.appendChild(ol);
+  var rows=[];
+  cfg.items.forEach(function(it){
+    var li=el('li');var parts=it.s.split('___');
+    li.appendChild(document.createTextNode(parts[0]));
+    var inp=el('input','dw-fi');inp.type='text';var a0=[].concat(it.a)[0];inp.size=Math.max(5,a0.length+2);inp.setAttribute('aria-label','Svar');
+    li.appendChild(inp);
+    if(parts[1])li.appendChild(document.createTextNode(parts[1]));
+    if(it.v)li.appendChild(el('span','dw-gv','('+it.v+')'));
+    var m=el('span','dw-gm','');li.appendChild(m);
+    ol.appendChild(li);rows.push({inp:inp,ans:it.a,m:m});
+  });
+  root.appendChild(keyRow(root));
+  var row=el('div','dw-frow');
+  var bC=el('button','dw-fbtn','Sjekk svar');bC.type='button';
+  var bS=el('button','dw-fbtn dw-sec','Vis fasit');bS.type='button';
+  var bR=el('button','dw-fbtn dw-sec','Nullstill');bR.type='button';
+  var st=el('span','dw-fstat','');
+  row.appendChild(bC);row.appendChild(bS);row.appendChild(bR);row.appendChild(st);root.appendChild(row);
+  var msg=el('div','dw-fmsg');root.appendChild(msg);
+  function update(){
+    var ok=0,bad=0;
+    rows.forEach(function(r){
+      if(r.inp.classList.contains('dw-st-shown'))return;
+      var g=grade(r.inp.value,r.ans);
+      if(g==='ok'){ok++;mark(r.inp,'ok');r.m.textContent='✅';}
+      else if(g==='near'){mark(r.inp,'near');r.m.textContent='🟡';}
+      else if(checked){mark(r.inp,'bad');r.m.textContent='❌';bad++;}
+      else{mark(r.inp,'');r.m.textContent='';}
+    });
+    st.textContent='✅ '+ok+' av '+rows.length;st.className='dw-fstat'+(ok===rows.length?' dw-all':'');
+    if(ok===rows.length){msg.className='dw-fmsg dw-show';msg.textContent='🎉 Alle riktige!';}
+    else if(checked&&bad){msg.className='dw-fmsg dw-show';msg.textContent=cfg.hint?'💡 '+cfg.hint:'Prøv igjen på de røde.';}
+    else msg.className='dw-fmsg';
+  }
+  root._check=function(){checked=true;update();};
+  wire(root,rows.map(function(r){return r.inp;}),update);
+  bC.onclick=function(){checked=true;update();};
+  bS.onclick=function(){rows.forEach(function(r){r.inp.value=[].concat(r.ans)[0];mark(r.inp,'shown');r.m.textContent='';});st.textContent='Fasit vist';st.className='dw-fstat';msg.className='dw-fmsg';};
+  bR.onclick=function(){checked=false;rows.forEach(function(r){r.inp.value='';mark(r.inp,'');r.m.textContent='';});msg.className='dw-fmsg';update();};
+  update();
+}
+
+/* ---------- faner ---------- */
+function initTabs(){
+  var bar=document.getElementById('dw-tabs');if(!bar)return;
+  var btns=[].slice.call(bar.querySelectorAll('button'));
+  var panels=[].slice.call(document.querySelectorAll('.dw-tabpanel'));
+  function show(name,noHash){
+    var found=false;
+    panels.forEach(function(p){var on=p.id===name;if(on)found=true;p.hidden=!on;});
+    if(!found){name=panels[0].id;panels[0].hidden=false;}
+    btns.forEach(function(b){b.setAttribute('aria-selected',b.getAttribute('data-tab')===name?'true':'false');});
+    if(!noHash){try{history.replaceState(null,'','#'+name);}catch(e){}}
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.getAttribute('data-tab'));bar.scrollIntoView({behavior:'smooth',block:'start'});});});
+  [].forEach.call(document.querySelectorAll('[data-go]'),function(b){b.addEventListener('click',function(){show(b.getAttribute('data-go'));bar.scrollIntoView({behavior:'smooth',block:'start'});});});
+  function fromHash(){
+    var h=decodeURIComponent((location.hash||'').slice(1));
+    if(!h){show(panels[0].id,true);return;}
+    var tgt=document.getElementById(h);
+    if(tgt&&tgt.classList.contains('dw-tabpanel')){show(h,true);bar.scrollIntoView();return;}
+    if(tgt){var p=tgt.closest('.dw-tabpanel');if(p){show(p.id,true);setTimeout(function(){tgt.scrollIntoView();},30);return;}}
+    show(panels[0].id,true);
+  }
+  window.addEventListener('hashchange',fromHash);
+  fromHash();
+}
+[].forEach.call(document.querySelectorAll('.dw-ft'),initTable);
+[].forEach.call(document.querySelectorAll('.dw-fg'),initGap);
+initTabs();
+})();
+</script>
+<script>
+(function(){
+'use strict';
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+/* dialoger */
+[].forEach.call(document.querySelectorAll('.dw-dlg-wrap'),function(w){
+  [].forEach.call(w.querySelectorAll('.dw-dbtn'),function(b){
+    b.addEventListener('click',function(){
+      var on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on?'true':'false');
+      w.classList.toggle(b.getAttribute('data-act')==='no'?'dw-shown':'dw-rehearse',on);
+      if(b.getAttribute('data-act')==='reh'&&!on)[].forEach.call(w.querySelectorAll('.dw-bub.b'),function(x){x.classList.remove('dw-rev');});
+    });
+  });
+  [].forEach.call(w.querySelectorAll('.dw-bub.b'),function(x){x.addEventListener('click',function(){if(w.classList.contains('dw-rehearse'))x.classList.add('dw-rev');});});
+});
+/* skilt-kort */
+[].forEach.call(document.querySelectorAll('.dw-sign-card'),function(c){c.addEventListener('click',function(){c.classList.toggle('dw-flip');});});
+/* valgspørsmål */
+function initCh(root){
+  var cfg=JSON.parse(root.querySelector('script[type="application/json"]').textContent);
+  function build(){
+    root.innerHTML='';
+    root.appendChild(el('h4','','🗣️ '+cfg.title));
+    if(cfg.intro)root.appendChild(el('p','dw-ch-intro',cfg.intro));
+    var done=0,good=0,total=cfg.qs.length;
+    var foot=el('div','dw-ch-foot');var st=el('span','dw-ch-st','✅ 0 av '+total);
+    var rb=el('button','','Prøv på nytt');rb.type='button';rb.onclick=build;
+    function upd(){st.textContent='✅ '+good+' av '+total+(done===total?(good===total?' – 🎉 Alle riktige!':' – se de røde igjen og prøv på nytt'):'');st.className='dw-ch-st'+(done===total&&good===total?' dw-all':'');}
+    cfg.qs.forEach(function(q){
+      var box=el('div','dw-ch-q');var p=el('p','',q.q);box.appendChild(p);
+      if(q.sub){var s=el('div','dw-ch-sub');s.innerHTML=q.sub;box.appendChild(s);}
+      var ob=el('div','dw-ch-opts');var order=shuffle(q.opts.map(function(o,i){return i;}));var answered=false;
+      var why=el('div','dw-ch-why',q.why||'');
+      order.forEach(function(i){
+        var b=el('button','',q.opts[i]);b.type='button';b.setAttribute('data-i',i);
+        b.onclick=function(){
+          if(answered)return;answered=true;done++;
+          [].forEach.call(ob.children,function(x){x.disabled=true;if(+x.getAttribute('data-i')===q.a)x.classList.add('dw-g');});
+          if(i===q.a)good++;else b.classList.add('dw-r');
+          if(q.why)why.classList.add('dw-show');upd();
+        };
+        ob.appendChild(b);
+      });
+      box.appendChild(ob);box.appendChild(why);root.appendChild(box);
+    });
+    foot.appendChild(st);foot.appendChild(rb);root.appendChild(foot);
+  }
+  build();
+}
+[].forEach.call(document.querySelectorAll('.dw-ch'),initCh);
+})();
+</script>
+</body>
+</html>
