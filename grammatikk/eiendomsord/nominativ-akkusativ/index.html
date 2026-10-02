@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Grammatikk: "Nominativ og Akkusativ" (eiendomsord/nominativ-akkusativ/)
+  Endelser i nominativ og akkusativ, tabell for alle personer, finne subjekt/objekt, akkusativverb, sammenligning med norsk, bruk i skriving og øvelser.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nominativ og Akkusativ · Eiendomsord · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:860px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .dw-jump a{font-size:.86rem;font-weight:700;padding:7px 15px;border-radius:999px;text-decoration:none;background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:32px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t tbody th{background:#fbfaf6;font-size:.84rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t td.dw-hl{background:#fff3cf;}
+  .dw-t td.dw-c{text-align:center;}
+  .dw-t td.dw-x{color:#aaa;text-align:center;}
+  .dw-t tr.dw-grp td,.dw-t tr.dw-grp th{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:14px 0;}
+  a.dw-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;text-decoration:none;color:var(--dw-text);box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;gap:6px;}
+  a.dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  a.dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  a.dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
+
+  /* Øvelser */
+  .dw-ex-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+  .dw-ex-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:8px;}
+  .dw-ex-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:16px;}
+  .dw-ex-fill{height:100%;width:0;background:var(--dw-good);transition:width .25s ease;}
+  .dw-ex-cue{font-size:.88rem;color:var(--dw-muted);margin-bottom:4px;}
+  .dw-ex-sent{font-size:1.3rem;font-weight:600;color:var(--dw-primary);line-height:1.5;margin:2px 0 18px;}
+  .dw-ex-sent .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);text-align:center;}
+  .dw-ex-sent .dw-blank.dw-filled{color:var(--dw-good);border-color:var(--dw-good);}
+  .dw-ex-sent .dw-blank.dw-filled.dw-bad{color:var(--dw-bad);border-color:var(--dw-bad);}
+  .dw-ex-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .dw-ex-choice{flex:1 1 110px;max-width:170px;padding:12px 8px;font-family:inherit;font-size:1.1rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;}
+  .dw-ex-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-ex-choice:disabled{cursor:default;opacity:.55;}
+  .dw-ex-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-ex-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .dw-ex-choice:focus-visible,.dw-ex-btn:focus-visible,.dw-ex-hintbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-ex-hintbtn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:.85rem;padding:0;margin-bottom:8px;}
+  .dw-ex-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:10px 14px;margin:6px 0 14px;background:#f4f1e8;}
+  .dw-ex-fb.dw-show{display:block;}
+  .dw-ex-fb.dw-good{background:#eef7ee;color:#1f5d23;}
+  .dw-ex-fb.dw-bad{background:#fdecee;color:#8c1d1d;}
+  .dw-ex-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:11px 26px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .dw-ex-btn:hover{background:var(--dw-primary-light);}
+  .dw-ex-btn.dw-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-ex-result{display:none;text-align:center;}
+  .dw-ex-result.dw-show{display:block;}
+  .dw-ex-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .dw-ex-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:12px 18px;margin:14px 0;font-size:.9rem;}
+  .dw-ex-review li{margin-bottom:6px;}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .dw-ex-sent{font-size:1.12rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>🎯 Nominativ og Akkusativ</h1>
+    <p>Wer oder was? Wen oder was? — subjekt og objekt</p>
+  </div>
+
+  <p class="dw-crumb"><a href="../../">🧩 Grammatik</a> → <a href="../">Eiendomsord</a> → Nominativ og Akkusativ</p>
+
+  <div class="dw-jump">
+    <a href="#hva">📌 Hva er det?</a><a href="#tabell">📋 Tabeller</a><a href="#finn">🔍 Subjekt eller objekt?</a><a href="#norsk">🇳🇴 Sammenligning med norsk</a><a href="#skriving">✍️ I skriving</a><a href="#ovelser">🎯 Øvelser</a>
+  </div>
+
+  <h2 class="dw-sec-title" id="hva">📌 Endelsene i nominativ og akkusativ</h2>
+  <div class="dw-exp">
+<p>Eiendomsord får <strong>endelse etter det eide</strong>. I <strong>nominativ</strong> (subjektet, og det som står etter «er») og <strong>akkusativ</strong> (objektet) er det bare ett sted forskjellen vises: <strong>maskulin</strong>.</p><ul><li><strong>Ingen endelse:</strong> maskulin nominativ (<span class="dw-de">mein Bruder</span>) og nøytrum nominativ og akkusativ (<span class="dw-de">mein Kind</span>).</li><li><strong>-e:</strong> feminin og flertall, både nominativ og akkusativ (<span class="dw-de">meine Schwester, meine Eltern</span>).</li><li><strong>-en:</strong> bare maskulin akkusativ (<span class="dw-de">meinen Bruder</span>).</li></ul><p>Eksempel:<br><span class="dw-de"><u>Mein</u> Bruder besucht <u>meine</u> Oma.</span><br><span class="dw-no">Broren min (subjekt, maskulin nominativ: mein) besøker bestemoren min (objekt, feminin akkusativ: meine).</span></p><div class="dw-tip">💡 <strong>Regel å huske:</strong> Det er bare <em>maskulin akkusativ</em> som skiller seg ut: <span class="dw-de">mein → meinen</span>. Alt annet er likt i nominativ og akkusativ.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="tabell">📋 Tabelloversikt</h2>
+  <div class="dw-exp">
+<h3>Endelser: nominativ og akkusativ</h3><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th>Kasus</th><th>Maskulin</th><th>Feminin</th><th>Nøytrum</th><th>Flertall</th></tr></thead><tbody><tr><th>Nominativ</th><td class="dw-f">– <span class="dw-no">(mein)</span></td><td class="dw-f">-e <span class="dw-no">(meine)</span></td><td class="dw-f">– <span class="dw-no">(mein)</span></td><td class="dw-f">-e <span class="dw-no">(meine)</span></td></tr><tr><th>Akkusativ</th><td class="dw-f dw-hl">-en <span class="dw-no">(meinen)</span></td><td class="dw-f">-e <span class="dw-no">(meine)</span></td><td class="dw-f">– <span class="dw-no">(mein)</span></td><td class="dw-f">-e <span class="dw-no">(meine)</span></td></tr></tbody></table></div><h3 style="margin-top:14px">Samme mønster som ein, kein og der/die/das</h3><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:700px"><thead><tr><th></th><th>Nom. m.</th><th>Nom. f.</th><th>Nom. n.</th><th>Nom. pl.</th><th>Akk. m.</th><th>Akk. f.</th><th>Akk. n.</th><th>Akk. pl.</th></tr></thead><tbody><tr><th>bestemt artikkel</th><td>der</td><td>die</td><td>das</td><td>die</td><td class="dw-f dw-hl">den</td><td>die</td><td>das</td><td>die</td></tr><tr><th>ein / kein</th><td>ein</td><td>eine</td><td>ein</td><td>keine</td><td class="dw-f dw-hl">einen</td><td>eine</td><td>ein</td><td>keine</td></tr><tr><th>mein (dein, sein …)</th><td class="dw-f">mein</td><td class="dw-f">meine</td><td class="dw-f">mein</td><td class="dw-f">meine</td><td class="dw-f dw-hl">meinen</td><td class="dw-f">meine</td><td class="dw-f">mein</td><td class="dw-f">meine</td></tr></tbody></table></div><h3 style="margin-top:14px">Alle eiendomsord (nominativ og akkusativ)</h3><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:680px"><thead><tr><th>Eier</th><th>Mask. nom.<br>(der Bruder)</th><th>Fem. nom./akk.<br>(die Schwester)</th><th>Nøytr. nom./akk.<br>(das Kind)</th><th>Flertall<br>(die Eltern)</th><th>Mask. akk.<br>(den Bruder)</th></tr></thead><tbody><tr><td class="dw-f">ich</td><td>mein</td><td>meine</td><td>mein</td><td>meine</td><td class="dw-f dw-hl">meinen</td></tr><tr><td class="dw-f">du</td><td>dein</td><td>deine</td><td>dein</td><td>deine</td><td class="dw-f dw-hl">deinen</td></tr><tr><td class="dw-f">er</td><td>sein</td><td>seine</td><td>sein</td><td>seine</td><td class="dw-f dw-hl">seinen</td></tr><tr><td class="dw-f">sie (hun)</td><td>ihr</td><td>ihre</td><td>ihr</td><td>ihre</td><td class="dw-f dw-hl">ihren</td></tr><tr><td class="dw-f">es</td><td>sein</td><td>seine</td><td>sein</td><td>seine</td><td class="dw-f dw-hl">seinen</td></tr><tr><td class="dw-f">wir</td><td>unser</td><td>unsere</td><td>unser</td><td>unsere</td><td class="dw-f dw-hl">unseren</td></tr><tr><td class="dw-f">ihr (dere)</td><td>euer</td><td>eure</td><td>euer</td><td>eure</td><td class="dw-f dw-hl">euren</td></tr><tr><td class="dw-f">sie (de)</td><td>ihr</td><td>ihre</td><td>ihr</td><td>ihre</td><td class="dw-f dw-hl">ihren</td></tr><tr><td class="dw-f">Sie (høflig)</td><td>Ihr</td><td>Ihre</td><td>Ihr</td><td>Ihre</td><td class="dw-f dw-hl">Ihren</td></tr></tbody></table></div>
+  </div>
+
+  <h2 class="dw-sec-title" id="finn">🔍 Slik finner du subjekt og objekt</h2>
+  <div class="dw-exp">
+<h3>Subjekt eller objekt?</h3><p>For å velge riktig endelse må du vite hvilken <strong>rolle</strong> ordgruppen har. Still spørsmål:</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th>Spørsmål</th><th>Kasus</th><th>Eksempel</th></tr></thead><tbody><tr><td class="dw-f">Wer oder was?</td><td class="dw-f dw-hl">Nominativ (subjekt)</td><td><span class="dw-de"><u>Mein Bruder</u> spielt Gitarre.</span></td></tr><tr><td class="dw-f">Wer oder was? (etter sein, werden, bleiben)</td><td class="dw-f dw-hl">Nominativ</td><td><span class="dw-de">Das ist <u>mein Bruder</u>. Er wird <u>mein Lehrer</u>.</span></td></tr><tr><td class="dw-f">Wen oder was?</td><td class="dw-f dw-hl">Akkusativ (objekt)</td><td><span class="dw-de">Ich besuche <u>meinen Bruder</u>.</span></td></tr></tbody></table></div><p style="margin-top:8px"><strong>Verb som ofte har akkusativ:</strong></p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th>Verb</th><th>Eksempel</th><th>Norsk</th></tr></thead><tbody><tr><td class="dw-f">haben</td><td><span class="dw-de">Ich habe <u>einen</u> Hund. / Ich habe <u>meinen</u> Ausweis.</span></td><td>ha</td></tr><tr><td class="dw-f">brauchen</td><td><span class="dw-de">Du brauchst <u>deinen</u> Pass.</span></td><td>trenge</td></tr><tr><td class="dw-f">sehen</td><td><span class="dw-de">Wir sehen <u>unseren</u> Lehrer.</span></td><td>se</td></tr><tr><td class="dw-f">besuchen</td><td><span class="dw-de">Sie besucht <u>ihren</u> Onkel.</span></td><td>besøke</td></tr><tr><td class="dw-f">kaufen</td><td><span class="dw-de">Ich kaufe <u>meinen</u> Schulrucksack.</span></td><td>kjøpe</td></tr><tr><td class="dw-f">lieben</td><td><span class="dw-de">Sie liebt <u>ihren</u> Hund.</span></td><td>elske</td></tr><tr><td class="dw-f">suchen</td><td><span class="dw-de">Wir suchen <u>unseren</u> Ball.</span></td><td>lete etter</td></tr></tbody></table></div><div class="dw-tip">💡 <strong>Akkusativ også etter noen preposisjoner:</strong> <span class="dw-de">für, ohne, durch, gegen, um, bis</span>. <span class="dw-de">Das Geschenk ist <u>für meinen</u> Bruder.</span> / <span class="dw-de">Ohne <u>meine</u> Eltern fahre ich nicht.</span> Etter «in, an, auf» står akkusativ når det er retning (Wohin?): <span class="dw-de">Ich gehe in <u>meinen</u> Garten.</span></div>
+  </div>
+
+  <h2 class="dw-sec-title" id="norsk">🇳🇴 Sammenligning med norsk</h2>
+  <div class="dw-exp">
+<p>Norsk har <strong>ikke kasus</strong> på substantiver og eiendomsord. Samme form brukes enten ordet er subjekt eller objekt:</p><div class="dw-cmp"><div><b class="dw-lang">Norsk</b>Det er <strong>broren min</strong>.<br>Jeg besøker <strong>broren min</strong>.<br><span class="dw-no">Samme form begge steder.</span></div><div><b class="dw-lang">Tysk</b><span class="dw-de">Das ist <strong>mein</strong> Bruder.</span><br><span class="dw-de">Ich besuche <strong>meinen</strong> Bruder.</span><br><span class="dw-no">Endelsen skifter for maskulin.</span></div></div><ul><li><strong>Hvorfor «Das ist mein Bruder»?</strong> Etter «ist» (sein) står det samme kasus på begge sider, nemlig nominativ. «Mein Bruder» sier noe om «das» – det er ikke et objekt.</li><li><strong>Hvorfor «Ich besuche meinen Bruder»?</strong> «Besuchen» trenger et objekt, og objektet står i akkusativ. Maskulin akkusativ får derfor -en.</li><li><strong>Ordstilling:</strong> På norsk viser rekkefølgen hvem som gjør hva. På tysk viser endelsen det. Derfor kan du flytte objektet fremst uten at meningen endres: <span class="dw-de">Meinen Bruder besucht Anna.</span> = Anna besøker broren min. (På norsk ville «Broren min besøker Anna» bety det motsatte.)</li><li><strong>Bare maskulin:</strong> Feminin, nøytrum og flertall har samme form i nominativ og akkusativ, så der trenger du ikke tenke på kasus.</li></ul><div class="dw-tip dw-warn">⚠️ <strong>Vanlige feil:</strong> «Ich besuche <s>mein</s> Bruder» → <span class="dw-de">meinen Bruder</span>. «Das ist <s>meinen</s> Bruder» → <span class="dw-de">mein Bruder</span>.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="skriving">✍️ Når og hvorfor bruker vi det i skriving?</h2>
+  <div class="dw-exp">
+<ul><li><strong>Fortelle om familien:</strong> <span class="dw-de">Ich habe einen Bruder und eine Schwester. Mein Bruder heißt Paul, meine Schwester heißt Lea. Ich liebe meinen Bruder und meine Schwester.</span> Legg merke til at <em>maskulin</em> skifter fra mein til meinen.</li><li><strong>Planer og avtaler:</strong> <span class="dw-de">Am Samstag besuche ich meinen Opa. Wir treffen unseren Lehrer. Ich brauche meinen Rucksack.</span></li><li><strong>Beskrive ting:</strong> <span class="dw-de">Das ist mein Zimmer. Ich mag meinen Schreibtisch. Meine Lampe ist blau.</span></li><li><strong>E-post og brev:</strong> <span class="dw-de">Danke für deine Nachricht. Ich habe deinen Brief gelesen. Grüß deinen Bruder von mir!</span></li><li><strong>Setninger med to ledd:</strong> <span class="dw-de">Mein Vater kocht, und meine Mutter hilft ihm. Ich liebe meinen Vater.</span> Sjekk hver gang: er ordgruppen subjekt eller objekt?</li></ul><div class="dw-tip">💡 <strong>Tips:</strong> Usikker på kasus? Bytt eiendomsordet ut med bestemt artikkel. Blir det «<em>den</em> Bruder», er det akkusativ, og eiendomsordet får <em>-en</em>: <span class="dw-de">den Bruder → meinen Bruder</span>.</div>
+  </div>
+
+  <p class="dw-see-also"><strong>Se også:</strong> <a href="../">Eiendomsord (oversikt)</a> · <a href="../grunnformer/">Grunnformene (mein, dein, sein …)</a> · <a href="../dativ/">Dativ</a> · <a href="../genitiv/">Genitiv</a> · <a href="../../pronomen/personlig/">Personlig pronomen</a> · <a href="../../artikler/">Artikler</a></p>
+
+  <h2 class="dw-sec-title" id="ovelser">🎯 Øvelser</h2>
+  <div class="dw-ex-card" id="dw-ex">
+    <div id="dw-ex-play">
+      <div class="dw-ex-top"><span id="dw-ex-count"></span><span id="dw-ex-score-live"></span></div>
+      <div class="dw-ex-bar"><div class="dw-ex-fill" id="dw-ex-fill"></div></div>
+      <div class="dw-ex-cue" id="dw-ex-cue"></div>
+      <div class="dw-ex-sent" id="dw-ex-sent"></div>
+      <div class="dw-ex-choices" id="dw-ex-choices" role="group" aria-label="Svaralternativer"></div>
+      <button type="button" class="dw-ex-hintbtn" id="dw-ex-hintbtn">💡 Vis hint</button>
+      <div class="dw-ex-fb" id="dw-ex-fb" aria-live="polite"></div>
+      <button type="button" class="dw-ex-btn" id="dw-ex-next" style="display:none">Neste →</button>
+    </div>
+    <div class="dw-ex-result" id="dw-ex-result">
+      <h3 style="margin:0;font-family:'Baloo 2',sans-serif;font-size:1.4rem">Ferdig! 🎉</h3>
+      <div class="dw-ex-score" id="dw-ex-final"></div>
+      <p id="dw-ex-msg"></p>
+      <div class="dw-ex-review" id="dw-ex-review"></div>
+      <button type="button" class="dw-ex-btn dw-gold" id="dw-ex-restart">🔁 Spill på nytt</button>
+    </div>
+  </div>
+
+</div>
+<script>
+var DWQ = [
+ {
+  "s": "Das ist ___ Bruder.",
+  "cue": "min bror",
+  "a": "mein",
+  "c": [
+   "mein",
+   "meinen",
+   "meine",
+   "meinem"
+  ],
+  "e": "Etter «ist» står nominativ. Bruder er maskulin → mein (ingen endelse).",
+  "h": "Etter sein → nominativ."
+ },
+ {
+  "s": "Ich besuche ___ Bruder.",
+  "cue": "min bror",
+  "a": "meinen",
+  "c": [
+   "meinen",
+   "mein",
+   "meine",
+   "meinem"
+  ],
+  "e": "Besuchen krever akkusativ. Maskulin akkusativ → meinen.",
+  "h": "Objekt, maskulin → -en."
+ },
+ {
+  "s": "Wo ist ___ Tasche?",
+  "cue": "din veske",
+  "a": "deine",
+  "c": [
+   "deine",
+   "dein",
+   "deinen"
+  ],
+  "e": "Tasche er feminin nominativ → deine.",
+  "h": "Feminin → -e."
+ },
+ {
+  "s": "Hast du ___ Handy dabei?",
+  "cue": "din mobil",
+  "a": "dein",
+  "c": [
+   "dein",
+   "deine",
+   "deinen"
+  ],
+  "e": "Handy er nøytrum, og i akkusativ er det ingen endelse: dein Handy.",
+  "h": "Nøytrum → ingen endelse."
+ },
+ {
+  "s": "Er sucht ___ Schlüssel.",
+  "cue": "nøkkelen hans",
+  "a": "seinen",
+  "c": [
+   "seinen",
+   "sein",
+   "seine"
+  ],
+  "e": "Suchen krever akkusativ. Schlüssel er maskulin → seinen.",
+  "h": "Maskulin akkusativ."
+ },
+ {
+  "s": "Wir lieben ___ Großeltern.",
+  "cue": "besteforeldrene våre",
+  "a": "unsere",
+  "c": [
+   "unsere",
+   "unser",
+   "unseren"
+  ],
+  "e": "Großeltern er flertall akkusativ → unsere.",
+  "h": "Flertall → -e."
+ },
+ {
+  "s": "Sie hat ___ Fahrrad verloren.",
+  "cue": "sykkelen hennes",
+  "a": "ihr",
+  "c": [
+   "ihr",
+   "ihre",
+   "ihren"
+  ],
+  "e": "Fahrrad er nøytrum akkusativ → ihr (ingen endelse).",
+  "h": "Nøytrum → ingen endelse."
+ },
+ {
+  "s": "___ Hund heißt Max.",
+  "cue": "hunden min",
+  "a": "Mein",
+  "c": [
+   "Mein",
+   "Meinen",
+   "Meine"
+  ],
+  "e": "Hund er maskulin nominativ (subjekt) → Mein.",
+  "h": "Subjekt → nominativ."
+ },
+ {
+  "s": "Den Film kennt ___ Vater nicht.",
+  "cue": "faren hans",
+  "a": "sein",
+  "c": [
+   "sein",
+   "seinen",
+   "seine"
+  ],
+  "e": "«Den Film» er objektet (satt først). Subjektet er «Vater» (nominativ, maskulin) → sein.",
+  "h": "Finn subjektet: Wer kennt den Film nicht?"
+ },
+ {
+  "s": "Das ist nicht ___ Schuld.",
+  "cue": "min skyld",
+  "a": "meine",
+  "c": [
+   "meine",
+   "mein",
+   "meinen"
+  ],
+  "e": "Etter «ist» står nominativ. Schuld er feminin → meine.",
+  "h": "Feminin → -e."
+ },
+ {
+  "s": "Ich habe ___ Mutter gestern angerufen.",
+  "cue": "moren min",
+  "a": "meine",
+  "c": [
+   "meine",
+   "meinen",
+   "mein"
+  ],
+  "e": "Anrufen krever akkusativ. Mutter er feminin → meine (samme som i nominativ).",
+  "h": "Feminin akkusativ = -e."
+ },
+ {
+  "s": "Das sind ___ Bücher.",
+  "cue": "bøkene mine",
+  "a": "meine",
+  "c": [
+   "meine",
+   "meinen",
+   "meiner",
+   "mein"
+  ],
+  "e": "Bücher er flertall nominativ → meine.",
+  "h": "Flertall → -e."
+ },
+ {
+  "s": "Wir besuchen ___ Onkel in Hamburg.",
+  "cue": "onkelen vår",
+  "a": "unseren",
+  "c": [
+   "unseren",
+   "unser",
+   "unsere"
+  ],
+  "e": "Besuchen krever akkusativ. Onkel er maskulin → unseren.",
+  "h": "Maskulin akkusativ → -en."
+ },
+ {
+  "s": "Habt ihr ___ Vater gesehen?",
+  "cue": "faren deres (dere)",
+  "a": "euren",
+  "c": [
+   "euren",
+   "euer",
+   "eure"
+  ],
+  "e": "Sehen krever akkusativ. Vater er maskulin → euren (e faller bort foran -en).",
+  "h": "euer + -en → euren."
+ }
+];
+
+(function(){
+  var ALL = DWQ, Q = [], i = 0, score = 0, done = false, missed = [];
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function shuffle(a){ a = a.slice(); for(var k = a.length - 1; k > 0; k--){ var j = Math.floor(Math.random() * (k + 1)); var t = a[k]; a[k] = a[j]; a[j] = t; } return a; }
+  var $ = function(id){ return document.getElementById(id); };
+  function start(){
+    Q = shuffle(ALL); i = 0; score = 0; missed = [];
+    $('dw-ex-play').style.display = 'block'; $('dw-ex-result').classList.remove('dw-show');
+    render();
+  }
+  function render(){
+    var q = Q[i]; done = false;
+    $('dw-ex-count').textContent = 'Oppgave ' + (i + 1) + ' av ' + Q.length;
+    $('dw-ex-score-live').textContent = 'Poeng: ' + score;
+    $('dw-ex-fill').style.width = (i / Q.length * 100) + '%';
+    $('dw-ex-cue').textContent = q.cue || '';
+    $('dw-ex-sent').innerHTML = esc(q.s).replace('___', '<span class="dw-blank" id="dw-ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;</span>');
+    $('dw-ex-choices').innerHTML = shuffle(q.c).map(function(c){ return '<button type="button" class="dw-ex-choice" data-v="' + esc(c) + '">' + esc(c) + '</button>'; }).join('');
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb'; fb.innerHTML = '';
+    $('dw-ex-hintbtn').style.display = 'inline'; $('dw-ex-next').style.display = 'none';
+  }
+  $('dw-ex-choices').addEventListener('click', function(e){
+    var b = e.target.closest('.dw-ex-choice'); if(!b || done) return;
+    done = true; var q = Q[i], v = b.getAttribute('data-v'), ok = v === q.a;
+    document.querySelectorAll('.dw-ex-choice').forEach(function(x){
+      x.disabled = true;
+      if(x.getAttribute('data-v') === q.a) x.classList.add('dw-correct');
+    });
+    if(!ok) b.classList.add('dw-wrong');
+    var bl = $('dw-ex-blank'); bl.textContent = q.a; bl.classList.add('dw-filled'); if(!ok) bl.classList.add('dw-bad');
+    if(ok) score++; else missed.push(q);
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb dw-show ' + (ok ? 'dw-good' : 'dw-bad');
+    fb.innerHTML = (ok ? '✅ Riktig! ' : '❌ Riktig svar er <b>' + esc(q.a) + '</b>. ') + esc(q.e);
+    $('dw-ex-hintbtn').style.display = 'none';
+    $('dw-ex-score-live').textContent = 'Poeng: ' + score;
+    var nx = $('dw-ex-next'); nx.style.display = 'inline-block'; nx.textContent = (i === Q.length - 1) ? 'Se resultatet →' : 'Neste →'; nx.focus();
+  });
+  $('dw-ex-hintbtn').addEventListener('click', function(){
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb dw-show'; fb.innerHTML = '💡 ' + esc(Q[i].h);
+  });
+  $('dw-ex-next').addEventListener('click', function(){
+    if(i < Q.length - 1){ i++; render(); return; }
+    $('dw-ex-play').style.display = 'none'; $('dw-ex-result').classList.add('dw-show');
+    $('dw-ex-final').textContent = score + ' / ' + Q.length;
+    var pct = score / Q.length;
+    $('dw-ex-msg').textContent = pct === 1 ? 'Perfekt — ingen feil!' : pct >= 0.75 ? 'Veldig bra! Les gjennom de få feilene under.' : pct >= 0.5 ? 'Greit på vei — se på tabellene og prøv igjen.' : 'Les forklaringen en gang til, og prøv på nytt.';
+    $('dw-ex-review').innerHTML = missed.length ? '<b>Dette bør du se på igjen:</b><ul>' + missed.map(function(q){ return '<li>' + esc(q.s).replace('___', '<b>' + esc(q.a) + '</b>') + ' — ' + esc(q.e) + '</li>'; }).join('') + '</ul>' : '🎉 Du hadde alt riktig!';
+    $('dw-ex-fill').style.width = '100%';
+  });
+  $('dw-ex-restart').addEventListener('click', start);
+  start();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Grammatikk: "Welcher og was für ein" (sporreord/welcher-was-fuer/)
+  Welcher (bøyes som dieser), was für ein (für styrer ikke kasus), forskjellen, sammenligning med norsk, bruk i skriving og øvelser.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcher og was für ein · Spørreord · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:860px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .dw-jump a{font-size:.86rem;font-weight:700;padding:7px 15px;border-radius:999px;text-decoration:none;background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:32px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t tbody th{background:#fbfaf6;font-size:.84rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t td.dw-hl{background:#fff3cf;}
+  .dw-t td.dw-c{text-align:center;}
+  .dw-t td.dw-x{color:#aaa;text-align:center;}
+  .dw-t tr.dw-grp td,.dw-t tr.dw-grp th{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:14px 0;}
+  a.dw-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;text-decoration:none;color:var(--dw-text);box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;gap:6px;}
+  a.dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  a.dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  a.dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
+
+  /* Øvelser */
+  .dw-ex-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+  .dw-ex-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:8px;}
+  .dw-ex-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:16px;}
+  .dw-ex-fill{height:100%;width:0;background:var(--dw-good);transition:width .25s ease;}
+  .dw-ex-cue{font-size:.88rem;color:var(--dw-muted);margin-bottom:4px;}
+  .dw-ex-sent{font-size:1.3rem;font-weight:600;color:var(--dw-primary);line-height:1.5;margin:2px 0 18px;}
+  .dw-ex-sent .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);text-align:center;}
+  .dw-ex-sent .dw-blank.dw-filled{color:var(--dw-good);border-color:var(--dw-good);}
+  .dw-ex-sent .dw-blank.dw-filled.dw-bad{color:var(--dw-bad);border-color:var(--dw-bad);}
+  .dw-ex-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .dw-ex-choice{flex:1 1 110px;max-width:170px;padding:12px 8px;font-family:inherit;font-size:1.1rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;}
+  .dw-ex-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-ex-choice:disabled{cursor:default;opacity:.55;}
+  .dw-ex-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-ex-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .dw-ex-choice:focus-visible,.dw-ex-btn:focus-visible,.dw-ex-hintbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-ex-hintbtn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:.85rem;padding:0;margin-bottom:8px;}
+  .dw-ex-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:10px 14px;margin:6px 0 14px;background:#f4f1e8;}
+  .dw-ex-fb.dw-show{display:block;}
+  .dw-ex-fb.dw-good{background:#eef7ee;color:#1f5d23;}
+  .dw-ex-fb.dw-bad{background:#fdecee;color:#8c1d1d;}
+  .dw-ex-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:11px 26px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .dw-ex-btn:hover{background:var(--dw-primary-light);}
+  .dw-ex-btn.dw-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-ex-result{display:none;text-align:center;}
+  .dw-ex-result.dw-show{display:block;}
+  .dw-ex-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .dw-ex-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:12px 18px;margin:14px 0;font-size:.9rem;}
+  .dw-ex-review li{margin-bottom:6px;}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .dw-ex-sent{font-size:1.12rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>🔍 Welcher og was für ein</h1>
+    <p>Welcher og was für ein — «hvilken» og «hva slags»</p>
+  </div>
+
+  <p class="dw-crumb"><a href="../../">🧩 Grammatik</a> → <a href="../">Spørreord</a> → Welcher og was für ein</p>
+
+  <div class="dw-jump">
+    <a href="#hva">📌 Hva er det?</a><a href="#tabell">📋 Tabeller</a><a href="#forskjell">⚖️ Forskjell</a><a href="#norsk">🇳🇴 Sammenligning med norsk</a><a href="#skriving">✍️ I skriving</a><a href="#ovelser">🎯 Øvelser</a>
+  </div>
+
+  <h2 class="dw-sec-title" id="hva">📌 Welcher og was für ein</h2>
+  <div class="dw-exp">
+<p><strong>Welcher</strong> betyr <em>hvilken</em> og brukes når du spør etter <strong>én av flere kjente</strong>. <strong>Was für ein</strong> betyr <em>hva slags</em> og spør etter <strong>typen eller egenskapene</strong> til noe. Begge står foran et substantiv.</p><ul><li><span class="dw-de">Welchen Film magst du?</span> – <span class="dw-de">Den neuen Marvel-Film.</span> <span class="dw-no">(Hvilken av filmene vi kjenner?)</span></li><li><span class="dw-de">Was für einen Film magst du?</span> – <span class="dw-de">Einen Krimi.</span> <span class="dw-no">(Hva slags film?)</span></li></ul>
+  </div>
+
+  <h2 class="dw-sec-title" id="tabell">📋 Tabeller og eksempler</h2>
+  <div class="dw-exp">
+<h3>Welcher – bøyes som dieser</h3><p>Endelsene er de samme som for <em>der/dieser</em>: <strong>-er, -e, -es, -e</strong> i nominativ, og så videre.</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:640px"><thead><tr><th>Kasus</th><th>Hankjønn</th><th>Hunkjønn</th><th>Intetkjønn</th><th>Flertall</th></tr></thead><tbody><tr><td class="dw-f">Nominativ</td><td>welcher Film</td><td>welche Farbe</td><td>welches Buch</td><td>welche Filme</td></tr><tr><td class="dw-f">Akkusativ</td><td class="dw-f dw-hl">welchen Film</td><td>welche Farbe</td><td>welches Buch</td><td>welche Filme</td></tr><tr><td class="dw-f">Dativ</td><td>welchem Film</td><td>welcher Farbe</td><td>welchem Buch</td><td>welchen Filmen</td></tr><tr><td class="dw-f">Genitiv</td><td>welches Films</td><td>welcher Farbe</td><td>welches Buches</td><td>welcher Filme</td></tr></tbody></table></div><ul><li><span class="dw-de">Welcher Film gefällt dir?</span> (nominativ, subjekt)</li><li><span class="dw-de">Welchen Film magst du?</span> (akkusativ, objekt)</li><li><span class="dw-de">Mit welchem Bus fährst du?</span> (dativ etter «mit»)</li><li><span class="dw-de">In welcher Klasse bist du?</span> (dativ: Wo?) · <span class="dw-de">In welche Klasse gehst du?</span> (akkusativ: Wohin?)</li><li><span class="dw-de">Welche Filme magst du?</span> (flertall, akkusativ)</li></ul><h3 style="margin-top:14px">Was für ein – «für» styrer ikke kasus</h3><p>Ordene <em>was für</em> fungerer som ett spørreord. <strong>Kasus på «ein» retter seg etter rollen substantivet har i setningen</strong> (eller preposisjonen foran), ikke etter «für».</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:640px"><thead><tr><th>Kasus</th><th>Hankjønn</th><th>Hunkjønn</th><th>Intetkjønn</th><th>Flertall</th></tr></thead><tbody><tr><td class="dw-f">Nominativ</td><td>was für ein Film</td><td>was für eine Stadt</td><td>was für ein Auto</td><td>was für Filme</td></tr><tr><td class="dw-f">Akkusativ</td><td class="dw-f dw-hl">was für einen Film</td><td>was für eine Stadt</td><td>was für ein Auto</td><td>was für Filme</td></tr><tr><td class="dw-f">Dativ</td><td>was für einem Film</td><td>was für einer Stadt</td><td>was für einem Auto</td><td>was für Filmen</td></tr></tbody></table></div><ul><li><span class="dw-de">Was für ein Film ist das?</span> (nominativ: «ein» – ikke akkusativ, selv om «für» kommer før!)</li><li><span class="dw-de">Was für einen Hund hast du?</span> (akkusativ: Hund er objekt)</li><li><span class="dw-de">Mit was für einem Auto fährst du?</span> (dativ etter «mit»)</li><li><span class="dw-de">In was für einer Stadt wohnst du?</span> (dativ: Wo?)</li><li><span class="dw-de">Was für Filme siehst du gern?</span> (flertall: ingen artikkel)</li><li><span class="dw-de">Was für Musik hörst du?</span> (ikke tellbart: ingen artikkel)</li></ul><div class="dw-tip dw-blue">ℹ️ <strong>Genitiv</strong> brukes nesten aldri med <em>was für ein</em>. Vil du spørre om eieren, bruker du <a href="../wer-was/">wessen</a>.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="forskjell">⚖️ Welcher eller was für ein?</h2>
+  <div class="dw-exp">
+<p>Begge kan oversettes med «hvilken», men de spør om ulike ting:</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th></th><th>welcher</th><th>was für ein</th></tr></thead><tbody><tr><td class="dw-f">Betyr</td><td>hvilken (av flere kjente)</td><td>hva slags (type, egenskap)</td></tr><tr><td class="dw-f">Du kan velge mellom …</td><td>et avgrenset utvalg</td><td>ingen begrensning</td></tr><tr><td class="dw-f">Svar</td><td>«Den røde.» «Den der.»</td><td>«Et rødt.» «En sportsbil.»</td></tr><tr><td class="dw-f">Eksempel</td><td><span class="dw-de">Welches Auto gehört dir?</span> <span class="dw-no">(det røde eller det blå?)</span></td><td><span class="dw-de">Was für ein Auto hast du?</span> <span class="dw-no">(en sportsbil? en elbil?)</span></td></tr></tbody></table></div><div class="dw-tip">💡 <strong>Test:</strong> Ser du på flere ting du kan peke på? Bruk <em>welcher</em>. Spør du hvordan noe er, eller hva det er for noe? Bruk <em>was für ein</em>.</div><ul><li><strong>Utrop:</strong> <span class="dw-de">Was für ein schöner Tag!</span> = For en fin dag! <span class="dw-de">Was für ein Chaos!</span> = For et kaos!</li><li><strong>I dagligtale</strong> kan <em>was</em> og <em>für ein</em> deles: <span class="dw-de">Was hast du für ein Auto?</span> – samme betydning som <span class="dw-de">Was für ein Auto hast du?</span></li><li><strong>Welcher alene</strong> kan stå uten substantiv når saken er klar: <span class="dw-de">Welches gefällt dir besser?</span> (hvilket)</li></ul>
+  </div>
+
+  <h2 class="dw-sec-title" id="norsk">🇳🇴 Sammenligning med norsk</h2>
+  <div class="dw-exp">
+<div class="dw-cmp"><div><b class="dw-lang">Norsk</b><strong>Hvilken</strong> film liker du?<br><strong>Hvilket</strong> bilde er best?<br><strong>Hvilke</strong> filmer liker du?<br><strong>Hva slags</strong> bil har du?</div><div><b class="dw-lang">Tysk</b><strong>Welchen</strong> Film magst du?<br><strong>Welches</strong> Bild ist am besten?<br><strong>Welche</strong> Filme magst du?<br><strong>Was für ein</strong> Auto hast du?</div></div><ul><li><strong>Norsk bøyer etter kjønn og tall,</strong> ikke etter kasus: <em>hvilken</em> (hankjønn/hunkjønn), <em>hvilket</em> (intetkjønn), <em>hvilke</em> (flertall). Tysk må i tillegg ta hensyn til <strong>kasus</strong> (welcher / welchen / welchem).</li><li><strong>Samme opphav:</strong> norsk <em>hv-</em> = tysk <em>w-</em>: hvilken – welcher.</li><li><strong>«Hva slags» = was für ein.</strong> På norsk høres også «hva for en bil» ut som tysk: <span class="dw-no">Hva for en bil har du?</span> = <span class="dw-de">Was für ein Auto hast du?</span></li><li><strong>Ikke bland sammen:</strong> <span class="dw-de">Welcher</span> og <span class="dw-de">welche</span> er ikke samme ord som <span class="dw-de">wer</span>/<span class="dw-de">wen</span>. <em>Welcher</em> står alltid foran et substantiv (eller erstatter det).</li><li><strong>Huskeregel:</strong> Bruk samme endelser som på <span class="dw-de">dieser</span> – da treffer du nesten alltid: <span class="dw-de">diesen Film</span> → <span class="dw-de">welchen Film</span>.</li></ul>
+  </div>
+
+  <h2 class="dw-sec-title" id="skriving">✍️ Når og hvorfor bruker vi det i skriving?</h2>
+  <div class="dw-exp">
+<ul><li><strong>Spørreskjema:</strong> <span class="dw-de">Welche Fächer magst du? Welches Fach ist am schwierigsten? Was für Musik hörst du? Was für Bücher liest du gern?</span></li><li><strong>Intervju:</strong> <span class="dw-de">Welche Sprachen sprichst du? Was für ein Mensch bist du? Welches Land möchtest du besuchen?</span></li><li><strong>E-post og planlegging:</strong> <span class="dw-de">Mit welchem Zug soll ich kommen? Welche Unterlagen brauche ich? In welchem Raum findet der Kurs statt?</span></li><li><strong>Presentasjon og anmeldelse:</strong> <span class="dw-de">Was für ein Film ist das? Was für ein Spiel ist das?</span> – fint å starte en anmeldelse med.</li></ul><div class="dw-tip dw-warn">⚠️ <strong>Vanlig feil:</strong> «<s>Welche</s> Film magst du?» → <span class="dw-de">Welchen Film magst du?</span> (Film er hankjønn, akkusativ). Sjekk alltid kjønn, kasus og tall på substantivet.</div>
+  </div>
+
+  <p class="dw-see-also"><strong>Se også:</strong> <a href="../">Spørreord (oversikt)</a> · <a href="../wer-was/">Wer, was, wen, wem, wessen</a> · <a href="../wann-wo-wie/">Wann, wo, wie, warum …</a> · <a href="../ordstilling/">Ordstilling i spørsmål</a> · <a href="../wo-woerter/">Wo(r)- og da(r)-ord: womit, damit …</a> · <a href="../../adverbial/">Adverbial</a> · <a href="../../pronomen/personlig/">Personlig pronomen</a></p>
+
+  <h2 class="dw-sec-title" id="ovelser">🎯 Øvelser</h2>
+  <div class="dw-ex-card" id="dw-ex">
+    <div id="dw-ex-play">
+      <div class="dw-ex-top"><span id="dw-ex-count"></span><span id="dw-ex-score-live"></span></div>
+      <div class="dw-ex-bar"><div class="dw-ex-fill" id="dw-ex-fill"></div></div>
+      <div class="dw-ex-cue" id="dw-ex-cue"></div>
+      <div class="dw-ex-sent" id="dw-ex-sent"></div>
+      <div class="dw-ex-choices" id="dw-ex-choices" role="group" aria-label="Svaralternativer"></div>
+      <button type="button" class="dw-ex-hintbtn" id="dw-ex-hintbtn">💡 Vis hint</button>
+      <div class="dw-ex-fb" id="dw-ex-fb" aria-live="polite"></div>
+      <button type="button" class="dw-ex-btn" id="dw-ex-next" style="display:none">Neste →</button>
+    </div>
+    <div class="dw-ex-result" id="dw-ex-result">
+      <h3 style="margin:0;font-family:'Baloo 2',sans-serif;font-size:1.4rem">Ferdig! 🎉</h3>
+      <div class="dw-ex-score" id="dw-ex-final"></div>
+      <p id="dw-ex-msg"></p>
+      <div class="dw-ex-review" id="dw-ex-review"></div>
+      <button type="button" class="dw-ex-btn dw-gold" id="dw-ex-restart">🔁 Spill på nytt</button>
+    </div>
+  </div>
+
+</div>
+<script>
+var DWQ = [
+ {
+  "s": "___ Film gefällt dir am besten?",
+  "cue": "hvilken (subjekt)",
+  "a": "Welcher",
+  "c": [
+   "Welcher",
+   "Welchen",
+   "Welchem"
+  ],
+  "e": "Film er hankjønn og subjekt (nominativ) → welcher.",
+  "h": "Hankjønn nominativ."
+ },
+ {
+  "s": "___ Film magst du?",
+  "cue": "hvilken (objekt)",
+  "a": "Welchen",
+  "c": [
+   "Welchen",
+   "Welcher",
+   "Welchem"
+  ],
+  "e": "«mögen» tar akkusativ, Film er hankjønn → welchen.",
+  "h": "Hankjønn akkusativ."
+ },
+ {
+  "s": "___ Buch liest du gerade?",
+  "cue": "hvilket",
+  "a": "Welches",
+  "c": [
+   "Welches",
+   "Welche",
+   "Welchen"
+  ],
+  "e": "Buch er intetkjønn, akkusativ → welches.",
+  "h": "Intetkjønn → -es."
+ },
+ {
+  "s": "___ Farbe gefällt dir?",
+  "cue": "hvilken",
+  "a": "Welche",
+  "c": [
+   "Welche",
+   "Welcher",
+   "Welches"
+  ],
+  "e": "Farbe er hunkjønn, nominativ → welche.",
+  "h": "Hunkjønn → -e."
+ },
+ {
+  "s": "Mit ___ Bus fährst du zur Schule?",
+  "cue": "med hvilken",
+  "a": "welchem",
+  "c": [
+   "welchem",
+   "welchen",
+   "welcher"
+  ],
+  "e": "«mit» + dativ, Bus er hankjønn → welchem.",
+  "h": "mit + dativ."
+ },
+ {
+  "s": "In ___ Klasse bist du?",
+  "cue": "i hvilken",
+  "a": "welcher",
+  "c": [
+   "welcher",
+   "welche",
+   "welchem"
+  ],
+  "e": "Wo? = dativ. Klasse er hunkjønn → welcher.",
+  "h": "Dativ hunkjønn → -er."
+ },
+ {
+  "s": "___ Filme magst du am liebsten?",
+  "cue": "hvilke",
+  "a": "Welche",
+  "c": [
+   "Welche",
+   "Welchen",
+   "Welcher"
+  ],
+  "e": "Flertall, akkusativ → welche.",
+  "h": "Flertall akk. → -e."
+ },
+ {
+  "s": "Mit ___ Freunden gehst du ins Kino?",
+  "cue": "med hvilke",
+  "a": "welchen",
+  "c": [
+   "welchen",
+   "welche",
+   "welcher"
+  ],
+  "e": "«mit» + dativ flertall → welchen (+ -n på Freunden).",
+  "h": "Dativ flertall → -en."
+ },
+ {
+  "s": "Was für ___ Hund hast du? – Einen kleinen.",
+  "cue": "hva slags",
+  "a": "einen",
+  "c": [
+   "einen",
+   "ein",
+   "einem"
+  ],
+  "e": "«haben» tar akkusativ, Hund er hankjønn → einen. «für» styrer ikke kasus.",
+  "h": "Hankjønn akkusativ."
+ },
+ {
+  "s": "Mit was für ___ Auto fährt er?",
+  "cue": "med hva slags",
+  "a": "einem",
+  "c": [
+   "einem",
+   "ein",
+   "einen"
+  ],
+  "e": "«mit» + dativ, Auto er intetkjønn → einem.",
+  "h": "mit + dativ."
+ },
+ {
+  "s": "Was für ___ sind das? – Das sind Krimis.",
+  "cue": "hva slags (flertall)",
+  "a": "Filme",
+  "c": [
+   "Filme",
+   "ein Film",
+   "einen Film"
+  ],
+  "e": "Flertall: was für + substantiv uten artikkel. Verbet «sind» er også flertall.",
+  "h": "Flertall → ingen artikkel."
+ },
+ {
+  "s": "Ich habe zwei Jacken. ___ Jacke soll ich anziehen?",
+  "cue": "hvilken av de to",
+  "a": "Welche",
+  "c": [
+   "Welche",
+   "Was für",
+   "Wie"
+  ],
+  "e": "Du velger mellom to kjente jakker → welche.",
+  "h": "Avgrenset utvalg → welcher."
+ },
+ {
+  "s": "___ ein Auto ist das? – Ein Elektroauto.",
+  "cue": "hva slags",
+  "a": "Was für",
+  "c": [
+   "Was für",
+   "Welches",
+   "Welcher"
+  ],
+  "e": "Vi spør etter typen → was für ein.",
+  "h": "Type → was für ein."
+ }
+];
+
+(function(){
+  var ALL = DWQ, Q = [], i = 0, score = 0, done = false, missed = [];
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function shuffle(a){ a = a.slice(); for(var k = a.length - 1; k > 0; k--){ var j = Math.floor(Math.random() * (k + 1)); var t = a[k]; a[k] = a[j]; a[j] = t; } return a; }
+  var $ = function(id){ return document.getElementById(id); };
+  function start(){
+    Q = shuffle(ALL); i = 0; score = 0; missed = [];
+    $('dw-ex-play').style.display = 'block'; $('dw-ex-result').classList.remove('dw-show');
+    render();
+  }
+  function render(){
+    var q = Q[i]; done = false;
+    $('dw-ex-count').textContent = 'Oppgave ' + (i + 1) + ' av ' + Q.length;
+    $('dw-ex-score-live').textContent = 'Poeng: ' + score;
+    $('dw-ex-fill').style.width = (i / Q.length * 100) + '%';
+    $('dw-ex-cue').textContent = q.cue || '';
+    $('dw-ex-sent').innerHTML = esc(q.s).replace('___', '<span class="dw-blank" id="dw-ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;</span>');
+    $('dw-ex-choices').innerHTML = shuffle(q.c).map(function(c){ return '<button type="button" class="dw-ex-choice" data-v="' + esc(c) + '">' + esc(c) + '</button>'; }).join('');
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb'; fb.innerHTML = '';
+    $('dw-ex-hintbtn').style.display = 'inline'; $('dw-ex-next').style.display = 'none';
+  }
+  $('dw-ex-choices').addEventListener('click', function(e){
+    var b = e.target.closest('.dw-ex-choice'); if(!b || done) return;
+    done = true; var q = Q[i], v = b.getAttribute('data-v'), ok = v === q.a;
+    document.querySelectorAll('.dw-ex-choice').forEach(function(x){
+      x.disabled = true;
+      if(x.getAttribute('data-v') === q.a) x.classList.add('dw-correct');
+    });
+    if(!ok) b.classList.add('dw-wrong');
+    var bl = $('dw-ex-blank'); bl.textContent = q.a; bl.classList.add('dw-filled'); if(!ok) bl.classList.add('dw-bad');
+    if(ok) score++; else missed.push(q);
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb dw-show ' + (ok ? 'dw-good' : 'dw-bad');
+    fb.innerHTML = (ok ? '✅ Riktig! ' : '❌ Riktig svar er <b>' + esc(q.a) + '</b>. ') + esc(q.e);
+    $('dw-ex-hintbtn').style.display = 'none';
+    $('dw-ex-score-live').textContent = 'Poeng: ' + score;
+    var nx = $('dw-ex-next'); nx.style.display = 'inline-block'; nx.textContent = (i === Q.length - 1) ? 'Se resultatet →' : 'Neste →'; nx.focus();
+  });
+  $('dw-ex-hintbtn').addEventListener('click', function(){
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb dw-show'; fb.innerHTML = '💡 ' + esc(Q[i].h);
+  });
+  $('dw-ex-next').addEventListener('click', function(){
+    if(i < Q.length - 1){ i++; render(); return; }
+    $('dw-ex-play').style.display = 'none'; $('dw-ex-result').classList.add('dw-show');
+    $('dw-ex-final').textContent = score + ' / ' + Q.length;
+    var pct = score / Q.length;
+    $('dw-ex-msg').textContent = pct === 1 ? 'Perfekt — ingen feil!' : pct >= 0.75 ? 'Veldig bra! Les gjennom de få feilene under.' : pct >= 0.5 ? 'Greit på vei — se på tabellene og prøv igjen.' : 'Les forklaringen en gang til, og prøv på nytt.';
+    $('dw-ex-review').innerHTML = missed.length ? '<b>Dette bør du se på igjen:</b><ul>' + missed.map(function(q){ return '<li>' + esc(q.s).replace('___', '<b>' + esc(q.a) + '</b>') + ' — ' + esc(q.e) + '</li>'; }).join('') + '</ul>' : '🎉 Du hadde alt riktig!';
+    $('dw-ex-fill').style.width = '100%';
+  });
+  $('dw-ex-restart').addEventListener('click', start);
+  start();
+})();
+</script>
+</body>
+</html>

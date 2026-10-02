@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Grammatikk: "Wann, wo, wie, warum …" (sporreord/wann-wo-wie/)
+  Wann, wo, wohin, woher, wie, warum, wie viel(e), wie lange/oft/alt/groß, seit/bis wann; wann mot wenn; sammenligning med norsk; bruk i samtale og øvelser.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wann, wo, wie, warum … · Spørreord · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:860px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .dw-jump a{font-size:.86rem;font-weight:700;padding:7px 15px;border-radius:999px;text-decoration:none;background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:32px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t tbody th{background:#fbfaf6;font-size:.84rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t td.dw-hl{background:#fff3cf;}
+  .dw-t td.dw-c{text-align:center;}
+  .dw-t td.dw-x{color:#aaa;text-align:center;}
+  .dw-t tr.dw-grp td,.dw-t tr.dw-grp th{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:14px 0;}
+  a.dw-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;text-decoration:none;color:var(--dw-text);box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;gap:6px;}
+  a.dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  a.dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  a.dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
+
+  /* Øvelser */
+  .dw-ex-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+  .dw-ex-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:8px;}
+  .dw-ex-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:16px;}
+  .dw-ex-fill{height:100%;width:0;background:var(--dw-good);transition:width .25s ease;}
+  .dw-ex-cue{font-size:.88rem;color:var(--dw-muted);margin-bottom:4px;}
+  .dw-ex-sent{font-size:1.3rem;font-weight:600;color:var(--dw-primary);line-height:1.5;margin:2px 0 18px;}
+  .dw-ex-sent .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);text-align:center;}
+  .dw-ex-sent .dw-blank.dw-filled{color:var(--dw-good);border-color:var(--dw-good);}
+  .dw-ex-sent .dw-blank.dw-filled.dw-bad{color:var(--dw-bad);border-color:var(--dw-bad);}
+  .dw-ex-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .dw-ex-choice{flex:1 1 110px;max-width:170px;padding:12px 8px;font-family:inherit;font-size:1.1rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;}
+  .dw-ex-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-ex-choice:disabled{cursor:default;opacity:.55;}
+  .dw-ex-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-ex-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .dw-ex-choice:focus-visible,.dw-ex-btn:focus-visible,.dw-ex-hintbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-ex-hintbtn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:.85rem;padding:0;margin-bottom:8px;}
+  .dw-ex-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:10px 14px;margin:6px 0 14px;background:#f4f1e8;}
+  .dw-ex-fb.dw-show{display:block;}
+  .dw-ex-fb.dw-good{background:#eef7ee;color:#1f5d23;}
+  .dw-ex-fb.dw-bad{background:#fdecee;color:#8c1d1d;}
+  .dw-ex-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:11px 26px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .dw-ex-btn:hover{background:var(--dw-primary-light);}
+  .dw-ex-btn.dw-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-ex-result{display:none;text-align:center;}
+  .dw-ex-result.dw-show{display:block;}
+  .dw-ex-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .dw-ex-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:12px 18px;margin:14px 0;font-size:.9rem;}
+  .dw-ex-review li{margin-bottom:6px;}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .dw-ex-sent{font-size:1.12rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>🧭 Wann, wo, wie, warum …</h1>
+    <p>Wann, wo, wohin, woher, wie, warum — spør etter tid, sted, måte og årsak</p>
+  </div>
+
+  <p class="dw-crumb"><a href="../../">🧩 Grammatik</a> → <a href="../">Spørreord</a> → Wann, wo, wie, warum …</p>
+
+  <div class="dw-jump">
+    <a href="#hva">📌 Hva er det?</a><a href="#tabell">📋 Tabell</a><a href="#wenn">⏰ wann ≠ wenn</a><a href="#viel">🔢 wie viel(e)</a><a href="#norsk">🇳🇴 Sammenligning med norsk</a><a href="#skriving">✍️ I skriving</a><a href="#ovelser">🎯 Øvelser</a>
+  </div>
+
+  <h2 class="dw-sec-title" id="hva">📌 Spørreord for tid, sted, måte og årsak</h2>
+  <div class="dw-exp">
+<p>Spørreordene på denne siden spør etter <strong>omstendigheter</strong>: <em>når, hvor, hvordan, hvorfor, hvor mye</em>. Svaret er som regel et <strong>adverbial</strong> (se <a href="../../adverbial/">Adverbial</a>). Her ser vi på spørreordene selv, og hvordan svaret bygges.</p><ul><li><span class="dw-de">Wann</span> – tid → <span class="dw-de">Wann beginnt der Film?</span> – <span class="dw-de">Um 20 Uhr.</span></li><li><span class="dw-de">Wo / Wohin / Woher</span> – sted, retning, opphav → <span class="dw-de">Wo wohnst du?</span> – <span class="dw-de">In Bergen.</span></li><li><span class="dw-de">Wie</span> – måte, grad og egenskap → <span class="dw-de">Wie fährst du zur Schule?</span> – <span class="dw-de">Mit dem Bus.</span></li><li><span class="dw-de">Warum</span> – årsak → <span class="dw-de">Warum lernst du Deutsch?</span> – <span class="dw-de">Weil ich gern reise.</span></li></ul><div class="dw-tip">💡 <strong>Svar helst i hele setninger i starten:</strong> <em>Wo wohnst du?</em> – <em>Ich wohne in Bergen.</em> Da øver du på verbet og ordstillingen samtidig.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="tabell">📋 Tabelloversikt</h2>
+  <div class="dw-exp">
+<div class="dw-tbl-wrap"><table class="dw-t" style="min-width:700px"><thead><tr><th>Tysk</th><th>Norsk</th><th>Svar (mønster)</th><th>Eksempel</th></tr></thead><tbody><tr class="dw-grp"><td colspan="4">⏰ Tid</td></tr><tr><td class="dw-f">wann</td><td>når</td><td>am Montag, um acht Uhr, im Juli</td><td><span class="dw-de">Wann hast du Geburtstag?</span></td></tr><tr><td class="dw-f">seit wann</td><td>siden når</td><td>seit + dativ (+ presens)</td><td><span class="dw-de">Seit wann lernst du Deutsch?</span> – <span class="dw-de">Seit zwei Jahren.</span></td></tr><tr><td class="dw-f">bis wann</td><td>til når</td><td>bis + tidspunkt</td><td><span class="dw-de">Bis wann bleibst du?</span> – <span class="dw-de">Bis Freitag.</span></td></tr><tr><td class="dw-f">wie lange</td><td>hvor lenge</td><td>drei Tage (lang), eine Stunde</td><td><span class="dw-de">Wie lange dauert der Film?</span> – <span class="dw-de">Zwei Stunden.</span></td></tr><tr><td class="dw-f">wie oft</td><td>hvor ofte</td><td>jeden Tag, zweimal pro Woche, nie</td><td><span class="dw-de">Wie oft gehst du schwimmen?</span></td></tr><tr><td class="dw-f">wie spät</td><td>hvor sent (klokka)</td><td>Es ist halb drei.</td><td><span class="dw-de">Wie spät ist es?</span></td></tr><tr class="dw-grp"><td colspan="4">📍 Sted</td></tr><tr><td class="dw-f">wo</td><td>hvor (sted, ro)</td><td>in, auf, an + dativ</td><td><span class="dw-de">Wo bist du?</span> – <span class="dw-de">In der Schule.</span></td></tr><tr><td class="dw-f">wohin</td><td>hvor … hen (retning)</td><td>nach, zu, in + akkusativ</td><td><span class="dw-de">Wohin gehst du?</span> – <span class="dw-de">Nach Hause.</span></td></tr><tr><td class="dw-f">woher</td><td>hvor … fra (opphav)</td><td>aus, von + dativ</td><td><span class="dw-de">Woher kommst du?</span> – <span class="dw-de">Aus Norwegen.</span></td></tr><tr><td class="dw-f">wie weit</td><td>hvor langt</td><td>fünf Kilometer</td><td><span class="dw-de">Wie weit ist es bis zum Bahnhof?</span></td></tr><tr class="dw-grp"><td colspan="4">🎨 Måte og årsak</td></tr><tr><td class="dw-f">wie</td><td>hvordan</td><td>adverb, mit + dativ</td><td><span class="dw-de">Wie fährst du?</span> – <span class="dw-de">Mit dem Rad.</span></td></tr><tr><td class="dw-f">warum</td><td>hvorfor</td><td>weil + verb sist</td><td><span class="dw-de">Warum bist du müde?</span> – <span class="dw-de">Weil ich wenig geschlafen habe.</span></td></tr><tr class="dw-grp"><td colspan="4">🔢 Mengde og egenskap</td></tr><tr><td class="dw-f">wie viel</td><td>hvor mye (entall)</td><td>ett tall eller en mengde</td><td><span class="dw-de">Wie viel kostet das?</span> – <span class="dw-de">Fünf Euro.</span></td></tr><tr><td class="dw-f">wie viele</td><td>hvor mange (flertall)</td><td>tall + flertall</td><td><span class="dw-de">Wie viele Geschwister hast du?</span></td></tr><tr><td class="dw-f">wie alt</td><td>hvor gammel</td><td>Ich bin 14 (Jahre alt).</td><td><span class="dw-de">Wie alt bist du?</span></td></tr><tr><td class="dw-f">wie groß</td><td>hvor stor / høy</td><td>Ich bin 1,70 m groß.</td><td><span class="dw-de">Wie groß ist er?</span></td></tr></tbody></table></div><h3 style="margin-top:14px">«Hvorfor» har flere ord</h3><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th>Tysk</th><th>Stil</th><th>Merknad</th></tr></thead><tbody><tr><td class="dw-f">warum</td><td>vanligst, nøytral</td><td>Brukes alltid og overalt: <span class="dw-de">Warum kommst du nicht?</span></td></tr><tr><td class="dw-f">wieso</td><td>dagligtale</td><td>Ofte litt overrasket, omtrent «hvordan det?»: <span class="dw-de">Wieso kommst du nicht?</span></td></tr><tr><td class="dw-f">weshalb / weswegen</td><td>litt mer formelt</td><td>Mest i skrift og i høflig tale: <span class="dw-de">Weshalb haben Sie angerufen?</span></td></tr></tbody></table></div><p style="margin-top:8px">Svaret på alle fire starter ofte med <span class="dw-de">weil</span> (verbet kommer sist) eller <span class="dw-de">darum / deshalb</span>. Mer om årsaker: <a href="../../adverbial/kausal/">Kausaladverbial</a>.</p><h3 style="margin-top:14px">Faste samtalespørsmål med wie</h3><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th>Tysk</th><th>Norsk</th><th>Svar</th></tr></thead><tbody><tr><th><span class="dw-de">Wie heißt du?</span></th><td>Hva heter du?</td><td><span class="dw-de">Ich heiße Mia.</span></td></tr><tr><th><span class="dw-de">Wie geht’s?</span></th><td>Hvordan går det?</td><td><span class="dw-de">Gut, danke. Und dir?</span></td></tr><tr><th><span class="dw-de">Wie war’s?</span></th><td>Hvordan var det?</td><td><span class="dw-de">Es war toll!</span></td></tr><tr><th><span class="dw-de">Wie bitte?</span></th><td>Hva sa du? / Hva behager?</td><td>(be om å få høre det igjen)</td></tr><tr><th><span class="dw-de">Wie schreibt man das?</span></th><td>Hvordan skriver man det?</td><td><span class="dw-de">Mit zwei n.</span></td></tr><tr><th><span class="dw-de">Wie komme ich zum Bahnhof?</span></th><td>Hvordan kommer jeg til stasjonen?</td><td><span class="dw-de">Gehen Sie geradeaus.</span></td></tr></tbody></table></div>
+  </div>
+
+  <h2 class="dw-sec-title" id="wenn">⏰ Wann eller wenn?</h2>
+  <div class="dw-exp">
+<p>Både <strong>wann</strong> og <strong>wenn</strong> kan oversettes med «når», men de gjør helt ulike jobber:</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th></th><th>Hva er det?</th><th>Eksempel</th></tr></thead><tbody><tr><td class="dw-f">wann</td><td>spørreord (spørsmål og indirekte spørsmål)</td><td><span class="dw-de">Wann kommst du?</span> · <span class="dw-de">Ich weiß nicht, wann er kommt.</span></td></tr><tr><td class="dw-f">wenn</td><td>konjunksjon: «når (hver gang)» eller «hvis»</td><td><span class="dw-de">Wenn ich Zeit habe, rufe ich an.</span></td></tr></tbody></table></div><div class="dw-tip">💡 <strong>Test:</strong> Kan du sette inn «hvis» eller «hver gang», er det <em>wenn</em>. Spør du etter et <em>tidspunkt</em>, er det <em>wann</em>. Mer om <em>wenn</em> og <em>als</em>: <a href="../../adverbial/konditional/">Konditionaladverbial</a> og <a href="../../konjunksjoner/">Konjunksjoner</a>.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="viel">🔢 Wie viel eller wie viele?</h2>
+  <div class="dw-exp">
+<p><strong>Wie viel</strong> bruker du om noe du <em>ikke teller</em> (entall): tid, penger, vann. <strong>Wie viele</strong> bruker du om noe du <em>teller</em> (flertall): søsken, elever, flasker.</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th></th><th>Bruk</th><th>Eksempel</th></tr></thead><tbody><tr><td class="dw-f">wie viel</td><td>ikke tellbart / pris</td><td><span class="dw-de">Wie viel Zeit hast du?</span> · <span class="dw-de">Wie viel Wasser brauchst du?</span> · <span class="dw-de">Wie viel kostet das?</span></td></tr><tr><td class="dw-f">wie viele</td><td>tellbart (flertall)</td><td><span class="dw-de">Wie viele Geschwister hast du?</span> · <span class="dw-de">Wie viele Schüler sind in deiner Klasse?</span></td></tr></tbody></table></div><div class="dw-tip dw-blue">ℹ️ <strong>Norsk:</strong> «hvor mye» = <em>wie viel</em>, «hvor mange» = <em>wie viele</em>. Samme skille som på norsk – bare to ord på tysk som ligner hverandre. Husk <em>-e</em> på <em>viele</em> når du teller.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="norsk">🇳🇴 Sammenligning med norsk</h2>
+  <div class="dw-exp">
+<div class="dw-cmp"><div><b class="dw-lang">Norsk</b><strong>Hvor</strong> bor du?<br><strong>Hvor</strong> skal du?<br><strong>Hvor</strong> kommer du fra?<br><strong>Hvor</strong> gammel er du?</div><div><b class="dw-lang">Tysk</b><strong>Wo</strong> wohnst du?<br><strong>Wohin</strong> gehst du?<br><strong>Woher</strong> kommst du?<br><strong>Wie</strong> alt bist du?</div></div><ul><li><strong>Norsk «hvor» = wo, wohin eller woher.</strong> Tysk skiller mellom sted (<em>wo</em>), retning (<em>wohin</em>) og opphav (<em>woher</em>): <span class="dw-de">Wo gehst du?</span> er feil, du må spørre <span class="dw-de">Wohin gehst du?</span></li><li><strong>«Hvor + adjektiv» = wie + adjektiv.</strong> <span class="dw-no">hvor gammel</span> = <span class="dw-de">wie alt</span>, <span class="dw-no">hvor stor</span> = <span class="dw-de">wie groß</span>, <span class="dw-no">hvor lenge</span> = <span class="dw-de">wie lange</span>, <span class="dw-no">hvor ofte</span> = <span class="dw-de">wie oft</span>, <span class="dw-no">hvor mange</span> = <span class="dw-de">wie viele</span>.</li><li><strong>«hvordan» = wie,</strong> ikke «wo»: <span class="dw-de">Wie heißt du?</span> (ikke «was»).</li><li><strong>«når» = wann</strong> i spørsmål. I leddsetninger kan norsk «når» bli <span class="dw-de">wenn</span> eller <span class="dw-de">als</span> – se under.</li><li><strong>«hvorfor» = warum</strong> (også wieso, weshalb, weswegen). Norsk har bare ett ord.</li><li><strong>Samme opphav:</strong> norsk <em>hv-</em> = tysk <em>w-</em> (hvor – wo, hvordan – wie, hvorfor – warum).</li></ul>
+  </div>
+
+  <h2 class="dw-sec-title" id="skriving">✍️ Bruk i samtaler og intervju</h2>
+  <div class="dw-exp">
+<div class="dw-tbl-wrap"><table class="dw-t" style="min-width:480px"><thead><tr><th>Spørsmål</th><th>Svar</th></tr></thead><tbody><tr><th><span class="dw-de">Wie heißt du?</span></th><td><span class="dw-de">Ich heiße Mia.</span></td></tr><tr><th><span class="dw-de">Wie alt bist du?</span></th><td><span class="dw-de">Ich bin vierzehn (Jahre alt).</span></td></tr><tr><th><span class="dw-de">Wo wohnst du?</span></th><td><span class="dw-de">Ich wohne in Trondheim.</span></td></tr><tr><th><span class="dw-de">Woher kommst du?</span></th><td><span class="dw-de">Ich komme aus Norwegen.</span></td></tr><tr><th><span class="dw-de">Seit wann lernst du Deutsch?</span></th><td><span class="dw-de">Ich lerne seit zwei Jahren Deutsch.</span></td></tr><tr><th><span class="dw-de">Wie oft hast du Deutsch?</span></th><td><span class="dw-de">Dreimal pro Woche.</span></td></tr><tr><th><span class="dw-de">Warum lernst du Deutsch?</span></th><td><span class="dw-de">Weil ich gern reise.</span></td></tr></tbody></table></div><ul><li><strong>Intervju:</strong> Skriv 5–7 spørsmål til en klassekamerat eller en kjent person og bruk ulike spørreord. Det gjør intervjuet levende.</li><li><strong>Samtale og rollespill:</strong> I butikken: <span class="dw-de">Wie viel kostet das?</span> På stasjonen: <span class="dw-de">Wann fährt der Zug nach Berlin? Von welchem Gleis?</span> På kafé: <span class="dw-de">Wie viel kostet der Kaffee?</span></li><li><strong>Presentasjon:</strong> Start gjerne med et spørsmål til publikum: <span class="dw-de">Wisst ihr, wie viele Menschen in Berlin wohnen?</span> (indirekte spørsmål – se <a href="../ordstilling/">Ordstilling</a>).</li><li><strong>Veibeskrivelse:</strong> <span class="dw-de">Wo ist der Bahnhof? Wie komme ich dorthin?</span> Se også <a href="../../adverbial/lokal/">Lokaladverbial</a>.</li><li><strong>Tidsspørsmål:</strong> Svarene på <span class="dw-de">wann / wie oft / wie lange</span> er tidsuttrykk – se <a href="../../adverbial/temporal/">Temporaladverbial</a>. Svaret på <span class="dw-de">wozu</span> (til hvilket formål) er et formål: <a href="../../adverbial/final/">Finaladverbial</a>.</li></ul>
+  </div>
+
+  <p class="dw-see-also"><strong>Se også:</strong> <a href="../">Spørreord (oversikt)</a> · <a href="../wer-was/">Wer, was, wen, wem, wessen</a> · <a href="../welcher-was-fuer/">Welcher og was für ein</a> · <a href="../ordstilling/">Ordstilling i spørsmål</a> · <a href="../wo-woerter/">Wo(r)- og da(r)-ord: womit, damit …</a> · <a href="../../adverbial/">Adverbial</a> · <a href="../../pronomen/personlig/">Personlig pronomen</a></p>
+
+  <h2 class="dw-sec-title" id="ovelser">🎯 Øvelser</h2>
+  <div class="dw-ex-card" id="dw-ex">
+    <div id="dw-ex-play">
+      <div class="dw-ex-top"><span id="dw-ex-count"></span><span id="dw-ex-score-live"></span></div>
+      <div class="dw-ex-bar"><div class="dw-ex-fill" id="dw-ex-fill"></div></div>
+      <div class="dw-ex-cue" id="dw-ex-cue"></div>
+      <div class="dw-ex-sent" id="dw-ex-sent"></div>
+      <div class="dw-ex-choices" id="dw-ex-choices" role="group" aria-label="Svaralternativer"></div>
+      <button type="button" class="dw-ex-hintbtn" id="dw-ex-hintbtn">💡 Vis hint</button>
+      <div class="dw-ex-fb" id="dw-ex-fb" aria-live="polite"></div>
+      <button type="button" class="dw-ex-btn" id="dw-ex-next" style="display:none">Neste →</button>
+    </div>
+    <div class="dw-ex-result" id="dw-ex-result">
+      <h3 style="margin:0;font-family:'Baloo 2',sans-serif;font-size:1.4rem">Ferdig! 🎉</h3>
+      <div class="dw-ex-score" id="dw-ex-final"></div>
+      <p id="dw-ex-msg"></p>
+      <div class="dw-ex-review" id="dw-ex-review"></div>
+      <button type="button" class="dw-ex-btn dw-gold" id="dw-ex-restart">🔁 Spill på nytt</button>
+    </div>
+  </div>
+
+</div>
+<script>
+var DWQ = [
+ {
+  "s": "___ wohnst du? – In Bergen.",
+  "cue": "sted",
+  "a": "Wo",
+  "c": [
+   "Wo",
+   "Wohin",
+   "Woher"
+  ],
+  "e": "Sted (ro) → wo. «In Bergen» svarer på wo.",
+  "h": "Ro = wo."
+ },
+ {
+  "s": "___ gehst du? – Nach Hause.",
+  "cue": "retning",
+  "a": "Wohin",
+  "c": [
+   "Wohin",
+   "Wo",
+   "Woher"
+  ],
+  "e": "Bevegelse mot et mål → wohin.",
+  "h": "Retning = wohin."
+ },
+ {
+  "s": "___ kommst du? – Aus Norwegen.",
+  "cue": "opphav",
+  "a": "Woher",
+  "c": [
+   "Woher",
+   "Wo",
+   "Wohin"
+  ],
+  "e": "Opphav, «hvor fra» → woher.",
+  "h": "Fra = woher."
+ },
+ {
+  "s": "Wie ___ Geschwister hast du?",
+  "cue": "hvor mange",
+  "a": "viele",
+  "c": [
+   "viele",
+   "viel",
+   "vielen"
+  ],
+  "e": "Geschwister er flertall og tellbart → wie viele.",
+  "h": "Tellbart flertall."
+ },
+ {
+  "s": "Wie ___ Zeit hast du heute?",
+  "cue": "hvor mye",
+  "a": "viel",
+  "c": [
+   "viel",
+   "viele",
+   "vielen"
+  ],
+  "e": "Zeit er ikke tellbart (entall) → wie viel.",
+  "h": "Ikke tellbart."
+ },
+ {
+  "s": "___ bist du so müde? – Weil ich schlecht geschlafen habe.",
+  "cue": "hvorfor",
+  "a": "Warum",
+  "c": [
+   "Warum",
+   "Wann",
+   "Wohin"
+  ],
+  "e": "Svaret med «weil» gir en årsak → warum.",
+  "h": "Årsak = warum."
+ },
+ {
+  "s": "___ lernst du Deutsch? – Seit zwei Jahren.",
+  "cue": "siden når",
+  "a": "Seit wann",
+  "c": [
+   "Seit wann",
+   "Bis wann",
+   "Wie oft"
+  ],
+  "e": "«Seit zwei Jahren» svarer på seit wann.",
+  "h": "Siden = seit."
+ },
+ {
+  "s": "___ ist das Geschäft geöffnet? – Bis 18 Uhr.",
+  "cue": "til når",
+  "a": "Bis wann",
+  "c": [
+   "Bis wann",
+   "Seit wann",
+   "Wie viele"
+  ],
+  "e": "«Bis 18 Uhr» svarer på bis wann.",
+  "h": "Til = bis."
+ },
+ {
+  "s": "___ gehst du ins Kino? – Einmal im Monat.",
+  "cue": "hvor ofte",
+  "a": "Wie oft",
+  "c": [
+   "Wie oft",
+   "Wie lange",
+   "Wie viele"
+  ],
+  "e": "Hyppighet («einmal im Monat») → wie oft.",
+  "h": "Hyppighet."
+ },
+ {
+  "s": "Wie ___ ist es? – Es ist halb drei.",
+  "cue": "klokka",
+  "a": "spät",
+  "c": [
+   "spät",
+   "alt",
+   "groß"
+  ],
+  "e": "«Wie spät ist es?» = Hva er klokka?",
+  "h": "Klokka = spät."
+ },
+ {
+  "s": "Ich weiß nicht, ___ er kommt. (Når kommer han?)",
+  "cue": "indirekte spørsmål om tid",
+  "a": "wann",
+  "c": [
+   "wann",
+   "wenn",
+   "als"
+  ],
+  "e": "Indirekte spørsmål om tidspunkt → wann (ikke wenn).",
+  "h": "Tidspunkt-spørsmål → wann."
+ },
+ {
+  "s": "___ ich Zeit habe, rufe ich dich an. (hver gang)",
+  "cue": "«når» = hver gang",
+  "a": "Wenn",
+  "c": [
+   "Wenn",
+   "Wann",
+   "Wie"
+  ],
+  "e": "Her er «når» en konjunksjon (hver gang/hvis) → wenn.",
+  "h": "Konjunksjon, ikke spørsmål."
+ },
+ {
+  "s": "Wie ___ du? – Ich heiße Lena.",
+  "cue": "hva heter du",
+  "a": "heißt",
+  "c": [
+   "heißt",
+   "heißen",
+   "heiße"
+  ],
+  "e": "Etter «du» står verbet i 2. person entall: heißt.",
+  "h": "du → -st/-t."
+ },
+ {
+  "s": "Wie ___ ist dein Bruder? – Er ist 1,80 m.",
+  "cue": "hvor høy",
+  "a": "groß",
+  "c": [
+   "groß",
+   "alt",
+   "spät"
+  ],
+  "e": "Høyde/størrelse → wie groß.",
+  "h": "Høyde = groß."
+ }
+];
+
+(function(){
+  var ALL = DWQ, Q = [], i = 0, score = 0, done = false, missed = [];
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function shuffle(a){ a = a.slice(); for(var k = a.length - 1; k > 0; k--){ var j = Math.floor(Math.random() * (k + 1)); var t = a[k]; a[k] = a[j]; a[j] = t; } return a; }
+  var $ = function(id){ return document.getElementById(id); };
+  function start(){
+    Q = shuffle(ALL); i = 0; score = 0; missed = [];
+    $('dw-ex-play').style.display = 'block'; $('dw-ex-result').classList.remove('dw-show');
+    render();
+  }
+  function render(){
+    var q = Q[i]; done = false;
+    $('dw-ex-count').textContent = 'Oppgave ' + (i + 1) + ' av ' + Q.length;
+    $('dw-ex-score-live').textContent = 'Poeng: ' + score;
+    $('dw-ex-fill').style.width = (i / Q.length * 100) + '%';
+    $('dw-ex-cue').textContent = q.cue || '';
+    $('dw-ex-sent').innerHTML = esc(q.s).replace('___', '<span class="dw-blank" id="dw-ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;</span>');
+    $('dw-ex-choices').innerHTML = shuffle(q.c).map(function(c){ return '<button type="button" class="dw-ex-choice" data-v="' + esc(c) + '">' + esc(c) + '</button>'; }).join('');
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb'; fb.innerHTML = '';
+    $('dw-ex-hintbtn').style.display = 'inline'; $('dw-ex-next').style.display = 'none';
+  }
+  $('dw-ex-choices').addEventListener('click', function(e){
+    var b = e.target.closest('.dw-ex-choice'); if(!b || done) return;
+    done = true; var q = Q[i], v = b.getAttribute('data-v'), ok = v === q.a;
+    document.querySelectorAll('.dw-ex-choice').forEach(function(x){
+      x.disabled = true;
+      if(x.getAttribute('data-v') === q.a) x.classList.add('dw-correct');
+    });
+    if(!ok) b.classList.add('dw-wrong');
+    var bl = $('dw-ex-blank'); bl.textContent = q.a; bl.classList.add('dw-filled'); if(!ok) bl.classList.add('dw-bad');
+    if(ok) score++; else missed.push(q);
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb dw-show ' + (ok ? 'dw-good' : 'dw-bad');
+    fb.innerHTML = (ok ? '✅ Riktig! ' : '❌ Riktig svar er <b>' + esc(q.a) + '</b>. ') + esc(q.e);
+    $('dw-ex-hintbtn').style.display = 'none';
+    $('dw-ex-score-live').textContent = 'Poeng: ' + score;
+    var nx = $('dw-ex-next'); nx.style.display = 'inline-block'; nx.textContent = (i === Q.length - 1) ? 'Se resultatet →' : 'Neste →'; nx.focus();
+  });
+  $('dw-ex-hintbtn').addEventListener('click', function(){
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb dw-show'; fb.innerHTML = '💡 ' + esc(Q[i].h);
+  });
+  $('dw-ex-next').addEventListener('click', function(){
+    if(i < Q.length - 1){ i++; render(); return; }
+    $('dw-ex-play').style.display = 'none'; $('dw-ex-result').classList.add('dw-show');
+    $('dw-ex-final').textContent = score + ' / ' + Q.length;
+    var pct = score / Q.length;
+    $('dw-ex-msg').textContent = pct === 1 ? 'Perfekt — ingen feil!' : pct >= 0.75 ? 'Veldig bra! Les gjennom de få feilene under.' : pct >= 0.5 ? 'Greit på vei — se på tabellene og prøv igjen.' : 'Les forklaringen en gang til, og prøv på nytt.';
+    $('dw-ex-review').innerHTML = missed.length ? '<b>Dette bør du se på igjen:</b><ul>' + missed.map(function(q){ return '<li>' + esc(q.s).replace('___', '<b>' + esc(q.a) + '</b>') + ' — ' + esc(q.e) + '</li>'; }).join('') + '</ul>' : '🎉 Du hadde alt riktig!';
+    $('dw-ex-fill').style.width = '100%';
+  });
+  $('dw-ex-restart').addEventListener('click', start);
+  start();
+})();
+</script>
+</body>
+</html>

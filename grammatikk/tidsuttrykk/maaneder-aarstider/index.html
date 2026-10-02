@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Grammatikk: "Måneder, årstider og dato" (tidsuttrykk/maaneder-aarstider/)
+  Måneder og årstider (im Mai, im Sommer), dato (Der Wievielte ist heute?, am 3. Mai), ordenstall, skrivemåter, årstall, sammenligning med norsk, skriving og øvelser.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Måneder, årstider og dato · Tidsuttrykk · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:860px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .dw-jump a{font-size:.86rem;font-weight:700;padding:7px 15px;border-radius:999px;text-decoration:none;background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:32px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t tbody th{background:#fbfaf6;font-size:.84rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t td.dw-hl{background:#fff3cf;}
+  .dw-t td.dw-c{text-align:center;}
+  .dw-t td.dw-x{color:#aaa;text-align:center;}
+  .dw-t tr.dw-grp td,.dw-t tr.dw-grp th{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:14px 0;}
+  a.dw-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;text-decoration:none;color:var(--dw-text);box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;gap:6px;}
+  a.dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  a.dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  a.dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
+
+  /* Øvelser */
+  .dw-ex-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+  .dw-ex-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:8px;}
+  .dw-ex-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:16px;}
+  .dw-ex-fill{height:100%;width:0;background:var(--dw-good);transition:width .25s ease;}
+  .dw-ex-cue{font-size:.88rem;color:var(--dw-muted);margin-bottom:4px;}
+  .dw-ex-sent{font-size:1.3rem;font-weight:600;color:var(--dw-primary);line-height:1.5;margin:2px 0 18px;}
+  .dw-ex-sent .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);text-align:center;}
+  .dw-ex-sent .dw-blank.dw-filled{color:var(--dw-good);border-color:var(--dw-good);}
+  .dw-ex-sent .dw-blank.dw-filled.dw-bad{color:var(--dw-bad);border-color:var(--dw-bad);}
+  .dw-ex-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .dw-ex-choice{flex:1 1 110px;max-width:170px;padding:12px 8px;font-family:inherit;font-size:1.1rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;}
+  .dw-ex-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-ex-choice:disabled{cursor:default;opacity:.55;}
+  .dw-ex-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-ex-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .dw-ex-choice:focus-visible,.dw-ex-btn:focus-visible,.dw-ex-hintbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-ex-hintbtn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:.85rem;padding:0;margin-bottom:8px;}
+  .dw-ex-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:10px 14px;margin:6px 0 14px;background:#f4f1e8;}
+  .dw-ex-fb.dw-show{display:block;}
+  .dw-ex-fb.dw-good{background:#eef7ee;color:#1f5d23;}
+  .dw-ex-fb.dw-bad{background:#fdecee;color:#8c1d1d;}
+  .dw-ex-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:11px 26px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .dw-ex-btn:hover{background:var(--dw-primary-light);}
+  .dw-ex-btn.dw-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-ex-result{display:none;text-align:center;}
+  .dw-ex-result.dw-show{display:block;}
+  .dw-ex-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .dw-ex-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:12px 18px;margin:14px 0;font-size:.9rem;}
+  .dw-ex-review li{margin-bottom:6px;}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .dw-ex-sent{font-size:1.12rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>🗓️ Måneder, årstider og dato</h1>
+    <p>Januar bis Dezember — måneder, årstider og dato</p>
+  </div>
+
+  <p class="dw-crumb"><a href="../../">🧩 Grammatik</a> → <a href="../">Tidsuttrykk</a> → Måneder, årstider og dato</p>
+
+  <div class="dw-jump">
+    <a href="#hva">📌 Måneder og årstider</a><a href="#tabell">📋 Dato</a><a href="#aar">🔢 Årstall</a><a href="#norsk">🇳🇴 Sammenligning med norsk</a><a href="#skriving">✍️ I skriving</a><a href="#ovelser">🎯 Øvelser</a>
+  </div>
+
+  <h2 class="dw-sec-title" id="hva">📌 Månedene og årstidene</h2>
+  <div class="dw-exp">
+<p>Alle måneder er <strong>maskuline</strong> og skrives med <strong>stor bokstav</strong> (norsk bruker liten): <span class="dw-de">der Januar, im Januar</span>. På «i mai» sier du <span class="dw-de">im Mai</span> (in + dem).</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th>Norsk</th><th>Tysk</th><th>i …</th><th>Merknad</th></tr></thead><tbody><tr><th>januar</th><td><span class="dw-de">der Januar</span></td><td><span class="dw-de">im Januar</span></td><td>I Østerrike også <em>Jänner</em></td></tr><tr><th>februar</th><td><span class="dw-de">der Februar</span></td><td><span class="dw-de">im Februar</span></td><td></td></tr><tr><th>mars</th><td><span class="dw-de">der März</span></td><td><span class="dw-de">im März</span></td><td>med <strong>ä</strong></td></tr><tr><th>april</th><td><span class="dw-de">der April</span></td><td><span class="dw-de">im April</span></td><td></td></tr><tr><th>mai</th><td><span class="dw-de">der Mai</span></td><td><span class="dw-de">im Mai</span></td><td></td></tr><tr><th>juni</th><td><span class="dw-de">der Juni</span></td><td><span class="dw-de">im Juni</span></td><td>sies ofte «Juno» for å skille fra juli</td></tr><tr><th>juli</th><td><span class="dw-de">der Juli</span></td><td><span class="dw-de">im Juli</span></td><td>sies ofte «Julei»</td></tr><tr><th>august</th><td><span class="dw-de">der August</span></td><td><span class="dw-de">im August</span></td><td></td></tr><tr><th>september</th><td><span class="dw-de">der September</span></td><td><span class="dw-de">im September</span></td><td></td></tr><tr><th>oktober</th><td><span class="dw-de">der Oktober</span></td><td><span class="dw-de">im Oktober</span></td><td></td></tr><tr><th>november</th><td><span class="dw-de">der November</span></td><td><span class="dw-de">im November</span></td><td></td></tr><tr><th>desember</th><td><span class="dw-de">der Dezember</span></td><td><span class="dw-de">im Dezember</span></td><td>med <strong>z</strong></td></tr></tbody></table></div><p style="margin-top:8px">Begynnelsen, midten og slutten av en måned: <span class="dw-de">Anfang Mai</span>, <span class="dw-de">Mitte Juli</span>, <span class="dw-de">Ende August</span> (uten preposisjon). Ordene for «måned» og «år»: <span class="dw-de">der Monat</span>, <span class="dw-de">das Jahr</span>.</p><h3 style="margin-top:12px">Årstidene (die Jahreszeiten)</h3><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th>Norsk</th><th>Tysk</th><th>i …</th><th>Månedene (meteorologisk)</th></tr></thead><tbody><tr><th>vår</th><td><span class="dw-de">der Frühling</span> <span class="dw-no">(også: das Frühjahr)</span></td><td><span class="dw-de">im Frühling</span></td><td>mars–mai</td></tr><tr><th>sommer</th><td><span class="dw-de">der Sommer</span></td><td><span class="dw-de">im Sommer</span></td><td>juni–august</td></tr><tr><th>høst</th><td><span class="dw-de">der Herbst</span></td><td><span class="dw-de">im Herbst</span></td><td>september–november</td></tr><tr><th>vinter</th><td><span class="dw-de">der Winter</span></td><td><span class="dw-de">im Winter</span></td><td>desember–februar</td></tr></tbody></table></div><p style="margin-top:8px">Alle fire er maskuline. Vil du si «i fjor sommer» eller «til sommeren», bruker du <span class="dw-de">letzten Sommer</span> og <span class="dw-de">nächsten Sommer</span> (akkusativ, uten preposisjon). «Hver vinter» er <span class="dw-de">jeden Winter</span>. For «i sommer» sier du <span class="dw-de">diesen Sommer</span> eller <span class="dw-de">im Sommer</span>.</p>
+  </div>
+
+  <h2 class="dw-sec-title" id="tabell">📋 Datoen: spørre, ordenstall og skrivemåter</h2>
+  <div class="dw-exp">
+<h3>Datoen: Der Wievielte ist heute?</h3><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th>Spørsmål</th><th>Svar</th></tr></thead><tbody><tr><td class="dw-f">Der Wievielte ist heute?</td><td><span class="dw-de">Heute ist der 3. Mai.</span><br><span class="dw-no">lest: der dritte Mai</span></td></tr><tr><td class="dw-f">Den Wievielten haben wir heute?</td><td><span class="dw-de">Heute haben wir den 3. Mai.</span><br><span class="dw-no">lest: den dritten Mai</span></td></tr><tr><td class="dw-f">Welches Datum haben wir heute?</td><td><span class="dw-de">Heute ist der 3. Mai.</span></td></tr><tr><td class="dw-f">Wann hast du Geburtstag?</td><td><span class="dw-de">Ich habe am 5. Mai Geburtstag. / Am 5. Mai.</span><br><span class="dw-no">lest: am fünften Mai</span></td></tr><tr><td class="dw-f">Wann ist dein Geburtstag?</td><td><span class="dw-de">Mein Geburtstag ist am 5. Mai.</span></td></tr><tr><td class="dw-f">Wann bist du geboren?</td><td><span class="dw-de">Ich bin am 5. Mai 2012 geboren. / Ich bin 2012 geboren.</span></td></tr></tbody></table></div><div class="dw-tip">💡 <strong>Husk punktum:</strong> På tysk skriver du ordenstall med punktum: <em>der 3. Mai</em>. Du leser det alltid som ordenstall: «am 3. Mai» sies <em>am dritten Mai</em>.</div><h3 style="margin-top:14px">Ordenstall i datoer</h3><p>1.–19. får <strong>-te</strong>, fra 20. får de <strong>-ste</strong>. Fire er uregelmessige: <em>erste, dritte, siebte, achte</em>. Etter «am» får de <strong>-n</strong> (dativ): <em>am ersten Mai</em>. (Flere ordenstall finner du på <a href="../../zahlen/#orden">Zahlen-siden</a>.)</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:520px"><thead><tr><th>Skrevet</th><th>Nominativ: der …</th><th>Dativ: am …</th></tr></thead><tbody><tr><th>1.</th><td><span class="dw-de">der erste</span></td><td><span class="dw-de">am ersten</span></td></tr><tr><th>2.</th><td><span class="dw-de">der zweite</span></td><td><span class="dw-de">am zweiten</span></td></tr><tr><th>3.</th><td><span class="dw-de">der dritte</span></td><td><span class="dw-de">am dritten</span></td></tr><tr><th>7.</th><td><span class="dw-de">der siebte</span></td><td><span class="dw-de">am siebten</span></td></tr><tr><th>8.</th><td><span class="dw-de">der achte</span></td><td><span class="dw-de">am achten</span></td></tr><tr><th>12.</th><td><span class="dw-de">der zwölfte</span></td><td><span class="dw-de">am zwölften</span></td></tr><tr><th>20.</th><td><span class="dw-de">der zwanzigste</span></td><td><span class="dw-de">am zwanzigsten</span></td></tr><tr><th>21.</th><td><span class="dw-de">der einundzwanzigste</span></td><td><span class="dw-de">am einundzwanzigsten</span></td></tr><tr><th>31.</th><td><span class="dw-de">der einunddreißigste</span></td><td><span class="dw-de">am einunddreißigsten</span></td></tr></tbody></table></div><h3 style="margin-top:14px">Skrivemåter</h3><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:620px"><thead><tr><th>Måte</th><th>Eksempel</th><th>Bruk</th></tr></thead><tbody><tr><th>Med måned i ord</th><td><span class="dw-de">3. Mai 2026</span></td><td>brev, tekster, invitasjoner. Punktum etter dagen, stor M</td></tr><tr><th>Kort (dag.måned.år)</th><td><span class="dw-de">03.05.2026</span> / <span class="dw-de">3.5.2026</span></td><td>skjemaer, tabeller. Rekkefølgen er lik norsk</td></tr><tr><th>I kalenderen</th><td><span class="dw-de">Sonntag, der 3. Mai 2026</span> / <span class="dw-de">Sonntag, den 3. Mai</span></td><td>ukedag + dato</td></tr><tr><th>Brevhode</th><td><span class="dw-de">Hamburg, den 3. Mai 2026</span> / <span class="dw-de">Hamburg, 3. Mai 2026</span></td><td>sted og dato øverst til høyre</td></tr><tr><th>ISO (teknisk)</th><td><span class="dw-de">2026-05-03</span></td><td>filer og data. Rekkefølgen er år–måned–dag</td></tr></tbody></table></div><div class="dw-tip dw-warn">⚠️ <strong>Ikke bland med amerikansk dato!</strong> «5/3/2026» er 3. mai i USA, men 5. mars i Tyskland og Norge. Skriv heller måneden med ord.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="aar">🔢 Årstall</h2>
+  <div class="dw-exp">
+<p>Årstall sies som «hundre-tall» fram til 1999, og som vanlige tall fra 2000:</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:480px"><thead><tr><th>Årstall</th><th>Tysk</th></tr></thead><tbody><tr><th>1900</th><td><span class="dw-de">neunzehnhundert</span></td></tr><tr><th>1989</th><td><span class="dw-de">neunzehnhundertneunundachtzig</span></td></tr><tr><th>1999</th><td><span class="dw-de">neunzehnhundertneunundneunzig</span></td></tr><tr><th>2000</th><td><span class="dw-de">zweitausend</span></td></tr><tr><th>2005</th><td><span class="dw-de">zweitausendfünf</span></td></tr><tr><th>2026</th><td><span class="dw-de">zweitausendsechsundzwanzig</span></td></tr></tbody></table></div><ul><li><strong>Kort sagt:</strong> Du kan si <span class="dw-de">im Jahr 2026</span> eller bare <span class="dw-de">2026</span>: <span class="dw-de">Ich bin 2012 geboren.</span> Unngå «in 2026» (engelsk påvirkning).</li><li><strong>Århundre og tiår:</strong> <span class="dw-de">im 20. Jahrhundert</span> (på 1900-tallet), <span class="dw-de">in den Neunzigern</span> (på 90-tallet).</li><li><strong>Ikke «und» etter hundert!</strong> Norsk sier «nitten<em>hundre og</em> nittini». Tysk skriver alt sammen uten «und» der: <span class="dw-de">neunzehnhundertneunundneunzig</span>. «und» finnes bare mellom ener og tier (<em>neun-und-neunzig</em>).</li><li>Mer om tall og årstall: <a href="../../zahlen/#aar">Zahlen: årstall</a>.</li></ul>
+  </div>
+
+  <h2 class="dw-sec-title" id="norsk">🇳🇴 Sammenligning med norsk</h2>
+  <div class="dw-exp">
+<div class="dw-cmp"><div><b class="dw-lang">Norsk</b><strong>i</strong> mai, <strong>om</strong> sommeren<br>den 3. mai<br><strong>i</strong> 2026 / <strong>i</strong> år<br>mars, desember (liten bokstav)</div><div><b class="dw-lang">Tysk</b><strong>im</strong> Mai, <strong>im</strong> Sommer<br><strong>am</strong> 3. Mai<br><strong>im Jahr</strong> 2026 / <strong>dieses Jahr</strong><br>März, Dezember (stor bokstav)</div></div><ul><li><strong>Stor bokstav:</strong> Alle måneder og årstider er substantiver på tysk: <span class="dw-de">im Juli</span> (norsk: «i juli»).</li><li><strong>im = in dem:</strong> «i juli» og «om sommeren» blir begge <span class="dw-de">im</span>. Dagen får <span class="dw-de">am</span> (an dem): <span class="dw-de">am 3. Mai</span>. Norsk bruker bare «den 3. mai» uten småord – på tysk kommer «am».</li><li><strong>mars ≠ März</strong> og <strong>desember ≠ Dezember</strong>: bokstavene ä og z skiller seg ut. Resten ligner nesten helt.</li><li><strong>i år / i fjor / neste år:</strong> <span class="dw-de">dieses Jahr</span>, <span class="dw-de">letztes Jahr</span>, <span class="dw-de">nächstes Jahr</span>. «Dieses», «letztes» og «nächstes» passer med nøytrum (<em>das Jahr</em>).</li><li><strong>Ordenstall:</strong> Norsk «tredje» er <span class="dw-de">dritte</span>, «sjuende» er <span class="dw-de">siebte</span>, «åttende» er <span class="dw-de">achte</span>. Fra 20. er endelsen «-ste» (norsk «tjuende»).</li><li><strong>Datoen leses høyt:</strong> Du sier «am dritten Mai», selv om det står «am 3. Mai». Det er som på norsk («tredje mai»).</li></ul>
+  </div>
+
+  <h2 class="dw-sec-title" id="skriving">✍️ Bruk i skriving: Steckbrief, invitasjon, brev og dagbok</h2>
+  <div class="dw-exp">
+<ul><li><strong>Steckbrief (presentasjon):</strong> <span class="dw-de">Ich heiße Nora. Ich bin am 5. Mai 2012 geboren. Mein Geburtstag ist im Frühling.</span></li><li><strong>Invitasjon:</strong> <span class="dw-de">Ich lade dich zu meinem Geburtstag ein! Wann? Am Samstag, den 16. Mai 2026, ab 15 Uhr.</span></li><li><strong>Dagbok med dato:</strong> <span class="dw-de">Montag, der 4. Mai 2026 – Heute war ein langer Tag.</span></li><li><strong>Reisebeskrivelse:</strong> <span class="dw-de">Im Juli waren wir drei Wochen in Italien. Im Sommer ist es dort sehr heiß.</span></li><li><strong>Årstidstekst:</strong> <span class="dw-de">Im Winter schneit es oft. Im Frühling blühen die Blumen. Im Herbst fallen die Blätter.</span></li></ul><h3 style="margin-top:12px">Brevhode med dato</h3><div class="dw-cmp"><div><b class="dw-lang">Uformelt brev</b><span class="dw-de">Oslo, den 3. Mai 2026</span><br><br>Liebe Anna,<br>wie geht es dir?<br>…<br>Viele Grüße<br>Nora</div><div><b class="dw-lang">Tips</b>• Sted og dato står øverst til høyre.<br>• «den» er akkusativ: <em>den 3. Mai</em> (det går også uten: <em>Oslo, 3. Mai 2026</em>).<br>• Månedsnavnet har stor bokstav.<br>• Hilsen: <em>Viele Grüße</em> / <em>Liebe Grüße</em>.</div></div><div class="dw-tip">💡 <strong>Plassering:</strong> Åpner du setningen med tiden, kommer verbet på plass to: <span class="dw-de">Im Sommer fahren wir nach Italien.</span> – ikke «Im Sommer wir fahren …». Mer om Wann?-uttrykk: <a href="../../adverbial/temporal/">Temporaladverbial</a>.</div>
+  </div>
+
+  <p class="dw-see-also"><strong>Se også:</strong> <a href="../">Tidsuttrykk (oversikt)</a> · <a href="../klokka/">Klokka</a> · <a href="../ukedager/">Ukedager og tider på dagen</a> · <a href="../tidsord/">Tidsord og tekstbinding</a> · <a href="../../zahlen/#orden">Zahlen: ordenstall</a> · <a href="../../adverbial/temporal/">Adverbial: Temporal</a> · <a href="../../zahlen/">Zahlen</a></p>
+
+  <h2 class="dw-sec-title" id="ovelser">🎯 Øvelser</h2>
+  <div class="dw-ex-card" id="dw-ex">
+    <div id="dw-ex-play">
+      <div class="dw-ex-top"><span id="dw-ex-count"></span><span id="dw-ex-score-live"></span></div>
+      <div class="dw-ex-bar"><div class="dw-ex-fill" id="dw-ex-fill"></div></div>
+      <div class="dw-ex-cue" id="dw-ex-cue"></div>
+      <div class="dw-ex-sent" id="dw-ex-sent"></div>
+      <div class="dw-ex-choices" id="dw-ex-choices" role="group" aria-label="Svaralternativer"></div>
+      <button type="button" class="dw-ex-hintbtn" id="dw-ex-hintbtn">💡 Vis hint</button>
+      <div class="dw-ex-fb" id="dw-ex-fb" aria-live="polite"></div>
+      <button type="button" class="dw-ex-btn" id="dw-ex-next" style="display:none">Neste →</button>
+    </div>
+    <div class="dw-ex-result" id="dw-ex-result">
+      <h3 style="margin:0;font-family:'Baloo 2',sans-serif;font-size:1.4rem">Ferdig! 🎉</h3>
+      <div class="dw-ex-score" id="dw-ex-final"></div>
+      <p id="dw-ex-msg"></p>
+      <div class="dw-ex-review" id="dw-ex-review"></div>
+      <button type="button" class="dw-ex-btn dw-gold" id="dw-ex-restart">🔁 Spill på nytt</button>
+    </div>
+  </div>
+
+</div>
+<script>
+var DWQ = [
+ {
+  "s": "___ Mai fahren wir nach Wien.",
+  "cue": "i mai",
+  "a": "Im",
+  "c": [
+   "Im",
+   "Am",
+   "Um"
+  ],
+  "e": "Måneder: im (= in dem).",
+  "h": "Måned → im."
+ },
+ {
+  "s": "___ Sommer ist es oft heiß.",
+  "cue": "om sommeren",
+  "a": "Im",
+  "c": [
+   "Im",
+   "Am",
+   "Um"
+  ],
+  "e": "Årstider: im (= in dem).",
+  "h": "Årstid → im."
+ },
+ {
+  "s": "Der ___ ist heute? – Heute ist der 3. Mai.",
+  "cue": "spørsmål om dato",
+  "a": "Wievielte",
+  "c": [
+   "Wievielte",
+   "Wie viel",
+   "Wann"
+  ],
+  "e": "Spørsmålet heter «Der Wievielte ist heute?»",
+  "h": "Datospørsmålet."
+ },
+ {
+  "s": "Heute ist der ___ Mai.",
+  "cue": "3.",
+  "a": "dritte",
+  "c": [
+   "dritte",
+   "dreite",
+   "drei"
+  ],
+  "e": "3. = dritte (uregelmessig).",
+  "h": "dritte, ikke «dreite»."
+ },
+ {
+  "s": "Am ___ Januar ist Neujahr.",
+  "cue": "1.",
+  "a": "ersten",
+  "c": [
+   "ersten",
+   "einsten",
+   "eintem"
+  ],
+  "e": "1. = erste. Etter «am» (dativ) får det -n: am ersten.",
+  "h": "erste → ersten."
+ },
+ {
+  "s": "Ich habe am ___ August Geburtstag.",
+  "cue": "8.",
+  "a": "achten",
+  "c": [
+   "achten",
+   "achtten",
+   "achtsten"
+  ],
+  "e": "8. = achte (bare ett t). Etter «am»: achten.",
+  "h": "Bare ett t."
+ },
+ {
+  "s": "Wir feiern am ___ Mai. (21.)",
+  "cue": "21.",
+  "a": "einundzwanzigsten",
+  "c": [
+   "einundzwanzigsten",
+   "einundzwanzigten",
+   "einundzwanzigste"
+  ],
+  "e": "Fra 20. får ordenstall -ste, og etter «am» -n: einundzwanzigsten.",
+  "h": "Fra 20.: -sten."
+ },
+ {
+  "s": "Heute ist der ___ Mai. (12.)",
+  "cue": "12.",
+  "a": "zwölfte",
+  "c": [
+   "zwölfte",
+   "zwölften",
+   "zwölf"
+  ],
+  "e": "Nominativ etter «der»: der zwölfte. -n brukes bare etter «am» (dativ).",
+  "h": "der → -e."
+ },
+ {
+  "s": "Heute haben wir ___ 5. Mai.",
+  "cue": "spørsmål: Den Wievielten …?",
+  "a": "den",
+  "c": [
+   "den",
+   "der",
+   "dem"
+  ],
+  "e": "«Den Wievielten haben wir heute?» – «Heute haben wir den 5. Mai.» (akkusativ).",
+  "h": "haben → akkusativ."
+ },
+ {
+  "s": "Ich bin im ___ 2012 geboren.",
+  "cue": "år",
+  "a": "Jahr",
+  "c": [
+   "Jahr",
+   "Jahre",
+   "Jahren"
+  ],
+  "e": "«im Jahr 2012» (eller bare «2012»).",
+  "h": "im Jahr + årstall."
+ },
+ {
+  "s": "2026 = zweitausend___.",
+  "cue": "årstall",
+  "a": "sechsundzwanzig",
+  "c": [
+   "sechsundzwanzig",
+   "zwanzigsechs",
+   "sechsundzwanzigste"
+  ],
+  "e": "Fra 2000 sies årstallet som vanlig tall: zweitausendsechsundzwanzig.",
+  "h": "Ener før tier."
+ },
+ {
+  "s": "Im ___ haben wir Sommerferien.",
+  "cue": "juli (stor bokstav!)",
+  "a": "Juli",
+  "c": [
+   "Juli",
+   "juli",
+   "Julie"
+  ],
+  "e": "Måneder skrives med stor bokstav på tysk: im Juli.",
+  "h": "Stor bokstav."
+ },
+ {
+  "s": "___ Juni beginnen die Sommerferien.",
+  "cue": "begynnelsen av juni",
+  "a": "Anfang",
+  "c": [
+   "Anfang",
+   "Ende",
+   "Mitte"
+  ],
+  "e": "Anfang Juni = begynnelsen av juni.",
+  "h": "begynnelsen = Anfang."
+ },
+ {
+  "s": "Im ___ blühen die Blumen.",
+  "cue": "våren",
+  "a": "Frühling",
+  "c": [
+   "Frühling",
+   "Herbst",
+   "Winter"
+  ],
+  "e": "Norsk vår = Frühling.",
+  "h": "vår = Frühling."
+ }
+];
+
+(function(){
+  var ALL = DWQ, Q = [], i = 0, score = 0, done = false, missed = [];
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function shuffle(a){ a = a.slice(); for(var k = a.length - 1; k > 0; k--){ var j = Math.floor(Math.random() * (k + 1)); var t = a[k]; a[k] = a[j]; a[j] = t; } return a; }
+  var $ = function(id){ return document.getElementById(id); };
+  function start(){
+    Q = shuffle(ALL); i = 0; score = 0; missed = [];
+    $('dw-ex-play').style.display = 'block'; $('dw-ex-result').classList.remove('dw-show');
+    render();
+  }
+  function render(){
+    var q = Q[i]; done = false;
+    $('dw-ex-count').textContent = 'Oppgave ' + (i + 1) + ' av ' + Q.length;
+    $('dw-ex-score-live').textContent = 'Poeng: ' + score;
+    $('dw-ex-fill').style.width = (i / Q.length * 100) + '%';
+    $('dw-ex-cue').textContent = q.cue || '';
+    $('dw-ex-sent').innerHTML = esc(q.s).replace('___', '<span class="dw-blank" id="dw-ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;</span>');
+    $('dw-ex-choices').innerHTML = shuffle(q.c).map(function(c){ return '<button type="button" class="dw-ex-choice" data-v="' + esc(c) + '">' + esc(c) + '</button>'; }).join('');
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb'; fb.innerHTML = '';
+    $('dw-ex-hintbtn').style.display = 'inline'; $('dw-ex-next').style.display = 'none';
+  }
+  $('dw-ex-choices').addEventListener('click', function(e){
+    var b = e.target.closest('.dw-ex-choice'); if(!b || done) return;
+    done = true; var q = Q[i], v = b.getAttribute('data-v'), ok = v === q.a;
+    document.querySelectorAll('.dw-ex-choice').forEach(function(x){
+      x.disabled = true;
+      if(x.getAttribute('data-v') === q.a) x.classList.add('dw-correct');
+    });
+    if(!ok) b.classList.add('dw-wrong');
+    var bl = $('dw-ex-blank'); bl.textContent = q.a; bl.classList.add('dw-filled'); if(!ok) bl.classList.add('dw-bad');
+    if(ok) score++; else missed.push(q);
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb dw-show ' + (ok ? 'dw-good' : 'dw-bad');
+    fb.innerHTML = (ok ? '✅ Riktig! ' : '❌ Riktig svar er <b>' + esc(q.a) + '</b>. ') + esc(q.e);
+    $('dw-ex-hintbtn').style.display = 'none';
+    $('dw-ex-score-live').textContent = 'Poeng: ' + score;
+    var nx = $('dw-ex-next'); nx.style.display = 'inline-block'; nx.textContent = (i === Q.length - 1) ? 'Se resultatet →' : 'Neste →'; nx.focus();
+  });
+  $('dw-ex-hintbtn').addEventListener('click', function(){
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb dw-show'; fb.innerHTML = '💡 ' + esc(Q[i].h);
+  });
+  $('dw-ex-next').addEventListener('click', function(){
+    if(i < Q.length - 1){ i++; render(); return; }
+    $('dw-ex-play').style.display = 'none'; $('dw-ex-result').classList.add('dw-show');
+    $('dw-ex-final').textContent = score + ' / ' + Q.length;
+    var pct = score / Q.length;
+    $('dw-ex-msg').textContent = pct === 1 ? 'Perfekt — ingen feil!' : pct >= 0.75 ? 'Veldig bra! Les gjennom de få feilene under.' : pct >= 0.5 ? 'Greit på vei — se på tabellene og prøv igjen.' : 'Les forklaringen en gang til, og prøv på nytt.';
+    $('dw-ex-review').innerHTML = missed.length ? '<b>Dette bør du se på igjen:</b><ul>' + missed.map(function(q){ return '<li>' + esc(q.s).replace('___', '<b>' + esc(q.a) + '</b>') + ' — ' + esc(q.e) + '</li>'; }).join('') + '</ul>' : '🎉 Du hadde alt riktig!';
+    $('dw-ex-fill').style.width = '100%';
+  });
+  $('dw-ex-restart').addEventListener('click', start);
+  start();
+})();
+</script>
+</body>
+</html>

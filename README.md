@@ -66,9 +66,17 @@ deutschwelt-site/
 │   │   ├── index.html                → "Adjektiv": forklaring (ordklasse, bruk, komparativ/superlativ, bøyning), søk i ca. 200 adjektiv med bøyningstabeller, "Skriv selv" og endelsestrener
 │   │   └── adjektiv_data.js          → dataene: `var dwAdj=[…]` (generert av regler + håndplukket liste A1–B1)
 │   ├── eiendomsord/
-│   │   └── index.html                → kategori-hub (alt planlagt): possessivpronomen
+│   │   ├── index.html                → kategori-hub: «Hva er eiendomsord?», fire kort, hele mein-paradigmet
+│   │   ├── grunnformer/index.html    → mein/dein/sein/ihr/unser/euer/Ihr, sein vs ihr, sammenligning med min/mi/mitt/sin — 14 øvelser
+│   │   ├── nominativ-akkusativ/index.html → endelser (mein/meinen/meine …), 14 øvelser
+│   │   ├── dativ/index.html          → meinem/meiner/meinen, dativverb og preposisjoner, 14 øvelser — 🎓 9.–10. trinn
+│   │   └── genitiv/index.html        → meines/meiner, von + dativ, Peters Auto, 13 øvelser — 🎓 9.–10. trinn
 │   ├── konjunksjoner/
-│   │   └── index.html                → kategori-hub (alt planlagt): und/aber/oder/denn, Nebensätze (weil/dass)
+│   │   ├── index.html                → kategori-hub: «tre grupper – tre ordstillinger»
+│   │   ├── sideordnende/index.html   → und/aber/oder/denn/sondern, aber vs sondern, komma, 14 øvelser
+│   │   ├── underordnende/index.html  → weil/dass/wenn/als/ob/obwohl …, verbet sist, dass vs das, 14 øvelser
+│   │   ├── doble/index.html          → entweder … oder, sowohl … als auch, weder … noch, je … desto, 13 øvelser — 🎓 9.–10. trinn
+│   │   └── bindeadverb/index.html    → deshalb/trotzdem/außerdem/danach (verbet rett etter), 14 øvelser — 🎓 9.–10. trinn
 │   ├── pronomen/
 │   │   ├── index.html                → kategori-hub «Pronomen»: forklaring, fire kort (personlig, refleksiv, demonstrativ, indefinitt), oversiktstabell
 │   │   ├── personlig/
@@ -81,9 +89,18 @@ deutschwelt-site/
 │   │   └── indefinit/index.html      → «Indefinitpronomen»: man/jemand/niemand/etwas/nichts/alle/viele …, 13 øvelser — 🎓 9.–10. trinn
 │   ├── personlig-pronomen/           → KUN omdirigeringssider (meta refresh) til `pronomen/personlig/…`, så gamle bokmerker virker
 │   ├── sporreord/
-│   │   └── index.html                → kategori-hub (alt planlagt): W-Fragen
+│   │   ├── index.html                → kategori-hub: oversiktstabell over spørreordene
+│   │   ├── wer-was/index.html        → wer/wen/wem/wessen, was; preposisjonen foran spørreordet, 13 øvelser
+│   │   ├── wann-wo-wie/index.html    → wann/wo/wohin/woher/wie/warum/wie viel(e) …, 14 øvelser
+│   │   ├── welcher-was-fuer/index.html → welcher-bøying og was für ein, 13 øvelser
+│   │   ├── ordstilling/index.html    → ja/nei- og W-spørsmål, doch, indirekte spørsmål, 14 øvelser
+│   │   └── wo-woerter/index.html     → womit/worauf/wofür og damit/darauf/dafür, 14 øvelser — 🎓 9.–10. trinn
 │   ├── tidsuttrykk/
-│   │   └── index.html                → kategori-hub (alt planlagt): klokka, ukedager, måneder, årstider
+│   │   ├── index.html                → kategori-hub (lenker også til Zahlen-siden)
+│   │   ├── klokka/index.html         → uformelt/offisielt, halb/Viertel, um/gegen/von … bis, 14 øvelser
+│   │   ├── ukedager/index.html       → Wochentage, Tageszeiten, am/montags/jeden, hilsener, 14 øvelser
+│   │   ├── maaneder-aarstider/index.html → måneder, årstider, dato og ordenstall, årstall, 14 øvelser
+│   │   └── tidsord/index.html        → heute/gestern/vorgestern …, tekstbinding, bevor/nachdem/während, 14 øvelser
 │   ├── zahlen/
 │   │   └── index.html                → "Zahlen": tall 0–100, store tall, ordenstall, årstall, klokka + Tall-søker og øvelser (alt generert av regler i JS, ingen datafil)
 │   └── wortschatz-woche/
@@ -1645,6 +1662,10 @@ Teach ba om underkategorier for pronomen i Grammatikk (personlig, refleksiv, dem
 ### Adverbial med underkategorier (`grammatikk/adverbial/`)
 
 Teach ba om underkategorier for de åtte formene for adverbial (Lokal, Temporal, Modal, Kausal, Final, Konditional, Konzessiv, Konsekutiv) med samme type innhold som på Pronomen-sidene. De to gamle «Kommer snart»-kortene (TeKaMoLo og Stedsadverbial) i `adverbial/index.html` er erstattet av en fullverdig hub med åtte kort, en oversiktstabell med norske termer (stedsadverbial, tidsadverbial, måtesadverbial, årsaksadverbial, formålsadverbial, betingelsesadverbial, innrømmelsesadverbial, følgeadverbial) og en kort TeKaMoLo-seksjon (`#tekamolo`). Hver undeside har samme oppbygning som Pronomen: forklaring (spørreord, former), tabelloversikt (preposisjoner med kasus, konjunksjoner med verbplassering, adverb), sammenligning med norsk, «Når og hvorfor i skriving» og 13 flervalgsøvelser (felles øvingsmotor, `DWQ`). Sidene bygges av Python-skript (`advcommon.py`, `pagesA.py`, `pagesB.py`, `pagesHub.py`) som gjenbruker `common.py` fra Pronomen-runden; skriptene er ikke en del av nettstedet. Nivåmerking: Final, Konditional, Konzessiv og Konsekutiv er merket 🎓 9.–10. trinn og har kort på 9.–10. trinn-siden; de fire første er ikke merket. Søkeindeksen på forsiden har nøkler for hub og alle åtte sider; «tekamolo»-oppføringen peker fortsatt til huben. Faglig merknad: eksempelsetningen «Vor lauter Glück lachte sie» (Konsekutiv) kan også regnes som kausal; dette står i en «Merk:»-boks på siden. Tysk innhold er skrevet av Claude og ikke gjennomlest av en tysk morsmålstaler. Ikke bygget: en egen TeKaMoLo-treningsside.
+
+### Eiendomsord, Konjunksjoner, Spørreord og Tidsuttrykk med underkategorier
+
+Teach ba om å bygge ut de fire gjenværende «Kommer snart»-kategoriene på samme måte som Pronomen og Adverbial (grundige forklaringer, tabeller, sammenligning med norsk, bruk i skriving og øvelser). Hver kategori har fått en ny hub (erstatter plassholder-hubben) og undersider med 13–14 flervalgsøvelser hver (totalt 17 undersider, 238 øvelser): Eiendomsord (4 sider), Konjunksjoner (4), Spørreord (5), Tidsuttrykk (4). Sidene er bygget av Python-skript (`pages_*.py` og `build_*.py` + `catcommon.py`, `advcommon.py`, `common.py`), skrevet av parallelle delagenter og så gjennomgått, testet (Playwright desktop og 390 px, alle øvelser løses, ingen JS-feil, 0 brutte lenker) og koblet inn av Claude. Nivåmerking: 🎓 9.–10. trinn på Eiendomsord: Dativ og Genitiv, Konjunksjoner: Doble og Bindeadverb, Spørreord: Wo(r)-/da(r)-ord. Det er kort til disse fem på 9.–10. trinn-siden. Grammatik-hubens kort og forsidens søkeindeks (hub + alle undersider) er oppdatert. Tidsuttrykk-sidene overlapper bevisst delvis med Zahlen-siden (klokke, ordenstall, måneder) og lenker dit for den interaktive klokke-omformeren. Søkenøklene «uhrzeit», «wie spät ist es», «dato», «datum» og «wessen» peker fortsatt til de eldre sidene (Zahlen/Genitiv). Tysk innhold er skrevet av Claude og ikke gjennomlest av en tysk morsmålstaler; punkter vi er mindre sikre på: komma foran «oder» ved «entweder … oder», genitiv-s-apostrof ved navn, regionale klokkeslettuttrykk («Viertel drei», «zwanzig nach»), og «Bindeadverb» som norsk arbeidsbetegnelse for Konjunktionaladverbien.
 
 ## Slik legger du til en ny seksjon
 

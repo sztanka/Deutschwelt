@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <!--
   DEUTSCHWELT — Grammatik-kategori: "Eiendomsord"
-  Ingen sider bygget ennå — kun planlagte temaer.
-  Se README.md i rotmappen for mønsteret for grammatikk-kategorier.
+  Hub med fire undersider (grunnformer, nominativ-akkusativ, dativ, genitiv) og oversiktstabell for mein i alle kasus.
 -->
 <html lang="de">
 <head>
@@ -15,41 +14,92 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --dw-primary:#161616;
-    --dw-primary-light:#9c1329;
-    --dw-accent:#d9a91c;
-    --dw-bg:#f7f5f0;
-    --dw-card:#ffffff;
-    --dw-text:#232323;
-    --dw-muted:#6b6b6b;
-    --dw-radius:16px;
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
   }
   *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
-  .dw-wrap{max-width:820px;margin:0 auto;padding:0 16px 60px;}
-  .dw-header{
-    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
-    color:#fff;border-radius:var(--dw-radius);padding:32px 26px;text-align:center;margin-bottom:10px;
-  }
-  .dw-header h1{margin:0 0 6px;font-size:1.8rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-wrap{max-width:860px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
   .dw-header p{margin:0;opacity:.95;}
-  .dw-crumb{
-    font-size:.85rem;margin:14px 0 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-  }
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
   .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
   .dw-crumb a:hover{text-decoration:underline;}
-  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
-  .dw-card{
-    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px;text-decoration:none;color:var(--dw-text);
-    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;
-    display:flex;flex-direction:column;gap:6px;
-  }
-  .dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
-  .dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
-  .dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .dw-jump a{font-size:.86rem;font-weight:700;padding:7px 15px;border-radius:999px;text-decoration:none;background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:32px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t tbody th{background:#fbfaf6;font-size:.84rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t td.dw-hl{background:#fff3cf;}
+  .dw-t td.dw-c{text-align:center;}
+  .dw-t td.dw-x{color:#aaa;text-align:center;}
+  .dw-t tr.dw-grp td,.dw-t tr.dw-grp th{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:14px 0;}
+  a.dw-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;text-decoration:none;color:var(--dw-text);box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;gap:6px;}
+  a.dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  a.dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  a.dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
 
-  /* Tematisk kort-mønster (erstatter emoji) */
-  .dw-card.dw-p-eiendomsord{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2218%22%20r%3D%228%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2225%22%20width%3D%224%22%20height%3D%2218%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2236%22%20width%3D%2211%22%20height%3D%224%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.10%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  /* Øvelser */
+  .dw-ex-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+  .dw-ex-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:8px;}
+  .dw-ex-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:16px;}
+  .dw-ex-fill{height:100%;width:0;background:var(--dw-good);transition:width .25s ease;}
+  .dw-ex-cue{font-size:.88rem;color:var(--dw-muted);margin-bottom:4px;}
+  .dw-ex-sent{font-size:1.3rem;font-weight:600;color:var(--dw-primary);line-height:1.5;margin:2px 0 18px;}
+  .dw-ex-sent .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);text-align:center;}
+  .dw-ex-sent .dw-blank.dw-filled{color:var(--dw-good);border-color:var(--dw-good);}
+  .dw-ex-sent .dw-blank.dw-filled.dw-bad{color:var(--dw-bad);border-color:var(--dw-bad);}
+  .dw-ex-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .dw-ex-choice{flex:1 1 110px;max-width:170px;padding:12px 8px;font-family:inherit;font-size:1.1rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;}
+  .dw-ex-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-ex-choice:disabled{cursor:default;opacity:.55;}
+  .dw-ex-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-ex-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .dw-ex-choice:focus-visible,.dw-ex-btn:focus-visible,.dw-ex-hintbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-ex-hintbtn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:.85rem;padding:0;margin-bottom:8px;}
+  .dw-ex-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:10px 14px;margin:6px 0 14px;background:#f4f1e8;}
+  .dw-ex-fb.dw-show{display:block;}
+  .dw-ex-fb.dw-good{background:#eef7ee;color:#1f5d23;}
+  .dw-ex-fb.dw-bad{background:#fdecee;color:#8c1d1d;}
+  .dw-ex-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:11px 26px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .dw-ex-btn:hover{background:var(--dw-primary-light);}
+  .dw-ex-btn.dw-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-ex-result{display:none;text-align:center;}
+  .dw-ex-result.dw-show{display:block;}
+  .dw-ex-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .dw-ex-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:12px 18px;margin:14px 0;font-size:.9rem;}
+  .dw-ex-review li{margin-bottom:6px;}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .dw-ex-sent{font-size:1.12rem;}
+  }
 </style>
 </head>
 <body>
@@ -59,7 +109,7 @@
     <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
     <div class="dw-nav-links">
       <a class="dw-nav-link" href="../../">🏠 Forside</a>
-      <a class="dw-nav-link dw-nav-active" href="../">🧩 Grammatik</a>
+      <a class="dw-nav-link dw-nav-active" href="../../grammatikk/">🧩 Grammatik</a>
       <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
       <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
       <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
@@ -86,24 +136,47 @@
 <div class="dw-wrap">
 
   <div class="dw-header">
-    <h1>Eiendomsord</h1>
+    <h1>🔑 Eiendomsord</h1>
     <p>Possessivpronomen — mein, dein, sein og resten av familien</p>
   </div>
 
   <p class="dw-crumb"><a href="../">🧩 Grammatik</a> → Eiendomsord</p>
 
+  <div class="dw-exp">
+    <h3>Hva er eiendomsord?</h3>
+    <p><strong>Eiendomsord</strong> (på norsk også kalt <em>possessiver</em>, på tysk <em>Possessivpronomen</em>) viser <strong>hvem som eier noe</strong> eller hvem noe hører til: <span class="dw-de">mein Bruder</span> (broren min), <span class="dw-de">deine Tasche</span> (vesken din), <span class="dw-de">unsere Schule</span> (skolen vår).</p>
+    <p>Det er to valg hver gang: <strong>eieren</strong> bestemmer <em>hvilket</em> ord du bruker (<em>mein, dein, sein …</em>), og <strong>det som eies</strong> bestemmer <em>endelsen</em> (kjønn, tall og kasus). Eiendomsordene bøyes akkurat som <span class="dw-de">ein</span> og <span class="dw-de">kein</span> – derfor kaller vi dem ofte <em>ein-ord</em>.</p>
+    <div class="dw-tip">💡 <strong>Husk:</strong> <span class="dw-de">Das ist <u>mein</u> Bruder.</span> – <span class="dw-de">Ich besuche <u>meinen</u> Bruder.</span> Samme eier, men endelsen skifter fordi kasus skifter.</div>
+  </div>
+
+  <h2 class="dw-sec-title" style="margin-top:20px">📚 Sidene i denne kategorien</h2>
   <div class="dw-grid">
-    <a class="dw-card dw-p-eiendomsord dw-soon" href="#">
-      <h2>Possessivpronomen i nominativ</h2>
-      <p>Kommer snart</p>
-      <span class="dw-soon-tag">🔜 Kommer snart</span>
+    <a class="dw-card" href="grunnformer/">
+      <h2>🏷️ Grunnformene (mein, dein, sein …)</h2>
+      <p>mein, dein, sein, ihr, unser, euer, Ihr — hvilket ord velger du, og hva med sein eller ihr?</p>
     </a>
-    <a class="dw-card dw-p-eiendomsord dw-soon" href="#">
-      <h2>Possessivpronomen i akkusativ og dativ</h2>
-      <p>Kommer snart</p>
-      <span class="dw-soon-tag">🔜 Kommer snart</span>
+    <a class="dw-card" href="nominativ-akkusativ/">
+      <h2>🎯 Nominativ og Akkusativ</h2>
+      <p>«Das ist mein Bruder.» – «Ich besuche meinen Bruder.» Endelsene for subjekt og objekt.</p>
+    </a>
+    <a class="dw-card" href="dativ/">
+      <h2>🤝 Dativ <span class="dw-level-tag">🎓 9.–10. trinn</span></h2>
+      <p>«Ich fahre mit meinem Bruder.» Endelsene -em, -er, -em, -en og når vi bruker dativ.</p>
+    </a>
+    <a class="dw-card" href="genitiv/">
+      <h2>👑 Genitiv <span class="dw-level-tag">🎓 9.–10. trinn</span></h2>
+      <p>«Das Auto meines Vaters.» Endelsene -es, -er, -es, -er og eierforhold i formell tekst.</p>
     </a>
   </div>
+
+  <h2 class="dw-sec-title">🔎 Oversikt: hele «mein»-paradigmet</h2>
+  <div class="dw-exp">
+    <div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th>Kasus</th><th>Maskulin (der)</th><th>Feminin (die)</th><th>Nøytrum (das)</th><th>Flertall (die)</th></tr></thead><tbody><tr><th>Nominativ</th><td class="dw-f">mein</td><td class="dw-f dw-hl">meine</td><td class="dw-f">mein</td><td class="dw-f dw-hl">meine</td></tr><tr><th>Akkusativ</th><td class="dw-f dw-hl">meinen</td><td class="dw-f dw-hl">meine</td><td class="dw-f">mein</td><td class="dw-f dw-hl">meine</td></tr><tr><th>Dativ</th><td class="dw-f dw-hl">meinem</td><td class="dw-f dw-hl">meiner</td><td class="dw-f dw-hl">meinem</td><td class="dw-f dw-hl">meinen</td></tr><tr><th>Genitiv</th><td class="dw-f dw-hl">meines</td><td class="dw-f dw-hl">meiner</td><td class="dw-f dw-hl">meines</td><td class="dw-f dw-hl">meiner</td></tr><tr><th>Eksempel (nominativ)</th><td>mein Vater</td><td>meine Mutter</td><td>mein Kind</td><td>meine Eltern</td></tr></tbody></table></div>
+    <p style="margin-top:8px"><strong>Alle de andre eiendomsordene bøyes likt:</strong> <span class="dw-de">dein, sein, ihr, unser, euer, Ihr</span> får de samme endelsene som <span class="dw-de">mein</span>. Bare <span class="dw-de">euer</span> mister en <em>e</em> når endelsen kommer til (<span class="dw-de">euer → eure, euren, eurem</span>).</p>
+    <p class="dw-no" style="font-size:.88rem;margin-top:8px">Gul bakgrunn = det er en endelse. Uten endelse: maskulin og nøytrum nominativ, og nøytrum akkusativ. 🎓 = best for 9.–10. trinn.</p>
+  </div>
+
+  <p class="dw-see-also"><strong>Se også:</strong> <a href="../pronomen/personlig/">Personlig pronomen</a> · <a href="../artikler/">Artikler</a></p>
 
 </div>
 </body>

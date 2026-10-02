@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Grammatikk: "Klokka" (tidsuttrykk/klokka/)
+  Klokka: Wie spät ist es?, uformelt og offisielt, halb/Viertel, tabell 8:00-8:55, sammenligning med norsk, bruk i skriving og øvelser.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Klokka · Tidsuttrykk · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:860px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .dw-jump a{font-size:.86rem;font-weight:700;padding:7px 15px;border-radius:999px;text-decoration:none;background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:32px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t tbody th{background:#fbfaf6;font-size:.84rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t td.dw-hl{background:#fff3cf;}
+  .dw-t td.dw-c{text-align:center;}
+  .dw-t td.dw-x{color:#aaa;text-align:center;}
+  .dw-t tr.dw-grp td,.dw-t tr.dw-grp th{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:14px 0;}
+  a.dw-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;text-decoration:none;color:var(--dw-text);box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;gap:6px;}
+  a.dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  a.dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  a.dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
+
+  /* Øvelser */
+  .dw-ex-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+  .dw-ex-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:8px;}
+  .dw-ex-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:16px;}
+  .dw-ex-fill{height:100%;width:0;background:var(--dw-good);transition:width .25s ease;}
+  .dw-ex-cue{font-size:.88rem;color:var(--dw-muted);margin-bottom:4px;}
+  .dw-ex-sent{font-size:1.3rem;font-weight:600;color:var(--dw-primary);line-height:1.5;margin:2px 0 18px;}
+  .dw-ex-sent .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);text-align:center;}
+  .dw-ex-sent .dw-blank.dw-filled{color:var(--dw-good);border-color:var(--dw-good);}
+  .dw-ex-sent .dw-blank.dw-filled.dw-bad{color:var(--dw-bad);border-color:var(--dw-bad);}
+  .dw-ex-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .dw-ex-choice{flex:1 1 110px;max-width:170px;padding:12px 8px;font-family:inherit;font-size:1.1rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;}
+  .dw-ex-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-ex-choice:disabled{cursor:default;opacity:.55;}
+  .dw-ex-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-ex-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .dw-ex-choice:focus-visible,.dw-ex-btn:focus-visible,.dw-ex-hintbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-ex-hintbtn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:.85rem;padding:0;margin-bottom:8px;}
+  .dw-ex-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:10px 14px;margin:6px 0 14px;background:#f4f1e8;}
+  .dw-ex-fb.dw-show{display:block;}
+  .dw-ex-fb.dw-good{background:#eef7ee;color:#1f5d23;}
+  .dw-ex-fb.dw-bad{background:#fdecee;color:#8c1d1d;}
+  .dw-ex-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:11px 26px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .dw-ex-btn:hover{background:var(--dw-primary-light);}
+  .dw-ex-btn.dw-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-ex-result{display:none;text-align:center;}
+  .dw-ex-result.dw-show{display:block;}
+  .dw-ex-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .dw-ex-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:12px 18px;margin:14px 0;font-size:.9rem;}
+  .dw-ex-review li{margin-bottom:6px;}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .dw-ex-sent{font-size:1.12rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>🕒 Klokka</h1>
+    <p>Wie spät ist es? — klokkeslett uformelt og offisielt</p>
+  </div>
+
+  <p class="dw-crumb"><a href="../../">🧩 Grammatik</a> → <a href="../">Tidsuttrykk</a> → Klokka</p>
+
+  <div class="dw-jump">
+    <a href="#hva">📌 Spørre og svare</a><a href="#tabell">📋 Tabeller</a><a href="#halb">½ halb og Viertel</a><a href="#norsk">🇳🇴 Sammenligning med norsk</a><a href="#skriving">✍️ I skriving</a><a href="#ovelser">🎯 Øvelser</a>
+  </div>
+
+  <h2 class="dw-sec-title" id="hva">📌 Wie spät ist es? Spørre og svare</h2>
+  <div class="dw-exp">
+<p>Når du vil vite hva klokka er, spør du slik. Du kan velge mellom to spørsmål som betyr det samme:</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th>Spørsmål</th><th>Svar</th><th>Norsk</th></tr></thead><tbody><tr><td class="dw-f">Wie spät ist es?</td><td><span class="dw-de">Es ist halb vier.</span></td><td>Hva er klokka? – Den er halv fire.</td></tr><tr><td class="dw-f">Wie viel Uhr ist es?</td><td><span class="dw-de">Es ist Viertel nach acht.</span></td><td>Hvor mye er klokka? – Den er kvart over åtte.</td></tr><tr><td class="dw-f">Um wie viel Uhr …?</td><td><span class="dw-de">Um acht Uhr. / Um halb vier.</span></td><td>Når (hvilket klokkeslett) …? – Klokka åtte. / Halv fire.</td></tr><tr><td class="dw-f">Wann …?</td><td><span class="dw-de">Um acht (Uhr).</span></td><td>Når …? – Klokka åtte.</td></tr><tr><td class="dw-f">Bis wann? / Ab wann?</td><td><span class="dw-de">Bis 18 Uhr. / Ab 9 Uhr.</span></td><td>Til når? / Fra når?</td></tr></tbody></table></div><p style="margin-top:10px">Ordet for klokkeslett er <span class="dw-de">die Uhrzeit</span>. Svarer du på «hva er klokka nå?», starter du med <span class="dw-de">Es ist …</span>. Svarer du på «når skjer det?», starter du med <span class="dw-de">Um …</span>.</p><h3 style="margin-top:12px">To måter å si klokka på</h3><ul><li><strong>Uformelt (12 timer):</strong> slik vi snakker til hverandre – <span class="dw-de">halb vier, Viertel nach acht, fünf vor zwölf</span>. Vil du presisere om det er dag eller natt, legger du til <span class="dw-de">morgens, vormittags, nachmittags, abends, nachts</span>: <span class="dw-de">halb vier nachmittags</span> (15:30).</li><li><strong>Offisielt (24 timer):</strong> brukes i tog- og bussruter, TV, radio, åpningstider og skoleplaner – <span class="dw-de">vierzehn Uhr fünfunddreißig</span> (14:35). Her finnes verken «halb» eller «Viertel».</li></ul><div class="dw-tip">💡 <strong>Vil du prøve selv?</strong> Skriv et klokkeslett i den interaktive klokke-omformeren på <a href="../../zahlen/#klokka">Zahlen-siden</a> og få det på både offisiell og uformell måte. Her på denne siden får du den fyldigere forklaringen, sammenligningen med norsk, bruk i skriving og øvelser.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="tabell">📋 Tabeller: hele timen, 24 timer og små ord</h2>
+  <div class="dw-exp">
+<h3>Hele timen: 8:00–8:55 i fem-minutters steg</h3><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:640px"><thead><tr><th>Siffer</th><th>Uformelt (12 t)</th><th>Offisielt (24 t)</th><th>Norsk</th></tr></thead><tbody><tr><th>8:00</th><td><span class="dw-de">acht Uhr</span></td><td><span class="dw-de">acht Uhr</span></td><td>åtte</td></tr><tr><th>8:05</th><td><span class="dw-de">fünf nach acht</span></td><td><span class="dw-de">acht Uhr fünf</span></td><td>fem over åtte</td></tr><tr><th>8:10</th><td><span class="dw-de">zehn nach acht</span></td><td><span class="dw-de">acht Uhr zehn</span></td><td>ti over åtte</td></tr><tr><th>8:15</th><td><span class="dw-de">Viertel nach acht</span></td><td><span class="dw-de">acht Uhr fünfzehn</span></td><td>kvart over åtte</td></tr><tr><th>8:20</th><td><span class="dw-de">zwanzig nach acht</span><br><span class="dw-no">også: zehn vor halb neun</span></td><td><span class="dw-de">acht Uhr zwanzig</span></td><td>tjue over åtte / ti på halv ni</td></tr><tr><th>8:25</th><td><span class="dw-de">fünf vor halb neun</span></td><td><span class="dw-de">acht Uhr fünfundzwanzig</span></td><td>fem på halv ni</td></tr><tr><th>8:30</th><td class="dw-f dw-hl"><span class="dw-de">halb neun</span></td><td><span class="dw-de">acht Uhr dreißig</span></td><td class="dw-hl">halv ni</td></tr><tr><th>8:35</th><td><span class="dw-de">fünf nach halb neun</span></td><td><span class="dw-de">acht Uhr fünfunddreißig</span></td><td>fem over halv ni</td></tr><tr><th>8:40</th><td><span class="dw-de">zwanzig vor neun</span><br><span class="dw-no">også: zehn nach halb neun</span></td><td><span class="dw-de">acht Uhr vierzig</span></td><td>tjue på ni / ti over halv ni</td></tr><tr><th>8:45</th><td><span class="dw-de">Viertel vor neun</span></td><td><span class="dw-de">acht Uhr fünfundvierzig</span></td><td>kvart på ni</td></tr><tr><th>8:50</th><td><span class="dw-de">zehn vor neun</span></td><td><span class="dw-de">acht Uhr fünfzig</span></td><td>ti på ni</td></tr><tr><th>8:55</th><td><span class="dw-de">fünf vor neun</span></td><td><span class="dw-de">acht Uhr fünfundfünfzig</span></td><td>fem på ni</td></tr></tbody></table></div><div class="dw-tip">💡 <strong>Tommelfingerregel for uformelt:</strong> Fra :01 til :24 sier du <em>nach</em> + <strong>denne</strong> timen. Fra :25 til :35 nevner du <strong>neste</strong> time sammen med <em>halb</em>. Fra :40 til :59 sier du <em>vor</em> + <strong>neste</strong> time. Derfor er <span class="dw-de">halb neun</span> ikke 9:30, men <strong>8:30</strong>.</div><h3 style="margin-top:14px">Offisielt (24 timer): tall + Uhr + minutter</h3><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th>Siffer</th><th>Offisielt</th><th>Samme tid uformelt</th></tr></thead><tbody><tr><th>0:00</th><td><span class="dw-de">null Uhr</span> <span class="dw-no">(også: Mitternacht)</span></td><td><span class="dw-de">zwölf Uhr nachts</span></td></tr><tr><th>6:30</th><td><span class="dw-de">sechs Uhr dreißig</span></td><td><span class="dw-de">halb sieben</span> <span class="dw-no">(morgens)</span></td></tr><tr><th>13:00</th><td><span class="dw-de">dreizehn Uhr</span></td><td><span class="dw-de">ein Uhr</span> <span class="dw-no">(nachmittags)</span></td></tr><tr><th>14:35</th><td><span class="dw-de">vierzehn Uhr fünfunddreißig</span></td><td><span class="dw-de">fünf nach halb drei</span></td></tr><tr><th>18:45</th><td><span class="dw-de">achtzehn Uhr fünfundvierzig</span></td><td><span class="dw-de">Viertel vor sieben</span></td></tr><tr><th>21:10</th><td><span class="dw-de">einundzwanzig Uhr zehn</span></td><td><span class="dw-de">zehn nach neun</span> <span class="dw-no">(abends)</span></td></tr></tbody></table></div><ul><li>Offisielt sier du minuttallet som et vanlig tall: <span class="dw-de">fünfunddreißig</span> (ener før tier, se <a href="../../zahlen/#tall">Zahlen</a>).</li><li>Klokka 1:00 heter <span class="dw-de">ein Uhr</span> (ikke «eins Uhr»). Uten «Uhr» kan du si <span class="dw-de">Es ist eins.</span></li><li>Skriftlig går begge deler: <span class="dw-de">14:35 Uhr</span> og <span class="dw-de">14.35 Uhr</span>. Husk «Uhr» etter tallet.</li></ul><h3 style="margin-top:14px">Små ord foran klokkeslettet</h3><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th>Ord</th><th>Eksempel</th><th>Betyr</th></tr></thead><tbody><tr><td class="dw-f">um</td><td><span class="dw-de">Um acht Uhr beginnt die Schule.</span></td><td>klokka åtte (et bestemt tidspunkt)</td></tr><tr><td class="dw-f">gegen</td><td><span class="dw-de">Ich komme gegen acht Uhr.</span></td><td>ved åtte-tiden, omtrent</td></tr><tr><td class="dw-f">ab</td><td><span class="dw-de">Ab acht Uhr ist das Büro offen.</span></td><td>fra og med åtte</td></tr><tr><td class="dw-f">bis</td><td><span class="dw-de">Bis acht Uhr muss ich fertig sein.</span></td><td>til / innen åtte</td></tr><tr><td class="dw-f">von … bis …</td><td><span class="dw-de">Ich bin von acht bis zwölf Uhr in der Schule.</span></td><td>fra åtte til tolv</td></tr><tr><td class="dw-f">kurz vor / kurz nach</td><td><span class="dw-de">Es ist kurz vor acht.</span></td><td>like før / like etter åtte</td></tr><tr><td class="dw-f">punkt</td><td><span class="dw-de">Wir starten punkt acht Uhr.</span></td><td>presis klokka åtte</td></tr></tbody></table></div>
+  </div>
+
+  <h2 class="dw-sec-title" id="halb">½ «halb drei» = 2:30 – og Viertel</h2>
+  <div class="dw-exp">
+<p>Dette er det viktigste å huske, og her er tysk <strong>lik norsk</strong>: «halv tre» og <span class="dw-de">halb drei</span> betyr begge <strong>2:30</strong> – halvveis <em>mot</em> tre.</p><div class="dw-cmp"><div><b class="dw-lang">Norsk</b>Klokka er <strong>halv tre</strong> = 2:30.<br>Jeg møter deg <strong>halv fire</strong> = 3:30.</div><div><b class="dw-lang">Tysk</b>Es ist <strong>halb drei</strong> = 2:30.<br>Ich treffe dich um <strong>halb vier</strong> = 3:30.</div></div><div class="dw-tip dw-warn">⚠️ <strong>Pass opp hvis du tenker på engelsk:</strong> «half past two» (2:30) har ordene i en annen rekkefølge enn <em>halb drei</em>. På norsk og tysk teller du alltid mot <strong>neste</strong> hele time.</div><h3 style="margin-top:12px">fünf vor halb ↔ fem på halv</h3><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:460px"><thead><tr><th>Klokka</th><th>Tysk</th><th>Norsk</th></tr></thead><tbody><tr><th>2:25</th><td><span class="dw-de">fünf vor halb drei</span></td><td>fem på halv tre</td></tr><tr><th>2:30</th><td><span class="dw-de">halb drei</span></td><td>halv tre</td></tr><tr><th>2:35</th><td><span class="dw-de">fünf nach halb drei</span></td><td>fem over halv tre</td></tr></tbody></table></div><p style="margin-top:8px">Mønsteret er det samme: du bruker <em>halb</em> som fast punkt og teller fem minutter før eller etter. <span class="dw-de">vor</span> = på, <span class="dw-de">nach</span> = over.</p><h3 style="margin-top:12px">Regional bruk: «Viertel drei»</h3><p>I deler av Tyskland (særlig sør og øst) hører du <span class="dw-de">Viertel drei</span> for <strong>2:15</strong> og <span class="dw-de">dreiviertel drei</span> for <strong>2:45</strong>. Her tenker man «ett kvarter på vei mot tre». Det er bare nyttig å <em>forstå</em>. Selv holder du deg til <span class="dw-de">Viertel nach zwei</span> og <span class="dw-de">Viertel vor drei</span>, som alle forstår.</p>
+  </div>
+
+  <h2 class="dw-sec-title" id="norsk">🇳🇴 Sammenligning med norsk</h2>
+  <div class="dw-exp">
+<div class="dw-cmp"><div><b class="dw-lang">Norsk</b>Klokka er <strong>kvart over</strong> tre.<br><strong>Kl.</strong> 14.35 går toget.<br>Det er <strong>fem på halv</strong> tre.</div><div><b class="dw-lang">Tysk</b>Es ist <strong>Viertel nach</strong> drei.<br>Der Zug fährt um 14.35 <strong>Uhr</strong>.<br>Es ist <strong>fünf vor halb</strong> drei.</div></div><ul><li><strong>Samme system:</strong> norsk og tysk bruker begge «halv/halb» mot neste time og «over/på» = <span class="dw-de">nach/vor</span>. Du kan nesten oversette ord for ord.</li><li><strong>kvart</strong> = <span class="dw-de">Viertel</span>: <span class="dw-de">Viertel nach</span> (kvart over), <span class="dw-de">Viertel vor</span> (kvart på).</li><li><strong>«kl.» blir «Uhr» – og kommer etter tallet.</strong> «kl. 8» = <span class="dw-de">8 Uhr</span>. «Uhr» får aldri flertallsendelse: <span class="dw-de">drei Uhr, fünf Uhr</span>.</li><li><strong>«Klokka er …» = «Es ist …».</strong> Subjektet er det nøytrale «es», ikke ordet for klokke: <span class="dw-de">Es ist acht.</span> – ikke «Die Uhr ist acht».</li><li><strong>Uhr og Stunde:</strong> <span class="dw-de">die Uhr</span> er både <em>ur/klokke</em> (Armbanduhr = armbåndsur) og <em>klokkeslett</em> (acht Uhr). Tid som varighet heter <span class="dw-de">die Stunde</span> (time): <span class="dw-de">Der Film dauert zwei Stunden.</span> – men <span class="dw-de">Der Film beginnt um zwei Uhr.</span></li><li><strong>Minuttallene:</strong> I offisiell tid kommer enerne først, som i alle tysk tall: «14.35» sies <span class="dw-de">vierzehn Uhr fünfunddreißig</span> (bokstavelig «femogtredve»). På norsk sier vi «fjorten trettifem».</li><li><strong>Tolv:</strong> <span class="dw-de">zwölf Uhr mittags</span> eller bare <span class="dw-de">Mittag</span>, og midnatt heter <span class="dw-de">Mitternacht</span>.</li></ul>
+  </div>
+
+  <h2 class="dw-sec-title" id="skriving">✍️ Bruk i skriving: avtaler, rutetider, timeplan og dagsrutine</h2>
+  <div class="dw-exp">
+<ul><li><strong>Avtaler:</strong> <span class="dw-de">Wir treffen uns am Samstag um halb vier vor dem Kino.</span> – Husk at tiden kan stå først, så kommer verbet på plass to: <span class="dw-de">Um halb vier treffen wir uns.</span></li><li><strong>Rutetider (Fahrplan):</strong> <span class="dw-de">Der Zug fährt um 14:35 Uhr ab und kommt um 17:10 Uhr an.</span> Her bruker du alltid 24-timersklokka med siffer.</li><li><strong>Timeplan (Stundenplan):</strong> <span class="dw-de">Die erste Stunde beginnt um 8:00 Uhr. Die große Pause ist von 9:45 bis 10:05 Uhr. Um 13:15 Uhr ist die Schule aus.</span></li><li><strong>Dagsrutine:</strong> <span class="dw-de">Um halb sieben stehe ich auf. Um Viertel nach sieben frühstücke ich. Gegen acht Uhr bin ich in der Schule.</span></li><li><strong>Hva velger du?</strong> I fortellende tekst går det fint å skrive ut klokka med ord: <span class="dw-de">um halb sieben</span>. I e-poster, rutetider og invitasjoner er siffer + Uhr (<em>18:30 Uhr</em>) klarest.</li></ul><h3 style="margin-top:12px">Eksempel: rutetabell (Fahrplan)</h3><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:420px"><thead><tr><th>Zug</th><th>Abfahrt</th><th>Ankunft</th><th>Gleis</th></tr></thead><tbody><tr><th>Zug nach Berlin</th><td><span class="dw-de">14:35 Uhr</span></td><td><span class="dw-de">17:10 Uhr</span></td><td>7</td></tr><tr><th>Zug nach München</th><td><span class="dw-de">15:05 Uhr</span></td><td><span class="dw-de">19:40 Uhr</span></td><td>12</td></tr></tbody></table></div><p class="dw-no" style="font-size:.88rem;margin-top:6px">(Eksempeltider, ikke en ekte rutetabell.) Les høyt: <span class="dw-de">Der Zug nach Berlin fährt um vierzehn Uhr fünfunddreißig ab.</span></p><div class="dw-tip">💡 <strong>Mer om «um»:</strong> På <a href="../../adverbial/temporal/">Temporaladverbial</a> ser du hvordan <em>am, um, im, vor, in, seit</em> hører sammen med spørsmålene Wann? Wie oft? Wie lange?</div>
+  </div>
+
+  <p class="dw-see-also"><strong>Se også:</strong> <a href="../">Tidsuttrykk (oversikt)</a> · <a href="../ukedager/">Ukedager og tider på dagen</a> · <a href="../maaneder-aarstider/">Måneder, årstider og dato</a> · <a href="../tidsord/">Tidsord og tekstbinding</a> · <a href="../../zahlen/#klokka">Zahlen: klokka (interaktiv)</a> · <a href="../../adverbial/temporal/">Adverbial: Temporal</a> · <a href="../../zahlen/">Zahlen</a></p>
+
+  <h2 class="dw-sec-title" id="ovelser">🎯 Øvelser</h2>
+  <div class="dw-ex-card" id="dw-ex">
+    <div id="dw-ex-play">
+      <div class="dw-ex-top"><span id="dw-ex-count"></span><span id="dw-ex-score-live"></span></div>
+      <div class="dw-ex-bar"><div class="dw-ex-fill" id="dw-ex-fill"></div></div>
+      <div class="dw-ex-cue" id="dw-ex-cue"></div>
+      <div class="dw-ex-sent" id="dw-ex-sent"></div>
+      <div class="dw-ex-choices" id="dw-ex-choices" role="group" aria-label="Svaralternativer"></div>
+      <button type="button" class="dw-ex-hintbtn" id="dw-ex-hintbtn">💡 Vis hint</button>
+      <div class="dw-ex-fb" id="dw-ex-fb" aria-live="polite"></div>
+      <button type="button" class="dw-ex-btn" id="dw-ex-next" style="display:none">Neste →</button>
+    </div>
+    <div class="dw-ex-result" id="dw-ex-result">
+      <h3 style="margin:0;font-family:'Baloo 2',sans-serif;font-size:1.4rem">Ferdig! 🎉</h3>
+      <div class="dw-ex-score" id="dw-ex-final"></div>
+      <p id="dw-ex-msg"></p>
+      <div class="dw-ex-review" id="dw-ex-review"></div>
+      <button type="button" class="dw-ex-btn dw-gold" id="dw-ex-restart">🔁 Spill på nytt</button>
+    </div>
+  </div>
+
+</div>
+<script>
+var DWQ = [
+ {
+  "s": "Es ist ___ vier.",
+  "cue": "3:30",
+  "a": "halb",
+  "c": [
+   "halb",
+   "Viertel",
+   "fünf"
+  ],
+  "e": "3:30 = halb vier (halvveis mot fire), akkurat som norsk «halv fire».",
+  "h": "Norsk «halv fire» = tysk «halb vier»."
+ },
+ {
+  "s": "Es ist Viertel ___ sieben.",
+  "cue": "7:15",
+  "a": "nach",
+  "c": [
+   "nach",
+   "vor",
+   "halb"
+  ],
+  "e": "7:15 er kvart over sju, altså «Viertel nach sieben». Etter :00 sier du «nach».",
+  "h": "kvart over = nach."
+ },
+ {
+  "s": "Es ist Viertel ___ sechs.",
+  "cue": "5:45",
+  "a": "vor",
+  "c": [
+   "vor",
+   "nach",
+   "halb"
+  ],
+  "e": "5:45 er kvart på seks: «Viertel vor sechs».",
+  "h": "kvart på = vor."
+ },
+ {
+  "s": "Es ist fünf ___ halb neun.",
+  "cue": "8:25",
+  "a": "vor",
+  "c": [
+   "vor",
+   "nach",
+   "um"
+  ],
+  "e": "8:25 = fem på halv ni: «fünf vor halb neun».",
+  "h": "fem på halv = fünf vor halb."
+ },
+ {
+  "s": "Es ist fünf nach ___ zehn.",
+  "cue": "9:35",
+  "a": "halb",
+  "c": [
+   "halb",
+   "Viertel",
+   "zehn"
+  ],
+  "e": "9:35 = fem over halv ti: «fünf nach halb zehn».",
+  "h": "Halvtimen i midten."
+ },
+ {
+  "s": "Es ist zehn ___ sechs.",
+  "cue": "6:10",
+  "a": "nach",
+  "c": [
+   "nach",
+   "vor",
+   "halb"
+  ],
+  "e": "6:10 = ti over seks: «zehn nach sechs».",
+  "h": "Like etter hele timen → nach."
+ },
+ {
+  "s": "Der Zug fährt um 14:35 Uhr ab: vierzehn Uhr ___.",
+  "cue": "offisielt",
+  "a": "fünfunddreißig",
+  "c": [
+   "fünfunddreißig",
+   "fünfundvierzig",
+   "dreiunddreißig"
+  ],
+  "e": "35 = fünf-und-dreißig (ener før tier).",
+  "h": "Ener først, så «und», så tier."
+ },
+ {
+  "s": "Abfahrt laut Fahrplan: ___ Uhr.",
+  "cue": "17:00 (offisielt)",
+  "a": "siebzehn",
+  "c": [
+   "siebzehn",
+   "siebzig",
+   "sieben"
+  ],
+  "e": "17:00 = siebzehn Uhr (sieb-zehn). siebzig ville vært 70, sieben er 7.",
+  "h": "17 = 7 + 10."
+ },
+ {
+  "s": "Es ist ___ Uhr.",
+  "cue": "1:00",
+  "a": "ein",
+  "c": [
+   "ein",
+   "eins",
+   "eine"
+  ],
+  "e": "Klokka 1:00 heter «ein Uhr» (ikke «eins Uhr»).",
+  "h": "Foran «Uhr» heter det ein."
+ },
+ {
+  "s": "Wie viel ___ ist es?",
+  "cue": "Hva er klokka?",
+  "a": "Uhr",
+  "c": [
+   "Uhr",
+   "Zeit",
+   "Stunde"
+  ],
+  "e": "«Wie viel Uhr ist es?» betyr «Hva er klokka?». Wie spät ist es? går også.",
+  "h": "Spørsmålet har samme ord som svaret."
+ },
+ {
+  "s": "___ wie viel Uhr beginnt die Schule?",
+  "cue": "Når (klokka hvor mye)?",
+  "a": "Um",
+  "c": [
+   "Um",
+   "Am",
+   "Im"
+  ],
+  "e": "Klokkeslett: um. «Um wie viel Uhr?» spør etter klokkeslettet.",
+  "h": "Klokka → um."
+ },
+ {
+  "s": "Ich komme ___ acht Uhr, vielleicht etwas früher oder später.",
+  "cue": "ved åtte-tiden",
+  "a": "gegen",
+  "c": [
+   "gegen",
+   "bis",
+   "ab"
+  ],
+  "e": "«gegen acht Uhr» betyr omtrent klokka åtte.",
+  "h": "omtrent → gegen."
+ },
+ {
+  "s": "Ich habe Schule ___ acht bis vierzehn Uhr.",
+  "cue": "fra åtte til to",
+  "a": "von",
+  "c": [
+   "von",
+   "um",
+   "am"
+  ],
+  "e": "«von … bis …» = fra … til …",
+  "h": "fra … til → von … bis."
+ },
+ {
+  "s": "Wir treffen uns um halb drei. Offiziell: ___ Uhr dreißig.",
+  "cue": "14:30",
+  "a": "vierzehn",
+  "c": [
+   "vierzehn",
+   "fünfzehn",
+   "dreizehn"
+  ],
+  "e": "halb drei = 2:30. Om ettermiddagen er det 14:30 = vierzehn Uhr dreißig, ikke 15:30.",
+  "h": "halb drei = 2:30, ikke 3:30."
+ }
+];
+
+(function(){
+  var ALL = DWQ, Q = [], i = 0, score = 0, done = false, missed = [];
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function shuffle(a){ a = a.slice(); for(var k = a.length - 1; k > 0; k--){ var j = Math.floor(Math.random() * (k + 1)); var t = a[k]; a[k] = a[j]; a[j] = t; } return a; }
+  var $ = function(id){ return document.getElementById(id); };
+  function start(){
+    Q = shuffle(ALL); i = 0; score = 0; missed = [];
+    $('dw-ex-play').style.display = 'block'; $('dw-ex-result').classList.remove('dw-show');
+    render();
+  }
+  function render(){
+    var q = Q[i]; done = false;
+    $('dw-ex-count').textContent = 'Oppgave ' + (i + 1) + ' av ' + Q.length;
+    $('dw-ex-score-live').textContent = 'Poeng: ' + score;
+    $('dw-ex-fill').style.width = (i / Q.length * 100) + '%';
+    $('dw-ex-cue').textContent = q.cue || '';
+    $('dw-ex-sent').innerHTML = esc(q.s).replace('___', '<span class="dw-blank" id="dw-ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;</span>');
+    $('dw-ex-choices').innerHTML = shuffle(q.c).map(function(c){ return '<button type="button" class="dw-ex-choice" data-v="' + esc(c) + '">' + esc(c) + '</button>'; }).join('');
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb'; fb.innerHTML = '';
+    $('dw-ex-hintbtn').style.display = 'inline'; $('dw-ex-next').style.display = 'none';
+  }
+  $('dw-ex-choices').addEventListener('click', function(e){
+    var b = e.target.closest('.dw-ex-choice'); if(!b || done) return;
+    done = true; var q = Q[i], v = b.getAttribute('data-v'), ok = v === q.a;
+    document.querySelectorAll('.dw-ex-choice').forEach(function(x){
+      x.disabled = true;
+      if(x.getAttribute('data-v') === q.a) x.classList.add('dw-correct');
+    });
+    if(!ok) b.classList.add('dw-wrong');
+    var bl = $('dw-ex-blank'); bl.textContent = q.a; bl.classList.add('dw-filled'); if(!ok) bl.classList.add('dw-bad');
+    if(ok) score++; else missed.push(q);
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb dw-show ' + (ok ? 'dw-good' : 'dw-bad');
+    fb.innerHTML = (ok ? '✅ Riktig! ' : '❌ Riktig svar er <b>' + esc(q.a) + '</b>. ') + esc(q.e);
+    $('dw-ex-hintbtn').style.display = 'none';
+    $('dw-ex-score-live').textContent = 'Poeng: ' + score;
+    var nx = $('dw-ex-next'); nx.style.display = 'inline-block'; nx.textContent = (i === Q.length - 1) ? 'Se resultatet →' : 'Neste →'; nx.focus();
+  });
+  $('dw-ex-hintbtn').addEventListener('click', function(){
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb dw-show'; fb.innerHTML = '💡 ' + esc(Q[i].h);
+  });
+  $('dw-ex-next').addEventListener('click', function(){
+    if(i < Q.length - 1){ i++; render(); return; }
+    $('dw-ex-play').style.display = 'none'; $('dw-ex-result').classList.add('dw-show');
+    $('dw-ex-final').textContent = score + ' / ' + Q.length;
+    var pct = score / Q.length;
+    $('dw-ex-msg').textContent = pct === 1 ? 'Perfekt — ingen feil!' : pct >= 0.75 ? 'Veldig bra! Les gjennom de få feilene under.' : pct >= 0.5 ? 'Greit på vei — se på tabellene og prøv igjen.' : 'Les forklaringen en gang til, og prøv på nytt.';
+    $('dw-ex-review').innerHTML = missed.length ? '<b>Dette bør du se på igjen:</b><ul>' + missed.map(function(q){ return '<li>' + esc(q.s).replace('___', '<b>' + esc(q.a) + '</b>') + ' — ' + esc(q.e) + '</li>'; }).join('') + '</ul>' : '🎉 Du hadde alt riktig!';
+    $('dw-ex-fill').style.width = '100%';
+  });
+  $('dw-ex-restart').addEventListener('click', start);
+  start();
+})();
+</script>
+</body>
+</html>

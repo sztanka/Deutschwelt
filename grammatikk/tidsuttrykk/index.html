@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <!--
   DEUTSCHWELT — Grammatik-kategori: "Tidsuttrykk"
-  Ingen sider bygget ennå — kun planlagte temaer.
-  Se README.md i rotmappen for mønsteret for grammatikk-kategorier.
+  Hub med fire undersider (klokka, ukedager, måneder-aarstider, tidsord), oversiktstabell og lenke til Zahlen som tilleggsressurs.
 -->
 <html lang="de">
 <head>
@@ -15,41 +14,92 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --dw-primary:#161616;
-    --dw-primary-light:#9c1329;
-    --dw-accent:#d9a91c;
-    --dw-bg:#f7f5f0;
-    --dw-card:#ffffff;
-    --dw-text:#232323;
-    --dw-muted:#6b6b6b;
-    --dw-radius:16px;
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
   }
   *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
-  .dw-wrap{max-width:820px;margin:0 auto;padding:0 16px 60px;}
-  .dw-header{
-    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
-    color:#fff;border-radius:var(--dw-radius);padding:32px 26px;text-align:center;margin-bottom:10px;
-  }
-  .dw-header h1{margin:0 0 6px;font-size:1.8rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-wrap{max-width:860px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
   .dw-header p{margin:0;opacity:.95;}
-  .dw-crumb{
-    font-size:.85rem;margin:14px 0 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-  }
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
   .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
   .dw-crumb a:hover{text-decoration:underline;}
-  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
-  .dw-card{
-    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px;text-decoration:none;color:var(--dw-text);
-    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;
-    display:flex;flex-direction:column;gap:6px;
-  }
-  .dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
-  .dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
-  .dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .dw-jump a{font-size:.86rem;font-weight:700;padding:7px 15px;border-radius:999px;text-decoration:none;background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:32px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t tbody th{background:#fbfaf6;font-size:.84rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t td.dw-hl{background:#fff3cf;}
+  .dw-t td.dw-c{text-align:center;}
+  .dw-t td.dw-x{color:#aaa;text-align:center;}
+  .dw-t tr.dw-grp td,.dw-t tr.dw-grp th{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:14px 0;}
+  a.dw-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;text-decoration:none;color:var(--dw-text);box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;gap:6px;}
+  a.dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  a.dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  a.dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
 
-  /* Tematisk kort-mønster (erstatter emoji) */
-  .dw-card.dw-p-tidsuttrykk{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Ccircle%20cx%3D%2228%22%20cy%3D%2228%22%20r%3D%2215%22%20fill%3D%22none%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%2F%3E%3Cline%20x1%3D%2228%22%20y1%3D%2228%22%20x2%3D%2228%22%20y2%3D%2217%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3Cline%20x1%3D%2228%22%20y1%3D%2228%22%20x2%3D%2236%22%20y2%3D%2228%22%20stroke%3D%22%23161616%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  /* Øvelser */
+  .dw-ex-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+  .dw-ex-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:8px;}
+  .dw-ex-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:16px;}
+  .dw-ex-fill{height:100%;width:0;background:var(--dw-good);transition:width .25s ease;}
+  .dw-ex-cue{font-size:.88rem;color:var(--dw-muted);margin-bottom:4px;}
+  .dw-ex-sent{font-size:1.3rem;font-weight:600;color:var(--dw-primary);line-height:1.5;margin:2px 0 18px;}
+  .dw-ex-sent .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);text-align:center;}
+  .dw-ex-sent .dw-blank.dw-filled{color:var(--dw-good);border-color:var(--dw-good);}
+  .dw-ex-sent .dw-blank.dw-filled.dw-bad{color:var(--dw-bad);border-color:var(--dw-bad);}
+  .dw-ex-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .dw-ex-choice{flex:1 1 110px;max-width:170px;padding:12px 8px;font-family:inherit;font-size:1.1rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;}
+  .dw-ex-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-ex-choice:disabled{cursor:default;opacity:.55;}
+  .dw-ex-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-ex-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .dw-ex-choice:focus-visible,.dw-ex-btn:focus-visible,.dw-ex-hintbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-ex-hintbtn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:.85rem;padding:0;margin-bottom:8px;}
+  .dw-ex-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:10px 14px;margin:6px 0 14px;background:#f4f1e8;}
+  .dw-ex-fb.dw-show{display:block;}
+  .dw-ex-fb.dw-good{background:#eef7ee;color:#1f5d23;}
+  .dw-ex-fb.dw-bad{background:#fdecee;color:#8c1d1d;}
+  .dw-ex-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:11px 26px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .dw-ex-btn:hover{background:var(--dw-primary-light);}
+  .dw-ex-btn.dw-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-ex-result{display:none;text-align:center;}
+  .dw-ex-result.dw-show{display:block;}
+  .dw-ex-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .dw-ex-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:12px 18px;margin:14px 0;font-size:.9rem;}
+  .dw-ex-review li{margin-bottom:6px;}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .dw-ex-sent{font-size:1.12rem;}
+  }
 </style>
 </head>
 <body>
@@ -59,7 +109,7 @@
     <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
     <div class="dw-nav-links">
       <a class="dw-nav-link" href="../../">🏠 Forside</a>
-      <a class="dw-nav-link dw-nav-active" href="../">🧩 Grammatik</a>
+      <a class="dw-nav-link dw-nav-active" href="../../grammatikk/">🧩 Grammatik</a>
       <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
       <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
       <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
@@ -86,23 +136,54 @@
 <div class="dw-wrap">
 
   <div class="dw-header">
-    <h1>Tidsuttrykk</h1>
+    <h1>⏰ Tidsuttrykk</h1>
     <p>Klokkeslett, ukedager, måneder og årstider på tysk</p>
   </div>
 
   <p class="dw-crumb"><a href="../">🧩 Grammatik</a> → Tidsuttrykk</p>
 
+  <div class="dw-exp">
+<h3>Hva er tidsuttrykk?</h3><p><strong>Tidsuttrykk</strong> er ord og uttrykk som sier <em>når</em> noe skjer, <em>hvor lenge</em>, <em>hvor ofte</em> og <em>i hvilken rekkefølge</em>. Her lærer du de uttrykkene du trenger hver eneste dag: klokka, ukedager, måneder, datoer og små tidsord som <span class="dw-de">heute</span>, <span class="dw-de">dann</span> og <span class="dw-de">später</span>.</p><p>På norsk er tidsuttrykk ofte et <em>tidsadverbial</em>. På tysk står det gjerne først i midtfeltet (Te i TeKaMoLo), og når det står først i setningen, kommer verbet på plass to: <span class="dw-de">Am Montag habe ich Mathe.</span></p><div class="dw-tip">💡 <strong>Tilleggsressurs:</strong> På <a href="../zahlen/#klokka">Zahlen-siden</a> finner du en interaktiv klokke-omformer (skriv et klokkeslett, få det på tysk), ordenstall, månedene og årstall. Her på Tidsuttrykk går vi dypere på forklaring, sammenligning med norsk og bruk i skriving.</div>
+  </div>
+
+  <h2 class="dw-sec-title" style="margin-top:20px">📚 Sidene i denne kategorien</h2>
   <div class="dw-grid">
-    <a class="dw-card dw-p-tidsuttrykk" href="../zahlen/#klokka">
-      <h2>Klokka på tysk</h2>
-      <p>Offisielt og uformelt, «halb vier» og nach/vor — se Zahlen-siden</p>
+    <a class="dw-card" href="klokka/">
+      <h2>🕒 Klokka</h2>
+      <p>Wie spät ist es? — «Es ist halb drei.» Uformelt og offisielt, halb og Viertel.</p>
     </a>
-    <a class="dw-card dw-p-tidsuttrykk dw-soon" href="#">
-      <h2>Ukedager, måneder og årstider</h2>
-      <p>Kommer snart</p>
-      <span class="dw-soon-tag">🔜 Kommer snart</span>
+    <a class="dw-card" href="ukedager/">
+      <h2>📅 Ukedager og tider på dagen</h2>
+      <p>am Montag, montags, heute Morgen — ukedager, tider på dagen og hilsener.</p>
+    </a>
+    <a class="dw-card" href="maaneder-aarstider/">
+      <h2>🗓️ Måneder, årstider og dato</h2>
+      <p>im Mai, im Sommer, am 3. Mai — måneder, årstider, dato og årstall.</p>
+    </a>
+    <a class="dw-card" href="tidsord/">
+      <h2>⏳ Tidsord og tekstbinding</h2>
+      <p>heute, gestern, dann, schließlich — relative tidsord og tekstbinding, pluss bevor/nachdem 🎓.</p>
     </a>
   </div>
+
+  <h2 class="dw-sec-title">🔎 Oversikt: hva vil du si?</h2>
+  <div class="dw-exp">
+    <div class="dw-tbl-wrap"><table class="dw-t" style="min-width:620px"><thead><tr><th>Hva vil du si?</th><th>Tysk</th><th>Side</th></tr></thead><tbody><tr><th>Hva er klokka?</th><td><span class="dw-de">Wie spät ist es? – Es ist halb drei.</span></td><td><a href="klokka/">Klokka</a></td></tr><tr><th>kl. 14.35 (toget går)</th><td><span class="dw-de">vierzehn Uhr fünfunddreißig</span></td><td><a href="klokka/">Klokka</a></td></tr><tr><th>på mandag</th><td><span class="dw-de">am Montag</span></td><td><a href="ukedager/">Ukedager</a></td></tr><tr><th>hver mandag</th><td><span class="dw-de">montags / jeden Montag</span></td><td><a href="ukedager/">Ukedager</a></td></tr><tr><th>i morges, i kveld, i morgen tidlig</th><td><span class="dw-de">heute Morgen, heute Abend, morgen früh</span></td><td><a href="ukedager/">Ukedager</a></td></tr><tr><th>god kveld</th><td><span class="dw-de">Guten Abend!</span></td><td><a href="ukedager/">Ukedager</a></td></tr><tr><th>i mai, om sommeren</th><td><span class="dw-de">im Mai, im Sommer</span></td><td><a href="maaneder-aarstider/">Måneder</a></td></tr><tr><th>den 3. mai</th><td><span class="dw-de">am 3. Mai (am dritten Mai)</span></td><td><a href="maaneder-aarstider/">Måneder</a></td></tr><tr><th>i 2026</th><td><span class="dw-de">im Jahr 2026</span></td><td><a href="maaneder-aarstider/">Måneder</a></td></tr><tr><th>for en uke siden / om en uke</th><td><span class="dw-de">vor einer Woche / in einer Woche</span></td><td><a href="tidsord/">Tidsord</a></td></tr><tr><th>først, så, til slutt</th><td><span class="dw-de">zuerst, dann, schließlich</span></td><td><a href="tidsord/">Tidsord</a></td></tr><tr><th>før / etter at jeg …</th><td><span class="dw-de">bevor ich … / nachdem ich … 🎓</span></td><td><a href="tidsord/">Tidsord</a></td></tr></tbody></table></div>
+  </div>
+
+  <h2 class="dw-sec-title">🔢 Tilleggsressurs: Zahlen</h2>
+  <div class="dw-grid">
+    <a class="dw-card" href="../zahlen/#klokka">
+      <h2>🕒 Interaktiv klokke-omformer</h2>
+      <p>Skriv et klokkeslett og få det på tysk – offisielt og uformelt. Finnes på Zahlen-siden.</p>
+    </a>
+    <a class="dw-card" href="../zahlen/">
+      <h2>🔢 Zahlen: tall, ordenstall og årstall</h2>
+      <p>Tall, ordenstall, måneder og årstall med en tall-søker og øvelser.</p>
+    </a>
+  </div>
+
+  <p class="dw-see-also"><strong>Se også:</strong> <a href="../adverbial/temporal/">Adverbial: Temporal</a> · <a href="../zahlen/">Zahlen</a> · <a href="../adverbial/">Adverbial (TeKaMoLo)</a></p>
 
 </div>
 </body>
