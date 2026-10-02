@@ -1,104 +1,157 @@
 <!DOCTYPE html>
 <!--
-  DEUTSCHWELT — Grammatik-verksted: "Verb-Werkstatt: Unregelmäßige Verben"
-  Presens, uregelrette verb (sein, haben + vokalskifte-verb) — for 8. trinn (A1).
-  Samme spillmotor som grammatikk/verb/praesens-regelmaessig/ — se den mappen for
-  detaljer om hvordan dwWords brukes.
-  Se README.md i rotmappen for hvordan du legger til flere grammatikk-sider.
+  DEUTSCHWELT — Grammatikk: "Verb-Werkstatt: Unregelmäßige Verben" (verb/praesens-unregelmaessig/)
+  Fanebasert side: Start, sein, haben, vokalskifte-verb, werden/wissen/modalverb. Utfyllingstabeller og setninger (grønt ved riktig svar) via fillcommon.py; MC-øvelser nederst.
 -->
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verb-Werkstatt: Unregelmäßige Verben · Deutschwelt</title>
+<title>Unregelmäßige Verben · Presens · Deutschwelt</title>
 <link rel="stylesheet" href="../../../assets/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --dw-primary:#161616;
-    --dw-primary-light:#9c1329;
-    --dw-accent:#d9a91c;
-    --dw-good:#2e7d32;
-    --dw-bad:#c62828;
-    --dw-bg:#f7f5f0;
-    --dw-card:#ffffff;
-    --dw-text:#232323;
-    --dw-muted:#6b6b6b;
-    --dw-radius:16px;
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
   }
   *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
-  .dw-wrap{max-width:680px;margin:0 auto;padding:0 16px 50px;}
-  .dw-header{
-    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
-    color:#fff;border-radius:var(--dw-radius);padding:24px 22px;text-align:center;margin-bottom:20px;
-  }
-  .dw-header h1{margin:0 0 4px;font-size:1.5rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
-  .dw-header p{margin:0;opacity:.95;font-size:.95rem;}
-
-  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-wrap{max-width:860px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
   .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
   .dw-crumb a:hover{text-decoration:underline;}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .dw-jump a{font-size:.86rem;font-weight:700;padding:7px 15px;border-radius:999px;text-decoration:none;background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:32px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t tbody th{background:#fbfaf6;font-size:.84rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t td.dw-hl{background:#fff3cf;}
+  .dw-t td.dw-c{text-align:center;}
+  .dw-t td.dw-x{color:#aaa;text-align:center;}
+  .dw-t tr.dw-grp td,.dw-t tr.dw-grp th{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:14px 0;}
+  a.dw-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;text-decoration:none;color:var(--dw-text);box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;gap:6px;}
+  a.dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  a.dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  a.dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
 
-  .dw-rule{
-    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
-    padding:16px 20px;margin-bottom:20px;font-size:.92rem;line-height:1.6;
+  /* Øvelser */
+  .dw-ex-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+  .dw-ex-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:8px;}
+  .dw-ex-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:16px;}
+  .dw-ex-fill{height:100%;width:0;background:var(--dw-good);transition:width .25s ease;}
+  .dw-ex-cue{font-size:.88rem;color:var(--dw-muted);margin-bottom:4px;}
+  .dw-ex-sent{font-size:1.3rem;font-weight:600;color:var(--dw-primary);line-height:1.5;margin:2px 0 18px;}
+  .dw-ex-sent .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);text-align:center;}
+  .dw-ex-sent .dw-blank.dw-filled{color:var(--dw-good);border-color:var(--dw-good);}
+  .dw-ex-sent .dw-blank.dw-filled.dw-bad{color:var(--dw-bad);border-color:var(--dw-bad);}
+  .dw-ex-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .dw-ex-choice{flex:1 1 110px;max-width:170px;padding:12px 8px;font-family:inherit;font-size:1.1rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;}
+  .dw-ex-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-ex-choice:disabled{cursor:default;opacity:.55;}
+  .dw-ex-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-ex-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .dw-ex-choice:focus-visible,.dw-ex-btn:focus-visible,.dw-ex-hintbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-ex-hintbtn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:.85rem;padding:0;margin-bottom:8px;}
+  .dw-ex-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:10px 14px;margin:6px 0 14px;background:#f4f1e8;}
+  .dw-ex-fb.dw-show{display:block;}
+  .dw-ex-fb.dw-good{background:#eef7ee;color:#1f5d23;}
+  .dw-ex-fb.dw-bad{background:#fdecee;color:#8c1d1d;}
+  .dw-ex-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:11px 26px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .dw-ex-btn:hover{background:var(--dw-primary-light);}
+  .dw-ex-btn.dw-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-ex-result{display:none;text-align:center;}
+  .dw-ex-result.dw-show{display:block;}
+  .dw-ex-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .dw-ex-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:12px 18px;margin:14px 0;font-size:.9rem;}
+  .dw-ex-review li{margin-bottom:6px;}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .dw-ex-sent{font-size:1.12rem;}
   }
-  .dw-rule h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
-  .dw-rule table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.88rem;}
-  .dw-rule td, .dw-rule th{padding:4px 8px;text-align:left;}
-  .dw-rule th{color:var(--dw-muted);font-weight:600;border-bottom:1px solid #f0dca8;}
-  .dw-rule-tables{display:flex;gap:20px;flex-wrap:wrap;}
-  .dw-rule-tables > div{flex:1 1 180px;}
 
-  .dw-progress-wrap{background:#e4e0d5;border-radius:999px;height:10px;overflow:hidden;margin:16px 0 6px;}
-  .dw-progress-bar{height:100%;background:var(--dw-accent);width:0%;transition:width .3s ease;}
-  .dw-meta{display:flex;justify-content:space-between;font-size:.82rem;color:var(--dw-muted);margin-bottom:16px;}
-
-  .dw-card{
-    background:var(--dw-card);border-radius:var(--dw-radius);padding:28px 24px;text-align:center;
-    box-shadow:0 2px 10px rgba(0,0,0,.07);border:1px solid #ece8df;
-  }
-  .dw-emoji{font-size:3rem;margin-bottom:8px;}
-  .dw-sentence{font-size:1.2rem;font-weight:600;color:var(--dw-primary);margin:4px 0 20px;}
-  .dw-sentence .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);}
-
-  .dw-choices{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;}
-  .dw-choice{
-    flex:1 1 110px;max-width:150px;padding:14px 6px;font-size:1.05rem;font-weight:700;border-radius:12px;
-    border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;
-  }
-  .dw-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
-  .dw-choice:disabled{cursor:default;opacity:.6;}
-  .dw-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
-  .dw-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
-
-  .dw-hint-btn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-size:.85rem;margin-bottom:10px;}
-  .dw-explain{
-    min-height:1.4em;font-size:.9rem;color:var(--dw-muted);background:#f4f1e8;border-radius:10px;
-    padding:10px 14px;margin:10px 0 16px;display:none;
-  }
-  .dw-explain.dw-show{display:block;}
-
-  .dw-next-btn{
-    background:var(--dw-primary);color:#fff;border:none;padding:12px 26px;border-radius:999px;
-    font-size:1rem;font-weight:600;cursor:pointer;display:none;
-  }
-  .dw-next-btn.dw-show{display:inline-block;}
-  .dw-next-btn:hover{background:var(--dw-primary-light);}
-
-  .dw-result{display:none;text-align:center;}
-  .dw-result.dw-show{display:block;}
-  .dw-result h2{color:var(--dw-primary);}
-  .dw-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:8px 0;}
-  .dw-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:14px 18px;margin:18px 0;font-size:.9rem;}
-  .dw-review li{margin-bottom:6px;}
-  .dw-restart-btn{
-    background:var(--dw-accent);color:#1a1a1a;border:none;padding:12px 26px;border-radius:999px;
-    font-size:1rem;font-weight:700;cursor:pointer;
-  }
+  /* ---- faner ---- */
+  .dw-tabs{display:none;flex-wrap:wrap;gap:8px;margin:14px 0 6px;}
+  .dw-js .dw-tabs{display:flex;}
+  .dw-tabs button{font-family:inherit;font-size:.95rem;font-weight:800;padding:10px 18px;border-radius:999px;border:2px solid #e4dfd2;background:#fff;color:var(--dw-text);cursor:pointer;}
+  .dw-tabs button:hover{border-color:var(--dw-primary-light);}
+  .dw-tabs button[aria-selected="true"]{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .dw-tabs button:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-tabpanel[hidden]{display:none;}
+  .dw-tabnext{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:18px 0 6px;}
+  .dw-tabnext button{font-family:inherit;font-weight:800;font-size:.9rem;padding:9px 18px;border-radius:999px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;}
+  .dw-tabnext button:hover{background:var(--dw-primary);color:#fff;}
+  .dw-js .dw-tabnext{display:flex;} .dw-tabnext{display:none;}
+  /* ---- utfyll-widgets ---- */
+  .dw-fill{background:#f8f6ef;border:2px dashed #d9d3c4;border-radius:14px;padding:14px 16px;margin:14px 0;}
+  .dw-fill h4{margin:0 0 4px;font-size:1rem;color:var(--dw-primary-light);}
+  .dw-fill .dw-fi-intro{font-size:.88rem;color:var(--dw-muted);margin:0 0 8px;}
+  .dw-fill-modes{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px;}
+  .dw-fill-modes button{font-family:inherit;font-size:.8rem;font-weight:700;padding:5px 12px;border-radius:999px;border:1.5px solid #cfd8e6;background:#fff;cursor:pointer;color:var(--dw-text);}
+  .dw-fill-modes button.dw-on{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .dw-fill table{border-collapse:collapse;margin:4px 0 8px;font-size:.95rem;background:#fff;}
+  .dw-fill th,.dw-fill td{border:1px solid #ece8df;padding:6px 9px;text-align:center;}
+  .dw-fill th{background:#fbfaf6;font-size:.78rem;color:var(--dw-muted);}
+  .dw-fill th small{display:block;font-weight:400;font-size:.72rem;}
+  .dw-fill td.dw-pr{text-align:left;font-weight:700;color:var(--dw-muted);background:#fbfaf6;white-space:nowrap;}
+  .dw-fill td.dw-given{font-weight:700;color:#232323;}
+  .dw-fill td.dw-hlc{background:#fff8e4;}
+  .dw-fill .dw-tw{overflow-x:auto;}
+  .dw-fi{font-family:inherit;font-size:1rem;font-weight:700;width:7.6em;max-width:100%;padding:6px 8px;border:2px solid #cfc8b5;border-radius:8px;text-align:center;background:#fff;color:#232323;}
+  .dw-fi:focus{outline:none;border-color:var(--dw-primary-light);box-shadow:0 0 0 3px rgba(156,19,41,.15);}
+  .dw-fi.dw-st-ok{background:#e3f4e3;border-color:#2e7d32;color:#1f5d23;}
+  .dw-fi.dw-st-near{background:#fff3cf;border-color:#d9a91c;}
+  .dw-fi.dw-st-bad{background:#fdecee;border-color:#c62828;color:#8c1d1d;}
+  .dw-fi.dw-st-shown{background:#e6eefb;border-color:#5b8bd6;color:#1e3f7a;}
+  .dw-keys{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:6px 0;font-size:.8rem;color:var(--dw-muted);}
+  .dw-key{font-family:inherit;font-size:1rem;font-weight:800;width:36px;height:34px;border-radius:8px;border:1.5px solid #cfd8e6;background:#fff;cursor:pointer;color:var(--dw-text);}
+  .dw-key:hover{background:var(--dw-primary);color:#fff;}
+  .dw-frow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px;}
+  .dw-fbtn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:8px 18px;border-radius:999px;font-size:.9rem;font-weight:700;cursor:pointer;}
+  .dw-fbtn.dw-sec{background:#fff;color:var(--dw-primary);border:2px solid #d9d3c4;}
+  .dw-fbtn:hover{background:var(--dw-primary-light);color:#fff;}
+  .dw-fstat{font-size:.9rem;font-weight:700;margin-left:auto;}
+  .dw-fstat.dw-all{color:var(--dw-good);}
+  .dw-fmsg{display:none;margin-top:8px;border-radius:10px;padding:8px 12px;font-size:.88rem;background:#fff9ec;color:#5a4500;line-height:1.5;}
+  .dw-fmsg.dw-show{display:block;}
+  .dw-fg ol{list-style:none;margin:6px 0;padding:0;counter-reset:g;}
+  .dw-fg li{counter-increment:g;display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:7px 0;border-bottom:1px solid #ece8df;line-height:1.9;}
+  .dw-fg li::before{content:counter(g)".";font-weight:800;color:var(--dw-muted);min-width:1.6em;}
+  .dw-fg li .dw-gv{font-size:.82rem;color:var(--dw-muted);font-style:italic;}
+  .dw-fg li .dw-gm{margin-left:2px;min-width:1.4em;}
+  .dw-fg .dw-fi{width:6.4em;}
+  @media(max-width:560px){.dw-fi{width:6.2em;font-size:.95rem;padding:5px 5px;}.dw-fill{padding:12px 10px;}.dw-fill th,.dw-fill td{padding:5px 5px;}}
 </style>
 </head>
 <body>
@@ -108,7 +161,7 @@
     <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
     <div class="dw-nav-links">
       <a class="dw-nav-link" href="../../../">🏠 Forside</a>
-      <a class="dw-nav-link dw-nav-active" href="../../">🧩 Grammatik</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../grammatikk/">🧩 Grammatik</a>
       <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
       <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
       <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
@@ -134,197 +187,597 @@
 
 <div class="dw-wrap">
 
-  <p class="dw-crumb"><a href="../../">🧩 Grammatik</a> → <a href="../">Verb</a> → Presens: uregelrette</p>
-
   <div class="dw-header">
     <h1>Verb-Werkstatt: Unregelmäßige Verben</h1>
-    <p>Noen verb følger ikke det vanlige mønsteret — disse må du bare pugge!</p>
+    <p>sein, haben og verb som skifter vokal – med tabeller du fyller ut selv</p>
   </div>
 
-  <div class="dw-rule">
-    <h2>📌 Regel: To typer uregelmessighet</h2>
-    <p><strong>sein</strong> og <strong>haben</strong> er helt uregelrette og må pugges utenat:</p>
-    <div class="dw-rule-tables">
-      <div>
-        <table>
-          <tr><th>sein</th><th></th></tr>
-          <tr><td>ich</td><td>bin</td></tr>
-          <tr><td>du</td><td>bist</td></tr>
-          <tr><td>er/sie/es</td><td>ist</td></tr>
-          <tr><td>wir</td><td>sind</td></tr>
-          <tr><td>ihr</td><td>seid</td></tr>
-          <tr><td>sie/Sie</td><td>sind</td></tr>
-        </table>
-      </div>
-      <div>
-        <table>
-          <tr><th>haben</th><th></th></tr>
-          <tr><td>ich</td><td>habe</td></tr>
-          <tr><td>du</td><td>hast</td></tr>
-          <tr><td>er/sie/es</td><td>hat</td></tr>
-          <tr><td>wir</td><td>haben</td></tr>
-          <tr><td>ihr</td><td>habt</td></tr>
-          <tr><td>sie/Sie</td><td>haben</td></tr>
-        </table>
-      </div>
+  <p class="dw-crumb"><a href="../../">🧩 Grammatik</a> → <a href="../">Verb</a> → Presens: uregelrette <span class="dw-level-tag">8. trinn · A1</span></p>
+
+  <div class="dw-tabs" id="dw-tabs" role="tablist" aria-label="Velg del"><button type="button" role="tab" data-tab="start" aria-controls="start" aria-selected="true">🧭 Start</button><button type="button" role="tab" data-tab="sein" aria-controls="sein" aria-selected="false">🅱️ sein</button><button type="button" role="tab" data-tab="haben" aria-controls="haben" aria-selected="false">🟩 haben</button><button type="button" role="tab" data-tab="vokal" aria-controls="vokal" aria-selected="false">🔀 Vokalskifte-verb</button><button type="button" role="tab" data-tab="flere" aria-controls="flere" aria-selected="false">🧩 werden, wissen, modalverb</button></div>
+
+  <section class="dw-tabpanel" id="start" aria-label="🧭 Start">
+  <h2 class="dw-sec-title" id="hva">📌 Hva betyr «uregelrett» i presens?</h2>
+  <div class="dw-exp">
+<p>Regelrette verb lager presens etter en fast oppskrift: <b>stamme + endelse</b>. Stammen får du ved å ta bort <b>-en</b> fra infinitiv (spielen → spiel-).</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:520px"><thead><tr><th></th><th>ich</th><th>du</th><th>er / sie / es</th><th>wir</th><th>ihr</th><th>sie / Sie</th></tr></thead><tbody><tr><th>Endelse</th><td class="dw-f">-e</td><td class="dw-f">-st</td><td class="dw-f">-t</td><td class="dw-f">-en</td><td class="dw-f">-t</td><td class="dw-f">-en</td></tr><tr><th>spielen</th><td class="dw-f">spiele</td><td class="dw-f">spielst</td><td class="dw-f">spielt</td><td class="dw-f">spielen</td><td class="dw-f">spielt</td><td class="dw-f">spielen</td></tr></tbody></table></div><p>Uregelrette verb <b>bryter oppskriften</b>. Det kan skje på tre måter, og denne siden har en egen fane for hver:</p><ul><li>🅱️ <b>sein</b> og <b>haben</b> – helt egne former (bin, bist, ist …). Disse må du kunne utenat.</li><li>🔀 <b>Vokalskifte-verb</b> – endelsene er vanlige, men <b>stammevokalen endres i du og er/sie/es</b>: fahren → du fährst, sprechen → du sprichst, sehen → du siehst.</li><li>🧩 <b>werden, wissen og modalverb</b> – små avvik, som <i>ich kann</i> og <i>er kann</i> (ingen endelse).</li></ul><div class="dw-tip">👆 <b>Klikk på fanene</b> øverst for å velge. Du kan hoppe fritt mellom dem. Hver fane har forklaring, tabeller du fyller ut selv (de blir <b>grønne</b> når svaret er riktig) og setninger som skal fullføres.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="norsk">🇳🇴 Norsk og tysk: hvorfor er dette nytt for oss?</h2>
+  <div class="dw-exp">
+<div class="dw-cmp"><div><b class="dw-lang">Norsk</b><p>Presens er <b>lik for alle personer</b>:</p><p>jeg / du / han / vi / dere / de <b>spiser</b>, <b>sover</b>, <b>ser</b>, <b>kjører</b>.</p><p>Til og med «være» er bare <b>er</b> for alle.</p></div><div><b class="dw-lang">Tysk</b><p>Verbet <b>følger personen</b>:</p><p>ich esse, du <b>isst</b>, er <b>isst</b>, wir essen …</p><p>«Være» har seks former: bin, bist, ist, sind, seid, sind.</p></div></div><p>På engelsk finner du litt av det samme: <i>I am – you are – he is</i>, og <i>he speaks</i> (-s). Men at <b>selve vokalen i stammen skifter</b> (<i>spreche → sprichst</i>) har hverken norsk eller engelsk i presens. Derfor lønner det seg å øve på akkurat dette.</p>
+  </div>
+
+  <h2 class="dw-sec-title" id="mono">🔍 Se mønsteret: bare du og er/sie/es endres</h2>
+  <div class="dw-exp">
+<p>Ved vokalskifte-verb er det <b>bare to felt</b> som får ny vokal. De fire andre er helt vanlige (de gule feltene endres):</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th></th><th>ich</th><th>du</th><th>er / sie / es</th><th>wir</th><th>ihr</th><th>sie / Sie</th></tr></thead><tbody><tr><th>fahren</th><td class="dw-f">fahre</td><td class="dw-f dw-hl">fährst</td><td class="dw-f dw-hl">fährt</td><td class="dw-f">fahren</td><td class="dw-f">fahrt</td><td class="dw-f">fahren</td></tr><tr><th>sprechen</th><td class="dw-f">spreche</td><td class="dw-f dw-hl">sprichst</td><td class="dw-f dw-hl">spricht</td><td class="dw-f">sprechen</td><td class="dw-f">sprecht</td><td class="dw-f">sprechen</td></tr><tr><th>sehen</th><td class="dw-f">sehe</td><td class="dw-f dw-hl">siehst</td><td class="dw-f dw-hl">sieht</td><td class="dw-f">sehen</td><td class="dw-f">seht</td><td class="dw-f">sehen</td></tr></tbody></table></div><p>Denne regelen kalles ofte «Stiefelverben» (støvelverb) i tysk undervisning. Når du lærer et nytt verb, spør deg alltid: <i>Endrer vokalen seg i du og er/sie/es?</i></p>
+  </div>
+
+  <h2 class="dw-sec-title" id="hvorfor">✍️ Når trenger du dette i skriving og samtale?</h2>
+  <div class="dw-exp">
+<ul><li><b>sein</b> bruker du hver gang du presenterer deg: <i>Ich bin Lisa. Ich bin 14. Ich bin aus Norwegen.</i></li><li><b>haben</b> bruker du om ting, familie og følelser: <i>Ich habe einen Hund. Ich habe Hunger.</i></li><li><b>fahren, essen, sehen, lesen, schlafen</b> er verb du bruker i teksten om dagen din: <i>Ich fahre mit dem Bus. Mein Bruder isst gern Pizza.</i> Se <a href="../../../schreiben/mein-tag/">Mein Tag</a>.</li><li>Du trenger <b>sein</b> og <b>haben</b> igjen i <a href="../perfekt/">perfektum</a> (<i>Ich bin gefahren, ich habe gegessen</i>) og <b>werden</b> i <a href="../futur-1/">futur</a>.</li><li>Verbplasseringen i setningen finner du i <a href="../../ordstilling/plass-2/">Ordstilling: verbet på plass 2</a>.</li></ul>
+  </div>
+
+  <h2 class="dw-sec-title" id="oppslag">📚 Oppslagstabell: de vanligste uregelrette verbene</h2>
+  <div class="dw-exp">
+<p>Slå opp her når du er usikker. De gule feltene er formene som oftest feilstaves.</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th>Verb</th><th>Norsk</th><th>ich</th><th>du</th><th>er / sie / es</th></tr></thead><tbody><tr class="dw-grp"><td colspan="5">🅱️ Helt egne former</td></tr><tr><th>sein</th><td>være</td><td>bin</td><td class="dw-f dw-hl">bist</td><td class="dw-f dw-hl">ist</td></tr><tr><th>haben</th><td>ha</td><td>habe</td><td class="dw-f dw-hl">hast</td><td class="dw-f dw-hl">hat</td></tr><tr><th>werden</th><td>bli</td><td>werde</td><td class="dw-f dw-hl">wirst</td><td class="dw-f dw-hl">wird</td></tr><tr><th>wissen</th><td>vite</td><td>weiß</td><td class="dw-f dw-hl">weißt</td><td class="dw-f dw-hl">weiß</td></tr><tr class="dw-grp"><td colspan="5">🔀 Vokalskifte: a → ä (au → äu)</td></tr><tr><th>fahren</th><td>kjøre, reise</td><td>fahre</td><td class="dw-f dw-hl">fährst</td><td class="dw-f dw-hl">fährt</td></tr><tr><th>schlafen</th><td>sove</td><td>schlafe</td><td class="dw-f dw-hl">schläfst</td><td class="dw-f dw-hl">schläft</td></tr><tr><th>laufen</th><td>løpe, gå</td><td>laufe</td><td class="dw-f dw-hl">läufst</td><td class="dw-f dw-hl">läuft</td></tr><tr><th>tragen</th><td>bære, ha på seg</td><td>trage</td><td class="dw-f dw-hl">trägst</td><td class="dw-f dw-hl">trägt</td></tr><tr><th>waschen</th><td>vaske</td><td>wasche</td><td class="dw-f dw-hl">wäschst</td><td class="dw-f dw-hl">wäscht</td></tr><tr><th>fallen</th><td>falle</td><td>falle</td><td class="dw-f dw-hl">fällst</td><td class="dw-f dw-hl">fällt</td></tr><tr><th>halten</th><td>holde</td><td>halte</td><td class="dw-f dw-hl">hältst</td><td class="dw-f dw-hl">hält</td></tr><tr class="dw-grp"><td colspan="5">🔀 Vokalskifte: e → i</td></tr><tr><th>sprechen</th><td>snakke</td><td>spreche</td><td class="dw-f dw-hl">sprichst</td><td class="dw-f dw-hl">spricht</td></tr><tr><th>geben</th><td>gi</td><td>gebe</td><td class="dw-f dw-hl">gibst</td><td class="dw-f dw-hl">gibt</td></tr><tr><th>helfen</th><td>hjelpe</td><td>helfe</td><td class="dw-f dw-hl">hilfst</td><td class="dw-f dw-hl">hilft</td></tr><tr><th>essen</th><td>spise</td><td>esse</td><td class="dw-f dw-hl">isst</td><td class="dw-f dw-hl">isst</td></tr><tr><th>nehmen</th><td>ta</td><td>nehme</td><td class="dw-f dw-hl">nimmst</td><td class="dw-f dw-hl">nimmt</td></tr><tr><th>treffen</th><td>møte</td><td>treffe</td><td class="dw-f dw-hl">triffst</td><td class="dw-f dw-hl">trifft</td></tr><tr><th>vergessen</th><td>glemme</td><td>vergesse</td><td class="dw-f dw-hl">vergisst</td><td class="dw-f dw-hl">vergisst</td></tr><tr><th>werfen</th><td>kaste</td><td>werfe</td><td class="dw-f dw-hl">wirfst</td><td class="dw-f dw-hl">wirft</td></tr><tr class="dw-grp"><td colspan="5">🔀 Vokalskifte: e → ie</td></tr><tr><th>sehen</th><td>se</td><td>sehe</td><td class="dw-f dw-hl">siehst</td><td class="dw-f dw-hl">sieht</td></tr><tr><th>lesen</th><td>lese</td><td>lese</td><td class="dw-f dw-hl">liest</td><td class="dw-f dw-hl">liest</td></tr><tr><th>empfehlen</th><td>anbefale</td><td>empfehle</td><td class="dw-f dw-hl">empfiehlst</td><td class="dw-f dw-hl">empfiehlt</td></tr><tr class="dw-grp"><td colspan="5">🧩 Modalverb (ich = er/sie/es)</td></tr><tr><th>können</th><td>kunne</td><td>kann</td><td class="dw-f dw-hl">kannst</td><td class="dw-f dw-hl">kann</td></tr><tr><th>müssen</th><td>måtte</td><td>muss</td><td class="dw-f dw-hl">musst</td><td class="dw-f dw-hl">muss</td></tr><tr><th>wollen</th><td>ville</td><td>will</td><td class="dw-f dw-hl">willst</td><td class="dw-f dw-hl">will</td></tr><tr><th>dürfen</th><td>få lov til</td><td>darf</td><td class="dw-f dw-hl">darfst</td><td class="dw-f dw-hl">darf</td></tr><tr><th>sollen</th><td>skulle</td><td>soll</td><td class="dw-f dw-hl">sollst</td><td class="dw-f dw-hl">soll</td></tr><tr><th>mögen</th><td>like</td><td>mag</td><td class="dw-f dw-hl">magst</td><td class="dw-f dw-hl">mag</td></tr></tbody></table></div><p>Alle seks personer for hvert verb finner du i <a href="../../../verben/">Verben-Konjugator</a>.</p>
+  </div>
+<div class="dw-tabnext"><span></span><button type="button" data-go="sein">🅱️ Videre til sein →</button></div></section><section class="dw-tabpanel" id="sein" aria-label="🅱️ sein">
+  <h2 class="dw-sec-title" id="sein-former">🅱️ sein = «være»: alle seks former</h2>
+  <div class="dw-exp">
+<p><b>sein</b> er det mest uregelrette verbet på tysk. Det finnes ingen stamme å bøye, så du må lære seks helt forskjellige former.</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:420px"><thead><tr><th>Person</th><th>sein <small>(være)</small></th><th>Eksempel</th></tr></thead><tbody><tr><th>ich</th><td class="dw-f dw-hl">bin</td><td>Ich bin Lisa.</td></tr><tr><th>du</th><td class="dw-f dw-hl">bist</td><td>Du bist nett.</td></tr><tr><th>er / sie / es</th><td class="dw-f dw-hl">ist</td><td>Er ist müde. · Sie ist 14. · Es ist kalt.</td></tr><tr><th>wir</th><td class="dw-f dw-hl">sind</td><td>Wir sind Freunde.</td></tr><tr><th>ihr</th><td class="dw-f dw-hl">seid</td><td>Ihr seid laut.</td></tr><tr><th>sie / Sie</th><td class="dw-f dw-hl">sind</td><td>Sie sind aus Berlin.</td></tr></tbody></table></div><div class="dw-cmp"><div><b class="dw-lang">Norsk</b><p>jeg <b>er</b>, du <b>er</b>, han <b>er</b>, vi <b>er</b>, dere <b>er</b>, de <b>er</b></p><p>Alle personer har samme form.</p></div><div><b class="dw-lang">Tysk</b><p>ich <b>bin</b>, du <b>bist</b>, er <b>ist</b>, wir <b>sind</b>, ihr <b>seid</b>, sie <b>sind</b></p><p>Seks former, og bare <i>sind</i> brukes to ganger.</p></div></div><p>Engelsk har det samme mønsteret (<i>I am, you are, he is</i>) – verbet «å være» er uregelmessig i nesten alle språk.</p>
+  </div>
+
+  <h2 class="dw-sec-title" id="sein-husk">🧠 Slik husker du dem</h2>
+  <div class="dw-exp">
+<ul><li><b>wir sind = sie sind = Sie sind</b> – tre personer med samme form.</li><li><b>ihr seid</b> (dere er) – ikke forveksle med <i>seit</i> («siden», en preposisjon): <i>Ihr seid müde. Ich wohne seit einem Jahr hier.</i></li><li><b>er / sie / es ist</b> – alltid <b>-t</b> til slutt, ingen -e.</li><li>Rim-trikset: <i>ich bin, du bist, er ist – wir sind, ihr seid, sie sind.</i> Si den høyt noen ganger.</li></ul><div class="dw-tip">🔔 <b>Høflig «De»:</b> når du snakker til en ukjent voksen, bruker du <b>Sie sind</b> (stor S) – også til én person: <i>Herr Fischer, sind Sie aus Deutschland?</i></div>
+  </div>
+
+  <h2 class="dw-sec-title" id="sein-bruk">🗣️ Når bruker du sein?</h2>
+  <div class="dw-exp">
+<p>Norske elever bruker ofte feil verb fordi norsk tenker annerledes. Disse fire er typiske <b>sein</b>-situasjoner:</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:520px"><thead><tr><th>Situasjon</th><th>Tysk</th><th>Merk</th></tr></thead><tbody><tr><th>Hvem du er / yrke</th><td>Ich <b>bin</b> Schüler. · Sie <b>ist</b> Lehrerin.</td><td>Yrke: ingen artikkel (ikke «ein Schüler»)</td></tr><tr><th>Alder</th><td>Ich <b>bin</b> 14 (Jahre alt).</td><td>❌ <s>Ich habe 14 Jahre.</s> – tysk sier «jeg er 14»</td></tr><tr><th>Tilstand og følelse</th><td>Ich <b>bin</b> müde. Er <b>ist</b> froh.</td><td>Adjektiv etter sein bøyes ikke</td></tr><tr><th>Opprinnelse og sted</th><td>Wir <b>sind</b> aus Norwegen. Wo <b>bist</b> du?</td><td>aus = fra (land/by)</td></tr><tr><th>Vær (med «es»)</th><td>Es <b>ist</b> kalt. Es <b>ist</b> sonnig.</td><td>Subjektet er alltid «es»</td></tr></tbody></table></div><div class="dw-tip">📎 <b>sein</b> er også hjelpeverb i perfektum for bevegelse: <i>Ich bin nach Berlin gefahren.</i> Se <a href="../perfekt/">Perfekt – haben eller sein?</a></div><p>Verbet står vanligvis på <a href="../../ordstilling/plass-2/">plass 2</a> i setningen: <i>Heute bin ich müde. Bist du müde?</i> (spørsmål: verbet først, se <a href="../../ordstilling/ja-nei-sporsmal/">ja/nei-spørsmål</a>).</p>
+  </div>
+
+  <h2 class="dw-sec-title" id="sein-ovelse">✏️ Øv selv: sein</h2>
+  <div class="dw-exp">
+<div class="dw-fill dw-ft"><script type="application/json">{"title": "Fyll ut sein", "verbs": [{"inf": "sein", "no": "være", "f": ["bin", "bist", "ist", "sind", "seid", "sind"]}], "modes": [{"l": "Med hjelp (fyll ut du, er/sie/es og ihr)", "b": [1, 2, 4]}, {"l": "Alle seks formene", "b": [0, 1, 2, 3, 4, 5]}], "hl": [], "hint": "Husk: bin – bist – ist – sind – seid – sind.", "default": 0, "intro": "Skriv formene i rutene. Hver rute blir grønn med en gang svaret er riktig."}</script></div><div class="dw-fill dw-fg"><script type="application/json">{"title": "Fullfør setningene med sein", "items": [{"s": "Ich ___ müde.", "a": "bin", "v": "sein"}, {"s": "___ du heute in der Schule?", "a": ["bist"], "v": "sein"}, {"s": "Herr Fischer, ___ Sie aus Österreich?", "a": "sind", "v": "sein"}, {"s": "Wir ___ jetzt fertig.", "a": "sind", "v": "sein"}, {"s": "Mein Bruder ___ zwölf Jahre alt.", "a": "ist", "v": "sein"}, {"s": "Ihr ___ aber laut!", "a": "seid", "v": "sein"}, {"s": "Anna und Tom ___ in Berlin.", "a": "sind", "v": "sein"}, {"s": "Es ___ heute kalt.", "a": "ist", "v": "sein"}, {"s": "Du ___ mein bester Freund.", "a": "bist", "v": "sein"}, {"s": "Wo ___ meine Schlüssel?", "a": "sind", "v": "sein"}], "hint": "Sjekk subjektet først: ich → bin, du → bist, er/sie/es → ist, wir og sie → sind, ihr → seid.", "intro": "Skriv riktig form av verbet i parentes. Store og små bokstaver spiller ingen rolle her."}</script></div>
+  </div>
+<div class="dw-tabnext"><button type="button" data-go="start">← 🧭 Start</button><button type="button" data-go="haben">🟩 Videre til haben →</button></div></section><section class="dw-tabpanel" id="haben" aria-label="🟩 haben">
+  <h2 class="dw-sec-title" id="haben-former">🟩 haben = «ha»: formene og hva som skjer med b-en</h2>
+  <div class="dw-exp">
+<p><b>haben</b> er nesten regelrett, men to former avviker: <b>du hast</b> og <b>er/sie/es hat</b>. Her faller <b>b</b>-en bort.</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:420px"><thead><tr><th>Person</th><th>haben <small>(ha)</small></th><th>Eksempel</th></tr></thead><tbody><tr><th>ich</th><td class="dw-f">habe</td><td>Ich habe einen Hund.</td></tr><tr><th>du</th><td class="dw-f dw-hl">hast</td><td>Du hast Hunger.</td></tr><tr><th>er / sie / es</th><td class="dw-f dw-hl">hat</td><td>Er hat Zeit. · Sie hat Glück.</td></tr><tr><th>wir</th><td class="dw-f">haben</td><td>Wir haben Hausaufgaben.</td></tr><tr><th>ihr</th><td class="dw-f">habt</td><td>Ihr habt Glück!</td></tr><tr><th>sie / Sie</th><td class="dw-f">haben</td><td>Sie haben ein Haus.</td></tr></tbody></table></div><p><b>Hvorfor faller b-en bort?</b> Når du legger <b>-st</b> eller <b>-t</b> på stammen <i>hab-</i>, ville du fått <i>hab-st</i> og <i>hab-t</i>. Det er tungt å si, så tysk har gjort det enklere:</p><ul><li>hab-<b>st</b> → <b>hast</b> (b faller bort)</li><li>hab-<b>t</b> → <b>hat</b> (b faller bort)</li><li>Men i <i>ihr habt</i> beholder vi b-en: hab-t, og i <i>ich habe</i>, <i>wir/sie haben</i> er alt som vanlig.</li></ul><div class="dw-cmp"><div><b class="dw-lang">Norsk</b><p>jeg / du / han / vi / dere / de <b>har</b></p><p>Samme form for alle (har).</p></div><div><b class="dw-lang">Tysk</b><p>ich <b>habe</b>, du <b>hast</b>, er <b>hat</b>, wir <b>haben</b>, ihr <b>habt</b>, sie <b>haben</b></p><p>Tenk «hast» og «hat» for du og han.</p></div></div>
+  </div>
+
+  <h2 class="dw-sec-title" id="haben-bruk">🗣️ Når bruker du haben?</h2>
+  <div class="dw-exp">
+<p>Det norske «jeg er sulten» blir på tysk «jeg <b>har</b> sult». Dette er den vanligste feilen med haben:</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:520px"><thead><tr><th>Situasjon</th><th>Tysk</th><th>Merk</th></tr></thead><tbody><tr><th>Eie og ha</th><td>Ich <b>habe</b> ein Handy. Wir <b>haben</b> einen Hund.</td><td>Akkusativ etter haben (einen Hund)</td></tr><tr><th>Familie</th><td>Ich <b>habe</b> zwei Geschwister.</td><td></td></tr><tr><th>Kroppslige behov</th><td>Ich <b>habe</b> Hunger / Durst.</td><td>❌ <s>Ich bin hungrig/durstig</s> – høres unaturlig ut; tysk sier «ha sult/tørst»</td></tr><tr><th>Følelser og tilstand</th><td>Ich <b>habe</b> Angst. · Hast du Lust? · Er <b>hat</b> Glück.</td><td></td></tr><tr><th>Tid og fødselsdag</th><td>Hast du Zeit? · Ich <b>habe</b> im Mai Geburtstag.</td><td>Geburtstag haben = ha bursdag</td></tr><tr><th>Sykdom</th><td>Ich <b>habe</b> Kopfschmerzen.</td><td>Kopfschmerzen = hodepine</td></tr></tbody></table></div><div class="dw-tip">📎 <b>haben</b> er også hjelpeverb i perfektum for de fleste verb: <i>Ich habe Pizza gegessen.</i> Se <a href="../perfekt/">Perfekt – haben eller sein?</a>. Nekting: <i>Ich habe keine Zeit.</i> Se <a href="../../ordstilling/negasjon/">Nekting: nicht og kein</a>.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="haben-sein">⚖️ sein eller haben? Sammenlign</h2>
+  <div class="dw-exp">
+<div class="dw-tbl-wrap"><table class="dw-t" style="min-width:480px"><thead><tr><th>Norsk</th><th>Riktig tysk</th><th>Verb</th></tr></thead><tbody><tr><th>Jeg er 14 år.</th><td>Ich <b>bin</b> 14.</td><td>sein</td></tr><tr><th>Jeg er sulten.</th><td>Ich <b>habe</b> Hunger.</td><td>haben</td></tr><tr><th>Jeg er redd.</th><td>Ich <b>habe</b> Angst.</td><td>haben</td></tr><tr><th>Jeg er trøtt.</th><td>Ich <b>bin</b> müde.</td><td>sein</td></tr><tr><th>Jeg har en bror.</th><td>Ich <b>habe</b> einen Bruder.</td><td>haben</td></tr><tr><th>Jeg er fra Norge.</th><td>Ich <b>bin</b> aus Norwegen.</td><td>sein</td></tr></tbody></table></div><p>Tommelfingerregel: <b>sein</b> sier hva noe <i>er</i> (navn, alder, tilstand, sted, opprinnelse). <b>haben</b> sier hva du <i>har</i> – også «ting» du føler, som <i>Hunger</i>, <i>Durst</i> og <i>Angst</i>.</p>
+  </div>
+
+  <h2 class="dw-sec-title" id="haben-ovelse">✏️ Øv selv: haben og sein</h2>
+  <div class="dw-exp">
+<div class="dw-fill dw-ft"><script type="application/json">{"title": "Fyll ut haben", "verbs": [{"inf": "haben", "no": "ha", "f": ["habe", "hast", "hat", "haben", "habt", "haben"]}], "modes": [{"l": "Med hjelp (du, er/sie/es og ihr)", "b": [1, 2, 4]}, {"l": "Alle seks formene", "b": [0, 1, 2, 3, 4, 5]}], "hl": [1, 2], "hint": "Husk: b-en faller bort i du hast og er/sie/es hat – men ikke i ihr habt.", "default": 0, "intro": "Skriv formene i rutene. Grønt = riktig."}</script></div><div class="dw-fill dw-fg"><script type="application/json">{"title": "Fullfør setningene med haben", "items": [{"s": "Ich ___ einen Hund.", "a": "habe", "v": "haben"}, {"s": "___ du Geschwister?", "a": "hast", "v": "haben"}, {"s": "Lisa ___ heute keine Zeit.", "a": "hat", "v": "haben"}, {"s": "Wir ___ Hunger.", "a": "haben", "v": "haben"}, {"s": "Ihr ___ aber Glück!", "a": "habt", "v": "haben"}, {"s": "Meine Eltern ___ ein Haus.", "a": "haben", "v": "haben"}, {"s": "Er ___ Durst.", "a": "hat", "v": "haben"}, {"s": "___ Sie Kinder, Herr Müller?", "a": "haben", "v": "haben"}, {"s": "Ich ___ Angst vor Spinnen.", "a": "habe", "v": "haben"}, {"s": "Mein Bruder ___ morgen Geburtstag.", "a": "hat", "v": "haben"}], "hint": "Husk: ich habe, du hast, er/sie/es hat, wir haben, ihr habt, sie/Sie haben.", "intro": ""}</script></div><div class="dw-fill dw-fg"><script type="application/json">{"title": "Blandet: sein eller haben?", "items": [{"s": "Ich ___ 15 Jahre alt.", "a": "bin", "v": "sein / haben"}, {"s": "Ich ___ Durst.", "a": "habe", "v": "sein / haben"}, {"s": "Er ___ müde.", "a": "ist", "v": "sein / haben"}, {"s": "Wir ___ eine Katze.", "a": "haben", "v": "sein / haben"}, {"s": "Du ___ aus Oslo.", "a": "bist", "v": "sein / haben"}, {"s": "Sie ___ keine Zeit.", "a": "hat", "v": "sein / haben"}, {"s": "Ihr ___ in der Schule.", "a": "seid", "v": "sein / haben"}, {"s": "Mein Vater ___ ein Auto.", "a": "hat", "v": "sein / haben"}, {"s": "Das ___ ein Geschenk für dich.", "a": "ist", "v": "sein / haben"}, {"s": "Wir ___ heute Hausaufgaben.", "a": "haben", "v": "sein / haben"}], "hint": "sein = hva noe er (alder, tilstand, sted). haben = hva du har (ting, familie, Hunger, Durst, Angst).", "intro": "Her er begge verbene blandet. Tenk først: skal det stå «være» eller «ha»?"}</script></div>
+  </div>
+<div class="dw-tabnext"><button type="button" data-go="sein">← 🅱️ sein</button><button type="button" data-go="vokal">🔀 Videre til vokalskifte-verb →</button></div></section><section class="dw-tabpanel" id="vokal" aria-label="🔀 Vokalskifte-verb">
+  <h2 class="dw-sec-title" id="v-regel">🔀 Regelen: vokalen skifter bare i du og er / sie / es</h2>
+  <div class="dw-exp">
+<p>Disse verbene har helt <b>vanlige endelser</b> (-e, -st, -t, -en, -t, -en). Det eneste som er uregelmessig, er at <b>stammevokalen bytter</b> i to av seks former:</p><ul><li><b>du</b>-formen (2. person entall)</li><li><b>er / sie / es</b>-formen (3. person entall)</li></ul><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:560px"><thead><tr><th></th><th>ich</th><th>du</th><th>er / sie / es</th><th>wir</th><th>ihr</th><th>sie / Sie</th></tr></thead><tbody><tr><th>fahren</th><td class="dw-f">fahre</td><td class="dw-f dw-hl">fährst</td><td class="dw-f dw-hl">fährt</td><td class="dw-f">fahren</td><td class="dw-f">fahrt</td><td class="dw-f">fahren</td></tr><tr><th>sprechen</th><td class="dw-f">spreche</td><td class="dw-f dw-hl">sprichst</td><td class="dw-f dw-hl">spricht</td><td class="dw-f">sprechen</td><td class="dw-f">sprecht</td><td class="dw-f">sprechen</td></tr><tr><th>sehen</th><td class="dw-f">sehe</td><td class="dw-f dw-hl">siehst</td><td class="dw-f dw-hl">sieht</td><td class="dw-f">sehen</td><td class="dw-f">seht</td><td class="dw-f">sehen</td></tr></tbody></table></div><div class="dw-tip">⚠️ <b>Viktig:</b> infinitiv, ich, wir, ihr og sie/Sie beholder den vanlige vokalen. Du ser ikke endringen i infinitiv – du må <i>vite</i> at verbet er et vokalskifte-verb. Derfor lærer man dem sammen: <i>fahren – du fährst – er fährt</i>.</div><div class="dw-cmp"><div><b class="dw-lang">Norsk</b><p>Verbet skifter aldri vokal i presens: <b>sover</b>, <b>kjører</b>, <b>ser</b> for alle personer.</p></div><div><b class="dw-lang">Tysk</b><p>ich schlafe – du <b>schläfst</b> – er <b>schläft</b> – wir schlafen</p><p>Vokalen endres altså <i>med personen</i>.</p></div></div>
+  </div>
+
+  <h2 class="dw-sec-title" id="v-omlyd">① a → ä (og au → äu): omlyd</h2>
+  <div class="dw-exp">
+<p><b>Omlyd</b> betyr at vokalen får to prikker over seg: <b>a → ä</b> og <b>au → äu</b>. Bokstavene ä, ö, ü finnes ikke på norsk tastatur – bruk knappene under tabellene (eller tysk tastatur). <b>Viktig:</b> «ä» er en egen bokstav, så <i>fahrst</i> er feil og <i>fährst</i> er riktig.</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:520px"><thead><tr><th>Infinitiv</th><th>Norsk</th><th>ich</th><th>du</th><th>er / sie / es</th></tr></thead><tbody><tr><th>fahren</th><td>kjøre, reise</td><td>fahre</td><td class="dw-f dw-hl">fährst</td><td class="dw-f dw-hl">fährt</td></tr><tr><th>schlafen</th><td>sove</td><td>schlafe</td><td class="dw-f dw-hl">schläfst</td><td class="dw-f dw-hl">schläft</td></tr><tr><th>laufen</th><td>løpe, gå</td><td>laufe</td><td class="dw-f dw-hl">läufst</td><td class="dw-f dw-hl">läuft</td></tr><tr><th>tragen</th><td>bære, ha på seg</td><td>trage</td><td class="dw-f dw-hl">trägst</td><td class="dw-f dw-hl">trägt</td></tr><tr><th>waschen</th><td>vaske</td><td>wasche</td><td class="dw-f dw-hl">wäschst</td><td class="dw-f dw-hl">wäscht</td></tr><tr><th>fallen</th><td>falle</td><td>falle</td><td class="dw-f dw-hl">fällst</td><td class="dw-f dw-hl">fällt</td></tr><tr><th>halten</th><td>holde</td><td>halte</td><td class="dw-f dw-hl">hältst</td><td class="dw-f dw-hl">hält</td></tr></tbody></table></div><ul><li><b>laufen</b> er au → äu: <i>du läufst, er läuft</i>.</li><li><b>halten</b> har en liten særegenhet: <i>er hält</i> (ikke «hältt»), fordi stammen allerede slutter på -t.</li><li><b>waschen</b>: stammen slutter på -sch, og du-formen blir <i>du wäschst</i>.</li></ul><div class="dw-tip">💡 <b>Eksempler i setninger:</b> <i>Mein Vater fährt mit dem Bus. Der Hund schläft den ganzen Tag. Du trägst eine rote Jacke.</i></div>
+  </div>
+
+  <h2 class="dw-sec-title" id="v-ei">② e → i (kort e)</h2>
+  <div class="dw-exp">
+<p>I disse verbene skifter <b>e</b> til <b>i</b>:</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:520px"><thead><tr><th>Infinitiv</th><th>Norsk</th><th>ich</th><th>du</th><th>er / sie / es</th></tr></thead><tbody><tr><th>sprechen</th><td>snakke</td><td>spreche</td><td class="dw-f dw-hl">sprichst</td><td class="dw-f dw-hl">spricht</td></tr><tr><th>geben</th><td>gi</td><td>gebe</td><td class="dw-f dw-hl">gibst</td><td class="dw-f dw-hl">gibt</td></tr><tr><th>helfen</th><td>hjelpe</td><td>helfe</td><td class="dw-f dw-hl">hilfst</td><td class="dw-f dw-hl">hilft</td></tr><tr><th>treffen</th><td>møte, treffe</td><td>treffe</td><td class="dw-f dw-hl">triffst</td><td class="dw-f dw-hl">trifft</td></tr><tr><th>werfen</th><td>kaste</td><td>werfe</td><td class="dw-f dw-hl">wirfst</td><td class="dw-f dw-hl">wirft</td></tr><tr><th>nehmen</th><td>ta</td><td>nehme</td><td class="dw-f dw-hl">nimmst</td><td class="dw-f dw-hl">nimmt</td></tr><tr><th>essen</th><td>spise</td><td>esse</td><td class="dw-f dw-hl">isst</td><td class="dw-f dw-hl">isst</td></tr><tr><th>vergessen</th><td>glemme</td><td>vergesse</td><td class="dw-f dw-hl">vergisst</td><td class="dw-f dw-hl">vergisst</td></tr></tbody></table></div><ul><li><b>nehmen</b> er den mest uregelmessige: vokalen <i>og</i> en konsonant endres (<i>nehme → nimmst, nimmt</i>).</li><li><b>essen</b> og <b>vergessen</b> slutter på -s i stammen. Da blir du- og er-formen <b>helt like</b>: <i>du isst, er isst</i> (ikke «issst»).</li></ul><div class="dw-tip">💡 <b>Eksempler:</b> <i>Sprichst du Deutsch? Anna gibt mir das Buch. Er hilft seiner Mutter.</i> (<i>helfen</i> tar dativ – <i>seiner Mutter</i>.)</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="v-ie">③ e → ie (lang e)</h2>
+  <div class="dw-exp">
+<p>I disse verbene skifter <b>e</b> til <b>ie</b> (lang i-lyd):</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:520px"><thead><tr><th>Infinitiv</th><th>Norsk</th><th>ich</th><th>du</th><th>er / sie / es</th></tr></thead><tbody><tr><th>sehen</th><td>se</td><td>sehe</td><td class="dw-f dw-hl">siehst</td><td class="dw-f dw-hl">sieht</td></tr><tr><th>lesen</th><td>lese</td><td>lese</td><td class="dw-f dw-hl">liest</td><td class="dw-f dw-hl">liest</td></tr><tr><th>empfehlen</th><td>anbefale</td><td>empfehle</td><td class="dw-f dw-hl">empfiehlst</td><td class="dw-f dw-hl">empfiehlt</td></tr></tbody></table></div><ul><li><b>lesen</b> har samme særegenhet som essen: stammen slutter på -s, så <i>du liest</i> og <i>er liest</i> er like.</li></ul><div class="dw-tip">💡 <b>Tommelfingerregel:</b> Lang e blir ofte <b>ie</b> (sehen, lesen, empfehlen), kort e blir <b>i</b> (sprechen, helfen, treffen, essen, werfen). Men pass opp: <b>geben</b> har lang e og blir likevel <b>i</b> (gibst, gibt), og <b>nehmen</b> endrer også konsonant. Lær formene sammen med verbet.</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="v-tips">🧰 Staving og feil å unngå</h2>
+  <div class="dw-exp">
+<div class="dw-tbl-wrap"><table class="dw-t" style="min-width:520px"><thead><tr><th>Feil</th><th>Riktig</th><th>Hvorfor</th></tr></thead><tbody><tr><th><s>Er fahrt</s></th><td>Er <b>fährt</b></td><td>Omlyd mangler</td></tr><tr><th><s>Du sprechst</s></th><td>Du <b>sprichst</b></td><td>e → i i du-formen</td></tr><tr><th><s>wir fähren</s></th><td>wir <b>fahren</b></td><td>Ingen omlyd i wir, ihr og sie/Sie</td></tr><tr><th><s>Er esst</s></th><td>Er <b>isst</b></td><td>e → i, og -s- og -t smelter sammen</td></tr><tr><th><s>Du liesst</s></th><td>Du <b>liest</b></td><td>Etter ie skrives enkelt s: liest</td></tr></tbody></table></div>
+  </div>
+
+  <h2 class="dw-sec-title" id="v-ovelse">✏️ Øv selv: vokalskifte</h2>
+  <div class="dw-exp">
+<p>Tre tabeller, én for hvert mønster. Velg «Lett» først (bare du og er/sie/es), og prøv deretter «Alle seks».</p><div class="dw-fill dw-ft"><script type="application/json">{"title": "Tabell A: ett verb fra hvert mønster", "verbs": [{"inf": "fahren", "no": "kjøre", "f": ["fahre", "fährst", "fährt", "fahren", "fahrt", "fahren"]}, {"inf": "sprechen", "no": "snakke", "f": ["spreche", "sprichst", "spricht", "sprechen", "sprecht", "sprechen"]}, {"inf": "sehen", "no": "se", "f": ["sehe", "siehst", "sieht", "sehen", "seht", "sehen"]}], "modes": [{"l": "Lett: bare du og er/sie/es", "b": [1, 2]}, {"l": "Alle seks formene", "b": [0, 1, 2, 3, 4, 5]}], "hl": [1, 2], "hint": "Husk vokalskiftet i du og er/sie/es: fahren → fährst/fährt, sprechen → sprichst/spricht, sehen → siehst/sieht.", "default": 0, "intro": ""}</script></div><div class="dw-fill dw-ft"><script type="application/json">{"title": "Tabell B: flere omlyd-verb", "verbs": [{"inf": "schlafen", "no": "sove", "f": ["schlafe", "schläfst", "schläft", "schlafen", "schlaft", "schlafen"]}, {"inf": "laufen", "no": "løpe", "f": ["laufe", "läufst", "läuft", "laufen", "lauft", "laufen"]}, {"inf": "tragen", "no": "bære", "f": ["trage", "trägst", "trägt", "tragen", "tragt", "tragen"]}], "modes": [{"l": "Lett: bare du og er/sie/es", "b": [1, 2]}, {"l": "Alle seks formene", "b": [0, 1, 2, 3, 4, 5]}], "hl": [1, 2], "hint": "Omlyd i du og er/sie/es: a → ä, og au → äu (laufen → läufst, läuft). Bruk knappene ä/ö/ü.", "default": 0, "intro": ""}</script></div><div class="dw-fill dw-ft"><script type="application/json">{"title": "Tabell C: de spesielle", "verbs": [{"inf": "essen", "no": "spise", "f": ["esse", "isst", "isst", "essen", "esst", "essen"]}, {"inf": "nehmen", "no": "ta", "f": ["nehme", "nimmst", "nimmt", "nehmen", "nehmt", "nehmen"]}, {"inf": "lesen", "no": "lese", "f": ["lese", "liest", "liest", "lesen", "lest", "lesen"]}], "modes": [{"l": "Lett: bare du og er/sie/es", "b": [1, 2]}, {"l": "Alle seks formene", "b": [0, 1, 2, 3, 4, 5]}], "hl": [1, 2], "hint": "essen → isst/isst, nehmen → nimmst/nimmt, lesen → liest/liest. Du- og er-formen er like for essen og lesen.", "default": 0, "intro": ""}</script></div>
+  </div>
+
+  <h2 class="dw-sec-title" id="v-setn">✍️ Fullfør setningene</h2>
+  <div class="dw-exp">
+<div class="dw-fill dw-fg"><script type="application/json">{"title": "Skriv riktig form av verbet i parentes", "items": [{"s": "Mein Vater ___ jeden Tag mit dem Bus.", "a": "fährt", "v": "fahren"}, {"s": "Du ___ sehr gut Deutsch.", "a": "sprichst", "v": "sprechen"}, {"s": "Anna ___ gern Pizza.", "a": "isst", "v": "essen"}, {"s": "Wir ___ nach Hamburg.", "a": "fahren", "v": "fahren"}, {"s": "Ich ___ einen Film.", "a": "sehe", "v": "sehen"}, {"s": "Wie lange ___ du am Wochenende?", "a": "schläfst", "v": "schlafen"}, {"s": "Ihr ___ mir bei den Hausaufgaben.", "a": "helft", "v": "helfen"}, {"s": "Lisa ___ den Bus.", "a": "nimmt", "v": "nehmen"}, {"s": "Er ___ sehr schnell.", "a": "läuft", "v": "laufen"}, {"s": "___ du mir bitte das Salz?", "a": "gibst", "v": "geben"}, {"s": "Der Lehrer ___ den Schülern.", "a": "hilft", "v": "helfen"}, {"s": "Was ___ du gern?", "a": "liest", "v": "lesen"}], "hint": "Sjekk først hvem som gjør noe: bare du og er/sie/es får ny vokal. Ich, wir, ihr og sie/Sie er vanlige.", "intro": "Husk: bare du og er / sie / es skifter vokal. Tegnknappene hjelper deg med ä, ö, ü og ß."}</script></div><p>Flere setninger med vokalskifte-verb finner du i <a href="../../ordstilling/skillbare-verb/">skillbare verb</a> (<i>Er fährt um sieben ab</i>) og i <a href="../../../schreiben/mein-tag/">Mein Tag</a>.</p>
+  </div>
+<div class="dw-tabnext"><button type="button" data-go="haben">← 🟩 haben</button><button type="button" data-go="flere">🧩 Videre til werden, wissen og modalverb →</button></div></section><section class="dw-tabpanel" id="flere" aria-label="🧩 werden, wissen, modalverb">
+  <h2 class="dw-sec-title" id="f-werden">🧩 werden = «bli»</h2>
+  <div class="dw-exp">
+<div class="dw-tbl-wrap"><table class="dw-t" style="min-width:420px"><thead><tr><th>Person</th><th>werden <small>(bli)</small></th><th>Eksempel</th></tr></thead><tbody><tr><th>ich</th><td class="dw-f">werde</td><td>Ich werde müde.</td></tr><tr><th>du</th><td class="dw-f dw-hl">wirst</td><td>Du wirst bald 14.</td></tr><tr><th>er / sie / es</th><td class="dw-f dw-hl">wird</td><td>Es wird kalt. · Er wird Arzt.</td></tr><tr><th>wir</th><td class="dw-f">werden</td><td>Wir werden Freunde.</td></tr><tr><th>ihr</th><td class="dw-f">werdet</td><td>Ihr werdet groß.</td></tr><tr><th>sie / Sie</th><td class="dw-f">werden</td><td>Sie werden Lehrer.</td></tr></tbody></table></div><p><b>werden</b> skifter e → i i du og er/sie/es (<i>wirst, wird</i>), og i er-formen står det bare <i>wird</i> – ingen ekstra -t. Det brukes for å si at noe <i>blir</i> (<i>Es wird dunkel</i>) og som hjelpeverb i <a href="../futur-1/">Futur I</a> (<i>Ich werde lernen</i>).</p>
+  </div>
+
+  <h2 class="dw-sec-title" id="f-wissen">🧩 wissen = «vite»</h2>
+  <div class="dw-exp">
+<div class="dw-tbl-wrap"><table class="dw-t" style="min-width:420px"><thead><tr><th>Person</th><th>wissen <small>(vite)</small></th><th>Eksempel</th></tr></thead><tbody><tr><th>ich</th><td class="dw-f dw-hl">weiß</td><td>Ich weiß es.</td></tr><tr><th>du</th><td class="dw-f dw-hl">weißt</td><td>Du weißt viel.</td></tr><tr><th>er / sie / es</th><td class="dw-f dw-hl">weiß</td><td>Er weiß die Antwort.</td></tr><tr><th>wir</th><td class="dw-f">wissen</td><td>Wir wissen das.</td></tr><tr><th>ihr</th><td class="dw-f">wisst</td><td>Ihr wisst Bescheid.</td></tr><tr><th>sie / Sie</th><td class="dw-f">wissen</td><td>Sie wissen alles.</td></tr></tbody></table></div><ul><li><b>ich weiß</b> og <b>er weiß</b> er like – ingen endelse (som modalverb).</li><li><b>wissen</b> = å vite fakta: <i>Ich weiß, dass er kommt.</i> (leddsetning: se <a href="../../ordstilling/leddsetninger/">verbet sist</a>). Å kjenne en person er <i>kennen</i>.</li></ul>
+  </div>
+
+  <h2 class="dw-sec-title" id="f-modal">🧩 Modalverb: ich = er / sie / es</h2>
+  <div class="dw-exp">
+<p>Modalverbene (<i>können, müssen, wollen, dürfen, sollen, mögen</i>) er uregelmessige på en særegen måte: <b>ich-formen og er/sie/es-formen er helt like og har ingen endelse</b>. I entall har de dessuten en annen stammevokal enn i infinitiv.</p><div class="dw-tbl-wrap"><table class="dw-t" style="min-width:620px"><thead><tr><th></th><th>können (kunne)</th><th>müssen (måtte)</th><th>wollen (ville)</th><th>dürfen (få lov)</th><th>sollen (skulle)</th><th>mögen (like)</th></tr></thead><tbody><tr><th>ich</th><td class="dw-f dw-hl">kann</td><td class="dw-f dw-hl">muss</td><td class="dw-f dw-hl">will</td><td class="dw-f dw-hl">darf</td><td class="dw-f dw-hl">soll</td><td class="dw-f dw-hl">mag</td></tr><tr><th>du</th><td>kannst</td><td>musst</td><td>willst</td><td>darfst</td><td>sollst</td><td>magst</td></tr><tr><th>er / sie / es</th><td class="dw-f dw-hl">kann</td><td class="dw-f dw-hl">muss</td><td class="dw-f dw-hl">will</td><td class="dw-f dw-hl">darf</td><td class="dw-f dw-hl">soll</td><td class="dw-f dw-hl">mag</td></tr><tr><th>wir</th><td>können</td><td>müssen</td><td>wollen</td><td>dürfen</td><td>sollen</td><td>mögen</td></tr><tr><th>ihr</th><td>könnt</td><td>müsst</td><td>wollt</td><td>dürft</td><td>sollt</td><td>mögt</td></tr><tr><th>sie / Sie</th><td>können</td><td>müssen</td><td>wollen</td><td>dürfen</td><td>sollen</td><td>mögen</td></tr></tbody></table></div><ul><li><b>möchten</b> («ville gjerne ha», høflig) bøyes regelrett: <i>ich möchte, du möchtest, er möchte, wir möchten, ihr möchtet, sie möchten</i>.</li><li>Modalverbet står på <a href="../../ordstilling/plass-2/">plass 2</a>, og infinitiven står helt sist: <i>Ich kann gut schwimmen.</i> Se <a href="../../ordstilling/modalverb/">Ordstilling: modalverb</a>.</li></ul>
+  </div>
+
+  <h2 class="dw-sec-title" id="f-ovelse">✏️ Øv selv</h2>
+  <div class="dw-exp">
+<div class="dw-fill dw-ft"><script type="application/json">{"title": "Fyll ut modalverbene", "verbs": [{"inf": "können", "no": "kunne", "f": ["kann", "kannst", "kann", "können", "könnt", "können"]}, {"inf": "müssen", "no": "måtte", "f": ["muss", "musst", "muss", "müssen", "müsst", "müssen"]}, {"inf": "wollen", "no": "ville", "f": ["will", "willst", "will", "wollen", "wollt", "wollen"]}], "modes": [{"l": "Lett: ich, du og er/sie/es", "b": [0, 1, 2]}, {"l": "Alle seks formene", "b": [0, 1, 2, 3, 4, 5]}], "hl": [0, 1, 2], "hint": "Husk at ich og er/sie/es er like og uten endelse: ich kann, du kannst, er kann.", "default": 0, "intro": ""}</script></div><div class="dw-fill dw-ft"><script type="application/json">{"title": "Fyll ut werden og wissen", "verbs": [{"inf": "werden", "no": "bli", "f": ["werde", "wirst", "wird", "werden", "werdet", "werden"]}, {"inf": "wissen", "no": "vite", "f": ["weiß", "weißt", "weiß", "wissen", "wisst", "wissen"]}], "modes": [{"l": "Lett: ich, du og er/sie/es", "b": [0, 1, 2]}, {"l": "Alle seks formene", "b": [0, 1, 2, 3, 4, 5]}], "hl": [0, 1, 2], "hint": "werden: werde – wirst – wird. wissen: weiß – weißt – weiß (ich og er er like).", "default": 0, "intro": ""}</script></div><div class="dw-fill dw-fg"><script type="application/json">{"title": "Fullfør setningene", "items": [{"s": "Ich ___ gut schwimmen.", "a": "kann", "v": "können"}, {"s": "Du ___ Hausaufgaben machen.", "a": "musst", "v": "müssen"}, {"s": "Er ___ nach Berlin fahren.", "a": "will", "v": "wollen"}, {"s": "Wir ___ hier nicht parken.", "a": "dürfen", "v": "dürfen"}, {"s": "Ihr ___ leise sein.", "a": "sollt", "v": "sollen"}, {"s": "Ich ___ ein Eis, bitte.", "a": "möchte", "v": "möchten"}, {"s": "Es ___ heute kalt.", "a": "wird", "v": "werden"}, {"s": "Du ___ bald 14.", "a": "wirst", "v": "werden"}, {"s": "Ich ___ die Antwort nicht.", "a": "weiß", "v": "wissen"}, {"s": "___ du, wo Anna wohnt?", "a": "weißt", "v": "wissen"}, {"s": "Sie ___ Pizza sehr gern.", "a": "mag", "v": "mögen"}], "hint": "Modalverb: ich og er/sie/es er like (ich kann, er kann). werden: wirst, wird. wissen: weiß, weißt, weiß.", "intro": ""}</script></div>
+  </div>
+<div class="dw-tabnext"><button type="button" data-go="vokal">← 🔀 vokalskifte-verb</button></div></section>
+
+  <p class="dw-see-also"><strong>Se også:</strong> <a href="../praesens-regelmaessig/">Regelrette verb</a> · <a href="../perfekt/">Perfekt (haben/sein som hjelpeverb)</a> · <a href="../futur-1/">Futur I (werden)</a> · <a href="../../ordstilling/modalverb/">Ordstilling: modalverb</a> · <a href="../../../verben/">Verben-Konjugator</a> · <a href="../../../schreiben/mein-tag/">Schreiben: Mein Tag</a></p>
+
+  <h2 class="dw-sec-title" id="ovelser">🎯 Øvelser</h2>
+  <div class="dw-ex-card" id="dw-ex">
+    <div id="dw-ex-play">
+      <div class="dw-ex-top"><span id="dw-ex-count"></span><span id="dw-ex-score-live"></span></div>
+      <div class="dw-ex-bar"><div class="dw-ex-fill" id="dw-ex-fill"></div></div>
+      <div class="dw-ex-cue" id="dw-ex-cue"></div>
+      <div class="dw-ex-sent" id="dw-ex-sent"></div>
+      <div class="dw-ex-choices" id="dw-ex-choices" role="group" aria-label="Svaralternativer"></div>
+      <button type="button" class="dw-ex-hintbtn" id="dw-ex-hintbtn">💡 Vis hint</button>
+      <div class="dw-ex-fb" id="dw-ex-fb" aria-live="polite"></div>
+      <button type="button" class="dw-ex-btn" id="dw-ex-next" style="display:none">Neste →</button>
     </div>
-    <p style="margin-top:12px;">Andre verb (som <strong>essen, sehen, fahren, sprechen, nehmen</strong>) beholder de vanlige endelsene, men <strong>bytter vokal</strong> i <strong>du</strong>- og <strong>er/sie/es</strong>-formen: e→i, e→ie, eller a→ä. F.eks. <strong>sehen</strong> → du <strong>siehst</strong>, er <strong>sieht</strong>.</p>
-  </div>
-
-  <div class="dw-progress-wrap"><div class="dw-progress-bar" id="dw-bar"></div></div>
-  <div class="dw-meta">
-    <span id="dw-count">Oppgave 1 av 10</span>
-    <span id="dw-score-live">Poeng: 0</span>
-  </div>
-
-  <div class="dw-card" id="dw-game">
-    <div class="dw-emoji" id="dw-emoji">😴</div>
-    <div class="dw-sentence" id="dw-sentence"></div>
-
-    <div class="dw-choices" id="dw-choices"></div>
-
-    <button class="dw-hint-btn" onclick="dwToggleHint()">💡 Tipp anzeigen</button>
-    <div class="dw-explain" id="dw-explain"></div>
-
-    <button class="dw-next-btn" id="dw-next" onclick="dwNext()">Weiter →</button>
-  </div>
-
-  <div class="dw-card dw-result" id="dw-result">
-    <h2>Geschafft! 🎉</h2>
-    <div class="dw-score" id="dw-final-score">0 / 10</div>
-    <p id="dw-final-msg"></p>
-    <div class="dw-review" id="dw-review"></div>
-    <button class="dw-restart-btn" onclick="dwRestart()">🔁 Nochmal spielen</button>
+    <div class="dw-ex-result" id="dw-ex-result">
+      <h3 style="margin:0;font-family:'Baloo 2',sans-serif;font-size:1.4rem">Ferdig! 🎉</h3>
+      <div class="dw-ex-score" id="dw-ex-final"></div>
+      <p id="dw-ex-msg"></p>
+      <div class="dw-ex-review" id="dw-ex-review"></div>
+      <button type="button" class="dw-ex-btn dw-gold" id="dw-ex-restart">🔁 Spill på nytt</button>
+    </div>
   </div>
 
 </div>
-
 <script>
-  // Ordliste — bytt ut / legg til setninger her ved behov.
-  // sentence bruker {blank} som plassholder for verbformen.
-  var dwWords = [
-    {emoji:"😴", verb:"sein", sentence:"Ich {blank} müde.", correct:"bin", choices:["bin","bist","ist"], hint:"sein er helt uregelrett — ich bin må bare pugges."},
-    {emoji:"🍔", verb:"haben", sentence:"Du {blank} Hunger.", correct:"hast", choices:["habe","hast","hat"], hint:"haben er helt uregelrett — du hast må bare pugges."},
-    {emoji:"🚄", verb:"fahren", sentence:"Er {blank} nach Berlin.", correct:"fährt", choices:["fahrt","fährt","fahre"], hint:"a→ä i er/sie/es-formen: er fährt."},
-    {emoji:"🍰", verb:"essen", sentence:"Sie {blank} Kuchen.", correct:"isst", choices:["esse","isst","essen"], hint:"e→i i er/sie/es-formen: sie isst."},
-    {emoji:"🏫", verb:"sein", sentence:"Wir {blank} in der Schule.", correct:"sind", choices:["sind","seid","ist"], hint:"sein er helt uregelrett — wir sind må bare pugges."},
-    {emoji:"🍀", verb:"haben", sentence:"Ihr {blank} Glück!", correct:"habt", choices:["habe","habt","haben"], hint:"haben er helt uregelrett — ihr habt må bare pugges."},
-    {emoji:"🗼", verb:"sehen", sentence:"Du {blank} den Fernsehturm.", correct:"siehst", choices:["sehe","siehst","seht"], hint:"e→ie i du-formen: du siehst."},
-    {emoji:"🗣️", verb:"sprechen", sentence:"Er {blank} Deutsch.", correct:"spricht", choices:["spreche","sprichst","spricht"], hint:"e→i i er/sie/es-formen: er spricht."},
-    {emoji:"🚌", verb:"nehmen", sentence:"Ich {blank} den Bus.", correct:"nehme", choices:["nehme","nimmst","nimmt"], hint:"ich-formen er regelrett (nehme) — bare du/er skifter vokal."},
-    {emoji:"📖", verb:"lesen", sentence:"Sie {blank} ein Buch.", correct:"lesen", choices:["liest","lesen","lest"], hint:"sie (flertall)-formen er regelrett — bare du/er skifter vokal (liest)."}
-  ];
+var DWQ = [
+ {
+  "s": "Ich ___ 14 Jahre alt.",
+  "cue": "sein",
+  "a": "bin",
+  "c": [
+   "bin",
+   "habe",
+   "bist",
+   "ist"
+  ],
+  "e": "Alder: tysk sier «jeg er 14» – sein, ikke haben. ich → bin.",
+  "h": "Alder bruker sein."
+ },
+ {
+  "s": "Wir ___ Hunger.",
+  "cue": "haben",
+  "a": "haben",
+  "c": [
+   "haben",
+   "sind",
+   "hat",
+   "habt"
+  ],
+  "e": "«Ha sult» på tysk: haben + Hunger. wir → haben.",
+  "h": "Hunger haben."
+ },
+ {
+  "s": "Er ___ heute keine Zeit.",
+  "cue": "haben",
+  "a": "hat",
+  "c": [
+   "hat",
+   "hast",
+   "haben",
+   "ist"
+  ],
+  "e": "er / sie / es → hat (b faller bort).",
+  "h": "b faller bort i hat."
+ },
+ {
+  "s": "Ihr ___ in der Schule.",
+  "cue": "sein",
+  "a": "seid",
+  "c": [
+   "seid",
+   "sind",
+   "bist",
+   "habt"
+  ],
+  "e": "ihr → seid.",
+  "h": "ihr seid."
+ },
+ {
+  "s": "Mein Vater ___ jeden Tag mit dem Bus.",
+  "cue": "fahren",
+  "a": "fährt",
+  "c": [
+   "fährt",
+   "fahrt",
+   "fahre",
+   "fährst"
+  ],
+  "e": "fahren er et vokalskifte-verb: er fährt (a → ä).",
+  "h": "er/sie/es: omlyd."
+ },
+ {
+  "s": "Du ___ sehr gut Deutsch.",
+  "cue": "sprechen",
+  "a": "sprichst",
+  "c": [
+   "sprichst",
+   "sprechst",
+   "spricht",
+   "sprecht"
+  ],
+  "e": "sprechen: e → i i du-formen: du sprichst.",
+  "h": "du: e → i."
+ },
+ {
+  "s": "Anna ___ gern Pizza.",
+  "cue": "essen",
+  "a": "isst",
+  "c": [
+   "isst",
+   "esst",
+   "esse",
+   "essen"
+  ],
+  "e": "essen: e → i. Stammen slutter på -s, så du isst og er isst er like.",
+  "h": "e → i."
+ },
+ {
+  "s": "Was ___ du da?",
+  "cue": "sehen",
+  "a": "siehst",
+  "c": [
+   "siehst",
+   "sehst",
+   "sieht",
+   "seht"
+  ],
+  "e": "sehen: e → ie. du siehst.",
+  "h": "e → ie."
+ },
+ {
+  "s": "Der Hund ___ den ganzen Tag.",
+  "cue": "schlafen",
+  "a": "schläft",
+  "c": [
+   "schläft",
+   "schlaft",
+   "schlafe",
+   "schläfst"
+  ],
+  "e": "schlafen: a → ä. er / sie / es → schläft (ikke schläfst – det er du-formen).",
+  "h": "Omlyd i er-formen."
+ },
+ {
+  "s": "Ich ___ nicht, wo er wohnt.",
+  "cue": "wissen",
+  "a": "weiß",
+  "c": [
+   "weiß",
+   "weißt",
+   "wisse",
+   "wissen"
+  ],
+  "e": "wissen: ich weiß (ingen endelse).",
+  "h": "ich = weiß."
+ },
+ {
+  "s": "Er ___ gut schwimmen.",
+  "cue": "können",
+  "a": "kann",
+  "c": [
+   "kann",
+   "kannst",
+   "könnt",
+   "können"
+  ],
+  "e": "Modalverb: er kann (ich og er er like, uten endelse).",
+  "h": "er kann."
+ },
+ {
+  "s": "Mit 18 ___ ich Auto fahren.",
+  "cue": "dürfen",
+  "a": "darf",
+  "c": [
+   "darf",
+   "darfst",
+   "dürft",
+   "dürfen"
+  ],
+  "e": "dürfen: ich darf (ü → a i entall, ingen endelse).",
+  "h": "ich darf."
+ },
+ {
+  "s": "Es ___ heute kalt.",
+  "cue": "werden",
+  "a": "wird",
+  "c": [
+   "wird",
+   "wirst",
+   "werde",
+   "werdet"
+  ],
+  "e": "werden: er / sie / es → wird.",
+  "h": "es → wird."
+ },
+ {
+  "s": "___ du gern Comics?",
+  "cue": "lesen",
+  "a": "Liest",
+  "c": [
+   "Liest",
+   "Lest",
+   "Lese",
+   "Lesen"
+  ],
+  "e": "lesen: e → ie. Du liest (spørsmål: verbet først).",
+  "h": "Vokalskifte i du-formen."
+ },
+ {
+  "s": "Lisa ___ mir oft bei den Hausaufgaben.",
+  "cue": "helfen",
+  "a": "hilft",
+  "c": [
+   "hilft",
+   "helft",
+   "hilfst",
+   "helfe"
+  ],
+  "e": "helfen: e → i. Lisa = sie → hilft (du hilfst, ihr helft).",
+  "h": "er/sie/es: e → i."
+ }
+];
 
-  var dwOrder = [];
-  var dwIndex = 0;
-  var dwScore = 0;
-  var dwWrong = [];
-  var dwAnswered = false;
-
-  function dwShuffle(arr){
-    var a = arr.slice();
-    for(var i=a.length-1;i>0;i--){
-      var j = Math.floor(Math.random()*(i+1));
-      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
-    }
-    return a;
+(function(){
+  var ALL = DWQ, Q = [], i = 0, score = 0, done = false, missed = [];
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function shuffle(a){ a = a.slice(); for(var k = a.length - 1; k > 0; k--){ var j = Math.floor(Math.random() * (k + 1)); var t = a[k]; a[k] = a[j]; a[j] = t; } return a; }
+  var $ = function(id){ return document.getElementById(id); };
+  function start(){
+    Q = shuffle(ALL); i = 0; score = 0; missed = [];
+    $('dw-ex-play').style.display = 'block'; $('dw-ex-result').classList.remove('dw-show');
+    render();
   }
-
-  function dwInit(){
-    dwOrder = dwShuffle(dwWords.map(function(_,i){return i;}));
-    dwIndex = 0; dwScore = 0; dwWrong = [];
-    document.getElementById('dw-result').classList.remove('dw-show');
-    document.getElementById('dw-game').style.display = '';
-    dwLoad();
+  function render(){
+    var q = Q[i]; done = false;
+    $('dw-ex-count').textContent = 'Oppgave ' + (i + 1) + ' av ' + Q.length;
+    $('dw-ex-score-live').textContent = 'Poeng: ' + score;
+    $('dw-ex-fill').style.width = (i / Q.length * 100) + '%';
+    $('dw-ex-cue').textContent = q.cue || '';
+    $('dw-ex-sent').innerHTML = esc(q.s).replace('___', '<span class="dw-blank" id="dw-ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;</span>');
+    $('dw-ex-choices').innerHTML = shuffle(q.c).map(function(c){ return '<button type="button" class="dw-ex-choice" data-v="' + esc(c) + '">' + esc(c) + '</button>'; }).join('');
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb'; fb.innerHTML = '';
+    $('dw-ex-hintbtn').style.display = 'inline'; $('dw-ex-next').style.display = 'none';
   }
-
-  function dwLoad(){
-    dwAnswered = false;
-    var w = dwWords[dwOrder[dwIndex]];
-    document.getElementById('dw-emoji').textContent = w.emoji;
-    document.getElementById('dw-sentence').innerHTML = w.sentence.replace('{blank}', '<span class="dw-blank" id="dw-blank">___</span>');
-
-    var choicesShuffled = dwShuffle(w.choices);
-    var choicesWrap = document.getElementById('dw-choices');
-    choicesWrap.innerHTML = '';
-    choicesShuffled.forEach(function(choice){
-      var btn = document.createElement('button');
-      btn.className = 'dw-choice';
-      btn.dataset.a = choice;
-      btn.textContent = choice;
-      btn.onclick = function(){ dwAnswer(choice); };
-      choicesWrap.appendChild(btn);
+  $('dw-ex-choices').addEventListener('click', function(e){
+    var b = e.target.closest('.dw-ex-choice'); if(!b || done) return;
+    done = true; var q = Q[i], v = b.getAttribute('data-v'), ok = v === q.a;
+    document.querySelectorAll('.dw-ex-choice').forEach(function(x){
+      x.disabled = true;
+      if(x.getAttribute('data-v') === q.a) x.classList.add('dw-correct');
     });
-
-    document.getElementById('dw-explain').classList.remove('dw-show');
-    document.getElementById('dw-explain').textContent = w.hint;
-    document.getElementById('dw-next').classList.remove('dw-show');
-    document.getElementById('dw-count').textContent = 'Oppgave ' + (dwIndex+1) + ' av ' + dwWords.length;
-    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
-    document.getElementById('dw-bar').style.width = Math.round((dwIndex/dwWords.length)*100) + '%';
-  }
-
-  function dwToggleHint(){
-    document.getElementById('dw-explain').classList.toggle('dw-show');
-  }
-
-  function dwAnswer(choice){
-    if(dwAnswered) return;
-    dwAnswered = true;
-    var w = dwWords[dwOrder[dwIndex]];
-    var btns = document.querySelectorAll('.dw-choice');
-    btns.forEach(function(b){
-      b.disabled = true;
-      if(b.dataset.a === w.correct) b.classList.add('dw-correct');
-      else if(b.dataset.a === choice) b.classList.add('dw-wrong');
+    if(!ok) b.classList.add('dw-wrong');
+    var bl = $('dw-ex-blank'); bl.textContent = q.a; bl.classList.add('dw-filled'); if(!ok) bl.classList.add('dw-bad');
+    if(ok) score++; else missed.push(q);
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb dw-show ' + (ok ? 'dw-good' : 'dw-bad');
+    fb.innerHTML = (ok ? '✅ Riktig! ' : '❌ Riktig svar er <b>' + esc(q.a) + '</b>. ') + esc(q.e);
+    $('dw-ex-hintbtn').style.display = 'none';
+    $('dw-ex-score-live').textContent = 'Poeng: ' + score;
+    var nx = $('dw-ex-next'); nx.style.display = 'inline-block'; nx.textContent = (i === Q.length - 1) ? 'Se resultatet →' : 'Neste →'; nx.focus();
+  });
+  $('dw-ex-hintbtn').addEventListener('click', function(){
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb dw-show'; fb.innerHTML = '💡 ' + esc(Q[i].h);
+  });
+  $('dw-ex-next').addEventListener('click', function(){
+    if(i < Q.length - 1){ i++; render(); return; }
+    $('dw-ex-play').style.display = 'none'; $('dw-ex-result').classList.add('dw-show');
+    $('dw-ex-final').textContent = score + ' / ' + Q.length;
+    var pct = score / Q.length;
+    $('dw-ex-msg').textContent = pct === 1 ? 'Perfekt — ingen feil!' : pct >= 0.75 ? 'Veldig bra! Les gjennom de få feilene under.' : pct >= 0.5 ? 'Greit på vei — se på tabellene og prøv igjen.' : 'Les forklaringen en gang til, og prøv på nytt.';
+    $('dw-ex-review').innerHTML = missed.length ? '<b>Dette bør du se på igjen:</b><ul>' + missed.map(function(q){ return '<li>' + esc(q.s).replace('___', '<b>' + esc(q.a) + '</b>') + ' — ' + esc(q.e) + '</li>'; }).join('') + '</ul>' : '🎉 Du hadde alt riktig!';
+    $('dw-ex-fill').style.width = '100%';
+  });
+  $('dw-ex-restart').addEventListener('click', start);
+  start();
+})();
+</script>
+<script>
+(function(){
+'use strict';
+document.documentElement.classList.add('dw-js');
+var PRON=['ich','du','er / sie / es','wir','ihr','sie / Sie'];
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+function norm(s){return String(s).trim().toLowerCase().replace(/\s+/g,' ');}
+function tl(s){return s.replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss');}
+function grade(val,ans){
+  var v=norm(val);if(!v)return 'empty';
+  var a=[].concat(ans),i;
+  for(i=0;i<a.length;i++)if(v===norm(a[i]))return 'ok';
+  for(i=0;i<a.length;i++)if(tl(v)===tl(norm(a[i]))&&/[äöüß]/.test(a[i]))return 'near';
+  return 'bad';
+}
+function mark(inp,st){inp.classList.remove('dw-st-ok','dw-st-near','dw-st-bad','dw-st-shown');if(st)inp.classList.add('dw-st-'+st);}
+function ins(inp,ch){var s=inp.selectionStart,e=inp.selectionEnd;if(s==null){inp.value+=ch;}else{inp.value=inp.value.slice(0,s)+ch+inp.value.slice(e);inp.selectionStart=inp.selectionEnd=s+1;}inp.focus();inp.dispatchEvent(new Event('input',{bubbles:true}));}
+function keyRow(host){
+  var r=el('div','dw-keys');r.appendChild(el('span','','Spesialtegn:'));
+  ['ä','ö','ü','ß'].forEach(function(k){
+    var b=el('button','dw-key',k);b.type='button';b.setAttribute('aria-label','Sett inn '+k);
+    b.addEventListener('mousedown',function(e){e.preventDefault();});
+    b.addEventListener('click',function(){var i=host._last||host.querySelector('input.dw-fi:not([readonly])');if(i)ins(i,k);});
+    r.appendChild(b);});
+  return r;
+}
+function wire(host,inputs,onchange){
+  inputs.forEach(function(inp,n){
+    inp.setAttribute('autocomplete','off');inp.setAttribute('autocapitalize','off');inp.setAttribute('autocorrect','off');inp.setAttribute('spellcheck','false');
+    inp.addEventListener('focus',function(){host._last=inp;});
+    inp.addEventListener('input',onchange);
+    inp.addEventListener('keydown',function(e){
+      if(e.key==='Enter'){e.preventDefault();var nx=inputs[n+1];if(nx)nx.focus();else host._check();}
     });
-    document.getElementById('dw-blank').textContent = w.correct;
-    document.getElementById('dw-explain').classList.add('dw-show');
-    if(choice === w.correct){
-      dwScore++;
-    } else {
-      dwWrong.push(w);
-    }
-    document.getElementById('dw-score-live').textContent = 'Poeng: ' + dwScore;
-    document.getElementById('dw-next').classList.add('dw-show');
-  }
+  });
+}
+function cfgOf(root){return JSON.parse(root.querySelector('script[type="application/json"]').textContent);}
 
-  function dwNext(){
-    dwIndex++;
-    if(dwIndex >= dwWords.length){
-      dwFinish();
-    } else {
-      dwLoad();
-    }
-  }
-
-  function dwFinish(){
-    document.getElementById('dw-bar').style.width = '100%';
-    document.getElementById('dw-game').style.display = 'none';
-    document.getElementById('dw-result').classList.add('dw-show');
-    document.getElementById('dw-final-score').textContent = dwScore + ' / ' + dwWords.length;
-    var msg;
-    if(dwScore === dwWords.length) msg = "Perfekt! Du har full kontroll på de uregelrette verbene! 🏅";
-    else if(dwScore >= dwWords.length*0.7) msg = "Sehr gut! Du kan de fleste av disse allerede.";
-    else msg = "Guter Versuch! Se på tabellene øverst en gang til, og prøv igjen.";
-    document.getElementById('dw-final-msg').textContent = msg;
-
-    var reviewEl = document.getElementById('dw-review');
-    if(dwWrong.length === 0){
-      reviewEl.innerHTML = '<strong>Ingenting å øve mer på akkurat nå — bra jobbet!</strong>';
-    } else {
-      var html = '<strong>Disse kan du øve litt ekstra på:</strong><ul>';
-      dwWrong.forEach(function(w){
-        html += '<li>' + w.emoji + ' <strong>' + w.verb + '</strong> — ' + w.sentence.replace('{blank}', w.correct) + '</li>';
+/* ---------- utfyllingstabell ---------- */
+function initTable(root){
+  var cfg=cfgOf(root),mode=cfg.default||0,checked=false;
+  root.innerHTML='';
+  var h=el('h4','','📝 '+cfg.title);root.appendChild(h);
+  if(cfg.intro)root.appendChild(el('p','dw-fi-intro',cfg.intro));
+  var mb=el('div','dw-fill-modes');root.appendChild(mb);
+  var tw=el('div','dw-tw');root.appendChild(tw);
+  root.appendChild(keyRow(root));
+  var row=el('div','dw-frow');
+  var bC=el('button','dw-fbtn','Sjekk');bC.type='button';
+  var bS=el('button','dw-fbtn dw-sec','Vis fasit');bS.type='button';
+  var bR=el('button','dw-fbtn dw-sec','Nullstill');bR.type='button';
+  var st=el('span','dw-fstat','');
+  row.appendChild(bC);row.appendChild(bS);row.appendChild(bR);row.appendChild(st);root.appendChild(row);
+  var msg=el('div','dw-fmsg');root.appendChild(msg);
+  var cells=[];
+  function build(){
+    tw.innerHTML='';cells=[];checked=false;msg.className='dw-fmsg';
+    mb.innerHTML='';
+    if(cfg.modes.length>1)cfg.modes.forEach(function(m,i){var b=el('button',i===mode?'dw-on':'',m.l);b.type='button';b.onclick=function(){mode=i;build();};mb.appendChild(b);});
+    var blanks=cfg.modes[mode].b;
+    var t=el('table'),thead=el('thead'),trh=el('tr');
+    trh.appendChild(el('th','',''));
+    cfg.verbs.forEach(function(v){var th=el('th','',v.inf);if(v.no){th.appendChild(el('small','',v.no));}trh.appendChild(th);});
+    thead.appendChild(trh);t.appendChild(thead);
+    var tb=el('tbody');
+    PRON.forEach(function(p,ri){
+      var tr=el('tr');tr.appendChild(el('td','dw-pr',p));
+      cfg.verbs.forEach(function(v){
+        var td=el('td',cfg.hl.indexOf(ri)>=0?'dw-hlc':'');
+        if(blanks.indexOf(ri)>=0){
+          var inp=el('input','dw-fi');inp.type='text';inp.setAttribute('aria-label',v.inf+' – '+p);
+          cells.push({inp:inp,ans:v.f[ri],irr:(cfg.hl.length===0||cfg.hl.indexOf(ri)>=0)});td.appendChild(inp);
+        }else{td.className+=' dw-given';td.textContent=v.f[ri];}
+        tr.appendChild(td);
       });
-      html += '</ul>';
-      reviewEl.innerHTML = html;
-    }
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb);tw.appendChild(t);
+    wire(root,cells.map(function(c){return c.inp;}),function(){update();});
+    update();
   }
+  function update(){
+    var ok=0,bad=0,total=cells.length;
+    cells.forEach(function(c){
+      if(c.inp.classList.contains('dw-st-shown'))return;
+      var g=grade(c.inp.value,c.ans);
+      if(g==='ok'){ok++;mark(c.inp,'ok');c.inp.title='';}
+      else if(g==='near'){mark(c.inp,'near');c.inp.title='Nesten! Bruk ä, ö, ü eller ß (knappene under tabellen).';}
+      else if(checked){mark(c.inp,'bad');bad++;}
+      else mark(c.inp,'');
+    });
+    st.textContent='✅ '+ok+' av '+total;
+    st.className='dw-fstat'+(ok===total&&total?' dw-all':'');
+    if(ok===total&&total){msg.className='dw-fmsg dw-show';msg.textContent='🎉 Alle riktige! Prøv gjerne «Vis alle»-modus hvis du har brukt hjelpen.';}
+    else if(checked&&bad){
+      var irr=cells.some(function(c){return c.irr&&c.inp.classList.contains('dw-st-bad');});
+      msg.className='dw-fmsg dw-show';msg.textContent=(cfg.hint&&irr)?'💡 '+cfg.hint:'Røde ruter er ikke riktige ennå – prøv igjen. Gule ruter mangler bare ä/ö/ü/ß.';
+    }else if(!ok||!checked)msg.className='dw-fmsg';
+  }
+  root._check=function(){checked=true;update();};
+  bC.onclick=function(){checked=true;update();};
+  bS.onclick=function(){cells.forEach(function(c){c.inp.value=[].concat(c.ans)[0];mark(c.inp,'shown');});st.textContent='Fasit vist';st.className='dw-fstat';msg.className='dw-fmsg';};
+  bR.onclick=function(){build();};
+  build();
+}
 
-  function dwRestart(){ dwInit(); }
+/* ---------- utfyll-setninger ---------- */
+function initGap(root){
+  var cfg=cfgOf(root),checked=false;
+  root.innerHTML='';
+  root.appendChild(el('h4','','✍️ '+cfg.title));
+  root.appendChild(el('p','dw-fi-intro',cfg.intro||'Skriv riktig verbform i hullet. Rutene blir grønne når svaret er riktig.'));
+  var ol=el('ol');root.appendChild(ol);
+  var rows=[];
+  cfg.items.forEach(function(it){
+    var li=el('li');var parts=it.s.split('___');
+    li.appendChild(document.createTextNode(parts[0]));
+    var inp=el('input','dw-fi');inp.type='text';var a0=[].concat(it.a)[0];inp.size=Math.max(5,a0.length+2);inp.setAttribute('aria-label','Svar');
+    li.appendChild(inp);
+    if(parts[1])li.appendChild(document.createTextNode(parts[1]));
+    if(it.v)li.appendChild(el('span','dw-gv','('+it.v+')'));
+    var m=el('span','dw-gm','');li.appendChild(m);
+    ol.appendChild(li);rows.push({inp:inp,ans:it.a,m:m});
+  });
+  root.appendChild(keyRow(root));
+  var row=el('div','dw-frow');
+  var bC=el('button','dw-fbtn','Sjekk svar');bC.type='button';
+  var bS=el('button','dw-fbtn dw-sec','Vis fasit');bS.type='button';
+  var bR=el('button','dw-fbtn dw-sec','Nullstill');bR.type='button';
+  var st=el('span','dw-fstat','');
+  row.appendChild(bC);row.appendChild(bS);row.appendChild(bR);row.appendChild(st);root.appendChild(row);
+  var msg=el('div','dw-fmsg');root.appendChild(msg);
+  function update(){
+    var ok=0,bad=0;
+    rows.forEach(function(r){
+      if(r.inp.classList.contains('dw-st-shown'))return;
+      var g=grade(r.inp.value,r.ans);
+      if(g==='ok'){ok++;mark(r.inp,'ok');r.m.textContent='✅';}
+      else if(g==='near'){mark(r.inp,'near');r.m.textContent='🟡';}
+      else if(checked){mark(r.inp,'bad');r.m.textContent='❌';bad++;}
+      else{mark(r.inp,'');r.m.textContent='';}
+    });
+    st.textContent='✅ '+ok+' av '+rows.length;st.className='dw-fstat'+(ok===rows.length?' dw-all':'');
+    if(ok===rows.length){msg.className='dw-fmsg dw-show';msg.textContent='🎉 Alle riktige!';}
+    else if(checked&&bad){msg.className='dw-fmsg dw-show';msg.textContent=cfg.hint?'💡 '+cfg.hint:'Prøv igjen på de røde.';}
+    else msg.className='dw-fmsg';
+  }
+  root._check=function(){checked=true;update();};
+  wire(root,rows.map(function(r){return r.inp;}),update);
+  bC.onclick=function(){checked=true;update();};
+  bS.onclick=function(){rows.forEach(function(r){r.inp.value=[].concat(r.ans)[0];mark(r.inp,'shown');r.m.textContent='';});st.textContent='Fasit vist';st.className='dw-fstat';msg.className='dw-fmsg';};
+  bR.onclick=function(){checked=false;rows.forEach(function(r){r.inp.value='';mark(r.inp,'');r.m.textContent='';});msg.className='dw-fmsg';update();};
+  update();
+}
 
-  dwInit();
+/* ---------- faner ---------- */
+function initTabs(){
+  var bar=document.getElementById('dw-tabs');if(!bar)return;
+  var btns=[].slice.call(bar.querySelectorAll('button'));
+  var panels=[].slice.call(document.querySelectorAll('.dw-tabpanel'));
+  function show(name,noHash){
+    var found=false;
+    panels.forEach(function(p){var on=p.id===name;if(on)found=true;p.hidden=!on;});
+    if(!found){name=panels[0].id;panels[0].hidden=false;}
+    btns.forEach(function(b){b.setAttribute('aria-selected',b.getAttribute('data-tab')===name?'true':'false');});
+    if(!noHash){try{history.replaceState(null,'','#'+name);}catch(e){}}
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.getAttribute('data-tab'));bar.scrollIntoView({behavior:'smooth',block:'start'});});});
+  [].forEach.call(document.querySelectorAll('[data-go]'),function(b){b.addEventListener('click',function(){show(b.getAttribute('data-go'));bar.scrollIntoView({behavior:'smooth',block:'start'});});});
+  function fromHash(){
+    var h=decodeURIComponent((location.hash||'').slice(1));
+    if(!h){show(panels[0].id,true);return;}
+    var tgt=document.getElementById(h);
+    if(tgt&&tgt.classList.contains('dw-tabpanel')){show(h,true);bar.scrollIntoView();return;}
+    if(tgt){var p=tgt.closest('.dw-tabpanel');if(p){show(p.id,true);setTimeout(function(){tgt.scrollIntoView();},30);return;}}
+    show(panels[0].id,true);
+  }
+  window.addEventListener('hashchange',fromHash);
+  fromHash();
+}
+[].forEach.call(document.querySelectorAll('.dw-ft'),initTable);
+[].forEach.call(document.querySelectorAll('.dw-fg'),initGap);
+initTabs();
+})();
 </script>
 </body>
 </html>

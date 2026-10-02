@@ -35,7 +35,7 @@ deutschwelt-site/
 │   │   ├── praesens-regelmaessig/
 │   │   │   └── index.html            → "Verb-Werkstatt": presens av regelrette verb
 │   │   ├── praesens-unregelmaessig/
-│   │   │   └── index.html            → "Verb-Werkstatt": presens av sein, haben m.fl.
+│   │   │   └── index.html            → "Verb-Werkstatt" (fanebasert): Start, sein, haben, Vokalskifte-verb (a→ä, e→i, e→ie), werden/wissen/modalverb; utfyllingstabeller (grønt ved riktig svar), utfyll-setninger og 15 MC-øvelser
 │   │   ├── perfekt/
 │   │   │   └── index.html            → "Perfekt — haben oder sein?" — 6 regelseksjoner (svake/sterke verb,
 │   │   │                                hjelpeverb+presensbøying, ordstilling vs. norsk, unntak fra ge-) +
@@ -1681,6 +1681,12 @@ Teach ba om en trinnvis ordstillingsdel (regel → eksempler → ordkort → min
 Spillsiden leser `ordstilling_data.js` og støtter `?modus=bygg|puzzle|feil|plass|type|oversett|rase`, `&nivaa=1|2|3` og `&tema=…`. Poeng lagres bare i minnet (ingen localStorage). Schreiben har et kort som lenker hit, og Konjunksjoner/Adverbial/Spørreord/Analyse har «Se også»-lenker. Søkeindeksen har egne oppføringer (nøkkelen «ordstilling» går nå til den nye hubben; gamle V2-siden under Analyse nås via «v2-regelen»).
 
 **Usikre punkter (ikke lest av morsmålstaler):** godkjente rekkefølger i bygg-oppgavene er bevisst konservative (kontrastive varianter som «Schwimmen kann ich gut» er ikke godtatt); på 🔴-sidene finnes «myke» varianter («Ich fahre nach Hause mit dem Bus morgen») som gir mildere tilbakemelding enn «ikke helt»; Ersatzinfinitiv er utelatt; negasjonssiden bruker bare standard eksempler.
+
+### Uregelrette verb som fanebasert side (`grammatikk/verb/praesens-unregelmaessig/`)
+
+Siden ble bygget om fra et enkelt MC-spill til en side med **fem faner** (🧭 Start, 🅱️ sein, 🟩 haben, 🔀 Vokalskifte-verb, 🧩 werden/wissen/modalverb). Fanene styres av `#start`, `#sein`, `#haben`, `#vokal`, `#flere` i URL-en (og hvilken som helst `id` inni en fane åpner riktig fane); uten JavaScript vises alle panelene under hverandre. Hver fane har dypere forklaring (omlyd a→ä/au→äu, e→i, e→ie, hvorfor b faller bort i *du hast / er hat*, s-stammer der du- og er-formen er like, modalverbenes *ich = er*), sammenligning med norsk, ✅/❌-bruk (alder = sein, Hunger = haben) og lenker til Perfekt, Futur I, Ordstilling og Schreiben.
+
+**Nye interaktive widgets (gjenbrukbare, `verb-work/fillcommon.py`):** `fill_table()` = tabell der eleven skriver verbformer i rutene, med Lett/Alle-modus, spesialtegnknapper (ä ö ü ß, siden norsk tastatur mangler dem) og **grønn markering så snart svaret er riktig** (gul = mangler bare ä/ö/ü/ß, rød ved «Sjekk», blå = fasit vist); `fill_gap()` = utfyll-setninger i Los geht's-stil («Ich ___ müde (sein)») med «Sjekk svar / Vis fasit / Nullstill». Poeng og svar lagres ikke. Skriptene `build_irreg.py` + `fillcommon.py` ligger i byggeskript-sikkerhetskopien i prosjektet.
 
 ## Slik legger du til en ny seksjon
 
