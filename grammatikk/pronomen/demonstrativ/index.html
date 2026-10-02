@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Grammatikk: "Demonstrativpronomen" (dieser, der/die/das, das)
+  Forklaring, kasustabeller, sammenligning med norsk, bruk i skriving og øvelser.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demonstrativpronomen · Grammatik · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:860px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .dw-jump a{font-size:.86rem;font-weight:700;padding:7px 15px;border-radius:999px;text-decoration:none;background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:32px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t tbody th{background:#fbfaf6;font-size:.84rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t td.dw-hl{background:#fff3cf;}
+  .dw-t td.dw-c{text-align:center;}
+  .dw-t td.dw-x{color:#aaa;text-align:center;}
+  .dw-t tr.dw-grp td,.dw-t tr.dw-grp th{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:14px 0;}
+  a.dw-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;text-decoration:none;color:var(--dw-text);box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;gap:6px;}
+  a.dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  a.dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  a.dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
+
+  /* Øvelser */
+  .dw-ex-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+  .dw-ex-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:8px;}
+  .dw-ex-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:16px;}
+  .dw-ex-fill{height:100%;width:0;background:var(--dw-good);transition:width .25s ease;}
+  .dw-ex-cue{font-size:.88rem;color:var(--dw-muted);margin-bottom:4px;}
+  .dw-ex-sent{font-size:1.3rem;font-weight:600;color:var(--dw-primary);line-height:1.5;margin:2px 0 18px;}
+  .dw-ex-sent .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);text-align:center;}
+  .dw-ex-sent .dw-blank.dw-filled{color:var(--dw-good);border-color:var(--dw-good);}
+  .dw-ex-sent .dw-blank.dw-filled.dw-bad{color:var(--dw-bad);border-color:var(--dw-bad);}
+  .dw-ex-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .dw-ex-choice{flex:1 1 110px;max-width:170px;padding:12px 8px;font-family:inherit;font-size:1.1rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;}
+  .dw-ex-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-ex-choice:disabled{cursor:default;opacity:.55;}
+  .dw-ex-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-ex-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .dw-ex-choice:focus-visible,.dw-ex-btn:focus-visible,.dw-ex-hintbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-ex-hintbtn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:.85rem;padding:0;margin-bottom:8px;}
+  .dw-ex-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:10px 14px;margin:6px 0 14px;background:#f4f1e8;}
+  .dw-ex-fb.dw-show{display:block;}
+  .dw-ex-fb.dw-good{background:#eef7ee;color:#1f5d23;}
+  .dw-ex-fb.dw-bad{background:#fdecee;color:#8c1d1d;}
+  .dw-ex-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:11px 26px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .dw-ex-btn:hover{background:var(--dw-primary-light);}
+  .dw-ex-btn.dw-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-ex-result{display:none;text-align:center;}
+  .dw-ex-result.dw-show{display:block;}
+  .dw-ex-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .dw-ex-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:12px 18px;margin:14px 0;font-size:.9rem;}
+  .dw-ex-review li{margin-bottom:6px;}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .dw-ex-sent{font-size:1.12rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>👉 Demonstrativpronomen</h1>
+    <p>dieser, diese, dieses, das, der da … Pekeordene</p>
+  </div>
+
+  <p class="dw-crumb"><a href="../../">🧩 Grammatik</a> → <a href="../">Pronomen</a> → Demonstrativpronomen <span class="dw-level-tag">🎓 9.–10. trinn</span></p>
+
+  <div class="dw-jump">
+    <a href="#hva">📌 Hva er det?</a><a href="#tabell">📋 Tabeller</a><a href="#norsk">🇳🇴 Sammenligning med norsk</a><a href="#skriving">✍️ I skriving</a><a href="#ovelser">🎯 Øvelser</a>
+  </div>
+
+  <h2 class="dw-sec-title" id="hva">📌 Hva er demonstrativpronomen?</h2>
+  <div class="dw-exp">
+    <p>Demonstrativpronomen er <strong>pekeord</strong>: de peker ut hvilken person eller ting vi snakker om. På norsk: <em>denne, dette, disse</em> (og «den der»). På tysk finnes tre hovedtyper:</p>
+    <ul>
+      <li><strong class="dw-de">dieser / diese / dieses / diese</strong> — «denne / dette / disse». Kan stå <em>foran</em> et substantiv (<em>Dieses Buch gefällt mir.</em>) eller <em>alene</em> (<em>Dieses gefällt mir.</em>).</li>
+      <li><strong class="dw-de">der / die / das / die</strong> uttalt med trykk — «den der / den her». Et sterkere, mer muntlig pekeord: <em>Den finde ich nicht gut.</em> <em>Der da ist mein Bruder.</em></li>
+      <li><strong class="dw-de">das</strong> (og litt mer formelt <strong class="dw-de">dies</strong>) som «dette» i faste uttrykk: <em>Das ist …, Das stimmt, Das finde ich auch.</em></li>
+    </ul>
+    <p class="dw-no" style="font-size:.88rem">Det finnes også <em>jener</em> («hin»), som peker på noe som er langt unna, men det er gammeldags og brukes bare i formelle tekster. Du trenger ikke lære det nå.</p>
+  </div>
+
+  <h2 class="dw-sec-title" id="tabell">📋 Tabelloversikt for kasus</h2>
+  <div class="dw-exp">
+    <h3>dieser — bøyes som den bestemte artikkelen</h3>
+    <div class="dw-tbl-wrap"><table class="dw-t" style="min-width:520px"><thead><tr><th>Kasus</th><th>Maskulin</th><th>Feminin</th><th>Nøytrum</th><th>Flertall</th></tr></thead><tbody><tr><th>Nominativ</th><td class="dw-f">dieser</td><td class="dw-f">diese</td><td class="dw-f">dieses</td><td class="dw-f">diese</td></tr><tr><th>Akkusativ</th><td class="dw-f dw-hl">diesen</td><td class="dw-f">diese</td><td class="dw-f">dieses</td><td class="dw-f">diese</td></tr><tr><th>Dativ</th><td class="dw-f dw-hl">diesem</td><td class="dw-f dw-hl">dieser</td><td class="dw-f dw-hl">diesem</td><td class="dw-f dw-hl">diesen</td></tr><tr><th>Genitiv</th><td class="dw-f">dieses</td><td class="dw-f">dieser</td><td class="dw-f">dieses</td><td class="dw-f">dieser</td></tr><tr><th>Eksempel</th><td>dieser Mann</td><td>diese Frau</td><td>dieses Kind</td><td>diese Kinder</td></tr></tbody></table></div>
+    <p style="margin-top:8px"><strong>Sammenlign:</strong> <em>der → dieser</em>, <em>die → diese</em>, <em>das → dieses</em>, <em>den → diesen</em>, <em>dem → diesem</em>. Kan du artiklene, kan du <em>dieser</em>! (Gule felt: akkusativ maskulin og alle dativ-formene.)</p>
+
+    <h3 style="margin-top:14px">der / die / das som pekeord (alene, uten substantiv)</h3>
+    <div class="dw-tbl-wrap"><table class="dw-t" style="min-width:520px"><thead><tr><th>Kasus</th><th>Maskulin</th><th>Feminin</th><th>Nøytrum</th><th>Flertall</th></tr></thead><tbody><tr><th>Nominativ</th><td class="dw-f">der</td><td class="dw-f">die</td><td class="dw-f">das</td><td class="dw-f">die</td></tr><tr><th>Akkusativ</th><td class="dw-f dw-hl">den</td><td class="dw-f">die</td><td class="dw-f">das</td><td class="dw-f">die</td></tr><tr><th>Dativ</th><td class="dw-f dw-hl">dem</td><td class="dw-f dw-hl">der</td><td class="dw-f dw-hl">dem</td><td class="dw-f dw-hl">denen</td></tr><tr><th>Eksempel</th><td>Den kenne ich.</td><td>Die finde ich nett.</td><td>Das gefällt mir.</td><td>Mit denen spiele ich.</td></tr></tbody></table></div>
+    <div class="dw-tip dw-warn">⚠️ Nesten alle former er som den bestemte artikkelen — unntaket er <strong>dativ flertall: denen</strong> (ikke «den»), og i genitiv <em>dessen / deren</em> (sjelden, så vi hopper over den).</div>
+  </div>
+
+  <h2 class="dw-sec-title" id="norsk">🇳🇴 Sammenligning med norsk</h2>
+  <div class="dw-exp">
+    <div class="dw-cmp">
+      <div><b class="dw-lang">Norsk</b><strong>denne</strong> genseren (hankjønn/hunkjønn)<br><strong>dette</strong> huset (intetkjønn)<br><strong>disse</strong> genserne<br>Jeg tar <strong>den</strong> der.</div>
+      <div><b class="dw-lang">Tysk</b><strong>dieser</strong> Pullover / <strong>diese</strong> Jacke<br><strong>dieses</strong> Haus<br><strong>diese</strong> Pullover<br>Ich nehme <strong>den</strong> da.</div>
+    </div>
+    <ul>
+      <li><strong>Kasus:</strong> Norsk «denne» forandrer seg aldri. Tysk gjør det: <em>Ich nehme <u>diesen</u> Pullover</em> (akkusativ), <em>Ich spreche mit <u>diesem</u> Mann</em> (dativ).</li>
+      <li><strong>«Dette er …»:</strong> På norsk sier vi «Dette er foreldrene mine». På tysk sier du <span class="dw-de">Das ist …</span> uansett kjønn, men <strong>verbet retter seg etter det som kommer etter</strong>: <span class="dw-de">Das ist mein Bruder. Das <u>sind</u> meine Eltern.</span></li>
+      <li><strong>«den her / den der»:</strong> Norsk legger til «her» og «der». Tysk gjør likt med <em>hier</em> og <em>da</em>: <span class="dw-de">dieser hier</span>, <span class="dw-de">der da</span> («denne her», «den der»).</li>
+      <li><strong>«sånn / slik»:</strong> tysk <em>so ein</em> / <em>solch ein</em>: <span class="dw-de">So einen Pullover möchte ich auch!</span> (Sånn en genser vil jeg også ha!)</li>
+    </ul>
+  </div>
+
+  <h2 class="dw-sec-title" id="skriving">✍️ Når og hvorfor bruker vi dem i skriving?</h2>
+  <div class="dw-exp">
+    <ul>
+      <li><strong>Presentere og beskrive bilder:</strong> <em>Das ist ein Foto von meiner Familie. Das sind meine Eltern. Dieser Mann ist mein Opa.</em> En fast byggestein i bildebeskrivelser.</li>
+      <li><strong>Vise tilbake til hele setningen:</strong> <em>Ich habe die Prüfung bestanden. <strong>Das</strong> freut mich sehr.</em> / <em>Das stimmt. Das finde ich auch.</em> Her står «das» for hele den forrige ytringen.</li>
+      <li><strong>Handle og peke:</strong> <em>Wie viel kostet dieser Pullover? — Welcher? — Der rote da.</em> / <em>Ich nehme diesen.</em></li>
+      <li><strong>Understreke eller sammenligne:</strong> <em>Dieser Film ist besser als der von gestern.</em> Til muntlig vekt kan pekeordet stå først: <em>Den finde ich nicht gut.</em> (= Ham/den liker jeg ikke.)</li>
+      <li><strong>Tydeliggjøre hvem du mener:</strong> Står to substantiv i forrige setning, kan <em>dieser/diese</em> vise til det <em>siste</em>: <em>Peter besucht Tom. Dieser ist krank.</em> (= Tom er syk.) Det passer i formelle tekster; i alle andre tekster er det enklere å bruke navnet igjen.</li>
+    </ul>
+    <div class="dw-tip">💡 <strong>Stil:</strong> <em>Das</em> er vanlig i hverdagsspråk og samtaler. <em>Dies</em> og <em>dieser</em> låter litt mer formelt og passer i sakprosa og brev. Både <em>der/die/das</em> som pekeord og <em>den da</em> er muntlig — bruk dem sparsomt i formelle tekster.</div>
+  </div>
+
+  <p class="dw-see-also"><strong>Se også:</strong> <a href="../personlig/">Personlig pronomen</a> · <a href="../">Pronomen</a> · <a href="../../artikler/">Artikler</a></p>
+
+  <h2 class="dw-sec-title" id="ovelser">🎯 Øvelser</h2>
+  <div class="dw-ex-card" id="dw-ex">
+    <div id="dw-ex-play">
+      <div class="dw-ex-top"><span id="dw-ex-count"></span><span id="dw-ex-score-live"></span></div>
+      <div class="dw-ex-bar"><div class="dw-ex-fill" id="dw-ex-fill"></div></div>
+      <div class="dw-ex-cue" id="dw-ex-cue"></div>
+      <div class="dw-ex-sent" id="dw-ex-sent"></div>
+      <div class="dw-ex-choices" id="dw-ex-choices" role="group" aria-label="Svaralternativer"></div>
+      <button type="button" class="dw-ex-hintbtn" id="dw-ex-hintbtn">💡 Vis hint</button>
+      <div class="dw-ex-fb" id="dw-ex-fb" aria-live="polite"></div>
+      <button type="button" class="dw-ex-btn" id="dw-ex-next" style="display:none">Neste →</button>
+    </div>
+    <div class="dw-ex-result" id="dw-ex-result">
+      <h3 style="margin:0;font-family:'Baloo 2',sans-serif;font-size:1.4rem">Ferdig! 🎉</h3>
+      <div class="dw-ex-score" id="dw-ex-final"></div>
+      <p id="dw-ex-msg"></p>
+      <div class="dw-ex-review" id="dw-ex-review"></div>
+      <button type="button" class="dw-ex-btn dw-gold" id="dw-ex-restart">🔁 Spill på nytt</button>
+    </div>
+  </div>
+
+</div>
+<script>
+var DWQ = [
+ {
+  "s": "___ Buch gefällt mir.",
+  "cue": "dette boka",
+  "a": "Dieses",
+  "c": [
+   "Dieser",
+   "Dieses",
+   "Diese"
+  ],
+  "e": "das Buch er intetkjønn, nominativ → dieses.",
+  "h": "das → dieses."
+ },
+ {
+  "s": "Wie viel kostet ___ Jacke?",
+  "cue": "denne jakka",
+  "a": "diese",
+  "c": [
+   "dieser",
+   "diese",
+   "dieses"
+  ],
+  "e": "die Jacke er hunkjønn, nominativ → diese.",
+  "h": "die → diese."
+ },
+ {
+  "s": "Ich nehme ___ Pullover.",
+  "cue": "denne genseren (akkusativ)",
+  "a": "diesen",
+  "c": [
+   "dieser",
+   "diesen",
+   "diesem"
+  ],
+  "e": "der Pullover er hankjønn, og «nehmen» tar akkusativ → diesen.",
+  "h": "Hankjønn akkusativ: den → diesen."
+ },
+ {
+  "s": "Mit ___ Mann spreche ich nicht.",
+  "cue": "denne mannen",
+  "a": "diesem",
+  "c": [
+   "diesen",
+   "diesem",
+   "dieser"
+  ],
+  "e": "«mit» tar dativ, hankjønn → diesem.",
+  "h": "mit + dativ, dem → diesem."
+ },
+ {
+  "s": "___ ist meine Schwester.",
+  "cue": "dette",
+  "a": "Das",
+  "c": [
+   "Das",
+   "Dem",
+   "Den"
+  ],
+  "e": "«Das ist …» fungerer uansett kjønn.",
+  "h": "«Das ist …» = Dette er …"
+ },
+ {
+  "s": "Das ___ meine Eltern.",
+  "cue": "dette er …",
+  "a": "sind",
+  "c": [
+   "ist",
+   "sind",
+   "bist"
+  ],
+  "e": "Verbet retter seg etter det som kommer etter: meine Eltern (flertall) → sind.",
+  "h": "Flertall etter «das» → sind."
+ },
+ {
+  "s": "Welchen Pullover nimmst du? — ___ da, den roten.",
+  "cue": "akkusativ",
+  "a": "Den",
+  "c": [
+   "Der",
+   "Den",
+   "Dem"
+  ],
+  "e": "Pullover er hankjønn, og «nehmen» tar akkusativ → Den.",
+  "h": "Akkusativ hankjønn: den."
+ },
+ {
+  "s": "Kennst du Lisa? — Ja, ___ kenne ich gut.",
+  "cue": "akkusativ, hunkjønn",
+  "a": "die",
+  "c": [
+   "die",
+   "der",
+   "den"
+  ],
+  "e": "«kennen» tar akkusativ, og Lisa er hunkjønn → die (pekeord).",
+  "h": "Akkusativ hunkjønn: die."
+ },
+ {
+  "s": "Ich habe die Prüfung bestanden. ___ freut mich sehr.",
+  "cue": "",
+  "a": "Das",
+  "c": [
+   "Der",
+   "Das",
+   "Dem"
+  ],
+  "e": "«Das» viser tilbake til hele den forrige setningen.",
+  "h": "Hele ytringen → das."
+ },
+ {
+  "s": "Siehst du die Kinder? Mit ___ spiele ich oft.",
+  "cue": "de (dativ flertall)",
+  "a": "denen",
+  "c": [
+   "den",
+   "denen",
+   "dem"
+  ],
+  "e": "Pekeordet i dativ flertall heter «denen» (ikke «den»).",
+  "h": "Dativ flertall → denen."
+ },
+ {
+  "s": "In ___ Stadt wohne ich gern.",
+  "cue": "denne byen",
+  "a": "dieser",
+  "c": [
+   "diese",
+   "dieser",
+   "dieses"
+  ],
+  "e": "«in» + dativ (Wo?), hunkjønn → dieser.",
+  "h": "in + dativ, der Stadt → dieser."
+ },
+ {
+  "s": "Wir helfen ___ Kindern.",
+  "cue": "disse",
+  "a": "diesen",
+  "c": [
+   "diese",
+   "diesen",
+   "dieser"
+  ],
+  "e": "«helfen» tar dativ, flertall → diesen.",
+  "h": "Dativ flertall → -en."
+ }
+];
+
+(function(){
+  var ALL = DWQ, Q = [], i = 0, score = 0, done = false, missed = [];
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function shuffle(a){ a = a.slice(); for(var k = a.length - 1; k > 0; k--){ var j = Math.floor(Math.random() * (k + 1)); var t = a[k]; a[k] = a[j]; a[j] = t; } return a; }
+  var $ = function(id){ return document.getElementById(id); };
+  function start(){
+    Q = shuffle(ALL); i = 0; score = 0; missed = [];
+    $('dw-ex-play').style.display = 'block'; $('dw-ex-result').classList.remove('dw-show');
+    render();
+  }
+  function render(){
+    var q = Q[i]; done = false;
+    $('dw-ex-count').textContent = 'Oppgave ' + (i + 1) + ' av ' + Q.length;
+    $('dw-ex-score-live').textContent = 'Poeng: ' + score;
+    $('dw-ex-fill').style.width = (i / Q.length * 100) + '%';
+    $('dw-ex-cue').textContent = q.cue || '';
+    $('dw-ex-sent').innerHTML = esc(q.s).replace('___', '<span class="dw-blank" id="dw-ex-blank">&nbsp;&nbsp;&nbsp;&nbsp;</span>');
+    $('dw-ex-choices').innerHTML = shuffle(q.c).map(function(c){ return '<button type="button" class="dw-ex-choice" data-v="' + esc(c) + '">' + esc(c) + '</button>'; }).join('');
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb'; fb.innerHTML = '';
+    $('dw-ex-hintbtn').style.display = 'inline'; $('dw-ex-next').style.display = 'none';
+  }
+  $('dw-ex-choices').addEventListener('click', function(e){
+    var b = e.target.closest('.dw-ex-choice'); if(!b || done) return;
+    done = true; var q = Q[i], v = b.getAttribute('data-v'), ok = v === q.a;
+    document.querySelectorAll('.dw-ex-choice').forEach(function(x){
+      x.disabled = true;
+      if(x.getAttribute('data-v') === q.a) x.classList.add('dw-correct');
+    });
+    if(!ok) b.classList.add('dw-wrong');
+    var bl = $('dw-ex-blank'); bl.textContent = q.a; bl.classList.add('dw-filled'); if(!ok) bl.classList.add('dw-bad');
+    if(ok) score++; else missed.push(q);
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb dw-show ' + (ok ? 'dw-good' : 'dw-bad');
+    fb.innerHTML = (ok ? '✅ Riktig! ' : '❌ Riktig svar er <b>' + esc(q.a) + '</b>. ') + esc(q.e);
+    $('dw-ex-hintbtn').style.display = 'none';
+    $('dw-ex-score-live').textContent = 'Poeng: ' + score;
+    var nx = $('dw-ex-next'); nx.style.display = 'inline-block'; nx.textContent = (i === Q.length - 1) ? 'Se resultatet →' : 'Neste →'; nx.focus();
+  });
+  $('dw-ex-hintbtn').addEventListener('click', function(){
+    var fb = $('dw-ex-fb'); fb.className = 'dw-ex-fb dw-show'; fb.innerHTML = '💡 ' + esc(Q[i].h);
+  });
+  $('dw-ex-next').addEventListener('click', function(){
+    if(i < Q.length - 1){ i++; render(); return; }
+    $('dw-ex-play').style.display = 'none'; $('dw-ex-result').classList.add('dw-show');
+    $('dw-ex-final').textContent = score + ' / ' + Q.length;
+    var pct = score / Q.length;
+    $('dw-ex-msg').textContent = pct === 1 ? 'Perfekt — ingen feil!' : pct >= 0.75 ? 'Veldig bra! Les gjennom de få feilene under.' : pct >= 0.5 ? 'Greit på vei — se på tabellene og prøv igjen.' : 'Les forklaringen en gang til, og prøv på nytt.';
+    $('dw-ex-review').innerHTML = missed.length ? '<b>Dette bør du se på igjen:</b><ul>' + missed.map(function(q){ return '<li>' + esc(q.s).replace('___', '<b>' + esc(q.a) + '</b>') + ' — ' + esc(q.e) + '</li>'; }).join('') + '</ul>' : '🎉 Du hadde alt riktig!';
+    $('dw-ex-fill').style.width = '100%';
+  });
+  $('dw-ex-restart').addEventListener('click', start);
+  start();
+})();
+</script>
+</body>
+</html>

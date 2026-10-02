@@ -61,14 +61,17 @@ deutschwelt-site/
 │   │   └── index.html                → kategori-hub (alt planlagt): possessivpronomen
 │   ├── konjunksjoner/
 │   │   └── index.html                → kategori-hub (alt planlagt): und/aber/oder/denn, Nebensätze (weil/dass)
-│   ├── personlig-pronomen/
-│   │   ├── index.html                → kategori-hub: Nominativ, Akkusativ, Dativ (tre separate sider, ikke slått sammen)
-│   │   ├── nominativ/
-│   │   │   └── index.html            → "Personlige pronomen: Nominativ" — ich/du/er/sie/es, med full norsk forklaring av HVORFOR tysk bøyer pronomen etter kasus
-│   │   ├── akkusativ/
-│   │   │   └── index.html            → "Personlige pronomen: Akkusativ" — mich/dich/ihn/sie/es
-│   │   └── dativ/
-│   │       └── index.html            → "Personlige pronomen: Dativ" — mir/dir/ihm/ihr … — 🎓 9.–10. trinn
+│   ├── pronomen/
+│   │   ├── index.html                → kategori-hub «Pronomen»: forklaring, fire kort (personlig, refleksiv, demonstrativ, indefinitt), oversiktstabell
+│   │   ├── personlig/
+│   │   │   ├── index.html            → «Personlig pronomen»: tabell Nom/Akk/Dat (inkl. høflig Sie), sammenligning med norsk, bruk i skriving, 12 øvelser, kort til de tre kasus-sidene
+│   │   │   ├── nominativ/index.html  → «Personlige pronomen: Nominativ» — ich/du/er/sie/es (flyttet hit fra `personlig-pronomen/`)
+│   │   │   ├── akkusativ/index.html  → «Personlige pronomen: Akkusativ» — mich/dich/ihn/sie/es
+│   │   │   └── dativ/index.html      → «Personlige pronomen: Dativ» — mir/dir/ihm/ihr … — 🎓 9.–10. trinn
+│   │   ├── refleksiv/index.html      → «Reflexivpronomen»: mich/dich/sich/uns/euch, refleksive verb tysk mot norsk, akkusativ eller dativ, 14 øvelser
+│   │   ├── demonstrativ/index.html   → «Demonstrativpronomen»: dieser/diese/dieses, der/die/das som pekeord, «Das ist/Das sind», 12 øvelser — 🎓 9.–10. trinn
+│   │   └── indefinit/index.html      → «Indefinitpronomen»: man/jemand/niemand/etwas/nichts/alle/viele …, 13 øvelser — 🎓 9.–10. trinn
+│   ├── personlig-pronomen/           → KUN omdirigeringssider (meta refresh) til `pronomen/personlig/…`, så gamle bokmerker virker
 │   ├── sporreord/
 │   │   └── index.html                → kategori-hub (alt planlagt): W-Fragen
 │   ├── tidsuttrykk/
@@ -339,7 +342,7 @@ videre — akkurat som forsiden, bare smalere.
 `grammatikk/index.html` er selv en hub-side, men i stedet for å lenke rett
 til hvert spilltema lenker den til 11 kategori-hub-sider (`artikler/`,
 `analyse/`, `adverbial/`, `adjektiv/`, `eiendomsord/`, `konjunksjoner/`,
-`personlig-pronomen/`, `preposisjoner/`, `sporreord/`, `tidsuttrykk/`,
+`pronomen/` (tidl. `personlig-pronomen/`), `preposisjoner/`, `sporreord/`, `tidsuttrykk/`,
 `verb/`) + `wortschatz-woche/` som ligger for seg selv utenfor kategoriene.
 Hver kategori-hub bruker akkurat samme kort-mønster som `grammatikk/index.html`
 selv, bare ett nivå dypere (`.../assets/style.css` blir `../../assets/style.css`
@@ -998,7 +1001,7 @@ det. Teach ba også uttrykkelig om en tydelig norsk forklaring på hva
 personlige pronomen ER og HVORFOR de bøyes som de gjør på tysk, ikke bare
 selve øvingsspillet.
 
-Løsningen: `grammatikk/personlig-pronomen/nominativ/` har den fulle
+Løsningen: `grammatikk/pronomen/personlig/nominativ/` har den fulle
 forklaringen — at pronomen erstatter et substantiv/navn, og at FORMEN
 bøyes etter kasus i tysk akkurat slik artiklene der/die/das gjør (der →
 den/dem), bare med sine egne, ikke-avledede former — pluss en full
@@ -1627,6 +1630,10 @@ Teach ba om å legge til Harte Jungs (2000), Mädchen, Mädchen (2001), Knallhar
 
 Teach ba om å legge til Kleo (2022), Babylon Berlin (2017), Deutschland 83 (2015), Das Boot (2018) og Berlin, Berlin (2002). Teach presiserte at listen ikke bare er for 8. trinn, men også for 10. trinn og elever på vei til videregående, at noen titler har høyere aldersgrense, og at serien sjelden blir sett (vanskelig å få tak i, sjelden med norsk tekst) — listen er et overblikk. Introteksten og filkommentaren er derfor endret til «ungdomstrinnet (8.–10. trinn)» og forklarer dette. Siden har nå 17 filmer + 10 serier. Alle fem trailer-ID-er er bekreftet å finnes (oEmbed). Aldersgrenser fra DVD/FSK: Babylon Berlin 12 (alle sesonger), Deutschland 83 12, Das Boot 12 (sesong 1), Berlin, Berlin 12. Kleo er en Netflix-serie uten FSK-merke i det jeg fant, så den er merket «Ikke FSK-klassifisert · anbefalt 16+» (Netflix selv markerer den som for modent publikum). Babylon Berlin og Das Boot har «Merk:»-linje om at innholdet er tyngre enn FSK 12 skulle tilsi (begge har 18-årsgrense i Storbritannia), og Das Boot nevner at dialogen er flerspråklig. Trailerlenken for Babylon Berlin gjelder siste (femte) sesong, som ble vist i ARD i september 2026; trailerlenken for Berlin, Berlin går til Netflix-filmen «Berlin, Berlin: Lolle on the Run» (2020) fordi selve TV-serien ikke har en trailer. Deutschland 83-kortet lenker til Geschichte-sidene om Den kalde krigen og Berlinmuren. Søkeindeksen har fått nøkler for alle titlene. Beskrivelsene er skrevet av Claude ut fra nettkilder; ingen av seriene er sett av oss.
 
+### Pronomen med underkategorier (`grammatikk/pronomen/`)
+
+Teach ba om underkategorier for pronomen i Grammatikk (personlig, refleksiv, demonstrativ, indefinitt), hver med egen side som har forklaring, sammenligning med norsk, når og hvorfor man bruker dem i skriving, tabelloversikt over kasus og enkle øvelser. Kategorien `grammatikk/personlig-pronomen/` er derfor flyttet til `grammatikk/pronomen/personlig/` (nominativ-, akkusativ- og dativsidene er flyttet uendret, med relative lenker omregnet og brødsmuler utvidet til Grammatik → Pronomen → Personlig pronomen → …). På de gamle adressene ligger små omdirigeringssider (meta refresh + canonical), så eksisterende lenker og bokmerker virker. Den gamle hub-siden er erstattet av en rikere «Personlig pronomen»-side, og `grammatikk/pronomen/index.html` er ny hub med fire kort og en oversiktstabell. Grammatik-hubens kort heter nå «Pronomen»; 9.–10. trinn-siden har fått kort for Demonstrativ og Indefinit; søkeindeksen på forsiden har nøkler for hub og alle fire sider. Siden bruker en felles øvingsmotor (flervalg med hint, tilbakemelding, poengsum og repetisjon av feil). Nivåmerking: Demonstrativ og Indefinit er merket 🎓 9.–10. trinn; Refleksiv er ikke merket (verb som «sich freuen» møter elevene tidlig). Tysk innhold er skrevet av Claude og ikke gjennomlest av en tysk morsmålstaler.
+
 ## Slik legger du til en ny seksjon
 
 1. **Kopier den mappen som ligner mest** på det du skal lage:
@@ -1646,7 +1653,7 @@ Teach ba om å legge til Kleo (2022), Babylon Berlin (2017), Deutschland 83 (201
      «Grammatikk-restrukturering»-runden er `grammatikk/` en hub-av-huber —
      se eget avsnitt lenger opp): finn riktig kategorimappe (`artikler/`,
      `analyse/`, `adverbial/`, `adjektiv/`, `eiendomsord/`, `konjunksjoner/`,
-     `personlig-pronomen/`, `preposisjoner/`, `sporreord/`, `tidsuttrykk/`
+     `pronomen/`, `preposisjoner/`, `sporreord/`, `tidsuttrykk/`
      eller `verb/`) og lag den nye siden **inni** den, f.eks.
      `grammatikk/preposisjoner/wechsel/`. Kopier `grammatikk/artikler/dativ/`
      som mal for samme spillmotor som Nominativ/Akkusativ/Dativ/Verben (ett
