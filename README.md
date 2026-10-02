@@ -280,8 +280,10 @@ deutschwelt-site/
 │   ├── sprichwoerter/
 │   │   └── index.html                → "Sprichwörter und Redewendungen" — 37 ordtak/faste uttrykk
 │   │                                    (ordliste i to grupper) + 14-spørsmål betydningsquiz
-│   └── schule/
-│       └── index.html                → "Jugend & Schule" — skolehverdag i Tyskland vs. Norge
+│   ├── schule/
+│   │   └── index.html                → "Jugend & Schule" — skolehverdag i Tyskland vs. Norge
+│   └── alltagssituationen/
+│       └── index.html                → "Alltagssituationen" — 6 hverdagssituasjoner + skilt/meldinger i 8 faner
 └── sprechen/
     ├── index.html                    → hub-side: velg samtalesituasjon
     ├── cafe/
@@ -649,7 +651,7 @@ tidligere aksepterte kollisjonene — ingen nye.
 **Om «Deutsch im echten Leben»-seksjonen:** dette er nettstedets
 "autentiske tysk"-seksjon — mens de andre delene lærer eleven tysk, viser
 denne hvordan tysk faktisk brukes av folk (særlig ungdom) utenfor
-læreboka. `leben/index.html` er en hub med 8 kort: 5 er bygget ut
+læreboka. `leben/index.html` er en hub med 8 kort: 6 er bygget ut (Alltagssituationen kom til senere, se eget avsnitt nederst i denne seksjonen; teksten under beskriver tilstanden før det)
 (`alltagssprache/`, `chat/`, `jugendwoerter/`, `sprichwoerter/`, `schule/`)
 og 3 er `dw-soon`-plassholdere (Gaming & Internet, Alltagssituationen, Gleiches
 Wort andere Welt) som venter på fremtidige runder. **Alltagssprache**
@@ -1972,6 +1974,14 @@ Full verifisering etter redesignen: JS-syntaks-sjekk og lenke-
 integritetssjekk (1855 relative lenker, 0 ekte brutte) på alle 93 sider,
 pluss en automatisert gjennomgang med Playwright som åpnet alle 93
 sidene og bekreftet 0 JavaScript-feil og ingen HTTP-feil.
+
+## Alltagssituationen (`leben/alltagssituationen/`)
+
+Ny side i «Deutsch im echten Leben» med **åtte faner** (🧭 Start, 🚆 Fahrkarte kaufen, 🧭 Nach dem Weg fragen, 🛒 Im Supermarkt, 🔍 Im Fundbüro, 🤒 In der Apotheke, 🏨 Jugendherberge, 🪧 Skilt og meldinger). Fanene styres av `#tog`, `#vei`, `#kasse`, `#fundburo`, `#krank`, `#herberge`, `#skilt` og `#start` i URL-en (id-er inni en fane åpner riktig fane; uten JavaScript vises alle panelene under hverandre).
+
+Hver situasjon har: scene-chips, en **dialog** i bobler (knapp «Vis norsk» og «Øv deg: skjul dine replikker», der «Du»-replikkene blir uskarpe til man klikker på dem), en tabell med nyttige uttrykk, en tips-boks (Pfand, Sie/du, 112, Jugendherberge osv.), **utfyll-setninger** som blir grønne når de er riktige (samme motor som uregelmessige verb) og et **«Hva sier du?»-valgspørsmål** med forklaring. Skilt-fanen har snu-kort for 12 skilt, et skilt-quiz og stasjonsmeldinger.
+
+Bygges av `leben-work/build_alltag.py` + `sitcommon.py` (dialog, valg, skilt) + `fillcommon.py`. Tysken er skrevet konservativt, men er ikke gjennomlest av en tysk morsmålsbruker.
 
 ## Kjente begrensninger
 
