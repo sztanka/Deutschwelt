@@ -222,8 +222,38 @@ deutschwelt-site/
 │   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 13 (Was machst du hier?)
 │   ├── nicos-weg-was-trinkst-du/
 │   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 14 (Was trinkst du?)
-│   └── nicos-weg-eine-pizza-bitte/
-│       └── index.html                → video + oppgaver: Nicos Weg, Folge 15 (Eine Pizza, bitte!)
+│   ├── nicos-weg-eine-pizza-bitte/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 15 (Eine Pizza, bitte!)
+│   ├── nicos-weg-zahlen-bitte/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 16 (Zahlen, bitte!)
+│   ├── nicos-weg-ich-war-schon-in-berlin/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 17 (Ich war schon in Berlin)
+│   ├── nicos-weg-wo-liegt-das/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 18 (Wo liegt das?)
+│   ├── nicos-weg-in-europa/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 19 (In Europa)
+│   ├── nicos-weg-andere-laender/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 20 (Andere Länder)
+│   ├── nicos-weg-was-ist-das/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 21 (Was ist das?)
+│   ├── nicos-weg-wem-gehoert-das/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 22 (Wem gehört das?)
+│   ├── nicos-weg-ich-habe-kein/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 23 (Ich habe kein …)
+│   ├── nicos-weg-das-auto-ist-rot/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 24 (Das Auto ist rot)
+│   ├── nicos-weg-so-wohne-ich/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 25 (So wohne ich)
+│   ├── nicos-weg-meine-wohnung/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 26 (Meine Wohnung)
+│   ├── nicos-weg-sofa-sessel-und-tisch/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 27 (Sofa, Sessel und Tisch)
+│   ├── nicos-weg-unser-haus/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 28 (Unser Haus)
+│   ├── nicos-weg-emmas-tag/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 29 (Emmas Tag)
+│   └── nicos-weg-tageszeiten/
+│       └── index.html                → video + oppgaver: Nicos Weg, Folge 30 (Tageszeiten)
 ├── schreiben/
 │   ├── index.html                    → hub-side: velg skriveoppgave (9 kort, 1 «kommer snart»)
 │   ├── sms-chat/
@@ -443,6 +473,8 @@ poengsette mot. Den faktiske poengsatte forståelsesquizen (`dwQuiz`)
 kommer etter videoen og er basert på handlingen i episoden, ikke eksakte
 sitater. Seksjonen har nå 15 episoder (Folge 1–15, «Nicos Weg fortsettes»-
 runden la til Folge 6–15 etter nøyaktig samme mal som Folge 1–5).
+
+**Folge 16–30 (Nicos Weg, andre runde):** sidene er generert av `nicos-work/build_nicos.py` (data i `eps.py`; malen hentes fra Folge 15-siden). Til forskjell fra Folge 6–15 ble video-ID-ene hentet direkte fra DWs offisielle YouTube-spilleliste «DW Deutsch lernen (A1) | Nicos Weg» (lest i nettleseren, med både tittel og ID per episode), og handlingsreferatet er grunnet i DWs egne videobeskrivelser (som også oppgir enhet: Einheit 3–7). Hver side har dessuten en lenke til DWs egne øvelser, manus og ordliste for episoden. Riktig svar i quizene er plassert tilfeldig (ikke alltid først); Folge 14 og 15 ble rettet tilsvarende. Handling og ordforråd er ikke eksakt transkripsjon, og quizspørsmålene bruker bare opplysninger fra DWs beskrivelse eller allmenn tysk. **Slik legger du til flere episoder (Folge 31–76):** legg en post i `eps.py` (slug, tittel, `vid`, lengde i sekunder, enhet, DW-lenke, intro, ord, quiz), kjør `python3 build_nicos.py`, og legg kort i `hoeren/index.html` og en post i `dwIndex` i `index.html`. Seksjonen har nå 30 episoder.
 
 **Om video-ID-verifisering (viktig prinsipp, gjelder alle 15 episoder):**
 vi gjetter **aldri** en YouTube-video-ID — hver ID er alltid sjekket mot
@@ -1796,9 +1828,9 @@ Siden ble bygget om fra et enkelt MC-spill til en side med **fem faner** (🧭 S
      gloseliste + hovedidé-spørsmål). Sjekk ALLTID opphavsrett først —
      tommelfingerregel i Tyskland/EU: 70 år etter forfatterens dødsår. Ikke
      bruk moderne, fortsatt opphavsrettsbeskyttede tekster.
-   - En ny lyttevideo (f.eks. Nicos Weg Folge 16) → kopier en av de 15
+   - En ny lyttevideo (f.eks. Nicos Weg Folge 31) → kopier en av de 30
      eksisterende `hoeren/nicos-weg-…/`-mappene (f.eks.
-     `hoeren/nicos-weg-eine-pizza-bitte/`) til f.eks. `hoeren/nicos-weg-folge-16/`,
+     `hoeren/nicos-weg-eine-pizza-bitte/`) til f.eks. `hoeren/nicos-weg-folge-31/`,
      og bytt video-ID-en i `<iframe src="https://www.youtube-nocookie.com/embed/…">`
      (finn video-ID-en i YouTube-lenken, delen etter `watch?v=` — sjekk alltid
      at ID-en er ekte, f.eks. via YouTubes oEmbed-endepunkt, før du publiserer;
