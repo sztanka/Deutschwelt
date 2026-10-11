@@ -264,7 +264,8 @@ deutschwelt-site/
 ├── filme-serien/
 │   └── index.html                    → "Filme & Serien" — 17 filmer + 10 serier med trailerlenker
 ├── musik/
-│   └── index.html                    → "Musik" — 27 tyske sanger med innebygd YouTube-spiller
+│   ├── index.html                    → "Musik" — 27 tyske sanger med innebygd YouTube-spiller + lenker til sangsidene
+│   └── <slug>/index.html             → 27 sangsider (bakgrunn, ord, grammatikk, spørsmål, quiz, tekstlenke) — INGEN sangtekster
 ├── deutschland/
 │   └── index.html                    → "Deutschland" — kultur/tradisjon/fakta + interaktivt dra-og-slipp-kart (10 største byer)
 ├── laender/
@@ -2074,3 +2075,11 @@ Tysk og norsk er ikke lest av morsmålstaler. Bildebeskrivelsene er skrevet av C
   sitert som Kafka-tekst) av resten av handlingen, og en lenke til en
   gratis kilde for hele originalteksten. Hvis noen får hentet ut resten
   ordrett senere, bør sammendraget byttes ut med ekte tekst.
+
+
+## Musik: sangsider (`musik/<slug>/`)
+
+Hver av de 27 sangene i spilleren har en egen side: video, bakgrunn, ord og uttrykk, grammatikk (hentet fra tittelen/temaet), samtalespørsmål (tysk + norsk), mini-quiz og en tekstseksjon.
+**Sangtekster vises aldri på nettstedet** (opphavsrett). I stedet har hver side to knapper som åpner et søk hos Genius og Musixmatch i ny fane, og en liten arbeidsplan («lytt – skriv – les – slå opp»).
+Innholdet ligger i `musik-work/songdata1–4.py` (én `add(...)`-oppføring per sang) og bygges med `build_songs.py`. Slugs ligger også som `dwSlugs` i `musik/index.html`. Nye sanger: legg dem i `dwSongs` + `songs.json`, skriv en `add(...)`, kjør `build_songs.py` og legg slug i `dwSlugs`.
+Sanger i «Hits år for år»-listen som ikke ligger i spilleren har bare en «📄 Finn tekst»-lenke (Genius-søk) ved siden av YouTube-søket.

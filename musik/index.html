@@ -88,6 +88,12 @@
   }
   .dw-song-card:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(30,58,95,.12);border-color:var(--dw-accent);}
   .dw-song-card.dw-active{border-color:var(--dw-primary);background:#eef1f6;}
+  .dw-song-item{display:flex;flex-direction:column;gap:6px;}
+  .dw-song-item .dw-song-card{flex:1;}
+  .dw-song-link,.dw-now-page{display:inline-block;align-self:flex-start;font-size:.8rem;font-weight:700;padding:5px 13px;border-radius:999px;border:1.5px solid var(--dw-primary-light);color:var(--dw-primary-light);text-decoration:none;background:#fff;}
+  .dw-song-link:hover,.dw-now-page:hover{background:var(--dw-primary-light);color:#fff;}
+  .dw-now-page{margin-top:12px;font-size:.88rem;padding:8px 18px;background:var(--dw-primary-light);color:#fff;}
+  .dw-now-page:hover{filter:brightness(1.1);}
   .dw-song-title{margin:0;font-size:1rem;color:var(--dw-primary);font-weight:700;}
   .dw-song-artist{margin:0;font-size:.88rem;color:var(--dw-text);}
   .dw-song-meta{font-size:.76rem;color:var(--dw-muted);}
@@ -158,7 +164,7 @@
 
   <div class="dw-section">
     <h2>ℹ️ Om denne listen</h2>
-    <p>Klikk på en sang i listen under for å spille musikkvideoen i spilleren øverst. Hver sang har artist, utgivelsesår, sjanger og en kort forklaring på hva sangen handler om.</p>
+    <p>Klikk på en sang i listen under for å spille musikkvideoen i spilleren øverst. Hver sang har artist, utgivelsesår, sjanger og en kort forklaring på hva sangen handler om. Under hver sang finner du også en <strong>egen sangside</strong> med bakgrunn, ord, grammatikk, spørsmål, quiz og lenke til sangteksten hos en lovlig tekstside.</p>
     <p class="dw-note">Alle video-ID-er er sjekket mot YouTube før publisering. Noen sanger har tyngre innhold (grovt språk, rus- eller kriminalitetstematikk, seksuelt ladet innhold) — disse er tydelig merket, både i listen og i spilleren. Se gjerne sammen med en voksen der det er merket.</p>
     <div class="dw-legend">
       <span class="dw-legend-chip dw-tier-none">Ingen merknad</span>
@@ -182,6 +188,7 @@
       <p class="dw-now-about" id="dw-now-about"></p>
       <p class="dw-note" id="dw-now-extra" style="margin-top:4px;"></p>
       <div class="dw-now-warn" id="dw-now-warn"></div>
+      <a class="dw-now-page" id="dw-now-page" href="#" style="display:none">📄 Åpne sangside: ord, grammatikk, quiz og tekstlenke</a>
     </div>
   </div>
 
@@ -264,6 +271,10 @@
       note:"Ikke eksplisitt vold eller seksuelt innhold, men en mørk, skummel og «jaktende» stemning i både tekst og musikkvideo."}
   ];
 
+  var dwSlugs = {"Du hast": "du-hast", "Tage wie diese": "tage-wie-diese", "Sonne": "sonne", "99 Luftballons": "99-luftballons", "Roller": "roller", "Komet": "komet", "Nur ein Wort": "nur-ein-wort", "'54, '74, '90, 2010": "54-74-90-2010", "Perfekte Welle": "perfekte-welle", "Haus am See": "haus-am-see", "Durch den Monsun": "durch-den-monsun", "Junge": "junge", "Was du Liebe nennst": "was-du-liebe-nennst", "Vermissen": "vermissen", "Das Beste": "das-beste", "Atemlos durch die Nacht": "atemlos-durch-die-nacht", "Ohne mein Team": "ohne-mein-team", "Hamma!": "hamma", "Au Revoir": "au-revoir", "Erfolg ist kein Glück": "erfolg-ist-kein-glueck", "Rock Me Amadeus": "rock-me-amadeus", "Chöre": "choere", "Ahnma": "ahnma", "Alles verloren": "alles-verloren", "Weck mich auf": "weck-mich-auf", "Männer sind Schweine": "maenner-sind-schweine", "Augen auf": "augen-auf"};
+  function dwPageUrl(song){ return dwSlugs[song.title] ? dwSlugs[song.title] + '/' : ''; }
+  function dwLyricsUrl(a, t){ return 'https://genius.com/search?q=' + encodeURIComponent(a + ' ' + t); }
+
   var dwActiveSong = 0;
 
   function dwTierLabel(tier){
@@ -285,7 +296,19 @@
         '<span class="dw-song-meta">' + song.year + ' · ' + song.genre + '</span>' +
         badge;
       btn.onclick = function(){ dwPlay(i); window.scrollTo({top: document.querySelector('.dw-player-section').offsetTop - 12, behavior:'smooth'}); };
-      grid.appendChild(btn);
+      var item = document.createElement('div');
+      item.className = 'dw-song-item';
+      item.appendChild(btn);
+      var pg = dwPageUrl(song);
+      if(pg){
+        var a = document.createElement('a');
+        a.className = 'dw-song-link';
+        a.href = pg;
+        a.textContent = '📄 Sangside – ord, grammatikk, tekst';
+        a.setAttribute('aria-label', 'Åpne sangside for ' + song.title);
+        item.appendChild(a);
+      }
+      grid.appendChild(item);
     });
   }
 
@@ -308,6 +331,9 @@
       warnEl.className = 'dw-now-warn';
       warnEl.textContent = '';
     }
+    var pgEl = document.getElementById('dw-now-page');
+    var pgUrl = dwPageUrl(song);
+    if(pgUrl){ pgEl.href = pgUrl; pgEl.style.display = ''; } else { pgEl.style.display = 'none'; }
     dwRenderGrid();
   }
 
@@ -334,7 +360,9 @@
         var idx = dwFindExisting(s.a, s.t);
         html += '<div class="dw-yr-song"><b>' + dwEsc(s.t) + '</b><span class="dw-yr-art">' + dwEsc(s.a) + '</span>';
         if(idx >= 0) html += '<button type="button" class="dw-yr-act dw-play" data-idx="' + idx + '">▶ Spill her</button>';
+        if(idx >= 0 && dwPageUrl(dwSongs[idx])) html += ' <a class="dw-yr-act" href="' + dwPageUrl(dwSongs[idx]) + '">📄 Sangside</a>';
         else html += '<a class="dw-yr-act" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/results?search_query=' + encodeURIComponent(s.a + ' ' + s.t) + '">🔎 Finn på YouTube</a>';
+        if(idx < 0) html += ' <a class="dw-yr-act" target="_blank" rel="noopener noreferrer" href="' + dwLyricsUrl(s.a, s.t) + '">📄 Finn tekst</a>';
         if(s.k) html += '<div class="dw-yr-flag dw-tier-' + (s.k === 'w' ? 'warning' : 'note') + '">' + (s.k === 'w' ? '🔞 ' : '⚠️ ') + dwEsc(s.n) + '</div>';
         html += '</div>';
       });
