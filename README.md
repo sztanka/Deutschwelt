@@ -686,9 +686,9 @@ deutschwelt-site/
 ├── challenges/
 │   ├── index.html                    → hub-side: velg challenge
 │   ├── taegliche-herausforderung/
-│   │   └── index.html                → tilfeldig trukket mini-oppgave (sprechen/schreiben/hören/wortschatz)
+│   │   └── index.html                → «Tägliche Herausforderung»: dagens tre oppgaver + tilfeldig trekk (107 oppgaver med lenker, filter på type/nivå)
 │   ├── wortschatz-jagd/
-│   │   └── index.html                → memory-spill: match tysk/norske ordpar mot klokken
+│   │   └── index.html                → «Wortschatz-Jagd»: Memory tysk/norsk (6/8/12 par, 6 kategorier, dagens brett, stokk om)
 │   ├── escape-room/
 │   │   └── index.html                → "Der verschlossene Klassenraum" — fire gåter gir en kode
 │   ├── kommissar-lupe/
@@ -955,14 +955,7 @@ en skriveoppgave med tre dagbokinnlegg (Ankunft/Stadt/Abschied) og
 klikkbare setningsstartere (`dwStarters`) som setter inn tekst i riktig
 felt — samme egenvurderings- og kopier-mønster som Schreiben-oppgavene.
 
-**Om Challenges-seksjonen:** **Tägliche Herausforderung** gjenbruker
-reroll-mønsteret fra Wortkiste på en pool av 18 varierte mini-oppgaver
-(`dwChallengePool`, merket med type og vanskelighetsgrad) pluss en enkel
-selvrapportert "ferdig"-teller (kun in-memory). **Wortschatz-Jagd** er et
-memory-spill — 8 tysk/norske ordpar (`dwPairs`) blir til 16 kort som
-shuffles og rendres på nytt (`dwInitGame()`); en `setInterval`-basert
-klokke og en trekkteller gir en enkel konkurransefaktor, med "Neustart"
-for nytt brett. **Der verschlossene Klassenraum** er en liten
+**Om Challenges-seksjonen:** **Tägliche Herausforderung** og **Wortschatz-Jagd** er bygget om (se egne seksjoner «Tägliche Herausforderung» og «Wortschatz-Jagd (Memory)» lenger ned; den opprinnelige versjonen med `dwChallengePool` (18 oppgaver) og `dwPairs` (8 par) er erstattet). **Der verschlossene Klassenraum** er en liten
 escape-room: fire gåter (`dwClues`, hver hentet fra en annen del av
 nettstedet — grammatikk/ordforråd/lesing/verb) gir hvert sitt siffer ved
 riktig svar; når alle fire er funnet, skriver eleven inn firesifferkoden
@@ -2291,9 +2284,9 @@ Gjennomgang: alle nye verb ble sjekket for hjelpeverb og imperativ. Rettet under
      `reise/koffer/` eller `reise/reisetagebuch/` som ligner mest, og bytt
      ut `dwCities`/`dwScenarios`+`dwItemPool`/`dwStarters` etter hvilken
      mal du brukte.
-   - En ny challenge → kopier `challenges/taegliche-herausforderung/`
-     (bytt `dwChallengePool`), `challenges/wortschatz-jagd/` (bytt
-     `dwPairs`) eller `challenges/escape-room/` (bytt `dwClues` — husk at
+   - En ny challenge → se seksjonene «Tägliche Herausforderung»
+     (`herausforderung-work/tasks.py`) og «Wortschatz-Jagd (Memory)»
+     (`memory-work/`), eller `challenges/escape-room/` (bytt `dwClues` — husk at
      `digit`-verdiene bare trenger å være ulike sifre, ikke i noen
      bestemt rekkefølge).
    - En ny film/serie på Filme & Serien-siden → kopier ett av
@@ -2571,6 +2564,21 @@ Ordsøk på tysk (som Washington Posts «Word Search»). **Delt motor:** `assets
 **Wichtige Themen:** hver av de 8 temasidene har en seksjon «🔎 Ordsøk: finn temaordene» (satt inn før «din egen tekst»-seksjonen, markert med `<!-- dw-wortsuche -->`) med 24–25 temaspesifikke ord (`wortsuche-work/ws_themes.py`, format `Ord|art|norsk`, 4–12 bokstaver). Hvert brett trekker et tilfeldig utvalg, så «Stokk om» gir ulike ord. **Slik endrer du:** rediger `ws_themes.py` og kjør `python3 patch_themes.py` (idempotent – erstatter eksisterende seksjon); motor/CSS i `wortsuche-work/wortsuche.js|css` (kopier til `assets/`); test med `wtest.py` (Challenge) og `ttest.py`/`ttest2.py` (temasider).
 **Nye temasider:** legg ordlisten i `ws_themes.py` (og navnet i `LAB` i `patch_themes.py`) og kjør `patch_themes.py`.
 **Begrensninger:** norske hint og temaord er skrevet av Claude, ikke morsmålsgransket; svært lange ord (13+ bokstaver, f.eks. Klassenzimmer, Weihnachtsmarkt) er utelatt fordi rutenettet maks er 12×12. På mobil (12×12) blir rutene små – dra-markering er forgiving (snapper til retning), men Lett/Middels er mer behagelig på telefon.
+
+## Wortschatz-Jagd – Memory (`challenges/wortschatz-jagd/` og «Memory» på Wichtige Themen)
+
+Memory med tysk ↔ norsk. **Delt motor:** `assets/memory.js` + `assets/memory.css` brukes av Challenge-siden og alle åtte temasidene i `wichtige-themen/8-klasse/`. Ingen lagring mellom besøk.
+**Spillidé:** snu to kort om gangen; tysk ord (med der/die/das) skal matche norsk betydning. **Nivåer:** Lett = 6 par, korte ord (4–7 bokstaver), 4 sekunders forhåndsvisning og flagg på baksiden (🇩🇪/🇳🇴); Middels = 8 par (4–10 bokstaver), 2 sekunders forhåndsvisning; Vanskelig = 12 par (5–14 bokstaver), ingen forhåndsvisning, like baksider, kortere tid før feil par snus tilbake. **Kategorier (Challenge):** Allmenne, Mat/dyr/natur, Skole/hverdag/reise, Byer/land/geografi (norsk side er en forklaring, maks 26 tegn), Verb og adjektiv, Alle. **Oppgave:** Dagens brett (seedet av dato + nivå + kategori, delingstekst) og Trening. Teller forsøk og tid, gir ⭐⭐⭐/⭐⭐/⭐ ut fra forsøk per par, viser alle ordene etter løsning, og **«Stokk om – nytt brett»** gir nye ord og ny plassering. Kortene velges slik at hverken tysk eller norsk tekst forekommer to ganger.
+**Ordlister:** Challenge: `galgen-work/hm_words.py` `build()` (ca. 830 ord, kategori «v» er filtrert på ordklasse v/adj/adv/konj/prep/pron). Temasider: `wortsuche-work/ws_themes.py` (24–25 ord per tema, samme liste som Ordsøk).
+**Slik endrer du:** Challenge-siden: `memory-work/build_memory.py`. Temasider: rediger `ws_themes.py` og kjør `python3 memory-work/patch_memory.py` (idempotent; seksjonen settes inn etter Ordsøk, før «din egen tekst», markert `<!-- dw-memory -->`). Motor/CSS: `memory-work/memory.js|css` (kopier til `assets/`). Test: `mtest.py` (Challenge), `mtest2.py` (temasider).
+**Begrensninger:** Norske oversettelser er skrevet av Claude, ikke morsmålsgransket. På mobil (4 kolonner × 6 rader på Vanskelig) er kortene små, og lange sammensatte ord brytes midt i ordet.
+
+## Tägliche Herausforderung (`challenges/taegliche-herausforderung/`)
+
+Bygget om til en større oppgavesamling (107 oppgaver, `herausforderung-work/tasks.py`, format `type|nivå|tekst|lenke|lenketekst`). **Typer:** Sprechen, Schreiben, Hören, Lesen, Wortschatz, Grammatik, Spiel (alle Challenges-spillene, inkl. Wörtle, Klugle, Wortsuche, Wortschatz-Jagd, Kommissar Lupe, Escape Room, Länder-Rätsel, Galgenmännchen) og Kultur & Reise. **Nivåer:** Leicht/Mittel/Schwer. Oppgavene lenker til den delen av nettstedet der man kan øve (Wichtige Themen-dialoger, Sprechen, Hören/Nicos Weg, Lesen, Schreiben, Grammatik, Verben-Konjugator, Ordbok, Städte, Geschichte m.m.).
+**Funksjoner:** «Dagens tre» – én Leicht, én Mittel og én Schwer oppgave, valgt deterministisk av dato (alle ser det samme samme dag, og så vidt mulig tre ulike typer), med «Ich habe es geschafft!»-avkrysning (kun i økten); «Trekk en tilfeldig oppgave» med filter på type og nivå og teller; og en tabell med alle oppgavene. Ingen lagring.
+**Slik legger du til oppgaver:** legg en linje i `tasks.py` (lenken må være en eksisterende side, f.eks. `grammatikk/verb/`; `python3 tasks.py` sjekker at alle lenker finnes) og kjør `python3 build_herausforderung.py`.
+**Begrensninger:** Oppgavene er skrevet av Claude. Nye deler av nettstedet må legges inn manuelt i `tasks.py` (siden oppdateres ikke automatisk).
 
 ## Galgenmännchen (`challenges/galgenmaennchen/`)
 

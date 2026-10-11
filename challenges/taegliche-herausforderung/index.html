@@ -1,77 +1,106 @@
 <!DOCTYPE html>
 <!--
-  DEUTSCHWELT — Challenges: "Tägliche Herausforderung"
-  For 8. trinn (A1). Trekker én tilfeldig mini-oppgave fra en pool
-  (dwChallengePool) med variert type (sprechen/schreiben/hören/wortschatz)
-  og vanskelighetsgrad. Gjenbruker reroll-mønsteret fra Wortkiste, pluss
-  en enkel selvrapportert "ferdig"-teller (kun in-memory, nullstilles ved
-  ny sideinnlasting). Se README.md for hvordan du legger til flere.
+  DEUTSCHWELT — Challenges: "Tägliche Herausforderung" (challenges/taegliche-herausforderung/)
+  Dagens tre oppgaver (Leicht/Mittel/Schwer, seedet av dato) + tilfeldig trekk med filter (type, nivå), lenker til nettstedets deler.
+  Oppgaver: herausforderung-work/tasks.py. Bygges av build_herausforderung.py.
 -->
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tägliche Herausforderung · Deutschwelt</title>
+<title>Tägliche Herausforderung · Challenges · Deutschwelt</title>
 <link rel="stylesheet" href="../../assets/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --dw-primary:#161616;
-    --dw-primary-light:#9c1329;
-    --dw-accent:#d9a91c;
-    --dw-good:#2e7d32;
-    --dw-bg:#f7f5f0;
-    --dw-card:#ffffff;
-    --dw-text:#232323;
-    --dw-muted:#6b6b6b;
-    --dw-radius:16px;
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
   }
   *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
-  .dw-wrap{max-width:700px;margin:0 auto;padding:0 16px 60px;}
-  .dw-header{
-    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
-    color:#fff;border-radius:var(--dw-radius);padding:28px 24px;text-align:center;margin-bottom:16px;
-  }
-  .dw-header h1{margin:0 0 6px;font-size:1.7rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-wrap{max-width:860px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
   .dw-header p{margin:0;opacity:.95;}
-
-  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
   .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
   .dw-crumb a:hover{text-decoration:underline;}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .dw-jump a{font-size:.86rem;font-weight:700;padding:7px 15px;border-radius:999px;text-decoration:none;background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:32px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t tbody th{background:#fbfaf6;font-size:.84rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t td.dw-hl{background:#fff3cf;}
+  .dw-t td.dw-c{text-align:center;}
+  .dw-t td.dw-x{color:#aaa;text-align:center;}
+  .dw-t tr.dw-grp td,.dw-t tr.dw-grp th{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:14px 0;}
+  a.dw-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;text-decoration:none;color:var(--dw-text);box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;gap:6px;}
+  a.dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  a.dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  a.dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
 
-  .dw-section{
-    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
-    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  /* Øvelser */
+  .dw-ex-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+  .dw-ex-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:8px;}
+  .dw-ex-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:16px;}
+  .dw-ex-fill{height:100%;width:0;background:var(--dw-good);transition:width .25s ease;}
+  .dw-ex-cue{font-size:.88rem;color:var(--dw-muted);margin-bottom:4px;}
+  .dw-ex-sent{font-size:1.3rem;font-weight:600;color:var(--dw-primary);line-height:1.5;margin:2px 0 18px;}
+  .dw-ex-sent .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);text-align:center;}
+  .dw-ex-sent .dw-blank.dw-filled{color:var(--dw-good);border-color:var(--dw-good);}
+  .dw-ex-sent .dw-blank.dw-filled.dw-bad{color:var(--dw-bad);border-color:var(--dw-bad);}
+  .dw-ex-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .dw-ex-choice{flex:1 1 110px;max-width:170px;padding:12px 8px;font-family:inherit;font-size:1.1rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;}
+  .dw-ex-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-ex-choice:disabled{cursor:default;opacity:.55;}
+  .dw-ex-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-ex-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .dw-ex-choice:focus-visible,.dw-ex-btn:focus-visible,.dw-ex-hintbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-ex-hintbtn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:.85rem;padding:0;margin-bottom:8px;}
+  .dw-ex-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:10px 14px;margin:6px 0 14px;background:#f4f1e8;}
+  .dw-ex-fb.dw-show{display:block;}
+  .dw-ex-fb.dw-good{background:#eef7ee;color:#1f5d23;}
+  .dw-ex-fb.dw-bad{background:#fdecee;color:#8c1d1d;}
+  .dw-ex-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:11px 26px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .dw-ex-btn:hover{background:var(--dw-primary-light);}
+  .dw-ex-btn.dw-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-ex-result{display:none;text-align:center;}
+  .dw-ex-result.dw-show{display:block;}
+  .dw-ex-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .dw-ex-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:12px 18px;margin:14px 0;font-size:.9rem;}
+  .dw-ex-review li{margin-bottom:6px;}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .dw-ex-sent{font-size:1.12rem;}
   }
-  .dw-section h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.15rem;}
-  .dw-section p{margin:0 0 8px;line-height:1.55;}
-
-  .dw-challenge-card{
-    background:linear-gradient(135deg,var(--dw-accent) 0%,#f2c168 100%);
-    color:#1a1a1a;border-radius:var(--dw-radius);padding:26px 24px;text-align:center;margin-bottom:16px;
-  }
-  .dw-challenge-badges{display:flex;justify-content:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
-  .dw-badge{
-    background:rgba(255,255,255,.55);border-radius:999px;padding:4px 12px;font-size:.78rem;font-weight:700;
-  }
-  .dw-challenge-text{font-size:1.15rem;font-weight:600;line-height:1.5;margin:0;}
-
-  .dw-btn-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px;}
-  .dw-reroll-btn{
-    background:var(--dw-primary);color:#fff;border:none;padding:12px 22px;border-radius:999px;
-    font-size:.95rem;font-weight:700;cursor:pointer;
-  }
-  .dw-reroll-btn:hover{background:var(--dw-primary-light);}
-  .dw-done-btn{
-    background:var(--dw-good);color:#fff;border:none;padding:12px 22px;border-radius:999px;
-    font-size:.95rem;font-weight:700;cursor:pointer;
-  }
-  .dw-done-btn:hover{filter:brightness(1.08);}
-
-  #dw-done-counter{text-align:center;font-weight:700;color:var(--dw-primary);margin-top:4px;display:block;}
 </style>
 </head>
 <body>
@@ -88,7 +117,7 @@
       <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
       <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
       <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
-      <a class="dw-nav-link dw-nav-active" href="../">🏆 Challenges</a>
+      <a class="dw-nav-link dw-nav-active" href="../../challenges/">🏆 Challenges</a>
       <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
       <a class="dw-nav-link" href="../../musik/">🎵 Musik</a>
       <a class="dw-nav-link" href="../../laender/">🌍 Länder</a>
@@ -107,87 +136,143 @@
 
 <div class="dw-wrap">
 
-  <p class="dw-crumb"><a href="../">🏆 Challenges</a> → Tägliche Herausforderung</p>
+<style>
+  .th-panel{background:var(--dw-card);border-radius:var(--dw-radius);padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:16px;}
+  .th-label{font-weight:700;font-size:.85rem;color:var(--dw-muted);margin:12px 0 6px;display:block;}
+  .th-chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .th-chip{font-family:inherit;font-size:.88rem;font-weight:700;padding:7px 14px;border-radius:999px;border:2px solid #e4dfd2;background:#fff;color:var(--dw-text);cursor:pointer;}
+  .th-chip:hover{border-color:var(--dw-accent);}
+  .th-chip[aria-pressed="true"]{background:var(--dw-primary);border-color:var(--dw-primary);color:#fff;}
+  .th-btn{font-family:inherit;font-weight:700;font-size:.95rem;padding:10px 20px;border-radius:999px;border:2px solid var(--dw-primary-light);background:var(--dw-primary-light);color:#fff;cursor:pointer;text-decoration:none;display:inline-block;}
+  .th-btn.alt{background:#fff;color:var(--dw-primary-light);}
+  .th-btn:hover{filter:brightness(1.08);}
+  .th-btn:focus-visible,.th-chip:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .th-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;align-items:center;}
+  .th-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;}
+  .th-card{background:#fff;border:2px solid #ece8df;border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;}
+  .th-card.done{border-color:#2e7d32;background:#f1faf1;}
+  .th-badges{display:flex;gap:6px;flex-wrap:wrap;}
+  .th-badge{font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:999px;background:#f3eefb;color:#4a3a8c;}
+  .th-badge.L-Leicht{background:#e4f4e4;color:#1b5e20;}
+  .th-badge.L-Mittel{background:#fff3cf;color:#6b4300;}
+  .th-badge.L-Schwer{background:#fde8e8;color:#7f1d1d;}
+  .th-text{margin:0;font-size:1rem;line-height:1.45;flex:1;}
+  .th-count{font-weight:700;color:var(--dw-primary);margin:6px 0 0;}
+  .th-big{min-height:130px;}
+  .th-list{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:8px;}
+  .th-list th,.th-list td{text-align:left;padding:5px 8px;border-bottom:1px solid #ece8df;vertical-align:top;}
+  .th-list th{background:#f6f3ec;}
+  .th-listwrap{max-height:420px;overflow:auto;border:1px solid #ece8df;border-radius:10px;}
+</style>
 
   <div class="dw-header">
-    <h1>Tägliche Herausforderung</h1>
-    <p>Trekk en tilfeldig mini-oppgave og test deg selv</p>
+    <h1>🎲 Tägliche Herausforderung</h1>
+    <p>Tre nye oppgaver hver dag – og en tilfeldig oppgave når du vil ha mer</p>
   </div>
 
-  <div class="dw-section">
-    <h2>🎲 Slik fungerer det</h2>
-    <p>Trykk "Neue Herausforderung!" for å trekke en tilfeldig oppgave. Løs den — alene, med en medelev, eller sammen med læreren — og trykk "Ich habe es geschafft!" når du er ferdig. Ikke fornøyd med oppgaven? Trekk gjerne en ny!</p>
+  <p class="dw-crumb"><a href="../">🏆 Challenges</a> → Tägliche Herausforderung <span class="dw-level-tag">6.–10. trinn · A1–B1</span></p>
+
+  <div class="dw-jump"><a href="#heute">📅 Dagens tre</a><a href="#zufall">🎲 Tilfeldig oppgave</a><a href="#alle">📋 Alle oppgaver</a></div>
+
+  <h2 class="dw-sec-title" id="heute">📅 Dagens tre oppgaver</h2>
+  <div class="th-panel">
+    <p class="dw-note" style="margin-top:0">Én lett, én middels og én vanskelig oppgave. De er like for alle som åpner siden samme dag. Mange har en lenke til den delen av nettstedet der du kan øve eller finne hjelp. Løs dem alene, med en medelev eller sammen med læreren, og trykk «Ich habe es geschafft!».</p>
+    <div class="th-cards" id="th-daily"></div>
+    <p class="th-count" id="th-dcount"></p>
   </div>
 
-  <div class="dw-challenge-card">
-    <div class="dw-challenge-badges">
-      <span class="dw-badge" id="dw-badge-type"></span>
-      <span class="dw-badge" id="dw-badge-level"></span>
+  <h2 class="dw-sec-title" id="zufall">🎲 Trekk en tilfeldig oppgave</h2>
+  <div class="th-panel" id="th-rnd">
+    <span class="th-label" style="margin-top:0">Type</span>
+    <div class="th-chips" role="group" aria-label="Type" id="th-types">
+      <button type="button" class="th-chip" data-type="" aria-pressed="true">🌈 Alle typer</button>
+      <button type="button" class="th-chip" data-type="Sprechen" aria-pressed="false">🗣️ Sprechen</button>
+      <button type="button" class="th-chip" data-type="Schreiben" aria-pressed="false">✍️ Schreiben</button>
+      <button type="button" class="th-chip" data-type="Hören" aria-pressed="false">🎧 Hören</button>
+      <button type="button" class="th-chip" data-type="Lesen" aria-pressed="false">📖 Lesen</button>
+      <button type="button" class="th-chip" data-type="Wortschatz" aria-pressed="false">🧠 Wortschatz</button>
+      <button type="button" class="th-chip" data-type="Grammatik" aria-pressed="false">🧩 Grammatik</button>
+      <button type="button" class="th-chip" data-type="Spiel" aria-pressed="false">🎮 Spiel</button>
+      <button type="button" class="th-chip" data-type="Kultur" aria-pressed="false">🌍 Kultur &amp; Reise</button>
     </div>
-    <p class="dw-challenge-text" id="dw-challenge-text"></p>
-    <div class="dw-btn-row">
-      <button class="dw-reroll-btn" onclick="dwNewChallenge()">🎲 Neue Herausforderung!</button>
-      <button class="dw-done-btn" onclick="dwMarkDone()">✅ Ich habe es geschafft!</button>
+    <span class="th-label">Nivå</span>
+    <div class="th-chips" role="group" aria-label="Nivå" id="th-levels">
+      <button type="button" class="th-chip" data-level="" aria-pressed="true">🌈 Alle nivåer</button>
+      <button type="button" class="th-chip" data-level="Leicht" aria-pressed="false">🟢 Leicht</button>
+      <button type="button" class="th-chip" data-level="Mittel" aria-pressed="false">🟡 Mittel</button>
+      <button type="button" class="th-chip" data-level="Schwer" aria-pressed="false">🔴 Schwer</button>
     </div>
+    <div class="th-card th-big" id="th-card" style="margin-top:14px"></div>
+    <div class="th-btns"><button type="button" class="th-btn" id="th-new">🎲 Neue Herausforderung!</button><button type="button" class="th-btn alt" id="th-done">✅ Ich habe es geschafft!</button></div>
+    <p class="th-count" id="th-rcount"></p>
+    <p class="dw-note" id="th-pool" style="font-size:.85rem"></p>
   </div>
 
-  <span id="dw-done-counter">0 Herausforderungen heute geschafft</span>
+  <h2 class="dw-sec-title" id="alle">📋 Alle oppgavene</h2>
+  <div class="dw-exp">
+    <details>
+      <summary><b>Vis alle <span id="th-n">0</span> oppgavene</b></summary>
+      <div class="th-listwrap"><table class="th-list"><thead><tr><th>Type</th><th>Nivå</th><th>Oppgave</th></tr></thead><tbody id="th-body"></tbody></table></div>
+    </details>
+    <div class="dw-tip" style="margin-top:12px">💡 <b>Lærertips:</b> Bruk «Dagens tre» som oppstart eller avslutning på timen, eller la elevene velge en type og et nivå selv. Spill-oppgavene passer som belønning eller repetisjon. Oppgavene lagres ikke, så ingen data samles inn.</div>
+    <p class="dw-see-also"><strong>Se også:</strong> <a href="../wortsuche/">Wortsuche</a> · <a href="../wortschatz-jagd/">Wortschatz-Jagd</a> · <a href="../klugle/">Klugle</a> · <a href="../woertle/">Wörtle</a> · <a href="../../wichtige-themen/">Wichtige Themen</a></p>
+  </div>
+  <script type="application/json" id="th-data">[{"type":"Sprechen","level":"Leicht","text":"Beskriv rommet du sitter i nå – på tysk! Bruk minst 5 setninger («Im Zimmer gibt es …»).","link":"wichtige-themen/8-klasse/die-einfache-unterhaltung/","label":"Die einfache Unterhaltung"},{"type":"Sprechen","level":"Leicht","text":"Presenter deg selv for en medelev på tysk: navn, alder, hvor du bor og hobbyer. Hør først dialogen «Die einfache Unterhaltung».","link":"wichtige-themen/8-klasse/die-einfache-unterhaltung/","label":"Die einfache Unterhaltung"},{"type":"Sprechen","level":"Leicht","text":"Tell høyt fra 1 til 20 på tysk, så raskt du kan. Prøv så å telle baklengs fra 20.","link":"grammatikk/zahlen/","label":"Zahlen"},{"type":"Sprechen","level":"Leicht","text":"Fortell en medelev om favorittmaten din på tysk («Mein Lieblingsessen ist …»).","link":"","label":""},{"type":"Sprechen","level":"Leicht","text":"Spør en medelev på tysk: «Was machst du gern in deiner Freizeit?» – og svar selv.","link":"wichtige-themen/8-klasse/hobbys-und-freizeit/","label":"Hobbys und Freizeit"},{"type":"Sprechen","level":"Leicht","text":"Les dialogen «Im Café» høyt sammen med en medelev, og bytt roller.","link":"sprechen/cafe/","label":"Im Café"},{"type":"Sprechen","level":"Leicht","text":"Spill en kort scene på hotell: sjekk inn og spør om frokosten.","link":"sprechen/hotell/","label":"An der Rezeption"},{"type":"Sprechen","level":"Leicht","text":"Hils på tysk på fem ulike måter (morgen, dag, kveld, uformelt, formelt).","link":"","label":""},{"type":"Sprechen","level":"Mittel","text":"Bestill mat på en tysk restaurant sammen med en medelev (gjest og kelner). Bruk uttrykkene fra temasiden.","link":"wichtige-themen/8-klasse/im-restaurant/","label":"Im Restaurant"},{"type":"Sprechen","level":"Mittel","text":"Spill en scene i en klesbutikk: finn en jakke, spør om størrelse, prøverom og pris.","link":"wichtige-themen/8-klasse/einkaufen/","label":"Einkaufen"},{"type":"Sprechen","level":"Mittel","text":"Avtal å møtes på kino med en medelev: dag, klokkeslett, møtested.","link":"wichtige-themen/8-klasse/eine-verabredung/","label":"Eine Verabredung"},{"type":"Sprechen","level":"Mittel","text":"Beskriv familien din på tysk – bruk minst tre familiemedlemmer og hva de jobber med.","link":"wichtige-themen/8-klasse/meine-familie/","label":"Meine Familie"},{"type":"Sprechen","level":"Mittel","text":"Beskriv utseendet ditt (eller en kjent person) på tysk i 30 sekunder, uten å se på notater.","link":"wichtige-themen/8-klasse/mein-aussehen/","label":"Mein Aussehen"},{"type":"Sprechen","level":"Mittel","text":"Ta en taxitur: si hvor du skal, spør hva det koster og betal.","link":"sprechen/taxi/","label":"Im Taxi"},{"type":"Sprechen","level":"Mittel","text":"Fortell hvordan dere feirer jul hjemme hos dere, på tysk («Bei uns gibt es …»).","link":"wichtige-themen/8-klasse/zu-weihnachten/","label":"Zu Weihnachten"},{"type":"Sprechen","level":"Schwer","text":"Hold en minipresentasjon (1 minutt) om en tysk by du kunne tenke deg å besøke. Si hvorfor.","link":"staedte/","label":"Städte entdecken"},{"type":"Sprechen","level":"Schwer","text":"Hør en dialog fra Wichtige Themen to ganger, og gjenfortell den med egne ord uten å se på teksten.","link":"wichtige-themen/8-klasse/","label":"Wichtige Themen"},{"type":"Sprechen","level":"Schwer","text":"Ring (rollespill) og reklamer på en vare du har kjøpt: forklar problemet og be om en løsning.","link":"","label":""},{"type":"Sprechen","level":"Schwer","text":"Diskuter med en medelev: «Stadt oder Land – wo wohnst du lieber?» Gi minst to grunner hver.","link":"","label":""},{"type":"Schreiben","level":"Leicht","text":"Skriv en SMS til en tysk venn og spør hvordan hen har det.","link":"schreiben/sms-chat/","label":"SMS-Chat"},{"type":"Schreiben","level":"Leicht","text":"Skriv fem setninger om en vanlig dag («Ich stehe um … Uhr auf.»).","link":"schreiben/mein-tag/","label":"Mein Tag"},{"type":"Schreiben","level":"Leicht","text":"Beskriv en person i klassen uten å si navnet. Kan en medelev gjette hvem det er?","link":"schreiben/personenbeschreibung/","label":"Personenbeschreibung"},{"type":"Schreiben","level":"Leicht","text":"Skriv tre setninger om hvor tingene står på rommet ditt (auf, neben, unter …).","link":"schreiben/wo-ist-was/","label":"Wo ist was?"},{"type":"Schreiben","level":"Leicht","text":"Skriv en pakkeliste på tysk for en helgetur (minst 8 ting).","link":"reise/koffer/","label":"Packe deinen Koffer"},{"type":"Schreiben","level":"Mittel","text":"Skriv fem setninger om hva du gjorde i helgen – på tysk.","link":"","label":""},{"type":"Schreiben","level":"Mittel","text":"Velg et bilde og skriv en beskrivelse med minst 6 setninger. Sjekk med «Bilder beschreiben».","link":"schreiben/bilder-beschreiben/","label":"Bilder beschreiben"},{"type":"Schreiben","level":"Mittel","text":"Skriv 5 spørsmål du ville stilt en tysk utvekslingselev.","link":"","label":""},{"type":"Schreiben","level":"Mittel","text":"Skriv et kort dagboksinnlegg om en fantasireise til Berlin.","link":"staedte/berlin/","label":"Berlin entdecken"},{"type":"Schreiben","level":"Mittel","text":"Beskriv et sted du liker (rom, park, by) med minst 6 adjektiver.","link":"schreiben/ort-beschreiben/","label":"Einen Ort beschreiben"},{"type":"Schreiben","level":"Mittel","text":"Skriv en dialog (6 replikker) mellom en gjest og en kelner.","link":"wichtige-themen/8-klasse/im-restaurant/","label":"Im Restaurant"},{"type":"Schreiben","level":"Mittel","text":"Skriv en invitasjon til en bursdagsfest med dag, tid og sted.","link":"wichtige-themen/8-klasse/eine-verabredung/","label":"Eine Verabredung"},{"type":"Schreiben","level":"Mittel","text":"Planlegg en reise til en tysk, østerriksk eller sveitsisk by: reisemåte, overnatting, tre ting du vil gjøre.","link":"reise/reiseplanlegger/","label":"Der Reiseplaner"},{"type":"Schreiben","level":"Schwer","text":"Skriv en kort tekst om drømmereisen din – hvor og hvorfor (minst 8 setninger).","link":"reise/reisetagebuch/","label":"Reisetagebuch"},{"type":"Schreiben","level":"Schwer","text":"Skriv en presentasjon (10 setninger) om et tema du kan mye om, og øv deg på å holde den.","link":"schreiben/praesentation/","label":"Präsentation halten"},{"type":"Schreiben","level":"Schwer","text":"Skriv en tekst om et bilde fra «Bilder beschreiben» på nivå Profi, og bruk minst tre leddsetninger.","link":"schreiben/bilder-beschreiben/","label":"Bilder beschreiben"},{"type":"Schreiben","level":"Schwer","text":"Skriv en e-post til en tysk skole der du presenterer deg og spør om en utveksling.","link":"","label":""},{"type":"Hören","level":"Leicht","text":"Hør «Hallo!» fra Nicos Weg og skriv ned tre ord du kjenner igjen.","link":"hoeren/nicos-weg-hallo/","label":"Nicos Weg – Hallo!"},{"type":"Hören","level":"Leicht","text":"Hør en episode av Nicos Weg (8. klasse A1) og skriv ned tre nye ord du la merke til.","link":"hoeren/8-klasse-a1/","label":"8. Klasse (A1)"},{"type":"Hören","level":"Leicht","text":"Hør dialogen «Im Restaurant» på temasiden og følg med på teksten. Hvilke tre ord var nye?","link":"wichtige-themen/8-klasse/im-restaurant/","label":"Im Restaurant"},{"type":"Hören","level":"Leicht","text":"Hør «Meine Familie» fra Nicos Weg og tell hvor mange familiemedlemmer som nevnes.","link":"hoeren/nicos-weg-meine-familie/","label":"Nicos Weg – Meine Familie"},{"type":"Hören","level":"Mittel","text":"Hør en episode fra 9. klasse (A2) og skriv fem setninger om hva den handlet om.","link":"hoeren/9-klasse-a2/","label":"9. Klasse (A2)"},{"type":"Hören","level":"Mittel","text":"Velg en sang fra Musik, hør den og skriv ned fem ord du kjenner igjen.","link":"musik/","label":"Musik"},{"type":"Hören","level":"Mittel","text":"Hør «Einkaufen» på temasiden to ganger. Skriv ned alle prisene og farger du hører.","link":"wichtige-themen/8-klasse/einkaufen/","label":"Einkaufen"},{"type":"Hören","level":"Mittel","text":"Hør «Wie war dein Urlaub?» fra Nicos Weg og svar på tysk: Hvor var personen, og hva gjorde hen?","link":"hoeren/nicos-weg-wie-war-dein-urlaub/","label":"Nicos Weg – Wie war dein Urlaub?"},{"type":"Hören","level":"Schwer","text":"Hør en episode fra 10. klasse (B1) uten å se teksten, og skriv ned handlingen med egne ord.","link":"hoeren/10-klasse-b1/","label":"10. Klasse (B1)"},{"type":"Hören","level":"Schwer","text":"Hør «Die Mauer» (B1) og forklar på norsk hva som skjedde med Berlinmuren.","link":"hoeren/nicos-weg-b1-die-mauer/","label":"Nicos Weg – Die Mauer"},{"type":"Hören","level":"Schwer","text":"Hør «Tage wie diese» og skriv ned hovedbudskapet i refrenget med egne ord.","link":"musik/tage-wie-diese/","label":"Tage wie diese"},{"type":"Hören","level":"Schwer","text":"Hør «Wetter und Klima» (B1) og skriv ned fem ord om vær og klima du ikke kunne fra før.","link":"hoeren/nicos-weg-b1-wetter-und-klima/","label":"Nicos Weg – Wetter und Klima"},{"type":"Lesen","level":"Leicht","text":"Les «Die SMS» og forklar hva som skjer med egne ord.","link":"lesen/die-sms/","label":"Die SMS"},{"type":"Lesen","level":"Leicht","text":"Les «Der Regenschirm» og finn tre ord du ikke kjente.","link":"lesen/der-regenschirm/","label":"Der Regenschirm"},{"type":"Lesen","level":"Mittel","text":"Les «Wer hat den Kuchen gegessen?» og finn ut hvem det var. Hvilke ledetråder pekte på det?","link":"lesen/wer-hat-den-kuchen-gegessen/","label":"Wer hat den Kuchen gegessen?"},{"type":"Lesen","level":"Mittel","text":"Les «Ein Wochenende in Berlin» og lag en liste over fem ting personene gjorde.","link":"lesen/ein-wochenende-in-berlin/","label":"Ein Wochenende in Berlin"},{"type":"Lesen","level":"Mittel","text":"Les «Der verlorene Rucksack» og skriv en kort oppsummering (3 setninger).","link":"lesen/der-verlorene-rucksack/","label":"Der verlorene Rucksack"},{"type":"Lesen","level":"Schwer","text":"Les en Kafka-parabel og skriv hva du tror den betyr (på norsk eller tysk).","link":"lesen/kafka-parabeln/","label":"Kafka-Parabeln"},{"type":"Lesen","level":"Schwer","text":"Les en tekst under Lesen og lag fem spørsmål til en medelev om innholdet.","link":"lesen/","label":"Lesen"},{"type":"Wortschatz","level":"Leicht","text":"Skriv ned alle fargene du kan på tysk, og sjekk med fargesiden.","link":"grammatikk/farben/","label":"Farben"},{"type":"Wortschatz","level":"Leicht","text":"Skriv alle tallene fra 1 til 20 på tysk – uten å se. Sjekk etterpå.","link":"grammatikk/zahlen/","label":"Zahlen"},{"type":"Wortschatz","level":"Leicht","text":"Skriv ned 10 tyske ord som starter på bokstaven «S» – uten å slå opp!","link":"","label":""},{"type":"Wortschatz","level":"Leicht","text":"Lær ukens ord på «Wortschatz der Woche» og bruk hvert ord i en setning.","link":"grammatikk/wortschatz-woche/","label":"Wortschatz der Woche"},{"type":"Wortschatz","level":"Leicht","text":"Finn fem tyske ord som ligner på norsk (f.eks. «Haus» – «hus») på «Snakker du nysk?».","link":"aehnliche-woerter/","label":"Snakker du nysk?"},{"type":"Wortschatz","level":"Mittel","text":"Spill Wortschatz-Jagd (Memory) på Middels med kategorien «Skole, hverdag og reise» og få ⭐⭐ eller bedre.","link":"challenges/wortschatz-jagd/","label":"Wortschatz-Jagd"},{"type":"Wortschatz","level":"Mittel","text":"Slå opp fem ord du ikke kan i Ordboka, og lag en setning med hvert av dem.","link":"ordbok/","label":"Ordbok"},{"type":"Wortschatz","level":"Mittel","text":"Lær fem ungdomsord fra «Jugendwörter» og forklar dem for en medelev.","link":"leben/jugendwoerter/","label":"Jugendwörter"},{"type":"Wortschatz","level":"Mittel","text":"Finn fem tyske ord for ting i klasserommet – med der/die/das.","link":"","label":""},{"type":"Wortschatz","level":"Mittel","text":"Skriv ned ti ord om temaet «Familie» og sorter dem etter der/die/das.","link":"wichtige-themen/8-klasse/meine-familie/","label":"Meine Familie"},{"type":"Wortschatz","level":"Schwer","text":"Lær tre tyske ordtak fra «Sprichwörter» og forklar hva de betyr på norsk.","link":"leben/sprichwoerter/","label":"Sprichwörter und Redewendungen"},{"type":"Wortschatz","level":"Schwer","text":"Spill Wortschatz-Jagd på Vanskelig med «Alle kategorier» og klar det på færre enn 25 forsøk.","link":"challenges/wortschatz-jagd/","label":"Wortschatz-Jagd"},{"type":"Wortschatz","level":"Schwer","text":"Finn fem «falske venner» (ord som ligner, men betyr noe annet) og forklar forskjellen.","link":"leben/gleiches-wort/","label":"Gleiches Wort, andere Welt"},{"type":"Wortschatz","level":"Schwer","text":"Skriv ned ti sammensatte tyske ord (som «Schulbus») og forklar hvert ord.","link":"","label":""},{"type":"Grammatik","level":"Leicht","text":"Konjuger verbet «haben» i presens – uten å se på tabellen.","link":"verben/","label":"Verben"},{"type":"Grammatik","level":"Leicht","text":"Skriv fem setninger med riktig artikkel (der/die/das) foran substantivene.","link":"grammatikk/artikler/","label":"Artikler"},{"type":"Grammatik","level":"Leicht","text":"Skriv fem spørsmål med «wer», «was», «wo», «wann» og «warum».","link":"grammatikk/sporreord/","label":"Spørreord"},{"type":"Grammatik","level":"Mittel","text":"Lag fem setninger der du bruker akkusativ riktig.","link":"grammatikk/artikler/","label":"Artikler"},{"type":"Grammatik","level":"Mittel","text":"Konjuger tre sterke verb i presens og preteritum med Verben-Konjugatoren.","link":"verben/","label":"Verben"},{"type":"Grammatik","level":"Mittel","text":"Skriv fem setninger med tidsuttrykk («gestern», «am Montag», «nächste Woche»).","link":"grammatikk/tidsuttrykk/","label":"Tidsuttrykk"},{"type":"Grammatik","level":"Mittel","text":"Lag fem setninger med preposisjoner som tar dativ («mit», «bei», «nach» …).","link":"grammatikk/preposisjoner/","label":"Preposisjoner"},{"type":"Grammatik","level":"Mittel","text":"Bøy adjektivet «klein» i tre setninger med ulike kjønn (ein kleiner Hund …).","link":"grammatikk/adjektiv/","label":"Adjektiv"},{"type":"Grammatik","level":"Schwer","text":"Skriv fem setninger med «weil» og «dass» og sjekk at verbet står sist.","link":"grammatikk/konjunksjoner/","label":"Konjunksjoner"},{"type":"Grammatik","level":"Schwer","text":"Skriv fem setninger der du bytter om rekkefølgen på ledd (ordstilling med verbet på plass 2).","link":"grammatikk/ordstilling/","label":"Ordstilling"},{"type":"Grammatik","level":"Schwer","text":"Bruk Verben-Konjugatoren til å finne perfektum av tre verb (haben/sein) og lag en setning med hvert.","link":"verben/","label":"Verben"},{"type":"Spiel","level":"Leicht","text":"Spill Wörtle på Lett (4 bokstaver) med kategorien «Mat og drikke» og finn ordet.","link":"challenges/woertle/","label":"Wörtle"},{"type":"Spiel","level":"Leicht","text":"Løs Klugle på Lett (3×4) og prøv å bruke færrest mulig bytter.","link":"challenges/klugle/","label":"Klugle"},{"type":"Spiel","level":"Leicht","text":"Spill Wortsuche på Lett (8×8) og finn alle 6 ordene.","link":"challenges/wortsuche/","label":"Wortsuche"},{"type":"Spiel","level":"Leicht","text":"Spill Galgenmännchen på Lett og gjett ordet uten å miste mer enn tre liv.","link":"challenges/galgenmaennchen/","label":"Galgenmännchen"},{"type":"Spiel","level":"Leicht","text":"Spill Wortschatz-Jagd (Memory) på Lett og få ⭐⭐⭐.","link":"challenges/wortschatz-jagd/","label":"Wortschatz-Jagd"},{"type":"Spiel","level":"Mittel","text":"Spill Wörtle på Middels (5 bokstaver) og løs dagens ord på færre enn 5 forsøk.","link":"challenges/woertle/","label":"Wörtle"},{"type":"Spiel","level":"Mittel","text":"Løs Klugle på Middels (4×5) uten å bruke 💡-hjelp.","link":"challenges/klugle/","label":"Klugle"},{"type":"Spiel","level":"Mittel","text":"Spill Wortsuche på Middels (10×10) med «Dyr og natur»-kategorien og slå din egen tid.","link":"challenges/wortsuche/","label":"Wortsuche"},{"type":"Spiel","level":"Mittel","text":"Gjett et Bundesland eller en kanton i Länder-Rätsel på færre enn 4 forsøk.","link":"challenges/laender-raetsel/","label":"Länder-Rätsel"},{"type":"Spiel","level":"Mittel","text":"Løs en sak i Kommissar Lupe og forklar for en medelev hvordan du fant gjerningspersonen.","link":"challenges/kommissar-lupe/","label":"Kommissar Lupe"},{"type":"Spiel","level":"Schwer","text":"Spill Wörtle på Vanskelig (6 bokstaver) og løs dagens ord.","link":"challenges/woertle/","label":"Wörtle"},{"type":"Spiel","level":"Schwer","text":"Løs Klugle på Vanskelig (5×6) uten 💡-hjelp og kopier resultatet til en medelev.","link":"challenges/klugle/","label":"Klugle"},{"type":"Spiel","level":"Schwer","text":"Spill Wortsuche på Vanskelig (12×12) og finn alle 10 ordene på under 5 minutter.","link":"challenges/wortsuche/","label":"Wortsuche"},{"type":"Spiel","level":"Schwer","text":"Prøv å komme deg ut av «Der verschlossene Klassenraum» (Escape Room), og forklar for en medelev hvordan du løste en av gåtene.","link":"challenges/escape-room/","label":"Escape Room"},{"type":"Spiel","level":"Schwer","text":"Spill Galgenmännchen på Vanskelig og forklar ordet på norsk etterpå.","link":"challenges/galgenmaennchen/","label":"Galgenmännchen"},{"type":"Kultur","level":"Leicht","text":"Velg en tysk by og finn tre ting du kan gjøre der.","link":"staedte/","label":"Städte entdecken"},{"type":"Kultur","level":"Leicht","text":"Finn ut hva hovedstaden i Tyskland, Østerrike og Sveits heter, og skriv dem med der/die/das hvis de har artikkel.","link":"laender/","label":"Länder"},{"type":"Kultur","level":"Leicht","text":"Pakk kofferten din til en tur til Wien og forklar hvorfor du tar med hver ting.","link":"reise/koffer/","label":"Packe deinen Koffer"},{"type":"Kultur","level":"Mittel","text":"Les om en by under Städte (f.eks. Hamburg, München eller Wien) og fortell en medelev tre fakta.","link":"staedte/","label":"Städte entdecken"},{"type":"Kultur","level":"Mittel","text":"Finn tre høflighetsregler i Tyskland og sammenlign dem med Norge.","link":"normen/hoeflichkeit/","label":"Höflichkeit in Deutschland"},{"type":"Kultur","level":"Mittel","text":"Velg en film eller serie under Filme & Serien og fortell hvorfor du vil se den.","link":"filme-serien/","label":"Filme & Serien"},{"type":"Kultur","level":"Mittel","text":"Lær tre ting om Østerrike eller Sveits og skriv dem på tysk.","link":"oesterreich/","label":"Österreich"},{"type":"Kultur","level":"Mittel","text":"Hør en sang under Musik og skriv en setning om hva den handler om.","link":"musik/","label":"Musik"},{"type":"Kultur","level":"Schwer","text":"Les om Berlinmuren og forklar med egne ord hvorfor den ble bygget.","link":"geschichte/berliner-mauer/","label":"Die Berliner Mauer"},{"type":"Kultur","level":"Schwer","text":"Les om «Kalter Krieg» og forklar forskjellen på Øst- og Vest-Tyskland.","link":"geschichte/kalter-krieg/","label":"Kalter Krieg"},{"type":"Kultur","level":"Schwer","text":"Les om «Kaiserreich» eller «Kleinstaaterei» og forklar for en medelev hvorfor Tyskland ble samlet i 1871.","link":"geschichte/","label":"Geschichte"},{"type":"Kultur","level":"Schwer","text":"Les om Sveits og forklar hvorfor landet har fire språk.","link":"schweiz/","label":"Schweiz"}]</script>
 
 </div>
-
 <script>
-  /* ---------- Oppgavepool ---------- */
-  var dwChallengePool = [
-    {emoji:"🗣️", type:"Sprechen", level:"Leicht", text:"Beskriv rommet du sitter i nå — på tysk! Bruk minst 5 setninger."},
-    {emoji:"✍️", type:"Schreiben", level:"Leicht", text:"Skriv en SMS til en tysk venn og spør hvordan hen har det."},
-    {emoji:"🗣️", type:"Sprechen", level:"Leicht", text:"Tell høyt fra 1 til 20 på tysk, så raskt du kan."},
-    {emoji:"🎧", type:"Hören", level:"Mittel", text:"Finn en tysk sang på YouTube og skriv ned 5 ord du kjenner igjen i teksten."},
-    {emoji:"🧠", type:"Wortschatz", level:"Mittel", text:"Skriv ned 10 tyske ord som starter på bokstaven «S» — uten å slå opp!"},
-    {emoji:"🗣️", type:"Sprechen", level:"Leicht", text:"Presenter deg selv på tysk for en medelev: navn, alder, hvor du bor, hobbyer."},
-    {emoji:"✍️", type:"Schreiben", level:"Mittel", text:"Skriv fem setninger om hva du gjorde i helgen — på tysk."},
-    {emoji:"🎧", type:"Hören", level:"Schwer", text:"Se en episode av Nicos Weg uten undertekster og skriv ned handlingen med egne ord."},
-    {emoji:"🧠", type:"Wortschatz", level:"Mittel", text:"Lag fem setninger der du bruker akkusativ riktig."},
-    {emoji:"🗣️", type:"Sprechen", level:"Mittel", text:"Bestill mat på en tysk restaurant — øv med en medelev og bruk frasene fra Café-siden."},
-    {emoji:"✍️", type:"Schreiben", level:"Mittel", text:"Skriv et kort dagboksinnlegg om en fantasireise til Berlin."},
-    {emoji:"🧠", type:"Wortschatz", level:"Leicht", text:"Konjuger verbet «haben» i presens — uten å se på tabellen."},
-    {emoji:"🗣️", type:"Sprechen", level:"Leicht", text:"Fortell en medelev om favorittmaten din på tysk."},
-    {emoji:"✍️", type:"Schreiben", level:"Mittel", text:"Skriv 5 spørsmål du ville stilt en tysk utvekslingsstudent."},
-    {emoji:"🧠", type:"Wortschatz", level:"Leicht", text:"Skriv ned alle fargene du kan på tysk."},
-    {emoji:"🗣️", type:"Sprechen", level:"Mittel", text:"Beskriv familien din på tysk — bruk minst tre familiemedlemmer."},
-    {emoji:"🎧", type:"Hören", level:"Leicht", text:"Se Nicos Weg Folge 2 igjen og skriv ned tre nye ord du la merke til."},
-    {emoji:"✍️", type:"Schreiben", level:"Schwer", text:"Skriv en kort tekst om drømmereisen din — hvor og hvorfor."}
-  ];
-
-  var dwLastIndex = -1;
-  var dwDoneCount = 0;
-
-  function dwShuffle(arr){
-    var a = arr.slice();
-    for(var i=a.length-1;i>0;i--){
-      var j = Math.floor(Math.random()*(i+1));
-      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
-    }
-    return a;
-  }
-
-  function dwNewChallenge(){
-    var idx;
-    do {
-      idx = Math.floor(Math.random() * dwChallengePool.length);
-    } while(idx === dwLastIndex && dwChallengePool.length > 1);
-    dwLastIndex = idx;
-    var c = dwChallengePool[idx];
-    document.getElementById('dw-badge-type').textContent = c.emoji + ' ' + c.type;
-    document.getElementById('dw-badge-level').textContent = c.level;
-    document.getElementById('dw-challenge-text').textContent = c.text;
-  }
-
-  function dwMarkDone(){
-    dwDoneCount++;
-    document.getElementById('dw-done-counter').textContent = dwDoneCount + ' Herausforderung' + (dwDoneCount === 1 ? '' : 'en') + ' heute geschafft';
-  }
-
-  dwNewChallenge();
-</script>
-</body>
+(function(){
+var T=JSON.parse(document.getElementById('th-data').textContent);
+var EMO={'Sprechen':'🗣️','Schreiben':'✍️','Hören':'🎧','Lesen':'📖','Wortschatz':'🧠','Grammatik':'🧩','Spiel':'🎮','Kultur':'🌍'};
+var LV=['Leicht','Mittel','Schwer'];
+function $(i){return document.getElementById(i);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function hash(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function todayStr(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);}
+function cardHtml(t,extra){
+  var link=t.link?'<a class="th-btn alt" style="align-self:flex-start;padding:6px 14px;font-size:.88rem" href="../../'+esc(t.link)+'">→ '+esc(t.label||'Gå dit')+'</a>':'';
+  return '<div class="th-badges"><span class="th-badge">'+EMO[t.type]+' '+esc(t.type)+'</span><span class="th-badge L-'+t.level+'">'+t.level+'</span></div><p class="th-text">'+esc(t.text)+'</p>'+link+(extra||'');
+}
+/* dagens tre */
+var day=todayStr(),daily=[],usedType={},dd=[0,0,0];
+LV.forEach(function(lv,k){
+  var pool=T.filter(function(t){return t.level===lv;}),rng=mulberry(hash(day+'|'+lv)),pick=null;
+  for(var a=0;a<20;a++){var c=pool[Math.floor(rng()*pool.length)];if(!usedType[c.type]||a===19){pick=c;break;}}
+  usedType[pick.type]=1;daily.push(pick);
+});
+function renderDaily(){
+  var h='';
+  daily.forEach(function(t,k){
+    h+='<div class="th-card'+(dd[k]?' done':'')+'">'+cardHtml(t)+'<button type="button" class="th-btn'+(dd[k]?'':' alt')+'" data-d="'+k+'" style="align-self:flex-start;padding:7px 16px;font-size:.9rem">'+(dd[k]?'✅ Geschafft!':'☐ Ich habe es geschafft!')+'</button></div>';
+  });
+  $('th-daily').innerHTML=h;
+  var n=dd.reduce(function(a,b){return a+b;},0);
+  $('th-dcount').textContent=n+' av 3 dagens oppgaver løst'+(n===3?' – super! 🎉':'');
+}
+$('th-daily').addEventListener('click',function(e){var b=e.target.closest('[data-d]');if(!b)return;var k=+b.getAttribute('data-d');dd[k]=dd[k]?0:1;renderDaily();var nb=document.querySelector('[data-d="'+k+'"]');if(nb)nb.focus();});
+renderDaily();
+/* tilfeldig */
+var F={type:'',level:''},last=-1,cur=null,doneN=0;
+function filtered(){return T.filter(function(t){return (!F.type||t.type===F.type)&&(!F.level||t.level===F.level);});}
+function setP(group,attr,val){var els=document.querySelectorAll('#'+group+' ['+attr+']');for(var i=0;i<els.length;i++)els[i].setAttribute('aria-pressed',els[i].getAttribute(attr)===val?'true':'false');}
+function newOne(){
+  var p=filtered();
+  $('th-pool').textContent='Det finnes '+p.length+' oppgaver med dette valget (av '+T.length+' totalt).';
+  if(!p.length){$('th-card').innerHTML='<p class="th-text">Ingen oppgaver med dette valget – prøv en annen kombinasjon.</p>';cur=null;return;}
+  var i,tries=0;do{i=Math.floor(Math.random()*p.length);tries++;}while(cur&&p.length>1&&p[i]===cur&&tries<20);
+  cur=p[i];
+  $('th-card').innerHTML=cardHtml(cur);
+}
+$('th-types').addEventListener('click',function(e){var b=e.target.closest('[data-type]');if(!b)return;F.type=b.getAttribute('data-type');setP('th-types','data-type',F.type);newOne();});
+$('th-levels').addEventListener('click',function(e){var b=e.target.closest('[data-level]');if(!b)return;F.level=b.getAttribute('data-level');setP('th-levels','data-level',F.level);newOne();});
+$('th-new').addEventListener('click',newOne);
+$('th-done').addEventListener('click',function(){if(!cur)return;doneN++;$('th-rcount').textContent=doneN+' tilfeldig'+(doneN===1?'':'e')+' oppgave'+(doneN===1?'':'r')+' løst i denne økten';});
+newOne();
+/* alle */
+$('th-n').textContent=T.length;
+$('th-body').innerHTML=T.slice().sort(function(a,b){return a.type.localeCompare(b.type,'de')||LV.indexOf(a.level)-LV.indexOf(b.level);}).map(function(t){return '<tr><td>'+EMO[t.type]+' '+esc(t.type)+'</td><td>'+t.level+'</td><td>'+esc(t.text)+(t.link?' <a href="../../'+esc(t.link)+'">→ '+esc(t.label)+'</a>':'')+'</td></tr>';}).join('');
+window.dwTh={daily:daily};
+})();
+</script></body>
 </html>
