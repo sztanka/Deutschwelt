@@ -263,8 +263,10 @@ deutschwelt-site/
 │       └── index.html                → "Kommissar Lupe" — 8 logikkgåter i Murdle-stil (notatblokk, tips, anklage)
 │   ├── laender-raetsel/
 │       └── index.html                → "Länder-Rätsel" — Worldle-lignende kartspill: 51 Bundesländer/Kantone (D, A, CH)
-│   └── woertle/
-│       └── index.html                → "Wörtle" — Wordle-lignende ordspill (4/5/6 bokstaver, 4 kategorier, dagens ord/trening)
+│   ├── woertle/
+│   │   └── index.html                → "Wörtle" — Wordle-lignende ordspill (4/5/6 bokstaver, 4 kategorier, dagens ord/trening)
+│   └── galgenmaennchen/
+│       └── index.html                → "Galgenmännchen" — Hangman (3 nivåer, 4 kategorier, dagens ord, trening, to spillere)
 ├── filme-serien/
 │   └── index.html                    → "Filme & Serien" — 17 filmer + 10 serier med trailerlenker
 ├── musik/
@@ -2106,3 +2108,12 @@ Wordle-inspirert ordspill på tysk. Alt ligger i én HTML-fil (data som JSON i `
 **Ordlister:** svarordene (ca. 500, med artikkel og norsk oversettelse) ligger i `woertle-work/words.py` (format `Ord|art|norsk`; lengden valideres ved bygging, duplikater avvises). Gjettelisten (hvilke ord som godtas) er laget av `ordbok/ordbok.json` ved hjelp av `mkdict.py`, pluss enkle bøyningsformer for verb, substantiv og adjektiv. Den er ikke komplett, så elevene kan slå på «Godta alle bokstavkombinasjoner».
 **Slik legger du til ord:** legg en linje i riktig liste i `words.py`, kjør `python3 build_woertle.py` og deretter `wtest.py` (Playwright).
 **Begrensninger:** Norske oversettelser er skrevet av Claude, ikke lest av morsmålstaler. Svarene ligger i sidekilden (greit for et klasseromsspill).
+
+## Galgenmännchen (`challenges/galgenmaennchen/`)
+
+Hangman på tysk. Alt ligger i én HTML-fil (ordene som JSON i `#hm-data`, ingen lagring).
+**Nivåer:** Lett = ord på 4–6 bokstaver og 10 liv, Middels = 7–9 bokstaver og 8 liv, Vanskelig = 10 eller flere bokstaver og 6 liv. Galgen har 10 deler. Med færre liv er de første delene (bunn, stolpe, bjelke, tau) allerede tegnet ved start. **Kategorier:** Allmenne ord, Mat/dyr/natur, Skole/hverdag/reise, Byer/land/geografi (D, A, CH), og «Alle kategorier». **Oppgave:** «Dagens ord» (frø = dato + nivå + kategori, likt for alle), «Trening» og «To spillere» (spiller 1 skriver ordet i et passordfelt, kan legge til et hint og velge 6/8/10 liv).
+Funksjoner: SVG-galge, skjermtastatur med ä ö ü ß og vanlig tastatur, 💡 hint (norsk betydning, ordklasse/kjønn) og «Vis én bokstav» (−1 liv), norsk oversettelse og der/die/das etter runden, kopiering av resultat som emoji-tekst (hjerter), høy-kontrast-modus, og «Ordliste» som røper svarene.
+**Ordlister:** `galgen-work/hm_words.py` (ca. 830 ord, format `Ord|art|norsk`). Korte ord (4–6 bokstaver) gjenbrukes fra `woertle-work/words.py`; nivået bestemmes av ordlengden. Valideres ved bygging (kun a–z ä ö ü ß, duplikater hoppes over).
+**Slik legger du til ord:** legg en linje i riktig liste (`n`, `s`, `o` eller `g`) i `hm_words.py`, kjør `python3 build_galgen.py` og deretter `htest.py` (Playwright).
+**Begrensninger:** Norske oversettelser og beskrivelser er skrevet av Claude, ikke lest av morsmålstaler. Ordene ligger i sidekilden, og i to-spiller-modus skjules ordet bare visuelt.
