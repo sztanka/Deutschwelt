@@ -193,7 +193,7 @@ deutschwelt-site/
 │       ├── john-maynard/index.html           → "John Maynard" (Fontane, ballade) — hover/trykk-glosser + gloseliste + quiz — 10. trinn
 │       └── die-lorelei/index.html            → "Die Lorelei" (Proehle-sagn + Brentano-gjenfortelling + Heine-dikt) — hover/trykk-glosser + gloseliste + quiz — 10. trinn
 ├── hoeren/
-│   ├── index.html                    → Hören-forside: to store kort «8. Klasse (A1)» og «9. Klasse (A2)»
+│   ├── index.html                    → Hören-forside: tre store kort «8. Klasse (A1)», «9. Klasse (A2)» og «10. Klasse (B1)»
 │   ├── nicos-weg-hallo/
 │   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 1 (Hallo!)
 │   ├── nicos-weg-kein-problem/
@@ -347,7 +347,7 @@ deutschwelt-site/
 │   ├── nicos-weg-ich-traeume-von/
 │   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 76 (Ich träume von …)
 │   ├── 8-klasse-a1/
-│   │   └── index.html                → delhub «8. Klasse (A1)»: de 76 A1-episodene (kortene lenker til ../nicos-weg-…/)
+│   │   └── index.html                → delhub «8. Klasse (A1)»: de 76 A1-episodene, gruppert etter DW-enhet (Einheit 0–18; kortene lenker til ../nicos-weg-…/)
 │   ├── 9-klasse-a2/
 │   │   └── index.html                → delhub «9. Klasse (A2)»: de 76 A2-episodene, gruppert etter DW-enhet (Einheit 0–18)
 │   ├── nicos-weg-a2-lebenslinien/
@@ -500,8 +500,162 @@ deutschwelt-site/
 │   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 74 (Das funktioniert so!)
 │   ├── nicos-weg-a2-das-brauche-ich/
 │   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 75 (Das brauche ich!)
-│   └── nicos-weg-a2-wer-hat-s-erfunden/
-│       └── index.html                → video + oppgaver: Nicos Weg A2, Folge 76 (Wer hat's erfunden?)
+│   ├── nicos-weg-a2-wer-hat-s-erfunden/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 76 (Wer hat's erfunden?)
+│   ├── 10-klasse-b1/
+│   │   └── index.html                → delhub «10. Klasse (B1)»: de 76 B1-episodene, gruppert etter DW-enhet (Einheit 0–18)
+│   ├── nicos-weg-b1-berufsberatung/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 1 (Berufsberatung)
+│   ├── nicos-weg-b1-meine-muttersprache/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 2 (Meine Muttersprache)
+│   ├── nicos-weg-b1-bei-der-arbeit/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 3 (Bei der Arbeit)
+│   ├── nicos-weg-b1-zukunftsplaene/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 4 (Zukunftspläne)
+│   ├── nicos-weg-b1-zu-wenig-zeit/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 5 (Zu wenig Zeit?)
+│   ├── nicos-weg-b1-keine-zeit/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 6 (Keine Zeit)
+│   ├── nicos-weg-b1-puenktlichkeit/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 7 (Pünktlichkeit)
+│   ├── nicos-weg-b1-jetzt-oder-nie/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 8 (Jetzt oder nie)
+│   ├── nicos-weg-b1-heimat/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 9 (Heimat)
+│   ├── nicos-weg-b1-krieg-und-frieden/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 10 (Krieg und Frieden)
+│   ├── nicos-weg-b1-die-mauer/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 11 (Die Mauer)
+│   ├── nicos-weg-b1-wiedervereinigung/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 12 (Wiedervereinigung)
+│   ├── nicos-weg-b1-alltagsprobleme/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 13 (Alltagsprobleme)
+│   ├── nicos-weg-b1-geldprobleme/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 14 (Geldprobleme)
+│   ├── nicos-weg-b1-tipps-und-ratschlaege/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 15 (Tipps und Ratschläge)
+│   ├── nicos-weg-b1-alle-haben-probleme/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 16 (Alle haben Probleme)
+│   ├── nicos-weg-b1-jobsuche/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 17 (Jobsuche)
+│   ├── nicos-weg-b1-stellenanzeigen/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 18 (Stellenanzeigen)
+│   ├── nicos-weg-b1-bewerbungen/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 19 (Bewerbungen)
+│   ├── nicos-weg-b1-der-erste-eindruck/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 20 (Der erste Eindruck)
+│   ├── nicos-weg-b1-typisch/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 21 (Typisch?)
+│   ├── nicos-weg-b1-anders/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 22 (Anders!)
+│   ├── nicos-weg-b1-jobs-und-gender/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 23 (Jobs und Gender)
+│   ├── nicos-weg-b1-rollenverteilung/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 24 (Rollenverteilung)
+│   ├── nicos-weg-b1-partnersuche/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 25 (Partnersuche)
+│   ├── nicos-weg-b1-partnerschaft/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 26 (Partnerschaft)
+│   ├── nicos-weg-b1-maenner-und-frauen/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 27 (Männer und Frauen)
+│   ├── nicos-weg-b1-beziehungsprobleme/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 28 (Beziehungsprobleme)
+│   ├── nicos-weg-b1-mein-arbeitsplatz/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 29 (Mein Arbeitsplatz)
+│   ├── nicos-weg-b1-mein-gehalt/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 30 (Mein Gehalt?)
+│   ├── nicos-weg-b1-112/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 31 (112)
+│   ├── nicos-weg-b1-gut-versichert/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 32 (Gut versichert)
+│   ├── nicos-weg-b1-schule/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 33 (Schule)
+│   ├── nicos-weg-b1-schulalltag/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 34 (Schulalltag)
+│   ├── nicos-weg-b1-lernen/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 35 (Lernen)
+│   ├── nicos-weg-b1-berufe-an-der-schule/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 36 (Berufe an der Schule)
+│   ├── nicos-weg-b1-die-berufswahl/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 37 (Die Berufswahl)
+│   ├── nicos-weg-b1-weiterbildung/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 38 (Weiterbildung)
+│   ├── nicos-weg-b1-praktikum/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 39 (Praktikum)
+│   ├── nicos-weg-b1-studium-und-beruf/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 40 (Studium und Beruf)
+│   ├── nicos-weg-b1-wetter-und-klima/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 41 (Wetter und Klima)
+│   ├── nicos-weg-b1-wieder-so-ein-wetter/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 42 (Wieder so ein Wetter)
+│   ├── nicos-weg-b1-wegen-des-wetters/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 43 (Wegen des Wetters)
+│   ├── nicos-weg-b1-es-wird-waermer/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 44 (Es wird wärmer)
+│   ├── nicos-weg-b1-mensch-und-umwelt/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 45 (Mensch und Umwelt)
+│   ├── nicos-weg-b1-umweltbelastungen/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 46 (Umweltbelastungen)
+│   ├── nicos-weg-b1-umweltschutz/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 47 (Umweltschutz)
+│   ├── nicos-weg-b1-wertstoffe/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 48 (Wertstoffe)
+│   ├── nicos-weg-b1-in-der-zeitung-steht/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 49 (In der Zeitung steht)
+│   ├── nicos-weg-b1-in-der-redaktion/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 50 (In der Redaktion)
+│   ├── nicos-weg-b1-analog-oder-digital/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 51 (Analog oder digital?)
+│   ├── nicos-weg-b1-kontaktanzeigen/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 52 (Kontaktanzeigen)
+│   ├── nicos-weg-b1-peinlich/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 53 (Peinlich?!)
+│   ├── nicos-weg-b1-richtiges-benehmen/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 54 (Richtiges Benehmen)
+│   ├── nicos-weg-b1-benimmregeln/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 55 (Benimmregeln)
+│   ├── nicos-weg-b1-was-tun-wenn/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 56 (Was tun, wenn …?)
+│   ├── nicos-weg-b1-endlich-erwachsen/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 57 (Endlich erwachsen)
+│   ├── nicos-weg-b1-was-eltern-erwarten/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 58 (Was Eltern erwarten)
+│   ├── nicos-weg-b1-lebenswege/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 59 (Lebenswege)
+│   ├── nicos-weg-b1-noch-mal-anfangen/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 60 (Noch mal anfangen)
+│   ├── nicos-weg-b1-bund-und-laender/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 61 (Bund und Länder)
+│   ├── nicos-weg-b1-die-eu/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 62 (Die EU)
+│   ├── nicos-weg-b1-gerechtigkeit/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 63 (Gerechtigkeit?)
+│   ├── nicos-weg-b1-wir-haben-die-wahl/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 64 (Wir haben die Wahl)
+│   ├── nicos-weg-b1-das-ruhrgebiet/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 65 (Das Ruhrgebiet)
+│   ├── nicos-weg-b1-industrie/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 66 (Industrie)
+│   ├── nicos-weg-b1-strukturwandel/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 67 (Strukturwandel)
+│   ├── nicos-weg-b1-kultur/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 68 (Kultur)
+│   ├── nicos-weg-b1-nach-deutschland/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 69 (Nach Deutschland)
+│   ├── nicos-weg-b1-migrationsgruende/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 70 (Migrationsgründe)
+│   ├── nicos-weg-b1-hin-und-zurueck/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 71 (Hin und zurück?)
+│   ├── nicos-weg-b1-existenzgruendung/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 72 (Existenzgründung)
+│   ├── nicos-weg-b1-neue-heimat/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 73 (Neue Heimat)
+│   ├── nicos-weg-b1-so-geht-s/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 74 (So geht's!)
+│   ├── nicos-weg-b1-zukunftsplaene-folge-75/
+│   │   └── index.html                → video + oppgaver: Nicos Weg B1, Folge 75 (Zukunftspläne)
+│   └── nicos-weg-b1-wuensche-und-traeume/
+│       └── index.html                → video + oppgaver: Nicos Weg B1, Folge 76 (Wünsche und Träume)
 ├── schreiben/
 │   ├── index.html                    → hub-side: velg skriveoppgave (9 kort, 1 «kommer snart»)
 │   ├── sms-chat/
@@ -2403,3 +2557,10 @@ Funksjoner: SVG-galge, skjermtastatur med ä ö ü ß og vanlig tastatur, 💡 h
 **Video:** video-ID, tittel, lengde, enhet og DW-lenke for alle 76 A2-episoder er lest direkte fra DWs offisielle YouTube-spilleliste «DW Deutsch lernen (A2) | Nicos Weg» (`PLs7zUO7VPyJ7YxTq_g2Rcl3Jthd5bpTdY`) og videosidene — aldri gjettet. A2 Folge 5 har ingen DW-lenke i videobeskrivelsen, så «Vil du ha mer?»-linjen utelates der.
 **Slik er det bygget:** data i `nicos-work/a2_1.py` (Folge 1–20), `a2_2.py` (21–40), `a2_3.py` (41–60) og `a2_4.py` (61–76) (+ `a2_meta3.py` med video-ID-ene for 41–76), samlet i `eps_a2.py`. `build_nicos.py` bygger alle 152 episodesider (A1 og A2, samme mal, `level`-felt styrer brødsmule, overskrift og kommentar), og `build_hubs.py` bygger de to delhubene og den nye forsiden (A1-kortene hentes fra `a1_cards.html`). Hvert tuppel i `a2_*.py`: `(n, tittel, video-ID, sekunder, enhet, DW-sti, emoji, søkenøkler, teaser, intro, tenk-etter, 4 lytteord, ordforråd, 4 quiz-spørsmål [riktig svar først, så to gale], skriveoppgave)`. Søkenøklene begynner med «a2 …» for å unngå kollisjon med A1-oppføringene.
 **Merk:** tyske og norske tekster og quiz er skrevet av Claude (ikke morsmålslest) og er grunngitt i DWs egne videobeskrivelser, ikke eksakt transkripsjon. Noen A2-episoder tar opp følsomme temaer (Folge 11 om en sykdomsepisode i familien, 39 om en avdød ektemann, 47–48 om syriske tradisjoner og ulik livsførsel for menn og kvinner, 59 om en hemmelighet og krangel); innholdet følger DWs fremstilling, men lærer bør vurdere om det passer klassen.
+
+## Hören: Nicos Weg B1 og delhuben «10. Klasse (B1)» (`hoeren/10-klasse-b1/`)
+Hören-forsiden har nå **tre** store kort: 8. Klasse (A1), 9. Klasse (A2) og **10. Klasse (B1)** (`hoeren/10-klasse-b1/`, 76 nye episoder gruppert etter DWs enheter 0–18). B1-sidene ligger i `hoeren/nicos-weg-b1-<slug>/`, med brødsmule `🎧 Hören → 10. Klasse (B1) → Nicos Weg B1 – Folge …` og samme oppbygning som A1/A2 (video med fallback-lenke, lytteliste med 4 ord, Wortschatz, poengsatt 4-spørsmåls quiz, skriveoppgave og lenke til DWs egne øvelser). Folge 75 («Zukunftspläne») har samme tittel som Folge 4, så adressen er `nicos-weg-b1-zukunftsplaene-folge-75`.
+**Video:** video-ID, tittel, lengde, enhet og DW-lenke (B1-lenkene bruker `/de/`) er lest direkte fra DWs offisielle spilleliste «DW Deutsch lernen (B1) | Nicos Weg» (`PLs7zUO7VPyJ5razSfhOUVbTv9q6SAuPx-`) og videosidene — aldri gjettet.
+**Slik er det bygget:** data i `nicos-work/b1_1.py` (Folge 1–20), `b1_2.py` (21–40), `b1_3.py` (41–58) og `b1_4.py` (59–76), tuppel `(n, emoji, søkenøkler, teaser, intro, tenk-etter, 4 lytteord, ordforråd, 4 quiz-spørsmål [riktig svar først], skriveoppgave)`, pluss `b1_meta.py` (ID, lengde, enhet, DW-sti), samlet i `eps_b1.py`. `build_nicos.py` bygger alle 228 episodesider (A1, A2 og B1; `level`-feltet styrer brødsmule, overskrift og kommentar), `build_hubs.py` bygger forsiden og de tre delhubene (A1-kortene hentes fra `a1_cards.html`). Søkenøklene begynner med «b1 …».
+**Merk:** tyske og norske tekster og quiz er skrevet av Claude (ikke morsmålslest), grunngitt i DWs videobeskrivelser og ikke eksakt transkripsjon. B1-serien har mer voksne temaer enn A1/A2 (jobb og utdanning, skatt og forsikring, politikk og valg, miljø, migrasjon og asyl, krig og flukt i Folge 9–10, en usikker personlig beslutning i Folge 15, uærlighet og tillit i Folge 25 og 52–60/67, relasjoner og foreldrenes forventninger i Folge 57–58). Innholdet følger DWs fremstilling, men lærer bør vurdere om episodene passer klassen.
+**Enhetsinndeling i alle tre delhubene:** `8-klasse-a1`, `9-klasse-a2` og `10-klasse-b1` er alle gruppert etter DWs enheter (Einheit 0–18, fire episoder hver, som `<h2 class="dw-unit-h">`-overskrifter). For A1 Folge 1–15 er enhetene Intro zu A1 (1–4), Kennenlernen (5–8), Kontaktinformationen (9–12) og In Gesellschaft (13–16, her Folge 13–15), lest fra DWs A1-spilleliste; for Folge 16–76 kommer de fra `eps.py`/`eps2.py`. Alt bygges av `build_hubs.py`.

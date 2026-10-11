@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Hören: Nicos Weg B1 (10. klasse)
+  Delhub (gruppert etter klassetrinn). Bygget med nicos-work/build_hubs.py — se README.md.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10. Klasse (B1) · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:820px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:32px 26px;text-align:center;margin-bottom:16px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.8rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-source-note{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:14px 20px;margin-bottom:24px;font-size:.86rem;line-height:1.55;color:var(--dw-text);
+  }
+  .dw-source-note a{color:var(--dw-primary);font-weight:600;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+  .dw-card{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px;text-decoration:none;color:var(--dw-text);
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;
+    display:flex;flex-direction:column;gap:6px;
+  }
+  .dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  .dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  .dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+
+  /* Tematisk kort-mønster (erstatter emoji) */
+  .dw-card.dw-p-hoeren{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%228%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3Crect%20x%3D%2217%22%20y%3D%2215%22%20width%3D%224%22%20height%3D%2228%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3Crect%20x%3D%2226%22%20y%3D%227%22%20width%3D%224%22%20height%3D%2244%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2216%22%20width%3D%224%22%20height%3D%2226%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3Crect%20x%3D%2244%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-big{padding:30px 26px;gap:8px;}
+  .dw-big .dw-big-emoji{font-size:2.2rem;line-height:1;}
+  .dw-big h2{font-size:1.45rem;margin:2px 0 0;}
+  .dw-big .dw-big-meta{font-size:.82rem;font-weight:700;color:var(--dw-accent);letter-spacing:.3px;text-transform:uppercase;}
+  .dw-big p{font-size:.95rem;}
+  .dw-big .dw-big-go{margin-top:8px;font-weight:700;color:var(--dw-primary-light);}
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-unit-h{margin:26px 0 10px;font-size:1.05rem;color:var(--dw-primary);border-bottom:2px solid var(--dw-accent);padding-bottom:4px;}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link dw-nav-active" href="../">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../">🎧 Hören</a> → 10. Klasse (B1)</p>
+
+  <div class="dw-header">
+    <h1>10. Klasse (B1)</h1>
+    <p>76 episoder av Nicos Weg B1 – arbeid, samfunn og framtid</p>
+  </div>
+
+  <div class="dw-source-note">
+    🎬 Videoene er hentet fra <strong>Nicos Weg</strong>, en gratis tyskserie laget av
+    <a href="https://www.dw.com/de/deutsch-lernen/nicos-weg/s-31736" target="_blank" rel="noopener">Deutsche Welle (DW)</a>.
+    De vises direkte fra YouTube. <strong>Merk:</strong> hvis skolens nettverk
+    blokkerer YouTube, kan lærer bruke lenken «Se videoen direkte på YouTube»
+    på hver side, eller vise videoen fra egen enhet.
+    Nivå <strong>B1</strong> passer for 10. trinn. Temaene er mer voksne enn i A1/A2 (arbeidsliv, samfunn, migrasjon), så lærer bør vurdere hva som passer klassen.
+  </div>
+
+  <h2 class="dw-unit-h">Einheit 0 – Intro zu B1</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-berufsberatung/">
+      <h2>🧭 Folge 1: Berufsberatung</h2>
+      <p>Nico får råd hos yrkesveilederen om hvilke muligheter han har for å finne arbeid i Tyskland.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-meine-muttersprache/">
+      <h2>🗣️ Folge 2: Meine Muttersprache</h2>
+      <p>Selma og moren snakker med Lisa om språkkunnskapene deres og Selmas kommende språkprøve.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-bei-der-arbeit/">
+      <h2>💼 Folge 3: Bei der Arbeit</h2>
+      <p>Lisa og Selmas far snakker om den nye jobben hans og datterens fremtid – men faren er skeptisk.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-zukunftsplaene/">
+      <h2>💞 Folge 4: Zukunftspläne</h2>
+      <p>Nico og Selma møtes i hemmelighet og snakker om framtidsplanene sine – men det er mer i luften mellom dem.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 1 – Zeitpunkte</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-zu-wenig-zeit/">
+      <h2>⏱️ Folge 5: Zu wenig Zeit?</h2>
+      <p>Pepe har gode nyheter om forretningsideen, men det er mye å gjøre – hvordan skal de rekke alt så fort?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-keine-zeit/">
+      <h2>😵 Folge 6: Keine Zeit</h2>
+      <p>Sebastian rydder og vasker i ett kjør, mens Lisa har mistet oversikten – hvor er kalenderen hennes?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-puenktlichkeit/">
+      <h2>⏰ Folge 7: Pünktlichkeit</h2>
+      <p>Inge og Selma besøker Lisas undervisning for å snakke om flukt – men elevene tar ikke punktlighet så nøye.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-jetzt-oder-nie/">
+      <h2>😠 Folge 8: Jetzt oder nie</h2>
+      <p>Tarek er sint: Investorens betingelse for forretningsideen virker helt overdreven for ham og Max.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 2 – Geschichte</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-heimat/">
+      <h2>🏡 Folge 9: Heimat</h2>
+      <p>Inge forteller i Lisas undervisning om foreldrenes flukt fra hjemstedet – hva betyr «Heimat» for Inge?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-krieg-und-frieden/">
+      <h2>🕊️ Folge 10: Krieg und Frieden</h2>
+      <p>Selma snakker med Lisas klasse om hjemlandet Syria og flukten fra krigen – tenker hun fortsatt ofte på hjemlandet?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-die-mauer/">
+      <h2>🧱 Folge 11: Die Mauer</h2>
+      <p>Yara og Nico møter sykkelsamleren Otto, som har anekdoter om tysk historie og en ekte samlerting til Yara.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-wiedervereinigung/">
+      <h2>🔔 Folge 12: Wiedervereinigung</h2>
+      <p>Yara og Nico snakker om «Die Wende» og Tysklands gjenforening – hvilke forskjeller var det mellom øst og vest?</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 3 – Alltag</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-alltagsprobleme/">
+      <h2>🏠 Folge 13: Alltagsprobleme</h2>
+      <p>Tarek og Max har en ny forretningsidé for «Das Marek», og Selmas far kommer på besøk og snakker om problemene med Selma.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-geldprobleme/">
+      <h2>💸 Folge 14: Geldprobleme</h2>
+      <p>Pepe vil plutselig hjelpe Yara med nettsiden – men Yara og Nico tror noe annet ligger bak ombestemmelsen.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-tipps-und-ratschlaege/">
+      <h2>🤝 Folge 15: Tipps und Ratschläge</h2>
+      <p>Lisa og Nina snakker om problemene sine – Lisa har stress på jobben og Nina er fortsatt usikker på en stor personlig beslutning.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-alle-haben-probleme/">
+      <h2>🤗 Folge 16: Alle haben Probleme</h2>
+      <p>Pepe ber Nico om unnskyldning for oppførselen sin tidligere – og Nico foreslår en nystart.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 4 – Endlich Arbeit!</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-jobsuche/">
+      <h2>🎓 Folge 17: Jobsuche</h2>
+      <p>Selma og moren drar til yrkesveiledningen, men Selma er usikker på hvilken vei hun skal velge.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-stellenanzeigen/">
+      <h2>📰 Folge 18: Stellenanzeigen</h2>
+      <p>Selma ser på stillingsannonser for ulike praksisplasser, men klarer ikke bestemme seg og ber Nico om hjelp.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-bewerbungen/">
+      <h2>📄 Folge 19: Bewerbungen</h2>
+      <p>Pepe besøker Yara og Nico i sykkelbutikken, hjelper Nico med søknaden til skuespillerskolen og har holdt løftet til Yara.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-der-erste-eindruck/">
+      <h2>👔 Folge 20: Der erste Eindruck</h2>
+      <p>Selma har gode nyheter: hun har fått plass som praktikant! Under en spasertur forteller hun det til Nico, som selv har helt andre bekymringer.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 5 – Männer und Frauen</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-typisch/">
+      <h2>🖥️ Folge 21: Typisch?</h2>
+      <p>Yara har et problem med nettsiden sin – Pepe hjelper henne, men ikke uten små stikk.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-anders/">
+      <h2>🤔 Folge 22: Anders!</h2>
+      <p>Inge er gjest i «Das Marek» og svermer for Jacques – men da Nico ser bildet hans, sier han: Det er jo Otto!</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-jobs-und-gender/">
+      <h2>📷 Folge 23: Jobs und Gender</h2>
+      <p>Max har fått et fotooppdrag og vil fotografere menn i kvinneyrker og kvinner i mannsyrker – men det er ikke så lett.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-rollenverteilung/">
+      <h2>🧩 Folge 24: Rollenverteilung</h2>
+      <p>Selmas far Ibrahim og en kollega diskuterer problemer med sjefen sin – da dukker det plutselig opp et helt annet problem!</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 6 – Paare</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-partnersuche/">
+      <h2>🕵️ Folge 25: Partnersuche</h2>
+      <p>Inges venn Jacques ser ut til å leve et dobbeltliv – hvorfor gir han seg plutselig ut for å være Milan på nettet?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-partnerschaft/">
+      <h2>🧹 Folge 26: Partnerschaft</h2>
+      <p>Sebastian er irritert fordi all husarbeidet ser ut til å havne på ham – bare Nico vil hjelpe. Hva skjedde med rengjøringsplanen?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-maenner-und-frauen/">
+      <h2>💬 Folge 27: Männer und Frauen</h2>
+      <p>Nina vil vite hva som skjer mellom Nico og Selma, og Sebastian gir seg ut for å være parterapeut – og gjør Nico usikker.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-beziehungsprobleme/">
+      <h2>🏠 Folge 28: Beziehungsprobleme</h2>
+      <p>Nico besøker Selma hjemme og tror han har gjort noe galt – men Selmas problemer har ingenting med Nico å gjøre.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 7 – Arbeitswelt</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-mein-arbeitsplatz/">
+      <h2>🏢 Folge 29: Mein Arbeitsplatz</h2>
+      <p>Selma og Sebastian møtes på Selmas vei til jobb, og hun forteller om den nye praksisplassen, kollegene og sjefen.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-mein-gehalt/">
+      <h2>💶 Folge 30: Mein Gehalt?</h2>
+      <p>Lisa undrer seg over de høye trekkene på lønnsslippen. Yara har nesten dobbelt så mange kunder etter den nye nettsiden og trenger hjelp.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-112/">
+      <h2>🚑 Folge 31: 112</h2>
+      <p>Lisa og Selma hjelper Selmas far hjem. Ved bordet ber Selma Lisa lese ulykkesrapporten, og moren Aya byr på te.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-gut-versichert/">
+      <h2>🛡️ Folge 32: Gut versichert</h2>
+      <p>Lisa ringer forsikringsselskapet til Ibrahim. Hun har gode og dårlige nyheter – dekker forsikringen alle kostnadene?</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 8 – Schule und Lernen</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-schule/">
+      <h2>🏫 Folge 33: Schule</h2>
+      <p>Nina og Sebastian snakker om skoletiden sin – lærefagene de likte best var ganske ulike.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-schulalltag/">
+      <h2>🔧 Folge 34: Schulalltag</h2>
+      <p>Yara tilbyr Nico å ta utdanningen i sykkelbutikken. De snakker om hvilke dokumenter Nico trenger for yrkesutdanningen.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-lernen/">
+      <h2>📚 Folge 35: Lernen</h2>
+      <p>Lisa og Sebastian snakker om læring. Lisa vil være rettferdig mot alle elevene, men arbeidsplanen hennes er allerede stressende – Sebastian har en idé.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-berufe-an-der-schule/">
+      <h2>🎯 Folge 36: Berufe an der Schule</h2>
+      <p>I Lisas undervisning snakker elevene om yrker, og de er begeistret for at de i prinsippet kan lære hvilket som helst yrke.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 9 – Ausbildung</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-die-berufswahl/">
+      <h2>🗂️ Folge 37: Die Berufswahl</h2>
+      <p>Pepe snakker med søsknene sine om framtidsplanene til firmaet sitt, og Nico forteller om planen om å begynne i lære hos Yara.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-weiterbildung/">
+      <h2>🍲 Folge 38: Weiterbildung</h2>
+      <p>Max og Tarek setter planen ut i livet: å levere mat til sosiale institusjoner! Nico gjør framskritt på veien mot utdanningen.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-praktikum/">
+      <h2>🏗️ Folge 39: Praktikum</h2>
+      <p>Selma forteller Lisa om praksisplassen, som hun trives veldig godt med! Hun lærer mye nytt og får til og med levere inn et eget utkast til et prosjekt.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-studium-und-beruf/">
+      <h2>🏆 Folge 40: Studium und Beruf</h2>
+      <p>Sebastian er best i kullet på studieprogrammet sitt! Og han har enda flere gode nyheter å dele med WG-en.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 10 – Klima</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-wetter-und-klima/">
+      <h2>🥶 Folge 41: Wetter und Klima</h2>
+      <p>Det er ganske friskt ute! Ibrahim kommer frysende inn i Yaras sykkelbutikk for å finne en brukt sykkel – og undrer seg over å se Nico.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-wieder-so-ein-wetter/">
+      <h2>🌦️ Folge 42: Wieder so ein Wetter</h2>
+      <p>Inge forteller Max og Tarek om alderskrøplighetene sine, og de snur samtalen over på ferien hennes – som var klart bedre!</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-wegen-des-wetters/">
+      <h2>☀️ Folge 43: Wegen des Wetters</h2>
+      <p>Nico forteller stolt Inge om læreplassen sin. Max og Tarek tuller med arbeidsforholdene hos søsteren Yara, men Nico tar det rolig: Når det er sol, tar man siesta!</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-es-wird-waermer/">
+      <h2>🌡️ Folge 44: Es wird wärmer</h2>
+      <p>Yara og huseieren snakker om klimaendringene. Yara er forferdet over hvor tankeløst noen mennesker omgås temaet.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 11 – Umwelt</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-mensch-und-umwelt/">
+      <h2>♻️ Folge 45: Mensch und Umwelt</h2>
+      <p>Miljø angår alle – også WG-en! Hvordan kan man resirkulere og endre forbruket sitt bærekraftig?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-umweltbelastungen/">
+      <h2>🥤 Folge 46: Umweltbelastungen</h2>
+      <p>Lisa vil at klassen skal prøve å klare seg uten plast i en uke! Men hun må fort innrømme at eksperimentet ikke er så lett som først tenkt.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-umweltschutz/">
+      <h2>🌱 Folge 47: Umweltschutz</h2>
+      <p>Lisa og Selma snakker om alternative energikilder i «Das Marek». Yara har også en bærekraftig idé: hun vil organisere et loppemarked!</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-wertstoffe/">
+      <h2>♻️ Folge 48: Wertstoffe</h2>
+      <p>Yara blir intervjuet av en avis på grunn av loppemarkedet! Hun er glad for at det ser ut til å gå bra.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 12 – Medien</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-in-der-zeitung-steht/">
+      <h2>📰 Folge 49: In der Zeitung steht</h2>
+      <p>Lokalredaktøren har tilbudt Yara en gratis annonse i avisen. Pepe synes forslaget er supert, men Yara tror reporteren kanskje har andre hensikter.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-in-der-redaktion/">
+      <h2>🏢 Folge 50: In der Redaktion</h2>
+      <p>Yara besøker avisredaksjonen for å snakke om annonsen sin og får – ikke helt uten bakgrunn – en omvisning.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-analog-oder-digital/">
+      <h2>📱 Folge 51: Analog oder digital?</h2>
+      <p>Yara forteller Pepe om besøket i redaksjonen. De diskuterer om man heller leser avis analogt eller digitalt – og Pepe får en ny forretningsidé.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-kontaktanzeigen/">
+      <h2>🎭 Folge 52: Kontaktanzeigen</h2>
+      <p>Avisredaktør Thomas og vennen «Otto» snakker om Ottos falske identiteter. Hvem er han egentlig – og hvordan henger det sammen med Inge?</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 13 – Wie peinlich!</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-peinlich/">
+      <h2>🚑 Folge 53: Peinlich?!</h2>
+      <p>Hvorfor står plutselig to ambulansepersonell i «Das Marek»? Max og Tarek må pinlig berørt oppklare situasjonen.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-richtiges-benehmen/">
+      <h2>🤷 Folge 54: Richtiges Benehmen</h2>
+      <p>Hva var det med «den døde bestemoren»? Max og Tarek oppklarer situasjonen rundt Nico og Inge.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-benimmregeln/">
+      <h2>🍽️ Folge 55: Benimmregeln</h2>
+      <p>Selmas familie har invitert Yara og Nico på middag. Nico forsøker å forberede seg med bordskikk, men det går dessverre ikke helt som planlagt.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-was-tun-wenn/">
+      <h2>🍰 Folge 56: Was tun, wenn …?</h2>
+      <p>Det er dessert hos Selmas familie! Stemningen løsner etter hvert, og Yara begynner å ane hva som foregår mellom Nico og Selma.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 14 – Zu jung</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-endlich-erwachsen/">
+      <h2>🎈 Folge 57: Endlich erwachsen</h2>
+      <p>Nico og Selma møtes i hemmelighet – det er flere grunner til å feire. Men de får ikke være i fred lenge …</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-was-eltern-erwarten/">
+      <h2>🚪 Folge 58: Was Eltern erwarten</h2>
+      <p>De hemmelige treffene mellom Selma og Nico tar slutt. Selmas far Ibrahim gir de to en klar beskjed!</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-lebenswege/">
+      <h2>🛤️ Folge 59: Lebenswege</h2>
+      <p>Jacques, Max, Tarek og Inge snakker om livsløpene sine, da Yara kommer til og leter fortvilet etter Nico …</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-noch-mal-anfangen/">
+      <h2>💔 Folge 60: Noch mal anfangen</h2>
+      <p>Otto har løyet for Inge. Hun er sur fordi hun ikke lenger kan stole på ham. Finnes det fortsatt håp for de to?</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 15 – Politik</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-bund-und-laender/">
+      <h2>🥘 Folge 61: Bund und Länder</h2>
+      <p>Max og Tarek leter etter retter med interessante tyske navn. Hva er egentlig «Jan im Sack»?!</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-die-eu/">
+      <h2>🇪🇺 Folge 62: Die EU</h2>
+      <p>Yara og huseieren snakker om politisk engasjement. Hvordan kan man engasjere seg for samfunnet?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-gerechtigkeit/">
+      <h2>🧾 Folge 63: Gerechtigkeit?</h2>
+      <p>Pepe hjelper Lisa med skattemeldingen, men det ser ut til å bygge seg opp til noe mer mellom de to …</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-wir-haben-die-wahl/">
+      <h2>🗳️ Folge 64: Wir haben die Wahl</h2>
+      <p>Sebastians valgkort har endelig kommet! Han prøver å forklare Nico valgsystemet, men det er ikke så lett.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 16 – Region im Wandel</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-das-ruhrgebiet/">
+      <h2>🏭 Folge 65: Das Ruhrgebiet</h2>
+      <p>Pepe og Lisa snakker på bokstreningen om Lisas hjemsted: Ruhrområdet. Hvordan oppstod det egentlig?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-industrie/">
+      <h2>⛏️ Folge 66: Industrie</h2>
+      <p>Selma snakker med moren om kullutvinningen i Ruhrområdet – men tankene hennes er helt et annet sted!</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-strukturwandel/">
+      <h2>🔄 Folge 67: Strukturwandel</h2>
+      <p>Otto har dårlig samvittighet og skrifter hele livshistorien sin for Inge …</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-kultur/">
+      <h2>🤥 Folge 68: Kultur</h2>
+      <p>Lisa bruker en unnskyldning (en «nødløgn») for at Selmas foreldre skal la henne gå ut. Hva er Selmas plan?</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 17 – Migration</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-nach-deutschland/">
+      <h2>📝 Folge 69: Nach Deutschland</h2>
+      <p>Nico har tatt språkprøven. Men en langt vanskeligere prøve venter ham …</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-migrationsgruende/">
+      <h2>🥂 Folge 70: Migrationsgründe</h2>
+      <p>Max, Pepe og Nico skåler for prøven. Nico er fortsatt usikker, for han har ennå ikke fått resultatene.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-hin-und-zurueck/">
+      <h2>🩺 Folge 71: Hin und zurück?</h2>
+      <p>Ibrahim og Pepe snakker om Ibrahims framtidsutsikter som lege. Hvilke problemer kan han møte?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-existenzgruendung/">
+      <h2>🏦 Folge 72: Existenzgründung</h2>
+      <p>Pepe og Ibrahim diskuterer Ibrahims kredittverdighet. Hva er hindringene og vanskelighetene for ham?</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 18 – Neuanfang</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-neue-heimat/">
+      <h2>🌍 Folge 73: Neue Heimat</h2>
+      <p>Lisa snakker med elevene i språkundervisningen om migrasjon. Hvorfor utvandrer folk? Og hvem kan egentlig søke om asyl?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-so-geht-s/">
+      <h2>🎬 Folge 74: So geht's!</h2>
+      <p>Max og Tarek gjennomfører videoideen sin for «Das Marek». Kjenner du ikke «Himmel und Erde»? Klikk inn og finn ut hva det er!</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-zukunftsplaene-folge-75/">
+      <h2>🏅 Folge 75: Zukunftspläne</h2>
+      <p>Selma vinner konkurransen! Foreldrene er stolte, men Ibrahim har noe helt annet på hjertet.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-b1-wuensche-und-traeume/">
+      <h2>🌅 Folge 76: Wünsche und Träume</h2>
+      <p>Det er tid for en ærlig samtale! Blir det et lykkelig slutt i «Nicos Weg»? Dette er den aller siste episoden.</p>
+    </a>
+  </div>
+
+</div>
+</body>
+</html>
