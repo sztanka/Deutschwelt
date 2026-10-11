@@ -261,8 +261,10 @@ deutschwelt-site/
 │   │   └── index.html                → "Der verschlossene Klassenraum" — fire gåter gir en kode
 │   ├── kommissar-lupe/
 │       └── index.html                → "Kommissar Lupe" — 8 logikkgåter i Murdle-stil (notatblokk, tips, anklage)
-│   └── laender-raetsel/
+│   ├── laender-raetsel/
 │       └── index.html                → "Länder-Rätsel" — Worldle-lignende kartspill: 51 Bundesländer/Kantone (D, A, CH)
+│   └── woertle/
+│       └── index.html                → "Wörtle" — Wordle-lignende ordspill (4/5/6 bokstaver, 4 kategorier, dagens ord/trening)
 ├── filme-serien/
 │   └── index.html                    → "Filme & Serien" — 17 filmer + 10 serier med trailerlenker
 ├── musik/
@@ -2095,3 +2097,12 @@ Worldle-inspirert geografispill for Bundesländer (Tyskland 16, Østerrike 9) og
 **Kartdata:** Tyskland og Østerrike fra MapSVG via npm-pakkene `@svg-maps/germany` og `@svg-maps/austria` (CC BY 4.0, krediteres på siden). Sveits fra shapefilen i npm-pakken `swiss-maps` (swisstopo, forenklet med shapely). Avstander regnes mellom omtrentlige midtpunkter (`regions_meta.py`, lat/lon), så de er anslag.
 **Slik endrer du:** rediger `karte-work/regions_meta.py` (navn, alias, hovedstad, faktum, areal, koordinater), kjør `python3 mkdata.py` (lager `regions.json`) og deretter `python3 build_karte.py`. Spillogikk og CSS ligger i `lr_js.py`. Test med `ktest.py` (Playwright).
 **Begrensninger:** Faktaene og arealtallene er skrevet av Claude og bør kontrolleres. Kartspillet er visuelt (klikk på kart); liste- og flervalgsmodus er de mest skjermleservennlige.
+
+
+## Wörtle (`challenges/woertle/`)
+
+Wordle-inspirert ordspill på tysk. Alt ligger i én HTML-fil (data som JSON i `#wt-data`, ingen lagring).
+**Nivåer:** Lett = 4 bokstaver (7 forsøk), Middels = 5 (6 forsøk), Vanskelig = 6 (6 forsøk). **Kategorier:** Allmenne ord (alle lister, inkl. verb og adjektiv), Mat og drikke, Dyr og natur, Skole/hverdag/reise. **Oppgave:** «Dagens ord» (frø = dato + nivå + kategori, likt for alle, uten server) og «Trening». Funksjoner: skjermtastatur med ä ö ü ß og vanlig tastatur, 💡 hint i tre trinn (norsk betydning, ordklasse/kjønn, første bokstav), norsk oversettelse og der/die/das når runden er over, kopiering av resultat som emoji-tekst, høy-kontrast-modus, og en «Ordliste»-seksjon som røper svarene til valgt nivå/kategori (for innlæring).
+**Ordlister:** svarordene (ca. 500, med artikkel og norsk oversettelse) ligger i `woertle-work/words.py` (format `Ord|art|norsk`; lengden valideres ved bygging, duplikater avvises). Gjettelisten (hvilke ord som godtas) er laget av `ordbok/ordbok.json` ved hjelp av `mkdict.py`, pluss enkle bøyningsformer for verb, substantiv og adjektiv. Den er ikke komplett, så elevene kan slå på «Godta alle bokstavkombinasjoner».
+**Slik legger du til ord:** legg en linje i riktig liste i `words.py`, kjør `python3 build_woertle.py` og deretter `wtest.py` (Playwright).
+**Begrensninger:** Norske oversettelser er skrevet av Claude, ikke lest av morsmålstaler. Svarene ligger i sidekilden (greit for et klasseromsspill).
