@@ -259,8 +259,10 @@ deutschwelt-site/
 │   │   └── index.html                → memory-spill: match tysk/norske ordpar mot klokken
 │   ├── escape-room/
 │   │   └── index.html                → "Der verschlossene Klassenraum" — fire gåter gir en kode
-│   └── kommissar-lupe/
+│   ├── kommissar-lupe/
 │       └── index.html                → "Kommissar Lupe" — 8 logikkgåter i Murdle-stil (notatblokk, tips, anklage)
+│   └── laender-raetsel/
+│       └── index.html                → "Länder-Rätsel" — Worldle-lignende kartspill: 51 Bundesländer/Kantone (D, A, CH)
 ├── filme-serien/
 │   └── index.html                    → "Filme & Serien" — 17 filmer + 10 serier med trailerlenker
 ├── musik/
@@ -2083,3 +2085,13 @@ Hver av de 27 sangene i spilleren har en egen side: video, bakgrunn, ord og uttr
 **Sangtekster vises aldri på nettstedet** (opphavsrett). I stedet har hver side to knapper som åpner et søk hos Genius og Musixmatch i ny fane, og en liten arbeidsplan («lytt – skriv – les – slå opp»).
 Innholdet ligger i `musik-work/songdata1–4.py` (én `add(...)`-oppføring per sang) og bygges med `build_songs.py`. Slugs ligger også som `dwSlugs` i `musik/index.html`. Nye sanger: legg dem i `dwSongs` + `songs.json`, skriv en `add(...)`, kjør `build_songs.py` og legg slug i `dwSlugs`.
 Sanger i «Hits år for år»-listen som ikke ligger i spilleren har bare en «📄 Finn tekst»-lenke (Genius-søk) ved siden av YouTube-søket.
+
+
+## Länder-Rätsel (`challenges/laender-raetsel/`)
+
+Worldle-inspirert geografispill for Bundesländer (Tyskland 16, Østerrike 9) og Kantone (Sveits 26) – 51 områder. Alt ligger i én HTML-fil (data som JSON i `#lr-data`, ingen eksterne bibliotek, ingen lagring).
+**Spillmåter:** ✏️ skriv selv (forslag, ae/oe/ue og alias som Fribourg/Ticino godtas), 📋 velg fra liste, 🔘 flervalg (4 alternativer, 2 forsøk), 🗺️ finn på kartet (10 spørsmål, 3 forsøk, zoom, stiplet klikkring på små områder). I omriss-spillene vises avstand (km), retning og nærhetsprosent etter hver gjetning, og 💡 hint (land, areal, første bokstav, hovedstad).
+**Oppgave:** «Dagens oppgave» er lik for alle samme dag (frø = dato + område, uten server) og kan deles som emoji-tekst; «Trening» er tilfeldig. Under spillet ligger «Oversikt» (klikkbart kart + kort med hovedstad og faktum).
+**Kartdata:** Tyskland og Østerrike fra MapSVG via npm-pakkene `@svg-maps/germany` og `@svg-maps/austria` (CC BY 4.0, krediteres på siden). Sveits fra shapefilen i npm-pakken `swiss-maps` (swisstopo, forenklet med shapely). Avstander regnes mellom omtrentlige midtpunkter (`regions_meta.py`, lat/lon), så de er anslag.
+**Slik endrer du:** rediger `karte-work/regions_meta.py` (navn, alias, hovedstad, faktum, areal, koordinater), kjør `python3 mkdata.py` (lager `regions.json`) og deretter `python3 build_karte.py`. Spillogikk og CSS ligger i `lr_js.py`. Test med `ktest.py` (Playwright).
+**Begrensninger:** Faktaene og arealtallene er skrevet av Claude og bør kontrolleres. Kartspillet er visuelt (klikk på kart); liste- og flervalgsmodus er de mest skjermleservennlige.
