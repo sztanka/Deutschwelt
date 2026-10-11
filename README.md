@@ -252,8 +252,100 @@ deutschwelt-site/
 │   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 28 (Unser Haus)
 │   ├── nicos-weg-emmas-tag/
 │   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 29 (Emmas Tag)
-│   └── nicos-weg-tageszeiten/
-│       └── index.html                → video + oppgaver: Nicos Weg, Folge 30 (Tageszeiten)
+│   ├── nicos-weg-tageszeiten/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 30 (Tageszeiten)
+│   ├── nicos-weg-am-sonntag-koche-ich/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 31 (Am Sonntag koche ich)
+│   ├── nicos-weg-emmas-wochenende/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 32 (Emmas Wochenende)
+│   ├── nicos-weg-wie-spaet-ist-es/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 33 (Wie spät ist es?)
+│   ├── nicos-weg-hast-du-morgen-zeit/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 34 (Hast du morgen Zeit?)
+│   ├── nicos-weg-wann-spielen-wir/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 35 (Wann spielen wir?)
+│   ├── nicos-weg-zu-spaet/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 36 (Zu spät?!)
+│   ├── nicos-weg-ich-bin-lehrerin/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 37 (Ich bin Lehrerin)
+│   ├── nicos-weg-mein-beruf/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 38 (Mein Beruf)
+│   ├── nicos-weg-wo-ist-der-aufzug/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 39 (Wo ist der Aufzug?)
+│   ├── nicos-weg-traumberufe/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 40 (Traumberufe)
+│   ├── nicos-weg-wo-ist-der-bahnhof/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 41 (Wo ist der Bahnhof?)
+│   ├── nicos-weg-an-der-ampel-links/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 42 (An der Ampel links)
+│   ├── nicos-weg-mit-bus-und-bahn/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 43 (Mit Bus und Bahn)
+│   ├── nicos-weg-im-buero/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 44 (Im Büro)
+│   ├── nicos-weg-lebensmittel/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 45 (Lebensmittel)
+│   ├── nicos-weg-ich-mag-nicht/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 46 (Ich mag (nicht)!)
+│   ├── nicos-weg-haushaltsarbeit/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 47 (Haushaltsarbeit)
+│   ├── nicos-weg-was-macht-dir-spass/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 48 (Was macht dir Spaß?)
+│   ├── nicos-weg-mengen-und-preise/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 49 (Mengen und Preise)
+│   ├── nicos-weg-was-darf-es-sein/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 50 (Was darf es sein?)
+│   ├── nicos-weg-sonst-noch-etwas/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 51 (Sonst noch etwas?)
+│   ├── nicos-weg-wie-viel-mehl/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 52 (Wie viel Mehl?)
+│   ├── nicos-weg-wie-war-dein-urlaub/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 53 (Wie war dein Urlaub?)
+│   ├── nicos-weg-jahreszeiten/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 54 (Jahreszeiten)
+│   ├── nicos-weg-der-ausflug/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 55 (Der Ausflug)
+│   ├── nicos-weg-wie-wird-das-wetter/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 56 (Wie wird das Wetter?)
+│   ├── nicos-weg-das-ist-jetzt-modern/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 57 (Das ist jetzt modern)
+│   ├── nicos-weg-mein-lieblingspulli/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 58 (Mein Lieblingspulli)
+│   ├── nicos-weg-das-passt-gut/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 59 (Das passt gut!)
+│   ├── nicos-weg-schick/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 60 (Schick!)
+│   ├── nicos-weg-meine-familie/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 61 (Meine Familie)
+│   ├── nicos-weg-meine-eltern/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 62 (Meine Eltern)
+│   ├── nicos-weg-meine-tante/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 63 (Meine Tante)
+│   ├── nicos-weg-mein-bruder/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 64 (Mein Bruder)
+│   ├── nicos-weg-von-kopf-bis-fuss/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 65 (Von Kopf bis Fuß)
+│   ├── nicos-weg-bist-du-fit/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 66 (Bist du fit?)
+│   ├── nicos-weg-fitness/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 67 (Fitness)
+│   ├── nicos-weg-ist-das-gesund/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 68 (Ist das gesund?)
+│   ├── nicos-weg-geht-es-dir-gut/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 69 (Geht es dir gut?)
+│   ├── nicos-weg-beim-arzt/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 70 (Beim Arzt)
+│   ├── nicos-weg-gute-besserung/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 71 (Gute Besserung!)
+│   ├── nicos-weg-nehmen-sie/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 72 (Nehmen Sie …)
+│   ├── nicos-weg-meine-heimat/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 73 (Meine Heimat)
+│   ├── nicos-weg-leben-in-deutschland/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 74 (Leben in Deutschland)
+│   ├── nicos-weg-anders-als-zu-hause/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 75 (Anders als zu Hause)
+│   └── nicos-weg-ich-traeume-von/
+│       └── index.html                → video + oppgaver: Nicos Weg, Folge 76 (Ich träume von …)
 ├── schreiben/
 │   ├── index.html                    → hub-side: velg skriveoppgave (9 kort, 1 «kommer snart»)
 │   ├── sms-chat/
@@ -474,7 +566,7 @@ kommer etter videoen og er basert på handlingen i episoden, ikke eksakte
 sitater. Seksjonen har nå 15 episoder (Folge 1–15, «Nicos Weg fortsettes»-
 runden la til Folge 6–15 etter nøyaktig samme mal som Folge 1–5).
 
-**Folge 16–30 (Nicos Weg, andre runde):** sidene er generert av `nicos-work/build_nicos.py` (data i `eps.py`; malen hentes fra Folge 15-siden). Til forskjell fra Folge 6–15 ble video-ID-ene hentet direkte fra DWs offisielle YouTube-spilleliste «DW Deutsch lernen (A1) | Nicos Weg» (lest i nettleseren, med både tittel og ID per episode), og handlingsreferatet er grunnet i DWs egne videobeskrivelser (som også oppgir enhet: Einheit 3–7). Hver side har dessuten en lenke til DWs egne øvelser, manus og ordliste for episoden. Riktig svar i quizene er plassert tilfeldig (ikke alltid først); Folge 14 og 15 ble rettet tilsvarende. Handling og ordforråd er ikke eksakt transkripsjon, og quizspørsmålene bruker bare opplysninger fra DWs beskrivelse eller allmenn tysk. **Slik legger du til flere episoder (Folge 31–76):** legg en post i `eps.py` (slug, tittel, `vid`, lengde i sekunder, enhet, DW-lenke, intro, ord, quiz), kjør `python3 build_nicos.py`, og legg kort i `hoeren/index.html` og en post i `dwIndex` i `index.html`. Seksjonen har nå 30 episoder.
+**Folge 16–30 (Nicos Weg, andre runde):** sidene er generert av `nicos-work/build_nicos.py` (data i `eps.py`; malen hentes fra Folge 15-siden). Til forskjell fra Folge 6–15 ble video-ID-ene hentet direkte fra DWs offisielle YouTube-spilleliste «DW Deutsch lernen (A1) | Nicos Weg» (lest i nettleseren, med både tittel og ID per episode), og handlingsreferatet er grunnet i DWs egne videobeskrivelser (som også oppgir enhet: Einheit 3–7). Hver side har dessuten en lenke til DWs egne øvelser, manus og ordliste for episoden. Riktig svar i quizene er plassert tilfeldig (ikke alltid først); Folge 14 og 15 ble rettet tilsvarende. Handling og ordforråd er ikke eksakt transkripsjon, og quizspørsmålene bruker bare opplysninger fra DWs beskrivelse eller allmenn tysk. **Slik legger du til flere episoder (f.eks. A2):** legg en post i `eps.py` (slug, tittel, `vid`, lengde i sekunder, enhet, DW-lenke, intro, ord, quiz), kjør `python3 build_nicos.py`, og legg kort i `hoeren/index.html` og en post i `dwIndex` i `index.html`. **Folge 31–76 (tredje runde):** de resterende 46 episodene av A1-serien (Einheit 7–18) ble lagt til på én gang. Data i `nicos-work/epsA.py`, `epsB.py`, `epsC.py` (innhold) og `meta2.py` (video-ID, lengde, enhet og DW-lenke per episode), samlet i `eps2.py`; `build_nicos.py` bygger alle 76 sider (Folge 1–15 er eldre sider som ikke bygges av skriptet). Video-ID-ene er igjen hentet direkte fra DWs offisielle spilleliste, og handlingen er grunnet i DWs videobeskrivelser. Noen av episodene (f.eks. Folge 73–75) tar opp temaer som flukt, hjemlengsel og oppholdstillatelse; innholdet følger DWs egen fremstilling, men lærer bør vurdere om temaene passer for klassen. Seksjonen har nå **76 episoder** — hele A1-serien.
 
 **Om video-ID-verifisering (viktig prinsipp, gjelder alle 15 episoder):**
 vi gjetter **aldri** en YouTube-video-ID — hver ID er alltid sjekket mot
@@ -1828,9 +1920,9 @@ Siden ble bygget om fra et enkelt MC-spill til en side med **fem faner** (🧭 S
      gloseliste + hovedidé-spørsmål). Sjekk ALLTID opphavsrett først —
      tommelfingerregel i Tyskland/EU: 70 år etter forfatterens dødsår. Ikke
      bruk moderne, fortsatt opphavsrettsbeskyttede tekster.
-   - En ny lyttevideo (f.eks. Nicos Weg Folge 31) → kopier en av de 30
+   - En ny lyttevideo (f.eks. en ny serie eller A2-episode) → kopier en av de 76
      eksisterende `hoeren/nicos-weg-…/`-mappene (f.eks.
-     `hoeren/nicos-weg-eine-pizza-bitte/`) til f.eks. `hoeren/nicos-weg-folge-31/`,
+     `hoeren/nicos-weg-eine-pizza-bitte/`) til f.eks. `hoeren/nicos-weg-a2-folge-1/`,
      og bytt video-ID-en i `<iframe src="https://www.youtube-nocookie.com/embed/…">`
      (finn video-ID-en i YouTube-lenken, delen etter `watch?v=` — sjekk alltid
      at ID-en er ekte, f.eks. via YouTubes oEmbed-endepunkt, før du publiserer;
