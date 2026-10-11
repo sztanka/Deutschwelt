@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Challenges: "Wortsuche" (challenges/wortsuche/)
+  Ordsøk: finn skjulte tyske ord i rutenett (8x8 / 10x10 / 12x12), fem kategorier, dagens brett + trening, stokk om.
+  Motor: assets/wortsuche.js + wortsuche.css (kilde: wortsuche-work/). Ordliste: galgen-work/hm_words.py build().
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wortsuche · Challenges · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:860px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .dw-jump a{font-size:.86rem;font-weight:700;padding:7px 15px;border-radius:999px;text-decoration:none;background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:32px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t tbody th{background:#fbfaf6;font-size:.84rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t td.dw-hl{background:#fff3cf;}
+  .dw-t td.dw-c{text-align:center;}
+  .dw-t td.dw-x{color:#aaa;text-align:center;}
+  .dw-t tr.dw-grp td,.dw-t tr.dw-grp th{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:14px 0;}
+  a.dw-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;text-decoration:none;color:var(--dw-text);box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;gap:6px;}
+  a.dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  a.dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  a.dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
+
+  /* Øvelser */
+  .dw-ex-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+  .dw-ex-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:8px;}
+  .dw-ex-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:16px;}
+  .dw-ex-fill{height:100%;width:0;background:var(--dw-good);transition:width .25s ease;}
+  .dw-ex-cue{font-size:.88rem;color:var(--dw-muted);margin-bottom:4px;}
+  .dw-ex-sent{font-size:1.3rem;font-weight:600;color:var(--dw-primary);line-height:1.5;margin:2px 0 18px;}
+  .dw-ex-sent .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);text-align:center;}
+  .dw-ex-sent .dw-blank.dw-filled{color:var(--dw-good);border-color:var(--dw-good);}
+  .dw-ex-sent .dw-blank.dw-filled.dw-bad{color:var(--dw-bad);border-color:var(--dw-bad);}
+  .dw-ex-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .dw-ex-choice{flex:1 1 110px;max-width:170px;padding:12px 8px;font-family:inherit;font-size:1.1rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;}
+  .dw-ex-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-ex-choice:disabled{cursor:default;opacity:.55;}
+  .dw-ex-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-ex-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .dw-ex-choice:focus-visible,.dw-ex-btn:focus-visible,.dw-ex-hintbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-ex-hintbtn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:.85rem;padding:0;margin-bottom:8px;}
+  .dw-ex-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:10px 14px;margin:6px 0 14px;background:#f4f1e8;}
+  .dw-ex-fb.dw-show{display:block;}
+  .dw-ex-fb.dw-good{background:#eef7ee;color:#1f5d23;}
+  .dw-ex-fb.dw-bad{background:#fdecee;color:#8c1d1d;}
+  .dw-ex-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:11px 26px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .dw-ex-btn:hover{background:var(--dw-primary-light);}
+  .dw-ex-btn.dw-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-ex-result{display:none;text-align:center;}
+  .dw-ex-result.dw-show{display:block;}
+  .dw-ex-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .dw-ex-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:12px 18px;margin:14px 0;font-size:.9rem;}
+  .dw-ex-review li{margin-bottom:6px;}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .dw-ex-sent{font-size:1.12rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link dw-nav-active" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <link rel="stylesheet" href="../../assets/wortsuche.css">
+  <div class="dw-header">
+    <h1>🔎 Wortsuche</h1>
+    <p>Finn de skjulte tyske ordene i rutenettet – tre nivåer, fem kategorier og norske hint</p>
+  </div>
+
+  <p class="dw-crumb"><a href="../">🏆 Challenges</a> → Wortsuche <span class="dw-level-tag">6.–10. trinn · A1–B1</span></p>
+
+  <div class="dw-jump"><a href="#spill">🎮 Spill</a><a href="#regler">❓ Slik spiller du</a><a href="#ordliste">📚 Ordliste</a></div>
+
+  <h2 class="dw-sec-title" id="spill">🎮 Velg og spill</h2>
+  <div class="ws-panel" id="ws-setup">
+    <span class="ws-label" style="margin-top:0">1. Nivå</span>
+    <div class="ws-chips" role="group" aria-label="Nivå">
+      <button type="button" class="ws-chip" data-lv="easy" aria-pressed="false">🟢 Lett · 8×8, 6 ord</button>
+      <button type="button" class="ws-chip" data-lv="mid" aria-pressed="true">🟡 Middels · 10×10, 8 ord</button>
+      <button type="button" class="ws-chip" data-lv="hard" aria-pressed="false">🔴 Vanskelig · 12×12, 10 ord</button>
+    </div>
+    <p class="ws-desc" id="ws-desc"></p>
+    <span class="ws-label">2. Kategori</span>
+    <div class="ws-chips" role="group" aria-label="Kategori">
+      <button type="button" class="ws-chip" data-cat="g" aria-pressed="true">🎲 Allmenne ord</button>
+      <button type="button" class="ws-chip" data-cat="n" aria-pressed="false">🦊 Mat, dyr og natur</button>
+      <button type="button" class="ws-chip" data-cat="s" aria-pressed="false">🎒 Skole, hverdag og reise</button>
+      <button type="button" class="ws-chip" data-cat="o" aria-pressed="false">🗺️ Byer, land og geografi</button>
+      <button type="button" class="ws-chip" data-cat="a" aria-pressed="false">🌈 Alle kategorier</button>
+    </div>
+    <span class="ws-label">3. Oppgave</span>
+    <div class="ws-chips" role="group" aria-label="Oppgave">
+      <button type="button" class="ws-chip" data-task="daily" aria-pressed="true">📅 Dagens brett</button>
+      <button type="button" class="ws-chip" data-task="training" aria-pressed="false">🎲 Trening</button>
+    </div>
+    <div class="ws-btns"><button type="button" class="ws-btn" id="ws-start">▶ Start</button></div>
+  </div>
+
+  <div id="ws-game" aria-live="off"></div>
+
+  <h2 class="dw-sec-title" id="regler">❓ Slik spiller du</h2>
+  <div class="dw-exp">
+    <p>I rutenettet er det gjemt tyske ord. Lista ved siden av viser <b>norsk betydning</b> og hvor mange bokstaver ordet har. Finn det tyske ordet i rutenettet og marker det.</p>
+    <ul>
+      <li><b>Marker et ord:</b> Dra fingeren eller musa fra første til siste bokstav (linja følger nærmeste retning). Du kan også trykke på første bokstav og så på siste. Med tastatur: piltaster for å flytte, Enter eller mellomrom for å velge start og slutt.</li>
+      <li><b>Nivåene:</b> Lett (8×8, 6 ord på 4–7 bokstaver) har bare vannrett og loddrett, og de tyske ordene vises i lista. Middels (10×10, 8 ord) har også skrå ord og viser bare norsk. Vanskelig (12×12, 10 lange ord) har alle åtte retninger, også baklengs.</li>
+      <li><b>Kategoriene:</b> Allmenne ord, Mat/dyr/natur, Skole/hverdag/reise og Byer/land/geografi, eller en blanding av alle.</li>
+      <li><b>Hjelp:</b> «Vis de tyske ordene» gjør lista lettere. 💡 Hint lar første bokstav i et tilfeldig ord blinke. «Vis løsningen» viser alle ordene.</li>
+      <li><b>Dagens brett</b> er likt for alle som velger samme nivå og kategori samme dag. Bruk «Kopier resultatet» til å sammenligne uten å røpe ordene.</li>
+      <li><b>Stokk om:</b> Når brettet er løst, kan du trykke «Stokk om – nytt brett» og får nye ord og et nytt rutenett med samme kategori og nivå – så du kan spille igjen og igjen.</li>
+      <li>Når du er ferdig, får du alle ordene med <b>der/die/das</b> og norsk betydning.</li>
+    </ul>
+    <div class="dw-tip">💡 <b>Lærertips:</b> La elevene spille parvis og lese opp ordene med artikkel når de finner dem. Det finnes også ordsøk med ord fra hvert tema under <a href="../../wichtige-themen/">Wichtige Themen</a>.</div>
+    <p class="dw-note" style="font-size:.85rem">Ordene er hentet fra nettstedets egne ordlister (ca. 834 ord). Siden husker ingenting mellom besøk.</p>
+  </div>
+
+  <h2 class="dw-sec-title" id="ordliste">📚 Ordliste: lær ordene først</h2>
+  <div class="dw-exp">
+    <details>
+      <summary><b>Vis de <span id="ws-listcount">0</span> ordene for valgt nivå og kategori</b> (røper svarene)</summary>
+      <div class="ws-listwrap"><table class="ws-listtable"><thead><tr><th>Ord</th><th>Kjønn</th><th>Norsk</th></tr></thead><tbody id="ws-listbody"></tbody></table></div>
+    </details>
+    <p class="dw-see-also"><strong>Se også:</strong> <a href="../klugle/">Klugle</a> · <a href="../woertle/">Wörtle</a> · <a href="../galgenmaennchen/">Galgenmännchen</a> · <a href="../../wichtige-themen/">Wichtige Themen</a></p>
+  </div>
+  <script type="application/json" id="ws-data">{"n":[["Brot","das","brød"],["Reis","der","ris"],["Käse","der","ost"],["Salz","das","salt"],["Obst","das","frukt"],["Kohl","der","kål"],["Nuss","die","nøtt"],["Saft","der","juice, saft"],["Mehl","das","mel"],["Pilz","der","sopp"],["Brei","der","grøt"],["Keks","der","kjeks"],["Fett","das","fett"],["Mais","der","mais"],["Zimt","der","kanel"],["Lamm","das","lam"],["Pute","die","kalkun"],["Dose","die","boks"],["Tofu","der","tofu"],["Senf","der","sennep"],["Kiwi","die","kiwi"],["Cola","die","cola"],["Rind","das","storfe, oksekjøtt"],["Milch","die","melk"],["Wurst","die","pølse"],["Fisch","der","fisk"],["Sahne","die","fløte"],["Suppe","die","suppe"],["Torte","die","bløtkake, tårte"],["Möhre","die","gulrot"],["Gurke","die","agurk"],["Bohne","die","bønne"],["Erbse","die","ert"],["Quark","der","kvarg"],["Lauch","der","purre"],["Salat","der","salat"],["Honig","der","honning"],["Apfel","der","eple"],["Birne","die","pære"],["Pizza","die","pizza"],["Nudel","die","nudel, pasta"],["Kakao","der","kakao"],["Mango","die","mango"],["Beere","die","bær"],["Essig","der","eddik"],["Steak","das","biff"],["Speck","der","flesk"],["Curry","der","karri"],["Hafer","der","havre"],["Lachs","der","laks"],["Müsli","das","müsli"],["Brühe","die","buljong"],["Sirup","der","sirup"],["Chips","pl","chips"],["Kuchen","der","kake"],["Wasser","das","vann"],["Zucker","der","sukker"],["Gemüse","das","grønnsaker"],["Butter","die","smør"],["Brezel","die","saltkringle"],["Semmel","die","rundstykke (sørtysk)"],["Traube","die","drue"],["Tomate","die","tomat"],["Kaffee","der","kaffe"],["Salami","die","salami"],["Dattel","die","daddel"],["Roggen","der","rug"],["Krabbe","die","reke, krabbe"],["Gebäck","das","bakverk"],["Pommes","pl","pommes frites"],["Frucht","die","frukt"],["Bonbon","das","drops, godteri"],["Waffel","die","vaffel"],["Gewürz","das","krydder"],["Kümmel","der","karve"],["Ananas","die","ananas"],["Banane","die","banan"],["Orange","die","appelsin"],["Melone","die","melon"],["Mandel","die","mandel"],["Burger","der","burger"],["Knödel","der","melbolle, kloss"],["Braten","der","steik"],["Hund","der","hund"],["Maus","die","mus"],["Wolf","der","ulv"],["Esel","der","esel"],["Hase","der","hare"],["Igel","der","pinnsvin"],["Gans","die","gås"],["Ente","die","and"],["Fell","das","pels"],["Wald","der","skog"],["Baum","der","tre"],["Berg","der","fjell, berg"],["Meer","das","hav"],["Wind","der","vind"],["Sand","der","sand"],["Mond","der","måne"],["Rose","die","rose"],["Gras","das","gress"],["Tier","das","dyr"],["Nest","das","rede"],["Moos","das","mose"],["Fels","der","fjell, klippe"],["Bach","der","bekk"],["Luft","die","luft"],["Erde","die","jord"],["Eule","die","ugle"],["Wurm","der","mark, orm (liten)"],["Löwe","der","løve"],["Affe","der","ape"],["Hahn","der","hane"],["Huhn","das","høne"],["Möwe","die","måke"],["Ufer","das","bredd"],["Lama","das","lama"],["Rabe","der","ravn"],["Pfau","der","påfugl"],["Elch","der","elg"],["Düne","die","sanddyne"],["Katze","die","katt"],["Pferd","das","hest"],["Vogel","der","fugl"],["Fuchs","der","rev"],["Biene","die","bie"],["Adler","der","ørn"],["Käfer","der","bille"],["Mücke","die","mygg"],["Tiger","der","tiger"],["Schaf","das","sau"],["Ziege","die","geit"],["Wolke","die","sky"],["Sonne","die","sol"],["Stern","der","stjerne"],["Regen","der","regn"],["Sturm","der","storm"],["Nebel","der","tåke"],["Blume","die","blomst"],["Blatt","das","blad"],["Fluss","der","elv"],["Teich","der","dam, tjern"],["Wiese","die","eng"],["Welle","die","bølge"],["Küste","die","kyst"],["Hecht","der","gjedde"],["Dachs","der","grevling"],["Robbe","die","sel"],["Krähe","die","kråke"],["Falke","der","falk"],["Busch","der","busk"],["Sumpf","der","myr"],["Tanne","die","gran"],["Eiche","die","eik"],["Birke","die","bjørk"],["Buche","die","bøk"],["Frost","der","frost"],["Blitz","der","lyn"],["Hagel","der","hagl"],["Wespe","die","veps"],["Raupe","die","larve (av sommerfugl)"],["Amsel","die","svarttrost"],["Fasan","der","fasan"],["Kamel","das","kamel"],["Zebra","das","sebra"],["Panda","der","panda"],["Koala","der","koala"],["Taube","die","due"],["Biber","der","bever"],["Otter","der","oter"],["Luchs","der","gaupe"],["Wüste","die","ørken"],["Stein","der","stein"],["Hügel","der","haug"],["Orkan","der","orkan"],["Ratte","die","rotte"],["Krebs","der","krabbe, kreps"],["Kröte","die","padde"],["Gämse","die","gemse"],["Frosch","der","frosk"],["Hirsch","der","hjort"],["Storch","der","stork"],["Spinne","die","edderkopp"],["Fliege","die","flue"],["Schnee","der","snø"],["Eisbär","der","isbjørn"],["Ameise","die","maur"],["Gipfel","der","topp"],["Strand","der","strand"],["Wetter","das","vær"],["Donner","der","torden"],["Wurzel","die","rot"],["Delfin","der","delfin"],["Hummel","die","humle"],["Qualle","die","manet"],["Specht","der","hakkespett"],["Marder","der","mår"],["Wiesel","das","røyskatt"],["Himmel","der","himmel"],["Sommer","der","sommer"],["Winter","der","vinter"],["Herbst","der","høst"],["Vulkan","der","vulkan"],["Lawine","die","skred"],["Schwan","der","svane"],["Hündin","die","tispe, hunnhund"],["Falter","der","sommerfugl"],["Joghurt","der","yoghurt"],["Pflaume","die","plomme"],["Kirsche","die","kirsebær"],["Zitrone","die","sitron"],["Kartoffel","die","potet"],["Erdbeere","die","jordbær"],["Himbeere","die","bringebær"],["Blaubeere","die","blåbær"],["Paprika","der","paprika"],["Zwiebel","die","løk"],["Knoblauch","der","hvitløk"],["Spargel","der","asparges"],["Brokkoli","der","brokkoli"],["Spinat","der","spinat"],["Ketchup","der","ketchup"],["Marmelade","die","syltetøy"],["Schokolade","die","sjokolade"],["Pfannkuchen","der","pannekake"],["Limonade","die","brus"],["Getränk","das","drikke"],["Mittagessen","das","lunsj, middag"],["Frühstück","das","frokost"],["Abendbrot","das","kveldsmat"],["Hähnchen","das","kylling"],["Fleisch","das","kjøtt"],["Würstchen","das","lita pølse"],["Schmetterling","der","sommerfugl"],["Elefant","der","elefant"],["Giraffe","die","sjiraff"],["Krokodil","das","krokodille"],["Känguru","das","kenguru"],["Pinguin","der","pingvin"],["Nashorn","das","neshorn"],["Nilpferd","das","flodhest"],["Gorilla","der","gorilla"],["Schlange","die","slange"],["Schildkröte","die","skilpadde"],["Kaninchen","das","kanin"],["Meerschweinchen","das","marsvin"],["Hamster","der","hamster"],["Papagei","der","papegøye"],["Flamingo","der","flamingo"],["Seehund","der","sel"],["Tintenfisch","der","blekksprut"],["Seestern","der","sjøstjerne"],["Muschel","die","skjell"],["Schnecke","die","snegl"],["Libelle","die","øyenstikker"],["Marienkäfer","der","marihøne"],["Regenwurm","der","meitemark"],["Gewitter","das","tordenvær"],["Regenbogen","der","regnbue"],["Sonnenschein","der","solskinn"],["Schneemann","der","snømann"],["Wasserfall","der","foss"],["Gletscher","der","isbre"],["Sonnenblume","die","solsikke"],["Tannenbaum","der","grantre"],["Gänseblümchen","das","tusenfryd"],["Löwenzahn","der","løvetann"],["Erdbeben","das","jordskjelv"],["Mondschein","der","måneskinn"],["Sternschnuppe","die","stjerneskudd"],["Sonnenuntergang","der","solnedgang"],["Stachelschwein","das","piggsvin"],["Fledermaus","die","flaggermus"],["Nachtigall","die","nattergal"],["Wildschwein","das","villsvin"],["Rotkehlchen","das","rødstrupe"],["Kartoffelsalat","der","potetsalat"],["Spaghetti","pl","spagetti"],["Vergissmeinnicht","das","forglemmegei"],["Überschwemmung","die","oversvømmelse"]],"s":[["Buch","das","bok"],["Heft","das","hefte"],["Pult","das","kateter, pult"],["Test","der","prøve"],["Note","die","karakter"],["Fach","das","fag"],["Haus","das","hus"],["Bett","das","seng"],["Auto","das","bil"],["Bahn","die","tog, bane"],["Flug","der","flyvning"],["Stau","der","kø"],["Ziel","das","mål"],["Hand","die","hånd"],["Kopf","der","hode"],["Bein","das","bein"],["Haar","das","hår"],["Mund","der","munn"],["Nase","die","nese"],["Auge","das","øye"],["Zahn","der","tann"],["Hals","der","hals"],["Zeit","die","tid"],["Jahr","das","år"],["Name","der","navn"],["Lied","das","sang"],["Gast","der","gjest"],["Geld","das","penger"],["Kind","das","barn"],["Frau","die","kvinne"],["Mann","der","mann"],["Hose","die","bukse"],["Rock","der","skjørt"],["Hemd","das","skjorte"],["Mode","die","mote"],["Post","die","post"],["Ball","der","ball"],["Lust","die","lyst"],["Zelt","das","telt"],["Dorf","das","landsby"],["Land","das","land"],["Glas","das","glass"],["Wand","die","vegg"],["Dach","das","tak"],["Raum","der","rom"],["Sofa","das","sofa"],["Arzt","der","lege"],["Foto","das","foto"],["Knie","das","kne"],["Sohn","der","sønn"],["Baby","das","baby"],["Taxi","das","drosje"],["Boot","das","båt"],["Zoll","der","toll"],["Pass","der","pass"],["Stift","der","penn"],["Tafel","die","tavle"],["Pause","die","pause"],["Reise","die","reise"],["Spiel","das","spill, lek"],["Woche","die","uke"],["Vater","der","far"],["Tante","die","tante"],["Onkel","der","onkel"],["Schuh","der","sko"],["Mütze","die","lue"],["Jacke","die","jakke"],["Kleid","das","kjole"],["Hotel","das","hotell"],["Stadt","die","by"],["Insel","die","øy"],["Karte","die","kort, kart"],["Gabel","die","gaffel"],["Tasse","die","kopp"],["Tisch","der","bord"],["Stuhl","der","stol"],["Brief","der","brev"],["Bauch","der","mage"],["Küche","die","kjøkken"],["Platz","der","plass"],["Markt","der","marked"],["Gleis","das","spor (jernbane)"],["Fahrt","die","tur, reise"],["Fähre","die","ferge"],["Motor","der","motor"],["Frage","die","spørsmål"],["Thema","das","tema"],["Übung","die","øvelse"],["Radio","das","radio"],["Handy","das","mobiltelefon"],["Enkel","der","barnebarn"],["Socke","die","sokk"],["Schal","der","skjerf"],["Mappe","die","mappe"],["Lampe","die","lampe"],["Regal","das","hylle"],["Decke","die","teppe, tak"],["Hafen","der","havn"],["Kasse","die","kasse"],["Klasse","die","klasse"],["Brille","die","briller"],["Zimmer","das","rom, værelse"],["Koffer","der","koffert"],["Schiff","das","skip"],["Schule","die","skole"],["Papier","das","papir"],["Finger","der","finger"],["Rücken","der","rygg"],["Ferien","pl","ferie"],["Freund","der","venn"],["Lehrer","der","lærer"],["Bruder","der","bror"],["Tasche","die","veske, lomme"],["Teller","der","tallerken"],["Löffel","der","skje"],["Messer","das","kniv"],["Mutter","die","mor"],["Garten","der","hage"],["Kirche","die","kirke"],["Brücke","die","bro"],["Lineal","das","linjal"],["Schere","die","saks"],["Kleber","der","lim"],["Kreide","die","kritt"],["Pinsel","der","pensel"],["Wecker","der","vekkerklokke"],["Sessel","der","lenestol"],["Kissen","das","pute"],["Mantel","der","frakk"],["Ticket","das","billett"],["Gepäck","das","bagasje"],["Balkon","der","balkong"],["Eltern","pl","foreldre"],["Cousin","der","fetter"],["Bäcker","der","baker"],["Bleistift","der","blyant"],["Federmappe","die","pennal"],["Radiergummi","der","viskelær"],["Schultasche","die","skolesekk"],["Rucksack","der","ryggsekk"],["Klassenzimmer","das","klasserom"],["Lehrerin","die","lærerinne"],["Schülerin","die","elev (jente)"],["Mitschüler","der","medelev"],["Hausaufgabe","die","lekse"],["Stundenplan","der","timeplan"],["Klassenarbeit","die","prøve"],["Zeugnis","das","vitnemål"],["Mathematik","die","matematikk"],["Geschichte","die","historie, fortelling"],["Erdkunde","die","geografi"],["Englisch","das","engelsk"],["Turnhalle","die","gymsal"],["Sportplatz","der","idrettsplass"],["Pausenhof","der","skolegård"],["Schulhof","der","skolegård"],["Bibliothek","die","bibliotek"],["Computer","der","datamaskin"],["Tastatur","die","tastatur"],["Bildschirm","der","skjerm"],["Drucker","der","skriver"],["Taschenrechner","der","lommeregner"],["Wörterbuch","das","ordbok"],["Geburtstag","der","bursdag"],["Wochenende","das","helg"],["Frühling","der","vår"],["Kalender","der","kalender"],["Schlafzimmer","das","soverom"],["Wohnzimmer","das","stue"],["Badezimmer","das","bad"],["Kinderzimmer","das","barnerom"],["Kühlschrank","der","kjøleskap"],["Staubsauger","der","støvsuger"],["Waschmaschine","die","vaskemaskin"],["Zahnbürste","die","tannbørste"],["Handtuch","das","håndkle"],["Spiegel","der","speil"],["Schrank","der","skap"],["Teppich","der","teppe"],["Gardine","die","gardin"],["Treppe","die","trapp"],["Freundin","die","venninne"],["Geschwister","pl","søsken"],["Nachbar","der","nabo"],["Bahnhof","der","togstasjon"],["Flughafen","der","flyplass"],["Fahrrad","das","sykkel"],["Fahrkarte","die","billett"],["Flugzeug","das","fly"],["Busbahnhof","der","bussterminal"],["Urlaub","der","ferie"],["Ausflug","der","utflukt"],["Reisepass","der","pass"],["Zeltplatz","der","teltplass"],["Wanderung","die","fottur"],["Spielplatz","der","lekeplass"],["Supermarkt","der","supermarked"],["Bäckerei","die","bakeri"],["Apotheke","die","apotek"],["Krankenhaus","das","sykehus"],["Polizei","die","politi"],["Feuerwehr","die","brannvesen"],["Postkarte","die","postkort"],["Briefkasten","der","postkasse"],["Rathaus","das","rådhus"],["Museum","das","museum"]],"o":[["Bern","prop","Sveits' hovedstad"],["Wien","prop","Østerrikes hovedstad"],["Köln","prop","by i Tyskland ved Rhinen"],["Graz","prop","by i Østerrike (Steiermark)"],["Linz","prop","by i Østerrike (Oberösterreich)"],["Genf","prop","byen Genève i Sveits"],["Kiel","prop","by i Nord-Tyskland ved Østersjøen"],["Bonn","prop","tidligere hovedstad i Vest-Tyskland"],["Jena","prop","by i Thüringen"],["Trier","prop","gammel romersk by ved Mosel"],["Mainz","prop","hovedstad i Rheinland-Pfalz"],["Kassel","prop","by i Hessen"],["Bremen","prop","by og delstat i Nord-Tyskland"],["Basel","prop","by i Sveits ved Rhinen"],["Luzern","prop","by i Sveits ved Vierwaldstättersee"],["Rhein","der","Rhinen (elv)"],["Elbe","die","Elben (elv)"],["Donau","die","Donau (elv)"],["Mosel","die","Mosel (elv)"],["Main","der","elven Main"],["Spree","die","elven i Berlin"],["Harz","der","fjellkjede i Nord-Tyskland"],["Alpen","pl","Alpene"],["Eifel","die","fjellområde i Vest-Tyskland"],["Ostsee","die","Østersjøen"],["Nordsee","die","Nordsjøen"],["Bayern","prop","Tysklands største delstat"],["Hessen","prop","delstat i Tyskland"],["Sachsen","prop","delstat i Øst-Tyskland"],["Tirol","prop","delstat i Østerrike"],["Zürich","prop","Sveits' største by"],["Tessin","prop","kanton i Sveits der man snakker italiensk"],["Wallis","prop","kanton i Sveits med Matterhorn"],["Aargau","prop","kanton i Sveits"],["Jura","prop","Sveits' nyeste kanton"],["Dresden","prop","hovedstad i Sachsen"],["Leipzig","prop","by i Sachsen"],["Hamburg","prop","havneby ved Elben"],["Berlin","prop","Tysklands hovedstad"],["München","prop","hovedstad i Bayern"],["Salzburg","prop","Mozarts fødeby"],["Innsbruck","prop","by i Tirol"],["Klagenfurt","prop","hovedstad i Kärnten"],["Frankfurt","prop","finansby i Hessen"],["Stuttgart","prop","hovedstad i Baden-Württemberg"],["Düsseldorf","prop","hovedstad i Nordrhein-Westfalen"],["Nürnberg","prop","by i Bayern"],["Hannover","prop","hovedstad i Niedersachsen"],["Bodensee","der","innsjø ved grensen mellom Tyskland, Østerrike og Sveits"],["Zugspitze","die","Tysklands høyeste fjell"],["Matterhorn","das","kjent fjell i Sveits"],["Rheinfall","der","stor foss i Sveits"],["Schwarzwald","der","skogkledt fjellområde i Sør-Tyskland"],["Österreich","prop","Østerrike"],["Deutschland","prop","Tyskland"],["Schweiz","die","Sveits"],["Norwegen","prop","Norge"],["Schweden","prop","Sverige"],["Dänemark","prop","Danmark"],["Finnland","prop","Finland"],["Polen","prop","Polen"],["Italien","prop","Italia"],["Frankreich","prop","Frankrike"],["Spanien","prop","Spania"],["England","prop","England"],["Holland","prop","Nederland"],["Belgien","prop","Belgia"],["Tschechien","prop","Tsjekkia"],["Ungarn","prop","Ungarn"],["Island","prop","Island"],["Luxemburg","prop","Luxembourg"],["Liechtenstein","prop","lite land mellom Sveits og Østerrike"],["Europa","prop","Europa"],["Amerika","prop","Amerika"],["Afrika","prop","Afrika"],["Asien","prop","Asia"],["Brandenburg","prop","delstat rundt Berlin"],["Thüringen","prop","delstat i Tyskland"],["Saarland","prop","delstat i Sørvest-Tyskland"],["Burgenland","prop","østligste delstat i Østerrike"],["Kärnten","prop","sørligste delstat i Østerrike"],["Steiermark","prop","delstat i Østerrike"],["Vorarlberg","prop","vestligste delstat i Østerrike"],["Niedersachsen","prop","delstat i Nord-Tyskland"],["Hauptstadt","die","hovedstad"],["Grenze","die","grense"],["Kontinent","der","verdensdel"],["Landkarte","die","kart"],["Gebirge","das","fjellkjede"],["Halbinsel","die","halvøy"],["Bundesland","das","delstat"],["Kanton","der","kanton (i Sveits)"],["Einwohner","der","innbygger"],["Nachbarland","das","naboland"],["Sehenswürdigkeit","die","severdighet"]],"g":[["Welt","die","verden"],["Idee","die","idé"],["Wahl","die","valg"],["Sinn","der","mening, sans"],["Ruhe","die","ro"],["Ende","das","slutt"],["Fest","das","fest"],["Tanz","der","dans"],["Film","der","film"],["Chor","der","kor"],["Bild","das","bilde"],["Zahl","die","tall"],["Wort","das","ord"],["Satz","der","setning"],["Text","der","tekst"],["Spur","die","spor"],["Rand","der","kant"],["Ecke","die","hjørne"],["Form","die","form"],["Witz","der","vits"],["bald","adv","snart"],["gern","adv","gjerne"],["sehr","adv","veldig"],["noch","adv","ennå"],["auch","adv","også"],["nach","prep","etter, til"],["weil","konj","fordi"],["aber","konj","men"],["oder","konj","eller"],["dann","adv","så, da"],["wann","adv","når"],["viel","adj","mye"],["alle","pron","alle"],["klug","adj","klok"],["laut","adj","høy (om lyd)"],["leer","adj","tom"],["kalt","adj","kald"],["warm","adj","varm"],["jung","adj","ung"],["gelb","adj","gul"],["blau","adj","blå"],["grün","adj","grønn"],["grau","adj","grå"],["rund","adj","rund"],["kurz","adj","kort"],["lang","adj","lang"],["dick","adj","tykk"],["dünn","adj","tynn"],["tief","adj","dyp"],["hoch","adj","høy"],["weit","adj","vid, langt"],["fern","adj","fjern"],["froh","adj","glad"],["müde","adj","trett"],["satt","adj","mett"],["hell","adj","lys"],["voll","adj","full"],["frei","adj","fri"],["bunt","adj","fargerik"],["echt","adj","ekte"],["lieb","adj","snill, kjær"],["nett","adj","hyggelig"],["ganz","adj","hel"],["sein","v","være"],["Leben","das","liv"],["Traum","der","drøm"],["Kraft","die","kraft"],["Mitte","die","midten"],["Seite","die","side"],["Farbe","die","farge"],["Licht","das","lys"],["Feuer","das","ild"],["Glück","das","lykke, flaks"],["Angst","die","redsel"],["Liebe","die","kjærlighet"],["Sorge","die","bekymring"],["Krieg","der","krig"],["Macht","die","makt"],["Recht","das","rett"],["Preis","der","pris"],["Stolz","der","stolthet"],["Leute","pl","folk"],["heute","adv","i dag"],["immer","adv","alltid"],["nicht","adv","ikke"],["schon","adv","allerede"],["genug","adv","nok"],["etwas","pron","noe"],["jetzt","adv","nå"],["schön","adj","pen, fin"],["klein","adj","liten"],["stark","adj","sterk"],["leise","adj","stille, svak (om lyd)"],["gehen","v","gå"],["essen","v","spise"],["sagen","v","si"],["haben","v","ha"],["sehen","v","se"],["lesen","v","lese"],["hören","v","høre"],["bauen","v","bygge"],["malen","v","male"],["reden","v","snakke"],["rufen","v","rope"],["baden","v","bade"],["lügen","v","lyve"],["Beruf","der","yrke"],["Natur","die","natur"],["Musik","die","musikk"],["Sport","der","idrett"],["geben","v","gi"],["mögen","v","like"],["legen","v","legge"],["mutig","adj","modig"],["ruhig","adj","rolig"],["Mensch","der","menneske"],["Wunsch","der","ønske"],["Freude","die","glede"],["Gefühl","das","følelse"],["Fehler","der","feil"],["Gruppe","die","gruppe"],["Moment","der","øyeblikk"],["Kultur","die","kultur"],["Person","die","person"],["kommen","v","komme"],["machen","v","gjøre, lage"],["fahren","v","kjøre, reise"],["laufen","v","løpe, gå"],["singen","v","synge"],["sitzen","v","sitte"],["lernen","v","lære"],["lachen","v","le"],["denken","v","tenke"],["warten","v","vente"],["fragen","v","spørre"],["kaufen","v","kjøpe"],["tanzen","v","danse"],["kochen","v","lage mat, koke"],["sparen","v","spare"],["reisen","v","reise"],["suchen","v","lete"],["finden","v","finne"],["nehmen","v","ta"],["wissen","v","vite"],["wollen","v","ville"],["dürfen","v","få lov til"],["müssen","v","måtte"],["können","v","kunne"],["stehen","v","stå"],["liegen","v","ligge"],["rennen","v","løpe fort"],["fallen","v","falle"],["schwer","adj","tung, vanskelig"],["falsch","adj","feil"],["lustig","adj","morsom"],["Freiheit","die","frihet"],["Freundschaft","die","vennskap"],["Gesundheit","die","helse"],["Gemeinschaft","die","fellesskap"],["Verantwortung","die","ansvar"],["Möglichkeit","die","mulighet"],["Wahrheit","die","sannhet"],["Geschenk","das","gave"],["Erfahrung","die","erfaring"],["Erinnerung","die","minne"],["Hoffnung","die","håp"],["Überraschung","die","overraskelse"],["Unterschied","der","forskjell"],["Beispiel","das","eksempel"],["Ergebnis","das","resultat"],["Gedanke","der","tanke"],["Geheimnis","das","hemmelighet"],["Abenteuer","das","eventyr"],["Zukunft","die","framtid"],["Vergangenheit","die","fortid"],["Gegenwart","die","nåtid"],["Zusammenarbeit","die","samarbeid"],["Entschuldigung","die","unnskyldning"],["Einladung","die","invitasjon"],["Geduld","die","tålmodighet"],["Mannschaft","die","lag"],["Wettbewerb","der","konkurranse"],["Meisterschaft","die","mesterskap"],["Spaziergang","der","spasertur"],["Verspätung","die","forsinkelse"],["Wohnung","die","leilighet"],["Nachricht","die","melding, nyhet"],["Zeitung","die","avis"],["Zeitschrift","die","tidsskrift, blad"],["Programm","das","program"],["Sprache","die","språk"],["Antwort","die","svar"],["Erklärung","die","forklaring"],["arbeiten","v","arbeide"],["schlafen","v","sove"],["spielen","v","spille, leke"],["trinken","v","drikke"],["verstehen","v","forstå"],["vergessen","v","glemme"],["besuchen","v","besøke"],["erzählen","v","fortelle"],["bekommen","v","få"],["bleiben","v","bli, forbli"],["fliegen","v","fly"],["schreiben","v","skrive"],["schwimmen","v","svømme"],["anrufen","v","ringe"],["aufstehen","v","stå opp"],["einkaufen","v","handle"],["frühstücken","v","spise frokost"],["übernachten","v","overnatte"],["telefonieren","v","snakke i telefon"],["freundlich","adj","vennlig"],["langsam","adj","langsom"],["schnell","adj","rask"],["wichtig","adj","viktig"],["richtig","adj","riktig"],["gefährlich","adj","farlig"],["gemütlich","adj","koselig"],["langweilig","adj","kjedelig"],["interessant","adj","interessant"],["traurig","adj","trist"],["fröhlich","adj","munter, glad"],["ehrlich","adj","ærlig"],["hungrig","adj","sulten"],["durstig","adj","tørst"],["gesund","adj","sunn, frisk"],["krank","adj","syk"],["sauber","adj","ren"],["schmutzig","adj","skitten"],["teuer","adj","dyr (pris)"],["billig","adj","billig"],["berühmt","adj","berømt"],["verrückt","adj","gal, sprø"],["pünktlich","adj","punktlig"],["unmöglich","adj","umulig"],["möglich","adj","mulig"],["selten","adj","sjelden"],["spannend","adj","spennende"],["unglaublich","adj","utrolig"],["vielleicht","adv","kanskje"],["trotzdem","adv","likevel"],["manchmal","adv","noen ganger"],["überall","adv","overalt"],["niemals","adv","aldri"],["plötzlich","adv","plutselig"],["natürlich","adv","selvfølgelig"],["eigentlich","adv","egentlig"],["besonders","adv","spesielt"],["zusammen","adv","sammen"],["deshalb","adv","derfor"],["während","konj","mens"],["obwohl","konj","selv om"]]}</script>
+  <script src="../../assets/wortsuche.js"></script>
+
+</div>
+<script>
+(function(){
+var W=window.DWWortsuche,P=JSON.parse(document.getElementById('ws-data').textContent);
+var G={lv:'mid',cat:'g',task:'daily'};
+var RANGE={easy:[4,7],mid:[5,9],hard:[6,12]};
+var CAT={g:'Allmenne ord',n:'Mat, dyr og natur',s:'Skole, hverdag og reise',o:'Byer, land og geografi',a:'Alle kategorier'};
+var eng=W.create(document.getElementById('ws-game'));
+function $(i){return document.getElementById(i);}
+function poolFor(lv,cat){
+  var r=RANGE[lv],src=cat==='a'?[].concat(P.g,P.n,P.s,P.o):P[cat];
+  return src.filter(function(e){var n=W.norm(e[0]).length;return n>=r[0]&&n<=r[1];});
+}
+function setP(attr,val){var els=document.querySelectorAll('['+attr+']');for(var i=0;i<els.length;i++)els[i].setAttribute('aria-pressed',els[i].getAttribute(attr)===val?'true':'false');}
+function sync(){
+  setP('data-lv',G.lv);setP('data-cat',G.cat);setP('data-task',G.task);
+  var L=W.LV[G.lv],r=RANGE[G.lv],p=poolFor(G.lv,G.cat);
+  $('ws-desc').textContent=L.name+': '+L.size+'×'+L.size+' rutenett, '+L.count+' ord på '+r[0]+'–'+r[1]+' bokstaver. '+(L.dirs.length===2?'Bare vannrett og loddrett. ':(L.dirs.length===4?'Også på skrå. ':'Alle åtte retninger, også baklengs. '))+(G.task==='daily'?'Dagens brett er likt for alle som velger samme nivå og kategori samme dag.':'Trening gir et nytt tilfeldig brett hver gang.');
+  $('ws-listcount').textContent=p.length;
+  $('ws-listbody').innerHTML=p.slice().sort(function(a,b){return a[0].localeCompare(b[0],'de');}).map(function(a){return '<tr><td><b>'+W.esc(a[0])+'</b></td><td>'+(a[1]==='der'||a[1]==='die'||a[1]==='das'?a[1]:'')+'</td><td>'+W.esc(a[2])+'</td></tr>';}).join('');
+}
+function run(forceTraining){
+  if(forceTraining===true){G.task='training';sync();}
+  var L=W.LV[G.lv],r=RANGE[G.lv],p=poolFor(G.lv,G.cat);
+  var rng=G.task==='daily'?W.mulberry(W.hash(W.todayStr()+'|'+G.lv+'|'+G.cat)):Math.random;
+  var words=W.pick(p,L.count,rng,L.size,r[0]);
+  var day=G.task==='daily';
+  eng.start({level:G.lv,words:words,rng:rng,label:(day?'📅 Dagens brett · '+W.todayStr():'🎲 Trening')+' · '+CAT[G.cat],
+    onAgain:function(skip){
+      if(day&&skip!==true){G.task='training';sync();}
+      run();
+    },
+    againLabel:day?'🎲 Fortsett i trening (stokket brett)':'🔀 Stokk om – nytt brett',
+    noSkip:day,skipLabel:'🔀 Nytt brett',
+    share:day?function(r){var L=W.LV[G.lv];return 'Wortsuche 📅 '+W.todayStr()+' · '+L.name+' ('+L.size+'×'+L.size+') · '+CAT[G.cat]+'\n🔎 '+r.n+'/'+r.n+' ord · ⏱ '+W.fmt(r.secs)+(r.hints?' · 💡 '+r.hints:'');}:null});
+}
+document.addEventListener('click',function(e){
+  var t=e.target.closest('[data-lv],[data-cat],[data-task]');
+  if(t&&t.closest('#ws-setup')){
+    if(t.hasAttribute('data-lv'))G.lv=t.getAttribute('data-lv');
+    if(t.hasAttribute('data-cat'))G.cat=t.getAttribute('data-cat');
+    if(t.hasAttribute('data-task'))G.task=t.getAttribute('data-task');
+    sync();
+  }
+});
+$('ws-start').addEventListener('click',function(){run();var g=$('ws-game');if(g.scrollIntoView)g.scrollIntoView({behavior:'smooth',block:'start'});});
+window.dwWs={eng:eng};
+sync();
+})();
+</script></body>
+</html>

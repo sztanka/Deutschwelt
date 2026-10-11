@@ -19,6 +19,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mein Aussehen · Wichtige Themen · Deutschwelt</title>
 <link rel="stylesheet" href="../../../assets/style.css">
+<link rel="stylesheet" href="../../../assets/wortsuche.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
@@ -215,6 +216,16 @@
     <div id="dw-quiz"></div>
     <div id="dw-quiz-score"></div>
   </div>
+
+  <!-- dw-wortsuche -->
+  <div class="dw-section" id="ordsok">
+    <h2>🔎 Ordsøk: finn temaordene</h2>
+    <p class="dw-note">Finn de tyske ordene i rutenettet. Lista viser norsk betydning og antall bokstaver, og du velger selv hvor vanskelig det skal være. Når du har funnet alle ordene, kan du stokke om brettet og spille på nytt med nye ord fra samme tema.</p>
+    <div id="dw-ws"></div>
+    <script src="../../../assets/wortsuche.js"></script>
+    <script>DWWortsuche.themeWidget('dw-ws',[["Haare","pl","hår"],["Augen","pl","øyne"],["Gesicht","das","ansikt"],["Schultern","pl","skuldre"],["Beine","pl","bein"],["Arme","pl","armer"],["Nase","die","nese"],["Mund","der","munn"],["Brille","die","briller"],["Bart","der","skjegg"],["Locken","pl","krøller"],["Zopf","der","flette"],["Größe","die","høyde"],["schlank","adj","slank"],["sportlich","adj","sporty"],["muskulös","adj","muskuløs"],["blond","adj","lys, blond"],["dunkel","adj","mørk"],["lockig","adj","krøllete"],["Frisur","die","frisyre"],["Stirn","die","panne"],["Lippen","pl","lepper"],["Körper","der","kropp"],["Figur","die","figur"]],'🔎 Mein Aussehen');</script>
+  </div>
+<!-- /dw-wortsuche -->
 
   <div class="dw-section">
     <h2>💭 Mein eigenes Aussehen</h2>

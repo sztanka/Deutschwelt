@@ -699,6 +699,8 @@ deutschwelt-site/
 │   │   └── index.html                → "Wörtle" — Wordle-lignende ordspill (4/5/6 bokstaver, 4 kategorier, dagens ord/trening)
 │   ├── klugle/
 │   │   └── index.html                → "Klugle" — Smartle-lignende bokstavbytte-spill (3 nivåer 3×4 / 4×5 / 5×6, 4 kategorier, dagens brett/trening)
+│   ├── wortsuche/
+│   │   └── index.html                → "Wortsuche" — ordsøk (8×8 / 10×10 / 12×12, 5 kategorier, dagens brett/trening, stokk om)
 │   └── galgenmaennchen/
 │       └── index.html                → "Galgenmännchen" — Hangman (3 nivåer, 4 kategorier, dagens ord, trening, to spillere)
 ├── filme-serien/
@@ -2559,6 +2561,16 @@ Bokstavbytte-spill på tysk, inspirert av Smartle. Alt ligger i én HTML-fil (or
 **Regler for gyldighet:** en rad teller som riktig hvis den er *et hvilket som helst* ord med riktig lengde i den kuraterte ordlisten (ikke bare hintets ord) – da vises «gyldig ord (men ikke det hintet pekte på)». Ordlisten er `woertle-work/words.py` (ca. 500 svarord, format `Ord|art|norsk`); den store gjettelisten fra Wörtle brukes bevisst ikke, siden den inneholder genererte bøyningsformer.
 **Slik endrer du:** CSS og spilllogikk ligger i `klugle-work/kl_js.py` (`KL_CSS`/`KL_JS`), sideoppsett i `klugle-work/build_klugle.py` (kjør `python3 build_klugle.py`), test med `klugle-work/ktest.py` (Playwright). Legg til ord i `woertle-work/words.py` og bygg både Wörtle og Klugle på nytt.
 **Begrensninger:** Norske hint og oversettelser er skrevet av Claude, ikke lest av morsmålstaler. Ordforrådet er begrenset (ca. 500 ord), så på Vanskelig (6 bokstaver) er det få ord per kategori og brettene gjentar seg etter hvert. Ordene ligger i sidekilden.
+
+## Wortsuche – ordsøk (`challenges/wortsuche/` og «Ordsøk» på Wichtige Themen)
+
+Ordsøk på tysk (som Washington Posts «Word Search»). **Delt motor:** `assets/wortsuche.js` + `assets/wortsuche.css` brukes av både Challenge-siden og alle åtte temasidene i `wichtige-themen/8-klasse/`. Ingen lagring mellom besøk.
+**Spillidé:** skjulte tyske ord i et rutenett. Lista viser *norsk betydning* og antall bokstaver (valgfritt: «Vis de tyske ordene»), og eleven må finne det tyske ordet. **Nivåer:** Lett = 8×8, 6 ord, bare vannrett/loddrett (tyske ord vises i lista som standard); Middels = 10×10, 8 ord, også skrått (4 retninger); Vanskelig = 12×12, 10 ord, alle 8 retninger (også baklengs). Rutenettet genereres i nettleseren (plasserer lange ord først, fyller med vektede tyske bokstaver, og kontrollerer at hvert ord forekommer akkurat én gang – ingen utilsiktede ekstra treff; ä/ö/ü brukes som fyll bare når ordene har dem).
+**Spill:** dra fingeren/musa fra første til siste bokstav (snapper til nærmeste av 8 retninger, baklengs godtas), eller trykk første og siste bokstav, eller tastatur (piltaster + Enter/mellomrom). Funnet ord får en farge og avkrysning i lista; 💡 Hint lar første bokstav i et tilfeldig ord blinke; «Vis løsningen»; teller tid og hint. Etter løst brett: ordene med der/die/das + norsk, og **«Stokk om – nytt brett»** (nye ord og nytt rutenett med samme tema/kategori/nivå).
+**Challenge-siden** (`challenges/wortsuche/`, bygges av `wortsuche-work/build_wortsuche.py`): 5 kategorier (Allmenne ord, Mat/dyr/natur, Skole/hverdag/reise, Byer/land/geografi, Alle) fra galgen-ordlistene (`galgen-work/hm_words.py` `build()`, ca. 830 ord); ordlengde 4–7 / 5–9 / 6–12 etter nivå; Dagens brett (seedet av dato + nivå + kategori, med delingstekst) og Trening.
+**Wichtige Themen:** hver av de 8 temasidene har en seksjon «🔎 Ordsøk: finn temaordene» (satt inn før «din egen tekst»-seksjonen, markert med `<!-- dw-wortsuche -->`) med 24–25 temaspesifikke ord (`wortsuche-work/ws_themes.py`, format `Ord|art|norsk`, 4–12 bokstaver). Hvert brett trekker et tilfeldig utvalg, så «Stokk om» gir ulike ord. **Slik endrer du:** rediger `ws_themes.py` og kjør `python3 patch_themes.py` (idempotent – erstatter eksisterende seksjon); motor/CSS i `wortsuche-work/wortsuche.js|css` (kopier til `assets/`); test med `wtest.py` (Challenge) og `ttest.py`/`ttest2.py` (temasider).
+**Nye temasider:** legg ordlisten i `ws_themes.py` (og navnet i `LAB` i `patch_themes.py`) og kjør `patch_themes.py`.
+**Begrensninger:** norske hint og temaord er skrevet av Claude, ikke morsmålsgransket; svært lange ord (13+ bokstaver, f.eks. Klassenzimmer, Weihnachtsmarkt) er utelatt fordi rutenettet maks er 12×12. På mobil (12×12) blir rutene små – dra-markering er forgiving (snapper til retning), men Lett/Middels er mer behagelig på telefon.
 
 ## Galgenmännchen (`challenges/galgenmaennchen/`)
 

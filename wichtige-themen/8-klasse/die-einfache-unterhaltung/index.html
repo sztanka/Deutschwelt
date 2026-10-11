@@ -21,6 +21,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Die einfache Unterhaltung · Wichtige Themen · Deutschwelt</title>
 <link rel="stylesheet" href="../../../assets/style.css">
+<link rel="stylesheet" href="../../../assets/wortsuche.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
@@ -222,6 +223,16 @@
     <div id="dw-quiz"></div>
     <div id="dw-quiz-score"></div>
   </div>
+
+  <!-- dw-wortsuche -->
+  <div class="dw-section" id="ordsok">
+    <h2>🔎 Ordsøk: finn temaordene</h2>
+    <p class="dw-note">Finn de tyske ordene i rutenettet. Lista viser norsk betydning og antall bokstaver, og du velger selv hvor vanskelig det skal være. Når du har funnet alle ordene, kan du stokke om brettet og spille på nytt med nye ord fra samme tema.</p>
+    <div id="dw-ws"></div>
+    <script src="../../../assets/wortsuche.js"></script>
+    <script>DWWortsuche.themeWidget('dw-ws',[["Zimmer","das","rom"],["Hobby","das","hobby"],["Alter","das","alder"],["Name","der","navn"],["Stadt","die","by"],["Schule","die","skole"],["Klasse","die","klasse"],["Freund","der","venn"],["Freundin","die","venninne"],["Nachbar","der","nabo"],["Lehrer","der","lærer"],["Lehrerin","die","lærerinne"],["Hausaufgabe","die","lekse"],["Wohnort","der","bosted"],["Begrüßung","die","hilsen"],["Frage","die","spørsmål"],["Antwort","die","svar"],["Mitschüler","der","medelev"],["Pause","die","pause"],["Heimat","die","hjemsted, hjemland"],["Sprache","die","språk"],["Unterhaltung","die","samtale"],["Geburtstag","der","fødselsdag"],["Jahre","pl","år"]],'🔎 Die einfache Unterhaltung');</script>
+  </div>
+<!-- /dw-wortsuche -->
 
   <div class="dw-section">
     <h2>💭 Deine eigene Unterhaltung</h2>

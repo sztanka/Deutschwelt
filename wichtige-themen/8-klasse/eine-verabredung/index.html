@@ -15,6 +15,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eine Verabredung · Wichtige Themen · Deutschwelt</title>
 <link rel="stylesheet" href="../../../assets/style.css">
+<link rel="stylesheet" href="../../../assets/wortsuche.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
@@ -210,6 +211,16 @@
     <div id="dw-quiz"></div>
     <div id="dw-quiz-score"></div>
   </div>
+
+  <!-- dw-wortsuche -->
+  <div class="dw-section" id="ordsok">
+    <h2>🔎 Ordsøk: finn temaordene</h2>
+    <p class="dw-note">Finn de tyske ordene i rutenettet. Lista viser norsk betydning og antall bokstaver, og du velger selv hvor vanskelig det skal være. Når du har funnet alle ordene, kan du stokke om brettet og spille på nytt med nye ord fra samme tema.</p>
+    <div id="dw-ws"></div>
+    <script src="../../../assets/wortsuche.js"></script>
+    <script>DWWortsuche.themeWidget('dw-ws',[["Verabredung","die","avtale, date"],["Kino","das","kino"],["Treffpunkt","der","møtested"],["Uhrzeit","die","klokkeslett"],["Samstag","der","lørdag"],["Sonntag","der","søndag"],["Wochenende","das","helg"],["Film","der","film"],["Park","der","park"],["Bahnhof","der","togstasjon"],["Haltestelle","die","holdeplass"],["Einladung","die","invitasjon"],["Karte","die","billett"],["Spaziergang","der","spasertur"],["Spiel","das","spill"],["Konzert","das","konsert"],["Schwimmbad","das","svømmehall"],["Zeit","die","tid"],["Vorschlag","der","forslag"],["Nachmittag","der","ettermiddag"],["Verspätung","die","forsinkelse"],["Freundin","die","venninne"],["Pizza","die","pizza"],["Eintritt","der","inngang, inngangspenger"]],'🔎 Eine Verabredung');</script>
+  </div>
+<!-- /dw-wortsuche -->
 
   <div class="dw-section">
     <h2>💭 Deine eigene Verabredung</h2>

@@ -1,0 +1,64 @@
+/* Deutschwelt – Wortsuche (ordsøk): delt stil for Challenge-siden og Wichtige Themen. Kilde: wortsuche-work/ */
+.ws-panel{background:var(--dw-card,#fff);border-radius:var(--dw-radius,14px);padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin:0 0 16px;}
+.ws-label{font-weight:700;font-size:.85rem;color:var(--dw-muted,#6b6b6b);margin:12px 0 6px;display:block;}
+.ws-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.ws-chip{font-family:inherit;font-size:.9rem;font-weight:700;padding:8px 16px;border-radius:999px;border:2px solid #e4dfd2;background:#fff;color:var(--dw-text,#222);cursor:pointer;}
+.ws-chip:hover{border-color:var(--dw-accent,#c9a227);}
+.ws-chip[aria-pressed="true"]{background:var(--dw-primary,#7b1e3a);border-color:var(--dw-primary,#7b1e3a);color:#fff;}
+.ws-chip:focus-visible,.ws-btn:focus-visible,.ws-c:focus-visible{outline:3px solid var(--dw-accent,#c9a227);outline-offset:2px;}
+.ws-desc{font-size:.85rem;color:var(--dw-muted,#6b6b6b);margin:8px 0 0;}
+.ws-btn{font-family:inherit;font-weight:700;font-size:.95rem;padding:10px 20px;border-radius:999px;border:2px solid var(--dw-primary-light,#9b2c4d);background:var(--dw-primary-light,#9b2c4d);color:#fff;cursor:pointer;}
+.ws-btn.alt{background:#fff;color:var(--dw-primary-light,#9b2c4d);}
+.ws-btn:hover{filter:brightness(1.08);}
+.ws-btn:disabled{opacity:.45;cursor:default;filter:none;}
+.ws-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center;}
+.ws-game{--ws-n:10;--wc:min(42px,calc((100vw - 76px - (var(--ws-n) - 1) * 2px) / var(--ws-n)));}
+.ws-top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:.85rem;font-weight:700;color:var(--dw-muted,#6b6b6b);margin-bottom:6px;}
+.ws-info{font-size:.88rem;color:var(--dw-muted,#6b6b6b);margin:0 0 10px;}
+.ws-layout{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start;justify-content:center;}
+.ws-gridwrap{flex:0 0 auto;max-width:100%;}
+.ws-grid{display:grid;grid-template-columns:repeat(var(--ws-n),var(--wc));gap:2px;touch-action:none;user-select:none;-webkit-user-select:none;margin:0 auto;width:max-content;max-width:100%;}
+.ws-c{width:var(--wc);height:var(--wc);display:flex;align-items:center;justify-content:center;font-family:inherit;font-size:calc(var(--wc)*.52);font-weight:800;border:1px solid #d9e0ec;border-radius:6px;background:#fff;color:var(--dw-text,#222);padding:0;cursor:pointer;touch-action:none;}
+.ws-c.ws-pre{background:#ffe9a8;border-color:#d9a91c;}
+.ws-c.ws-st{background:#ffd34e;border-color:#b98500;box-shadow:0 0 0 2px rgba(185,133,0,.5);}
+.ws-c.ws-hint{animation:wspulse .6s 3;border-color:#1c7ed6;box-shadow:0 0 0 3px rgba(28,126,214,.5);}
+.ws-c.ws-f{background:var(--fc);border-color:var(--fb);}
+.ws-c.ws-gave{box-shadow:inset 0 0 0 2px #888;}
+@keyframes wspulse{0%{transform:scale(1)}50%{transform:scale(1.18)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.ws-c.ws-hint{animation:none;}}
+.ws-side{flex:1 1 220px;min-width:200px;max-width:340px;}
+.ws-side h3{margin:0 0 6px;font-size:1rem;}
+.ws-list{list-style:none;margin:0;padding:0;font-size:.92rem;}
+.ws-w{display:flex;gap:8px;align-items:baseline;padding:4px 0;border-bottom:1px solid #f0ece2;}
+.ws-sw{flex:0 0 12px;width:12px;height:12px;border-radius:50%;border:2px solid #cfc7b2;background:#fff;align-self:center;}
+.ws-w.ws-ok .ws-sw{border-color:var(--fb);background:var(--fc);}
+.ws-w.ws-ok .ws-no{text-decoration:line-through;color:var(--dw-muted,#6b6b6b);}
+.ws-w.ws-ok b{color:var(--dw-primary-light,#9b2c4d);}
+.ws-n{font-size:.78rem;color:var(--dw-muted,#6b6b6b);}
+.ws-de{font-weight:800;color:var(--dw-primary-light,#9b2c4d);}
+.ws-opt{display:flex;gap:8px;align-items:center;font-size:.85rem;margin:8px 0 0;}
+.ws-opt input{width:18px;height:18px;}
+.ws-msg{min-height:1.6em;text-align:center;font-weight:700;color:var(--dw-muted,#6b6b6b);margin:8px 0 0;font-size:.92rem;}
+.ws-result{border-radius:14px;padding:14px 16px;margin:12px auto;max-width:560px;border:2px solid #2e7d32;background:#e4f4e4;text-align:center;}
+.ws-result.gave{border-color:#9a7b2c;background:#fbf3dc;}
+.ws-result h3{margin:0 0 8px;font-size:1.1rem;}
+.ws-result table{margin:8px auto 4px;border-collapse:collapse;text-align:left;font-size:.95rem;}
+.ws-result td{padding:4px 10px;border-bottom:1px solid #cfe6cf;}
+.ws-result td:first-child{font-weight:800;color:var(--dw-primary-light,#9b2c4d);}
+.ws-share{width:100%;max-width:560px;display:block;margin:10px auto 0;font-family:monospace;font-size:.85rem;border-radius:10px;border:1.5px solid #cfd8e6;padding:8px;min-height:70px;background:#fff;}
+.ws-listtable{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:8px;}
+.ws-listtable th,.ws-listtable td{text-align:left;padding:5px 8px;border-bottom:1px solid #ece8df;}
+.ws-listtable th{background:#f6f3ec;position:sticky;top:0;}
+.ws-listwrap{max-height:360px;overflow:auto;border:1px solid #ece8df;border-radius:10px;}
+.ws-f0{--fc:#ffd1d1;--fb:#e57373;}
+.ws-f1{--fc:#cfe4ff;--fb:#64a0e8;}
+.ws-f2{--fc:#d5f0c9;--fb:#6dbb55;}
+.ws-f3{--fc:#fff0b0;--fb:#d9b72c;}
+.ws-f4{--fc:#e4d4ff;--fb:#9a73d6;}
+.ws-f5{--fc:#ffd4ea;--fb:#e06fa6;}
+.ws-f6{--fc:#c7f0ec;--fb:#4fb8ae;}
+.ws-f7{--fc:#ffdcbc;--fb:#e69a50;}
+.ws-f8{--fc:#dcdcdc;--fb:#8f8f8f;}
+.ws-f9{--fc:#e9f0b5;--fb:#a3b52e;}
+
+.ws-embed .ws-panel{box-shadow:none;border:1px solid #ece8df;background:#fbf9f4;}
