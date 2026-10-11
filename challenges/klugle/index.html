@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Challenges: "Klugle" (challenges/klugle/)
+  Bokstav-bytte-spill (inspirert av Smartle): R x L rutenett, bytt to bokstaver om gangen til hver rad er et ord.
+  Tre nivåer (3x4, 4x5, 5x6), fire kategorier, dagens brett + trening, norsk hint per rad, teller bytter og tid.
+  Ordliste: woertle-work/words.py. Kilde: klugle-work/ (build_klugle.py, kl_js.py).
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Klugle · Challenges · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:860px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+  .dw-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .dw-jump a{font-size:.86rem;font-weight:700;padding:7px 15px;border-radius:999px;text-decoration:none;background:#fff;border:1.5px solid #e4dfd2;color:var(--dw-text);}
+  .dw-jump a:hover{border-color:var(--dw-primary-light);color:var(--dw-primary-light);}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:32px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul{margin:6px 0 10px;padding-left:20px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t tbody th{background:#fbfaf6;font-size:.84rem;color:var(--dw-muted);white-space:nowrap;}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t td.dw-hl{background:#fff3cf;}
+  .dw-t td.dw-c{text-align:center;}
+  .dw-t td.dw-x{color:#aaa;text-align:center;}
+  .dw-t tr.dw-grp td,.dw-t tr.dw-grp th{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:14px 0;}
+  a.dw-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px;text-decoration:none;color:var(--dw-text);box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;gap:6px;}
+  a.dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  a.dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  a.dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
+
+  /* Øvelser */
+  .dw-ex-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+  .dw-ex-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:8px;}
+  .dw-ex-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:16px;}
+  .dw-ex-fill{height:100%;width:0;background:var(--dw-good);transition:width .25s ease;}
+  .dw-ex-cue{font-size:.88rem;color:var(--dw-muted);margin-bottom:4px;}
+  .dw-ex-sent{font-size:1.3rem;font-weight:600;color:var(--dw-primary);line-height:1.5;margin:2px 0 18px;}
+  .dw-ex-sent .dw-blank{display:inline-block;min-width:2.6em;border-bottom:3px solid var(--dw-accent);text-align:center;}
+  .dw-ex-sent .dw-blank.dw-filled{color:var(--dw-good);border-color:var(--dw-good);}
+  .dw-ex-sent .dw-blank.dw-filled.dw-bad{color:var(--dw-bad);border-color:var(--dw-bad);}
+  .dw-ex-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .dw-ex-choice{flex:1 1 110px;max-width:170px;padding:12px 8px;font-family:inherit;font-size:1.1rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;transition:all .15s ease;}
+  .dw-ex-choice:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .dw-ex-choice:disabled{cursor:default;opacity:.55;}
+  .dw-ex-choice.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .dw-ex-choice.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .dw-ex-choice:focus-visible,.dw-ex-btn:focus-visible,.dw-ex-hintbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-ex-hintbtn{background:none;border:none;color:var(--dw-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:.85rem;padding:0;margin-bottom:8px;}
+  .dw-ex-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:10px 14px;margin:6px 0 14px;background:#f4f1e8;}
+  .dw-ex-fb.dw-show{display:block;}
+  .dw-ex-fb.dw-good{background:#eef7ee;color:#1f5d23;}
+  .dw-ex-fb.dw-bad{background:#fdecee;color:#8c1d1d;}
+  .dw-ex-btn{font-family:inherit;background:var(--dw-primary);color:#fff;border:none;padding:11px 26px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .dw-ex-btn:hover{background:var(--dw-primary-light);}
+  .dw-ex-btn.dw-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .dw-ex-result{display:none;text-align:center;}
+  .dw-ex-result.dw-show{display:block;}
+  .dw-ex-score{font-size:2.4rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .dw-ex-review{text-align:left;background:#f4f1e8;border-radius:12px;padding:12px 18px;margin:14px 0;font-size:.9rem;}
+  .dw-ex-review li{margin-bottom:6px;}
+  @media(max-width:560px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .dw-ex-sent{font-size:1.12rem;}
+  }
+
+  .kl-panel{background:var(--dw-card);border-radius:var(--dw-radius);padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:16px;}
+  .kl-label{font-weight:700;font-size:.85rem;color:var(--dw-muted);margin:12px 0 6px;display:block;}
+  .kl-chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .kl-chip{font-family:inherit;font-size:.9rem;font-weight:700;padding:8px 16px;border-radius:999px;border:2px solid #e4dfd2;background:#fff;color:var(--dw-text);cursor:pointer;}
+  .kl-chip:hover{border-color:var(--dw-accent);}
+  .kl-chip[aria-pressed="true"]{background:var(--dw-primary);border-color:var(--dw-primary);color:#fff;}
+  .kl-chip:focus-visible,.kl-btn:focus-visible,.kl-tile:focus-visible,.kl-hbtn:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .kl-desc{font-size:.85rem;color:var(--dw-muted);margin:8px 0 0;}
+  .kl-opt{display:flex;gap:8px;align-items:center;font-size:.9rem;margin:6px 0;}
+  .kl-opt input{width:18px;height:18px;}
+  .kl-btn{font-family:inherit;font-weight:700;font-size:.95rem;padding:10px 20px;border-radius:999px;border:2px solid var(--dw-primary-light);background:var(--dw-primary-light);color:#fff;cursor:pointer;}
+  .kl-btn.alt{background:#fff;color:var(--dw-primary-light);}
+  .kl-btn:hover{filter:brightness(1.08);}
+  .kl-btn:disabled{opacity:.45;cursor:default;filter:none;}
+  .kl-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center;}
+  .kl-game{--c-ok:#2e7d32;--c-near:#e3f2e3;--c-sel:#d9a91c;}
+  .kl-game.hc{--c-ok:#1c7ed6;--c-near:#e1eefb;}
+  .kl-top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:.85rem;font-weight:700;color:var(--dw-muted);margin-bottom:6px;}
+  .kl-info{font-size:.88rem;color:var(--dw-muted);margin:0 0 10px;}
+  .kl-board{display:flex;flex-direction:column;align-items:center;gap:12px;margin:10px 0 12px;touch-action:manipulation;}
+  .kl-rowwrap{display:flex;flex-direction:column;align-items:center;gap:4px;max-width:100%;}
+  .kl-hint{font-size:.85rem;color:#6b4300;background:#fdf3e0;border:1px solid #f0dca8;border-radius:999px;padding:3px 12px;text-align:center;max-width:100%;}
+  .kl-hint b{color:#4a2e00;}
+  .kl-hbtn{font-family:inherit;font-size:.82rem;font-weight:700;border:1.5px solid #e0c27a;background:#fff;color:#6b4300;border-radius:999px;padding:2px 10px;cursor:pointer;}
+  .kl-tag{font-size:.75rem;font-weight:700;color:var(--c-ok);}
+  .kl-row{display:grid;gap:6px;}
+  .kl-game{--ts:min(56px,calc((100vw - 64px - 30px) / 6));}
+  .kl-tile{width:var(--ts);height:var(--ts);display:flex;align-items:center;justify-content:center;font-family:inherit;font-size:calc(var(--ts)*.5);font-weight:800;border:2px solid #cfd8e6;border-radius:8px;background:#fff;color:var(--dw-text);cursor:grab;padding:0;user-select:none;-webkit-user-select:none;touch-action:none;transition:transform .12s,background .15s;}
+  .kl-game[data-n="4"]{--ts:min(64px,calc((100vw - 64px - 18px) / 4));}
+  .kl-game[data-n="5"]{--ts:min(60px,calc((100vw - 64px - 24px) / 5));}
+  .kl-game[data-n="6"]{--ts:min(56px,calc((100vw - 64px - 30px) / 6));}
+  .kl-tile:hover{border-color:var(--dw-accent);}
+  .kl-tile.near{background:var(--c-near);border-color:var(--c-ok);color:var(--c-ok);}
+  .kl-tile.solved{background:var(--c-ok);border-color:var(--c-ok);color:#fff;}
+  .kl-tile.sel{border-color:var(--c-sel);box-shadow:0 0 0 3px rgba(217,169,28,.45);transform:scale(1.08);}
+  .kl-tile.dragsrc{opacity:.35;}
+  .kl-tile.over{border-color:var(--c-sel);border-style:dashed;transform:scale(1.08);}
+  .kl-tile.pop{animation:klpop .25s;}
+  .kl-tile:disabled{cursor:default;}
+  .kl-ghost{position:fixed;z-index:9999;pointer-events:none;width:52px;height:52px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:800;border-radius:8px;background:var(--dw-accent);color:#fff;box-shadow:0 6px 16px rgba(0,0,0,.3);transform:translate(-50%,-50%);}
+  @keyframes klpop{0%{transform:scale(1.18)}100%{transform:scale(1)}}
+  @media (prefers-reduced-motion:reduce){.kl-tile,.kl-tile.pop{animation:none;transition:none;}}
+  .kl-msg{min-height:1.6em;text-align:center;font-weight:700;color:var(--dw-muted);margin:0 0 6px;font-size:.92rem;}
+  .kl-result{border-radius:14px;padding:14px 16px;margin:12px auto;max-width:560px;border:2px solid #2e7d32;background:#e4f4e4;text-align:center;}
+  .kl-result h3{margin:0 0 8px;font-size:1.1rem;}
+  .kl-result table{margin:8px auto 4px;border-collapse:collapse;text-align:left;font-size:.95rem;}
+  .kl-result td{padding:4px 10px;border-bottom:1px solid #cfe6cf;}
+  .kl-result td:first-child{font-weight:800;color:var(--dw-primary-light);}
+  .kl-share{width:100%;max-width:560px;display:block;margin:10px auto 0;font-family:monospace;font-size:.85rem;border-radius:10px;border:1.5px solid #cfd8e6;padding:8px;min-height:110px;background:#fff;}
+  .kl-ex{display:flex;gap:5px;margin:8px 0;}
+  .kl-ex .kl-tile{width:40px;height:40px;font-size:1.15rem;cursor:default;}
+  .kl-list{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:8px;}
+  .kl-list th,.kl-list td{text-align:left;padding:5px 8px;border-bottom:1px solid #ece8df;}
+  .kl-list th{background:#f6f3ec;position:sticky;top:0;}
+  .kl-listwrap{max-height:360px;overflow:auto;border:1px solid #ece8df;border-radius:10px;}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link dw-nav-active" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div class="dw-header">
+    <h1>🧩 Klugle</h1>
+    <p>Bytt om på bokstavene til hver rad blir et tysk ord – med tre nivåer og fire kategorier</p>
+  </div>
+
+  <p class="dw-crumb"><a href="../">🏆 Challenges</a> → Klugle <span class="dw-level-tag">6.–10. trinn · A1–B1</span></p>
+
+  <div class="dw-jump"><a href="#spill">🎮 Spill</a><a href="#regler">❓ Slik spiller du</a><a href="#ordliste">📚 Ordliste</a></div>
+
+  <h2 class="dw-sec-title" id="spill">🎮 Velg og spill</h2>
+  <div class="kl-panel" id="kl-setup">
+    <span class="kl-label" style="margin-top:0">1. Nivå</span>
+    <div class="kl-chips" role="group" aria-label="Nivå">
+      <button type="button" class="kl-chip" data-lv="easy" aria-pressed="false">🟢 Lett · 3 rader × 4 bokstaver</button>
+      <button type="button" class="kl-chip" data-lv="mid" aria-pressed="true">🟡 Middels · 4 rader × 5 bokstaver</button>
+      <button type="button" class="kl-chip" data-lv="hard" aria-pressed="false">🔴 Vanskelig · 5 rader × 6 bokstaver</button>
+    </div>
+    <p class="kl-desc" id="kl-desc"></p>
+    <span class="kl-label">2. Kategori</span>
+    <div class="kl-chips" role="group" aria-label="Kategori">
+      <button type="button" class="kl-chip" data-cat="a" aria-pressed="true">🎲 Allmenne ord</button>
+      <button type="button" class="kl-chip" data-cat="m" aria-pressed="false">🍎 Mat og drikke</button>
+      <button type="button" class="kl-chip" data-cat="d" aria-pressed="false">🦊 Dyr og natur</button>
+      <button type="button" class="kl-chip" data-cat="s" aria-pressed="false">🎒 Skole, hverdag og reise</button>
+    </div>
+    <span class="kl-label">3. Oppgave</span>
+    <div class="kl-chips" role="group" aria-label="Oppgave">
+      <button type="button" class="kl-chip" data-task="daily" aria-pressed="true">📅 Dagens brett</button>
+      <button type="button" class="kl-chip" data-task="training" aria-pressed="false">🎲 Trening</button>
+    </div>
+    <label class="kl-opt" style="margin-top:12px"><input type="checkbox" id="kl-hc"> Fargeblind-vennlige farger (blått i stedet for grønt)</label>
+    <div class="kl-btns"><button type="button" class="kl-btn" id="kl-start">▶ Start</button></div>
+  </div>
+
+  <div id="kl-game" class="kl-game" aria-live="off"></div>
+
+  <h2 class="dw-sec-title" id="regler">❓ Slik spiller du</h2>
+  <div class="dw-exp">
+    <p>Brettet består av flere rader med bokstaver, men bokstavene er blandet sammen på tvers av radene. <b>Bytt plass på to bokstaver om gangen</b> til hver rad er et ekte tysk ord. Hver rad har et norsk hint som sier hva ordet betyr.</p>
+    <p>Eksempel på en rad som er riktig (alle bokstavene lyser grønt):</p>
+    <div class="kl-ex"><button type="button" class="kl-tile solved" tabindex="-1" aria-hidden="true">H</button><button type="button" class="kl-tile solved" tabindex="-1" aria-hidden="true">A</button><button type="button" class="kl-tile solved" tabindex="-1" aria-hidden="true">U</button><button type="button" class="kl-tile solved" tabindex="-1" aria-hidden="true">S</button></div>
+    <ul>
+      <li><b>Bytte:</b> Trykk på én bokstav og så på en annen, så bytter de plass. Du kan også dra en bokstav og slippe den på en annen. Med tastatur: piltaster for å flytte, Enter eller mellomrom for å velge og bytte.</li>
+      <li><b>Nivåene:</b> Lett (3 rader à 4 bokstaver) viser også svakt grønt på bokstaver som allerede står riktig. Middels (4 × 5) viser bare når en hel rad er ferdig. Vanskelig (5 × 6) skjuler det norske hintet bak en 💡-knapp.</li>
+      <li><b>Flere løsninger:</b> Alle ord i Deutschwelts ordliste med riktig lengde teller, ikke bare det hintet peker på. Da markeres raden «gyldig ord».</li>
+      <li><b>Kategoriene:</b> Allmenne ord er en blanding av alle (også verb og adjektiv). De andre gir ord fra ett tema.</li>
+      <li><b>ä, ö, ü, ß</b> er egne bokstaver og må stå riktig plassert.</li>
+      <li><b>Teller:</b> Spillet teller antall bytter og tiden (starter ved første bytte). Prøv å bruke så få bytter som mulig! Du kan angre, blande på nytt eller få flyttet én bokstav på plass med 💡 (da noteres det i resultatet).</li>
+      <li><b>Dagens brett</b> er likt for alle som velger samme nivå og kategori samme dag. Bruk «Kopier resultatet» til å sammenligne uten å røpe ordene.</li>
+      <li>Når brettet er løst, får du alle ordene med <b>der/die/das</b> og norsk betydning, så du lærer noe nytt hver gang.</li>
+    </ul>
+    <div class="dw-tip">💡 <b>Lærertips:</b> La elevene spille «Dagens brett» i par og diskutere hvilken bokstav som hører hvor. Velg en kategori som passer til temaet dere jobber med. «Ordliste» under kan brukes som oppvarming, men den røper svarene.</div>
+    <p class="dw-note" style="font-size:.85rem">Spillet er inspirert av ordspill der man bytter om bokstaver i et rutenett. Ordene er hentet fra nettstedets egen ordliste på rundt 497 ord. Siden husker ingenting mellom besøk.</p>
+  </div>
+
+  <h2 class="dw-sec-title" id="ordliste">📚 Ordliste: lær ordene først</h2>
+  <div class="dw-exp">
+    <details>
+      <summary><b>Vis de <span id="kl-listcount">0</span> ordene for valgt nivå og kategori</b> (røper svarene)</summary>
+      <div class="kl-listwrap"><table class="kl-list"><thead><tr><th>Ord</th><th>Kjønn</th><th>Norsk</th></tr></thead><tbody id="kl-listbody"></tbody></table></div>
+    </details>
+    <span id="kl-n" hidden></span>
+    <p class="dw-see-also"><strong>Se også:</strong> <a href="../woertle/">Wörtle</a> · <a href="../laender-raetsel/">Länder-Rätsel</a> · <a href="../wortschatz-jagd/">Wortschatz-Jagd</a> · <a href="../../ordbok/">Ordbok</a></p>
+  </div>
+  <script type="application/json" id="kl-data">{"ans":{"4":{"m":[["Brot","das","brød"],["Reis","der","ris"],["Käse","der","ost"],["Salz","das","salt"],["Obst","das","frukt"],["Kohl","der","kål"],["Nuss","die","nøtt"],["Saft","der","juice, saft"],["Mehl","das","mel"],["Pilz","der","sopp"],["Brei","der","grøt"],["Keks","der","kjeks"],["Fett","das","fett"],["Mais","der","mais"],["Zimt","der","kanel"],["Lamm","das","lam"],["Pute","die","kalkun"],["Dose","die","boks"],["Tofu","der","tofu"],["Senf","der","sennep"],["Kiwi","die","kiwi"],["Cola","die","cola"],["Rind","das","storfe, oksekjøtt"]],"d":[["Hund","der","hund"],["Maus","die","mus"],["Wolf","der","ulv"],["Esel","der","esel"],["Hase","der","hare"],["Igel","der","pinnsvin"],["Gans","die","gås"],["Ente","die","and"],["Fell","das","pels"],["Wald","der","skog"],["Baum","der","tre"],["Berg","der","fjell, berg"],["Meer","das","hav"],["Wind","der","vind"],["Sand","der","sand"],["Mond","der","måne"],["Rose","die","rose"],["Gras","das","gress"],["Tier","das","dyr"],["Nest","das","rede"],["Moos","das","mose"],["Fels","der","fjell, klippe"],["Bach","der","bekk"],["Luft","die","luft"],["Erde","die","jord"],["Eule","die","ugle"],["Wurm","der","mark, orm (liten)"],["Löwe","der","løve"],["Affe","der","ape"],["Hahn","der","hane"],["Huhn","das","høne"],["Möwe","die","måke"],["Ufer","das","bredd"],["Lama","das","lama"],["Rabe","der","ravn"],["Pfau","der","påfugl"],["Elch","der","elg"],["Düne","die","sanddyne"]],"s":[["Buch","das","bok"],["Heft","das","hefte"],["Pult","das","kateter, pult"],["Test","der","prøve"],["Note","die","karakter"],["Fach","das","fag"],["Haus","das","hus"],["Bett","das","seng"],["Auto","das","bil"],["Bahn","die","tog, bane"],["Flug","der","flyvning"],["Stau","der","kø"],["Ziel","das","mål"],["Hand","die","hånd"],["Kopf","der","hode"],["Bein","das","bein"],["Haar","das","hår"],["Mund","der","munn"],["Nase","die","nese"],["Auge","das","øye"],["Zahn","der","tann"],["Hals","der","hals"],["Zeit","die","tid"],["Jahr","das","år"],["Name","der","navn"],["Lied","das","sang"],["Gast","der","gjest"],["Geld","das","penger"],["Kind","das","barn"],["Frau","die","kvinne"],["Mann","der","mann"],["Hose","die","bukse"],["Rock","der","skjørt"],["Hemd","das","skjorte"],["Mode","die","mote"],["Post","die","post"],["Ball","der","ball"],["Lust","die","lyst"],["Zelt","das","telt"],["Dorf","das","landsby"],["Land","das","land"],["Glas","das","glass"],["Wand","die","vegg"],["Dach","das","tak"],["Raum","der","rom"],["Sofa","das","sofa"],["Arzt","der","lege"],["Foto","das","foto"],["Knie","das","kne"],["Sohn","der","sønn"],["Baby","das","baby"],["Taxi","das","drosje"],["Boot","das","båt"],["Zoll","der","toll"],["Pass","der","pass"]],"g":[["Welt","die","verden"],["Idee","die","idé"],["Wahl","die","valg"],["Sinn","der","mening, sans"],["Ruhe","die","ro"],["Ende","das","slutt"],["Fest","das","fest"],["Tanz","der","dans"],["Film","der","film"],["Chor","der","kor"],["Bild","das","bilde"],["Zahl","die","tall"],["Wort","das","ord"],["Satz","der","setning"],["Text","der","tekst"],["Spur","die","spor"],["Rand","der","kant"],["Ecke","die","hjørne"],["Form","die","form"],["Witz","der","vits"],["bald","adv","snart"],["gern","adv","gjerne"],["sehr","adv","veldig"],["noch","adv","ennå"],["auch","adv","også"],["nach","prep","etter, til"],["weil","konj","fordi"],["aber","konj","men"],["oder","konj","eller"],["dann","adv","så, da"],["wann","adv","når"],["viel","adj","mye"],["alle","pron","alle"],["klug","adj","klok"],["laut","adj","høy (om lyd)"],["leer","adj","tom"],["kalt","adj","kald"],["warm","adj","varm"],["jung","adj","ung"],["gelb","adj","gul"],["blau","adj","blå"],["grün","adj","grønn"],["grau","adj","grå"],["rund","adj","rund"],["kurz","adj","kort"],["lang","adj","lang"],["dick","adj","tykk"],["dünn","adj","tynn"],["tief","adj","dyp"],["hoch","adj","høy"],["weit","adj","vid, langt"],["fern","adj","fjern"],["froh","adj","glad"],["müde","adj","trett"],["satt","adj","mett"],["hell","adj","lys"],["voll","adj","full"],["frei","adj","fri"],["bunt","adj","fargerik"],["echt","adj","ekte"],["lieb","adj","snill, kjær"],["nett","adj","hyggelig"],["ganz","adj","hel"],["sein","v","være"]]},"5":{"m":[["Milch","die","melk"],["Wurst","die","pølse"],["Fisch","der","fisk"],["Sahne","die","fløte"],["Suppe","die","suppe"],["Torte","die","bløtkake, tårte"],["Möhre","die","gulrot"],["Gurke","die","agurk"],["Bohne","die","bønne"],["Erbse","die","ert"],["Quark","der","kvarg"],["Lauch","der","purre"],["Salat","der","salat"],["Honig","der","honning"],["Apfel","der","eple"],["Birne","die","pære"],["Pizza","die","pizza"],["Nudel","die","nudel, pasta"],["Kakao","der","kakao"],["Mango","die","mango"],["Beere","die","bær"],["Essig","der","eddik"],["Steak","das","biff"],["Speck","der","flesk"],["Curry","der","karri"],["Hafer","der","havre"],["Lachs","der","laks"],["Müsli","das","müsli"],["Brühe","die","buljong"],["Sirup","der","sirup"],["Chips","pl","chips"]],"d":[["Katze","die","katt"],["Pferd","das","hest"],["Vogel","der","fugl"],["Fuchs","der","rev"],["Biene","die","bie"],["Adler","der","ørn"],["Käfer","der","bille"],["Mücke","die","mygg"],["Tiger","der","tiger"],["Schaf","das","sau"],["Ziege","die","geit"],["Wolke","die","sky"],["Sonne","die","sol"],["Stern","der","stjerne"],["Regen","der","regn"],["Sturm","der","storm"],["Nebel","der","tåke"],["Blume","die","blomst"],["Blatt","das","blad"],["Fluss","der","elv"],["Teich","der","dam, tjern"],["Wiese","die","eng"],["Welle","die","bølge"],["Küste","die","kyst"],["Hecht","der","gjedde"],["Dachs","der","grevling"],["Robbe","die","sel"],["Krähe","die","kråke"],["Falke","der","falk"],["Busch","der","busk"],["Sumpf","der","myr"],["Tanne","die","gran"],["Eiche","die","eik"],["Birke","die","bjørk"],["Buche","die","bøk"],["Frost","der","frost"],["Blitz","der","lyn"],["Hagel","der","hagl"],["Wespe","die","veps"],["Raupe","die","larve (av sommerfugl)"],["Amsel","die","svarttrost"],["Fasan","der","fasan"],["Kamel","das","kamel"],["Zebra","das","sebra"],["Panda","der","panda"],["Koala","der","koala"],["Taube","die","due"],["Biber","der","bever"],["Otter","der","oter"],["Luchs","der","gaupe"],["Wüste","die","ørken"],["Stein","der","stein"],["Hügel","der","haug"],["Orkan","der","orkan"],["Ratte","die","rotte"],["Krebs","der","krabbe, kreps"],["Kröte","die","padde"],["Gämse","die","gemse"]],"s":[["Stift","der","penn"],["Tafel","die","tavle"],["Pause","die","pause"],["Reise","die","reise"],["Spiel","das","spill, lek"],["Woche","die","uke"],["Vater","der","far"],["Tante","die","tante"],["Onkel","der","onkel"],["Schuh","der","sko"],["Mütze","die","lue"],["Jacke","die","jakke"],["Kleid","das","kjole"],["Hotel","das","hotell"],["Stadt","die","by"],["Insel","die","øy"],["Karte","die","kort, kart"],["Gabel","die","gaffel"],["Tasse","die","kopp"],["Tisch","der","bord"],["Stuhl","der","stol"],["Brief","der","brev"],["Bauch","der","mage"],["Küche","die","kjøkken"],["Platz","der","plass"],["Markt","der","marked"],["Gleis","das","spor (jernbane)"],["Fahrt","die","tur, reise"],["Fähre","die","ferge"],["Motor","der","motor"],["Frage","die","spørsmål"],["Thema","das","tema"],["Übung","die","øvelse"],["Radio","das","radio"],["Handy","das","mobiltelefon"],["Enkel","der","barnebarn"],["Socke","die","sokk"],["Schal","der","skjerf"],["Mappe","die","mappe"],["Lampe","die","lampe"],["Regal","das","hylle"],["Decke","die","teppe, tak"],["Hafen","der","havn"],["Kasse","die","kasse"]],"g":[["Leben","das","liv"],["Traum","der","drøm"],["Kraft","die","kraft"],["Mitte","die","midten"],["Seite","die","side"],["Farbe","die","farge"],["Licht","das","lys"],["Feuer","das","ild"],["Glück","das","lykke, flaks"],["Angst","die","redsel"],["Liebe","die","kjærlighet"],["Sorge","die","bekymring"],["Krieg","der","krig"],["Macht","die","makt"],["Recht","das","rett"],["Preis","der","pris"],["Stolz","der","stolthet"],["Leute","pl","folk"],["heute","adv","i dag"],["immer","adv","alltid"],["nicht","adv","ikke"],["schon","adv","allerede"],["genug","adv","nok"],["etwas","pron","noe"],["jetzt","adv","nå"],["schön","adj","pen, fin"],["klein","adj","liten"],["stark","adj","sterk"],["leise","adj","stille, svak (om lyd)"],["gehen","v","gå"],["essen","v","spise"],["sagen","v","si"],["haben","v","ha"],["sehen","v","se"],["lesen","v","lese"],["hören","v","høre"],["bauen","v","bygge"],["malen","v","male"],["reden","v","snakke"],["rufen","v","rope"],["baden","v","bade"],["lügen","v","lyve"],["Beruf","der","yrke"],["Natur","die","natur"],["Musik","die","musikk"],["Sport","der","idrett"],["geben","v","gi"],["mögen","v","like"],["legen","v","legge"],["mutig","adj","modig"],["ruhig","adj","rolig"]]},"6":{"m":[["Kuchen","der","kake"],["Wasser","das","vann"],["Zucker","der","sukker"],["Gemüse","das","grønnsaker"],["Butter","die","smør"],["Brezel","die","saltkringle"],["Semmel","die","rundstykke (sørtysk)"],["Traube","die","drue"],["Tomate","die","tomat"],["Kaffee","der","kaffe"],["Salami","die","salami"],["Dattel","die","daddel"],["Roggen","der","rug"],["Krabbe","die","reke, krabbe"],["Gebäck","das","bakverk"],["Pommes","pl","pommes frites"],["Frucht","die","frukt"],["Bonbon","das","drops, godteri"],["Waffel","die","vaffel"],["Gewürz","das","krydder"],["Kümmel","der","karve"],["Ananas","die","ananas"],["Banane","die","banan"],["Orange","die","appelsin"],["Melone","die","melon"],["Mandel","die","mandel"],["Burger","der","burger"],["Knödel","der","melbolle, kloss"],["Braten","der","steik"]],"d":[["Frosch","der","frosk"],["Hirsch","der","hjort"],["Storch","der","stork"],["Spinne","die","edderkopp"],["Fliege","die","flue"],["Schnee","der","snø"],["Eisbär","der","isbjørn"],["Ameise","die","maur"],["Gipfel","der","topp"],["Strand","der","strand"],["Wetter","das","vær"],["Donner","der","torden"],["Wurzel","die","rot"],["Delfin","der","delfin"],["Hummel","die","humle"],["Qualle","die","manet"],["Specht","der","hakkespett"],["Marder","der","mår"],["Wiesel","das","røyskatt"],["Himmel","der","himmel"],["Sommer","der","sommer"],["Winter","der","vinter"],["Herbst","der","høst"],["Vulkan","der","vulkan"],["Lawine","die","skred"],["Schwan","der","svane"],["Hündin","die","tispe, hunnhund"],["Falter","der","sommerfugl"]],"s":[["Klasse","die","klasse"],["Brille","die","briller"],["Zimmer","das","rom, værelse"],["Koffer","der","koffert"],["Schiff","das","skip"],["Schule","die","skole"],["Papier","das","papir"],["Finger","der","finger"],["Rücken","der","rygg"],["Ferien","pl","ferie"],["Freund","der","venn"],["Lehrer","der","lærer"],["Bruder","der","bror"],["Tasche","die","veske, lomme"],["Teller","der","tallerken"],["Löffel","der","skje"],["Messer","das","kniv"],["Mutter","die","mor"],["Garten","der","hage"],["Kirche","die","kirke"],["Brücke","die","bro"],["Lineal","das","linjal"],["Schere","die","saks"],["Kleber","der","lim"],["Kreide","die","kritt"],["Pinsel","der","pensel"],["Wecker","der","vekkerklokke"],["Sessel","der","lenestol"],["Kissen","das","pute"],["Mantel","der","frakk"],["Ticket","das","billett"],["Gepäck","das","bagasje"],["Balkon","der","balkong"],["Eltern","pl","foreldre"],["Cousin","der","fetter"],["Bäcker","der","baker"]],"g":[["Mensch","der","menneske"],["Wunsch","der","ønske"],["Freude","die","glede"],["Gefühl","das","følelse"],["Fehler","der","feil"],["Gruppe","die","gruppe"],["Moment","der","øyeblikk"],["Kultur","die","kultur"],["Person","die","person"],["kommen","v","komme"],["machen","v","gjøre, lage"],["fahren","v","kjøre, reise"],["laufen","v","løpe, gå"],["singen","v","synge"],["sitzen","v","sitte"],["lernen","v","lære"],["lachen","v","le"],["denken","v","tenke"],["warten","v","vente"],["fragen","v","spørre"],["kaufen","v","kjøpe"],["tanzen","v","danse"],["kochen","v","lage mat, koke"],["sparen","v","spare"],["reisen","v","reise"],["suchen","v","lete"],["finden","v","finne"],["nehmen","v","ta"],["wissen","v","vite"],["wollen","v","ville"],["dürfen","v","få lov til"],["müssen","v","måtte"],["können","v","kunne"],["stehen","v","stå"],["liegen","v","ligge"],["rennen","v","løpe fort"],["fallen","v","falle"],["schwer","adj","tung, vanskelig"],["falsch","adj","feil"],["lustig","adj","morsom"]]}}}</script>
+
+</div>
+<script>
+(function(){
+'use strict';
+var D=JSON.parse(document.getElementById('kl-data').textContent);
+var ANS=D.ans,VALID={};
+[4,5,6].forEach(function(n){VALID[n]={};['m','d','s','g'].forEach(function(c){(ANS[n][c]||[]).forEach(function(a){VALID[n][a[0].toLowerCase()]=1;});});});
+var LV={easy:{n:4,R:3,name:'Lett',tiles:true,hint:'full'},mid:{n:5,R:4,name:'Middels',tiles:false,hint:'full'},hard:{n:6,R:5,name:'Vanskelig',tiles:false,hint:'pos'}};
+var CATSHORT={a:'Allmenne ord',m:'Mat og drikke',d:'Dyr og natur',s:'Skole, hverdag og reise'};
+var POS={der:'der (maskulin)',die:'die (feminin)',das:'das (nøytrum)',pl:'flertall',v:'verb',adj:'adjektiv',adv:'adverb',prep:'preposisjon',konj:'konjunksjon',pron:'pronomen'};
+var G={lv:'mid',cat:'a',task:'daily',hc:false};
+var STAT={played:0,won:0};
+var game=null,drag=null,suppress=false,timer=null;
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function up(c){return c==='ß'?'ß':c.toUpperCase();}
+function hash(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function todayStr(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);}
+function shuffle(a,rng){for(var i=a.length-1;i>0;i--){var j=Math.floor(rng()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function pool(lv,cat){
+  var n=LV[lv].n,out=[],cats=cat==='a'?['m','d','s','g']:[cat];
+  cats.forEach(function(c){(ANS[n][c]||[]).forEach(function(a){out.push([a[0],a[1],a[2],c]);});});
+  return out;
+}
+function fullWord(a){return (a[1]==='der'||a[1]==='die'||a[1]==='das')?a[1]+' '+a[0]:a[0];}
+function bt(n){return n+(n===1?' bytte':' bytter');}
+function fmt(s){return Math.floor(s/60)+':'+('0'+(s%60)).slice(-2);}
+
+/* ---------- Oppsett ---------- */
+function setPressed(attr,val){var els=document.querySelectorAll('['+attr+']');for(var i=0;i<els.length;i++)els[i].setAttribute('aria-pressed',els[i].getAttribute(attr)===val?'true':'false');}
+function syncSetup(){
+  setPressed('data-lv',G.lv);setPressed('data-cat',G.cat);setPressed('data-task',G.task);
+  var l=LV[G.lv];
+  $('kl-desc').textContent=l.name+': '+l.R+' rader med ord på '+l.n+' bokstaver. '+(l.tiles?'Riktig plasserte bokstaver lyser svakt grønt. ':'')+(l.hint==='pos'?'Det norske hintet må du åpne selv (💡). ':'Hver rad har et norsk hint. ')+(G.task==='daily'?'Dagens brett er likt for alle som velger samme nivå og kategori samme dag.':'Trening gir et nytt tilfeldig brett hver gang.');
+  $('kl-n').textContent=pool(G.lv,G.cat).length;
+  renderList();
+}
+function renderList(){
+  var p=pool(G.lv,G.cat).slice().sort(function(a,b){return a[0].localeCompare(b[0],'de');});
+  $('kl-listbody').innerHTML=p.map(function(a){return '<tr><td><b>'+esc(a[0])+'</b></td><td>'+(a[1]==='der'||a[1]==='die'||a[1]==='das'?a[1]:'')+'</td><td>'+esc(a[2])+'</td></tr>';}).join('');
+  $('kl-listcount').textContent=p.length;
+}
+document.addEventListener('click',function(e){
+  var t=e.target.closest('[data-lv],[data-cat],[data-task]');
+  if(t&&t.closest('#kl-setup')){
+    if(t.hasAttribute('data-lv'))G.lv=t.getAttribute('data-lv');
+    if(t.hasAttribute('data-cat'))G.cat=t.getAttribute('data-cat');
+    if(t.hasAttribute('data-task'))G.task=t.getAttribute('data-task');
+    syncSetup();
+  }
+});
+$('kl-hc').addEventListener('change',function(){G.hc=this.checked;var g=$('kl-game');if(g)g.classList.toggle('hc',G.hc);});
+$('kl-start').addEventListener('click',function(){this.blur();start();var g=$('kl-game');if(g.scrollIntoView)g.scrollIntoView({behavior:'smooth',block:'start'});});
+
+/* ---------- Brett ---------- */
+function rowStr(a,r,n){return a.slice(r*n,r*n+n).join('');}
+function makeBoard(words,n,rng){
+  var letters=[];words.forEach(function(w){letters=letters.concat(w.split(''));});
+  var lim=Math.ceil(letters.length*0.2),best=null,bestScore=1e9,R=words.length;
+  for(var t=0;t<400;t++){
+    var a=shuffle(letters.slice(),rng),match=0,valid=0,r;
+    for(var i=0;i<a.length;i++)if(a[i]===letters[i])match++;
+    for(r=0;r<R;r++)if(VALID[n][rowStr(a,r,n)])valid++;
+    var score=valid*100+Math.max(0,match-lim);
+    if(score<bestScore){bestScore=score;best=a;}
+    if(score===0)break;
+  }
+  return best;
+}
+function start(){
+  var l=LV[G.lv],p=pool(G.lv,G.cat);
+  var rng=G.task==='daily'?mulberry(hash(todayStr()+'|'+G.lv+'|'+G.cat)):Math.random;
+  var picks=shuffle(p.slice(),rng).slice(0,l.R);
+  var words=picks.map(function(a){return a[0].toLowerCase();});
+  var a=makeBoard(words,l.n,rng);
+  if(timer){clearInterval(timer);timer=null;}
+  game={lv:G.lv,cat:G.cat,task:G.task,n:l.n,R:l.R,picks:picks,words:words,a:a,init:a.slice(),sel:-1,focus:0,swaps:0,hints:0,hist:[],done:false,t0:0,secs:0,rev:{},msg:'',last:[]};
+  render();
+}
+function rowSolved(r){return !!VALID[game.n][rowStr(game.a,r,game.n)];}
+function allSolved(){for(var r=0;r<game.R;r++)if(!rowSolved(r))return false;return true;}
+function startTimer(){
+  if(game.t0||game.done)return;
+  game.t0=Date.now();
+  timer=setInterval(function(){game.secs=Math.round((Date.now()-game.t0)/1000);var e=$('kl-time');if(e)e.textContent=fmt(game.secs);},500);
+}
+function doSwap(i,j,record){
+  if(i===j||game.done)return;
+  startTimer();
+  var t=game.a[i];game.a[i]=game.a[j];game.a[j]=t;
+  if(record!==false){game.hist.push([i,j]);game.swaps++;}
+  game.sel=-1;game.focus=j;game.last=[i,j];
+  check();
+}
+function check(){
+  if(allSolved()){
+    game.done=true;if(timer){clearInterval(timer);timer=null;}
+    game.secs=game.t0?Math.round((Date.now()-game.t0)/1000):0;
+    STAT.played++;STAT.won++;game.msg='';
+  }
+  render();
+}
+function undo(){
+  if(game.done||!game.hist.length)return;
+  var h=game.hist.pop(),t=game.a[h[0]];game.a[h[0]]=game.a[h[1]];game.a[h[1]]=t;
+  game.swaps=Math.max(0,game.swaps-1);game.sel=-1;game.msg='↩ Siste bytte er angret.';game.last=[];render();
+}
+function help(){
+  if(game.done)return;
+  var n=game.n,a=game.a,R=game.R,r,c;
+  for(r=0;r<R;r++){
+    if(rowSolved(r))continue;
+    for(c=0;c<n;c++){
+      var i=r*n+c,want=game.words[r].charAt(c);
+      if(a[i]===want)continue;
+      var j=-1,k,k2;
+      for(k=0;k<a.length&&j<0;k++){
+        if(k===i||a[k]!==want)continue;
+        var rr=Math.floor(k/n),cc=k%n;
+        if(!rowSolved(rr)&&game.words[rr].charAt(cc)!==want)j=k;
+      }
+      if(j<0){for(k2=0;k2<a.length&&j<0;k2++){if(k2!==i&&a[k2]===want&&game.words[Math.floor(k2/n)].charAt(k2%n)!==want)j=k2;}}
+      if(j<0)continue;
+      game.hints++;game.msg='💡 Én bokstav er flyttet på plass: '+up(want)+' i rad '+(r+1)+'.';
+      doSwap(i,j,true);return;
+    }
+  }
+  game.msg='Ingen enkle hint igjen – prøv å bytte selv!';render();
+}
+function hintHtml(r){
+  var a=game.picks[r],l=LV[game.lv],h='<div class="kl-hint">';
+  var pos=POS[a[1]]||a[1];
+  if(l.hint==='full'||game.rev[r]){
+    h+='🇳🇴 <b>'+esc(a[2])+'</b> · '+esc(pos);
+    if(game.lv==='easy')h+=' · begynner på <b>'+esc(up(a[0].charAt(0)))+'</b>';
+  }else{
+    h+=esc(pos)+' · <button type="button" class="kl-hbtn" data-rev="'+r+'">💡 Vis norsk hint</button>';
+  }
+  return h+'</div>';
+}
+function boardHtml(){
+  var n=game.n,l=LV[game.lv],h='',r,c;
+  for(r=0;r<game.R;r++){
+    var solved=rowSolved(r),alt=solved&&rowStr(game.a,r,n)!==game.words[r];
+    h+='<div class="kl-rowwrap" data-r="'+r+'">'+hintHtml(r)+'<div class="kl-row" role="group" aria-label="Rad '+(r+1)+(solved?' (er et ord)':'')+'" style="grid-template-columns:repeat('+n+',var(--ts))">';
+    for(c=0;c<n;c++){
+      var i=r*n+c,cls='kl-tile',ch=game.a[i];
+      if(solved)cls+=' solved';
+      else if(l.tiles&&ch===game.words[r].charAt(c))cls+=' near';
+      if(game.sel===i)cls+=' sel';
+      if(game.last.indexOf(i)>=0)cls+=' pop';
+      h+='<button type="button" class="'+cls+'" data-i="'+i+'" tabindex="'+(i===game.focus?0:-1)+'" aria-label="Rad '+(r+1)+', bokstav '+(c+1)+': '+up(ch)+(game.sel===i?', valgt':'')+'"'+(game.done?' disabled':'')+'>'+esc(up(ch))+'</button>';
+    }
+    h+='</div>'+(alt?'<span class="kl-tag">✓ gyldig ord (men ikke det hintet pekte på)</span>':'')+'</div>';
+  }
+  return h;
+}
+function resultHtml(){
+  var rows=game.picks.map(function(a,r){
+    var got=rowStr(game.a,r,game.n),same=got===game.words[r],gd=null;
+    if(!same){
+      var all=pool(game.lv,'a');all.forEach(function(x){if(x[0].toLowerCase()===got)gd=x;});
+    }
+    var show=same?a:(gd||[got.charAt(0).toUpperCase()+got.slice(1),'',''] );
+    return '<tr><td>'+esc(fullWord(show))+'</td><td>🇳🇴 '+esc(show[2])+(same?'':' <span style="font-size:.8rem;color:var(--dw-muted)">(annen løsning; hintet var «'+esc(a[2])+'»)</span>')+'</td></tr>';
+  }).join('');
+  var h='<div class="kl-result" role="status"><h3>🎉 Løst! '+bt(game.swaps)+' · '+fmt(game.secs)+(game.hints?' · 💡 '+game.hints:'')+'</h3><table>'+rows+'</table>';
+  h+='<p style="font-size:.85rem;color:var(--dw-muted);margin:6px 0 0">Denne økten: '+STAT.won+' løst.</p></div>';
+  h+='<div class="kl-btns" style="justify-content:center">';
+  if(game.task==='training')h+='<button type="button" class="kl-btn" id="kl-next">🎲 Nytt brett</button>';
+  else h+='<button type="button" class="kl-btn" id="kl-share">📋 Kopier resultatet</button><button type="button" class="kl-btn alt" id="kl-train">🎲 Fortsett i trening</button>';
+  h+='</div>';
+  if(game.task==='daily')h+='<textarea class="kl-share" id="kl-sharetxt" readonly aria-label="Resultat som kan deles">'+esc(shareText())+'</textarea>';
+  return h;
+}
+function shareText(){
+  var sq=G.hc?'🟦':'🟩',rows=[];
+  for(var r=0;r<game.R;r++){var s='';for(var c=0;c<game.n;c++)s+=sq;rows.push(s);}
+  return 'Klugle 📅 '+todayStr()+' · '+LV[game.lv].name+' ('+game.R+'×'+game.n+') · '+CATSHORT[game.cat]+'\n⇄ '+bt(game.swaps)+' · ⏱ '+fmt(game.secs)+(game.hints?' · 💡 '+game.hints:'')+'\n'+rows.join('\n');
+}
+function render(){
+  var g=$('kl-game');if(!game){g.innerHTML='';return;}
+  var keep=document.activeElement&&document.activeElement.classList&&document.activeElement.classList.contains('kl-tile');
+  g.className='kl-game'+(G.hc?' hc':'');g.setAttribute('data-n',game.n);
+  var h='<div class="kl-panel"><div class="kl-top"><span>'+(game.task==='daily'?'📅 Dagens brett · '+todayStr():'🎲 Trening')+' · '+LV[game.lv].name+' ('+game.R+'×'+game.n+') · '+CATSHORT[game.cat]+'</span><span>⇄ <b id="kl-sw">'+game.swaps+'</b> bytte(r) · ⏱ <b id="kl-time">'+fmt(game.secs)+'</b></span></div>';
+  h+='<p class="kl-info">'+(game.done?'Alle radene er ord!':'Bytt bokstavene til hver rad er et tysk ord. Trykk på to bokstaver for å bytte dem, eller dra den ene over den andre.')+'</p>';
+  h+='<div class="kl-board" id="kl-board">'+boardHtml()+'</div><p class="kl-msg" id="kl-msg" aria-live="polite">'+esc(game.msg)+'</p>';
+  if(!game.done){
+    h+='<div class="kl-btns" style="justify-content:center"><button type="button" class="kl-btn alt" id="kl-undo"'+(game.hist.length?'':' disabled')+'>↩ Angre</button><button type="button" class="kl-btn alt" id="kl-help">💡 Flytt én bokstav</button><button type="button" class="kl-btn alt" id="kl-reset">🔀 Bland på nytt</button>';
+    if(game.task==='training')h+='<button type="button" class="kl-btn alt" id="kl-skip">⏭ Nytt brett</button>';
+    h+='</div>';
+  }
+  h+='</div>';
+  if(game.done)h+=resultHtml();
+  g.innerHTML=h;
+  if(keep&&!game.done){var t=g.querySelector('.kl-tile[data-i="'+game.focus+'"]');if(t)t.focus();}
+  game.last=[];
+}
+
+/* ---------- Interaksjon ---------- */
+function tileClick(i){
+  if(game.done)return;
+  game.focus=i;game.msg='';
+  if(game.sel<0){game.sel=i;render();return;}
+  if(game.sel===i){game.sel=-1;render();return;}
+  doSwap(game.sel,i,true);
+}
+document.addEventListener('click',function(e){
+  var g=$('kl-game');if(!g||!g.contains(e.target)){return;}
+  if(suppress){suppress=false;return;}
+  var t=e.target.closest('.kl-tile');
+  if(t&&!t.closest('.kl-ex')){tileClick(+t.getAttribute('data-i'));return;}
+  var rv=e.target.closest('[data-rev]');
+  if(rv){var r=+rv.getAttribute('data-rev');if(!game.rev[r]){game.rev[r]=1;game.hints++;}render();return;}
+  var id=e.target.closest('button')&&e.target.closest('button').id;
+  if(id==='kl-undo')undo();
+  else if(id==='kl-help')help();
+  else if(id==='kl-reset'){game.a=game.init.slice();game.sel=-1;game.hist=[];game.swaps=0;game.msg='Brettet er blandet som i starten.';render();}
+  else if(id==='kl-skip'||id==='kl-next'){if(game&&!game.done){STAT.played++;}start();}
+  else if(id==='kl-train'){G.task='training';syncSetup();start();}
+  else if(id==='kl-share'){var ta=$('kl-sharetxt');if(ta){ta.select();var ok=false;try{ok=document.execCommand('copy');}catch(x){}
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(ta.value).then(function(){e.target.textContent='✅ Kopiert!';});}else e.target.textContent=ok?'✅ Kopiert!':'Merk teksten og kopier selv';}}
+});
+document.addEventListener('keydown',function(e){
+  var t=e.target.closest&&e.target.closest('#kl-game .kl-tile');
+  if(!t||!game||game.done)return;
+  var i=+t.getAttribute('data-i'),n=game.n,N=game.a.length,ni=-1;
+  if(e.key==='ArrowRight')ni=i+1;else if(e.key==='ArrowLeft')ni=i-1;else if(e.key==='ArrowDown')ni=i+n;else if(e.key==='ArrowUp')ni=i-n;
+  else if(e.key==='Escape'){game.sel=-1;render();return;}
+  if(ni>=0&&ni<N){e.preventDefault();game.focus=ni;render();var el=document.querySelector('#kl-game .kl-tile[data-i="'+ni+'"]');if(el)el.focus();}
+});
+/* dra og slipp (pekerhendelser) */
+document.addEventListener('pointerdown',function(e){
+  if(!game||game.done||(e.pointerType==='mouse'&&e.button!==0))return;
+  var t=e.target.closest&&e.target.closest('#kl-game .kl-tile');
+  if(!t||t.closest('.kl-ex'))return;
+  drag={i:+t.getAttribute('data-i'),x:e.clientX,y:e.clientY,on:false,ghost:null,over:null};
+});
+function clearOver(){var o=document.querySelector('.kl-tile.over');if(o)o.classList.remove('over');}
+document.addEventListener('pointermove',function(e){
+  if(!drag)return;
+  if(!drag.on){
+    if(Math.hypot(e.clientX-drag.x,e.clientY-drag.y)<8)return;
+    drag.on=true;
+    var src=document.querySelector('#kl-game .kl-tile[data-i="'+drag.i+'"]');
+    if(src){src.classList.add('dragsrc');drag.ghost=document.createElement('div');drag.ghost.className='kl-ghost';drag.ghost.textContent=src.textContent;document.body.appendChild(drag.ghost);}
+  }
+  if(drag.ghost){drag.ghost.style.left=e.clientX+'px';drag.ghost.style.top=e.clientY+'px';}
+  clearOver();
+  var el=document.elementFromPoint(e.clientX,e.clientY),t=el&&el.closest&&el.closest('#kl-game .kl-tile');
+  if(t&&+t.getAttribute('data-i')!==drag.i){t.classList.add('over');drag.over=+t.getAttribute('data-i');}else drag.over=null;
+});
+function endDrag(doDrop,e){
+  if(!drag)return;
+  var d=drag;drag=null;
+  if(d.ghost&&d.ghost.parentNode)d.ghost.parentNode.removeChild(d.ghost);
+  clearOver();
+  if(d.on){
+    suppress=true;setTimeout(function(){suppress=false;},60);
+    var s=document.querySelector('#kl-game .kl-tile.dragsrc');if(s)s.classList.remove('dragsrc');
+    if(doDrop&&d.over!==null&&game){game.msg='';doSwap(d.i,d.over,true);}
+    else if(game)render();
+  }
+}
+document.addEventListener('pointerup',function(e){endDrag(true,e);});
+document.addEventListener('pointercancel',function(e){endDrag(false,e);});
+window.dwKlugle={state:function(){return game;},set:function(a){game.a=a;check();}};
+syncSetup();
+})();
+</script></body>
+</html>

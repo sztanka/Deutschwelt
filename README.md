@@ -697,6 +697,8 @@ deutschwelt-site/
 │       └── index.html                → "Länder-Rätsel" — Worldle-lignende kartspill: 51 Bundesländer/Kantone (D, A, CH)
 │   ├── woertle/
 │   │   └── index.html                → "Wörtle" — Wordle-lignende ordspill (4/5/6 bokstaver, 4 kategorier, dagens ord/trening)
+│   ├── klugle/
+│   │   └── index.html                → "Klugle" — Smartle-lignende bokstavbytte-spill (3 nivåer 3×4 / 4×5 / 5×6, 4 kategorier, dagens brett/trening)
 │   └── galgenmaennchen/
 │       └── index.html                → "Galgenmännchen" — Hangman (3 nivåer, 4 kategorier, dagens ord, trening, to spillere)
 ├── filme-serien/
@@ -2548,6 +2550,15 @@ Wordle-inspirert ordspill på tysk. Alt ligger i én HTML-fil (data som JSON i `
 **Ordlister:** svarordene (ca. 500, med artikkel og norsk oversettelse) ligger i `woertle-work/words.py` (format `Ord|art|norsk`; lengden valideres ved bygging, duplikater avvises). Gjettelisten (hvilke ord som godtas) er laget av `ordbok/ordbok.json` ved hjelp av `mkdict.py`, pluss enkle bøyningsformer for verb, substantiv og adjektiv. Den er ikke komplett, så elevene kan slå på «Godta alle bokstavkombinasjoner».
 **Slik legger du til ord:** legg en linje i riktig liste i `words.py`, kjør `python3 build_woertle.py` og deretter `wtest.py` (Playwright).
 **Begrensninger:** Norske oversettelser er skrevet av Claude, ikke lest av morsmålstaler. Svarene ligger i sidekilden (greit for et klasseromsspill).
+
+## Klugle (`challenges/klugle/`)
+
+Bokstavbytte-spill på tysk, inspirert av Smartle. Alt ligger i én HTML-fil (ordlisten som JSON i `#kl-data`, ingen lagring mellom besøk).
+**Spillidé:** Et rutenett med R rader à L bokstaver er blandet på tvers av radene. Spilleren bytter plass på to bokstaver om gangen til hver rad er et gyldig tysk ord. Hver rad har et norsk hint (norsk betydning + ordklasse/kjønn). **Nivåer:** Lett = 3 × 4 (hint pluss svakt grønne bokstaver som allerede står riktig, og første bokstav i hintet), Middels = 4 × 5 (hint, rad blir grønn når den er et ord), Vanskelig = 5 × 6 (norsk hint skjult bak 💡-knapp; kun ordklasse/kjønn vises). **Kategorier:** Allmenne ord (alle lister), Mat og drikke, Dyr og natur, Skole/hverdag/reise (samme lister som Wörtle). **Oppgave:** Dagens brett (seedet tilfeldighet av dato + nivå + kategori, likt for alle) eller Trening (nytt tilfeldig brett).
+**Funksjoner:** bytte ved å trykke på to bokstaver, dra-og-slipp (pekerhendelser, fungerer med mus og berøring) og tastatur (piltaster, Enter/mellomrom); teller bytter og tid (starter ved første bytte); Angre; Bland på nytt; 💡 «Flytt én bokstav» (telles i resultatet); fargeblind-modus (blått); resultatvisning med alle ordene, der/die/das og norsk betydning; «Kopier resultatet» (emoji-tekst); ordliste (røper svarene). Ingen rad er løst ved start, og brettet er alltid løsbart.
+**Regler for gyldighet:** en rad teller som riktig hvis den er *et hvilket som helst* ord med riktig lengde i den kuraterte ordlisten (ikke bare hintets ord) – da vises «gyldig ord (men ikke det hintet pekte på)». Ordlisten er `woertle-work/words.py` (ca. 500 svarord, format `Ord|art|norsk`); den store gjettelisten fra Wörtle brukes bevisst ikke, siden den inneholder genererte bøyningsformer.
+**Slik endrer du:** CSS og spilllogikk ligger i `klugle-work/kl_js.py` (`KL_CSS`/`KL_JS`), sideoppsett i `klugle-work/build_klugle.py` (kjør `python3 build_klugle.py`), test med `klugle-work/ktest.py` (Playwright). Legg til ord i `woertle-work/words.py` og bygg både Wörtle og Klugle på nytt.
+**Begrensninger:** Norske hint og oversettelser er skrevet av Claude, ikke lest av morsmålstaler. Ordforrådet er begrenset (ca. 500 ord), så på Vanskelig (6 bokstaver) er det få ord per kategori og brettene gjentar seg etter hvert. Ordene ligger i sidekilden.
 
 ## Galgenmännchen (`challenges/galgenmaennchen/`)
 
