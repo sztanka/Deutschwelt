@@ -193,7 +193,7 @@ deutschwelt-site/
 │       ├── john-maynard/index.html           → "John Maynard" (Fontane, ballade) — hover/trykk-glosser + gloseliste + quiz — 10. trinn
 │       └── die-lorelei/index.html            → "Die Lorelei" (Proehle-sagn + Brentano-gjenfortelling + Heine-dikt) — hover/trykk-glosser + gloseliste + quiz — 10. trinn
 ├── hoeren/
-│   ├── index.html                    → hub-side: velg lyttevideo
+│   ├── index.html                    → Hören-forside: to store kort «8. Klasse (A1)» og «9. Klasse (A2)»
 │   ├── nicos-weg-hallo/
 │   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 1 (Hallo!)
 │   ├── nicos-weg-kein-problem/
@@ -344,8 +344,164 @@ deutschwelt-site/
 │   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 74 (Leben in Deutschland)
 │   ├── nicos-weg-anders-als-zu-hause/
 │   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 75 (Anders als zu Hause)
-│   └── nicos-weg-ich-traeume-von/
-│       └── index.html                → video + oppgaver: Nicos Weg, Folge 76 (Ich träume von …)
+│   ├── nicos-weg-ich-traeume-von/
+│   │   └── index.html                → video + oppgaver: Nicos Weg, Folge 76 (Ich träume von …)
+│   ├── 8-klasse-a1/
+│   │   └── index.html                → delhub «8. Klasse (A1)»: de 76 A1-episodene (kortene lenker til ../nicos-weg-…/)
+│   ├── 9-klasse-a2/
+│   │   └── index.html                → delhub «9. Klasse (A2)»: de 76 A2-episodene, gruppert etter DW-enhet (Einheit 0–18)
+│   ├── nicos-weg-a2-lebenslinien/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 1 (Lebenslinien)
+│   ├── nicos-weg-a2-angekommen/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 2 (Angekommen)
+│   ├── nicos-weg-a2-plaene-machen/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 3 (Pläne machen)
+│   ├── nicos-weg-a2-sprichst-du-deutsch/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 4 (Sprichst du Deutsch?)
+│   ├── nicos-weg-a2-geld-ist-fuer-mich/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 5 (Geld ist für mich …)
+│   ├── nicos-weg-a2-mein-bankkonto/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 6 (Mein Bankkonto)
+│   ├── nicos-weg-a2-rechnungen/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 7 (Rechnungen)
+│   ├── nicos-weg-a2-am-bankautomaten/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 8 (Am Bankautomaten)
+│   ├── nicos-weg-a2-familiengeschichten/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 9 (Familiengeschichten)
+│   ├── nicos-weg-a2-personen-beschreiben/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 10 (Personen beschreiben)
+│   ├── nicos-weg-a2-generationen/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 11 (Generationen)
+│   ├── nicos-weg-a2-alten-und-pflegeheim/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 12 (Alten- und Pflegeheim)
+│   ├── nicos-weg-a2-wohngemeinschaft/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 13 (Wohngemeinschaft)
+│   ├── nicos-weg-a2-nachbarschaft/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 14 (Nachbarschaft)
+│   ├── nicos-weg-a2-kinder/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 15 (Kinder)
+│   ├── nicos-weg-a2-anders-als-ihr/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 16 (Anders als ihr)
+│   ├── nicos-weg-a2-unterwegs/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 17 (Unterwegs)
+│   ├── nicos-weg-a2-im-hotel/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 18 (Im Hotel)
+│   ├── nicos-weg-a2-bahnreisen/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 19 (Bahnreisen)
+│   ├── nicos-weg-a2-der-ticketautomat/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 20 (Der Ticketautomat)
+│   ├── nicos-weg-a2-alltag-und-freizeit/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 21 (Alltag und Freizeit)
+│   ├── nicos-weg-a2-freizeitstress/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 22 (Freizeitstress)
+│   ├── nicos-weg-a2-das-hoert-sich-gut-an/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 23 (Das hört sich gut an!)
+│   ├── nicos-weg-a2-das-meinen-sie-nicht-ernst/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 24 (Das meinen Sie nicht ernst!)
+│   ├── nicos-weg-a2-das-macht-mir-spass/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 25 (Das macht mir Spaß!)
+│   ├── nicos-weg-a2-im-verein/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 26 (Im Verein)
+│   ├── nicos-weg-a2-das-macht-mir-sorgen/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 27 (Das macht mir Sorgen!)
+│   ├── nicos-weg-a2-das-ist-mir-wichtig/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 28 (Das ist mir wichtig!)
+│   ├── nicos-weg-a2-immer-und-ueberall/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 29 (Immer und überall)
+│   ├── nicos-weg-a2-das-internet/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 30 (Das Internet)
+│   ├── nicos-weg-a2-mit-freundlichen-gruessen/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 31 (Mit freundlichen Grüßen)
+│   ├── nicos-weg-a2-reklamation/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 32 (Reklamation)
+│   ├── nicos-weg-a2-essen-gehen/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 33 (Essen gehen)
+│   ├── nicos-weg-a2-die-karte-bitte/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 34 (Die Karte, bitte!)
+│   ├── nicos-weg-a2-was-darf-es-sein/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 35 (Was darf es sein?)
+│   ├── nicos-weg-a2-ich-bin-koch/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 36 (Ich bin Koch)
+│   ├── nicos-weg-a2-bei-uns-oder-bei-euch/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 37 (Bei uns oder bei euch?)
+│   ├── nicos-weg-a2-ich-bin-neu-hier/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 38 (Ich bin neu hier)
+│   ├── nicos-weg-a2-mein-traumpartner/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 39 (Mein Traumpartner)
+│   ├── nicos-weg-a2-alte-und-neue-freunde/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 40 (Alte und neue Freunde)
+│   ├── nicos-weg-a2-stadt-oder-land/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 41 (Stadt oder Land?)
+│   ├── nicos-weg-a2-auf-wohnungssuche/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 42 (Auf Wohnungssuche)
+│   ├── nicos-weg-a2-der-umzug/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 43 (Der Umzug)
+│   ├── nicos-weg-a2-unfaelle-im-haushalt/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 44 (Unfälle im Haushalt)
+│   ├── nicos-weg-a2-das-leben-heute-und-damals/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 45 (Das Leben heute und damals)
+│   ├── nicos-weg-a2-alles-anders/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 46 (Alles anders?)
+│   ├── nicos-weg-a2-frauensache/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 47 (Frauensache?)
+│   ├── nicos-weg-a2-damals/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 48 (Damals)
+│   ├── nicos-weg-a2-berufswahl/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 49 (Berufswahl)
+│   ├── nicos-weg-a2-bewerbung/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 50 (Bewerbung)
+│   ├── nicos-weg-a2-ist-die-stelle-noch-frei/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 51 (Ist die Stelle noch frei?)
+│   ├── nicos-weg-a2-bewerbungsgespraech/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 52 (Bewerbungsgespräch)
+│   ├── nicos-weg-a2-kulturkalender/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 53 (Kulturkalender)
+│   ├── nicos-weg-a2-eine-stadtbesichtigung/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 54 (Eine Stadtbesichtigung)
+│   ├── nicos-weg-a2-ein-buerger-dieser-stadt/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 55 (Ein Bürger dieser Stadt)
+│   ├── nicos-weg-a2-theater-und-konzerte/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 56 (Theater und Konzerte)
+│   ├── nicos-weg-a2-feste-und-feiertage/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 57 (Feste und Feiertage)
+│   ├── nicos-weg-a2-ein-jahr-viele-feste/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 58 (Ein Jahr – viele Feste)
+│   ├── nicos-weg-a2-was-passiert-wenn/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 59 (Was passiert, wenn …?)
+│   ├── nicos-weg-a2-so-feiern-wir/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 60 (So feiern wir!)
+│   ├── nicos-weg-a2-herzlichen-glueckwunsch/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 61 (Herzlichen Glückwunsch!)
+│   ├── nicos-weg-a2-passende-geschenke/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 62 (Passende Geschenke)
+│   ├── nicos-weg-a2-was-sollen-wir-schenken/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 63 (Was sollen wir schenken?)
+│   ├── nicos-weg-a2-lieblingsfeste/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 64 (Lieblingsfeste)
+│   ├── nicos-weg-a2-ein-praktikum-beim-film/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 65 (Ein Praktikum beim Film)
+│   ├── nicos-weg-a2-der-film-war-toll/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 66 (Der Film war toll!)
+│   ├── nicos-weg-a2-im-filmstudio/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 67 (Im Filmstudio)
+│   ├── nicos-weg-a2-ich-bin-schauspieler/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 68 (Ich bin Schauspieler)
+│   ├── nicos-weg-a2-einfach-super/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 69 (Einfach super!)
+│   ├── nicos-weg-a2-das-regt-mich-auf/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 70 (Das regt mich auf!)
+│   ├── nicos-weg-a2-meiner-meinung-nach/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 71 (Meiner Meinung nach)
+│   ├── nicos-weg-a2-ich-bin-fussballfan/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 72 (Ich bin Fußballfan)
+│   ├── nicos-weg-a2-praktisch/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 73 (Praktisch!)
+│   ├── nicos-weg-a2-das-funktioniert-so/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 74 (Das funktioniert so!)
+│   ├── nicos-weg-a2-das-brauche-ich/
+│   │   └── index.html                → video + oppgaver: Nicos Weg A2, Folge 75 (Das brauche ich!)
+│   └── nicos-weg-a2-wer-hat-s-erfunden/
+│       └── index.html                → video + oppgaver: Nicos Weg A2, Folge 76 (Wer hat's erfunden?)
 ├── schreiben/
 │   ├── index.html                    → hub-side: velg skriveoppgave (9 kort, 1 «kommer snart»)
 │   ├── sms-chat/
@@ -2241,3 +2397,9 @@ Funksjoner: SVG-galge, skjermtastatur med ä ö ü ß og vanlig tastatur, 💡 h
 **Ordlister:** `galgen-work/hm_words.py` (ca. 830 ord, format `Ord|art|norsk`). Korte ord (4–6 bokstaver) gjenbrukes fra `woertle-work/words.py`; nivået bestemmes av ordlengden. Valideres ved bygging (kun a–z ä ö ü ß, duplikater hoppes over).
 **Slik legger du til ord:** legg en linje i riktig liste (`n`, `s`, `o` eller `g`) i `hm_words.py`, kjør `python3 build_galgen.py` og deretter `htest.py` (Playwright).
 **Begrensninger:** Norske oversettelser og beskrivelser er skrevet av Claude, ikke lest av morsmålstaler. Ordene ligger i sidekilden, og i to-spiller-modus skjules ordet bare visuelt.
+
+## Hören: Nicos Weg A2 og delhubene «8. Klasse (A1)» / «9. Klasse (A2)» (`hoeren/`)
+`hoeren/index.html` er nå en forside med to store kort: **8. Klasse (A1)** (`hoeren/8-klasse-a1/`, de 76 A1-episodene) og **9. Klasse (A2)** (`hoeren/9-klasse-a2/`, 76 nye episoder, gruppert etter DWs enheter 0–18). **A1-adressene er uendret** (`hoeren/nicos-weg-<slug>/`), så eksisterende lenker virker; brødsmulen på alle A1-sider er nå `🎧 Hören → 8. Klasse (A1) → Nicos Weg – Folge …`. A2-sidene ligger i `hoeren/nicos-weg-a2-<slug>/` (adskilt fra A1, siden titler som «Das Marek» eller «Damals» kan gå igjen).
+**Video:** video-ID, tittel, lengde, enhet og DW-lenke for alle 76 A2-episoder er lest direkte fra DWs offisielle YouTube-spilleliste «DW Deutsch lernen (A2) | Nicos Weg» (`PLs7zUO7VPyJ7YxTq_g2Rcl3Jthd5bpTdY`) og videosidene — aldri gjettet. A2 Folge 5 har ingen DW-lenke i videobeskrivelsen, så «Vil du ha mer?»-linjen utelates der.
+**Slik er det bygget:** data i `nicos-work/a2_1.py` (Folge 1–20), `a2_2.py` (21–40), `a2_3.py` (41–60) og `a2_4.py` (61–76) (+ `a2_meta3.py` med video-ID-ene for 41–76), samlet i `eps_a2.py`. `build_nicos.py` bygger alle 152 episodesider (A1 og A2, samme mal, `level`-felt styrer brødsmule, overskrift og kommentar), og `build_hubs.py` bygger de to delhubene og den nye forsiden (A1-kortene hentes fra `a1_cards.html`). Hvert tuppel i `a2_*.py`: `(n, tittel, video-ID, sekunder, enhet, DW-sti, emoji, søkenøkler, teaser, intro, tenk-etter, 4 lytteord, ordforråd, 4 quiz-spørsmål [riktig svar først, så to gale], skriveoppgave)`. Søkenøklene begynner med «a2 …» for å unngå kollisjon med A1-oppføringene.
+**Merk:** tyske og norske tekster og quiz er skrevet av Claude (ikke morsmålslest) og er grunngitt i DWs egne videobeskrivelser, ikke eksakt transkripsjon. Noen A2-episoder tar opp følsomme temaer (Folge 11 om en sykdomsepisode i familien, 39 om en avdød ektemann, 47–48 om syriske tradisjoner og ulik livsførsel for menn og kvinner, 59 om en hemmelighet og krangel); innholdet følger DWs fremstilling, men lærer bør vurdere om det passer klassen.

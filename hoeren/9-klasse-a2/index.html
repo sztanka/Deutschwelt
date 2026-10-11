@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Hören: Nicos Weg A2 (9. klasse)
+  Delhub (gruppert etter klassetrinn). Bygget med nicos-work/build_hubs.py — se README.md.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9. Klasse (A2) · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:820px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:32px 26px;text-align:center;margin-bottom:16px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.8rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-source-note{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:14px 20px;margin-bottom:24px;font-size:.86rem;line-height:1.55;color:var(--dw-text);
+  }
+  .dw-source-note a{color:var(--dw-primary);font-weight:600;}
+  .dw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+  .dw-card{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px;text-decoration:none;color:var(--dw-text);
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;transition:transform .15s ease, box-shadow .15s ease;
+    display:flex;flex-direction:column;gap:6px;
+  }
+  .dw-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(30,58,95,.14);border-color:var(--dw-accent);}
+  .dw-card h2{margin:4px 0 0;font-size:1.1rem;color:var(--dw-primary-light);}
+  .dw-card p{margin:0;font-size:.9rem;color:var(--dw-muted);}
+
+  /* Tematisk kort-mønster (erstatter emoji) */
+  .dw-card.dw-p-hoeren{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Crect%20x%3D%228%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3Crect%20x%3D%2217%22%20y%3D%2215%22%20width%3D%224%22%20height%3D%2228%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3Crect%20x%3D%2226%22%20y%3D%227%22%20width%3D%224%22%20height%3D%2244%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2216%22%20width%3D%224%22%20height%3D%2226%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3Crect%20x%3D%2244%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23161616%22%20fill-opacity%3D%220.11%22%2F%3E%3C%2Fsvg%3E");background-repeat:repeat;background-size:56px 56px;}
+  .dw-big{padding:30px 26px;gap:8px;}
+  .dw-big .dw-big-emoji{font-size:2.2rem;line-height:1;}
+  .dw-big h2{font-size:1.45rem;margin:2px 0 0;}
+  .dw-big .dw-big-meta{font-size:.82rem;font-weight:700;color:var(--dw-accent);letter-spacing:.3px;text-transform:uppercase;}
+  .dw-big p{font-size:.95rem;}
+  .dw-big .dw-big-go{margin-top:8px;font-weight:700;color:var(--dw-primary-light);}
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-unit-h{margin:26px 0 10px;font-size:1.05rem;color:var(--dw-primary);border-bottom:2px solid var(--dw-accent);padding-bottom:4px;}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link dw-nav-active" href="../">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../">🎧 Hören</a> → 9. Klasse (A2)</p>
+
+  <div class="dw-header">
+    <h1>9. Klasse (A2)</h1>
+    <p>76 episoder av Nicos Weg A2 – Nico og vennene i en ny hverdag</p>
+  </div>
+
+  <div class="dw-source-note">
+    🎬 Videoene er hentet fra <strong>Nicos Weg</strong>, en gratis tyskserie laget av
+    <a href="https://www.dw.com/de/deutsch-lernen/nicos-weg/s-31736" target="_blank" rel="noopener">Deutsche Welle (DW)</a>.
+    De vises direkte fra YouTube. <strong>Merk:</strong> hvis skolens nettverk
+    blokkerer YouTube, kan lærer bruke lenken «Se videoen direkte på YouTube»
+    på hver side, eller vise videoen fra egen enhet.
+    Nivå <strong>A2</strong> passer for 9. trinn.
+  </div>
+
+  <h2 class="dw-unit-h">Einheit 0 – Intro zu A2</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-lebenslinien/">
+      <h2>🤝 Folge 1: Lebenslinien</h2>
+      <p>Endelig! Nico har funnet Yara – og hun er helt overrasket over å se nevøen sin.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-angekommen/">
+      <h2>🍽️ Folge 2: Angekommen</h2>
+      <p>Nico og Yara spiser sammen og snakker om hjemsted, hjemlengsel og hvorfor Yara var i Sveits.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-plaene-machen/">
+      <h2>📝 Folge 3: Pläne machen</h2>
+      <p>Yara vil vite hvilke planer Nico har – de passer dessverre ikke med foreldrenes planer.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-sprichst-du-deutsch/">
+      <h2>💬 Folge 4: Sprichst du Deutsch?</h2>
+      <p>Yara er ikke begeistret for Nicos idéer – vil hun hjelpe ham likevel?</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 1 – Geld</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-geld-ist-fuer-mich/">
+      <h2>💶 Folge 5: Geld ist für mich …</h2>
+      <p>Nico har bestemt seg for å bli i Tyskland – Yara hjelper ham og har en overraskelse.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-mein-bankkonto/">
+      <h2>🏦 Folge 6: Mein Bankkonto</h2>
+      <p>Nico må åpne en tysk bankkonto – Max forklarer hva han må huske på.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-rechnungen/">
+      <h2>🧾 Folge 7: Rechnungen</h2>
+      <p>Yara er stresset fordi hun har mye å ta igjen – hos Nico går alt veldig bra.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-am-bankautomaten/">
+      <h2>🏧 Folge 8: Am Bankautomaten</h2>
+      <p>Nico har åpnet sin egen konto og treffer Selma i byen – sammen drar de til språkkurset.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 2 – Familie</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-familiengeschichten/">
+      <h2>👪 Folge 9: Familiengeschichten</h2>
+      <p>Nico og Selma snakker om familiene sine på vei til språkkurset – og er uenige.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-personen-beschreiben/">
+      <h2>📸 Folge 10: Personen beschreiben</h2>
+      <p>På språkkurset beskriver Nico og Selma bilder – Nico reagerer rart når han skal fortelle om broren.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-generationen/">
+      <h2>👴 Folge 11: Generationen</h2>
+      <p>I tyskundervisningen lærer de å snakke om familie – så får Selma en urovekkende melding om faren.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-alten-und-pflegeheim/">
+      <h2>🏥 Folge 12: Alten- und Pflegeheim</h2>
+      <p>Selma er på vei til faren sin når hun møter Inge, som er litt sint på sønnen sin.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 3 – Zusammen leben</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-wohngemeinschaft/">
+      <h2>🏠 Folge 13: Wohngemeinschaft</h2>
+      <p>Det er krangel i WG-en fordi Nina synes det er kaotisk – midt i striden får Lisa en god idé.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-nachbarschaft/">
+      <h2>🏘️ Folge 14: Nachbarschaft</h2>
+      <p>Yara er sint på naboene og huseieren, som gjør livet vanskelig for henne.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-kinder/">
+      <h2>👶 Folge 15: Kinder</h2>
+      <p>Lisa kommer hjem og får store nyheter av Nina.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-anders-als-ihr/">
+      <h2>🎉 Folge 16: Anders als ihr</h2>
+      <p>Nico flytter inn i WG-en, og under feiringen dukker uventet besøk opp.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 4 – Mobil</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-unterwegs/">
+      <h2>🧳 Folge 17: Unterwegs</h2>
+      <p>Nicos bror Pepe vil ha Nico med tilbake til Sevilla, men Nico vil bli i Tyskland.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-im-hotel/">
+      <h2>🏨 Folge 18: Im Hotel</h2>
+      <p>Pepe trenger mer tid for å overbevise Nico – så han sjekker inn på et hotell.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-bahnreisen/">
+      <h2>🚆 Folge 19: Bahnreisen</h2>
+      <p>Inge lengter etter eventyr – Max og Tarek hjelper henne å bestille en reise.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-der-ticketautomat/">
+      <h2>🎫 Folge 20: Der Ticketautomat</h2>
+      <p>Selmas far har glemt IDen på sykehuset og ber Yara om hjelp ved holdeplassen.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 5 – So ein Stress!</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-alltag-und-freizeit/">
+      <h2>📅 Folge 21: Alltag und Freizeit</h2>
+      <p>Den store dagen er her: Nico flytter inn i WG-en – og Sebastian har et fotoprosjekt.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-freizeitstress/">
+      <h2>🏃‍♀️ Folge 22: Freizeitstress</h2>
+      <p>Inge kommer til WG-en med ting til Nicos nye rom, men er stresset fordi togturen står for døren.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-das-hoert-sich-gut-an/">
+      <h2>👍 Folge 23: Das hört sich gut an!</h2>
+      <p>Nico snakker med Nina og Sebastian om broren – så kommer Lisa hjem med viktig post.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-das-meinen-sie-nicht-ernst/">
+      <h2>😠 Folge 24: Das meinen Sie nicht ernst!</h2>
+      <p>Det går ikke bra for Yara: først blir hun irritert på naboen, så kommer huseieren med dårlige nyheter.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 6 – Bist du im Verein?</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-das-macht-mir-spass/">
+      <h2>😄 Folge 25: Das macht mir Spaß!</h2>
+      <p>Nico og Selma er på tyskkurs hos Lisa, og det viser seg at Nico kan lære Selma noe.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-im-verein/">
+      <h2>⚽ Folge 26: Im Verein</h2>
+      <p>Nico spiser middag med Yara og vennene diskuterer hvilken sport de kan gjøre sammen – så kommer uvelkomment besøk.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-das-macht-mir-sorgen/">
+      <h2>😟 Folge 27: Das macht mir Sorgen!</h2>
+      <p>Nico og Pepe diskuterer hvordan det skal gå videre med Nico – Pepe har et forslag, men Nico er ikke begeistret.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-das-ist-mir-wichtig/">
+      <h2>⭐ Folge 28: Das ist mir wichtig!</h2>
+      <p>Lisa har mye å gjøre og vet ikke hvordan hun skal få alt til å gå opp, men medbeboerne er hjelpsomme.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 7 – Digitales Leben</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-immer-und-ueberall/">
+      <h2>📱 Folge 29: Immer und überall</h2>
+      <p>Max og Tarek vil hjelpe med reklamen for Yaras sykkelbutikk – Max har allerede en god idé.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-das-internet/">
+      <h2>🌐 Folge 30: Das Internet</h2>
+      <p>Yara trenger flere kunder og ber Pepe om hjelp – men blir skuffet.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-mit-freundlichen-gruessen/">
+      <h2>✉️ Folge 31: Mit freundlichen Grüßen</h2>
+      <p>Nico og Selma vil møtes alene for første gang, men Selmas mor får vite det og hindrer det.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-reklamation/">
+      <h2>📦 Folge 32: Reklamation</h2>
+      <p>Pepes firma går ikke bra, og han har problemer med noen kunder – får han kontroll på det?</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 8 – Im Restaurant</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-essen-gehen/">
+      <h2>🍽️ Folge 33: Essen gehen</h2>
+      <p>Inge møter Jacques på restaurant under turen sin – han vil gjerne spise med henne og virker sjarmerende.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-die-karte-bitte/">
+      <h2>📖 Folge 34: Die Karte, bitte!</h2>
+      <p>Inge og Jacques slår vedd om hva herrene ved nabobordet har bestilt – hvem vinner?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-was-darf-es-sein/">
+      <h2>🍰 Folge 35: Was darf es sein?</h2>
+      <p>Jacques forteller hva han jobbet som før, og Inge er helt betatt – desserten og champagnen må med!</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-ich-bin-koch/">
+      <h2>👨‍🍳 Folge 36: Ich bin Koch</h2>
+      <p>Jacques forteller mye fra livet sitt – men da han tar farvel, vet Inge ikke helt hva hun skal tenke.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 9 – Leute treffen</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-bei-uns-oder-bei-euch/">
+      <h2>📸 Folge 37: Bei uns oder bei euch?</h2>
+      <p>Sebastian vil arrangere en fotoshoot i WG-en med talemåter – men vennene er ikke så begeistret.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-ich-bin-neu-hier/">
+      <h2>🙋 Folge 38: Ich bin neu hier</h2>
+      <p>Max og Tarek spør Inge ut om turen – hadde hun det fint, og hvem ringer på den fremmede telefonen?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-mein-traumpartner/">
+      <h2>💭 Folge 39: Mein Traumpartner</h2>
+      <p>Inge er usikker på om hun skal svare Jacques – og forteller Tarek om sin avdøde mann.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-alte-und-neue-freunde/">
+      <h2>🥂 Folge 40: Alte und neue Freunde</h2>
+      <p>Vennene skåler i «Marek» og feirer vennskapet – men Nico får ikke én bestemt person ut av hodet.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 10 – Wo lebst du?</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-stadt-oder-land/">
+      <h2>🏙️ Folge 41: Stadt oder Land?</h2>
+      <p>Pepe og Yara prater om livet i byen og på landet – Yara er lei av bråket i byen og lengter etter ro.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-auf-wohnungssuche/">
+      <h2>🏠 Folge 42: Auf Wohnungssuche</h2>
+      <p>Yara sjekker leiligheter på landet, og Pepe har funnet en jobb til Nico – men vet ikke hvordan han skal si det til broren.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-der-umzug/">
+      <h2>📦 Folge 43: Der Umzug</h2>
+      <p>Selma hjelper til med flyttingen da Nico dukker opp – så kommer faren hennes ut av huset, og Nico må vekk!</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-unfaelle-im-haushalt/">
+      <h2>🪜 Folge 44: Unfälle im Haushalt</h2>
+      <p>Nico vil hjelpe til med flyttingen, men Selma gjør alt for å hindre det og snakker om farer og ulykker.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 11 – Früher und heute</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-das-leben-heute-und-damals/">
+      <h2>⏳ Folge 45: Das Leben heute und damals</h2>
+      <p>Inge og Jacques tar en spasertur og prater om hvordan det var å bli kjent før smarttelefonene – og Jacques har en overraskelse!</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-alles-anders/">
+      <h2>🐴 Folge 46: Alles anders?</h2>
+      <p>Under kjøreturen i hestevogn tenker Inge og Jacques på hva som har endret seg i byen, og Jacques forteller om planene sine.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-frauensache/">
+      <h2>👥 Folge 47: Frauensache?</h2>
+      <p>Selma forklarer hvorfor hun ikke kan fortelle foreldrene om Nico, og forteller om tradisjoner i familien.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-damals/">
+      <h2>💃 Folge 48: Damals</h2>
+      <p>Det knitrer mellom Nico og Selma. Selma forteller at hun danset i Syria, men plutselig må hun dra igjen.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 12 – Arbeitswelten</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-berufswahl/">
+      <h2>🧑‍💼 Folge 49: Berufswahl</h2>
+      <p>Pepe forteller Max hvorfor han har problemer med Nico – hva har skjedd mellom brødrene?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-bewerbung/">
+      <h2>📝 Folge 50: Bewerbung</h2>
+      <p>Lisa lærer elevene hva som er viktig i en jobbsøknad – de skal skrive CV-en sin som øvelse.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-ist-die-stelle-noch-frei/">
+      <h2>📞 Folge 51: Ist die Stelle noch frei?</h2>
+      <p>Lisa hjelper Selmas far: Han vil søke på en stilling i en restaurant og må vite hva han skal si på telefonen.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-bewerbungsgespraech/">
+      <h2>🤝 Folge 52: Bewerbungsgespräch</h2>
+      <p>Selmas far øver på jobbintervju med Pepe, som er sjef og ofte har intervjuer – og det går veldig bra!</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 13 – Kultur erleben</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-kulturkalender/">
+      <h2>🎭 Folge 53: Kulturkalender</h2>
+      <p>Nico og Max prater om kultur og kunst, da Tarek kommer med dårlige nyheter: Bandet har avlyst jubileumskonserten!</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-eine-stadtbesichtigung/">
+      <h2>🗺️ Folge 54: Eine Stadtbesichtigung</h2>
+      <p>Yara skal stenge butikken da huseieren kommer inn – hun forteller om turen hun skal ta gjennom byen, og han har straks forslag.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-ein-buerger-dieser-stadt/">
+      <h2>🏛️ Folge 55: Ein Bürger dieser Stadt</h2>
+      <p>Yara viser venninnen byen – etter en utstilling går de videre til et lite museum om en berømt komponist.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-theater-und-konzerte/">
+      <h2>🎸 Folge 56: Theater und Konzerte</h2>
+      <p>Sarah og Yara vet ikke hva de skal gjøre om kvelden, så får Yara en melding fra Nico: vennene spiller i «Das Marek»!</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 14 – Feste und Feiern</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-feste-und-feiertage/">
+      <h2>🎉 Folge 57: Feste und Feiertage</h2>
+      <p>Konserten er over og alle likte den! Vennene prater om hvilke fester og høytider som finnes og hva som hører til.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-ein-jahr-viele-feste/">
+      <h2>🎃 Folge 58: Ein Jahr – viele Feste</h2>
+      <p>Max og Tarek planlegger hvilke fester de vil feire i «Das Marek» – men hvorfor drar Lisa plutselig Nina bort fra gruppen?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-was-passiert-wenn/">
+      <h2>⚡ Folge 59: Was passiert, wenn …?</h2>
+      <p>Nina og Lisa krangler høylytt – hva har skjedd mellom venninnene, og hvilken hemmelighet kjenner Lisa?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-so-feiern-wir/">
+      <h2>🥳 Folge 60: So feiern wir!</h2>
+      <p>Yara og Sarah prater om gamle dager, da de ofte var på fester – og Sarah tar farvel, for reisen hennes går videre.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 15 – Einladungen</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-herzlichen-glueckwunsch/">
+      <h2>🎂 Folge 61: Herzlichen Glückwunsch!</h2>
+      <p>Lisa lærer Selma å bruke dativ og akkusativ i invitasjoner. Selma har snart bursdag og vil gå på skøyter – vil faren tillate det?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-passende-geschenke/">
+      <h2>🎁 Folge 62: Passende Geschenke</h2>
+      <p>Nico vil gi Selma en sykkel til bursdagen og håper på Yaras hjelp – men en sykkel er dyrt!</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-was-sollen-wir-schenken/">
+      <h2>🍲 Folge 63: Was sollen wir schenken?</h2>
+      <p>Inge har et problem: Jacques kommer på besøk, og hun har lovet å lage mat – men hun kan ikke lage mat! Max har et forslag.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-lieblingsfeste/">
+      <h2>🎄 Folge 64: Lieblingsfeste</h2>
+      <p>Jacques elsker maten, og Inge er lettet. De prater om fester og minner – men jul kan være trist når man er alene, og Jacques kommer med et stort tilbud.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 16 – Film und Fernsehen</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-ein-praktikum-beim-film/">
+      <h2>🎬 Folge 65: Ein Praktikum beim Film</h2>
+      <p>Nico har ombestemt seg og spør Pepe om jobben – det viser seg å være praksis hos et filmteam. Tar Nico stillingen?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-der-film-war-toll/">
+      <h2>🍿 Folge 66: Der Film war toll!</h2>
+      <p>Hurra, Nico fikk jobben! Snart skal han jobbe i filmbransjen – tror du at han kommer til å like det?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-im-filmstudio/">
+      <h2>🎥 Folge 67: Im Filmstudio</h2>
+      <p>Serien er ferdig innspilt! Nico forteller Max og Tarek om arbeidet på settet – han fikk til og med en liten rolle.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-ich-bin-schauspieler/">
+      <h2>🎭 Folge 68: Ich bin Schauspieler</h2>
+      <p>Nico er begeistret for jobben på filmsettet – han vurderer skuespillerskole, men Yara er mindre begeistret.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 17 – Mit Gefühl</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-einfach-super/">
+      <h2>🚲 Folge 69: Einfach super!</h2>
+      <p>Selma har bursdag, og det blir følelsesladet: Nico gir henne sykkelen, og hun er overlykkelig og tar seg en tur på den nye «Drahtesel».</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-das-regt-mich-auf/">
+      <h2>😤 Folge 70: Das regt mich auf!</h2>
+      <p>Pepe går i parken og snakker i telefonen med Selmas far, da han plutselig ser henne sammen med Nico. Hva skjer?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-meiner-meinung-nach/">
+      <h2>💬 Folge 71: Meiner Meinung nach</h2>
+      <p>Nico finner ut at det var Pepe som fortalte Selmas far om dem. Pepe kunne ikke gjøre noe for det, men Nico er likevel sint.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-ich-bin-fussballfan/">
+      <h2>⚽ Folge 72: Ich bin Fußballfan</h2>
+      <p>Nico forteller Max og Tarek om situasjonen med Selmas far, men de ser så oppslukt på fotball at de knapt hører etter.</p>
+    </a>
+  </div>
+  <h2 class="dw-unit-h">Einheit 18 – Tolle Idee</h2>
+  <div class="dw-grid">
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-praktisch/">
+      <h2>🛵 Folge 73: Praktisch!</h2>
+      <p>Pepe og Max presenterer ideen om en leveringstjeneste for Yara. Hun er interessert, men detaljene må avklares. Blir de enige?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-das-funktioniert-so/">
+      <h2>⚙️ Folge 74: Das funktioniert so!</h2>
+      <p>Pepe, Max og Yara er enige om at leveringsideen har framtid – men leting etter en investor bekymrer Tarek.</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-das-brauche-ich/">
+      <h2>🤖 Folge 75: Das brauche ich!</h2>
+      <p>Stemningen i WG-en er dårlig fordi ingen har tid til husarbeidet. Sebastian foreslår å kjøpe en robotstøvsuger – hva synes de andre?</p>
+    </a>
+    <a class="dw-card dw-p-hoeren" href="../nicos-weg-a2-wer-hat-s-erfunden/">
+      <h2>💡 Folge 76: Wer hat's erfunden?</h2>
+      <p>Pepe, Max, Tarek og Yara ringer til investoren om forretningsideen. Selma vil ikke se Nico mer – men hvorfor?</p>
+    </a>
+  </div>
+
+</div>
+</body>
+</html>
