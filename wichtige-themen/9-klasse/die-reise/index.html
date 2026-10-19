@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Wichtige Themen → 9. klasse: "Die Reise"
+  Tekstene er laget av Claude for Deutschwelt (manus: deutschwelt-hoer-manuskripte-9trinn.docx) og lest inn av Teach i ElevenLabs.
+  Tekstsynkronisering: tidspunktene for hver setning er beregnet ved å matche setningene mot pausene i lydfilen (ffmpeg silencedetect) og
+  setningslengde, slik at hver setning får sin starttid. Det er omtrentlig — ikke ord-for-ord med talegjenkjenning (ikke tilgjengelig i bygge-miljøet).
+  Bygget av build_w9.py (kilde: content_a.py / content_b.py / align2.py).
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Die Reise · Wichtige Themen · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="stylesheet" href="../../../assets/wortsuche.css">
+<link rel="stylesheet" href="../../../assets/memory.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+    --dw-a:#1F4E79;
+    --dw-b:#A9231F;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.6rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-audio-wrap{margin-bottom:14px;}
+  audio{width:100%;}
+  .dw-sync-note{
+    font-size:.78rem;color:var(--dw-muted);background:#f4f1e8;border-radius:8px;
+    padding:8px 12px;margin-top:8px;line-height:1.5;
+  }
+
+  .dw-dialogue{display:flex;flex-direction:column;gap:10px;margin:6px 0 4px;}
+  .dw-line{
+    max-width:82%;padding:10px 14px;border-radius:14px;font-size:.96rem;line-height:1.55;
+    cursor:pointer;transition:box-shadow .15s ease, background .15s ease; border:1px solid transparent;
+  }
+  .dw-line .dw-spk{display:block;font-size:.7rem;font-weight:700;margin-bottom:2px;letter-spacing:.6px;opacity:.8;}
+  .dw-line.a{align-self:flex-start;background:#eef2f6;border-color:#d7e0ea;}
+  .dw-line.b{align-self:flex-end;background:#fdf1ea;border-color:#f0d9c2;text-align:right;}
+  .dw-line.a .dw-spk{color:var(--dw-a);}
+  .dw-line.b .dw-spk{color:var(--dw-b);}
+  .dw-line:hover{box-shadow:0 2px 8px rgba(0,0,0,.1);}
+  .dw-line.dw-active{box-shadow:0 0 0 3px var(--dw-accent);background:#fff7e0;}
+  .dw-line.b.dw-active{background:#fff7e0;}
+
+  .dw-gloss{border-bottom:2px dotted var(--dw-accent);cursor:help;position:relative;}
+  .dw-gloss-tip{
+    visibility:hidden;opacity:0;position:absolute;bottom:125%;left:50%;transform:translateX(-50%);
+    background:var(--dw-primary);color:#fff;padding:6px 10px;border-radius:8px;font-size:.78rem;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.3;white-space:normal;max-width:190px;width:max-content;transition:opacity .15s ease;
+    pointer-events:none;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.2);
+  }
+  .dw-gloss:hover .dw-gloss-tip, .dw-gloss:focus .dw-gloss-tip{visibility:visible;opacity:1;}
+
+  .dw-phrase-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px;}
+  @media(min-width:560px){ .dw-phrase-grid{grid-template-columns:1fr 1fr;} }
+  .dw-phrase{background:#f4f1e8;border-radius:10px;padding:10px 14px;font-size:.88rem;line-height:1.55;}
+  .dw-phrase b{color:var(--dw-primary);display:block;margin-bottom:3px;font-size:.85rem;}
+  .dw-phrase .dw-no{color:var(--dw-muted);font-style:italic;font-size:.82rem;margin-top:2px;}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:90px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-readalong{margin-top:4px;}
+  .dw-readline{
+    padding:10px 14px;border-radius:10px;font-size:.96rem;line-height:1.7;cursor:pointer;
+    border-left:4px solid transparent;transition:background .15s ease, border-color .15s ease;margin-bottom:2px;
+  }
+  .dw-readline:hover{background:#f4f1e8;}
+  .dw-readline.dw-active{background:#fff7e0;border-left-color:var(--dw-accent);}
+  .dw-sent{border-radius:4px;transition:background .15s ease;}
+  .dw-sent.dw-on{background:#ffe9a8;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+  .dw-readline.dw-active{background:#fffaf0;}
+  .dw-line.dw-active{background:#fffaf0;}
+  .dw-two{display:grid;grid-template-columns:1fr;gap:12px;margin:10px 0;}
+  @media(min-width:560px){ .dw-two{grid-template-columns:1fr 1fr;} }
+  .dw-box{background:#f4f1e8;border-radius:12px;padding:12px 16px;font-size:.9rem;line-height:1.6;}
+  .dw-box h3{margin:0 0 6px;font-size:.98rem;color:var(--dw-primary);}
+  .dw-box ul{margin:0;padding-left:18px;}
+  .dw-box-haben{background:#eef2f6;border:1px solid #d7e0ea;}
+  .dw-box-sein{background:#fdf1ea;border:1px solid #f0d9c2;}
+  .dw-table{width:100%;border-collapse:collapse;font-size:.9rem;margin:8px 0;}
+  .dw-table th{background:var(--dw-primary);color:#fff;text-align:left;padding:8px 10px;font-weight:600;}
+  .dw-table td{padding:7px 10px;border-bottom:1px solid #ece8df;vertical-align:top;}
+  .dw-table tbody tr:nth-child(even) td{background:#faf8f3;}
+  .dw-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:10px 0;}
+  .dw-fact{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 12px;text-align:center;}
+  .dw-fact b{display:block;font-size:1.15rem;color:var(--dw-primary-light);}
+  .dw-fact span{font-size:.8rem;color:var(--dw-muted);}
+  .dw-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+  .dw-links a{background:#fff;border:1px solid #d8d3c4;border-radius:999px;padding:6px 14px;font-size:.84rem;color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-links a:hover{border-color:var(--dw-accent);background:#fffaf0;}
+  .dw-steps{padding-left:20px;margin:6px 0;font-size:.92rem;line-height:1.7;}
+  .dw-timeline{list-style:none;margin:10px 0;padding:0 0 0 14px;border-left:3px solid var(--dw-accent);}
+  .dw-timeline li{margin:0 0 10px;padding-left:12px;font-size:.92rem;line-height:1.5;}
+  .dw-timeline li b{display:block;color:var(--dw-primary-light);}
+  .dw-warn{background:#fdecea;border:1px solid #f1b9b4;border-radius:10px;padding:10px 14px;font-size:.88rem;line-height:1.55;margin:10px 0;}
+  .dw-qlist{margin:4px 0;padding-left:20px;font-size:.92rem;line-height:1.65;}
+  .dw-qlist span{color:var(--dw-muted);font-style:italic;font-size:.85rem;}
+  .dw-uum{border-left:5px solid var(--dw-primary-light);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">⭐ Wichtige Themen</a> → <a href="../">9. klasse</a> → Die Reise</p>
+
+  <div class="dw-header">
+    <h1>Die Reise</h1>
+    <p>Billetter og bestillinger: Interrail Berlin–Paris og fly München–Oslo</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>🎧 Om denne teksten</h2>
+    <p>To viktige reisesituasjoner: Først kjøper Herr Krause en <strong>plassreservasjon</strong> til Interrail-toget fra Berlin til Paris. Så bestiller Frau Berg en <strong>flybillett</strong> fra München til Oslo.</p>
+    <p>Lytt etter <strong>klokkeslett</strong>, <strong>spor</strong> og <strong>gate</strong>, <strong>priser</strong> og <strong>bagasje</strong>. Merk: klokkeslett, spor, vogner, gates og priser er eksempeldata laget til undervisning, ikke ekte ruter.</p>
+    <p>Trykk <strong>play</strong> og følg med i teksten — replikken som leses nå markeres i gult. Du kan også trykke direkte på en setning for å hoppe dit i lyden. Ord med <span class="dw-gloss" tabindex="0">stiplet understrek<span class="dw-gloss-tip">eksempel — hold musepekeren over eller trykk på ordet</span></span> kan du holde musepekeren over (eller trykke på) for norsk oversettelse.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🚆 Teil A — Zugticket nach Paris (Herr Krause und Frau Yilmaz)</h2>
+    <p class="dw-byline">Innspilt med ElevenLabs (Text to Dialogue) · stemmer: Herr Krause og Frau Yilmaz · 1:44 min</p>
+    <div class="dw-audio-wrap">
+      <audio id="dw-audio-0" controls preload="metadata">
+        <source src="audio-zug.mp3" type="audio/mpeg">
+        Nettleseren din støtter ikke avspilling av lyd.
+      </audio>
+      <div class="dw-sync-note">🎯 <strong>Merk om synkroniseringen:</strong> markeringen følger lyden <em>omtrent</em> — tidspunktene er beregnet ut fra pausene i lydfilen og hvor lange setningene er, ikke ord-for-ord med talegjenkjenning. Bruk den som en veiledning, ikke som en fasit.</div>
+    </div>
+    <div class="dw-dialogue" id="dw-box-0"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✈️ Teil B — Flug München–Oslo buchen (Frau Berg und Herr Hoffmann)</h2>
+    <p class="dw-byline">Innspilt med ElevenLabs (Text to Dialogue) · stemmer: Frau Berg og Herr Hoffmann · 1:46 min</p>
+    <div class="dw-audio-wrap">
+      <audio id="dw-audio-1" controls preload="metadata">
+        <source src="audio-flug.mp3" type="audio/mpeg">
+        Nettleseren din støtter ikke avspilling av lyd.
+      </audio>
+      <div class="dw-sync-note">🎯 <strong>Merk om synkroniseringen:</strong> samme metode som over.</div>
+    </div>
+    <div class="dw-dialogue" id="dw-box-1"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>🎫 Reisen — wichtige Wörter</h2>
+    <div class="dw-two">
+      <div class="dw-box"><h3>🚆 Mit dem Zug</h3>
+        <ul><li>die Fahrkarte / die Reservierung</li><li>Hin- und Rückfahrt</li><li>der Bahnhof, der Bahnsteig</li><li>das Gleis (<em>von Gleis elf</em>)</li><li>die Abfahrt / die Ankunft</li><li>umsteigen, der Anschluss</li><li>Wagen und Sitzplatz</li><li>die Verspätung</li></ul></div>
+      <div class="dw-box"><h3>✈️ Mit dem Flugzeug</h3>
+        <ul><li>der Flug, der Direktflug</li><li>der Hinflug / der Rückflug</li><li>der Flughafen, das Terminal</li><li>der Check-in, die Bordkarte</li><li>das Gate</li><li>das Handgepäck, der Koffer</li><li>die Sicherheitskontrolle</li><li>der Abflug / die Landung</li></ul></div>
+    </div>
+    <p class="dw-note">💡 <strong>Interrail:</strong> Passet dekker mange tog i Europa, men på mange langdistansetog må man betale en <em>Reservierung</em> i tillegg. Sjekk alltid ruten og kravene hos jernbaneselskapet før du reiser. Tidspunkter og priser i dialogene er eksempler.</p>
+    <div class="dw-links">
+      <a href="../../../reise/reiseplanlegger/">🗺️ Der Reiseplaner</a>
+      <a href="../../../reise/koffer/">🧳 Packe deinen Koffer</a>
+      <a href="../../../staedte/berlin/">🏙️ Berlin</a>
+      <a href="../../../sprechen/taxi/">🚕 Sprechen: Im Taxi</a>
+      <a href="../../../grammatikk/zahlen/">🔢 Zahlen (priser og klokkeslett)</a>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>📝 Ord og uttrykk</h2>
+    <div class="dw-phrase-grid">
+      <div class="dw-phrase"><b>🎫 Kjøpe billett</b>Ich möchte nach Paris fahren. Brauche ich eine Reservierung?<div class="dw-no">Jeg vil reise til Paris. Trenger jeg reservasjon?</div></div>
+      <div class="dw-phrase"><b>🕒 Avgang og spor</b>Der Zug fährt um neun Uhr fünfunddreißig von Gleis elf ab.<div class="dw-no">Toget går klokka 9.35 fra spor 11.</div></div>
+      <div class="dw-phrase"><b>🔁 Bytte</b>Sie müssen in Frankfurt umsteigen.<div class="dw-no">Du må bytte i Frankfurt.</div></div>
+      <div class="dw-phrase"><b>✈️ Bestille fly</b>Ich möchte einen Flug von München nach Oslo buchen.<div class="dw-no">Jeg vil bestille en flyreise fra München til Oslo.</div></div>
+      <div class="dw-phrase"><b>🧳 Bagasje</b>Das Handgepäck ist inklusive. Ein Koffer kostet vierzig Euro extra.<div class="dw-no">Håndbagasje er inkludert. En koffert koster 40 euro ekstra.</div></div>
+      <div class="dw-phrase"><b>✅ Innsjekk</b>Der Online-Check-in ist 24 Stunden vor dem Abflug möglich.<div class="dw-no">Nettinnsjekk er mulig 24 timer før avgang.</div></div>
+    </div>
+
+    <h3 style="margin:18px 0 8px;color:var(--dw-primary);font-size:1rem;">📖 Flere ord fra tekstene</h3>
+    <div class="dw-phrase-grid">
+      <div class="dw-phrase"><b>das Gleis</b>«Von welchem Gleis?»<div class="dw-no">sporet</div></div>
+      <div class="dw-phrase"><b>die Verbindung</b>«eine Verbindung um 9 Uhr 35»<div class="dw-no">forbindelsen</div></div>
+      <div class="dw-phrase"><b>die Bordkarte</b>«Sie bekommen Ihre Bordkarte aufs Handy.»<div class="dw-no">boardingkortet</div></div>
+      <div class="dw-phrase"><b>inklusive</b>«im Preis inklusive»<div class="dw-no">inkludert</div></div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Teste dich selbst</h2>
+    <p class="dw-note">Spørsmålene handler om tekstene.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <!-- dw-wortsuche -->
+  <div class="dw-section" id="ordsok">
+    <h2>🔎 Ordsøk: finn temaordene</h2>
+    <p class="dw-note">Finn de tyske ordene i rutenettet. Lista viser norsk betydning og antall bokstaver, og du velger selv hvor vanskelig det skal være. Når du har funnet alle ordene, kan du stokke om brettet og spille på nytt med nye ord fra samme tema.</p>
+    <div id="dw-ws"></div>
+    <script src="../../../assets/wortsuche.js"></script>
+    <script>DWWortsuche.themeWidget('dw-ws',[["Fahrkarte","die","billett"],["Bahnhof","der","jernbanestasjon"],["Zug","der","tog"],["Gleis","das","spor"],["Bahnsteig","der","plattform"],["Abfahrt","die","avgang"],["Ankunft","die","ankomst"],["Verspätung","die","forsinkelse"],["Wagen","der","vogn"],["Sitzplatz","der","sitteplass"],["Reservierung","die","reservasjon"],["Flugzeug","das","fly"],["Flughafen","der","flyplass"],["Flug","der","flyreise"],["Gate","das","gate"],["Bordkarte","die","boardingkort"],["Koffer","der","koffert"],["Handgepäck","das","håndbagasje"],["Reisepass","der","reisepass"],["Landung","die","landing"],["Ticket","das","billett"],["Schalter","der","skranke"],["Ausweis","der","legitimasjon"],["Gepäck","das","bagasje"]],'🔎 Die Reise');</script>
+  </div>
+<!-- /dw-wortsuche -->
+
+  <!-- dw-memory -->
+  <div class="dw-section" id="memory">
+    <h2>🃏 Memory: ord og betydning</h2>
+    <p class="dw-note">Finn parene: tysk ord og norsk betydning. Velg nivå (6, 8 eller 12 par). Når du har funnet alle parene, kan du stokke om og spille på nytt med nye ord fra samme tema.</p>
+    <div id="dw-mm"></div>
+    <script src="../../../assets/memory.js"></script>
+    <script>DWMemory.themeWidget('dw-mm',[["Fahrkarte","die","billett"],["Bahnhof","der","jernbanestasjon"],["Zug","der","tog"],["Gleis","das","spor"],["Bahnsteig","der","plattform"],["Abfahrt","die","avgang"],["Ankunft","die","ankomst"],["Verspätung","die","forsinkelse"],["Wagen","der","vogn"],["Sitzplatz","der","sitteplass"],["Reservierung","die","reservasjon"],["Flugzeug","das","fly"],["Flughafen","der","flyplass"],["Flug","der","flyreise"],["Gate","das","gate"],["Bordkarte","die","boardingkort"],["Koffer","der","koffert"],["Handgepäck","das","håndbagasje"],["Reisepass","der","reisepass"],["Landung","die","landing"],["Ticket","das","billett"],["Schalter","der","skranke"],["Ausweis","der","legitimasjon"],["Gepäck","das","bagasje"]],'🃏 Die Reise');</script>
+  </div>
+<!-- /dw-memory -->
+
+  <div class="dw-section">
+    <h2>💭 🎫 Meine Buchung</h2>
+    <p class="dw-note">Skriv en kort dialog (5–6 replikker) mellom deg og en ansatt, der du bestiller en tog- eller flybillett: hvor du skal, når du vil reise, hva det koster, og hvor mye bagasje du har.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Ich möchte nach … fahren / fliegen. Wann fährt / fliegt …? Was kostet …?"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  var dwBlocks = [{"audio": "dw-audio-0", "box": "dw-box-0", "mode": "dialog", "lines": [{"spk": "FRAU YILMAZ", "cls": "a", "sents": [{"t": 0.0, "html": "Guten Tag!"}, {"t": 1.03, "html": "Wie kann ich Ihnen helfen?"}]}, {"spk": "HERR KRAUSE", "cls": "b", "sents": [{"t": 2.54, "html": "Guten Tag!"}, {"t": 3.55, "html": "Ich möchte von Berlin nach Paris fahren."}, {"t": 6.04, "html": "Ich habe einen <span class=\"dw-gloss\" tabindex=\"0\">Interrail-Pass<span class=\"dw-gloss-tip\">Interrail-pass</span></span>."}, {"t": 7.92, "html": "Brauche ich noch eine <span class=\"dw-gloss\" tabindex=\"0\">Reservierung<span class=\"dw-gloss-tip\">reservasjon</span></span>?"}]}, {"spk": "FRAU YILMAZ", "cls": "a", "sents": [{"t": 9.56, "html": "Ja, für diese <span class=\"dw-gloss\" tabindex=\"0\">Strecke<span class=\"dw-gloss-tip\">strekning</span></span> ist eine <span class=\"dw-gloss\" tabindex=\"0\">Platzreservierung<span class=\"dw-gloss-tip\">setereservasjon</span></span> <span class=\"dw-gloss\" tabindex=\"0\">Pflicht<span class=\"dw-gloss-tip\">påbudt, obligatorisk</span></span>."}, {"t": 13.48, "html": "Der Pass allein reicht nicht."}, {"t": 15.49, "html": "Wann möchten Sie fahren?"}]}, {"spk": "HERR KRAUSE", "cls": "b", "sents": [{"t": 16.88, "html": "Am vierzehnten Juni."}, {"t": 18.54, "html": "Und ich möchte am einundzwanzigsten Juni zurückfahren."}]}, {"spk": "FRAU YILMAZ", "cls": "a", "sents": [{"t": 21.65, "html": "Einen Moment, ich schaue nach."}, {"t": 25.01, "html": "Am vierzehnten Juni gibt es eine <span class=\"dw-gloss\" tabindex=\"0\">Verbindung<span class=\"dw-gloss-tip\">forbindelse, avgang</span></span> um neun Uhr fünfunddreißig ab Berlin <span class=\"dw-gloss\" tabindex=\"0\">Hauptbahnhof<span class=\"dw-gloss-tip\">hovedbanegård</span></span>."}, {"t": 31.51, "html": "Sie müssen einmal in Frankfurt <span class=\"dw-gloss\" tabindex=\"0\">umsteigen<span class=\"dw-gloss-tip\">bytte (tog)</span></span>."}, {"t": 34.06, "html": "<span class=\"dw-gloss\" tabindex=\"0\">Ankunft<span class=\"dw-gloss-tip\">ankomst</span></span> in Paris ist um siebzehn Uhr achtundfünfzig."}]}, {"spk": "HERR KRAUSE", "cls": "b", "sents": [{"t": 37.63, "html": "Das ist eine lange Fahrt."}, {"t": 39.42, "html": "Wie lange dauert das?"}]}, {"spk": "FRAU YILMAZ", "cls": "a", "sents": [{"t": 40.59, "html": "Etwa achteinhalb Stunden."}, {"t": 42.64, "html": "Aber Sie fahren <span class=\"dw-gloss\" tabindex=\"0\">bequem<span class=\"dw-gloss-tip\">behagelig</span></span>, und Sie sehen viel von der <span class=\"dw-gloss\" tabindex=\"0\">Landschaft<span class=\"dw-gloss-tip\">landskap</span></span>."}]}, {"spk": "HERR KRAUSE", "cls": "b", "sents": [{"t": 46.4, "html": "Das stimmt."}, {"t": 47.73, "html": "Gut, das nehme ich."}, {"t": 49.46, "html": "Ich fahre zweite Klasse."}]}, {"spk": "FRAU YILMAZ", "cls": "a", "sents": [{"t": 50.97, "html": "Möchten Sie einen Platz am <span class=\"dw-gloss\" tabindex=\"0\">Fenster<span class=\"dw-gloss-tip\">vindu</span></span> oder am Gang?"}]}, {"spk": "HERR KRAUSE", "cls": "b", "sents": [{"t": 53.92, "html": "Am Fenster, bitte."}, {"t": 55.05, "html": "Und wenn möglich im <span class=\"dw-gloss\" tabindex=\"0\">Ruhebereich<span class=\"dw-gloss-tip\">stillesone</span></span>."}]}, {"spk": "FRAU YILMAZ", "cls": "a", "sents": [{"t": 57.32, "html": "Das geht."}, {"t": 58.29, "html": "Sie haben Wagen sechsundzwanzig, Platz einundsechzig, am Fenster."}, {"t": 62.97, "html": "Die Reservierung kostet neunzehn Euro pro Strecke."}, {"t": 66.12, "html": "Zwei Strecken, das sind achtunddreißig Euro."}]}, {"spk": "HERR KRAUSE", "cls": "b", "sents": [{"t": 69.07, "html": "Gut."}, {"t": 69.77, "html": "Von welchem <span class=\"dw-gloss\" tabindex=\"0\">Gleis<span class=\"dw-gloss-tip\">spor</span></span> fährt der Zug ab?"}]}, {"spk": "FRAU YILMAZ", "cls": "a", "sents": [{"t": 71.82, "html": "Heute steht Gleis elf, aber bitte schauen Sie am Reisetag noch einmal auf die <span class=\"dw-gloss\" tabindex=\"0\">Anzeigetafel<span class=\"dw-gloss-tip\">avgangstavle</span></span> oder in die App."}, {"t": 78.09, "html": "Das Gleis kann sich ändern."}]}, {"spk": "HERR KRAUSE", "cls": "b", "sents": [{"t": 80.07, "html": "Und in Frankfurt?"}]}, {"spk": "FRAU YILMAZ", "cls": "a", "sents": [{"t": 81.22, "html": "Dort haben Sie fünfundzwanzig Minuten Zeit zum Umsteigen."}, {"t": 84.84, "html": "Der <span class=\"dw-gloss\" tabindex=\"0\">Anschlusszug<span class=\"dw-gloss-tip\">tilkoblingstog</span></span> nach Paris fährt vom Gleis sieben ab."}]}, {"spk": "HERR KRAUSE", "cls": "b", "sents": [{"t": 88.02, "html": "Prima."}, {"t": 89.09, "html": "Können Sie mir bitte alles <span class=\"dw-gloss\" tabindex=\"0\">aufschreiben<span class=\"dw-gloss-tip\">skrive ned</span></span>?"}]}, {"spk": "FRAU YILMAZ", "cls": "a", "sents": [{"t": 91.05, "html": "Hier ist Ihre Reservierung."}, {"t": 92.91, "html": "Bitte zeigen Sie im Zug Ihren Pass und Ihren <span class=\"dw-gloss\" tabindex=\"0\">Ausweis<span class=\"dw-gloss-tip\">ID-kort, legitimasjon</span></span>."}, {"t": 96.46, "html": "Und seien Sie zehn Minuten vor der Abfahrt am <span class=\"dw-gloss\" tabindex=\"0\">Bahnsteig<span class=\"dw-gloss-tip\">plattform</span></span>."}]}, {"spk": "HERR KRAUSE", "cls": "b", "sents": [{"t": 99.92, "html": "Vielen Dank für Ihre Hilfe!"}]}, {"spk": "FRAU YILMAZ", "cls": "a", "sents": [{"t": 101.85, "html": "Gern geschehen."}, {"t": 102.98, "html": "Gute Reise nach Paris!"}]}]}, {"audio": "dw-audio-1", "box": "dw-box-1", "mode": "dialog", "lines": [{"spk": "HERR HOFFMANN", "cls": "a", "sents": [{"t": 0.0, "html": "Flugservice München, Hoffmann am Apparat."}, {"t": 2.63, "html": "Guten Tag!"}, {"t": 3.44, "html": "Wie kann ich helfen?"}]}, {"spk": "FRAU BERG", "cls": "b", "sents": [{"t": 4.51, "html": "Guten Tag, hier ist Berg."}, {"t": 6.58, "html": "Ich möchte einen Flug von München nach Oslo <span class=\"dw-gloss\" tabindex=\"0\">buchen<span class=\"dw-gloss-tip\">booke</span></span>."}]}, {"spk": "HERR HOFFMANN", "cls": "a", "sents": [{"t": 10.41, "html": "Sehr gern."}, {"t": 11.7, "html": "Wann möchten Sie fliegen?"}]}, {"spk": "FRAU BERG", "cls": "b", "sents": [{"t": 13.19, "html": "Am zwölften März, und zurück am neunzehnten März."}, {"t": 15.39, "html": "Für eine Person."}]}, {"spk": "HERR HOFFMANN", "cls": "a", "sents": [{"t": 16.6, "html": "Einen Moment."}, {"t": 18.82, "html": "Am zwölften März gibt es einen <span class=\"dw-gloss\" tabindex=\"0\">Direktflug<span class=\"dw-gloss-tip\">direktefly</span></span> um elf Uhr dreißig."}, {"t": 23.04, "html": "Sie <span class=\"dw-gloss\" tabindex=\"0\">landen<span class=\"dw-gloss-tip\">lande</span></span> um dreizehn Uhr fünfzig in Oslo."}, {"t": 26.13, "html": "Der <span class=\"dw-gloss\" tabindex=\"0\">Rückflug<span class=\"dw-gloss-tip\">returfly</span></span> am neunzehnten März startet um vierzehn Uhr zehn."}]}, {"spk": "FRAU BERG", "cls": "b", "sents": [{"t": 29.88, "html": "Das passt gut."}, {"t": 31.04, "html": "Was kostet das?"}]}, {"spk": "HERR HOFFMANN", "cls": "a", "sents": [{"t": 32.21, "html": "In der <span class=\"dw-gloss\" tabindex=\"0\">Economy-Klasse<span class=\"dw-gloss-tip\">økonomiklasse</span></span> kostet der Hin- und Rückflug zweihundertzehn Euro."}]}, {"spk": "FRAU BERG", "cls": "b", "sents": [{"t": 36.57, "html": "Und was ist mit Gepäck?"}, {"t": 38.25, "html": "Kann ich einen Koffer mitnehmen?"}]}, {"spk": "HERR HOFFMANN", "cls": "a", "sents": [{"t": 39.87, "html": "Das <span class=\"dw-gloss\" tabindex=\"0\">Handgepäck<span class=\"dw-gloss-tip\">håndbagasje</span></span> ist im Preis <span class=\"dw-gloss\" tabindex=\"0\">inklusive<span class=\"dw-gloss-tip\">inkludert</span></span>."}, {"t": 42.3, "html": "Das darf höchstens acht Kilogramm wiegen."}, {"t": 44.75, "html": "Für einen Koffer im <span class=\"dw-gloss\" tabindex=\"0\">Frachtraum<span class=\"dw-gloss-tip\">lasterom</span></span> kommen vierzig Euro dazu."}, {"t": 48.22, "html": "Der Koffer darf dreiundzwanzig Kilogramm wiegen."}]}, {"spk": "FRAU BERG", "cls": "b", "sents": [{"t": 50.8, "html": "Dann nehme ich nur das Handgepäck."}, {"t": 52.92, "html": "Gibt es Essen an Bord?"}]}, {"spk": "HERR HOFFMANN", "cls": "a", "sents": [{"t": 54.39, "html": "Auf diesem Flug bekommen Sie einen kleinen <span class=\"dw-gloss\" tabindex=\"0\">Snack<span class=\"dw-gloss-tip\">mellommåltid</span></span> und ein <span class=\"dw-gloss\" tabindex=\"0\">Getränk<span class=\"dw-gloss-tip\">drikke</span></span>."}, {"t": 58.13, "html": "Wenn Sie <span class=\"dw-gloss\" tabindex=\"0\">vegetarisches<span class=\"dw-gloss-tip\">vegetarisk</span></span> Essen möchten, müssen Sie das vorher <span class=\"dw-gloss\" tabindex=\"0\">anmelden<span class=\"dw-gloss-tip\">melde fra om</span></span>."}]}, {"spk": "FRAU BERG", "cls": "b", "sents": [{"t": 61.93, "html": "Das ist nicht nötig."}, {"t": 63.24, "html": "Ich möchte aber einen <span class=\"dw-gloss\" tabindex=\"0\">Fensterplatz<span class=\"dw-gloss-tip\">vindussete</span></span>."}]}, {"spk": "HERR HOFFMANN", "cls": "a", "sents": [{"t": 65.15, "html": "Kein Problem."}, {"t": 66.08, "html": "Ich reserviere einen Fensterplatz."}, {"t": 68.14, "html": "Auf welchen Namen soll ich buchen?"}, {"t": 69.82, "html": "Bitte wie im <span class=\"dw-gloss\" tabindex=\"0\">Reisepass<span class=\"dw-gloss-tip\">reisepass</span></span>."}]}, {"spk": "FRAU BERG", "cls": "b", "sents": [{"t": 71.29, "html": "Berg, Anna Berg."}, {"t": 73.32, "html": "Ich schicke Ihnen meine Daten gleich per E-Mail."}]}, {"spk": "HERR HOFFMANN", "cls": "a", "sents": [{"t": 75.71, "html": "Danke."}, {"t": 76.45, "html": "Dann ist Ihr Flug gebucht."}, {"t": 78.28, "html": "Der <span class=\"dw-gloss\" tabindex=\"0\">Online-Check-in<span class=\"dw-gloss-tip\">innsjekking på nett</span></span> ist vierundzwanzig Stunden vor dem <span class=\"dw-gloss\" tabindex=\"0\">Abflug<span class=\"dw-gloss-tip\">avgang</span></span> möglich."}, {"t": 82.25, "html": "Sie bekommen dann Ihre <span class=\"dw-gloss\" tabindex=\"0\">Bordkarte<span class=\"dw-gloss-tip\">boardingkort</span></span> aufs Handy."}]}, {"spk": "FRAU BERG", "cls": "b", "sents": [{"t": 84.64, "html": "Und am <span class=\"dw-gloss\" tabindex=\"0\">Flughafen<span class=\"dw-gloss-tip\">flyplass</span></span>?"}, {"t": 86.14, "html": "Was muss ich beachten?"}]}, {"spk": "HERR HOFFMANN", "cls": "a", "sents": [{"t": 87.41, "html": "Bitte seien Sie zwei Stunden vor dem Abflug am Flughafen."}, {"t": 90.95, "html": "Terminal zwei."}, {"t": 92.25, "html": "Nach der <span class=\"dw-gloss\" tabindex=\"0\">Sicherheitskontrolle<span class=\"dw-gloss-tip\">sikkerhetskontroll</span></span> sehen Sie auf der Anzeigetafel, an welchem <span class=\"dw-gloss\" tabindex=\"0\">Gate<span class=\"dw-gloss-tip\">gate (utgang til flyet)</span></span> Ihr Flug abfliegt."}, {"t": 97.69, "html": "Das Gate öffnet etwa vierzig Minuten vor dem Start."}]}, {"spk": "FRAU BERG", "cls": "b", "sents": [{"t": 100.79, "html": "Das ist alles sehr klar."}, {"t": 102.4, "html": "Vielen Dank für Ihre Hilfe!"}]}, {"spk": "HERR HOFFMANN", "cls": "a", "sents": [{"t": 103.94, "html": "Gern geschehen."}, {"t": 104.96, "html": "Einen schönen Flug nach Oslo, Frau Berg!"}]}]}];
+
+  function dwSetup(block){
+    var container = document.getElementById(block.box);
+    var audio = document.getElementById(block.audio);
+    var flat = [];
+    block.lines.forEach(function(line){
+      var div = document.createElement('div');
+      div.className = block.mode === 'mono' ? 'dw-readline' : 'dw-line ' + line.cls;
+      if(block.mode !== 'mono'){
+        var sp = document.createElement('span'); sp.className = 'dw-spk'; sp.textContent = line.spk; div.appendChild(sp);
+      }
+      line.sents.forEach(function(s, k){
+        var span = document.createElement('span');
+        span.className = 'dw-sent';
+        span.innerHTML = s.html;
+        span.addEventListener('click', function(e){ e.stopPropagation(); audio.currentTime = s.t; audio.play(); });
+        div.appendChild(span);
+        if(k < line.sents.length - 1) div.appendChild(document.createTextNode(' '));
+        flat.push({t: s.t, span: span, line: div});
+      });
+      div.addEventListener('click', function(){ audio.currentTime = line.sents[0].t; audio.play(); });
+      container.appendChild(div);
+    });
+    function clear(){ flat.forEach(function(f){ f.span.classList.remove('dw-on'); f.line.classList.remove('dw-active'); }); }
+    function highlight(t){
+      var idx = 0;
+      for(var i=0;i<flat.length;i++){ if(t >= flat[i].t) idx = i; else break; }
+      flat.forEach(function(f, i){
+        var on = (i === idx && !audio.paused);
+        f.span.classList.toggle('dw-on', on);
+        f.line.classList.toggle('dw-active', on || (f.line === flat[idx].line && !audio.paused));
+      });
+    }
+    audio.addEventListener('timeupdate', function(){ highlight(audio.currentTime); });
+    audio.addEventListener('play', function(){ highlight(audio.currentTime); });
+    audio.addEventListener('pause', clear);
+    audio.addEventListener('ended', clear);
+  }
+  dwBlocks.forEach(dwSetup);
+  // Bare én lydfil om gangen
+  document.querySelectorAll('audio').forEach(function(a){
+    a.addEventListener('play', function(){ document.querySelectorAll('audio').forEach(function(b){ if(b !== a) b.pause(); }); });
+  });
+
+  var dwQuiz = [{"q": "Wohin möchte Herr Krause fahren?", "opts": ["Nach Rom", "Nach Paris", "Nach London"], "correct": 1}, {"q": "Was braucht er zusätzlich zum Interrail-Pass?", "opts": ["Eine Platzreservierung", "Ein Visum", "Ein Hotelzimmer"], "correct": 0}, {"q": "Wo muss Herr Krause umsteigen?", "opts": ["In Köln", "In Mannheim", "In Frankfurt"], "correct": 2}, {"q": "Wann fährt der Zug in Berlin ab?", "opts": ["Um 8.00 Uhr", "Um 9.35 Uhr", "Um 17.58 Uhr"], "correct": 1}, {"q": "Welchen Platz bekommt Herr Krause?", "opts": ["Wagen 26, Platz 61", "Wagen 11, Platz 7", "Wagen 7, Platz 26"], "correct": 0}, {"q": "Was kosten die zwei Reservierungen zusammen?", "opts": ["57 Euro", "19 Euro", "38 Euro"], "correct": 2}, {"q": "Wohin fliegt Frau Berg?", "opts": ["Nach Bergen", "Nach Oslo", "Nach Berlin"], "correct": 1}, {"q": "Was ist im Flugpreis inklusive?", "opts": ["Das Handgepäck", "Ein Koffer", "Ein warmes Menü"], "correct": 0}, {"q": "Was kostet ein Koffer extra?", "opts": ["60 Euro", "20 Euro", "40 Euro"], "correct": 2}, {"q": "Wann ist der Online-Check-in möglich?", "opts": ["48 Stunden vor dem Abflug", "24 Stunden vor dem Abflug", "Zwei Stunden vor dem Abflug"], "correct": 1}, {"q": "Wie früh soll Frau Berg am Flughafen sein?", "opts": ["Zwei Stunden vor dem Abflug", "Eine Stunde vor dem Abflug", "30 Minuten vor dem Abflug"], "correct": 0}];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var h = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        h += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = h;
+      wrap.appendChild(block);
+    });
+  }
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Wichtige Themen → 9. klasse: "Der Zweite Weltkrieg"
+  Tekstene er laget av Claude for Deutschwelt (manus: deutschwelt-hoer-manuskripte-9trinn.docx) og lest inn av Teach i ElevenLabs.
+  Tekstsynkronisering: tidspunktene for hver setning er beregnet ved å matche setningene mot pausene i lydfilen (ffmpeg silencedetect) og
+  setningslengde, slik at hver setning får sin starttid. Det er omtrentlig — ikke ord-for-ord med talegjenkjenning (ikke tilgjengelig i bygge-miljøet).
+  Bygget av build_w9.py (kilde: content_a.py / content_b.py / align2.py).
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Der Zweite Weltkrieg · Wichtige Themen · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="stylesheet" href="../../../assets/wortsuche.css">
+<link rel="stylesheet" href="../../../assets/memory.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+    --dw-a:#1F4E79;
+    --dw-b:#A9231F;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.6rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-audio-wrap{margin-bottom:14px;}
+  audio{width:100%;}
+  .dw-sync-note{
+    font-size:.78rem;color:var(--dw-muted);background:#f4f1e8;border-radius:8px;
+    padding:8px 12px;margin-top:8px;line-height:1.5;
+  }
+
+  .dw-dialogue{display:flex;flex-direction:column;gap:10px;margin:6px 0 4px;}
+  .dw-line{
+    max-width:82%;padding:10px 14px;border-radius:14px;font-size:.96rem;line-height:1.55;
+    cursor:pointer;transition:box-shadow .15s ease, background .15s ease; border:1px solid transparent;
+  }
+  .dw-line .dw-spk{display:block;font-size:.7rem;font-weight:700;margin-bottom:2px;letter-spacing:.6px;opacity:.8;}
+  .dw-line.a{align-self:flex-start;background:#eef2f6;border-color:#d7e0ea;}
+  .dw-line.b{align-self:flex-end;background:#fdf1ea;border-color:#f0d9c2;text-align:right;}
+  .dw-line.a .dw-spk{color:var(--dw-a);}
+  .dw-line.b .dw-spk{color:var(--dw-b);}
+  .dw-line:hover{box-shadow:0 2px 8px rgba(0,0,0,.1);}
+  .dw-line.dw-active{box-shadow:0 0 0 3px var(--dw-accent);background:#fff7e0;}
+  .dw-line.b.dw-active{background:#fff7e0;}
+
+  .dw-gloss{border-bottom:2px dotted var(--dw-accent);cursor:help;position:relative;}
+  .dw-gloss-tip{
+    visibility:hidden;opacity:0;position:absolute;bottom:125%;left:50%;transform:translateX(-50%);
+    background:var(--dw-primary);color:#fff;padding:6px 10px;border-radius:8px;font-size:.78rem;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.3;white-space:normal;max-width:190px;width:max-content;transition:opacity .15s ease;
+    pointer-events:none;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.2);
+  }
+  .dw-gloss:hover .dw-gloss-tip, .dw-gloss:focus .dw-gloss-tip{visibility:visible;opacity:1;}
+
+  .dw-phrase-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px;}
+  @media(min-width:560px){ .dw-phrase-grid{grid-template-columns:1fr 1fr;} }
+  .dw-phrase{background:#f4f1e8;border-radius:10px;padding:10px 14px;font-size:.88rem;line-height:1.55;}
+  .dw-phrase b{color:var(--dw-primary);display:block;margin-bottom:3px;font-size:.85rem;}
+  .dw-phrase .dw-no{color:var(--dw-muted);font-style:italic;font-size:.82rem;margin-top:2px;}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:90px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-readalong{margin-top:4px;}
+  .dw-readline{
+    padding:10px 14px;border-radius:10px;font-size:.96rem;line-height:1.7;cursor:pointer;
+    border-left:4px solid transparent;transition:background .15s ease, border-color .15s ease;margin-bottom:2px;
+  }
+  .dw-readline:hover{background:#f4f1e8;}
+  .dw-readline.dw-active{background:#fff7e0;border-left-color:var(--dw-accent);}
+  .dw-sent{border-radius:4px;transition:background .15s ease;}
+  .dw-sent.dw-on{background:#ffe9a8;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+  .dw-readline.dw-active{background:#fffaf0;}
+  .dw-line.dw-active{background:#fffaf0;}
+  .dw-two{display:grid;grid-template-columns:1fr;gap:12px;margin:10px 0;}
+  @media(min-width:560px){ .dw-two{grid-template-columns:1fr 1fr;} }
+  .dw-box{background:#f4f1e8;border-radius:12px;padding:12px 16px;font-size:.9rem;line-height:1.6;}
+  .dw-box h3{margin:0 0 6px;font-size:.98rem;color:var(--dw-primary);}
+  .dw-box ul{margin:0;padding-left:18px;}
+  .dw-box-haben{background:#eef2f6;border:1px solid #d7e0ea;}
+  .dw-box-sein{background:#fdf1ea;border:1px solid #f0d9c2;}
+  .dw-table{width:100%;border-collapse:collapse;font-size:.9rem;margin:8px 0;}
+  .dw-table th{background:var(--dw-primary);color:#fff;text-align:left;padding:8px 10px;font-weight:600;}
+  .dw-table td{padding:7px 10px;border-bottom:1px solid #ece8df;vertical-align:top;}
+  .dw-table tbody tr:nth-child(even) td{background:#faf8f3;}
+  .dw-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:10px 0;}
+  .dw-fact{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 12px;text-align:center;}
+  .dw-fact b{display:block;font-size:1.15rem;color:var(--dw-primary-light);}
+  .dw-fact span{font-size:.8rem;color:var(--dw-muted);}
+  .dw-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+  .dw-links a{background:#fff;border:1px solid #d8d3c4;border-radius:999px;padding:6px 14px;font-size:.84rem;color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-links a:hover{border-color:var(--dw-accent);background:#fffaf0;}
+  .dw-steps{padding-left:20px;margin:6px 0;font-size:.92rem;line-height:1.7;}
+  .dw-timeline{list-style:none;margin:10px 0;padding:0 0 0 14px;border-left:3px solid var(--dw-accent);}
+  .dw-timeline li{margin:0 0 10px;padding-left:12px;font-size:.92rem;line-height:1.5;}
+  .dw-timeline li b{display:block;color:var(--dw-primary-light);}
+  .dw-warn{background:#fdecea;border:1px solid #f1b9b4;border-radius:10px;padding:10px 14px;font-size:.88rem;line-height:1.55;margin:10px 0;}
+  .dw-qlist{margin:4px 0;padding-left:20px;font-size:.92rem;line-height:1.65;}
+  .dw-qlist span{color:var(--dw-muted);font-style:italic;font-size:.85rem;}
+  .dw-uum{border-left:5px solid var(--dw-primary-light);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">⭐ Wichtige Themen</a> → <a href="../">9. klasse</a> → Der Zweite Weltkrieg</p>
+
+  <div class="dw-header">
+    <h1>Der Zweite Weltkrieg</h1>
+    <p>Herr Winter forteller kort om Tyskland under andre verdenskrig, i preteritum</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>🎧 Om denne teksten</h2>
+    <p>Herr Winter er historielærer og gir en kort, enkel innføring i Tyskland og andre verdenskrig. Han forteller i <strong>preteritum</strong> — fortellerens tid i skriftlig og historisk tysk. Teksten tar også med Norge.</p>
+    <p><strong>Et alvorlig tema.</strong> Lytt rolig og skriv ned årstall og navn du hører. Til slutt får du ideer til å jobbe videre med stoffet (se nederst).</p>
+    <p>Trykk <strong>play</strong> og følg med i teksten — setningen som leses nå markeres i gult. Du kan også trykke direkte på en setning for å hoppe dit i lyden. Ord med <span class="dw-gloss" tabindex="0">stiplet understrek<span class="dw-gloss-tip">eksempel — hold musepekeren over eller trykk på ordet</span></span> kan du holde musepekeren over (eller trykke på) for norsk oversettelse.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🎙️ Herr Winter erzählt über den Zweiten Weltkrieg</h2>
+    <p class="dw-byline">Innspilt med ElevenLabs · monolog: Herr Winter (lærer) · 2:19 min</p>
+    <div class="dw-audio-wrap">
+      <audio id="dw-audio-0" controls preload="metadata">
+        <source src="audio.mp3" type="audio/mpeg">
+        Nettleseren din støtter ikke avspilling av lyd.
+      </audio>
+      <div class="dw-sync-note">🎯 <strong>Merk om synkroniseringen:</strong> markeringen følger lyden <em>omtrent</em> — tidspunktene er beregnet ut fra pausene i lydfilen og hvor lange setningene er, ikke ord-for-ord med talegjenkjenning. Bruk den som en veiledning, ikke som en fasit.</div>
+    </div>
+    <div class="dw-readalong" id="dw-box-0"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>🕰️ Zeitleiste</h2>
+    <ol class="dw-timeline">
+      <li><b>1933</b>Die Nationalsozialisten kommen an die Macht.</li>
+      <li><b>1. September 1939</b>Deutschland überfällt Polen — der Zweite Weltkrieg beginnt.</li>
+      <li><b>9. April 1940</b>Deutschland besetzt Norwegen. Die Besatzung dauert bis 1945.</li>
+      <li><b>8. Mai 1945</b>Deutschland kapituliert. Der Krieg in Europa ist zu Ende.</li>
+    </ol>
+    <h3 style="margin:16px 0 8px;color:var(--dw-primary);font-size:1rem;">✍️ Präteritum — verbene fra teksten</h3>
+    <table class="dw-table"><thead><tr><th>Infinitiv</th><th>Präteritum</th><th>Norsk</th></tr></thead><tbody>
+      <tr><td>beginnen</td><td>begann</td><td>begynne</td></tr>
+      <tr><td>überfallen</td><td>überfiel</td><td>overfalle</td></tr>
+      <tr><td>besetzen</td><td>besetzte</td><td>okkupere</td></tr>
+      <tr><td>kämpfen</td><td>kämpfte</td><td>kjempe</td></tr>
+      <tr><td>sterben</td><td>starb</td><td>dø</td></tr>
+      <tr><td>werden</td><td>wurde</td><td>bli</td></tr>
+      <tr><td>sein / haben</td><td>war / hatte</td><td>var / hadde</td></tr>
+      <tr><td>enden</td><td>endete</td><td>ende</td></tr>
+    </tbody></table>
+    <p class="dw-note">💡 Svake verb får <em>-te</em> (besetzte, kämpfte, endete). Sterke verb endrer stammen (begann, überfiel, starb).</p>
+    <div class="dw-links">
+      <a href="../../../geschichte/zweiter-weltkrieg/">🕰️ Geschichte: Zweiter Weltkrieg</a>
+      <a href="../../../grammatikk/verb/praeteritum/">🎓 Präteritum</a>
+      <a href="../../../verben/">🔄 Verben-Konjugator</a>
+    </div>
+  </div>
+
+  <div class="dw-section dw-uum">
+    <h2>🎬 Weiterarbeiten: «Unsere Mütter, unsere Väter»</h2>
+    <p>Etter Herr Winters oversikt kan dere gå videre med fortellingen om fem unge venner i Berlin. <em>Unsere Mütter, unsere Väter</em> er en tysk TV-miniserie fra ZDF (2013) i tre deler. Den følger fem unge venner fra 1941 til 1945 og viser hvordan krigen forandrer dem.</p>
+    <div class="dw-warn">⚠️ <strong>Merk til lærer:</strong> serien har aldersgrense <strong>FSK 12</strong> og inneholder krigsscener og tunge temaer. Vurder utdrag, forberedelse og samtale i klassen før elevene ser den. Se også <a href="../../../filme-serien/">Filme &amp; Serien</a>.</div>
+    <h3 style="margin:14px 0 6px;color:var(--dw-primary);font-size:1rem;">❓ Før dere ser: spørsmål å tenke på</h3>
+    <ul class="dw-qlist">
+      <li>Wie lebten junge Menschen damals? <span>Hvordan levde unge mennesker den gangen?</span></li>
+      <li>Wovor hatten sie Angst? Was hofften sie? <span>Hva var de redde for? Hva håpet de på?</span></li>
+      <li>Was wusste man damals — und was wollte man nicht wissen? <span>Hva visste man, og hva ville man ikke vite?</span></li>
+    </ul>
+    <h3 style="margin:14px 0 6px;color:var(--dw-primary);font-size:1rem;">🎯 Mens dere ser: arbeidsoppgaver</h3>
+    <ul class="dw-qlist">
+      <li>Skriv ned navnene på de fem vennene og hva hver av dem ønsker seg.</li>
+      <li>Merk deg tre scener der noen må ta et vanskelig valg. Hva ville <em>du</em> ha gjort?</li>
+      <li>Finn minst fem verb i preteritum som beskriver det som skjer (f.eks. <em>sie hofften, er kämpfte, sie floh</em>).</li>
+    </ul>
+    <h3 style="margin:14px 0 6px;color:var(--dw-primary);font-size:1rem;">💬 Etter dere har sett: samtale og skriving</h3>
+    <ul class="dw-qlist">
+      <li>Hvordan forandrer krigen vennene? Gi to eksempler.</li>
+      <li>Hva fortalte serien deg som du ikke hadde lært i timene?</li>
+      <li>Skriv 5–6 setninger i preteritum om en av personene: <em>Er/Sie wollte … Dann kam … Am Ende …</em></li>
+    </ul>
+  </div>
+
+  <div class="dw-section">
+    <h2>📝 Ord og uttrykk</h2>
+    <div class="dw-phrase-grid">
+      <div class="dw-phrase"><b>📅 Tid og rekkefølge</b>Im Jahr 1933 … — Am 1. September 1939 … — Danach … — Am Ende …<div class="dw-no">I 1933 … — Den 1. september 1939 … — Etterpå … — Til slutt …</div></div>
+      <div class="dw-phrase"><b>⚔️ Krig</b>Deutschland überfiel Polen. Der Krieg begann.<div class="dw-no">Tyskland overfalt Polen. Krigen begynte.</div></div>
+      <div class="dw-phrase"><b>🇳🇴 Norge</b>Am 9. April 1940 besetzte Deutschland Norwegen.<div class="dw-no">Den 9. april 1940 okkuperte Tyskland Norge.</div></div>
+      <div class="dw-phrase"><b>✊ Motstand</b>Viele Norweger kämpften im Widerstand.<div class="dw-no">Mange nordmenn kjempet i motstandsbevegelsen.</div></div>
+      <div class="dw-phrase"><b>🕊️ Slutten</b>Am 8. Mai 1945 kapitulierte Deutschland.<div class="dw-no">Den 8. mai 1945 kapitulerte Tyskland.</div></div>
+      <div class="dw-phrase"><b>❓ Fortelle om fortiden</b>Wie lebten junge Menschen damals?<div class="dw-no">Hvordan levde unge mennesker den gangen?</div></div>
+    </div>
+
+    <h3 style="margin:18px 0 8px;color:var(--dw-primary);font-size:1rem;">📖 Flere ord fra tekstene</h3>
+    <div class="dw-phrase-grid">
+      <div class="dw-phrase"><b>der Krieg</b>«der Zweite Weltkrieg»<div class="dw-no">krigen</div></div>
+      <div class="dw-phrase"><b>die Besatzung</b>«Die Besatzung dauerte fünf Jahre.»<div class="dw-no">okkupasjonen</div></div>
+      <div class="dw-phrase"><b>der Widerstand</b>«im Widerstand kämpfen»<div class="dw-no">motstandsbevegelsen</div></div>
+      <div class="dw-phrase"><b>kapitulieren</b>«Deutschland kapitulierte.»<div class="dw-no">kapitulere</div></div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Teste dich selbst</h2>
+    <p class="dw-note">Spørsmålene handler om teksten.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <!-- dw-wortsuche -->
+  <div class="dw-section" id="ordsok">
+    <h2>🔎 Ordsøk: finn temaordene</h2>
+    <p class="dw-note">Finn de tyske ordene i rutenettet. Lista viser norsk betydning og antall bokstaver, og du velger selv hvor vanskelig det skal være. Når du har funnet alle ordene, kan du stokke om brettet og spille på nytt med nye ord fra samme tema.</p>
+    <div id="dw-ws"></div>
+    <script src="../../../assets/wortsuche.js"></script>
+    <script>DWWortsuche.themeWidget('dw-ws',[["Krieg","der","krig"],["Frieden","der","fred"],["Soldat","der","soldat"],["Diktator","der","diktator"],["Macht","die","makt"],["Wahl","die","valg"],["Besatzung","die","okkupasjon"],["Widerstand","der","motstand"],["Flucht","die","flukt"],["Lager","das","leir"],["Grenze","die","grense"],["Trümmer","pl","ruiner"],["Freiheit","die","frihet"],["Angst","die","frykt"],["Hoffnung","die","håp"],["Freund","der","venn"],["Geschichte","die","historie"],["Armee","die","hær"],["Bombe","die","bombe"],["Zivilist","der","sivilist"],["Zone","die","sone"],["Kapitulation","die","kapitulasjon"],["Verfolgung","die","forfølgelse"],["Jugend","die","ungdom"]],'🔎 Der Zweite Weltkrieg');</script>
+  </div>
+<!-- /dw-wortsuche -->
+
+  <!-- dw-memory -->
+  <div class="dw-section" id="memory">
+    <h2>🃏 Memory: ord og betydning</h2>
+    <p class="dw-note">Finn parene: tysk ord og norsk betydning. Velg nivå (6, 8 eller 12 par). Når du har funnet alle parene, kan du stokke om og spille på nytt med nye ord fra samme tema.</p>
+    <div id="dw-mm"></div>
+    <script src="../../../assets/memory.js"></script>
+    <script>DWMemory.themeWidget('dw-mm',[["Krieg","der","krig"],["Frieden","der","fred"],["Soldat","der","soldat"],["Diktator","der","diktator"],["Macht","die","makt"],["Wahl","die","valg"],["Besatzung","die","okkupasjon"],["Widerstand","der","motstand"],["Flucht","die","flukt"],["Lager","das","leir"],["Grenze","die","grense"],["Trümmer","pl","ruiner"],["Freiheit","die","frihet"],["Angst","die","frykt"],["Hoffnung","die","håp"],["Freund","der","venn"],["Geschichte","die","historie"],["Armee","die","hær"],["Bombe","die","bombe"],["Zivilist","der","sivilist"],["Zone","die","sone"],["Kapitulation","die","kapitulasjon"],["Verfolgung","die","forfølgelse"],["Jugend","die","ungdom"]],'🃏 Der Zweite Weltkrieg');</script>
+  </div>
+<!-- /dw-memory -->
+
+  <div class="dw-section">
+    <h2>💭 🕯️ Meine Gedanken</h2>
+    <p class="dw-note">Skriv 4–5 setninger i preteritum om hva du har lært: hva som skjedde i 1939 og 1940 og hva som skjedde i 1945. Eller skriv hva du lurer på etter å ha hørt teksten.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Im Jahr 1939 begann … Deutschland besetzte … Am Ende …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  var dwBlocks = [{"audio": "dw-audio-0", "box": "dw-box-0", "mode": "mono", "lines": [{"spk": "HERR WINTER", "cls": "a", "sents": [{"t": 0.0, "html": "Guten Morgen!"}, {"t": 1.32, "html": "Heute sprechen wir über ein sehr ernstes Thema: den Zweiten Weltkrieg."}, {"t": 6.36, "html": "Ich erzähle euch zuerst, was damals geschah."}]}, {"spk": "HERR WINTER", "cls": "a", "sents": [{"t": 9.36, "html": "Im Jahr neunzehnhundertdreiunddreißig kamen die <span class=\"dw-gloss\" tabindex=\"0\">Nationalsozialisten<span class=\"dw-gloss-tip\">nasjonalsosialistene (nazistene)</span></span> in Deutschland an die <span class=\"dw-gloss\" tabindex=\"0\">Macht<span class=\"dw-gloss-tip\">makt</span></span>."}, {"t": 15.15, "html": "Ihr <span class=\"dw-gloss\" tabindex=\"0\">Anführer<span class=\"dw-gloss-tip\">leder</span></span> hieß Adolf Hitler."}, {"t": 17.83, "html": "Er wurde ein <span class=\"dw-gloss\" tabindex=\"0\">Diktator<span class=\"dw-gloss-tip\">diktator</span></span>."}, {"t": 19.68, "html": "Es gab keine freien <span class=\"dw-gloss\" tabindex=\"0\">Wahlen<span class=\"dw-gloss-tip\">valg</span></span> mehr, und die Menschen durften nicht mehr offen sagen, was sie dachten."}]}, {"spk": "HERR WINTER", "cls": "a", "sents": [{"t": 25.44, "html": "Die Nazis <span class=\"dw-gloss\" tabindex=\"0\">verfolgten<span class=\"dw-gloss-tip\">forfulgte (verfolgen)</span></span> viele Menschen, vor allem die Juden."}, {"t": 29.53, "html": "Sie nahmen ihnen ihre <span class=\"dw-gloss\" tabindex=\"0\">Rechte<span class=\"dw-gloss-tip\">rettigheter</span></span>, ihre Häuser und ihre Arbeit."}, {"t": 33.99, "html": "Später brachten sie Millionen Menschen in <span class=\"dw-gloss\" tabindex=\"0\">Lager<span class=\"dw-gloss-tip\">leire (konsentrasjonsleire)</span></span>."}, {"t": 37.27, "html": "Dort <span class=\"dw-gloss\" tabindex=\"0\">ermordeten<span class=\"dw-gloss-tip\">myrdet (ermorden)</span></span> sie etwa sechs Millionen Juden."}, {"t": 40.71, "html": "Das nennen wir den Holocaust."}]}, {"spk": "HERR WINTER", "cls": "a", "sents": [{"t": 43.2, "html": "Am ersten September neunzehnhundertneununddreißig <span class=\"dw-gloss\" tabindex=\"0\">überfiel<span class=\"dw-gloss-tip\">overfalt (überfallen)</span></span> Deutschland Polen."}, {"t": 48.19, "html": "Das war der Beginn des Zweiten Weltkriegs."}, {"t": 51.15, "html": "Danach <span class=\"dw-gloss\" tabindex=\"0\">griff<span class=\"dw-gloss-tip\">angrep (angreifen)</span></span> Deutschland viele Länder in Europa an, zum Beispiel Frankreich, die Niederlande und Dänemark."}]}, {"spk": "HERR WINTER", "cls": "a", "sents": [{"t": 58.07, "html": "Auch Norwegen war betroffen."}, {"t": 60.23, "html": "Am neunten April neunzehnhundertvierzig <span class=\"dw-gloss\" tabindex=\"0\">besetzte<span class=\"dw-gloss-tip\">okkuperte (besetzen)</span></span> Deutschland das Land."}, {"t": 64.7, "html": "Die <span class=\"dw-gloss\" tabindex=\"0\">Besatzung<span class=\"dw-gloss-tip\">okkupasjon</span></span> dauerte fünf Jahre."}, {"t": 67.26, "html": "Viele Norweger kämpften im <span class=\"dw-gloss\" tabindex=\"0\">Widerstand<span class=\"dw-gloss-tip\">motstandsbevegelse</span></span>, und viele mussten <span class=\"dw-gloss\" tabindex=\"0\">fliehen<span class=\"dw-gloss-tip\">flykte</span></span>."}]}, {"spk": "HERR WINTER", "cls": "a", "sents": [{"t": 71.77, "html": "Der Krieg wurde immer größer und immer schlimmer."}, {"t": 75.38, "html": "Soldaten kämpften an vielen <span class=\"dw-gloss\" tabindex=\"0\">Fronten<span class=\"dw-gloss-tip\">fronter</span></span>, und auch in den Städten starben viele <span class=\"dw-gloss\" tabindex=\"0\">Zivilisten<span class=\"dw-gloss-tip\">sivile</span></span>."}, {"t": 81.27, "html": "Viele Familien verloren ihre Väter, Brüder und Söhne."}, {"t": 85.66, "html": "Städte wie Hamburg, Dresden und Berlin lagen am Ende in <span class=\"dw-gloss\" tabindex=\"0\">Trümmern<span class=\"dw-gloss-tip\">ruiner</span></span>."}]}, {"spk": "HERR WINTER", "cls": "a", "sents": [{"t": 90.72, "html": "Am achten Mai neunzehnhundertfünfundvierzig <span class=\"dw-gloss\" tabindex=\"0\">kapitulierte<span class=\"dw-gloss-tip\">kapitulerte</span></span> Deutschland."}, {"t": 95.19, "html": "Der Krieg in Europa war zu Ende."}, {"t": 97.86, "html": "Millionen Menschen waren tot, und das Land war zerstört."}, {"t": 102.21, "html": "Danach teilten die <span class=\"dw-gloss\" tabindex=\"0\">Siegermächte<span class=\"dw-gloss-tip\">seiersmaktene</span></span> Deutschland in vier <span class=\"dw-gloss\" tabindex=\"0\">Zonen<span class=\"dw-gloss-tip\">soner</span></span>."}]}, {"spk": "HERR WINTER", "cls": "a", "sents": [{"t": 106.23, "html": "Das sind die wichtigsten Fakten."}, {"t": 108.35, "html": "Aber Zahlen und Daten erzählen nicht alles."}, {"t": 111.66, "html": "Wie erlebten junge Menschen diese Zeit?"}, {"t": 114.33, "html": "Wovon <span class=\"dw-gloss\" tabindex=\"0\">träumten<span class=\"dw-gloss-tip\">drømte (träumen)</span></span> sie?"}, {"t": 116.01, "html": "Wovor hatten sie Angst?"}, {"t": 117.77, "html": "Was mussten sie tun, um zu <span class=\"dw-gloss\" tabindex=\"0\">überleben<span class=\"dw-gloss-tip\">overleve</span></span>, und wie <span class=\"dw-gloss\" tabindex=\"0\">veränderte<span class=\"dw-gloss-tip\">forandret (verändern)</span></span> der Krieg ihr Leben?"}]}, {"spk": "HERR WINTER", "cls": "a", "sents": [{"t": 123.38, "html": "In den nächsten Stunden schauen wir uns deshalb eine Geschichte an, die von fünf jungen Freunden in Berlin erzählt."}, {"t": 129.91, "html": "Sie waren jung wie ihr, sie hatten Pläne und Hoffnungen, und dann begann der Krieg."}, {"t": 135.98, "html": "Ich möchte, dass ihr gut zuhört und eure Fragen stellt."}]}]}];
+
+  function dwSetup(block){
+    var container = document.getElementById(block.box);
+    var audio = document.getElementById(block.audio);
+    var flat = [];
+    block.lines.forEach(function(line){
+      var div = document.createElement('div');
+      div.className = block.mode === 'mono' ? 'dw-readline' : 'dw-line ' + line.cls;
+      if(block.mode !== 'mono'){
+        var sp = document.createElement('span'); sp.className = 'dw-spk'; sp.textContent = line.spk; div.appendChild(sp);
+      }
+      line.sents.forEach(function(s, k){
+        var span = document.createElement('span');
+        span.className = 'dw-sent';
+        span.innerHTML = s.html;
+        span.addEventListener('click', function(e){ e.stopPropagation(); audio.currentTime = s.t; audio.play(); });
+        div.appendChild(span);
+        if(k < line.sents.length - 1) div.appendChild(document.createTextNode(' '));
+        flat.push({t: s.t, span: span, line: div});
+      });
+      div.addEventListener('click', function(){ audio.currentTime = line.sents[0].t; audio.play(); });
+      container.appendChild(div);
+    });
+    function clear(){ flat.forEach(function(f){ f.span.classList.remove('dw-on'); f.line.classList.remove('dw-active'); }); }
+    function highlight(t){
+      var idx = 0;
+      for(var i=0;i<flat.length;i++){ if(t >= flat[i].t) idx = i; else break; }
+      flat.forEach(function(f, i){
+        var on = (i === idx && !audio.paused);
+        f.span.classList.toggle('dw-on', on);
+        f.line.classList.toggle('dw-active', on || (f.line === flat[idx].line && !audio.paused));
+      });
+    }
+    audio.addEventListener('timeupdate', function(){ highlight(audio.currentTime); });
+    audio.addEventListener('play', function(){ highlight(audio.currentTime); });
+    audio.addEventListener('pause', clear);
+    audio.addEventListener('ended', clear);
+  }
+  dwBlocks.forEach(dwSetup);
+  // Bare én lydfil om gangen
+  document.querySelectorAll('audio').forEach(function(a){
+    a.addEventListener('play', function(){ document.querySelectorAll('audio').forEach(function(b){ if(b !== a) b.pause(); }); });
+  });
+
+  var dwQuiz = [{"q": "Wann kamen die Nationalsozialisten in Deutschland an die Macht?", "opts": ["1939", "1945", "1933"], "correct": 2}, {"q": "Wie hieß ihr Anführer?", "opts": ["Otto von Bismarck", "Adolf Hitler", "Konrad Adenauer"], "correct": 1}, {"q": "Wann überfiel Deutschland Polen?", "opts": ["Am 1. September 1939", "Am 9. April 1940", "Am 8. Mai 1945"], "correct": 0}, {"q": "Wann besetzte Deutschland Norwegen?", "opts": ["Am 17. Mai 1940", "Am 1. September 1939", "Am 9. April 1940"], "correct": 2}, {"q": "Wie lange dauerte die Besatzung Norwegens?", "opts": ["Ein Jahr", "Fünf Jahre", "Zehn Jahre"], "correct": 1}, {"q": "Wann kapitulierte Deutschland?", "opts": ["Am 8. Mai 1945", "Am 9. November 1989", "Am 1. Mai 1944"], "correct": 0}, {"q": "In wie viele Zonen teilten die Siegermächte Deutschland?", "opts": ["In zwei Zonen", "In drei Zonen", "In vier Zonen"], "correct": 2}, {"q": "Hva betyr «Besatzung» i teksten?", "opts": ["Fred", "Okkupasjon", "Valg"], "correct": 1}, {"q": "Welche Form ist das Präteritum von «beginnen»?", "opts": ["begann", "hat begonnen", "beginnt"], "correct": 0}];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var h = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        h += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = h;
+      wrap.appendChild(block);
+    });
+  }
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

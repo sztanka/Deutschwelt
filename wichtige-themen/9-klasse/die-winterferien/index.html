@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Wichtige Themen → 9. klasse: "Die Winterferien"
+  Tekstene er laget av Claude for Deutschwelt (manus: deutschwelt-hoer-manuskripte-9trinn.docx) og lest inn av Teach i ElevenLabs.
+  Tekstsynkronisering: tidspunktene for hver setning er beregnet ved å matche setningene mot pausene i lydfilen (ffmpeg silencedetect) og
+  setningslengde, slik at hver setning får sin starttid. Det er omtrentlig — ikke ord-for-ord med talegjenkjenning (ikke tilgjengelig i bygge-miljøet).
+  Bygget av build_w9.py (kilde: content_a.py / content_b.py / align2.py).
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Die Winterferien · Wichtige Themen · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="stylesheet" href="../../../assets/wortsuche.css">
+<link rel="stylesheet" href="../../../assets/memory.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+    --dw-a:#1F4E79;
+    --dw-b:#A9231F;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.6rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-audio-wrap{margin-bottom:14px;}
+  audio{width:100%;}
+  .dw-sync-note{
+    font-size:.78rem;color:var(--dw-muted);background:#f4f1e8;border-radius:8px;
+    padding:8px 12px;margin-top:8px;line-height:1.5;
+  }
+
+  .dw-dialogue{display:flex;flex-direction:column;gap:10px;margin:6px 0 4px;}
+  .dw-line{
+    max-width:82%;padding:10px 14px;border-radius:14px;font-size:.96rem;line-height:1.55;
+    cursor:pointer;transition:box-shadow .15s ease, background .15s ease; border:1px solid transparent;
+  }
+  .dw-line .dw-spk{display:block;font-size:.7rem;font-weight:700;margin-bottom:2px;letter-spacing:.6px;opacity:.8;}
+  .dw-line.a{align-self:flex-start;background:#eef2f6;border-color:#d7e0ea;}
+  .dw-line.b{align-self:flex-end;background:#fdf1ea;border-color:#f0d9c2;text-align:right;}
+  .dw-line.a .dw-spk{color:var(--dw-a);}
+  .dw-line.b .dw-spk{color:var(--dw-b);}
+  .dw-line:hover{box-shadow:0 2px 8px rgba(0,0,0,.1);}
+  .dw-line.dw-active{box-shadow:0 0 0 3px var(--dw-accent);background:#fff7e0;}
+  .dw-line.b.dw-active{background:#fff7e0;}
+
+  .dw-gloss{border-bottom:2px dotted var(--dw-accent);cursor:help;position:relative;}
+  .dw-gloss-tip{
+    visibility:hidden;opacity:0;position:absolute;bottom:125%;left:50%;transform:translateX(-50%);
+    background:var(--dw-primary);color:#fff;padding:6px 10px;border-radius:8px;font-size:.78rem;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.3;white-space:normal;max-width:190px;width:max-content;transition:opacity .15s ease;
+    pointer-events:none;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.2);
+  }
+  .dw-gloss:hover .dw-gloss-tip, .dw-gloss:focus .dw-gloss-tip{visibility:visible;opacity:1;}
+
+  .dw-phrase-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px;}
+  @media(min-width:560px){ .dw-phrase-grid{grid-template-columns:1fr 1fr;} }
+  .dw-phrase{background:#f4f1e8;border-radius:10px;padding:10px 14px;font-size:.88rem;line-height:1.55;}
+  .dw-phrase b{color:var(--dw-primary);display:block;margin-bottom:3px;font-size:.85rem;}
+  .dw-phrase .dw-no{color:var(--dw-muted);font-style:italic;font-size:.82rem;margin-top:2px;}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:90px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-readalong{margin-top:4px;}
+  .dw-readline{
+    padding:10px 14px;border-radius:10px;font-size:.96rem;line-height:1.7;cursor:pointer;
+    border-left:4px solid transparent;transition:background .15s ease, border-color .15s ease;margin-bottom:2px;
+  }
+  .dw-readline:hover{background:#f4f1e8;}
+  .dw-readline.dw-active{background:#fff7e0;border-left-color:var(--dw-accent);}
+  .dw-sent{border-radius:4px;transition:background .15s ease;}
+  .dw-sent.dw-on{background:#ffe9a8;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+  .dw-readline.dw-active{background:#fffaf0;}
+  .dw-line.dw-active{background:#fffaf0;}
+  .dw-two{display:grid;grid-template-columns:1fr;gap:12px;margin:10px 0;}
+  @media(min-width:560px){ .dw-two{grid-template-columns:1fr 1fr;} }
+  .dw-box{background:#f4f1e8;border-radius:12px;padding:12px 16px;font-size:.9rem;line-height:1.6;}
+  .dw-box h3{margin:0 0 6px;font-size:.98rem;color:var(--dw-primary);}
+  .dw-box ul{margin:0;padding-left:18px;}
+  .dw-box-haben{background:#eef2f6;border:1px solid #d7e0ea;}
+  .dw-box-sein{background:#fdf1ea;border:1px solid #f0d9c2;}
+  .dw-table{width:100%;border-collapse:collapse;font-size:.9rem;margin:8px 0;}
+  .dw-table th{background:var(--dw-primary);color:#fff;text-align:left;padding:8px 10px;font-weight:600;}
+  .dw-table td{padding:7px 10px;border-bottom:1px solid #ece8df;vertical-align:top;}
+  .dw-table tbody tr:nth-child(even) td{background:#faf8f3;}
+  .dw-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:10px 0;}
+  .dw-fact{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 12px;text-align:center;}
+  .dw-fact b{display:block;font-size:1.15rem;color:var(--dw-primary-light);}
+  .dw-fact span{font-size:.8rem;color:var(--dw-muted);}
+  .dw-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+  .dw-links a{background:#fff;border:1px solid #d8d3c4;border-radius:999px;padding:6px 14px;font-size:.84rem;color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-links a:hover{border-color:var(--dw-accent);background:#fffaf0;}
+  .dw-steps{padding-left:20px;margin:6px 0;font-size:.92rem;line-height:1.7;}
+  .dw-timeline{list-style:none;margin:10px 0;padding:0 0 0 14px;border-left:3px solid var(--dw-accent);}
+  .dw-timeline li{margin:0 0 10px;padding-left:12px;font-size:.92rem;line-height:1.5;}
+  .dw-timeline li b{display:block;color:var(--dw-primary-light);}
+  .dw-warn{background:#fdecea;border:1px solid #f1b9b4;border-radius:10px;padding:10px 14px;font-size:.88rem;line-height:1.55;margin:10px 0;}
+  .dw-qlist{margin:4px 0;padding-left:20px;font-size:.92rem;line-height:1.65;}
+  .dw-qlist span{color:var(--dw-muted);font-style:italic;font-size:.85rem;}
+  .dw-uum{border-left:5px solid var(--dw-primary-light);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">⭐ Wichtige Themen</a> → <a href="../">9. klasse</a> → Die Winterferien</p>
+
+  <div class="dw-header">
+    <h1>Die Winterferien</h1>
+    <p>Pakke til Kitzbühel, og bestille hotellrom</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>🎧 Om denne teksten</h2>
+    <p>Vinterferie i Østerrike! Først pakker søsknene Lukas og Hannah til en skitur til <strong>Kitzbühel</strong> i Tirol: hva må med, og hvem går på ski og hvem på snowboard? Så ringer Frau Weber til et hotell og bestiller rom.</p>
+    <p>I hoteldialogen bruker man <strong>Sie</strong> (høflig form), og Herr Gruber snakker østerriksk («Grüß Gott», «Auf Wiederhören»).</p>
+    <p>Trykk <strong>play</strong> og følg med i teksten — replikken som leses nå markeres i gult. Du kan også trykke direkte på en setning for å hoppe dit i lyden. Ord med <span class="dw-gloss" tabindex="0">stiplet understrek<span class="dw-gloss-tip">eksempel — hold musepekeren over eller trykk på ordet</span></span> kan du holde musepekeren over (eller trykke på) for norsk oversettelse.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🧳 Teil A — Lukas und Hannah packen für Kitzbühel</h2>
+    <p class="dw-byline">Innspilt med ElevenLabs (Text to Dialogue) · stemmer: Lukas og Hannah · 1:16 min</p>
+    <div class="dw-audio-wrap">
+      <audio id="dw-audio-0" controls preload="metadata">
+        <source src="audio-lukas-hannah.mp3" type="audio/mpeg">
+        Nettleseren din støtter ikke avspilling av lyd.
+      </audio>
+      <div class="dw-sync-note">🎯 <strong>Merk om synkroniseringen:</strong> markeringen følger lyden <em>omtrent</em> — tidspunktene er beregnet ut fra pausene i lydfilen og hvor lange setningene er, ikke ord-for-ord med talegjenkjenning. Bruk den som en veiledning, ikke som en fasit.</div>
+    </div>
+    <div class="dw-dialogue" id="dw-box-0"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>🏨 Teil B — Hotelzimmer reservieren (Frau Weber und Herr Gruber)</h2>
+    <p class="dw-byline">Innspilt med ElevenLabs (Text to Dialogue) · stemmer: Frau Weber og Herr Gruber · 1:37 min</p>
+    <div class="dw-audio-wrap">
+      <audio id="dw-audio-1" controls preload="metadata">
+        <source src="audio-hotel.mp3" type="audio/mpeg">
+        Nettleseren din støtter ikke avspilling av lyd.
+      </audio>
+      <div class="dw-sync-note">🎯 <strong>Merk om synkroniseringen:</strong> samme metode som over.</div>
+    </div>
+    <div class="dw-dialogue" id="dw-box-1"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>🎿 Wintersport und Hotel — nützliche Wörter</h2>
+    <table class="dw-table"><thead><tr><th>Tysk</th><th>Norsk</th></tr></thead><tbody>
+      <tr><td>Ski fahren / Snowboard fahren</td><td>å gå på ski / stå på snowboard</td></tr>
+      <tr><td>der Skipass, der Skilift, die Gondel</td><td>heiskort, skiheis, gondol</td></tr>
+      <tr><td>die Piste (blau, rot, schwarz)</td><td>nedfart (lett, middels, vanskelig)</td></tr>
+      <tr><td>Ski leihen / der Skiverleih</td><td>å leie ski / skiutleie</td></tr>
+      <tr><td>das Einzelzimmer / Doppelzimmer / Familienzimmer</td><td>enkeltrom / dobbeltrom / familierom</td></tr>
+      <tr><td>mit Frühstück / Halbpension</td><td>med frokost / halvpensjon</td></tr>
+      <tr><td>der Check-in / Check-out</td><td>innsjekk / utsjekk</td></tr>
+    </tbody></table>
+    <h3 style="margin:16px 0 8px;color:var(--dw-primary);font-size:1rem;">📞 Slik bestiller du et rom — fire steg</h3>
+    <ol class="dw-steps">
+      <li><b>Spør:</b> «Haben Sie noch ein Zimmer frei?»</li>
+      <li><b>Dato og antall:</b> «Vom 20. bis zum 27. Februar, für zwei Erwachsene und ein Kind.»</li>
+      <li><b>Pris og tilbud:</b> «Was kostet das Zimmer pro Nacht? Ist das Frühstück inklusive?»</li>
+      <li><b>Avslutt:</b> «Dann reserviere ich das Zimmer auf den Namen …» og «Vielen Dank!»</li>
+    </ol>
+    <div class="dw-links">
+      <a href="../../../sprechen/hotell/">🗣️ Sprechen: An der Rezeption</a>
+      <a href="../../../reise/koffer/">🧳 Packe deinen Koffer</a>
+      <a href="../../../staedte/innsbruck/">🏙️ Innsbruck (Tirol)</a>
+      <a href="../oesterreich/">🇦🇹 Österreich</a>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>📝 Ord og uttrykk</h2>
+    <div class="dw-phrase-grid">
+      <div class="dw-phrase"><b>🧳 Pakke</b>Ich packe meine Skijacke und meine Handschuhe ein.<div class="dw-no">Jeg pakker skijakka og hanskene mine.</div></div>
+      <div class="dw-phrase"><b>🎿 Ski og snowboard</b>Ich fahre Ski, du fährst Snowboard.<div class="dw-no">Jeg går på ski, du står på snowboard.</div></div>
+      <div class="dw-phrase"><b>🛏️ Spørre om rom</b>Haben Sie noch ein Zimmer frei?<div class="dw-no">Har dere ledige rom?</div></div>
+      <div class="dw-phrase"><b>📅 Dato</b>Vom zwanzigsten bis zum siebenundzwanzigsten Februar.<div class="dw-no">Fra 20. til 27. februar.</div></div>
+      <div class="dw-phrase"><b>💶 Pris</b>Was kostet das Zimmer pro Nacht?<div class="dw-no">Hva koster rommet per natt?</div></div>
+      <div class="dw-phrase"><b>🔑 Reservere</b>Auf welchen Namen darf ich reservieren?<div class="dw-no">Hvilket navn skal jeg reservere på?</div></div>
+    </div>
+
+    <h3 style="margin:18px 0 8px;color:var(--dw-primary);font-size:1rem;">📖 Flere ord fra tekstene</h3>
+    <div class="dw-phrase-grid">
+      <div class="dw-phrase"><b>die Ausrüstung</b>«wir leihen die Ausrüstung»<div class="dw-no">utstyret</div></div>
+      <div class="dw-phrase"><b>die Halbpension</b>«Mit Halbpension …»<div class="dw-no">halvpensjon</div></div>
+      <div class="dw-phrase"><b>der Skiraum</b>«einen Skiraum»<div class="dw-no">skirom</div></div>
+      <div class="dw-phrase"><b>inklusive</b>«Ist das Frühstück inklusive?»<div class="dw-no">inkludert</div></div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Teste dich selbst</h2>
+    <p class="dw-note">Spørsmålene handler om tekstene.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <!-- dw-wortsuche -->
+  <div class="dw-section" id="ordsok">
+    <h2>🔎 Ordsøk: finn temaordene</h2>
+    <p class="dw-note">Finn de tyske ordene i rutenettet. Lista viser norsk betydning og antall bokstaver, og du velger selv hvor vanskelig det skal være. Når du har funnet alle ordene, kan du stokke om brettet og spille på nytt med nye ord fra samme tema.</p>
+    <div id="dw-ws"></div>
+    <script src="../../../assets/wortsuche.js"></script>
+    <script>DWWortsuche.themeWidget('dw-ws',[["Skijacke","die","skijakke"],["Skihose","die","skibukse"],["Handschuhe","pl","hansker"],["Mütze","die","lue"],["Schal","der","skjerf"],["Helm","der","hjelm"],["Skibrille","die","skibriller"],["Ski","der","ski"],["Snowboard","das","snowboard"],["Piste","die","løype, bakke"],["Skipass","der","heiskort"],["Skilift","der","skiheis"],["Gondel","die","gondol"],["Hütte","die","hytte"],["Zimmer","das","rom"],["Balkon","der","balkong"],["Frühstück","das","frokost"],["Rezeption","die","resepsjon"],["Reservierung","die","reservasjon"],["Nacht","die","natt"],["Gepäck","das","bagasje"],["Schlüssel","der","nøkkel"],["Winter","der","vinter"],["Ausrüstung","die","utstyr"]],'🔎 Die Winterferien');</script>
+  </div>
+<!-- /dw-wortsuche -->
+
+  <!-- dw-memory -->
+  <div class="dw-section" id="memory">
+    <h2>🃏 Memory: ord og betydning</h2>
+    <p class="dw-note">Finn parene: tysk ord og norsk betydning. Velg nivå (6, 8 eller 12 par). Når du har funnet alle parene, kan du stokke om og spille på nytt med nye ord fra samme tema.</p>
+    <div id="dw-mm"></div>
+    <script src="../../../assets/memory.js"></script>
+    <script>DWMemory.themeWidget('dw-mm',[["Skijacke","die","skijakke"],["Skihose","die","skibukse"],["Handschuhe","pl","hansker"],["Mütze","die","lue"],["Schal","der","skjerf"],["Helm","der","hjelm"],["Skibrille","die","skibriller"],["Ski","der","ski"],["Snowboard","das","snowboard"],["Piste","die","løype, bakke"],["Skipass","der","heiskort"],["Skilift","der","skiheis"],["Gondel","die","gondol"],["Hütte","die","hytte"],["Zimmer","das","rom"],["Balkon","der","balkong"],["Frühstück","das","frokost"],["Rezeption","die","resepsjon"],["Reservierung","die","reservasjon"],["Nacht","die","natt"],["Gepäck","das","bagasje"],["Schlüssel","der","nøkkel"],["Winter","der","vinter"],["Ausrüstung","die","utstyr"]],'🃏 Die Winterferien');</script>
+  </div>
+<!-- /dw-memory -->
+
+  <div class="dw-section">
+    <h2>💭 ⛷️ Meine Winterreise</h2>
+    <p class="dw-note">Du skal på skitur eller vinterferie. Skriv 5–6 setninger: hvor du reiser, hva du pakker, og hva du vil gjøre. Eller skriv en liten dialog der du bestiller et rom (3–4 replikker).</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Ich fahre nach … Ich packe … ein. Wir fahren Ski / Snowboard. …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  var dwBlocks = [{"audio": "dw-audio-0", "box": "dw-box-0", "mode": "dialog", "lines": [{"spk": "LUKAS", "cls": "a", "sents": [{"t": 0.0, "html": "Hannah, morgen fahren wir nach Kitzbühel!"}, {"t": 3.83, "html": "Hast du schon gepackt?"}]}, {"spk": "HANNAH", "cls": "b", "sents": [{"t": 5.46, "html": "Noch nicht richtig."}, {"t": 6.65, "html": "Was muss ich alles mitnehmen?"}]}, {"spk": "LUKAS", "cls": "a", "sents": [{"t": 9.02, "html": "Zuerst die warmen Sachen: deine <span class=\"dw-gloss\" tabindex=\"0\">Skijacke<span class=\"dw-gloss-tip\">skijakke</span></span>, deine <span class=\"dw-gloss\" tabindex=\"0\">Skihose<span class=\"dw-gloss-tip\">skibukse</span></span>, <span class=\"dw-gloss\" tabindex=\"0\">Handschuhe<span class=\"dw-gloss-tip\">hansker</span></span>, eine <span class=\"dw-gloss\" tabindex=\"0\">Mütze<span class=\"dw-gloss-tip\">lue</span></span> und einen <span class=\"dw-gloss\" tabindex=\"0\">Schal<span class=\"dw-gloss-tip\">skjerf</span></span>."}]}, {"spk": "HANNAH", "cls": "b", "sents": [{"t": 14.4, "html": "Und <span class=\"dw-gloss\" tabindex=\"0\">Thermounterwäsche<span class=\"dw-gloss-tip\">termoundertøy</span></span> und dicke Socken, oder?"}]}, {"spk": "LUKAS", "cls": "a", "sents": [{"t": 17.22, "html": "Genau!"}, {"t": 18.05, "html": "Vergiss die <span class=\"dw-gloss\" tabindex=\"0\">Skibrille<span class=\"dw-gloss-tip\">skibriller</span></span> und die <span class=\"dw-gloss\" tabindex=\"0\">Sonnencreme<span class=\"dw-gloss-tip\">solkrem</span></span> nicht."}, {"t": 20.85, "html": "In den Bergen scheint die Sonne stark."}]}, {"spk": "HANNAH", "cls": "b", "sents": [{"t": 23.0, "html": "Bringen wir unsere eigenen Ski und das Snowboard mit?"}]}, {"spk": "LUKAS", "cls": "a", "sents": [{"t": 26.11, "html": "Nein, das ist zu viel <span class=\"dw-gloss\" tabindex=\"0\">Gepäck<span class=\"dw-gloss-tip\">bagasje</span></span>."}, {"t": 28.42, "html": "Wir <span class=\"dw-gloss\" tabindex=\"0\">leihen<span class=\"dw-gloss-tip\">å leie, låne</span></span> die <span class=\"dw-gloss\" tabindex=\"0\">Ausrüstung<span class=\"dw-gloss-tip\">utstyr</span></span> dort."}, {"t": 30.23, "html": "Aber den <span class=\"dw-gloss\" tabindex=\"0\">Helm<span class=\"dw-gloss-tip\">hjelm</span></span> nehme ich von zu Hause mit."}, {"t": 32.44, "html": "Sicher ist sicher."}]}, {"spk": "HANNAH", "cls": "b", "sents": [{"t": 33.84, "html": "Gute Idee."}, {"t": 35.01, "html": "Ich fahre ja Snowboard, und du fährst Ski."}, {"t": 38.04, "html": "Das wird lustig!"}]}, {"spk": "LUKAS", "cls": "a", "sents": [{"t": 39.35, "html": "Wir sehen, wer öfter <span class=\"dw-gloss\" tabindex=\"0\">hinfällt<span class=\"dw-gloss-tip\">faller (hinfallen)</span></span>!"}, {"t": 41.35, "html": "Hast du schon Snowboard gefahren?"}]}, {"spk": "HANNAH", "cls": "b", "sents": [{"t": 43.26, "html": "Nur einmal letzten Winter."}, {"t": 45.8, "html": "Ich war noch ziemlich schlecht."}]}, {"spk": "LUKAS", "cls": "a", "sents": [{"t": 47.65, "html": "Kein Problem."}, {"t": 48.91, "html": "Wir machen morgen früh einen <span class=\"dw-gloss\" tabindex=\"0\">Anfängerkurs<span class=\"dw-gloss-tip\">nybegynnerkurs</span></span>."}, {"t": 51.25, "html": "Da lernst du viel."}, {"t": 52.4, "html": "Und danach fahren wir zusammen auf die blaue <span class=\"dw-gloss\" tabindex=\"0\">Piste<span class=\"dw-gloss-tip\">skibakke, løype</span></span>."}]}, {"spk": "HANNAH", "cls": "b", "sents": [{"t": 55.64, "html": "Was machen wir am Abend?"}]}, {"spk": "LUKAS", "cls": "a", "sents": [{"t": 57.2, "html": "Wir gehen in eine Hütte und essen <span class=\"dw-gloss\" tabindex=\"0\">Kaiserschmarrn<span class=\"dw-gloss-tip\">søt, oppskåret pannekake</span></span>."}, {"t": 59.9, "html": "Das habe ich im Internet gelesen."}, {"t": 62.03, "html": "Und wir trinken heiße Schokolade."}]}, {"spk": "HANNAH", "cls": "b", "sents": [{"t": 63.9, "html": "Mmh, lecker!"}, {"t": 65.73, "html": "Dann packe ich noch meine <span class=\"dw-gloss\" tabindex=\"0\">Kopfhörer<span class=\"dw-gloss-tip\">hodetelefoner</span></span>, mein Handy und das <span class=\"dw-gloss\" tabindex=\"0\">Ladegerät<span class=\"dw-gloss-tip\">lader</span></span> ein."}]}, {"spk": "LUKAS", "cls": "a", "sents": [{"t": 70.04, "html": "Und den <span class=\"dw-gloss\" tabindex=\"0\">Skipass<span class=\"dw-gloss-tip\">heiskort</span></span>!"}, {"t": 71.25, "html": "Der liegt auf dem Tisch."}]}, {"spk": "HANNAH", "cls": "b", "sents": [{"t": 72.86, "html": "Danke, den habe ich fast vergessen!"}, {"t": 75.46, "html": "Ich freue mich so!"}]}]}, {"audio": "dw-audio-1", "box": "dw-box-1", "mode": "dialog", "lines": [{"spk": "HERR GRUBER", "cls": "a", "sents": [{"t": 0.0, "html": "Hotel Alpenblick in Kitzbühel, Gruber, <span class=\"dw-gloss\" tabindex=\"0\">Grüß Gott<span class=\"dw-gloss-tip\">hei, god dag (sør-tysk/østerriksk)</span></span>!"}, {"t": 3.5, "html": "Was kann ich für Sie tun?"}]}, {"spk": "FRAU WEBER", "cls": "b", "sents": [{"t": 4.88, "html": "Grüß Gott, hier ist Weber."}, {"t": 6.84, "html": "Ich möchte gern ein Zimmer für die Winterferien <span class=\"dw-gloss\" tabindex=\"0\">reservieren<span class=\"dw-gloss-tip\">reservere</span></span>."}, {"t": 9.77, "html": "Haben Sie noch etwas frei?"}]}, {"spk": "HERR GRUBER", "cls": "a", "sents": [{"t": 11.18, "html": "Sehr gern."}, {"t": 12.15, "html": "Für welchen <span class=\"dw-gloss\" tabindex=\"0\">Zeitraum<span class=\"dw-gloss-tip\">tidsrom</span></span> denn?"}]}, {"spk": "FRAU WEBER", "cls": "b", "sents": [{"t": 13.69, "html": "Vom zwanzigsten bis zum siebenundzwanzigsten Februar."}, {"t": 16.77, "html": "Das sind sieben <span class=\"dw-gloss\" tabindex=\"0\">Nächte<span class=\"dw-gloss-tip\">netter</span></span>."}]}, {"spk": "HERR GRUBER", "cls": "a", "sents": [{"t": 18.13, "html": "Einen Moment, ich schaue nach."}, {"t": 21.3, "html": "Ja, da haben wir noch Zimmer frei."}, {"t": 23.46, "html": "Für wie viele Personen?"}]}, {"spk": "FRAU WEBER", "cls": "b", "sents": [{"t": 24.92, "html": "Für zwei Erwachsene und ein Kind."}, {"t": 27.18, "html": "Unsere Tochter ist zwölf Jahre alt."}]}, {"spk": "HERR GRUBER", "cls": "a", "sents": [{"t": 29.15, "html": "Dann empfehle ich Ihnen unser <span class=\"dw-gloss\" tabindex=\"0\">Familienzimmer<span class=\"dw-gloss-tip\">familierom</span></span>."}, {"t": 31.82, "html": "Es hat ein <span class=\"dw-gloss\" tabindex=\"0\">Doppelbett<span class=\"dw-gloss-tip\">dobbeltseng</span></span> und ein <span class=\"dw-gloss\" tabindex=\"0\">Einzelbett<span class=\"dw-gloss-tip\">enkeltseng</span></span>, ein eigenes Bad und einen <span class=\"dw-gloss\" tabindex=\"0\">Balkon<span class=\"dw-gloss-tip\">balkong</span></span> mit <span class=\"dw-gloss\" tabindex=\"0\">Blick<span class=\"dw-gloss-tip\">utsikt</span></span> auf die Berge."}]}, {"spk": "FRAU WEBER", "cls": "b", "sents": [{"t": 37.91, "html": "Das klingt gut."}, {"t": 39.11, "html": "Was kostet das Zimmer pro Nacht?"}]}, {"spk": "HERR GRUBER", "cls": "a", "sents": [{"t": 40.89, "html": "Einhundertachtzig Euro pro Nacht, mit <span class=\"dw-gloss\" tabindex=\"0\">Frühstück<span class=\"dw-gloss-tip\">frokost</span></span>."}, {"t": 43.94, "html": "Mit <span class=\"dw-gloss\" tabindex=\"0\">Halbpension<span class=\"dw-gloss-tip\">halvpensjon (frokost og middag)</span></span>, also mit Frühstück und Abendessen, sind es zweihundertvierzig Euro."}]}, {"spk": "FRAU WEBER", "cls": "b", "sents": [{"t": 49.32, "html": "Hm, dann nehmen wir bitte nur das Frühstück."}, {"t": 52.32, "html": "Gibt es im Hotel auch <span class=\"dw-gloss\" tabindex=\"0\">WLAN<span class=\"dw-gloss-tip\">trådløst nett</span></span> und einen <span class=\"dw-gloss\" tabindex=\"0\">Skiraum<span class=\"dw-gloss-tip\">skirom (tørkerom for ski)</span></span>?"}]}, {"spk": "HERR GRUBER", "cls": "a", "sents": [{"t": 54.97, "html": "<span class=\"dw-gloss\" tabindex=\"0\">Selbstverständlich<span class=\"dw-gloss-tip\">selvsagt</span></span>."}, {"t": 56.4, "html": "Das WLAN ist gratis, und im Keller haben wir einen Skiraum, wo Sie Ihre Ausrüstung lassen können."}, {"t": 61.95, "html": "<span class=\"dw-gloss\" tabindex=\"0\">Parkplätze<span class=\"dw-gloss-tip\">parkeringsplasser</span></span> gibt es auch, direkt vor dem Haus."}]}, {"spk": "FRAU WEBER", "cls": "b", "sents": [{"t": 64.6, "html": "Wunderbar."}, {"t": 65.69, "html": "Wann können wir ankommen, und bis wann müssen wir abreisen?"}]}, {"spk": "HERR GRUBER", "cls": "a", "sents": [{"t": 68.81, "html": "Der <span class=\"dw-gloss\" tabindex=\"0\">Check-in<span class=\"dw-gloss-tip\">innsjekking</span></span> ist ab fünfzehn Uhr, der Check-out bis zehn Uhr am <span class=\"dw-gloss\" tabindex=\"0\">Abreisetag<span class=\"dw-gloss-tip\">avreisedag</span></span>."}]}, {"spk": "FRAU WEBER", "cls": "b", "sents": [{"t": 74.0, "html": "Gut, das passt."}, {"t": 75.42, "html": "Dann reserviere ich das Familienzimmer mit Frühstück."}]}, {"spk": "HERR GRUBER", "cls": "a", "sents": [{"t": 78.15, "html": "Perfekt."}, {"t": 79.15, "html": "Auf welchen Namen darf ich es reservieren?"}]}, {"spk": "FRAU WEBER", "cls": "b", "sents": [{"t": 81.36, "html": "Auf Weber."}, {"t": 82.41, "html": "Wir sind Familie Weber aus Nürnberg."}]}, {"spk": "HERR GRUBER", "cls": "a", "sents": [{"t": 84.48, "html": "Danke, Frau Weber."}, {"t": 85.64, "html": "Ich schicke Ihnen eine <span class=\"dw-gloss\" tabindex=\"0\">Bestätigung<span class=\"dw-gloss-tip\">bekreftelse</span></span> per E-Mail."}, {"t": 88.2, "html": "Bezahlen können Sie bei der Abreise, mit Karte oder <span class=\"dw-gloss\" tabindex=\"0\">bar<span class=\"dw-gloss-tip\">kontant</span></span>."}]}, {"spk": "FRAU WEBER", "cls": "b", "sents": [{"t": 91.64, "html": "Vielen Dank für Ihre Hilfe."}, {"t": 93.22, "html": "<span class=\"dw-gloss\" tabindex=\"0\">Auf Wiederhören<span class=\"dw-gloss-tip\">ha det (på telefon)</span></span>!"}]}, {"spk": "HERR GRUBER", "cls": "a", "sents": [{"t": 94.1, "html": "Gern geschehen."}, {"t": 95.21, "html": "Auf Wiederhören, und eine gute Reise!"}]}]}];
+
+  function dwSetup(block){
+    var container = document.getElementById(block.box);
+    var audio = document.getElementById(block.audio);
+    var flat = [];
+    block.lines.forEach(function(line){
+      var div = document.createElement('div');
+      div.className = block.mode === 'mono' ? 'dw-readline' : 'dw-line ' + line.cls;
+      if(block.mode !== 'mono'){
+        var sp = document.createElement('span'); sp.className = 'dw-spk'; sp.textContent = line.spk; div.appendChild(sp);
+      }
+      line.sents.forEach(function(s, k){
+        var span = document.createElement('span');
+        span.className = 'dw-sent';
+        span.innerHTML = s.html;
+        span.addEventListener('click', function(e){ e.stopPropagation(); audio.currentTime = s.t; audio.play(); });
+        div.appendChild(span);
+        if(k < line.sents.length - 1) div.appendChild(document.createTextNode(' '));
+        flat.push({t: s.t, span: span, line: div});
+      });
+      div.addEventListener('click', function(){ audio.currentTime = line.sents[0].t; audio.play(); });
+      container.appendChild(div);
+    });
+    function clear(){ flat.forEach(function(f){ f.span.classList.remove('dw-on'); f.line.classList.remove('dw-active'); }); }
+    function highlight(t){
+      var idx = 0;
+      for(var i=0;i<flat.length;i++){ if(t >= flat[i].t) idx = i; else break; }
+      flat.forEach(function(f, i){
+        var on = (i === idx && !audio.paused);
+        f.span.classList.toggle('dw-on', on);
+        f.line.classList.toggle('dw-active', on || (f.line === flat[idx].line && !audio.paused));
+      });
+    }
+    audio.addEventListener('timeupdate', function(){ highlight(audio.currentTime); });
+    audio.addEventListener('play', function(){ highlight(audio.currentTime); });
+    audio.addEventListener('pause', clear);
+    audio.addEventListener('ended', clear);
+  }
+  dwBlocks.forEach(dwSetup);
+  // Bare én lydfil om gangen
+  document.querySelectorAll('audio').forEach(function(a){
+    a.addEventListener('play', function(){ document.querySelectorAll('audio').forEach(function(b){ if(b !== a) b.pause(); }); });
+  });
+
+  var dwQuiz = [{"q": "Wohin fahren Lukas und Hannah?", "opts": ["Nach Kitzbühel", "Nach Zürich", "Nach Garmisch"], "correct": 0}, {"q": "Was fährt Hannah?", "opts": ["Ski", "Schlitten", "Snowboard"], "correct": 2}, {"q": "Was nimmt Lukas von zu Hause mit?", "opts": ["Seine Ski", "Seinen Helm", "Sein Snowboard"], "correct": 1}, {"q": "Was machen Lukas und Hannah morgen früh?", "opts": ["Einen Anfängerkurs", "Eine Wanderung", "Eine Schlittenfahrt"], "correct": 0}, {"q": "Was essen sie am Abend in der Hütte?", "opts": ["Schnitzel", "Pizza", "Kaiserschmarrn"], "correct": 2}, {"q": "Für welchen Zeitraum reserviert Frau Weber das Zimmer?", "opts": ["Vom 2. bis zum 9. Januar", "Vom 20. bis zum 27. Februar", "Vom 15. bis zum 22. März"], "correct": 1}, {"q": "Für wie viele Personen ist das Zimmer?", "opts": ["Für zwei Erwachsene und ein Kind", "Für einen Erwachsenen", "Für drei Erwachsene"], "correct": 0}, {"q": "Welches Zimmer empfiehlt Herr Gruber?", "opts": ["Das Einzelzimmer", "Eine Suite", "Das Familienzimmer"], "correct": 2}, {"q": "Was kostet das Zimmer mit Frühstück pro Nacht?", "opts": ["120 Euro", "180 Euro", "240 Euro"], "correct": 1}, {"q": "Ab wann ist der Check-in im Hotel?", "opts": ["Ab 15 Uhr", "Ab 12 Uhr", "Ab 10 Uhr"], "correct": 0}, {"q": "Hva betyr «Halbpension»?", "opts": ["Bare frokost", "Alle måltider inkludert", "Frokost og middag"], "correct": 2}];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var h = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        h += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = h;
+      wrap.appendChild(block);
+    });
+  }
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>

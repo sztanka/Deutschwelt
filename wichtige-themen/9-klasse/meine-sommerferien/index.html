@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Wichtige Themen → 9. klasse: "Meine Sommerferien"
+  Tekstene er laget av Claude for Deutschwelt (manus: deutschwelt-hoer-manuskripte-9trinn.docx) og lest inn av Teach i ElevenLabs.
+  Tekstsynkronisering: tidspunktene for hver setning er beregnet ved å matche setningene mot pausene i lydfilen (ffmpeg silencedetect) og
+  setningslengde, slik at hver setning får sin starttid. Det er omtrentlig — ikke ord-for-ord med talegjenkjenning (ikke tilgjengelig i bygge-miljøet).
+  Bygget av build_w9.py (kilde: content_a.py / content_b.py / align2.py).
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meine Sommerferien · Wichtige Themen · Deutschwelt</title>
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="stylesheet" href="../../../assets/wortsuche.css">
+<link rel="stylesheet" href="../../../assets/memory.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;
+    --dw-primary-light:#9c1329;
+    --dw-accent:#d9a91c;
+    --dw-good:#2e7d32;
+    --dw-bad:#c62828;
+    --dw-bg:#f7f5f0;
+    --dw-card:#ffffff;
+    --dw-text:#232323;
+    --dw-muted:#6b6b6b;
+    --dw-radius:16px;
+    --dw-a:#1F4E79;
+    --dw-b:#A9231F;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:760px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{
+    background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);
+    color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:22px;
+  }
+  .dw-header h1{margin:0 0 6px;font-size:1.6rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+
+  .dw-crumb{font-size:.85rem;margin:0 0 14px;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+
+  .dw-intro{
+    background:#fff9ec;border:1px solid #f0dca8;border-radius:var(--dw-radius);
+    padding:16px 20px;margin-bottom:20px;font-size:.9rem;line-height:1.6;
+  }
+  .dw-intro h2{margin:0 0 8px;color:var(--dw-primary);font-size:1.05rem;}
+
+  .dw-section{
+    background:var(--dw-card);border-radius:var(--dw-radius);padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;
+  }
+  .dw-section h2{margin:0 0 4px;color:var(--dw-primary);font-size:1.2rem;display:flex;align-items:center;gap:8px;}
+  .dw-byline{font-size:.82rem;color:var(--dw-muted);margin:0 0 14px;}
+  .dw-note{font-size:.82rem;color:var(--dw-muted);margin-top:8px;}
+
+  .dw-audio-wrap{margin-bottom:14px;}
+  audio{width:100%;}
+  .dw-sync-note{
+    font-size:.78rem;color:var(--dw-muted);background:#f4f1e8;border-radius:8px;
+    padding:8px 12px;margin-top:8px;line-height:1.5;
+  }
+
+  .dw-dialogue{display:flex;flex-direction:column;gap:10px;margin:6px 0 4px;}
+  .dw-line{
+    max-width:82%;padding:10px 14px;border-radius:14px;font-size:.96rem;line-height:1.55;
+    cursor:pointer;transition:box-shadow .15s ease, background .15s ease; border:1px solid transparent;
+  }
+  .dw-line .dw-spk{display:block;font-size:.7rem;font-weight:700;margin-bottom:2px;letter-spacing:.6px;opacity:.8;}
+  .dw-line.a{align-self:flex-start;background:#eef2f6;border-color:#d7e0ea;}
+  .dw-line.b{align-self:flex-end;background:#fdf1ea;border-color:#f0d9c2;text-align:right;}
+  .dw-line.a .dw-spk{color:var(--dw-a);}
+  .dw-line.b .dw-spk{color:var(--dw-b);}
+  .dw-line:hover{box-shadow:0 2px 8px rgba(0,0,0,.1);}
+  .dw-line.dw-active{box-shadow:0 0 0 3px var(--dw-accent);background:#fff7e0;}
+  .dw-line.b.dw-active{background:#fff7e0;}
+
+  .dw-gloss{border-bottom:2px dotted var(--dw-accent);cursor:help;position:relative;}
+  .dw-gloss-tip{
+    visibility:hidden;opacity:0;position:absolute;bottom:125%;left:50%;transform:translateX(-50%);
+    background:var(--dw-primary);color:#fff;padding:6px 10px;border-radius:8px;font-size:.78rem;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.3;white-space:normal;max-width:190px;width:max-content;transition:opacity .15s ease;
+    pointer-events:none;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.2);
+  }
+  .dw-gloss:hover .dw-gloss-tip, .dw-gloss:focus .dw-gloss-tip{visibility:visible;opacity:1;}
+
+  .dw-phrase-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px;}
+  @media(min-width:560px){ .dw-phrase-grid{grid-template-columns:1fr 1fr;} }
+  .dw-phrase{background:#f4f1e8;border-radius:10px;padding:10px 14px;font-size:.88rem;line-height:1.55;}
+  .dw-phrase b{color:var(--dw-primary);display:block;margin-bottom:3px;font-size:.85rem;}
+  .dw-phrase .dw-no{color:var(--dw-muted);font-style:italic;font-size:.82rem;margin-top:2px;}
+
+  .dw-quiz-q{margin-bottom:16px;}
+  .dw-quiz-q p.dw-q-text{font-weight:600;margin:0 0 8px;}
+  .dw-quiz-opt{
+    display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border-radius:10px;
+    border:2px solid #ddd7c8;background:#fff;cursor:pointer;font-size:.92rem;
+  }
+  .dw-quiz-opt:hover:not(:disabled){border-color:var(--dw-primary);}
+  .dw-quiz-opt.dw-correct{background:var(--dw-good);border-color:var(--dw-good);color:#fff;}
+  .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
+  .dw-quiz-opt:disabled{cursor:default;}
+  #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  textarea.dw-plan{
+    width:100%;min-height:90px;border:1px solid #d8d3c4;border-radius:10px;padding:12px;font-size:.95rem;
+    font-family:inherit;resize:vertical;
+  }
+  .dw-plan-tools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--dw-muted);}
+  .dw-copy-btn{
+    background:var(--dw-primary);color:#fff;border:none;padding:8px 16px;border-radius:999px;font-size:.85rem;cursor:pointer;
+  }
+  .dw-copy-btn:hover{background:var(--dw-primary-light);}
+
+  .dw-readalong{margin-top:4px;}
+  .dw-readline{
+    padding:10px 14px;border-radius:10px;font-size:.96rem;line-height:1.7;cursor:pointer;
+    border-left:4px solid transparent;transition:background .15s ease, border-color .15s ease;margin-bottom:2px;
+  }
+  .dw-readline:hover{background:#f4f1e8;}
+  .dw-readline.dw-active{background:#fff7e0;border-left-color:var(--dw-accent);}
+  .dw-sent{border-radius:4px;transition:background .15s ease;}
+  .dw-sent.dw-on{background:#ffe9a8;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+  .dw-readline.dw-active{background:#fffaf0;}
+  .dw-line.dw-active{background:#fffaf0;}
+  .dw-two{display:grid;grid-template-columns:1fr;gap:12px;margin:10px 0;}
+  @media(min-width:560px){ .dw-two{grid-template-columns:1fr 1fr;} }
+  .dw-box{background:#f4f1e8;border-radius:12px;padding:12px 16px;font-size:.9rem;line-height:1.6;}
+  .dw-box h3{margin:0 0 6px;font-size:.98rem;color:var(--dw-primary);}
+  .dw-box ul{margin:0;padding-left:18px;}
+  .dw-box-haben{background:#eef2f6;border:1px solid #d7e0ea;}
+  .dw-box-sein{background:#fdf1ea;border:1px solid #f0d9c2;}
+  .dw-table{width:100%;border-collapse:collapse;font-size:.9rem;margin:8px 0;}
+  .dw-table th{background:var(--dw-primary);color:#fff;text-align:left;padding:8px 10px;font-weight:600;}
+  .dw-table td{padding:7px 10px;border-bottom:1px solid #ece8df;vertical-align:top;}
+  .dw-table tbody tr:nth-child(even) td{background:#faf8f3;}
+  .dw-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:10px 0;}
+  .dw-fact{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 12px;text-align:center;}
+  .dw-fact b{display:block;font-size:1.15rem;color:var(--dw-primary-light);}
+  .dw-fact span{font-size:.8rem;color:var(--dw-muted);}
+  .dw-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+  .dw-links a{background:#fff;border:1px solid #d8d3c4;border-radius:999px;padding:6px 14px;font-size:.84rem;color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-links a:hover{border-color:var(--dw-accent);background:#fffaf0;}
+  .dw-steps{padding-left:20px;margin:6px 0;font-size:.92rem;line-height:1.7;}
+  .dw-timeline{list-style:none;margin:10px 0;padding:0 0 0 14px;border-left:3px solid var(--dw-accent);}
+  .dw-timeline li{margin:0 0 10px;padding-left:12px;font-size:.92rem;line-height:1.5;}
+  .dw-timeline li b{display:block;color:var(--dw-primary-light);}
+  .dw-warn{background:#fdecea;border:1px solid #f1b9b4;border-radius:10px;padding:10px 14px;font-size:.88rem;line-height:1.55;margin:10px 0;}
+  .dw-qlist{margin:4px 0;padding-left:20px;font-size:.92rem;line-height:1.65;}
+  .dw-qlist span{color:var(--dw-muted);font-style:italic;font-size:.85rem;}
+  .dw-uum{border-left:5px solid var(--dw-primary-light);}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link dw-nav-active" href="../../">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../">⭐ Wichtige Themen</a> → <a href="../">9. klasse</a> → Meine Sommerferien</p>
+
+  <div class="dw-header">
+    <h1>Meine Sommerferien</h1>
+    <p>Clara på Mallorca, og Paul og Ida på roadtrip i Tyskland og Norge</p>
+  </div>
+
+  <div class="dw-intro">
+    <h2>🎧 Om denne teksten</h2>
+    <p>I denne delen får du høre to tekster om sommerferien. Først forteller Clara (15) om en uke på Mallorca. Så snakker Paul og Ida sammen: Paul har kjørt rundt i Tyskland, og Ida har kjørt rundt i Norge.</p>
+    <p><strong>Grammatikkfokus:</strong> fortid i muntlig tysk, altså <em>perfektum</em> (ich habe gebadet, ich bin geflogen) og <em>war/hatte</em> (preteritum). Prøv å legge merke til hvilke verb som bruker <strong>haben</strong> og hvilke som bruker <strong>sein</strong>.</p>
+    <p>Trykk <strong>play</strong> og følg med i teksten — replikken som leses nå markeres i gult. Du kan også trykke direkte på en setning for å hoppe dit i lyden. Ord med <span class="dw-gloss" tabindex="0">stiplet understrek<span class="dw-gloss-tip">eksempel — hold musepekeren over eller trykk på ordet</span></span> kan du holde musepekeren over (eller trykke på) for norsk oversettelse.</p>
+  </div>
+
+  <div class="dw-section">
+    <h2>🏝️ Teil A — Clara auf Mallorca</h2>
+    <p class="dw-byline">Innspilt med ElevenLabs · monolog: Clara (15 år) · 1:04 min</p>
+    <div class="dw-audio-wrap">
+      <audio id="dw-audio-0" controls preload="metadata">
+        <source src="audio-clara.mp3" type="audio/mpeg">
+        Nettleseren din støtter ikke avspilling av lyd.
+      </audio>
+      <div class="dw-sync-note">🎯 <strong>Merk om synkroniseringen:</strong> markeringen følger lyden <em>omtrent</em> — tidspunktene er beregnet ut fra pausene i lydfilen og hvor lange setningene er, ikke ord-for-ord med talegjenkjenning. Bruk den som en veiledning, ikke som en fasit.</div>
+    </div>
+    <div class="dw-readalong" id="dw-box-0"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>🚗 Teil B — Paul und Ida: Roadtrip in Deutschland und Norwegen</h2>
+    <p class="dw-byline">Innspilt med ElevenLabs (Text to Dialogue) · stemmer: Paul og Ida · 1:55 min</p>
+    <div class="dw-audio-wrap">
+      <audio id="dw-audio-1" controls preload="metadata">
+        <source src="audio-paul-ida.mp3" type="audio/mpeg">
+        Nettleseren din støtter ikke avspilling av lyd.
+      </audio>
+      <div class="dw-sync-note">🎯 <strong>Merk om synkroniseringen:</strong> samme metode som over.</div>
+    </div>
+    <div class="dw-dialogue" id="dw-box-1"></div>
+  </div>
+
+  <div class="dw-section">
+    <h2>🧭 Haben oder sein? — verbene fra teksten</h2>
+    <p class="dw-note">I perfektum bruker de fleste verb <strong>haben</strong>. Verb som beskriver <strong>bevegelse</strong> eller <strong>forandring</strong> bruker <strong>sein</strong>. Se hva som skjer i tekstene du nettopp hørte:</p>
+    <div class="dw-two">
+      <div class="dw-box dw-box-haben"><h3>haben + Partizip II</h3>
+        <ul><li>ich <b>habe</b> im Meer <b>gebadet</b></li><li>wir <b>haben</b> zusammen <b>gefrühstückt</b></li><li>wir <b>haben</b> viele Fotos <b>gemacht</b></li><li>ich <b>habe</b> ein Buch <b>gelesen</b></li><li>wir <b>haben</b> Lachs <b>gegessen</b></li><li>ich <b>habe</b> den Fjord <b>gesehen</b></li></ul></div>
+      <div class="dw-box dw-box-sein"><h3>sein + Partizip II</h3>
+        <ul><li>ich <b>bin</b> nach Mallorca <b>geflogen</b></li><li>wir <b>sind</b> mit dem Bus <b>gefahren</b></li><li>wir <b>sind</b> im Hotel <b>geblieben</b></li><li>ich <b>bin</b> auf einen Berg <b>gewandert</b></li><li>ich <b>bin</b> ins Wasser <b>gesprungen</b></li><li>ich <b>bin</b> eingeschlafen</li></ul></div>
+    </div>
+    <p class="dw-note">💡 <strong>Husk:</strong> <em>sein</em> og <em>bleiben</em> bruker alltid «sein». Og når du forteller om hvordan noe <em>var</em>, bruker du nesten alltid preteritum: <em>Es war toll! Wir hatten viel Spaß.</em></p>
+    <div class="dw-links">
+      <a href="../../../grammatikk/verb/perfekt/">🎓 Perfekt — haben oder sein?</a>
+      <a href="../../../verben/">🔄 Verben-Konjugator</a>
+      <a href="../../../schreiben/praesentation/">✍️ Skriv en presentasjon</a>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>📝 Ord og uttrykk</h2>
+    <div class="dw-phrase-grid">
+      <div class="dw-phrase"><b>🗨️ Spørre om ferien</b>Wie war dein Sommer? Was hast du gemacht?<div class="dw-no">Hvordan var sommeren din? Hva har du gjort?</div></div>
+      <div class="dw-phrase"><b>✈️ Fortelle om reisen</b>Ich bin nach Mallorca geflogen.<div class="dw-no">Jeg fløy til Mallorca.</div></div>
+      <div class="dw-phrase"><b>🏨 Hvor bodde du</b>Wir haben in einem Hotel gewohnt.<div class="dw-no">Vi bodde på et hotell.</div></div>
+      <div class="dw-phrase"><b>🌧️ Været i fortid</b>Es hat geregnet. / Es war heiß.<div class="dw-no">Det regnet. / Det var varmt.</div></div>
+      <div class="dw-phrase"><b>⏱️ Hvor lenge</b>Wir sind zehn Tage geblieben.<div class="dw-no">Vi ble ti dager.</div></div>
+      <div class="dw-phrase"><b>😀 Reagere</b>Echt? Wow! Das klingt toll!<div class="dw-no">Virkelig? Wow! Det høres flott ut!</div></div>
+    </div>
+
+    <h3 style="margin:18px 0 8px;color:var(--dw-primary);font-size:1rem;">📖 Flere ord fra tekstene</h3>
+    <div class="dw-phrase-grid">
+      <div class="dw-phrase"><b>der Roadtrip</b>«einen Roadtrip gemacht»<div class="dw-no">biltur</div></div>
+      <div class="dw-phrase"><b>die Fähre</b>«mit der Fähre»<div class="dw-no">ferga</div></div>
+      <div class="dw-phrase"><b>unterwegs</b>«unterwegs gewesen»<div class="dw-no">på tur, underveis</div></div>
+      <div class="dw-phrase"><b>abgemacht</b>«Abgemacht?»<div class="dw-no">avtalt?</div></div>
+    </div>
+  </div>
+
+  <div class="dw-section">
+    <h2>✅ Teste dich selbst</h2>
+    <p class="dw-note">Spørsmålene handler om tekstene.</p>
+    <div id="dw-quiz"></div>
+    <div id="dw-quiz-score"></div>
+  </div>
+
+  <!-- dw-wortsuche -->
+  <div class="dw-section" id="ordsok">
+    <h2>🔎 Ordsøk: finn temaordene</h2>
+    <p class="dw-note">Finn de tyske ordene i rutenettet. Lista viser norsk betydning og antall bokstaver, og du velger selv hvor vanskelig det skal være. Når du har funnet alle ordene, kan du stokke om brettet og spille på nytt med nye ord fra samme tema.</p>
+    <div id="dw-ws"></div>
+    <script src="../../../assets/wortsuche.js"></script>
+    <script>DWWortsuche.themeWidget('dw-ws',[["Urlaub","der","ferie"],["Strand","der","strand"],["Meer","das","hav"],["Flug","der","flyreise"],["Flughafen","der","flyplass"],["Hotel","das","hotell"],["Koffer","der","koffert"],["Sonne","die","sol"],["Reise","die","reise"],["Fähre","die","ferge"],["Hütte","die","hytte"],["Berg","der","fjell"],["Fjord","der","fjord"],["Schloss","das","slott"],["Museum","das","museum"],["Boot","das","båt"],["Wetter","das","vær"],["Regen","der","regn"],["Foto","das","bilde, foto"],["Sommer","der","sommer"],["Auto","das","bil"],["Eis","das","is"],["Insel","die","øy"],["Ausflug","der","utflukt"]],'🔎 Meine Sommerferien');</script>
+  </div>
+<!-- /dw-wortsuche -->
+
+  <!-- dw-memory -->
+  <div class="dw-section" id="memory">
+    <h2>🃏 Memory: ord og betydning</h2>
+    <p class="dw-note">Finn parene: tysk ord og norsk betydning. Velg nivå (6, 8 eller 12 par). Når du har funnet alle parene, kan du stokke om og spille på nytt med nye ord fra samme tema.</p>
+    <div id="dw-mm"></div>
+    <script src="../../../assets/memory.js"></script>
+    <script>DWMemory.themeWidget('dw-mm',[["Urlaub","der","ferie"],["Strand","der","strand"],["Meer","das","hav"],["Flug","der","flyreise"],["Flughafen","der","flyplass"],["Hotel","das","hotell"],["Koffer","der","koffert"],["Sonne","die","sol"],["Reise","die","reise"],["Fähre","die","ferge"],["Hütte","die","hytte"],["Berg","der","fjell"],["Fjord","der","fjord"],["Schloss","das","slott"],["Museum","das","museum"],["Boot","das","båt"],["Wetter","das","vær"],["Regen","der","regn"],["Foto","das","bilde, foto"],["Sommer","der","sommer"],["Auto","das","bil"],["Eis","das","is"],["Insel","die","øy"],["Ausflug","der","utflukt"]],'🃏 Meine Sommerferien');</script>
+  </div>
+<!-- /dw-memory -->
+
+  <div class="dw-section">
+    <h2>💭 ✍️ Mein Sommer</h2>
+    <p class="dw-note">Skriv 4–6 setninger om sommeren din (eller en ferie du husker): hvor du var, hva du gjorde og hvordan det var. Bruk perfektum, og prøv å få med minst ett verb med <em>sein</em> og ett med <em>haben</em>.</p>
+    <textarea class="dw-plan" id="dw-plan" placeholder="Im Sommer bin ich … gefahren. Ich habe … Es war …"></textarea>
+    <div class="dw-plan-tools">
+      <span id="dw-wordcount">0 Wörter</span>
+      <button class="dw-copy-btn" onclick="dwCopyPlan()">📋 Text kopieren</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  var dwBlocks = [{"audio": "dw-audio-0", "box": "dw-box-0", "mode": "mono", "lines": [{"spk": "CLARA", "cls": "a", "sents": [{"t": 0.0, "html": "Hallo!"}, {"t": 0.85, "html": "Ich bin Clara, ich bin fünfzehn Jahre alt und ich wohne in Köln."}, {"t": 4.91, "html": "Heute erzähle ich euch von meinem Sommer."}]}, {"spk": "CLARA", "cls": "a", "sents": [{"t": 7.19, "html": "Im Juli bin ich mit meiner Familie nach Mallorca <span class=\"dw-gloss\" tabindex=\"0\">geflogen<span class=\"dw-gloss-tip\">fløyet</span></span>."}, {"t": 10.73, "html": "Wir sind zehn Tage dort <span class=\"dw-gloss\" tabindex=\"0\">geblieben<span class=\"dw-gloss-tip\">blitt/oppholdt seg</span></span>."}, {"t": 12.77, "html": "Der Flug hat nur zwei Stunden <span class=\"dw-gloss\" tabindex=\"0\">gedauert<span class=\"dw-gloss-tip\">vart (varte)</span></span>."}]}, {"spk": "CLARA", "cls": "a", "sents": [{"t": 14.94, "html": "Wir haben in einem Hotel direkt am Strand gewohnt."}, {"t": 18.06, "html": "Jeden Morgen habe ich im Meer <span class=\"dw-gloss\" tabindex=\"0\">gebadet<span class=\"dw-gloss-tip\">badet</span></span>, und danach haben wir zusammen <span class=\"dw-gloss\" tabindex=\"0\">gefrühstückt<span class=\"dw-gloss-tip\">spist frokost</span></span>."}]}, {"spk": "CLARA", "cls": "a", "sents": [{"t": 22.39, "html": "Am Nachmittag habe ich oft am Strand gelegen und Musik gehört."}, {"t": 26.01, "html": "Mein Bruder ist mit einem <span class=\"dw-gloss\" tabindex=\"0\">Surfbrett<span class=\"dw-gloss-tip\">surfebrett</span></span> ins Wasser gegangen, aber er ist oft <span class=\"dw-gloss\" tabindex=\"0\">hingefallen<span class=\"dw-gloss-tip\">falt (hinfallen)</span></span>."}, {"t": 30.53, "html": "Das war sehr lustig!"}]}, {"spk": "CLARA", "cls": "a", "sents": [{"t": 32.22, "html": "Einmal sind wir mit dem Bus nach Palma gefahren."}, {"t": 34.94, "html": "Wir haben die große <span class=\"dw-gloss\" tabindex=\"0\">Kathedrale<span class=\"dw-gloss-tip\">katedral</span></span> besucht und viele Fotos gemacht."}, {"t": 38.18, "html": "Am Abend haben wir Tapas gegessen."}]}, {"spk": "CLARA", "cls": "a", "sents": [{"t": 40.69, "html": "Leider hat es an einem Tag <span class=\"dw-gloss\" tabindex=\"0\">geregnet<span class=\"dw-gloss-tip\">regnet</span></span>, und wir sind im Hotel geblieben."}, {"t": 44.8, "html": "Ich habe ein Buch gelesen, und meine Eltern haben Karten gespielt."}]}, {"spk": "CLARA", "cls": "a", "sents": [{"t": 48.45, "html": "Am letzten Abend war ich ein bisschen <span class=\"dw-gloss\" tabindex=\"0\">traurig<span class=\"dw-gloss-tip\">lei seg, trist</span></span>, denn der Urlaub war fast <span class=\"dw-gloss\" tabindex=\"0\">vorbei<span class=\"dw-gloss-tip\">over, forbi</span></span>."}, {"t": 52.17, "html": "Wir sind früh ins Bett gegangen, weil unser Flug schon um sechs Uhr <span class=\"dw-gloss\" tabindex=\"0\">gestartet<span class=\"dw-gloss-tip\">tok av (starten)</span></span> ist."}]}, {"spk": "CLARA", "cls": "a", "sents": [{"t": 57.13, "html": "Zu Hause habe ich sofort meiner Freundin Emma geschrieben."}, {"t": 60.27, "html": "Ich hatte viele Fotos und viele Geschichten."}, {"t": 62.92, "html": "Es war ein toller Sommer!"}]}]}, {"audio": "dw-audio-1", "box": "dw-box-1", "mode": "dialog", "lines": [{"spk": "PAUL", "cls": "a", "sents": [{"t": 0.0, "html": "Hallo, Ida!"}, {"t": 1.16, "html": "Wie geht's dir?"}, {"t": 2.26, "html": "Wie war dein Sommer?"}]}, {"spk": "IDA", "cls": "b", "sents": [{"t": 3.41, "html": "Hallo, Paul!"}, {"t": 4.6, "html": "Super!"}, {"t": 5.69, "html": "Wir sind durch Norwegen gefahren."}, {"t": 7.5, "html": "Und du?"}, {"t": 8.31, "html": "Was hast du gemacht?"}]}, {"spk": "PAUL", "cls": "a", "sents": [{"t": 9.44, "html": "Wir haben einen <span class=\"dw-gloss\" tabindex=\"0\">Roadtrip<span class=\"dw-gloss-tip\">biltur/roadtrip</span></span> durch Deutschland gemacht!"}, {"t": 12.43, "html": "Wir sind mit dem Auto von Berlin nach Dresden gefahren, dann nach Nürnberg und weiter nach München."}]}, {"spk": "IDA", "cls": "b", "sents": [{"t": 17.76, "html": "Wow!"}, {"t": 18.71, "html": "Wie lange seid ihr <span class=\"dw-gloss\" tabindex=\"0\">unterwegs<span class=\"dw-gloss-tip\">på tur, underveis</span></span> gewesen?"}]}, {"spk": "PAUL", "cls": "a", "sents": [{"t": 20.7, "html": "Zwei Wochen."}, {"t": 21.87, "html": "In München haben wir das Deutsche Museum besucht, und ich habe im Biergarten eine Brezel gegessen."}, {"t": 27.41, "html": "Danach sind wir nach Neuschwanstein gefahren."}, {"t": 29.74, "html": "Das <span class=\"dw-gloss\" tabindex=\"0\">Schloss<span class=\"dw-gloss-tip\">slott</span></span> war <span class=\"dw-gloss\" tabindex=\"0\">riesig<span class=\"dw-gloss-tip\">diger</span></span>!"}]}, {"spk": "IDA", "cls": "b", "sents": [{"t": 31.64, "html": "Cool!"}, {"t": 32.71, "html": "Wart ihr auch am Wasser?"}, {"t": 34.2, "html": "Bei uns gab es ja überall Fjorde."}]}, {"spk": "PAUL", "cls": "a", "sents": [{"t": 36.45, "html": "Ja, am Bodensee!"}, {"t": 38.72, "html": "Wir sind geschwommen und mit dem Boot gefahren."}, {"t": 41.33, "html": "Und wohin seid ihr gefahren?"}]}, {"spk": "IDA", "cls": "b", "sents": [{"t": 43.01, "html": "Wir sind von Bergen nach Geiranger gefahren."}, {"t": 45.72, "html": "Auf dem Weg haben wir mit der <span class=\"dw-gloss\" tabindex=\"0\">Fähre<span class=\"dw-gloss-tip\">ferge</span></span> den Fjord <span class=\"dw-gloss\" tabindex=\"0\">überquert<span class=\"dw-gloss-tip\">krysset</span></span>."}, {"t": 49.04, "html": "Das war wunderschön."}]}, {"spk": "PAUL", "cls": "a", "sents": [{"t": 50.76, "html": "Wo habt ihr geschlafen?"}]}, {"spk": "IDA", "cls": "b", "sents": [{"t": 52.18, "html": "In kleinen <span class=\"dw-gloss\" tabindex=\"0\">Hütten<span class=\"dw-gloss-tip\">hytter</span></span>."}, {"t": 53.6, "html": "Eine Hütte hat direkt am See gestanden."}, {"t": 56.41, "html": "Ich bin auf einen Berg <span class=\"dw-gloss\" tabindex=\"0\">gewandert<span class=\"dw-gloss-tip\">gått tur (i fjellet)</span></span> und habe den Fjord von oben gesehen."}, {"t": 60.53, "html": "Und wir haben <span class=\"dw-gloss\" tabindex=\"0\">Rentiere<span class=\"dw-gloss-tip\">reinsdyr</span></span> gesehen!"}]}, {"spk": "PAUL", "cls": "a", "sents": [{"t": 62.49, "html": "Echt?"}, {"t": 63.42, "html": "Hattet ihr auch gutes Wetter?"}]}, {"spk": "IDA", "cls": "b", "sents": [{"t": 68.17, "html": "Nicht immer!"}, {"t": 70.3, "html": "Es hat viel geregnet, aber das ist normal in Bergen."}, {"t": 72.31, "html": "An zwei Tagen hatten wir Sonne, und da bin ich sofort ins Wasser <span class=\"dw-gloss\" tabindex=\"0\">gesprungen<span class=\"dw-gloss-tip\">hoppet</span></span>."}, {"t": 75.74, "html": "Brrr, das war kalt!"}]}, {"spk": "PAUL", "cls": "a", "sents": [{"t": 77.03, "html": "Und was habt ihr gegessen?"}]}, {"spk": "IDA", "cls": "b", "sents": [{"t": 78.65, "html": "Wir haben <span class=\"dw-gloss\" tabindex=\"0\">Lachs<span class=\"dw-gloss-tip\">laks</span></span> gegessen und <span class=\"dw-gloss\" tabindex=\"0\">Waffeln<span class=\"dw-gloss-tip\">vafler</span></span> mit braunem Käse."}, {"t": 80.92, "html": "Und du?"}, {"t": 82.3, "html": "Wie war das Essen in Deutschland?"}]}, {"spk": "PAUL", "cls": "a", "sents": [{"t": 84.71, "html": "Lecker!"}, {"t": 85.67, "html": "In Nürnberg habe ich Bratwurst gegessen und in Dresden ein riesiges Eis."}, {"t": 90.63, "html": "Aber das Autofahren war lang."}, {"t": 92.8, "html": "Mein Vater ist zweitausend Kilometer gefahren, und ich bin auf dem <span class=\"dw-gloss\" tabindex=\"0\">Rücksitz<span class=\"dw-gloss-tip\">baksete</span></span> <span class=\"dw-gloss\" tabindex=\"0\">eingeschlafen<span class=\"dw-gloss-tip\">sovnet (einschlafen)</span></span>."}]}, {"spk": "IDA", "cls": "b", "sents": [{"t": 98.56, "html": "Bei uns war es genauso!"}, {"t": 100.4, "html": "Mein Vater ist eintausendachthundert Kilometer gefahren, und ich habe die ganze Zeit Musik gehört."}]}, {"spk": "PAUL", "cls": "a", "sents": [{"t": 106.43, "html": "Nächstes Jahr besuchst du mich in Berlin, oder?"}]}, {"spk": "IDA", "cls": "b", "sents": [{"t": 108.72, "html": "Sehr gern!"}, {"t": 109.77, "html": "Und du kommst nach Bergen."}, {"t": 111.41, "html": "<span class=\"dw-gloss\" tabindex=\"0\">Abgemacht<span class=\"dw-gloss-tip\">avtalt!</span></span>?"}]}, {"spk": "PAUL", "cls": "a", "sents": [{"t": 112.24, "html": "Abgemacht!"}, {"t": 113.21, "html": "Bis bald, Ida!"}]}, {"spk": "IDA", "cls": "b", "sents": [{"t": 114.17, "html": "Tschüss, Paul!"}]}]}];
+
+  function dwSetup(block){
+    var container = document.getElementById(block.box);
+    var audio = document.getElementById(block.audio);
+    var flat = [];
+    block.lines.forEach(function(line){
+      var div = document.createElement('div');
+      div.className = block.mode === 'mono' ? 'dw-readline' : 'dw-line ' + line.cls;
+      if(block.mode !== 'mono'){
+        var sp = document.createElement('span'); sp.className = 'dw-spk'; sp.textContent = line.spk; div.appendChild(sp);
+      }
+      line.sents.forEach(function(s, k){
+        var span = document.createElement('span');
+        span.className = 'dw-sent';
+        span.innerHTML = s.html;
+        span.addEventListener('click', function(e){ e.stopPropagation(); audio.currentTime = s.t; audio.play(); });
+        div.appendChild(span);
+        if(k < line.sents.length - 1) div.appendChild(document.createTextNode(' '));
+        flat.push({t: s.t, span: span, line: div});
+      });
+      div.addEventListener('click', function(){ audio.currentTime = line.sents[0].t; audio.play(); });
+      container.appendChild(div);
+    });
+    function clear(){ flat.forEach(function(f){ f.span.classList.remove('dw-on'); f.line.classList.remove('dw-active'); }); }
+    function highlight(t){
+      var idx = 0;
+      for(var i=0;i<flat.length;i++){ if(t >= flat[i].t) idx = i; else break; }
+      flat.forEach(function(f, i){
+        var on = (i === idx && !audio.paused);
+        f.span.classList.toggle('dw-on', on);
+        f.line.classList.toggle('dw-active', on || (f.line === flat[idx].line && !audio.paused));
+      });
+    }
+    audio.addEventListener('timeupdate', function(){ highlight(audio.currentTime); });
+    audio.addEventListener('play', function(){ highlight(audio.currentTime); });
+    audio.addEventListener('pause', clear);
+    audio.addEventListener('ended', clear);
+  }
+  dwBlocks.forEach(dwSetup);
+  // Bare én lydfil om gangen
+  document.querySelectorAll('audio').forEach(function(a){
+    a.addEventListener('play', function(){ document.querySelectorAll('audio').forEach(function(b){ if(b !== a) b.pause(); }); });
+  });
+
+  var dwQuiz = [{"q": "Wohin ist Clara mit ihrer Familie geflogen?", "opts": ["Nach Ibiza", "Nach Mallorca", "Nach Madeira"], "correct": 1}, {"q": "Wie lange sind sie auf Mallorca geblieben?", "opts": ["Zehn Tage", "Zwei Wochen", "Fünf Tage"], "correct": 0}, {"q": "Warum sind Clara und ihre Familie an einem Tag im Hotel geblieben?", "opts": ["Sie waren krank.", "Der Bus war kaputt.", "Es hat geregnet."], "correct": 2}, {"q": "Wann ist der Rückflug gestartet?", "opts": ["Um Mitternacht", "Um sechs Uhr", "Um zehn Uhr"], "correct": 1}, {"q": "Wie ist Pauls Familie durch Deutschland gereist?", "opts": ["Mit dem Auto", "Mit dem Flugzeug", "Mit dem Zug"], "correct": 0}, {"q": "In welcher Stadt hat Paul im Biergarten eine Brezel gegessen?", "opts": ["In Nürnberg", "In Dresden", "In München"], "correct": 2}, {"q": "Was haben Ida und ihre Familie in Norwegen mit der Fähre gemacht?", "opts": ["Sie haben eine Insel besucht.", "Sie haben den Fjord überquert.", "Sie haben Fische gefangen."], "correct": 1}, {"q": "Wie weit ist Idas Vater gefahren?", "opts": ["Etwa 1800 Kilometer", "Etwa 2000 Kilometer", "Etwa 1200 Kilometer"], "correct": 0}, {"q": "Hvilket hjelpeverb bruker «fahren» i perfektum?", "opts": ["werden (ich werde gefahren)", "haben (ich habe gefahren)", "sein (ich bin gefahren)"], "correct": 2}];
+  var dwQuizScore = 0;
+  var dwQuizAnswered = 0;
+  function dwRenderQuiz(){
+    var wrap = document.getElementById('dw-quiz');
+    wrap.innerHTML = '';
+    dwQuiz.forEach(function(item, qi){
+      var block = document.createElement('div');
+      block.className = 'dw-quiz-q';
+      var h = '<p class="dw-q-text">' + (qi+1) + '. ' + item.q + '</p>';
+      item.opts.forEach(function(opt, oi){
+        h += '<button class="dw-quiz-opt" onclick="dwAnswerQuiz(' + qi + ',' + oi + ', this)">' + opt + '</button>';
+      });
+      block.innerHTML = h;
+      wrap.appendChild(block);
+    });
+  }
+  function dwAnswerQuiz(qi, oi, btn){
+    var item = dwQuiz[qi];
+    var buttons = btn.parentElement.querySelectorAll('.dw-quiz-opt');
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('dw-correct');
+      else if(i === oi) b.classList.add('dw-wrong');
+    });
+    dwQuizAnswered++;
+    if(oi === item.correct) dwQuizScore++;
+    if(dwQuizAnswered === dwQuiz.length){
+      document.getElementById('dw-quiz-score').textContent = 'Ergebnis: ' + dwQuizScore + ' / ' + dwQuiz.length + ' richtig';
+    }
+  }
+  dwRenderQuiz();
+
+  var dwPlanEl = document.getElementById('dw-plan');
+  dwPlanEl.addEventListener('input', function(){
+    var words = dwPlanEl.value.trim().length ? dwPlanEl.value.trim().split(/\s+/).length : 0;
+    document.getElementById('dw-wordcount').textContent = words + ' Wörter';
+  });
+  function dwCopyPlan(){
+    var txt = dwPlanEl.value;
+    if(!txt){ alert('Skriv noe først!'); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert('Text kopiert! Du kan lime det inn hos læreren din.');
+      }).catch(function(){
+        dwPlanEl.select();
+        alert('Kunne ikke kopiere automatisk — teksten er markert, bruk Ctrl+C / Cmd+C.');
+      });
+    } else {
+      dwPlanEl.select();
+      alert('Teksten er markert — bruk Ctrl+C / Cmd+C for å kopiere.');
+    }
+  }
+</script>
+</body>
+</html>
