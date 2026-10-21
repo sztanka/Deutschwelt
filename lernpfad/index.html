@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lernpfad · Deutschwelt</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/lernpfad.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="lp-body">
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="./">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link dw-nav-active" href="../lernpfad/">🛤️ Lernpfad</a>
+      <a class="dw-nav-link" href="../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="lp-wrap">
+  <p class="lp-crumb"><a href="../">🏠 Forside</a> → <a href="../wichtige-themen/">⭐ Wichtige Themen</a> → Lernpfad</p>
+
+  <div class="lp-header">
+    <h1>🛤️ Lernpfad</h1>
+    <p>Øv deg på tysk steg for steg: korte runder med ord, setninger og lytting. Tjen XP og stjerner, hold streaken i live, og bli kjent med de 8 temaene fra 8. klasse.</p>
+  </div>
+
+  <div class="lp-stats" role="group" aria-label="Din status">
+    <div class="lp-stat" title="Dager på rad du har øvd"><span aria-hidden="true">🔥</span><div><b id="lp-s-streak">0</b><small>streak</small></div></div>
+    <div class="lp-stat" title="Poeng"><span aria-hidden="true">⚡</span><div><b id="lp-s-xp">0</b><small>XP</small></div></div>
+    <div class="lp-stat" title="Stjerner (maks 3 per leksjon)"><span aria-hidden="true">⭐</span><div><b id="lp-s-stars">0</b><small>stjerner</small></div></div>
+    <button class="lp-gear" id="lp-gear" aria-label="Innstillinger">⚙️</button>
+  </div>
+
+  <div class="lp-overall"><span id="lp-ov-n">0 av 40 leksjoner</span><span>Trykk på en sirkel for å starte</span></div>
+  <div class="lp-overall-bar" role="progressbar" aria-label="Total fremgang" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="lp-ov-bar"></i></div>
+
+  <div class="lp-note">
+    <b>Slik fungerer det:</b> Hver enhet har fem leksjoner: Ord 1, Ord 2, Setninger, Lytt og en Mestertest. Du har 5 hjerter per leksjon, og hver feil koster ett. Feil svar kommer tilbake senere i runden. Lytteoppgavene bruker klipp fra lydfilene i <a href="../wichtige-themen/8-klasse/">Wichtige Themen</a>. Fremgangen lagres bare i denne nettleseren.
+  </div>
+
+  <div id="lp-path"><noscript><p>Lernpfad trenger JavaScript for å fungere.</p></noscript></div>
+</div>
+
+<div class="lp-overlay" id="lp-ov"><div class="lp-dim" id="lp-dim"></div><div class="lp-sheet" id="lp-sheet" role="dialog" aria-modal="true"></div></div>
+<div class="lp-overlay" id="lp-ls" style="z-index:90"></div>
+
+<script src="data.js"></script>
+<script src="../assets/lernpfad.js"></script>
+</body>
+</html>

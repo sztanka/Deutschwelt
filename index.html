@@ -327,6 +327,16 @@
     .dw-mission-steps{flex-direction:column;}
     .dw-mission-step{margin-right:0;margin-bottom:8px;}
   }
+
+  /* Lernpfad-banner */
+  .dw-lp-banner{display:flex;align-items:center;gap:16px;text-decoration:none;color:#fff;background:linear-gradient(120deg,#161616 0%,#9c1329 60%,#d9a91c 100%);border-radius:18px;padding:18px 22px;box-shadow:0 4px 0 rgba(0,0,0,.18);transition:transform .15s;}
+  .dw-lp-banner:hover,.dw-lp-banner:focus-visible{transform:translateY(-3px);}
+  .dw-lp-ico{font-size:2.4rem;flex:none;}
+  .dw-lp-txt{flex:1;min-width:0;}
+  .dw-lp-txt b{display:block;font-size:1.15rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .dw-lp-txt small{display:block;opacity:.92;font-size:.88rem;line-height:1.45;margin-top:2px;}
+  .dw-lp-go{flex:none;background:#fff;color:#9c1329;font-weight:800;border-radius:12px;padding:10px 16px;}
+  @media (max-width:560px){.dw-lp-banner{flex-wrap:wrap;}.dw-lp-go{width:100%;text-align:center;box-sizing:border-box;}}
 </style>
 </head>
 <body>
@@ -352,6 +362,7 @@
       <a class="dw-nav-link" href="sprechen/">🗣️ Sprechen</a>
       <a class="dw-nav-link" href="wichtige-themen/">⭐ Wichtige Themen</a>
       <a class="dw-nav-link" href="fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="lernpfad/">🛤️ Lernpfad</a>
       <a class="dw-nav-link" href="ordbok/">📔 Ordbok</a>
       <a class="dw-nav-link" href="verben/">🔄 Verben</a>
       <a class="dw-nav-link" href="grammatikk/zahlen/">🔢 Zahlen</a>
@@ -458,6 +469,15 @@
         <a class="dw-chip" href="wichtige-themen/8-klasse/mein-aussehen/"><span class="dw-chip-ico">🙂</span><span>Mein Aussehen<small>Beskrive utseende</small></span></a>
       </div>
     </div>
+  </section>
+
+  <!-- 2c. LERNPFAD (læringssti) -->
+  <section class="dw-sec" id="dw-lernpfad">
+    <a class="dw-lp-banner" href="lernpfad/">
+      <span class="dw-lp-ico" aria-hidden="true">🛤️</span>
+      <span class="dw-lp-txt"><b>Lernpfad – øv steg for steg</b><small>Korte runder med ord, setninger og lytting. Tjen XP og stjerner, hold streaken i live og lås opp neste leksjon.</small></span>
+      <span class="dw-lp-go">Start <span>→</span></span>
+    </a>
   </section>
 
   <!-- 3. DISCOVER THE DACH WORLD -->
@@ -1097,7 +1117,8 @@
     {keys:["ordbok","wörterbuch","dictionary","oversette","oversettelse","heinzelnisse"], target:"ordbok/", label:"📔 Ordbok – Søk norsk ⇄ tysk", built:true},
     {keys:["verben","konjugation","konjugieren","konjugator","verbtabelle","verb bøyning","bøye verb","bøyning av verb","verbtider","verb tabell","unregelmäßige verben","uregelmessige verb","starke verben"], target:"verben/", label:"🔄 Verben – Bøyningstabell for tyske verb", built:true},
     {keys:["zahlen","tall","tall på tysk","ordenstall","ordnungszahlen","årstall","jahreszahlen","uhrzeit","klokke","wie spät ist es","datum","dato","tallsøker","tallord","zählen","telle"], target:"grammatikk/zahlen/", label:"🔢 Zahlen – Tall, ordenstall, årstall og klokka (med tall-søker)", built:true},
-    {keys:["snakker du nysk","nysk","lignende ord","like ord tysk norsk","am körper","kognater"], target:"aehnliche-woerter/", label:"🪄 Snakker du nysk? – Tysk-norske lignende ord", built:true}
+    {keys:["snakker du nysk","nysk","lignende ord","like ord tysk norsk","am körper","kognater"], target:"aehnliche-woerter/", label:"🪄 Snakker du nysk? – Tysk-norske lignende ord", built:true},
+    {keys:["lernpfad","læringssti","læringsstien","duolingo","øvelsesrunder","streak xp","stjerner og hjerter","øv tysk steg for steg"], target:"lernpfad/", label:"🛤️ Lernpfad – Læringssti med øvelsesrunder", built:true}
   ];
 
   // dwWeeks: samme 498-ords/50-ukers datasett som grammatikk/wortschatz-woche/
