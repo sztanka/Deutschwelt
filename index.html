@@ -336,6 +336,8 @@
   .dw-lp-txt b{display:block;font-size:1.15rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
   .dw-lp-txt small{display:block;opacity:.92;font-size:.88rem;line-height:1.45;margin-top:2px;}
   .dw-lp-go{flex:none;background:#fff;color:#9c1329;font-weight:800;border-radius:12px;padding:10px 16px;}
+  .dw-lr-banner{background:linear-gradient(120deg,#9c1329 0%,#c2410c 55%,#d9a91c 100%);margin-bottom:12px;}
+  .dw-lr-new{display:inline-block;background:#d9a91c;color:#161616;font-size:.68rem;font-weight:800;border-radius:6px;padding:2px 6px;margin-left:8px;vertical-align:middle;text-transform:uppercase;}
   @media (max-width:560px){.dw-lp-banner{flex-wrap:wrap;}.dw-lp-go{width:100%;text-align:center;box-sizing:border-box;}}
 </style>
 </head>
@@ -362,6 +364,7 @@
       <a class="dw-nav-link" href="sprechen/">🗣️ Sprechen</a>
       <a class="dw-nav-link" href="wichtige-themen/">⭐ Wichtige Themen</a>
       <a class="dw-nav-link" href="fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="lernreise/">🧭 Lernreise</a>
       <a class="dw-nav-link" href="lernpfad/">🛤️ Lernpfad</a>
       <a class="dw-nav-link" href="ordbok/">📔 Ordbok</a>
       <a class="dw-nav-link" href="verben/">🔄 Verben</a>
@@ -471,7 +474,15 @@
     </div>
   </section>
 
-  <!-- 2c. LERNPFAD (læringssti) -->
+  <!-- 2c. LERNREISE og LERNPFAD -->
+  <section class="dw-sec" id="dw-lernreise">
+    <a class="dw-lp-banner dw-lr-banner" href="lernreise/">
+      <span class="dw-lp-ico" aria-hidden="true">🧭</span>
+      <span class="dw-lp-txt"><b>Meine Lernreise – lær tysk fra null <span class="dw-lr-new">Ny</span></b><small>Start helt fra begynnelsen. Du ser alltid hva du lærer og hva du kan. Welt 1 «Hallo!» er klar: hilse, presentere deg, tall og klasseromsspråk.</small></span>
+      <span class="dw-lp-go">Start <span>→</span></span>
+    </a>
+  </section>
+
   <section class="dw-sec" id="dw-lernpfad">
     <a class="dw-lp-banner" href="lernpfad/">
       <span class="dw-lp-ico" aria-hidden="true">🛤️</span>
@@ -1118,7 +1129,8 @@
     {keys:["verben","konjugation","konjugieren","konjugator","verbtabelle","verb bøyning","bøye verb","bøyning av verb","verbtider","verb tabell","unregelmäßige verben","uregelmessige verb","starke verben"], target:"verben/", label:"🔄 Verben – Bøyningstabell for tyske verb", built:true},
     {keys:["zahlen","tall","tall på tysk","ordenstall","ordnungszahlen","årstall","jahreszahlen","uhrzeit","klokke","wie spät ist es","datum","dato","tallsøker","tallord","zählen","telle"], target:"grammatikk/zahlen/", label:"🔢 Zahlen – Tall, ordenstall, årstall og klokka (med tall-søker)", built:true},
     {keys:["snakker du nysk","nysk","lignende ord","like ord tysk norsk","am körper","kognater"], target:"aehnliche-woerter/", label:"🪄 Snakker du nysk? – Tysk-norske lignende ord", built:true},
-    {keys:["lernpfad","læringssti","læringsstien","duolingo","øvelsesrunder","streak xp","stjerner og hjerter","øv tysk steg for steg"], target:"lernpfad/", label:"🛤️ Lernpfad – Læringssti med øvelsesrunder", built:true}
+    {keys:["lernpfad","læringssti","læringsstien","duolingo","øvelsesrunder","streak xp","stjerner og hjerter","øv tysk steg for steg"], target:"lernpfad/", label:"🛤️ Lernpfad – Læringssti med øvelsesrunder", built:true},
+    {keys:["lernreise","lær tysk fra null","nybegynner","begynner","start tysk","hallo tysk","tysk fra begynnelsen","meine lernreise","kom i gang","hilse på tysk"], target:"lernreise/", label:"🧭 Lernreise – Lær tysk fra null, steg for steg", built:true}
   ];
 
   // dwWeeks: samme 498-ords/50-ukers datasett som grammatikk/wortschatz-woche/

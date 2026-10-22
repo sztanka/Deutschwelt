@@ -502,7 +502,7 @@
   document.addEventListener('keydown', function (e) {
     if (!L || !ls.classList.contains('lp-open') || ov.classList.contains('lp-open')) return;
     var tag = (e.target && e.target.tagName) || '';
-    if (e.key === 'Enter' && tag !== 'BUTTON' && tag !== 'INPUT') { API.primary(); }
+    if (e.key === 'Enter' && tag !== 'BUTTON' && tag !== 'INPUT') { e.preventDefault(); API.primary(); }
     else if (/^[1-9]$/.test(e.key) && tag !== 'INPUT' && L.cur && L.cur.pickKey && !L.checked) { if (L.cur.pickKey(+e.key)) e.preventDefault(); }
   });
 
