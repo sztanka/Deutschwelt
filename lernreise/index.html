@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meine Lernreise · Deutschwelt</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/lernpfad.css">
+<link rel="stylesheet" href="../assets/lernreise.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="lp-body">
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="./">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../lernreise/">🧭 Lernreise</a>
+      <a class="dw-nav-link dw-nav-active" href="../lernreise/">🧭 Lernreise</a>
+      <a class="dw-nav-link" href="../lernpfad/">🛤️ Lernpfad</a>
+      <a class="dw-nav-link" href="../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="lr-wrap">
+  <p class="lp-crumb"><a href="../">🏠 Forside</a> → Lernreise</p>
+
+  <div class="lr-header">
+    <h1>🧭 Meine Lernreise</h1>
+    <p>Lær tysk fra null, steg for steg. Du ser alltid hva du lærer, hva du kan, og hva som kommer neste gang.</p>
+  </div>
+
+  <div class="lr-stats" role="group" aria-label="Din status">
+    <div class="lp-stat" title="Dager på rad du har øvd (helgene bryter ikke serien)"><span aria-hidden="true">🔥</span><div><b id="lr-s-streak">0</b><small>serie</small></div></div>
+    <div class="lp-stat" title="Uttrykk du har svart riktig på"><span aria-hidden="true">📚</span><div><b id="lr-s-words">0</b><small>uttrykk</small></div></div>
+    <div class="lp-stat lr-stat-xp" title="Poeng"><span aria-hidden="true">⚡</span><div><b id="lr-s-xp">0</b><small>XP</small></div></div>
+    <button class="lp-gear" id="lr-gear" aria-label="Innstillinger">⚙️</button>
+  </div>
+
+  <div id="lr-home"><noscript><p>Lernreise trenger JavaScript for å fungere.</p></noscript></div>
+  <p class="lr-mini" style="margin-top:20px">Dette er første versjon av Lernreise. Foreløpig er Welt 1 («Hallo!») ferdig. Resten av verdenene bygges videre. Fremgangen lagres bare i denne nettleseren. Vil du heller øve på temaene fra 8. klasse? Da finner du <a href="../lernpfad/">Lernpfad</a>.</p>
+</div>
+
+<div class="lp-overlay" id="lr-ov"><div class="lp-dim" id="lr-dim"></div><div class="lp-sheet" id="lr-sheet" role="dialog" aria-modal="true"></div></div>
+<div class="lp-overlay" id="lr-ls" style="z-index:90"></div>
+
+<script src="data/worlds.js"></script>
+<script src="data/welt1.js"></script>
+<script src="../assets/lernreise.js"></script>
+</body>
+</html>
