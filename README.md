@@ -2618,14 +2618,16 @@ Hubben `wichtige-themen/9-klasse/index.html` har 8 temakort, og hvert tema har e
 
 ## Lernreise – læringsreise fra null (`lernreise/`)
 
-Ny, langsiktig læringsvei fra START til B1 (15 verdener, se veikartet). Første versjon har **Welt 1 «Hallo!»** ferdig: 7 leksjoner, 2 repetisjoner (Wiederholung) og en verdensprøve (Weltprüfung). Resten av verdenene vises som «Kommer». Lernpfad (8. klasse) ligger uendret ved siden av.
+Ny, langsiktig læringsvei fra START til B1 (15 verdener, se veikartet). Ferdig så langt: **Welt 1 «Hallo!»** (7 leksjoner), **Welt 2 «Ich und meine Welt»** (6 leksjoner: alder, bosted, land, språk, hobbyer, hva jeg liker) og **Welt 3 «Meine Familie und Freunde»** (6 leksjoner: familie, han/hun, søsken og dyr, venner, utseende, familiebilde). Hver verden har 2 repetisjoner (Wiederholung) og en verdensprøve (Weltprüfung). I tillegg finnes en **plasseringstest** på dashbordet (6 oppgaver per verden, bestått ved 5 av 6, uten hint). Resten av verdenene vises som «Kommer». Lernpfad (8. klasse) ligger uendret ved siden av.
 
 ```
 lernreise/
 ├── index.html          → dashbord «Meine Lernreise» (neste steg, dagens repetisjon, ferdighetsstolper, verdensliste, Utforsk mer)
 └── data/
     ├── worlds.js       → GENERERT: de 15 verdenene (metadata) + liste over tilgjengelige lydfiler
-    └── welt1.js        → GENERERT: innholdet i Welt 1 (uttrykk, samtaler, leksjoner, oppdrag)
+    ├── welt1.js        → GENERERT: innholdet i Welt 1 (uttrykk, samtaler, leksjoner, oppdrag)
+    ├── welt2.js        → GENERERT: Welt 2
+    └── welt3.js        → GENERERT: Welt 3
 assets/lernreise.js     → motor (sammensetning av oppgaver, løper, Leitner, dashbord)
 assets/lernreise.css    → stil (bygger på lernpfad.css for felles oppgaveelementer)
 ```
@@ -2640,10 +2642,12 @@ assets/lernreise.css    → stil (bygger på lernpfad.css for felles oppgaveelem
 
 **Fremgang** lagres i `localStorage` (nøkkel `dw_lernreise_v1`) og kan eksporteres/importeres som kode `DWLR1:…`. Spredt repetisjon bruker Leitner-bokser 1–5 (neste repetisjon etter 0/1/3/7/21 dager). Serien brytes ikke av helger. Hjerter er av som standard (kan slås på i ⚙️). Lærermodus (⚙️) åpner alle noder og viser lærernotat og fasit. Opplåsing av resten av Deutschwelt er «myk»: alt er alltid åpent, og «Utforsk mer» får et «Nytt!»-merke når Welt 1 er fullført.
 
-**Lyd:** Motoren prøver alltid `lernreise/audio/welt1/<id>.mp3` først. Finnes ikke filen (404), huskes det i den økten og nettleserens tyske stemme brukes i stedet – så det er ikke nødvendig å kjøre noe skript eller oppdatere noen liste når mp3-filer legges inn (`audio`-listen i `worlds.js` er ikke lenger styrende). Alle 139 filnavn og tekster står i `deutschwelt-lernreise-manus-welt1.docx`. Lydfilene lages med `deutschwelt-lydgenerator-welt1.html` (egen fil utenfor sidemappen): åpnes i nettleseren, tar imot ElevenLabs API-nøkkel, lager alle klipp via text-to-speech (modell `eleven_multilingual_v2`) og skriver dem med riktige filnavn til valgt mappe eller en zip-fil.
+**Flere verdener og plasseringstest:** hver verden er en egen modul (`lr_weltN.py`) og får sin egen datafil. En ny verden bygger på alle tidligere: ordene fra tidligere verdener regnes som kjent (og spilles av fra `audio/welt<N>/` til verdenen som eier dem). Verden N+1 åpnes når alle leksjonene i verden N er fullført eller dekket av plasseringstesten. Plasseringstesten gir ingen XP og påvirker ikke serien; består eleven en verden, hoppes den over, og ordene legges i Leitner-boks 2 (repetisjon om 3 dager). Lærermodus åpner alt.
+
+**Lyd:** Motoren prøver alltid `lernreise/audio/welt<N>/<id>.mp3` først (N = verdenen som eier uttrykket). Finnes ikke filen (404), huskes det i den økten og nettleserens tyske stemme brukes i stedet – så det er ikke nødvendig å kjøre noe skript eller oppdatere noen liste når mp3-filer legges inn (`audio`-listen i `worlds.js` er ikke lenger styrende). Filnavn og tekster står i `deutschwelt-lernreise-manus-welt1.docx`, `-welt2.docx` og `-welt3.docx` (139, 133 og 135 klipp; ca. 2 018, 2 101 og 2 512 tegn). Lydfilene lages med `deutschwelt-lydgenerator.html` (egen fil utenfor sidemappen): åpnes i nettleseren, tar imot ElevenLabs API-nøkkel, lar deg velge hvilke verdener som skal lages, lager klippene via text-to-speech (modell `eleven_multilingual_v2`) og skriver dem til riktig undermappe (`welt1`, `welt2`, `welt3`) i valgt `lernreise/audio`-mappe, eller til en zip-fil med de samme mappene.
 
 **Tale:** eleven hører en modell, tar eventuelt opp seg selv (`MediaRecorder`, opptaket blir bare i nettleseren og sendes ikke noe sted) og vurderer seg selv. Ingen talegjenkjenning.
 
-**Kilde og bygging** (utenfor sidemappen): `lr_welt1.py` (innholdet), `build_lr.py` (skriver `data/*.js`), `lrcheck.py` (progresjonskontroll), `lrtest.py` og `lrtest2.py` (Playwright). Kildekoden er sikkerhetskopiert i prosjektet «Deutschwelt» som `deutschwelt-lernreise-bygg-kilde.md`.
+**Kilde og bygging** (utenfor sidemappen): `lr_welt1.py`, `lr_welt2.py`, `lr_welt3.py` (innholdet), `mkmanus_all.py` (manus og data til lydgeneratoren), `build_lr.py` (skriver `data/*.js`), `lrcheck.py` (progresjonskontroll), `lrtest.py` og `lrtest2.py` (Playwright). Kildekoden er sikkerhetskopiert i prosjektet «Deutschwelt» som `deutschwelt-lernreise-bygg-kilde.md`.
 
 **Kvalitetskontroll:** `lrcheck.py` setter sammen alle noder på alle tre nivåer mange ganger og sjekker at (a) hver oppgave bare bruker uttrykk som er innført, (b) setninger bare bruker kjente ord (pluss navn og tall), (c) Gjett-oppgaver har ett nytt ord og resten kjente, (d) alle uttrykk har et Lær-kort, og (e) det aldri finnes to like eller to riktige alternativer.
