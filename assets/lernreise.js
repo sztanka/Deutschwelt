@@ -879,8 +879,8 @@
       h += '<section class="lr-rep"><div><b>🔁 Dagens repetisjon</b><p>' + (dc >= 4 ? dc + ' uttrykk er klare for repetisjon. Det tar ca. 5 minutter og teller mot serien din.' : 'Ingen uttrykk må repeteres akkurat nå. Du kan likevel øve ekstra på de svakeste.') + '</p></div><button class="lp-btn lr-small" id="lr-go-daily">' + (dc >= 4 ? 'Start' : 'Øv ekstra') + '</button></section>';
     }
     /* ferdigheter */
-    h += '<section class="lr-skills" aria-label="Ferdigheter"><h3>Dette kan jeg <small>Trinn 1 (Welt 1–3)</small></h3><div class="lr-sk">';
-    Object.keys(SK).forEach(function (k) { var s = S.skills[k] || { ok: 0, n: 0 }, p = Math.min(100, Math.round(s.ok / SKT[k] * 100)); h += '<div class="lr-skrow"><span>' + SKI[k] + ' ' + SK[k] + '</span><div class="lr-skbar" role="progressbar" aria-label="' + SK[k] + '" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + p + '"><i style="width:' + p + '%"></i></div><b>' + p + ' %</b></div>'; });
+    h += '<section class="lr-skills" aria-label="Ferdigheter"><h3>Dette kan jeg <small>Welt 1–' + WL.length + '</small></h3><div class="lr-sk">';
+    Object.keys(SK).forEach(function (k) { var s = S.skills[k] || { ok: 0, n: 0 }, p = Math.min(100, Math.round(s.ok / (SKT[k] * Math.max(1, WL.length / 3)) * 100)); h += '<div class="lr-skrow"><span>' + SKI[k] + ' ' + SK[k] + '</span><div class="lr-skbar" role="progressbar" aria-label="' + SK[k] + '" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + p + '"><i style="width:' + p + '%"></i></div><b>' + p + ' %</b></div>'; });
     h += '</div></section>';
     /* verdener */
     h += '<h3 class="lr-h3">Verdener</h3><div class="lr-worlds">';
