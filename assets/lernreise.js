@@ -31,10 +31,10 @@
 
   /* ---------- lagring ---------- */
   var KEY = 'dw_lernreise_v1', storageOK = true;
-  var S = { xp: 0, streak: 0, last: '', level: 'std', hearts: false, sound: true, teacher: false, placed: 0, les: {}, words: {}, skills: {}, seen: {}, tips: {} };
+  var S = { xp: 0, streak: 0, last: '', level: 'std', hearts: false, sound: true, teacher: false, placed: 0, les: {}, words: {}, skills: {}, seen: {}, tips: {}, name: '' };
   function adopt(o) {
     S.xp = Math.max(0, +o.xp || 0); S.streak = Math.max(0, +o.streak || 0); S.last = typeof o.last === 'string' ? o.last : '';
-    S.level = LEVELS[o.level] ? o.level : 'std'; S.hearts = !!o.hearts; S.sound = o.sound !== false; S.teacher = !!o.teacher; S.placed = Math.max(0, Math.min(99, +o.placed || 0));
+    S.level = LEVELS[o.level] ? o.level : 'std'; S.hearts = !!o.hearts; S.sound = o.sound !== false; S.teacher = !!o.teacher; S.placed = Math.max(0, Math.min(99, +o.placed || 0)); S.name = typeof o.name === 'string' ? o.name.slice(0, 40) : '';
     S.les = {}; S.words = {}; S.skills = {}; S.seen = {}; S.tips = {};
     if (o.les) Object.keys(o.les).forEach(function (k) { var n = o.les[k]; if (n && typeof n === 'object') S.les[k] = { done: !!n.done, stars: Math.min(3, Math.max(0, +n.stars || 0)), pct: Math.min(100, Math.max(0, +n.pct || 0)), medal: ['', 'bronse', 'solv', 'gull'].indexOf(n.medal) > 0 ? n.medal : '', can: Array.isArray(n.can) ? n.can.map(function (x) { return Math.min(2, Math.max(0, +x || 0)); }) : [] }; });
     if (o.words) Object.keys(o.words).forEach(function (k) { var w = o.words[k]; if (w && typeof w === 'object') S.words[k] = { box: Math.min(5, Math.max(1, +w.box || 1)), due: typeof w.due === 'string' ? w.due : today(), ok: +w.ok || 0, bad: +w.bad || 0 }; });
@@ -554,7 +554,7 @@
     if (L.writes) L.writes.forEach(function (p) { bruk.push(fTypeSent(cxAll, p[0], p[1])); });
     if (L.read) L.read.qs.forEach(function (q, qi) { bruk.push(fRead(cxAll, L.read, qi)); });
     if (sk === 'hoeren' && !bruk.length) shuffle(mine).slice(0, 3).forEach(function (id) { bruk.push(fHearDe(cxAll, id)); });
-    if (bruk.length > 4) bruk = bruk.slice(0, 4);
+    if (bruk.length > (L.maxBruk || 4)) bruk = bruk.slice(0, L.maxBruk || 4);
     bruk.forEach(function (ex) { push(ex, 'bruk', cxAll); });
     var sp = (L.speak || []).slice(0, sk === 'sprechen' ? 3 : 1);
     sp.forEach(function (it, i) { push(fSpeak(cxAll, it, L.id + '_m' + (i + 1)), 'bruk', cxAll); });
@@ -571,8 +571,15 @@
   function lessonsById(w, ids) { return w.lessons.filter(function (n) { return n.t === 'lesson' && ids.indexOf(n.id) >= 0; }); }
   function typeable(c) { return c.de.indexOf('…') < 0; }
 
+  function weakPool(w, n) {
+    var ids = Object.keys(S.words).filter(function (id) { return w.VA[id]; });
+    ids.sort(function (a, b) { var A = S.words[a], B = S.words[b]; return ((A.box - Math.min(3, A.bad || 0)) + Math.random() * 1.2) - ((B.box - Math.min(3, B.bad || 0)) + Math.random() * 1.2); });
+    var out = ids.slice(0, n).map(function (id) { return { id: id, lesson: '' }; });
+    if (out.length < n) { var have = {}; out.forEach(function (o) { have[o.id] = 1; }); shuffle(Object.keys(prevChunks(w))).forEach(function (id) { if (out.length < n && !have[id]) { have[id] = 1; out.push({ id: id, lesson: '' }); } }); }
+    return out;
+  }
   function assembleReview(w, node, level) {
-    var K = {}, from = node.from; var pool = chunksOfLessons(w, from);
+    var K = {}, from = node.from; var pool = node.weak ? weakPool(w, 24) : chunksOfLessons(w, from);
     var lessonsIn = lessonsById(w, from);
     /* alt eleven har møtt til nå er kjent (inkl. tidligere leksjoner) */
     var idx = w.lessons.indexOf(node), K0 = knownBefore(w, idx); Object.keys(K0).forEach(function (id) { K[id] = 1; });
@@ -581,7 +588,7 @@
     take(3, function (c, id) { return fHear(c, id); });
     take(2, function (c, id) { return fDeNo(c, id); });
     take(2, function (c, id) { return fNoDe(c, id); });
-    var typ = list.filter(function (o) { return typeable(w.V[o.id]); }); typ.slice(0, 2).forEach(function (o) { var ex = fTypeDe(cx, o.id); ex.lesson = o.lesson; steps.push(ex); });
+    var typ = list.filter(function (o) { return typeable(w.VA[o.id]); }); typ.slice(0, 2).forEach(function (o) { var ex = fTypeDe(cx, o.id); ex.lesson = o.lesson; steps.push(ex); });
     var mt = uniq(list.slice(0, 4).map(function (o) { return o.id; })); if (mt.length >= 3) steps.push(fMatch(cx, mt.slice(0, 4)));
     var bl = []; lessonsIn.forEach(function (n) { (n.builds || []).forEach(function (b) { bl.push({ b: b, l: n.id }); }); });
     shuffle(bl).slice(0, 2).forEach(function (o) { var ex = fBuild(cx, o.b[0], o.b[1]); ex.lesson = o.l; steps.push(ex); });
@@ -595,8 +602,9 @@
   }
   function assembleTest(w, node, level) {
     var K = allKnown(w), cx = snap(w, K, level, node.id), steps = [], all = []; w.lessons.forEach(function (n) { if (n.t === 'lesson') lessonChunks(w, n).forEach(function (id) { all.push({ id: id, lesson: n.id }); }); });
+    if (w.pool === 'prev') all = weakPool(w, 44);
     var list = shuffle(all), used = {};
-    function one(f, filter) { var o = list.filter(function (x) { return !used[x.id] && (!filter || filter(w.V[x.id], x)); })[0]; if (!o) o = list.filter(function (x) { return !filter || filter(w.V[x.id], x); })[0]; if (!o) return; used[o.id] = 1; var ex = f(cx, o.id); if (ex) { ex.lesson = o.lesson; steps.push(ex); } }
+    function one(f, filter) { var o = list.filter(function (x) { return !used[x.id] && (!filter || filter(w.VA[x.id], x)); })[0]; if (!o) o = list.filter(function (x) { return !filter || filter(w.VA[x.id], x); })[0]; if (!o) return; used[o.id] = 1; var ex = f(cx, o.id); if (ex) { ex.lesson = o.lesson; steps.push(ex); } }
     var lessonsAll = w.lessons.filter(function (n) { return n.t === 'lesson'; });
     var hs = []; lessonsAll.forEach(function (n) { (n.listen || []).forEach(function (it, i) { hs.push({ it: it, l: n.id, i: i }); }); });
     shuffle(hs).slice(0, 2).forEach(function (o) { var ex = fHearSent(cx, o.it, o.l + '_h' + (o.i + 1)); ex.lesson = o.l; steps.push(ex); });
@@ -760,6 +768,7 @@
       var learned = Object.keys(L.known).length;
       h += '<div style="font-size:3rem">' + (st === 3 ? '🏆' : '🎉') + '</div><h2>Leksjon fullført!</h2><div class="lp-bigstars" aria-label="' + st + ' av 3 stjerner">' + stars(st) + '</div>';
       if (L.canRes) { var yes = L.node.can.filter(function (_, i) { return L.canRes[i] === 2; }); if (yes.length) h += '<div class="lr-didnow"><b>Dette kan du nå:</b><ul>' + yes.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul></div>'; }
+      if (node.memory) h += '<div class="lr-didnow lr-memnew"><b>' + esc(node.memory.em) + ' Nytt minne i samlingen:</b> ' + esc(node.memory.t) + '<br><small>' + esc(node.memory.d) + '</small></div>';
       h += '<div class="lp-res-stats"><div class="lp-res-stat"><small>Nye uttrykk</small><b>' + learned + '</b></div><div class="lp-res-stat"><small>Treff</small><b>' + acc + '%</b></div><div class="lp-res-stat"><small>🔥 Serie</small><b>' + curStreak() + '</b></div></div>';
       h += '<p>' + (st === 3 ? 'Helt uten feil. Fantastisk!' : 'Prøv igjen senere for å få alle tre stjernene.') + '</p>';
     } else if (mode === 'review') {
@@ -805,11 +814,11 @@
   }
   function startPlacement() {
     var steps = placeBlock(WL[0].n); if (!steps.length) return;
-    startRun(WL[0], 'place', { id: 'place' }, 'std', steps, { pw: WL[0].n, pres: {}, total: PLACE_N * WL.length });
+    startRun(WL[0], 'place', { id: 'place' }, 'std', steps, { pw: WL[0].n, pres: {}, total: PLACE_N * WL.filter(function (x) { return !x.free; }).length });
   }
   function placeAdvance() {
     var r = L.pres[L.pw] || { ok: 0, n: 0 }, nxt = WLBYN[L.pw + 1];
-    if (r.ok >= PLACE_PASS && nxt) { var more = placeBlock(nxt.n); if (more.length) { L.pw = nxt.n; more.forEach(function (e) { L.queue.push(e); }); next(); return; } }
+    if (r.ok >= PLACE_PASS && nxt && !nxt.free) { var more = placeBlock(nxt.n); if (more.length) { L.pw = nxt.n; more.forEach(function (e) { L.queue.push(e); }); next(); return; } }
     finishPlacement();
   }
   function applyPlacement(k) {
@@ -838,24 +847,28 @@
   /* ================= dashbord ================= */
   function done(id) { var w = NODEW[id]; if (w && S.placed >= w.n) return true; return !!(S.les[id] && S.les[id].done); }
   function testOf(w) { return w.lessons.filter(function (n) { return n.t === 'test'; })[0]; }
+  function doneLessons(w) { return w.lessons.filter(function (n) { return n.t === 'lesson' && done(n.id); }).length; }
+  function lessonsOK(w) { return w.free ? doneLessons(w) >= w.free : w.lessons.every(function (n) { return n.t !== 'lesson' || done(n.id); }); }
   function worldOpen(w) {
     if (S.teacher || w.n === WL[0].n) return true; var p = WLBYN[w.n - 1]; if (!p) return true;
-    return p.lessons.every(function (n) { return n.t !== 'lesson' || done(n.id); });
+    return lessonsOK(p);
   }
   function nodeOpen(w, i) {
     if (S.teacher) return true; if (!worldOpen(w)) return false;
+    if (w.free) { return w.lessons[i].t === 'lesson' || doneLessons(w) >= w.free; }
     for (var j = 0; j < i; j++) { var m = w.lessons[j]; if (m.t === 'lesson' && !done(m.id)) return false; }
     return true;
   }
   function nodeLockWhy(w, i) {
     if (!worldOpen(w)) return 'Fullfør Welt ' + (w.n - 1) + ' først, eller ta plasseringstesten.';
+    if (w.free) return 'Fullfør minst ' + w.free + ' oppdrag først.';
     for (var j = 0; j < i; j++) { var m = w.lessons[j]; if (m.t === 'lesson' && !done(m.id)) return 'Fullfør «' + m.title + '» først.'; } return '';
   }
-  function nextNode() { for (var k = 0; k < WL.length; k++) { var w = WL[k]; for (var i = 0; i < w.lessons.length; i++) if (!done(w.lessons[i].id)) return { w: w, i: i }; } return null; }
+  function nextNode() { for (var k = 0; k < WL.length; k++) { var w = WL[k]; for (var i = 0; i < w.lessons.length; i++) if (!done(w.lessons[i].id) && !(w.free && w.lessons[i].t === 'lesson' && doneLessons(w) >= w.free)) return { w: w, i: i }; } return null; }
   function lastW() { return WL[WL.length - 1]; }
   function dueCount() { var w = lastW(); return Object.keys(S.words).filter(function (id) { return w.VA[id] && S.words[id].due <= today() && S.words[id].box < 5; }).length; }
   function knownCount() { var w = lastW(); return Object.keys(S.words).filter(function (id) { return w.VA[id] && S.words[id].box >= 2; }).length; }
-  function worldDone(w) { var t = testOf(w); return w.lessons.every(function (n) { return n.t !== 'lesson' || done(n.id); }) && (!t || done(t.id)); }
+  function worldDone(w) { var t = testOf(w); return lessonsOK(w) && (!t || done(t.id)); }
   function worldStarted(w) { return w.lessons.some(function (n) { return n.t === 'lesson' && done(n.id); }); }
 
   function renderHome() {
@@ -864,11 +877,12 @@
     /* neste steg */
     if (nx) {
       var w = nx.w, nn = w.lessons[nx.i], totalL = w.lessons.filter(function (n) { return n.t === 'lesson'; }).length, learnedL = w.lessons.filter(function (n) { return n.t === 'lesson' && done(n.id); }).length;
-      var typeLabel = nn.t === 'lesson' ? 'Leksjon ' + nn.n + ' av ' + totalL : (nn.t === 'review' ? 'Repetisjon' : 'Verdensprøve');
+      var typeLabel = nn.t === 'lesson' ? (w.free ? 'Oppdrag ' + nn.n + ' av ' + totalL + ' · velg selv, minst ' + w.free : 'Leksjon ' + nn.n + ' av ' + totalL) : (nn.t === 'review' ? 'Repetisjon' : 'Verdensprøve');
       var first = !anyDone && !S.placed;
       h += '<section class="lr-next" style="--c:' + w.color + '" aria-label="Neste steg"><div class="lr-next-top"><span class="lr-wicon" aria-hidden="true">' + w.icon + '</span><div><small>Welt ' + w.n + ' · ' + esc(w.title) + '</small><h2>' + (first ? 'Start her' : 'Fortsett') + ': ' + esc(nn.title) + '</h2></div></div><p class="lr-goal">' + esc(nn.goal) + '</p><div class="lr-meta"><span>' + typeLabel + '</span><span>⏱ ca. ' + nn.min + ' min</span>' + (nn.skill ? '<span>' + SKI[nn.skill] + ' ' + SK[nn.skill] + '</span>' : '') + '</div><button class="lp-btn lr-go" id="lr-go-next" data-w="' + w.n + '" data-i="' + nx.i + '">' + (first ? 'Start Lernreise' : 'Fortsett') + '</button></section>';
     } else {
-      h += '<section class="lr-next lr-fin" aria-label="Alt fullført"><div class="lr-next-top"><span class="lr-wicon">🎖️</span><div><small>Welt 1–' + lw.n + '</small><h2>Du har fullført alle verdenene som er ferdige så langt!</h2></div></div><p class="lr-goal">Flere verdener kommer. Imens kan du repetere eller ta en Weltprüfung på nytt for en bedre medalje.</p></section>';
+      var fin = lw.diploma ? 1 : 0;
+      h += '<section class="lr-next lr-fin" aria-label="Alt fullført"><div class="lr-next-top"><span class="lr-wicon">' + (fin ? '🎓' : '🎖️') + '</span><div><small>Welt 1–' + lw.n + '</small><h2>' + (fin ? 'Gratulerer! Du har fullført hele Lernreise!' : 'Du har fullført alle verdenene som er ferdige så langt!') + '</h2></div></div><p class="lr-goal">' + (fin ? 'Diplomet «Ich kann Deutsch» ligger i Welt 15. Du kan repetere, eller ta en Weltprüfung på nytt for en bedre medalje.' : 'Flere verdener kommer. Imens kan du repetere eller ta en Weltprüfung på nytt for en bedre medalje.') + '</p></section>';
     }
     /* plasseringstest */
     if (!S.placed && !worldDone(WL[0]) && WL.length > 1) {
@@ -904,19 +918,36 @@
     var gp = $('lr-go-place'); if (gp) gp.onclick = function () { openPlaceIntro(); };
     Array.prototype.forEach.call(document.querySelectorAll('.lr-row'), function (b) { b.addEventListener('click', function () { openIntro(WLBYN[+b.getAttribute('data-w')], +b.getAttribute('data-i')); }); });
     Array.prototype.forEach.call(document.querySelectorAll('.lr-exp'), function (a) { a.addEventListener('click', function () { S.seen[a.getAttribute('data-h')] = 1; save(); }); });
+    var dipb = document.getElementById('lr-dip-open'); if (dipb) dipb.onclick = function () { openDiploma(WLBYN[+dipb.getAttribute('data-w')]); };
     Array.prototype.forEach.call(document.querySelectorAll('.lr-canpractice'), function (b) { b.addEventListener('click', function () { startDaily(null, b.getAttribute('data-l')); }); });
   }
   function openPlaceIntro() {
     openSheet('<h3>🧭 Plasseringstest</h3><p>Du får ' + PLACE_N + ' oppgaver fra hver verden, og vi starter med Welt 1. Klarer du dem, går vi videre til neste verden. Du får ikke hint, og du kan trykke «Jeg vet ikke» så mye du vil. Det er helt greit, for testen skal bare finne ut hvor du bør starte.</p><p class="lr-mini">Testen gir ingen poeng og påvirker ikke serien din. Ca. 5 minutter.</p><button class="lp-btn" id="lr-go">Start testen</button><button class="lp-btn lp-ghost" id="lr-close">Avbryt</button>');
     $('lr-close').onclick = closeSheet; $('lr-go').onclick = function () { closeSheet(); startPlacement(); };
   }
+  function freeNote(w) {
+    if (!w.free || !worldOpen(w)) return '';
+    var t = w.lessons.filter(function (n) { return n.t === 'lesson'; }).length, d = doneLessons(w);
+    return '<p class="lr-mini lr-freenote">Her velger du selv. Du kan ta oppdragene i den rekkefølgen du vil. Fullfør minst <b>' + w.free + '</b> av ' + t + ' for å åpne den store repetisjonen og verdensprøven. Du har fullført <b>' + d + '</b>.</p>';
+  }
+  function worldExtras(w, wd) {
+    var h = '', mem = w.lessons.filter(function (n) { return n.memory; });
+    if (mem.length) {
+      h += '<div class="lr-memcol"><b>🗂️ Minnesamlingen din</b><div class="lr-memgrid">' + mem.map(function (n) {
+        var got = done(n.id) && S.placed < w.n;
+        return got ? '<div class="lr-mem lr-memon"><span aria-hidden="true">' + n.memory.em + '</span><b>' + esc(n.memory.t) + '</b><small>' + esc(n.memory.d) + '</small></div>' : '<div class="lr-mem lr-memoff" aria-label="Minne som ikke er samlet ennå"><span aria-hidden="true">🔒</span><b>?</b><small>Fullfør «' + esc(n.title) + '»</small></div>';
+      }).join('') + '</div></div>';
+    }
+    if (w.diploma && wd && S.placed < w.n) h += '<div class="lr-badgebox lr-dip"><span aria-hidden="true">🎓</span><div><b>Du har fullført Deutschwelt!</b><br><small>Diplomet «Ich kann Deutsch» er klart.</small><br><button class="lp-btn lr-small" id="lr-dip-open" data-w="' + w.n + '">Åpne diplom</button></div></div>';
+    return h;
+  }
   function renderWorld(w, m, nx) {
     var open = !!(nx && nx.w === w) || (!nx && w === lastW()), placed = S.placed >= w.n, wd = worldDone(w);
-    var h = '<details class="lr-world lr-open" style="--c:' + m.color + '"' + (open ? ' open' : '') + '><summary class="lr-whead"><span class="lr-wnum" style="--c:' + m.color + '">' + m.n + '</span><div><b>' + esc(m.title) + '</b><small>' + m.stage + ' · ' + m.cefr + ' · ' + esc(w.blurb) + '</small></div><span class="lr-badge lr-wstat">' + (placed ? 'Hoppet over' : (wd ? '✓ Ferdig' : (!worldOpen(w) ? '🔒' : (worldStarted(w) ? 'Pågår' : 'Åpen')))) + '</span></summary><ol class="lr-list">';
+    var h = '<details class="lr-world lr-open" style="--c:' + m.color + '"' + (open ? ' open' : '') + '><summary class="lr-whead"><span class="lr-wnum" style="--c:' + m.color + '">' + m.n + '</span><div><b>' + esc(m.title) + '</b><small>' + m.stage + ' · ' + m.cefr + ' · ' + esc(w.blurb) + '</small></div><span class="lr-badge lr-wstat">' + (placed ? 'Hoppet over' : (wd ? '✓ Ferdig' : (!worldOpen(w) ? '🔒' : (worldStarted(w) ? 'Pågår' : 'Åpen')))) + '</span></summary>' + freeNote(w) + '<ol class="lr-list">';
     w.lessons.forEach(function (n, i) {
       var isOpen = nodeOpen(w, i), rec = S.les[n.id], isD = done(n.id), cur = !!(nx && nx.w === w && nx.i === i);
       var st = isD ? (n.t === 'test' ? (rec && rec.medal ? MEDAL[rec.medal][0] : '✓') : (rec ? stars(rec.stars) : '✓')) : '';
-      var kind = n.t === 'lesson' ? 'Leksjon ' + n.n : (n.t === 'review' ? 'Repetisjon' : 'Prøve');
+      var kind = n.t === 'lesson' ? (w.free ? 'Oppdrag ' : 'Leksjon ') + n.n : (n.t === 'review' ? (n.weak ? 'Große Wiederholung' : 'Repetisjon') : 'Prøve');
       h += '<li class="lr-li' + (cur ? ' lr-cur' : '') + (isD ? ' lr-isdone' : '') + (!isOpen ? ' lr-locked' : '') + (n.t !== 'lesson' ? ' lr-aside' : '') + '"><button class="lr-row" data-w="' + w.n + '" data-i="' + i + '" aria-label="' + esc(kind + ': ' + n.title + (isD ? ', fullført' : (isOpen ? '' : ', låst'))) + '"><span class="lr-ic" aria-hidden="true">' + (isOpen ? (isD ? '✓' : n.icon) : '🔒') + '</span><span class="lr-txt"><small>' + kind + (n.skill ? ' · ' + SKI[n.skill] + ' ' + SK[n.skill] : '') + '</small><b>' + esc(n.title) + '</b>' + (n.learn && isOpen && (cur || !isD) ? '<em>Du lærer: ' + esc(n.learn) + '</em>' : '') + (!isOpen ? '<em>' + esc(nodeLockWhy(w, i)) + '</em>' : '') + '</span><span class="lr-st" aria-hidden="true">' + st + (cur ? '<span class="lr-start">Start</span>' : '') + '</span></button>';
       if (isD && n.t === 'lesson' && rec && rec.can && rec.can.length) {
         var weak = rec.can.some(function (v) { return v < 2; });
@@ -924,11 +955,31 @@
       }
       h += '</li>';
     });
-    h += '</ol>';
+    h += '</ol>' + worldExtras(w, wd);
     if (wd && S.placed < w.n) h += '<div class="lr-badgebox"><span aria-hidden="true">🎖️</span><div><b>' + esc(w.badge) + '</b><br><small>Ich-kann-merke for Welt ' + w.n + '</small></div></div>';
     return h + '</details>';
   }
 
+  function esc2(x) { return esc(x); }
+  function openDiploma(w) {
+    openSheet('<h3>🎓 Diplom: Ich kann Deutsch</h3><p>Skriv navnet ditt hvis du vil ha det på diplomet. Navnet lagres bare i denne nettleseren.</p><input class="lp-field" id="lr-dip-name" maxlength="40" placeholder="Navn (valgfritt)" aria-label="Navn" value="' + esc(S.name || '') + '"><button class="lp-btn" id="lr-dip-go">Åpne diplom</button><button class="lp-btn lp-ghost" id="lr-close">Lukk</button>');
+    $('lr-close').onclick = closeSheet;
+    $('lr-dip-go').onclick = function () {
+      S.name = $('lr-dip-name').value.trim().slice(0, 40); save();
+      var win = null; try { win = window.open('', '_blank'); } catch (e) { }
+      if (!win) { toast('Nettleseren stoppet vinduet. Tillat popup-vinduer og prøv igjen.'); return; }
+      win.document.open(); win.document.write(diplomaHTML(w)); win.document.close(); closeSheet();
+    };
+  }
+  function diplomaHTML(w) {
+    var t = testOf(w), rec = t && S.les[t.id], med = rec && rec.medal ? MEDAL[rec.medal] : null;
+    var known = Object.keys(S.words).filter(function (id) { return w.VA[id] && S.words[id].box >= 2; }).length;
+    var rows = WL.filter(function (u) { return !u.free; }).map(function (u) { var ok = worldDone(u) || S.placed >= u.n; return '<li class="' + (ok ? 'on' : 'off') + '"><b>' + (ok ? '✓ ' : '○ ') + 'Welt ' + u.n + ' · ' + esc(u.title) + '</b><span>' + esc((u.cando || [])[0] || u.badge || '') + '</span></li>'; }).join('');
+    var mem = w.lessons.filter(function (n) { return n.memory && done(n.id); }).map(function (n) { return '<span>' + esc(n.memory.em) + ' ' + esc(n.memory.t) + '</span>'; }).join('');
+    var sk = Object.keys(SK).map(function (k) { var s0 = S.skills[k] || { ok: 0, n: 0 }; var p = s0.n ? Math.round(s0.ok / s0.n * 100) : 0; return '<div class="sk"><span>' + SKI[k] + ' ' + SK[k] + '</span><i><u style="width:' + p + '%"></u></i><b>' + p + ' %</b></div>'; }).join('');
+    var d = new Date(), ds = d.getDate() + '.' + (d.getMonth() + 1) + '.' + d.getFullYear();
+    return '<!doctype html><html lang="nb"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ich kann Deutsch</title><style>body{font-family:Georgia,serif;margin:0;background:#f5efe0;color:#222}.page{max-width:780px;margin:16px auto;background:#fffdf6;border:6px double #b8892b;padding:28px 30px}h1{font-size:2.3rem;text-align:center;margin:.1em 0}.sub{text-align:center;color:#6b5a2e}.name{text-align:center;font-size:1.6rem;margin:18px 0 6px;border-bottom:1px solid #b8892b;padding-bottom:6px}.stat{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:14px 0}.stat div{background:#f3e6c0;border-radius:10px;padding:8px 14px;text-align:center}.stat b{display:block;font-size:1.3rem}ul{list-style:none;padding:0;margin:10px 0}li{padding:6px 0;border-bottom:1px solid #eadfc0}li b{display:block}li span{font-size:.88rem;color:#555}li.off{opacity:.55}.sk{display:flex;align-items:center;gap:10px;margin:4px 0}.sk span{width:130px}.sk i{flex:1;height:10px;background:#eadfc0;border-radius:6px;overflow:hidden}.sk u{display:block;height:100%;background:#b8892b}.mem span{display:inline-block;background:#f3e6c0;border-radius:20px;padding:4px 10px;margin:3px}button{display:block;margin:16px auto 0;padding:10px 20px;font-size:1rem}@media print{body{background:#fff}button{display:none}.page{margin:0;border-width:4px}}</style></head><body><div class="page"><div class="sub">Deutschwelt · Lernreise</div><h1>🎓 Ich kann Deutsch</h1><div class="name">' + esc(S.name || 'Diplom') + '</div><p class="sub">har fullført Lernreise og Deutschwelt, dato ' + ds + '</p><div class="stat"><div><b>' + known + '</b>ord og uttrykk</div>' + (med ? '<div><b>' + med[0] + '</b>Weltprüfung: ' + esc(med[1]) + ' (' + rec.pct + ' %)</div>' : '') + '<div><b>' + S.xp + '</b>XP</div></div><h3>Slik klarer jeg meg på tysk</h3>' + sk + '<h3>Verdenene mine</h3><ul>' + rows + '</ul>' + (mem ? '<h3>Minnesamlingen</h3><div class="mem">' + mem + '</div>' : '') + '<button onclick="window.print()">Skriv ut eller lagre som PDF</button></div></body></html>';
+  }
   function openIntro(w, i) {
     var n = w.lessons[i], open = nodeOpen(w, i), rec = S.les[n.id];
     var h = '<h3>' + n.icon + ' ' + esc(n.title) + '</h3>';
@@ -938,10 +989,10 @@
       h += '<div class="lr-learnbox"><b>Du lærer:</b> ' + esc(n.learn) + '</div>';
       h += '<p class="lr-mini">⏱ ca. ' + n.min + ' min · ' + (n.skill ? SKI[n.skill] + ' ' + SK[n.skill] + ' · ' : '') + 'Mønster: ' + esc(n.grammar) + '</p>';
     } else if (n.t === 'review') {
-      h += '<p class="lr-mini">Ca. 13 oppgaver fra leksjonene du nettopp har tatt, pluss ord du bør repetere. Ingenting stopper deg hvis det går dårlig.</p>';
+      h += n.weak ? '<p class="lr-mini">Ca. 15 oppgaver. Her får du ordene og oppgavene du har strevd mest med på hele reisen, pluss noe fra oppdragene dine. Ingenting stopper deg hvis det går dårlig.</p>' : '<p class="lr-mini">Ca. 13 oppgaver fra leksjonene du nettopp har tatt, pluss ord du bør repetere. Ingenting stopper deg hvis det går dårlig.</p>';
     } else {
       h += '<p class="lr-mini">Ca. 25 oppgaver: Hören, Lesen, Schreiben, Sprechen og avsluttende oppdrag «' + esc(w.mission.title) + '». Bronse 50 %, Sølv 75 %, Gull 90 %. Du beholder beste resultat. Prøven stopper deg ikke i å gå videre.</p>';
-      var notDone = w.lessons.some(function (x) { return x.t === 'lesson' && !done(x.id); });
+      var notDone = w.free ? doneLessons(w) < w.free : w.lessons.some(function (x) { return x.t === 'lesson' && !done(x.id); });
       if (notDone) h += '<div class="lp-note">Du har ikke tatt alle leksjonene ennå. Prøven blir lettere hvis du tar dem først.</div>';
     }
     if (rec && rec.done) h += '<p><b>Beste resultat:</b> ' + (n.t === 'test' ? (rec.medal ? MEDAL[rec.medal][0] + ' ' + MEDAL[rec.medal][1] + ' (' + rec.pct + ' %)' : rec.pct + ' %') : '<span aria-hidden="true">' + stars(rec.stars) + '</span> ' + rec.stars + ' av 3 stjerner') + '</p>';
