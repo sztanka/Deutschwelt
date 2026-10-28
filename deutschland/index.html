@@ -134,6 +134,30 @@
   .dw-quiz-opt.dw-wrong{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;}
   .dw-quiz-opt:disabled{cursor:default;}
   #dw-quiz-score{font-weight:700;color:var(--dw-primary);margin-top:6px;}
+
+  /* Bilder (Unsplash) */
+  .dw-section{display:flow-root;}
+  .dw-fig{margin:0 0 12px;}
+  .dw-fig img{display:block;width:100%;height:auto;border-radius:12px;background:#e9e5da;}
+  .dw-fig figcaption{font-size:.76rem;line-height:1.4;color:var(--dw-muted);margin-top:6px;}
+  .dw-credit{display:block;font-size:.7rem;opacity:.85;margin-top:1px;}
+  .dw-credit a{color:inherit;}
+  .dw-fig-r{float:right;width:250px;margin:4px 0 10px 20px;}
+  .dw-fig-l{float:left;width:250px;margin:4px 20px 10px 0;}
+  .dw-fig-tall{width:190px;}
+  .dw-fig-sm{width:210px;}
+  .dw-fig-tall.dw-fig-sm{width:170px;}
+  .dw-section h3.dw-clear{clear:both;}
+  .dw-fig-wide{max-width:560px;margin:14px auto 4px;clear:both;}
+  .dw-fig-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;clear:both;margin:14px 0 4px;}
+  .dw-fig-row .dw-fig{margin:0;}
+  .dw-food-table{clear:both;}
+  @media (max-width:560px){
+    .dw-fig-r,.dw-fig-l,.dw-fig-tall{float:none;width:100%;max-width:340px;margin:10px auto 12px;}
+    .dw-fig-tall,.dw-fig-tall.dw-fig-sm{max-width:230px;}
+    .dw-fig-sm{max-width:340px;}
+    .dw-fig-row{grid-template-columns:1fr;}
+  }
 </style>
 </head>
 <body>
@@ -189,13 +213,22 @@
 
   <div class="dw-section">
     <h2>🎉 Høytider og tradisjoner</h2>
+    <figure class="dw-fig dw-fig-r dw-fig-sm"><img src="img/berliner-mauer.jpg" width="1000" height="750" alt="Veggmaleri på Berlinmuren som viser to menn som kysser hverandre, med tekst på russisk og tysk" loading="lazy" decoding="async"><figcaption>Wandbildet «Bruderkuss» på East Side Gallery i Berlin, en bevart del av Berlinmuren.<span class="dw-credit">Foto: Nick Fewings / <a href="https://unsplash.com/" target="_blank" rel="noopener">Unsplash</a></span></figcaption></figure>
     <p>
       <b>Tag der Deutschen Einheit</b> (3. oktober) er Tysklands nasjonaldag —
       dagen i 1990 da Øst- og Vest-Tyskland ble ett land igjen etter den kalde
       krigen (les mer på <a href="../geschichte/kalter-krieg/">Kalter Krieg</a>
       og <a href="../geschichte/berliner-mauer/">Die Berliner Mauer</a>).
     </p>
-    <h3>Karneval, Fasching og Fastnacht</h3>
+    <p>
+      Berlinmuren falt egentlig 9. november 1989, men den datoen ble ikke valgt
+      som nasjonaldag fordi den også er årsdagen for pogromnatten i 1938
+      (<i>Reichspogromnacht</i>). I dag er et stykke på ca. 1,3 km av muren
+      bevart som friluftsgalleri, <b>East Side Gallery</b>, med malerier
+      fra kunstnere over hele verden.
+    </p>
+    <h3 class="dw-clear">Karneval, Fasching og Fastnacht</h3>
+    <figure class="dw-fig dw-fig-l"><img src="img/karneval.jpg" width="1000" height="667" alt="Glade mennesker i fargerike karnevalskostymer tar en selfie med selfiestang" loading="lazy" decoding="async"><figcaption>Karneval: kostymer, sminke og mye humør.<span class="dw-credit">Foto: Quino Al / <a href="https://unsplash.com/" target="_blank" rel="noopener">Unsplash</a></span></figcaption></figure>
     <p>
       Det samme høytiden har faktisk tre ulike navn avhengig av hvor i Tyskland
       du er. I Rheinland (Köln, Düsseldorf) heter det <b>Karneval</b>, i Bayern
@@ -212,6 +245,7 @@
       tall» i karneval-tradisjonen siden 1800-tallet.
     </div>
     <h3>Oktoberfest</h3>
+    <figure class="dw-fig dw-fig-r dw-fig-tall dw-fig-sm"><img src="img/oktoberfest.jpg" width="700" height="933" alt="Mann i Lederhose og kvinne i Dirndl sitter ved et festbord med store ølkrus" loading="lazy" decoding="async"><figcaption>Lederhose, Dirndl og ølkrus (<i>Maßkrug</i>) i et festtelt på Oktoberfest.<span class="dw-credit">Foto: Katja Rooke / <a href="https://unsplash.com/" target="_blank" rel="noopener">Unsplash</a></span></figcaption></figure>
     <p>
       Verdens største folkefest startet ikke som en ølfest, men som et
       <b>bryllup</b>: i 1810 giftet kronprins Ludwig av Bayern seg med prinsesse
@@ -219,16 +253,33 @@
       <b>Theresienwiese</b> («Wiesn» til vanlig). Festen ble en årlig tradisjon
       — og selv om den heter «Oktober»-fest, starter den i dag i september
       (for å utnytte de varmere kveldene) og varer 16–18 dager fram til første
-      søndag i oktober.
+      søndag i oktober. Ølet serveres i store telt i en-liters krus
+      (<b>Maß</b>), og mange kler seg i tradisjonelle drakter: <b>Lederhose</b>
+      for gutter og menn og <b>Dirndl</b> for jenter og kvinner.
     </p>
-    <p class="dw-note">
+    <h3 class="dw-clear">Weihnachten, Nikolaus og julemarked</h3>
+    <p>
       Weihnachten (jul) feires 24.–26. desember, med selve Heiligabend
       (julaften) den 24. som den viktigste dagen — akkurat som i Norge.
+      Men allerede 6. desember feires <b>Nikolaustag</b>: kvelden før pusser
+      barna støvlene sine (<b>Stiefel</b>) og setter dem utenfor døren, og
+      neste morgen er de fylt med godteri, nøtter og små gaver.
     </p>
+    <p>
+      Fra slutten av november åpner <b>Weihnachtsmärkte</b> (julemarkeder) i
+      byer over hele landet, med lys, julepynt og boder som selger
+      <b>Glühwein</b> (varm, krydret vin — barn får <b>Kinderpunsch</b>),
+      <b>Lebkuchen</b> (pepperkaker) og brente mandler.
+    </p>
+    <div class="dw-fig-row">
+      <figure class="dw-fig "><img src="img/nikolaus-stiefel.jpg" width="1000" height="667" alt="To slitte brune skinnstøvler på et trégulv" loading="lazy" decoding="async"><figcaption>Støvler (<i>Stiefel</i>) som kan settes ut til Nikolaustag.<span class="dw-credit">Foto: Landsmann / <a href="https://unsplash.com/" target="_blank" rel="noopener">Unsplash</a></span></figcaption></figure>
+      <figure class="dw-fig "><img src="img/weihnachtsmarkt.jpg" width="1000" height="667" alt="Opplyst bod på et julemarked med skilt for Kaffee og Glühwein og mange mennesker foran" loading="lazy" decoding="async"><figcaption>Weihnachtsmarkt: lys, julepynt og Glühwein.<span class="dw-credit">Foto: Peter Schulz / <a href="https://unsplash.com/" target="_blank" rel="noopener">Unsplash</a></span></figcaption></figure>
+    </div>
   </div>
 
   <div class="dw-section">
     <h2>🏛️ Nasjonalsymboler og fakta</h2>
+    <figure class="dw-fig dw-fig-r"><img src="img/flagge.jpg" width="1000" height="600" alt="Det tyske flagget foran Reichstag i Berlin" loading="lazy" decoding="async"><figcaption>Det tyske flagget foran Reichstag i Berlin. Over inngangen står «Dem Deutschen Volke» («Til det tyske folk»).<span class="dw-credit">Foto: Norbert Braun / <a href="https://unsplash.com/" target="_blank" rel="noopener">Unsplash</a></span></figcaption></figure>
     <p>
       Det tyske flagget har tre vannrette striper: <b>svart – rødt – gull</b>
       (schwarz-rot-gold). Tyskland er en <b>forbundsrepublikk</b>
@@ -257,10 +308,12 @@
       (sørøst), Sveits (sør), Frankrike (sørvest), Luxembourg og Belgia (vest)
       og Nederland (nordvest).
     </p>
+    <figure class="dw-fig dw-fig-wide"><img src="img/nachbarlaender.jpg" width="1000" height="667" alt="Mørkt kart over Tyskland og landene rundt med byer og røde sirkler" loading="lazy" decoding="async"><figcaption>Tyskland og nabolandene (kartet har engelske navn).<span class="dw-credit">Foto: Kobu Agency / <a href="https://unsplash.com/" target="_blank" rel="noopener">Unsplash</a></span></figcaption></figure>
   </div>
 
   <div class="dw-section">
     <h2>🍞 Mat og skikker</h2>
+    <figure class="dw-fig dw-fig-r dw-fig-tall dw-fig-sm"><img src="img/currywurst.jpg" width="700" height="856" alt="Hånd som holder en papptallerken med currywurst og pommes frites" loading="lazy" decoding="async"><figcaption>Currywurst und Pommes, servert på papptallerken fra en «Imbiss» (pølsebod).<span class="dw-credit">Foto: Liv Hema / <a href="https://unsplash.com/" target="_blank" rel="noopener">Unsplash</a></span></figcaption></figure>
     <p>
       Tyskland har en helt egen <b>brødkultur</b>: over <b>3 200</b> godkjente,
       registrerte brødsorter — trolig flere enn noe annet land i verden. I 2014
@@ -300,6 +353,10 @@
       fleste andre store tyske elver), <b>Weser</b>, <b>Ems</b> og
       <b>Oder</b> (som i dag delvis danner grensen mot Polen).
     </p>
+    <div class="dw-fig-row">
+      <figure class="dw-fig "><img src="img/zugspitze.jpg" width="1000" height="750" alt="Fjellmassivet Zugspitze med skyer og en moderne stasjonsbygning med skiltet Zugspitze Top of Germany" loading="lazy" decoding="async"><figcaption>Zugspitze, «Top of Germany». Her ser vi en av banene som går opp mot toppen.<span class="dw-credit">Foto: Andreas Haubold / <a href="https://unsplash.com/" target="_blank" rel="noopener">Unsplash</a></span></figcaption></figure>
+      <figure class="dw-fig "><img src="img/rhein.jpg" width="1000" height="562" alt="Lasteskip på elven Rhein i solnedgang med skyer og byen i bakgrunnen" loading="lazy" decoding="async"><figcaption>Et lasteskip på Rhein, en av Europas viktigste fraktveier.<span class="dw-credit">Foto: Daniel Gimbel / <a href="https://unsplash.com/" target="_blank" rel="noopener">Unsplash</a></span></figcaption></figure>
+    </div>
     <p class="dw-note">
       Areal: ca. 357 600 km² — litt mindre enn Norge i utstrekning (Norge er
       ca. 385 000 km²), men med over 15 ganger så mange innbyggere.
