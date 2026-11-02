@@ -2674,3 +2674,12 @@ Ny side `andere-laender/` (kort på `laender/`, treff i søket på forsiden). Fi
 
 - **Legge til et land:** ny rad i `daten.js`: `[kart-id, norsk, tysk, mann, kvinne, språk, tag, region]`. `|` skiller flere godtatte svar (første vises som fasit), `/` i språk-feltet skiller flere språk (ett holder). `tag`: `e` = ligner norsk, `w` = pass ekstra på. `region`: `eu` eller `w`. Land med `kart-id` som finnes i `kart.js` kommer automatisk med i kartspillet (hvis de er store nok, areal ≥ 40 px²). Nye språk i ordsøk trenger en norsk oversettelse i `DW_SPRACHE_NO`.
 - **Kartspill:** klikk på landet (to forsøk), zoom/pan, norsk hjelp og Lernmodus (viser alle navn). Ordsøk: Länder / Sprachen / Nationalitäten, lett og vanskelig nivå, dra eller trykk start+slutt. Memory: norsk↔tysk, land↔språk, land↔mann/kvinne.
+
+## Øveprøve: Perfektum (2. november)
+Ny side `grammatikk/verb/perfekt/oveprove/` (index.html + `app.js` + `bank.js`), lenket fra Perfekt-siden, Verb-huben og søket på forsiden.
+- Genererer en ny prøve på 58 poeng (8 oppgaver, som i Word-prøven) fra `verben/verben_data.js` (haben/sein og partisipp hentes fra verbdataene; verbene klassifiseres som svake/sterke/uten ge-/atskillelige via `pp` og ‹›-markering).
+- Nivå: A1 / A1–A2 / A1–B1. Prøvenummer (seed) gir samme prøve hver gang – bruk det til å gi hele klassen lik prøve. Delbar lenke: `oveprove/#12345` (`-B1`/`-A1` for nivå, `-x` uten oppg. 8).
+- Retting: dropdown for haben/sein (hat/ist), halve poeng (oppg. 3–4), 0 p for ge- på verb uten ge- (oppg. 5), begge deler riktig (oppg. 6), oppg. 7 gir 1 p for hjelpeverb + 1 p for partisipp sist (½ ved skrivefeil/feil plassering), oppg. 8 sjekker setningsstruktur + krav (2 sterke, 1 svakt, 1 uten ge-, 1 sein) automatisk.
+- Oppg. 1: 6 hvite felt à 1 poeng (Word-dokumentet sa «12 felt à ½» men har bare 6 hvite felt).
+- Setningsbanker til oppg. 6 og 7 ligger i `bank.js` (egne setninger kan legges til: `[infinitiv, person, tekst med {a} og {p}]` / `[norsk, tysk, infinitiv, person]`).
+- Resultater (siste 8) lagres i localStorage i elevens nettleser.

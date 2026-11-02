@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Øveprøve: Perfektum (grammatikk/verb/perfekt/oveprove/)
+  Genererer en ny, tilfeldig prøve (58 poeng, 8 oppgaver som i Teachs Word-prøve) fra verben/verben_data.js
+  og retter den automatisk (halve poeng, prosent, "hva bør jeg øve på?"). Prøvenummer = seed, så hele klassen
+  kan få samme prøve. Logikk: app.js, setningsbank: bank.js. Se README.md.
+-->
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Øveprøve: Perfektum · Deutschwelt</title>
+<link rel="stylesheet" href="../../../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;--dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:820px;margin:0 auto;padding:0 16px 90px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:26px 22px;text-align:center;margin-bottom:20px;}
+  .dw-header h1{margin:0 0 4px;font-size:1.6rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;}
+  .dw-header p{margin:0;opacity:.95;font-size:.95rem;}
+  .dw-crumb{font-size:.85rem;margin:0 0 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .op-card{background:var(--dw-card);border-radius:var(--dw-radius);padding:20px 22px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;}
+  .op-card h2{margin:0 0 10px;color:var(--dw-primary);font-size:1.1rem;}
+  .op-card p,.op-card li{font-size:.93rem;line-height:1.55;}
+  .op-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:14px 0;}
+  .op-form label{display:block;font-size:.82rem;font-weight:700;color:var(--dw-muted);margin-bottom:4px;}
+  .op-form select,.op-form input[type=text]{width:100%;padding:10px 12px;border:2px solid #d9d4c5;border-radius:10px;font:inherit;font-size:.95rem;background:#fff;}
+  .op-check{display:flex;align-items:flex-start;gap:8px;font-size:.9rem;margin:6px 0;}
+  .op-check input{margin-top:3px;width:18px;height:18px;}
+  .op-btn{background:var(--dw-primary);color:#fff;border:none;padding:12px 24px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;}
+  .op-btn:hover{background:var(--dw-primary-light);}
+  .op-btn.op-gold{background:var(--dw-accent);color:#1a1a1a;}
+  .op-btn.op-gold:hover{background:#e8bb35;}
+  .op-btn.op-ghost{background:#fff;color:var(--dw-primary);border:2px solid var(--dw-primary);padding:8px 16px;font-size:.88rem;}
+  .op-btn.op-ghost:hover{background:var(--dw-primary);color:#fff;}
+  .op-btn:disabled{opacity:.5;cursor:default;}
+  .op-hist{font-size:.88rem;background:#f4f1e8;border-radius:12px;padding:12px 16px;margin-top:14px;}
+  .op-hist ul{margin:6px 0 0;padding-left:18px;}
+  .op-note{font-size:.82rem;color:var(--dw-muted);}
+
+  .op-bar-top{position:sticky;top:0;z-index:20;background:rgba(247,245,240,.96);backdrop-filter:blur(4px);display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;padding:10px 4px;margin-bottom:10px;border-bottom:1px solid #e4e0d5;}
+  .op-bar-top .op-info{font-size:.88rem;color:var(--dw-muted);font-weight:600;}
+  .op-bar-top .op-acts{display:flex;gap:8px;flex-wrap:wrap;}
+  .op-task{background:var(--dw-card);border-radius:var(--dw-radius);padding:18px 20px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #ece8df;}
+  .op-task h2{margin:0 0 6px;font-size:1.08rem;color:var(--dw-primary);display:flex;align-items:center;flex-wrap:wrap;gap:8px;}
+  .op-nr{background:var(--dw-primary);color:#fff;border-radius:50%;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;font-size:.9rem;}
+  .op-pts{margin-left:auto;font-size:.8rem;font-weight:700;background:#fff6dc;border:1px solid #f0dca8;border-radius:999px;padding:3px 10px;color:#7a5b00;}
+  .op-pts-done{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .op-intro{font-size:.9rem;line-height:1.5;margin:0 0 12px;color:#444;}
+  .op-in{border:2px solid #d9d4c5;border-radius:8px;padding:7px 9px;font:inherit;font-size:.95rem;background:#fff;color:var(--dw-text);min-width:0;}
+  .op-in:focus,.op-sel:focus{outline:none;border-color:var(--dw-accent);box-shadow:0 0 0 3px rgba(217,169,28,.25);}
+  .op-sm{width:5.6em;}.op-md{width:9em;}.op-wide{width:100%;}
+  .op-sel{border:2px solid #d9d4c5;border-radius:8px;padding:7px 6px;font:inherit;font-size:.95rem;background:#fff;color:var(--dw-text);}
+  .op-ok{border-color:var(--dw-good)!important;background:#eaf6ea!important;}
+  .op-bad{border-color:var(--dw-bad)!important;background:#fdeaea!important;}
+  .op-row{display:flex;align-items:center;gap:8px 10px;flex-wrap:wrap;padding:7px 0;border-bottom:1px dashed #ece8df;}
+  .op-row:last-child{border-bottom:none;}
+  .op-lab{min-width:13.5em;font-size:.97rem;}
+  .op-lab small{color:var(--dw-muted);font-weight:400;}
+  .op-static{font-size:.93rem;color:var(--dw-muted);min-width:5.6em;}
+  .op-grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 26px;}
+  .op-grid2 .op-row{border-bottom:1px dashed #ece8df;}
+  .op-fb{font-size:.85rem;font-weight:600;}
+  .op-good{color:var(--dw-good);}.op-miss{color:var(--dw-bad);}.op-part{color:#b36b00;}
+  .op-fix{color:var(--dw-bad);}
+  .op-fbblock{display:block;margin-top:4px;line-height:1.45;}
+  .op-fbblock:empty{display:none;}
+  .op-tab{border-collapse:collapse;width:100%;max-width:460px;}
+  .op-tab th,.op-tab td{padding:6px 8px;text-align:left;border-bottom:1px solid #ece8df;font-size:.95rem;}
+  .op-tab th{color:var(--dw-primary);}
+  .op-tab td.op-given{background:#ececec;color:#555;font-weight:700;}
+  .op-sent{padding:9px 0;border-bottom:1px dashed #ece8df;line-height:2.1;font-size:.97rem;}
+  .op-sent:last-child{border-bottom:none;}
+  .op-letter{font-weight:700;color:var(--dw-primary);margin-right:4px;}
+  .op-verb{color:var(--dw-muted);margin-left:4px;font-style:italic;}
+  .op-sent .op-fb{margin-left:8px;}
+  .op-tr,.op-free{padding:8px 0;border-bottom:1px dashed #ece8df;}
+  .op-tr:last-child,.op-free:last-child{border-bottom:none;}
+  .op-no{margin-bottom:5px;font-size:.97rem;}
+  .op-free{display:flex;flex-wrap:wrap;align-items:flex-start;gap:6px 8px;}
+  .op-free .op-in{flex:1 1 280px;width:auto;}
+  .op-free .op-fb{flex-basis:100%;margin-left:24px;}
+  .op-chips{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin-bottom:10px;font-size:.88rem;line-height:2;}
+  .op-chip{background:#fff;border:1px solid #e6cf8e;border-radius:999px;padding:2px 10px;font-weight:700;color:var(--dw-primary);white-space:nowrap;}
+  .op-req{margin-top:12px;background:#f4f1e8;border-radius:12px;padding:10px 16px;font-size:.88rem;display:none;}
+  .op-req ul{margin:6px 0;padding-left:18px;}
+  .op-yes{color:var(--dw-good);font-weight:600;}.op-no2{color:var(--dw-bad);font-weight:600;}
+  .op-submit{text-align:center;margin:20px 0;}
+  .op-result{display:none;background:var(--dw-card);border-radius:var(--dw-radius);padding:26px 22px;margin-bottom:16px;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,.1);border:2px solid var(--dw-accent);}
+  .op-result.op-show{display:block;}
+  #resultat{scroll-margin-top:80px;}
+  .op-result .op-req{display:block;}
+  .op-emoji{font-size:3rem;}
+  .op-big{font-size:2.6rem;font-weight:800;color:var(--dw-primary);}
+  .op-big small{font-size:1rem;font-weight:600;color:var(--dw-muted);}
+  .op-pct{font-size:1.8rem;font-weight:800;color:var(--dw-accent);margin-bottom:4px;}
+  .op-verdict{font-size:1.05rem;margin:4px 0 6px;}
+  .op-meta{font-size:.8rem;color:var(--dw-muted);margin-bottom:6px;}
+  .op-result h3{margin:18px 0 8px;font-size:1rem;text-align:left;color:var(--dw-primary);}
+  .op-areas{display:grid;gap:10px;text-align:left;}
+  .op-area{border-radius:12px;padding:10px 14px;background:#f4f1e8;border-left:5px solid var(--dw-good);}
+  .op-area.op-low{border-left-color:var(--dw-bad);background:#fdf1f0;}
+  .op-area-h{display:flex;justify-content:space-between;font-size:.93rem;}
+  .op-bar{height:8px;background:#e4e0d5;border-radius:999px;overflow:hidden;margin:6px 0;}
+  .op-bar i{display:block;height:100%;background:var(--dw-good);}
+  .op-low .op-bar i{background:var(--dw-bad);}
+  .op-area-t{font-size:.85rem;color:#444;}
+  .op-links{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:16px 0 6px;}
+  .op-links a{color:var(--dw-primary);font-weight:700;font-size:.9rem;text-decoration:none;background:#fff6dc;border:1px solid #f0dca8;border-radius:999px;padding:6px 14px;}
+  .op-links a:hover{background:var(--dw-accent);}
+  .op-scrolldown{font-size:.84rem;color:var(--dw-muted);margin:8px 0 0;}
+  #charbar{position:fixed;right:12px;bottom:12px;z-index:30;background:#fff;border:2px solid var(--dw-primary);border-radius:999px;padding:5px 8px;display:flex;gap:4px;box-shadow:0 4px 14px rgba(0,0,0,.18);}
+  #charbar button{border:none;background:#f4f1e8;border-radius:50%;width:34px;height:34px;font-size:1.05rem;font-weight:700;cursor:pointer;color:var(--dw-primary);}
+  #charbar button:hover{background:var(--dw-accent);}
+  @media(max-width:600px){
+    .op-grid2{grid-template-columns:1fr;}
+    .op-task{padding:14px 12px;}
+    .op-sent{line-height:2.4;}
+    .op-sm{width:5em;}
+    .op-lab{min-width:100%;}
+    .dw-header h1{font-size:1.35rem;}
+  }
+  @media print{
+    .dw-nav-bar,.dw-crumb,.op-bar-top,#charbar,.op-submit,#oppsett,.op-links,.op-scrolldown{display:none!important;}
+    body{background:#fff;}
+    .op-task,.op-result{box-shadow:none;break-inside:avoid;}
+    .dw-header{background:#fff;color:#000;border:2px solid #000;}
+    .op-in,.op-sel{border:none;border-bottom:1px solid #000;border-radius:0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../../../">🏠 Forside</a>
+      <a class="dw-nav-link dw-nav-active" href="../../../">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../../../lernreise/">🧭 Lernreise</a>
+      <a class="dw-nav-link" href="../../../../lernpfad/">🛤️ Lernpfad</a>
+      <a class="dw-nav-link" href="../../../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../../../">🧩 Grammatik</a> → <a href="../../">Verb</a> → <a href="../">Perfekt</a> → Øveprøve</p>
+
+  <div class="dw-header">
+    <h1>📝 Øveprøve: Perfektum</h1>
+    <p>Ny prøve hver gang – rettes automatisk, med poengsum og prosent</p>
+  </div>
+
+  <div id="oppsett">
+    <div class="op-card">
+      <h2>Slik fungerer det</h2>
+      <p>Her får du en <b>helt ny øveprøve</b> hver gang, bygget av verbene i verblista vår. Den har samme oppgavetyper som en ekte prøve – <b>haben og sein, svake verb, sterke verb, verb uten ge-, fyll-inn-setninger, oversettelse og fri skriving</b> – til sammen <b>58 poeng</b>. Gjør prøven uten hjelpemidler (ca. 45 minutter), trykk <b>«Rett prøven»</b>, og se poengsum, prosent og hva du bør øve mer på.</p>
+      <div class="op-form">
+        <div><label for="sel-level">Verbnivå</label>
+          <select id="sel-level">
+            <option value="A1">Lett – bare A1-verb</option>
+            <option value="A2" selected>Normal – A1 og A2</option>
+            <option value="B1">Vanskelig – inkl. B1 og atskillelige verb</option>
+          </select></div>
+        <div><label for="inp-seed">Prøvenummer (valgfritt)</label>
+          <input type="text" id="inp-seed" inputmode="numeric" placeholder="La stå tomt for tilfeldig prøve"></div>
+      </div>
+      <label class="op-check"><input type="checkbox" id="chk-free" checked> <span>Ta med <b>oppgave 8 – skriv fritt</b> (8 poeng). Slår du den av, er prøven på 50 poeng.</span></label>
+      <p class="op-note">💡 Lærer? Gi hele klassen samme prøvenummer, så får alle den samme prøven. Nummeret står øverst på prøven.</p>
+      <p style="margin-top:16px"><button class="op-btn op-gold" id="btn-start">▶ Lag prøve</button></p>
+      <div class="op-hist" id="historie" style="display:none"></div>
+    </div>
+  </div>
+
+  <div id="prove" style="display:none">
+    <div class="op-bar-top">
+      <span class="op-info"><span id="op-seed"></span> · maks <span id="op-max">58</span> poeng · <span id="op-timer">⏱ 0:00</span></span>
+      <span class="op-acts">
+        <button class="op-btn op-ghost btn-ny" type="button">🔄 Ny prøve</button>
+        <button class="op-btn op-ghost btn-print" type="button">🖨️ Skriv ut</button>
+        <button class="op-btn op-ghost" id="btn-oppsett" type="button">⚙️ Innstillinger</button>
+      </span>
+    </div>
+
+    <div id="resultat" class="op-result"></div>
+    <div id="oppgaver"></div>
+
+    <div class="op-submit">
+      <button class="op-btn op-gold" id="btn-rett" type="button">✅ Rett prøven</button>
+      <span id="igjen-wrap" style="display:none">
+        <button class="op-btn op-gold btn-ny" type="button">🔄 Ny prøve</button>
+        <button class="op-btn op-ghost" id="btn-igjen" type="button">🔁 Samme prøve på nytt</button>
+      </span>
+    </div>
+  </div>
+
+</div>
+
+<div id="charbar" style="display:none" aria-label="Tegn"><button type="button">ä</button><button type="button">ö</button><button type="button">ü</button><button type="button">ß</button></div>
+
+<script src="../../../../verben/verben_data.js"></script>
+<script src="bank.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
