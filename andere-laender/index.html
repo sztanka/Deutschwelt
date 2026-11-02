@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Andere Länder: land, nasjonalitet (mann/kvinne) og språk på tysk.
+  Bygget etter ønske fra Teach (2. november): forklaring med mønstre og eksempler,
+  utfyllingstabell (Europa + utvalgte land fra resten av verden), kartspill (Europa,
+  klikk på landet), ordsøk og memory — alt på tysk, med norsk hjelp.
+  Data: daten.js (land), kart.js (Europa-kart fra Natural Earth, public domain), app.js (spill).
+  Se README.md for hvordan du legger til flere land.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andere Länder · Deutschwelt</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="andere.css">
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../musik/">🎵 Musik</a>
+      <a class="dw-nav-link dw-nav-active" href="../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../lernreise/">🧭 Lernreise</a>
+      <a class="dw-nav-link" href="../lernpfad/">🛤️ Lernpfad</a>
+      <a class="dw-nav-link" href="../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <p class="dw-crumb"><a href="../laender/">🌍 Länder</a> → Andere Länder</p>
+
+  <div class="dw-header">
+    <h1>Andere Länder</h1>
+    <p>Land, nasjonalitet og språk på tysk — med tabell, kartspill, ordsøk og memory</p>
+  </div>
+
+  <nav class="dw-jump" aria-label="Hopp til">
+    <a href="#forklaring">📖 Forklaring</a>
+    <a href="#tabell">✍️ Tabell</a>
+    <a href="#kart">🗺️ Kartspill</a>
+    <a href="#wortsuche">🔎 Ordsøk</a>
+    <a href="#memory">🃏 Memory</a>
+  </nav>
+
+  <!-- ============ FORKLARING ============ -->
+  <section class="dw-section" id="forklaring">
+    <h2>📖 Slik sier du hvor du kommer fra</h2>
+    <p>
+      Til hvert land trenger du <b>tre ord</b>: selve <b>landet</b> (<i>Frankreich</i>),
+      <b>personen</b> — mann og kvinne har hvert sitt ord (<i>Franzose</i> / <i>Französin</i>) —
+      og <b>språket</b> (<i>Französisch</i>). Heldigvis følger de fleste land noen få mønstre,
+      og mange ligner på norsk.
+    </p>
+
+    <div class="dw-pat-grid">
+      <div class="dw-pat">
+        <h3>Mønster 1: -er</h3>
+        <p>Mannen ender på <b>-er</b>, kvinnen på <b>-erin</b>.</p>
+        <p class="dw-pat-ex"><b>Norwegen</b> → Norweger / Norwegerin<br><b>Italien</b> → Italiener / Italienerin</p>
+        <p class="dw-pat-note">Ender landet på <i>-ien</i>, kan «-ien» bli «-ier»: <b>Spanien → Spanier</b>, <b>Belgien → Belgier</b>.</p>
+      </div>
+      <div class="dw-pat">
+        <h3>Mønster 2: -e</h3>
+        <p>Mannen ender på <b>-e</b>, kvinnen på <b>-in</b>.</p>
+        <p class="dw-pat-ex"><b>Schweden</b> → Schwede / Schwedin<br><b>Polen</b> → Pole / Polin<br><b>Griechenland</b> → Grieche / Griechin</p>
+        <p class="dw-pat-note">Slutten av landnavnet faller bort: <i>Schweden → Schwede</i>, <i>Polen → Pole</i>.</p>
+      </div>
+      <div class="dw-pat">
+        <h3>Språket: -isch</h3>
+        <p>Språket er det samme ordet som adjektivet: land + <b>-isch</b> (ofte med små endringer).</p>
+        <p class="dw-pat-ex"><b>Norwegen</b> → norwegisch<br><b>Polen</b> → polnisch<br><b>Spanien</b> → spanisch</p>
+        <p class="dw-pat-note">Som <b>språk</b> skrives det med <b>stor bokstav</b>: <i>Ich spreche Spanisch.</i> Som adjektiv med liten: <i>ein spanisches Auto.</i></p>
+      </div>
+    </div>
+
+    <h3>Eksempler</h3>
+    <div class="dw-tablewrap">
+    <table class="dw-ex-table">
+      <tr><th>Land</th><th>Mann</th><th>Frau</th><th>Språk</th><th>Merk deg</th></tr>
+      <tr><td><b>Norwegen</b></td><td>Norweger</td><td>Norwegerin</td><td>Norwegisch</td><td>Ligner norsk — lett!</td></tr>
+      <tr><td><b>Italien</b></td><td>Italiener</td><td>Italienerin</td><td>Italienisch</td><td>Mønster 1</td></tr>
+      <tr class="dw-ex-warn"><td><b>Frankreich</b></td><td>Franzose</td><td>Französin</td><td>Französisch</td><td>Pass på! Landet og personen ligner lite, og <i>o</i> blir <i>ö</i> hos kvinnen.</td></tr>
+      <tr class="dw-ex-warn"><td><b>Dänemark</b></td><td>Däne</td><td>Dänin</td><td>Dänisch</td><td>Ikke «Dänemarker» — <i>-mark</i> faller bort.</td></tr>
+      <tr class="dw-ex-warn"><td><b>Griechenland</b></td><td>Grieche</td><td>Griechin</td><td>Griechisch</td><td>Mønster 2.</td></tr>
+      <tr class="dw-ex-warn"><td><b>Großbritannien</b></td><td>Brite</td><td>Britin</td><td>Englisch</td><td>Språket heter ikke «britisch». Fra England: <i>Engländer / Engländerin</i>.</td></tr>
+      <tr class="dw-ex-warn"><td><b>Österreich</b></td><td>Österreicher</td><td>Österreicherin</td><td>Deutsch</td><td>Språket er <b>Deutsch</b>, ikke «österreichisch».</td></tr>
+      <tr class="dw-ex-warn"><td><b>die Schweiz</b></td><td>Schweizer</td><td>Schweizerin</td><td>Deutsch, Französisch, Italienisch …</td><td>Fire språk! Landet har artikkelen <i>die</i>.</td></tr>
+    </table>
+    </div>
+
+    <div class="dw-warn-box">
+      <b>⚠️ Pass ekstra på:</b>
+      <ul>
+        <li><b>Deutschland</b> → <i>Deutscher / Deutsche</i> (bøyes som et adjektiv: <i>ein Deutscher, eine Deutsche</i>).</li>
+        <li><b>Niederlande</b> → <i>Niederländer / Niederländerin</i>. «Holländer» sier mange i hverdagen, men det passer egentlig bare på folk fra Holland.</li>
+        <li><b>Irland</b> → <i>Ire / Irin</i>. <b>Finnland</b> → <i>Finne / Finnin</i> (<i>-land</i> faller bort).</li>
+        <li><b>Mange språk ≠ landnavn:</b> USA, Kanada og Australien → <i>Englisch</i>. Brasilien → <i>Portugiesisch</i>. Mexiko og Argentinien → <i>Spanisch</i>.</li>
+      </ul>
+    </div>
+
+    <h3>I setninger</h3>
+    <div class="dw-dialog">
+      <p><b>Woher kommst du?</b> – Ich komme aus <b>Norwegen</b>.</p>
+      <p><b>Bist du Norweger oder Norwegerin?</b> – Ich bin Norweger. / Ich bin Norwegerin. <span class="dw-muted">(ingen «ein» foran!)</span></p>
+      <p><b>Welche Sprache sprichst du?</b> – Ich spreche Norwegisch und Englisch.</p>
+      <p><b>Wo wohnst du?</b> – Ich wohne in <b>Frankreich</b>.</p>
+    </div>
+    <p class="dw-note">
+      <b>Land med artikkel:</b> noen land har <i>der/die/das</i> foran seg og bøyes: <i>Ich komme aus <b>der</b> Schweiz</i>,
+      <i>aus <b>der</b> Türkei</i>, <i>aus <b>der</b> Ukraine</i>, <i>aus <b>den</b> USA</i>, <i>aus <b>den</b> Niederlanden</i>
+      (flertall). Ved <i>in</i> blir det: <i>Ich wohne <b>in der</b> Schweiz</i>.
+    </p>
+    <div class="dw-fact-box">
+      🎓 <b>For deg som vil videre:</b> mannsordene på <b>-e</b> (<i>Franzose, Schwede, Pole</i>) får <b>-n</b> i alle former unntatt grunnformen:
+      <i>Ich kenne einen Franzosen.</i> (ikke «einen Franzose»).
+    </div>
+  </section>
+
+  <!-- ============ TABELL ============ -->
+  <section class="dw-section" id="tabell">
+    <h2>✍️ Fyll inn tabellen</h2>
+    <p>
+      Det norske landnavnet står der. Skriv <b>landet på tysk</b>, <b>mannen</b>, <b>kvinnen</b> og <b>språket</b>.
+      Trykk <b>Sjekk</b> når du vil se hvordan det gikk, eller <b>Fasit</b> for å se svarene.
+      Det gjør ingenting om du skriver <i>ae</i>, <i>oe</i>, <i>ue</i> og <i>ss</i> i stedet for ä, ö, ü og ß.
+    </p>
+    <div class="dw-controls">
+      <label>Hvilke land?
+        <select id="ct-reg"><option value="">Alle</option><option value="eu">Europa</option><option value="w">Resten av verden</option></select>
+      </label>
+      <label>Vis
+        <select id="ct-tag"><option value="">Alle</option><option value="e">🟢 Ligner norsk</option><option value="w">🟠 Pass ekstra på</option></select>
+      </label>
+      <label class="dw-check"><input type="checkbox" id="ct-hint"> 💡 Vis første bokstav</label>
+    </div>
+    <div class="dw-charbar" aria-label="Spesialtegn"><span>Tegn:</span>
+      <button type="button" data-c="ä">ä</button><button type="button" data-c="ö">ö</button><button type="button" data-c="ü">ü</button><button type="button" data-c="ß">ß</button>
+      <button type="button" data-c="Ä">Ä</button><button type="button" data-c="Ö">Ö</button><button type="button" data-c="Ü">Ü</button>
+    </div>
+    <div class="dw-ct" id="ct"></div>
+    <div class="dw-btnrow">
+      <button type="button" class="dw-btn" id="ct-check">✔ Sjekk</button>
+      <button type="button" class="dw-btn dw-btn-ghost" id="ct-solve">👁 Fasit</button>
+      <button type="button" class="dw-btn dw-btn-ghost" id="ct-clear">🧹 Tøm</button>
+    </div>
+    <p class="dw-status" id="ct-status" role="status"></p>
+    <p class="dw-note">Flere språk? Det holder å skrive ett av dem. Hvis det er flere gyldige svar, viser fasiten dem alle.</p>
+  </section>
+
+  <!-- ============ KARTSPILL ============ -->
+  <section class="dw-section" id="kart">
+    <h2>🗺️ Kartspill: Wo liegt …?</h2>
+    <p>
+      Du får et landnavn på tysk. Trykk på riktig land på kartet. Du har <b>to forsøk</b> per land.
+      Bruk <b>+</b> og <b>−</b> for å zoome (dra for å flytte kartet), så treffer du de små landene lettere.
+    </p>
+    <div class="dw-controls">
+      <label>Antall land
+        <select id="mp-n"><option value="10">10</option><option value="20" selected>20</option><option value="0">Alle</option></select>
+      </label>
+      <label class="dw-check"><input type="checkbox" id="mp-no"> 🇳🇴 Vis norsk hjelp</label>
+      <label class="dw-check"><input type="checkbox" id="mp-learn"> 📚 Lernmodus (vis alle navn)</label>
+      <button type="button" class="dw-btn" id="mp-start">▶ Start</button>
+    </div>
+    <div class="dw-prompt" id="mp-prompt" aria-live="polite">Trykk på «Start» for å begynne.</div>
+    <div class="dw-prompt-sub" id="mp-sub"></div>
+    <div class="dw-mapbox">
+      <svg id="mp-svg" viewBox="0 0 800 760" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Kart over Europa"></svg>
+      <div class="dw-zoom">
+        <button type="button" id="mp-zin" aria-label="Zoom inn">+</button>
+        <button type="button" id="mp-zout" aria-label="Zoom ut">−</button>
+        <button type="button" id="mp-zreset" aria-label="Nullstill zoom">⟲</button>
+      </div>
+    </div>
+    <div class="dw-feedback" id="mp-fb" role="status"></div>
+    <div class="dw-score" id="mp-score"></div>
+    <div class="dw-result" id="mp-result" hidden></div>
+    <p class="dw-note">De minste statene (Andorra, Liechtenstein, Malta, Monaco, San Marino) er for små til å være med i spillet, men du finner dem i tabellen. Kartdata: Natural Earth.</p>
+  </section>
+
+  <!-- ============ ORDSØK ============ -->
+  <section class="dw-section" id="wortsuche">
+    <h2>🔎 Ordsøk</h2>
+    <p>
+      Finn de skjulte <b>tyske</b> ordene. Listen viser <b>norsk</b>, så du må vite hva ordet heter på tysk!
+      Dra fra første til siste bokstav (eller trykk på første, så siste bokstav).
+      Ordene kan stå vannrett, loddrett og på skrå.
+    </p>
+    <div class="dw-controls">
+      <label>Innhold
+        <select id="ws-mode"><option value="land">Länder</option><option value="sprache">Sprachen</option><option value="mann">Nationalitäten (Mann)</option></select>
+      </label>
+      <label>Antall ord
+        <select id="ws-n"><option value="8">8</option><option value="10" selected>10</option><option value="12">12</option></select>
+      </label>
+      <label>Nivå
+        <select id="ws-lvl"><option value="easy">Lett (→ ↓ ↘)</option><option value="hard">Vanskelig (alle retninger)</option></select>
+      </label>
+      <label class="dw-check"><input type="checkbox" id="ws-show"> 👀 Vis de tyske ordene i listen</label>
+      <button type="button" class="dw-btn" id="ws-new">🔄 Nytt ordsøk</button>
+    </div>
+    <div class="dw-ws">
+      <div class="dw-ws-grid" id="ws-grid" role="grid" aria-label="Ordsøk"></div>
+      <div class="dw-ws-side">
+        <h3>Finn disse:</h3>
+        <ul class="dw-ws-list" id="ws-list"></ul>
+        <button type="button" class="dw-btn dw-btn-ghost" id="ws-solve">👁 Vis løsningen</button>
+      </div>
+    </div>
+    <p class="dw-status" id="ws-status" role="status"></p>
+  </section>
+
+  <!-- ============ MEMORY ============ -->
+  <section class="dw-section" id="memory">
+    <h2>🃏 Memory</h2>
+    <p>Finn parene! Trykk på to kort om gangen. Hvilke par skal du finne?</p>
+    <div class="dw-controls">
+      <label>Par
+        <select id="mm-mode">
+          <option value="de">Norsk land ↔ tysk land</option>
+          <option value="lang">Tysk land ↔ språk</option>
+          <option value="mf">Tysk land ↔ mann / kvinne</option>
+        </select>
+      </label>
+      <label>Hvilke land?
+        <select id="mm-reg"><option value="">Alle</option><option value="eu">Europa</option><option value="w">Resten av verden</option></select>
+      </label>
+      <label>Antall par
+        <select id="mm-n"><option value="6">6</option><option value="9" selected>9</option><option value="12">12</option></select>
+      </label>
+      <button type="button" class="dw-btn" id="mm-new">🔄 Ny runde</button>
+    </div>
+    <div class="dw-mm-info"><span id="mm-moves">Trekk: 0</span> · <span id="mm-pairs">Par: 0</span></div>
+    <div class="dw-mm" id="mm-board"></div>
+    <p class="dw-status" id="mm-status" role="status"></p>
+  </section>
+
+</div>
+
+<script src="daten.js"></script>
+<script src="kart.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

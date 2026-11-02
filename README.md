@@ -2667,3 +2667,10 @@ assets/lernreise.css    → stil (bygger på lernpfad.css for felles oppgaveelem
 ## Bilder på Deutschland-siden (28. oktober)
 
 `deutschland/index.html` har 10 Unsplash-bilder i `deutschland/img/` (skalert til maks 1000 px bredde, ca. 1,3 MB totalt). Hvert bilde ligger i en `<figure class="dw-fig …">` med norsk alt-tekst, bildetekst og kreditering («Foto: navn / Unsplash»). Klassene `dw-fig-r`/`dw-fig-l` flyter bildet til høyre/venstre ved siden av teksten, `dw-fig-row` viser to bilder side om side, og på mobil (under 560 px) stables alt. Nye bilder legges inn på samme måte.
+
+## Andere Länder (2. november)
+
+Ny side `andere-laender/` (kort på `laender/`, treff i søket på forsiden). Filer: `index.html` (forklaring, eksempler, seksjoner), `andere.css`, `app.js` (tabell, kartspill, ordsøk, memory), `daten.js` (landdata) og `kart.js` (Europa-kart, Natural Earth/public domain, generert som SVG-stier i Albers-projeksjon, 800×760).
+
+- **Legge til et land:** ny rad i `daten.js`: `[kart-id, norsk, tysk, mann, kvinne, språk, tag, region]`. `|` skiller flere godtatte svar (første vises som fasit), `/` i språk-feltet skiller flere språk (ett holder). `tag`: `e` = ligner norsk, `w` = pass ekstra på. `region`: `eu` eller `w`. Land med `kart-id` som finnes i `kart.js` kommer automatisk med i kartspillet (hvis de er store nok, areal ≥ 40 px²). Nye språk i ordsøk trenger en norsk oversettelse i `DW_SPRACHE_NO`.
+- **Kartspill:** klikk på landet (to forsøk), zoom/pan, norsk hjelp og Lernmodus (viser alle navn). Ordsøk: Länder / Sprachen / Nationalitäten, lett og vanskelig nivå, dra eller trykk start+slutt. Memory: norsk↔tysk, land↔språk, land↔mann/kvinne.
