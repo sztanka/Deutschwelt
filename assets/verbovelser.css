@@ -1,0 +1,23 @@
+/* Deutschwelt — stiler for verbovelser.js (match, hvem, tilfeldig runde). Bruker sidens :root-variabler. */
+.dwv-ctrl{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:flex-end;background:#fff;border:1px solid #ece8df;border-radius:14px;padding:12px 16px;margin:10px 0;}
+.dwv-lbl{display:flex;flex-direction:column;font-size:.76rem;font-weight:700;color:var(--dw-muted,#6b6b6b);gap:3px;}
+.dwv-lbl select{font:inherit;font-size:.92rem;font-weight:600;padding:7px 10px;border:2px solid #d9d4c5;border-radius:10px;background:#fff;color:var(--dw-text,#232323);}
+.dwv-info{font-size:.82rem;color:var(--dw-muted,#6b6b6b);margin:0 0 6px;}
+.dwv-pair-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 22px;margin:8px 0 4px;}
+.dwv-col{display:flex;flex-direction:column;gap:8px;}
+.dwv-chip{font-family:inherit;font-size:1rem;font-weight:700;padding:10px 12px;border-radius:12px;border:2px solid #cfc8b5;background:#fff;color:var(--dw-text,#232323);cursor:pointer;transition:all .12s ease;text-align:center;}
+.dwv-chip:hover:not(:disabled){border-color:var(--dw-primary-light,#9c1329);}
+.dwv-chip.dwv-sel{background:#fff3cf;border-color:var(--dw-accent,#d9a91c);box-shadow:0 0 0 3px rgba(217,169,28,.25);}
+.dwv-chip.dwv-ok{background:#e3f4e3;border-color:#2e7d32;color:#1f5d23;opacity:1;}
+.dwv-chip.dwv-no{background:#fdecee;border-color:#c62828;color:#8c1d1d;animation:dwvshake .35s;}
+.dwv-chip:disabled{cursor:default;}
+.dwv-chip:focus-visible{outline:3px solid var(--dw-accent,#d9a91c);outline-offset:2px;}
+.dwv-who-q{font-size:1.5rem;font-weight:800;color:var(--dw-primary,#161616);margin:6px 0 10px;}
+.dwv-who-q small{font-size:.82rem;font-weight:400;color:var(--dw-muted,#6b6b6b);margin-left:6px;}
+.dwv-who-chips{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:10px;}
+.dwv-out .dw-ex-fb{margin-top:10px;}
+.dwv-out .dw-ex-result.dw-show{padding:6px 0;}
+.dwv-out .dw-ex-top{display:flex;justify-content:space-between;font-size:.84rem;font-weight:700;color:var(--dw-muted,#6b6b6b);margin-bottom:6px;}
+.dwv-ending b{color:var(--dw-primary-light,#9c1329);}
+@keyframes dwvshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+@media(max-width:560px){.dwv-pair-grid{gap:8px 12px;}.dwv-chip{font-size:.95rem;padding:9px 6px;}.dwv-ctrl{padding:10px;}}

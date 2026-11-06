@@ -2683,3 +2683,11 @@ Ny side `grammatikk/verb/perfekt/oveprove/` (index.html + `app.js` + `bank.js`),
 - Oppg. 1: 6 hvite felt à 1 poeng (Word-dokumentet sa «12 felt à ½» men har bare 6 hvite felt).
 - Setningsbanker til oppg. 6 og 7 ligger i `bank.js` (egne setninger kan legges til: `[infinitiv, person, tekst med {a} og {p}]` / `[norsk, tysk, infinitiv, person]`).
 - Resultater (siste 8) lagres i localStorage i elevens nettleser.
+
+## Presens utvidet: regelrette og sterke verb (6. november)
+- `grammatikk/verb/praesens-regelmaessig/` er bygget om til en fane-side (Start · Regelrette verb · Spesielle stammer · Sterke verb · Øvelser): norsk/tysk-forklaring, stamme + endelse, pronomen, -t/-d (arbeitest), s/ß/z/x (du heißt), -eln/-ern (ich sammle), vokalskifte (sterke), tabeller du fyller ut, fyll-inn-setninger, matching, «hvem kan dette være?», tilfeldig runde og flervalgsquiz (24 spørsmål, 12 trekkes).
+- Ny felles øvelsesmotor: `assets/verbovelser.js` + `assets/verbovelser.css` + `assets/verbovelser-bank.js` (135 setninger). Widgets aktiveres med klasser: `.dwv-table`, `.dwv-gap`, `.dwv-mc`, `.dwv-pair`, `.dwv-who`, `.dwv-round` (valgfri JSON i `<script type="application/json">`). `data-dwv-tabs` på `<body>` slår på fanene. Krever `verben/verben_data.js` for pair/who/round.
+- «Tilfeldig runde» henter verb fra dwVerben (grupper: regelrette = ingen ‹› i `p`; vokalskifte = ‹› bare i du og er/sie/es; refleksive, modal-/spesialverb og verb uten seks former utelates; atskillelige verb kun på nivå B1). Nivå: A1 / A1–A2 / A1–B1. Oppgavetyper: tabell, setninger, match, hvem.
+- `-eln/-ern`: begge ich-former godtas (sammle/sammele, wandere/wandre).
+- `grammatikk/verb/praesens-unregelmaessig/` har fått fanen «🎲 Mer øving» (tilfeldig runde, match og «hvem» for sein/haben/modalverb og vokalskifte). Eksisterende faner og øvelser er uendret.
+- Nye setninger legges til i `assets/verbovelser-bank.js`: `[infinitiv, person(0–5), "setning med ___"]`.
