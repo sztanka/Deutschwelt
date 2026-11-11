@@ -748,8 +748,10 @@ deutschwelt-site/
     │   └── index.html                → "Du bist dran!" — Im Kleidungsgeschäft
     ├── hotell/
     │   └── index.html                → "Du bist dran!" — An der Rezeption
-    └── taxi/
-        └── index.html                → "Du bist dran!" — Im Taxi
+    ├── taxi/
+    │   └── index.html                → "Du bist dran!" — Im Taxi
+    └── vorstellen/
+        └── index.html                → "Eine Person vorstellen" — stillas for å presentere en venn (8. trinn) + avansert del for historiske personer (9.–10.), 6 faner
 fortgeschritten/
 └── index.html                        → hub av huber: samlingspunkt for alt innhold på
                                          9.–10. trinn-nivå (A2/B1) — selve sidene bor i
@@ -2691,3 +2693,13 @@ Ny side `grammatikk/verb/perfekt/oveprove/` (index.html + `app.js` + `bank.js`),
 - `-eln/-ern`: begge ich-former godtas (sammle/sammele, wandere/wandre).
 - `grammatikk/verb/praesens-unregelmaessig/` har fått fanen «🎲 Mer øving» (tilfeldig runde, match og «hvem» for sein/haben/modalverb og vokalskifte). Eksisterende faner og øvelser er uendret.
 - Nye setninger legges til i `assets/verbovelser-bank.js`: `[infinitiv, person(0–5), "setning med ___"]`.
+
+## Sprechen: Eine Person vorstellen (11. november)
+Ny side `sprechen/vorstellen/index.html` (alt i én fil: CSS + JS), kort i `sprechen/index.html`, treff i søket på forsiden («vorstellen», «presentere en venn», «beste freundin» …). Seks faner: 🧭 Start (bruk + lærertips) · 🪜 Stillas · 🧰 Ordbank · ✍️ Bygg presentasjonen · 🎯 Øvelser · 🏛️ Avansert (9.–10. trinn). Fanene kan lenkes direkte: `vorstellen/#bygg`, `#avansert` osv.
+- **Stillas (8. trinn):** 14 setningsrammer (Das ist mein bester Freund / meine beste Freundin · Er/Sie heißt, ist … Jahre alt, wohnt in, kommt aus, hat am … Geburtstag, hat … Geschwister, spricht, ist …, … gern …, mag …, Wir kennen uns schon … Jahre, … und ich … oft …, avslutning) med eksempel og 🔊. Bryter «Begge / gutt / jente» bytter Er/Sie. Bevisst unngått: artikler og eiendomsord (unntatt den faste frasen), land med artikkel, adjektivbøying. Egen forklaringsboks om -t ved er/sie og de få uregelmessige verbene.
+- **Ordbank:** land, byer, språk, egenskaper, hobbyer, mat/ting, hyppighet, måneder, rekketall 1.–31. (am fünften Mai). Klikk = opplesing.
+- **Bygger:** skjema → ferdig tekst med riktig er/sie, verbformer (3. person sg. ligger i `ACT`), tall og datoer med bokstaver (kan slås av), 🔊 les opp, 🙈 dekk til og øv, kopier, skriv ut, tøm. Innholdet huskes i nettleseren (`localStorage`, nøkkel `dw-vorstellen-v1`).
+- **Øvelser:** 4 sett som trekker nye oppgaver hver runde (Er/sie-valg og faste uttrykk · verbform er/sie · wir/er/sie · ordne ordene).
+- **Avansert:** oppbygging i 5 trinn, Präteritum-tabell (hjelpeverb, svake, sterke, blandede), datoer/årstall (årstall-leser), V2-regel med årstall først, nyttige uttrykk, 4 ferdige eksempler (Einstein, Curie, Munch, Nansen — genereres av samme bygger), egen bygger for historiske personer (yrke m/f, fødsel, inntil 4 hendelser, død, «berühmt für», avslutning) og to øvelsessett (Präteritum, ordstilling med årstall først).
+- **Legge til innhold:** nederst i `<script>`: ordlister (`COUNTRIES`, `CITIES`, `LANGS`, `TRAITS`, `MAGS`, `ACT` = `[nøkkel, wir-verb, rest, er/sie-form, norsk]`), `JOBS` (`[mann, kvinne]`), `EVV` (verb i Präteritum), `CLOSES`, `PRESETS` (eksempelpersoner) og øvelsene `MC1`, `GAP2`, `GAP3`, `ORD1`, `GAP5`, `ORD6` (`gap(setning med ___, verb, svar)`, `mc(setning, riktig, …alternativer)`, `ord(norsk, tysk uten punktum, [alternative rekkefølger])`).
+- Opplesing bruker nettleserens tyske stemme (Web Speech API); finnes den ikke, skjules 🔊-knappene.

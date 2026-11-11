@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Sprechen: "Eine Person vorstellen" (sprechen/vorstellen/)
+  Presentere en annen person: 8. trinn (venn, enkelt stillas uten eiendomsord/artikler utover «mein bester Freund / meine beste Freundin»)
+  og 9.–10. trinn (historisk person, Präteritum). Seks faner: Start, Stillas, Ordbank, Bygg, Øvelser, Avansert.
+  Alt ligger i denne ene filen (CSS + JS). Ordlister og øvelsessett ligger som JS-arrayer nederst (ACT, TRAITS, MAGS … / GAP_*, ORDER_*).
+  Se README.md («Eine Person vorstellen») for hvordan du legger til flere ord, øvelser eller eksempler.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eine Person vorstellen · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:900px;margin:0 auto;padding:0 16px 60px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:30px 24px;text-align:center;margin-bottom:10px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .dw-level-tag{display:inline-block;font-size:.72rem;font-weight:700;background:#eef1f6;color:var(--dw-primary);border-radius:999px;padding:2px 10px;}
+
+  .dw-exp{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.65;font-size:.95rem;}
+  .dw-exp h2{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.25rem;color:var(--dw-primary);}
+  .dw-exp h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.12rem;color:var(--dw-primary-light);}
+  .dw-exp p{margin:0 0 10px;}
+  .dw-exp p:last-child{margin-bottom:0;}
+  .dw-exp ul,.dw-exp ol{margin:6px 0 10px;padding-left:22px;}
+  .dw-exp li{margin-bottom:5px;}
+  .dw-de{font-weight:700;color:var(--dw-primary);}
+  .dw-no{color:var(--dw-muted);font-style:italic;}
+  .dw-tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .dw-tip.dw-warn{background:#fdecee;border-color:#f2c0c7;}
+  .dw-tip.dw-blue{background:#f3f6fb;border-color:#d7e1f0;}
+  .dw-sec-title{font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.3rem;margin:28px 0 10px;color:var(--dw-primary);scroll-margin-top:70px;}
+  .dw-tbl-wrap{overflow-x:auto;margin:8px 0 10px;}
+  table.dw-t{border-collapse:collapse;width:100%;font-size:.92rem;min-width:480px;}
+  .dw-t th,.dw-t td{border:1px solid #ece8df;padding:7px 10px;text-align:left;vertical-align:top;}
+  .dw-t thead th{background:#fbfaf6;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dw-muted);}
+  .dw-t td.dw-f{font-weight:800;color:var(--dw-primary);}
+  .dw-t tr.dw-grp td{background:#f4f1e8;font-weight:800;font-size:.8rem;color:var(--dw-primary);}
+  .dw-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .dw-cmp>div{border:1px solid #ece8df;border-radius:12px;padding:10px 14px;background:#fbfaf6;font-size:.92rem;line-height:1.55;}
+  .dw-cmp b.dw-lang{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);margin-bottom:3px;}
+  .dw-exp a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-see-also{margin-top:26px;font-size:.88rem;line-height:1.7;}
+  .dw-see-also a{color:var(--dw-primary-light);font-weight:700;}
+  .dw-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:12px 0;}
+  .dw-step{background:#fbfaf6;border:1px solid #ece8df;border-radius:14px;padding:12px 14px;font-size:.9rem;line-height:1.5;}
+  .dw-step b{display:block;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.02rem;color:var(--dw-primary-light);margin-bottom:2px;}
+  .dw-step .dw-num{display:inline-block;width:26px;height:26px;line-height:26px;text-align:center;border-radius:50%;background:var(--dw-primary);color:#fff;font-weight:800;font-size:.85rem;margin-right:6px;}
+
+  /* ---- faner ---- */
+  .dw-tabs{display:none;flex-wrap:wrap;gap:8px;margin:14px 0 6px;}
+  .dw-js .dw-tabs{display:flex;}
+  .dw-tabs button{font-family:inherit;font-size:.95rem;font-weight:800;padding:10px 18px;border-radius:999px;border:2px solid #e4dfd2;background:#fff;color:var(--dw-text);cursor:pointer;}
+  .dw-tabs button:hover{border-color:var(--dw-primary-light);}
+  .dw-tabs button[aria-selected="true"]{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .dw-tabs button.dw-adv[aria-selected="true"]{background:var(--dw-primary-light);border-color:var(--dw-primary-light);}
+  .dw-tabs button:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .dw-tabpanel[hidden]{display:none;}
+  .dw-tabnext{display:none;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:18px 0 6px;}
+  .dw-js .dw-tabnext{display:flex;}
+  .dw-tabnext button{font-family:inherit;font-weight:800;font-size:.9rem;padding:9px 18px;border-radius:999px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;}
+  .dw-tabnext button:hover{background:var(--dw-primary);color:#fff;}
+
+  /* ---- stillas ---- */
+  .sx-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0 12px;font-size:.88rem;font-weight:700;}
+  .sx-tools button,.btn{font-family:inherit;font-size:.86rem;font-weight:800;padding:7px 15px;border-radius:999px;border:2px solid #d9d3c4;background:#fff;color:var(--dw-text);cursor:pointer;}
+  .sx-tools button.on{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .sx-tools button:hover:not(.on),.btn:hover{border-color:var(--dw-primary-light);}
+  .btn.prim{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .btn.prim:hover{background:var(--dw-primary-light);border-color:var(--dw-primary-light);}
+  .btn.gold{background:var(--dw-accent);border-color:var(--dw-accent);color:#1a1a1a;}
+  .btn:focus-visible,.sx-tools button:focus-visible,.chip:focus-visible,.say:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  .sx-grp{font-family:"Baloo 2",-apple-system,sans-serif;font-weight:800;font-size:.95rem;color:var(--dw-primary);margin:18px 0 6px;padding-bottom:3px;border-bottom:2px solid #e4dfd2;}
+  .sx-row{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) 40px;gap:10px;align-items:center;background:#fff;border:1px solid #ece8df;border-radius:14px;padding:10px 14px;margin-bottom:8px;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+  .sx-frame{font-size:1.08rem;font-weight:700;color:var(--dw-primary);line-height:1.5;}
+  .sx-frame small{display:block;font-weight:400;font-size:.8rem;color:var(--dw-muted);margin-top:1px;}
+  .sx-ex{font-size:.95rem;color:#3a3a3a;line-height:1.45;}
+  .sx-ex em{display:block;font-style:normal;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);}
+  .bl{display:inline-block;min-width:3.2em;border-bottom:3px solid var(--dw-accent);text-align:center;color:var(--dw-accent);font-weight:800;line-height:1.1;}
+  .sx-b .m::after{content:" / ";font-weight:400;color:var(--dw-muted);}
+  .sx-m .f,.sx-f .m{display:none;}
+  .say{width:36px;height:36px;border-radius:50%;border:2px solid #d9d3c4;background:#fff;cursor:pointer;font-size:1rem;line-height:1;padding:0;}
+  .say:hover{border-color:var(--dw-primary-light);background:#fff3cf;}
+  .dw-nosay .say,.dw-nosay .need-say{display:none;}
+  .sx-gram{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:10px 0;}
+  .sx-gram div{background:#fbfaf6;border:1px solid #ece8df;border-radius:10px;padding:8px 10px;text-align:center;font-size:.95rem;}
+  .sx-gram div b{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dw-muted);}
+  .sx-gram div.hl{background:#fff3cf;border-color:#f0dca8;}
+  .sx-q{columns:2;column-gap:24px;margin:8px 0;padding-left:20px;}
+  .sx-q li{break-inside:avoid;margin-bottom:6px;}
+
+  /* ---- ordbank ---- */
+  .wb-sec{margin-bottom:16px;}
+  .wb-sec h3{margin:0 0 4px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.08rem;color:var(--dw-primary-light);}
+  .wb-sec p.n{margin:0 0 8px;font-size:.84rem;color:var(--dw-muted);}
+  .wb-list{display:flex;flex-wrap:wrap;gap:6px;}
+  .wb-w{font-family:inherit;display:inline-flex;flex-direction:column;align-items:flex-start;background:#fff;border:1.5px solid #e4dfd2;border-radius:10px;padding:5px 10px;cursor:pointer;text-align:left;line-height:1.25;}
+  .wb-w:hover{border-color:var(--dw-primary-light);background:#fff9ec;}
+  .wb-w b{font-size:.95rem;color:var(--dw-primary);}
+  .wb-w span{font-size:.74rem;color:var(--dw-muted);}
+
+  /* ---- bygger ---- */
+  .bd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px 16px;margin:10px 0;}
+  .bd-f label,.bd-lab{display:block;font-size:.8rem;font-weight:800;color:var(--dw-muted);margin-bottom:3px;}
+  .bd-f input[type=text],.bd-f input[type=number],.bd-f select{width:100%;font-family:inherit;font-size:1rem;padding:8px 10px;border:2px solid #d9d3c4;border-radius:10px;background:#fff;color:var(--dw-text);}
+  .bd-f input:focus,.bd-f select:focus{outline:none;border-color:var(--dw-primary-light);box-shadow:0 0 0 3px rgba(156,19,41,.15);}
+  .bd-f small{display:block;font-size:.74rem;color:var(--dw-muted);margin-top:2px;}
+  .bd-wide{grid-column:1/-1;}
+  .bd-row2{display:grid;grid-template-columns:1fr 1.4fr;gap:8px;}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;}
+  .chip{font-family:inherit;font-size:.86rem;font-weight:700;padding:5px 12px;border-radius:999px;border:2px solid #d9d3c4;background:#fff;color:var(--dw-text);cursor:pointer;}
+  .chip:hover{border-color:var(--dw-primary-light);}
+  .chip.on{background:var(--dw-primary);border-color:var(--dw-primary);color:#fff;}
+  .chip.shake{animation:shk .3s;}
+  @keyframes shk{25%{transform:translateX(-4px);}75%{transform:translateX(4px);}}
+  .bd-sec{font-family:"Baloo 2",-apple-system,sans-serif;font-weight:800;font-size:1.02rem;color:var(--dw-primary-light);margin:16px 0 2px;grid-column:1/-1;border-bottom:2px solid #f0dca8;padding-bottom:2px;}
+  .bd-out{background:#fff;border:2px solid var(--dw-primary);border-radius:var(--dw-radius);padding:18px 22px;margin:14px 0;font-size:1.12rem;line-height:1.75;box-shadow:0 4px 14px rgba(0,0,0,.08);}
+  .bd-out p{margin:0 0 12px;}
+  .bd-out p:last-child{margin:0;}
+  .bd-out.cover p{filter:blur(7px);user-select:none;cursor:pointer;}
+  .bd-out .ph{color:var(--dw-bad);font-weight:700;}
+  .bd-meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;color:var(--dw-muted);font-weight:700;}
+  .bd-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin:4px 0 0;flex:1 1 140px;align-self:center;}
+  .bd-bar i{display:block;height:100%;background:var(--dw-good);width:0;transition:width .25s;}
+  .bd-act{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;}
+  .ev-row{display:grid;grid-template-columns:90px 160px 1fr;gap:8px;margin-bottom:6px;}
+  .ev-row input,.ev-row select{width:100%;font-family:inherit;font-size:.95rem;padding:7px 9px;border:2px solid #d9d3c4;border-radius:10px;background:#fff;}
+  .ex-load{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px;align-items:center;}
+
+  /* ---- øvelser ---- */
+  .qz-pills{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px;}
+  .qz-pills button{font-family:inherit;font-size:.86rem;font-weight:800;padding:7px 15px;border-radius:999px;border:2px solid #d9d3c4;background:#fff;cursor:pointer;color:var(--dw-text);}
+  .qz-pills button[aria-selected="true"]{background:var(--dw-primary-light);color:#fff;border-color:var(--dw-primary-light);}
+  .qz-card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:14px;}
+  .qz-intro{font-size:.9rem;color:var(--dw-muted);margin:0 0 10px;}
+  .qz-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--dw-muted);margin-bottom:6px;}
+  .qz-bar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin-bottom:14px;}
+  .qz-bar i{display:block;height:100%;width:0;background:var(--dw-good);transition:width .25s;}
+  .qz-s{font-size:1.28rem;font-weight:600;color:var(--dw-primary);line-height:1.8;margin:2px 0 8px;}
+  .qz-hint{font-size:.88rem;color:var(--dw-muted);margin-bottom:10px;}
+  .qz-in{font-family:inherit;font-size:1.1rem;font-weight:700;width:8.5em;max-width:100%;padding:5px 9px;border:2px solid #cfc8b5;border-radius:8px;text-align:center;background:#fff;color:#232323;}
+  .qz-in:focus{outline:none;border-color:var(--dw-primary-light);box-shadow:0 0 0 3px rgba(156,19,41,.15);}
+  .qz-in.ok{background:#e3f4e3;border-color:#2e7d32;color:#1f5d23;}
+  .qz-in.bad{background:#fdecee;border-color:#c62828;color:#8c1d1d;}
+  .qz-ch{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 10px;}
+  .qz-ch button{flex:1 1 120px;max-width:200px;padding:11px 8px;font-family:inherit;font-size:1.05rem;font-weight:700;border-radius:12px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;}
+  .qz-ch button:hover:not(:disabled){background:var(--dw-primary);color:#fff;}
+  .qz-ch button:disabled{cursor:default;opacity:.6;}
+  .qz-ch button.ok{background:var(--dw-good);border-color:var(--dw-good);color:#fff;opacity:1;}
+  .qz-ch button.bad{background:var(--dw-bad);border-color:var(--dw-bad);color:#fff;opacity:1;}
+  .qz-fb{display:none;font-size:.92rem;line-height:1.55;border-radius:10px;padding:9px 14px;margin:8px 0 12px;background:#f4f1e8;}
+  .qz-fb.show{display:block;}
+  .qz-fb.ok{background:#eef7ee;color:#1f5d23;}
+  .qz-fb.bad{background:#fdecee;color:#8c1d1d;}
+  .qz-tiles{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;min-height:46px;}
+  .qz-ans{border:2px dashed #cfc8b5;border-radius:12px;padding:8px;background:#fbfaf6;min-height:58px;}
+  .tile{font-family:inherit;font-size:1.05rem;font-weight:700;padding:8px 14px;border-radius:10px;border:2px solid var(--dw-primary);background:#fff;color:var(--dw-primary);cursor:pointer;}
+  .tile:hover{background:#fff3cf;}
+  .tile.used{visibility:hidden;}
+  .qz-res{text-align:center;}
+  .qz-score{font-size:2.3rem;font-weight:800;color:var(--dw-accent);margin:6px 0;}
+  .qz-rev{text-align:left;background:#f4f1e8;border-radius:12px;padding:10px 18px;margin:12px 0;font-size:.9rem;}
+  .qz-rev li{margin-bottom:5px;}
+
+  #print-sheet{display:none;}
+  @media print{
+    body.dw-printing > *:not(#print-sheet){display:none !important;}
+    body.dw-printing #print-sheet{display:block;padding:24px;font-size:15pt;line-height:1.7;color:#000;background:#fff;}
+    body.dw-printing #print-sheet h1{font-size:20pt;margin:0 0 14px;}
+    body.dw-printing #print-sheet p{margin:0 0 12px;}
+  }
+  @media(max-width:640px){
+    .dw-header h1{font-size:1.45rem;}
+    .dw-cmp{grid-template-columns:1fr;}
+    .sx-row{grid-template-columns:1fr 36px;}
+    .sx-row .sx-ex{grid-column:1;}
+    .sx-row .say{grid-column:2;grid-row:1/3;align-self:center;}
+    .sx-q{columns:1;}
+    .ev-row{grid-template-columns:80px 1fr;}
+    .ev-row input.ev-r{grid-column:1/-1;}
+    .qz-s{font-size:1.1rem;}
+    .bd-out{font-size:1.02rem;padding:14px 16px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link dw-nav-active" href="../">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../lernreise/">🧭 Lernreise</a>
+      <a class="dw-nav-link" href="../../lernpfad/">🛤️ Lernpfad</a>
+      <a class="dw-nav-link" href="../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+
+<div class="dw-wrap">
+
+  <div class="dw-crumb">
+    <a href="../">🗣️ Sprechen</a> <span>›</span> <span>Eine Person vorstellen</span>
+    <span class="dw-level-tag">8.–10. trinn</span>
+  </div>
+
+  <div class="dw-header">
+    <h1>Eine Person vorstellen</h1>
+    <p>Presenter en venn på tysk — og når du er klar: en historisk person</p>
+  </div>
+
+  <div class="dw-tabs" role="tablist" id="dw-tabs" aria-label="Faner">
+    <button role="tab" data-tab="start" aria-selected="true">🧭 Start</button>
+    <button role="tab" data-tab="stillas" aria-selected="false">🪜 Stillas</button>
+    <button role="tab" data-tab="ordbank" aria-selected="false">🧰 Ordbank</button>
+    <button role="tab" data-tab="bygg" aria-selected="false">✍️ Bygg presentasjonen</button>
+    <button role="tab" data-tab="ovelser" aria-selected="false">🎯 Øvelser</button>
+    <button role="tab" data-tab="avansert" aria-selected="false" class="dw-adv">🏛️ Avansert: historisk person</button>
+  </div>
+
+  <!-- ============ START ============ -->
+  <section class="dw-tabpanel" id="start">
+    <div class="dw-exp">
+      <h2>Slik presenterer du en annen person</h2>
+      <p>Her øver du på å <b>presentere en annen</b> — først en venn, senere kanskje en historisk person. Du trenger bare noen få setninger, og de får du som <b>stillas</b>: ferdige rammer der du bare fyller inn det som er spesielt for din venn.</p>
+      <p>Siden bruker bare <b>verb</b> i nåtid (er/sie-form og wir-form), tall, navn og ord uten artikkel. Eiendomsord og artikler kommer i en egen runde — det eneste du trenger nå er den faste frasen <span class="dw-de">mein bester Freund / meine beste Freundin</span>.</p>
+      <div class="dw-steps">
+        <div class="dw-step"><b><span class="dw-num">1</span>Stillas</b>Se rammene og lytt til eksemplene. <br><button class="btn" data-go="stillas" style="margin-top:6px">Gå til stillaset →</button></div>
+        <div class="dw-step"><b><span class="dw-num">2</span>Ordbank</b>Land, byer, egenskaper, hobbyer og datoer — klikk for å høre uttalen. <br><button class="btn" data-go="ordbank" style="margin-top:6px">Gå til ordbanken →</button></div>
+        <div class="dw-step"><b><span class="dw-num">3</span>Bygg presentasjonen</b>Fyll inn om vennen din — teksten settes sammen automatisk, du kan lese den opp, skrive den ut og øve. <br><button class="btn" data-go="bygg" style="margin-top:6px">Bygg →</button></div>
+        <div class="dw-step"><b><span class="dw-num">4</span>Øvelser</b>Er eller sie? Riktig verbform? Sett ordene i riktig rekkefølge. <br><button class="btn" data-go="ovelser" style="margin-top:6px">Øv →</button></div>
+      </div>
+      <div class="dw-tip dw-blue"><b>Vil du ha mer?</b> I fanen <button class="btn" data-go="avansert" style="padding:3px 12px">🏛️ Avansert</button> finner du en egen del for 9.–10. trinn: å presentere en historisk person med Präteritum, årstall, tidsuttrykk og en egen bygger.</div>
+    </div>
+
+    <div class="dw-exp">
+      <h3>For læreren: forslag til bruk</h3>
+      <ul>
+        <li><b>Intervju først:</b> elevene intervjuer hverandre i par (spørsmålene står i fanen Stillas), skriver stikkord, og presenterer deretter <i>den andre</i> for klassen eller en annen gruppe.</li>
+        <li><b>Tre nivåer av støtte:</b> (1) lese opp den ferdige teksten fra byggeren, (2) «Dekk til»-knappen skjuler teksten slik at eleven må si den fritt, (3) bare stikkord på et kort.</li>
+        <li><b>Variasjon:</b> la elevene bytte ut <i>Er/Sie</i> med navnet av og til, og legge til en egen setning som ikke står i stillaset.</li>
+        <li><b>Vurderingspunkter (muntlig):</b> innhold (minst 8 opplysninger), verbformer (-t ved er/sie), uttale, flyt, og kontakt med lytterne (se på dem, ikke bare på arket).</li>
+        <li>Byggeren husker det eleven har fylt inn i nettleseren (på samme maskin), så arbeidet kan fortsettes neste time.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ STILLAS ============ -->
+  <section class="dw-tabpanel" id="stillas" hidden>
+    <div class="dw-exp">
+      <h2>🪜 Stillaset: setningene du trenger</h2>
+      <p>Fyll inn det som står på de <span class="bl" style="min-width:2.4em">&nbsp;</span> gule strekene. Resten er ferdig. Trykk på 🔊 for å høre eksempelet.</p>
+      <div class="sx-tools" id="sx-tools">
+        <span>Vis for:</span>
+        <button data-sx="b" class="on">Begge (Er / Sie)</button>
+        <button data-sx="m">👦 En gutt (er)</button>
+        <button data-sx="f">👧 En jente (sie)</button>
+      </div>
+    </div>
+
+    <div id="sx" class="sx-b">
+      <div class="sx-grp">1 · Start</div>
+      <div class="sx-row"><div class="sx-frame">Hallo! Ich heiße <span class="bl">&nbsp;</span>.<small>Hei! Jeg heter …</small></div><div class="sx-ex"><em>Eksempel</em>Hallo! Ich heiße Mia.</div><button class="say" data-say="Hallo! Ich heiße Mia." aria-label="Les opp">🔊</button></div>
+      <div class="sx-row"><div class="sx-frame">Das ist <span class="m">mein bester Freund</span><span class="f">meine beste Freundin</span>.<small>Dette er min beste venn / venninne. (Faste uttrykk — eiendomsord kommer i neste runde.)</small></div><div class="sx-ex"><em>Eksempel</em><span class="m">Das ist mein bester Freund.</span><span class="f">Das ist meine beste Freundin.</span></div><button class="say" data-say="Das ist meine beste Freundin." aria-label="Les opp">🔊</button></div>
+
+      <div class="sx-grp">2 · Fakta om vennen din</div>
+      <div class="sx-row"><div class="sx-frame"><span class="m">Er</span><span class="f">Sie</span> heißt <span class="bl">&nbsp;</span>.<small>Han/hun heter …</small></div><div class="sx-ex"><em>Eksempel</em>Sie heißt Lena.</div><button class="say" data-say="Sie heißt Lena." aria-label="Les opp">🔊</button></div>
+      <div class="sx-row"><div class="sx-frame"><span class="m">Er</span><span class="f">Sie</span> ist <span class="bl">&nbsp;</span> Jahre alt.<small>Han/hun er … år gammel. Skriv tallet med bokstaver: vierzehn.</small></div><div class="sx-ex"><em>Eksempel</em>Er ist vierzehn Jahre alt.</div><button class="say" data-say="Er ist vierzehn Jahre alt." aria-label="Les opp">🔊</button></div>
+      <div class="sx-row"><div class="sx-frame"><span class="m">Er</span><span class="f">Sie</span> wohnt in <span class="bl">&nbsp;</span>.<small>Han/hun bor i … (by)</small></div><div class="sx-ex"><em>Eksempel</em>Sie wohnt in Bergen.</div><button class="say" data-say="Sie wohnt in Bergen." aria-label="Les opp">🔊</button></div>
+      <div class="sx-row"><div class="sx-frame"><span class="m">Er</span><span class="f">Sie</span> kommt aus <span class="bl">&nbsp;</span>.<small>Han/hun kommer fra … (land eller by)</small></div><div class="sx-ex"><em>Eksempel</em>Er kommt aus Norwegen.</div><button class="say" data-say="Er kommt aus Norwegen." aria-label="Les opp">🔊</button></div>
+      <div class="sx-row"><div class="sx-frame"><span class="m">Er</span><span class="f">Sie</span> hat am <span class="bl">&nbsp;</span> Geburtstag.<small>Han/hun har bursdag den … (se datoer i Ordbank)</small></div><div class="sx-ex"><em>Eksempel</em>Er hat am fünften Mai Geburtstag.</div><button class="say" data-say="Er hat am fünften Mai Geburtstag." aria-label="Les opp">🔊</button></div>
+      <div class="sx-row"><div class="sx-frame"><span class="m">Er</span><span class="f">Sie</span> hat <span class="bl">&nbsp;</span> Geschwister.<small>Han/hun har … søsken. (zwei, drei … eller keine)</small></div><div class="sx-ex"><em>Eksempel</em>Sie hat zwei Geschwister.</div><button class="say" data-say="Sie hat zwei Geschwister." aria-label="Les opp">🔊</button></div>
+      <div class="sx-row"><div class="sx-frame"><span class="m">Er</span><span class="f">Sie</span> spricht <span class="bl">&nbsp;</span> und <span class="bl">&nbsp;</span>.<small>Han/hun snakker … og … (språk)</small></div><div class="sx-ex"><em>Eksempel</em>Er spricht Norwegisch und Englisch.</div><button class="say" data-say="Er spricht Norwegisch und Englisch." aria-label="Les opp">🔊</button></div>
+
+      <div class="sx-grp">3 · Hvordan er vennen din? Hva liker hen?</div>
+      <div class="sx-row"><div class="sx-frame"><span class="m">Er</span><span class="f">Sie</span> ist <span class="bl">&nbsp;</span>, <span class="bl">&nbsp;</span> und <span class="bl">&nbsp;</span>.<small>Han/hun er … (egenskaper — adjektivet endres ikke)</small></div><div class="sx-ex"><em>Eksempel</em>Sie ist nett, lustig und sportlich.</div><button class="say" data-say="Sie ist nett, lustig und sportlich." aria-label="Les opp">🔊</button></div>
+      <div class="sx-row"><div class="sx-frame"><span class="m">Er</span><span class="f">Sie</span> <span class="bl">verb-t</span> gern <span class="bl">&nbsp;</span>.<small>Han/hun … gjerne … (hobby). Verbet får -t: spielt, hört, geht …</small></div><div class="sx-ex"><em>Eksempel</em>Er spielt gern Fußball.</div><button class="say" data-say="Er spielt gern Fußball." aria-label="Les opp">🔊</button></div>
+      <div class="sx-row"><div class="sx-frame"><span class="m">Er</span><span class="f">Sie</span> mag <span class="bl">&nbsp;</span> und <span class="bl">&nbsp;</span>.<small>Han/hun liker … (mat, musikk, dyr …)</small></div><div class="sx-ex"><em>Eksempel</em>Sie mag Pizza und Tiere.</div><button class="say" data-say="Sie mag Pizza und Tiere." aria-label="Les opp">🔊</button></div>
+
+      <div class="sx-grp">4 · Dere to sammen</div>
+      <div class="sx-row"><div class="sx-frame">Wir kennen uns schon <span class="bl">&nbsp;</span> Jahre.<small>Vi har kjent hverandre i … år.</small></div><div class="sx-ex"><em>Eksempel</em>Wir kennen uns schon drei Jahre.</div><button class="say" data-say="Wir kennen uns schon drei Jahre." aria-label="Les opp">🔊</button></div>
+      <div class="sx-row"><div class="sx-frame"><span class="bl">Navn</span> und ich <span class="bl">verb</span> oft <span class="bl">&nbsp;</span>.<small>… og jeg … ofte … Verbet står i grunnformen (wir-form): spielen, gehen, machen.</small></div><div class="sx-ex"><em>Eksempel</em>Lena und ich gehen oft schwimmen.</div><button class="say" data-say="Lena und ich gehen oft schwimmen." aria-label="Les opp">🔊</button></div>
+
+      <div class="sx-grp">5 · Avslutning</div>
+      <div class="sx-row"><div class="sx-frame">Wir haben viel Spaß zusammen. Danke fürs Zuhören!<small>Vi har det veldig gøy sammen. Takk for at dere hørte på!</small></div><div class="sx-ex"><em>Spørsmål til klassen</em>Habt ihr Fragen?</div><button class="say" data-say="Wir haben viel Spaß zusammen. Danke fürs Zuhören! Habt ihr Fragen?" aria-label="Les opp">🔊</button></div>
+    </div>
+
+    <div class="dw-exp" style="margin-top:16px">
+      <h3>Verbet: han/hun får -t</h3>
+      <p>På norsk sier vi «han bor, hun spiller». På tysk får verbet en <b>ending</b> som passer til personen. For <span class="dw-de">er</span> og <span class="dw-de">sie</span> (han og hun) er endingen <b>-t</b>.</p>
+      <div class="sx-gram">
+        <div><b>ich</b>wohn<span class="dw-de">e</span></div>
+        <div><b>du</b>wohn<span class="dw-de">st</span></div>
+        <div class="hl"><b>er / sie</b>wohn<span class="dw-de">t</span></div>
+        <div><b>wir</b>wohn<span class="dw-de">en</span></div>
+      </div>
+      <div class="dw-tip dw-warn"><b>Noen få verb er litt annerledes</b> når det gjelder han/hun — lær dem som faste ord: <span class="dw-de">essen → er isst</span> · <span class="dw-de">lesen → liest</span> · <span class="dw-de">sehen → sieht</span> · <span class="dw-de">fahren → fährt</span> · <span class="dw-de">sprechen → spricht</span> · <span class="dw-de">treffen → trifft</span> · <span class="dw-de">laufen → läuft</span> · <span class="dw-de">haben → hat</span> · <span class="dw-de">sein → ist</span> · <span class="dw-de">arbeiten → arbeitet</span> · <span class="dw-de">heißen → heißt</span>.</div>
+      <div class="dw-cmp">
+        <div><b class="dw-lang">Norsk</b>Hun <b>spiller</b> gjerne fotball. Vi <b>spiller</b> ofte fotball.</div>
+        <div><b class="dw-lang">Deutsch</b>Sie <b>spielt</b> gern Fußball. Wir <b>spielen</b> oft Fußball.</div>
+      </div>
+      <p>Verbet står alltid på <b>plass 2</b>: <span class="dw-de">Lena</span> | <b>spielt</b> | gern Fußball. – <span class="dw-de">Lena und ich</span> | <b>spielen</b> | oft Fußball.</p>
+      <p>Les mer og øv mer på <a href="../../grammatikk/verb/praesens-regelmaessig/">Presens: regelrette og sterke verb</a>. <span class="dw-no">«Sie» med stor S i starten av en setning kan bety «hun» — eller «De» (høflig). Her betyr det alltid «hun».</span></p>
+    </div>
+
+    <div class="dw-exp">
+      <h3>🎤 Først: intervju vennen din</h3>
+      <p>Før du presenterer, trenger du å vite noe om personen. Still disse spørsmålene i par og skriv stikkord:</p>
+      <ol class="sx-q">
+        <li>Wie heißt du?</li>
+        <li>Wie alt bist du?</li>
+        <li>Wo wohnst du?</li>
+        <li>Woher kommst du?</li>
+        <li>Wann hast du Geburtstag?</li>
+        <li>Hast du Geschwister?</li>
+        <li>Welche Sprachen sprichst du?</li>
+        <li>Wie bist du? (nett? lustig? …)</li>
+        <li>Was machst du gern?</li>
+        <li>Was magst du? (Essen, Musik, Tiere …)</li>
+        <li>Wie lange kennen wir uns?</li>
+        <li>Was machen wir oft zusammen?</li>
+      </ol>
+    </div>
+    <div class="dw-tabnext"><button data-go="start">← Start</button><button data-go="ordbank">Ordbank →</button></div>
+  </section>
+
+  <!-- ============ ORDBANK ============ -->
+  <section class="dw-tabpanel" id="ordbank" hidden>
+    <div class="dw-exp">
+      <h2>🧰 Ordbank</h2>
+      <p>Trykk på et ord for å høre det (hvis nettleseren din har en tysk stemme). Alle ordene kan brukes <b>uten artikkel</b>.</p>
+      <div class="dw-tip"><b>Land med artikkel</b> (die Türkei, die Ukraine, die Schweiz, die USA …) står ikke her — der trenger du artikkel («aus <i>der</i> Türkei»), og det kommer i neste runde. Hvis det er landet ditt: spør læreren, eller skriv «aus der Türkei» inn selv.</div>
+    </div>
+    <div id="wb"></div>
+    <div class="dw-exp">
+      <h3>Tall og datoer</h3>
+      <p>Alder og antall år skriver du med bokstaver. Bursdag sier du med «am» + <b>rekketall</b> (den femte mai): <span class="dw-de">am fünften Mai</span>. I tekst kan du skrive <span class="dw-de">am 5. Mai</span> — punktumet betyr «den femte». Mer om tall: <a href="../../grammatikk/zahlen/">Zahlen</a>.</p>
+      <div class="dw-tbl-wrap"><table class="dw-t" id="ordtab"></table></div>
+    </div>
+    <div class="dw-tabnext"><button data-go="stillas">← Stillas</button><button data-go="bygg">Bygg presentasjonen →</button></div>
+  </section>
+
+  <!-- ============ BYGG ============ -->
+  <section class="dw-tabpanel" id="bygg" hidden>
+    <div class="dw-exp">
+      <h2>✍️ Bygg presentasjonen din</h2>
+      <p>Fyll inn det du vet om vennen din. Teksten under skrives automatisk — med riktig <b>er/sie</b> og riktige <b>verbformer</b>. Fyll ut så mye du vil; felt du hopper over, blir bare med ikke i teksten. Trykk deretter <b>🔊 Les opp</b>, <b>Dekk til</b> og øv deg på å si det uten å lese.</p>
+    </div>
+
+    <div class="dw-exp bd-f">
+      <div class="bd-grid" id="bd-form">
+        <div class="bd-sec">Om deg</div>
+        <div class="bd-f"><label for="b-ich">Jeg heter (valgfritt)</label><input type="text" id="b-ich" autocomplete="off" placeholder="f.eks. Mia"></div>
+
+        <div class="bd-sec">Din venn</div>
+        <div class="bd-f"><label for="b-name">Navnet til vennen din</label><input type="text" id="b-name" autocomplete="off" placeholder="f.eks. Jonas"></div>
+        <div class="bd-f"><label for="b-sex">Er vennen din gutt eller jente?</label>
+          <select id="b-sex"><option value="m">Gutt → mein bester Freund · er</option><option value="f">Jente → meine beste Freundin · sie</option></select></div>
+        <div class="bd-f"><label for="b-age">Alder (år)</label><input type="number" id="b-age" min="5" max="99" inputmode="numeric" placeholder="14"></div>
+        <div class="bd-f"><label for="b-city">Bor i (by)</label><input type="text" id="b-city" autocomplete="off" list="dl-city" placeholder="f.eks. Bergen"></div>
+        <div class="bd-f"><label for="b-country">Kommer fra (land eller by)</label><input type="text" id="b-country" autocomplete="off" list="dl-country" placeholder="f.eks. Norwegen"><small>Land med artikkel (die Türkei …) → se Ordbank</small></div>
+        <div class="bd-f"><label>Bursdag</label>
+          <div class="bd-row2"><select id="b-bd" aria-label="Dag"></select><select id="b-bm" aria-label="Måned"></select></div></div>
+        <div class="bd-f"><label for="b-sib">Søsken</label>
+          <select id="b-sib"><option value="">(hopp over)</option><option value="keine">Ingen søsken (keine Geschwister)</option><option value="zwei">to søsken</option><option value="drei">tre søsken</option><option value="vier">fire søsken</option></select><small>«Ett søsken» krever artikkel — kommer senere.</small></div>
+        <div class="bd-f bd-wide"><span class="bd-lab">Språk (velg alle som passer)</span><div class="chips" id="c-lang"></div></div>
+
+        <div class="bd-sec">Personlighet og interesser</div>
+        <div class="bd-f bd-wide"><span class="bd-lab">Hvordan er vennen din? (velg inntil 3)</span><div class="chips" id="c-trait"></div></div>
+        <div class="bd-f bd-wide"><span class="bd-lab">Hva gjør vennen din gjerne? (velg inntil 3)</span><div class="chips" id="c-hobby"></div></div>
+        <div class="bd-f bd-wide"><span class="bd-lab">Hva liker vennen din? (velg inntil 3)</span><div class="chips" id="c-mag"></div></div>
+
+        <div class="bd-sec">Dere to</div>
+        <div class="bd-f"><label for="b-years">Dere har kjent hverandre i … år</label><input type="number" id="b-years" min="1" max="30" inputmode="numeric" placeholder="3"></div>
+        <div class="bd-f"><label for="b-adv">Hvor ofte?</label>
+          <select id="b-adv"><option>oft</option><option>manchmal</option><option>immer</option><option>jeden Tag</option><option>am Wochenende</option></select></div>
+        <div class="bd-f bd-wide"><span class="bd-lab">Hva gjør dere ofte sammen? (velg inntil 3)</span><div class="chips" id="c-wir"></div></div>
+
+        <div class="bd-sec">Innstillinger</div>
+        <div class="bd-f bd-wide"><label style="display:flex;gap:8px;align-items:center;font-size:.92rem;color:var(--dw-text)"><input type="checkbox" id="b-words" checked style="width:auto"> Skriv tall og datoer med bokstaver (vierzehn, am fünften Mai) — slik sier du dem</label></div>
+      </div>
+      <datalist id="dl-city"></datalist><datalist id="dl-country"></datalist>
+    </div>
+
+    <div class="bd-meta"><span id="bd-info">0 av 12 deler fylt ut</span><div class="bd-bar"><i id="bd-bar"></i></div></div>
+    <div class="bd-out" id="b-out" aria-live="polite"></div>
+    <div class="bd-meta"><span id="bd-count"></span></div>
+    <div class="bd-act">
+      <button class="btn prim need-say" id="b-say">🔊 Les opp</button>
+      <button class="btn" id="b-stop">⏹ Stopp</button>
+      <button class="btn gold" id="b-cover">🙈 Dekk til og øv</button>
+      <button class="btn" id="b-copy">📋 Kopier teksten</button>
+      <button class="btn" id="b-print">🖨️ Skriv ut</button>
+      <button class="btn" id="b-clear">🗑️ Tøm alt</button>
+    </div>
+    <div class="dw-tip">Teksten er et <b>forslag</b>. Du kan (og bør!) gjøre den til din egen: bytt av og til <i>Er/Sie</i> med navnet, og legg til en setning du har laget selv.</div>
+    <div class="dw-tabnext"><button data-go="ordbank">← Ordbank</button><button data-go="ovelser">Øvelser →</button></div>
+  </section>
+
+  <!-- ============ ØVELSER ============ -->
+  <section class="dw-tabpanel" id="ovelser" hidden>
+    <div class="dw-exp">
+      <h2>🎯 Øvelser</h2>
+      <p>Hver øvelse trekker nye setninger hver gang du starter en ny runde.</p>
+      <div class="qz-pills" id="qz1-pills" role="tablist"></div>
+    </div>
+    <div id="qz1-host"></div>
+    <div class="dw-tabnext"><button data-go="bygg">← Bygg</button><button data-go="avansert">🏛️ Avansert →</button></div>
+  </section>
+
+  <!-- ============ AVANSERT ============ -->
+  <section class="dw-tabpanel" id="avansert" hidden>
+    <div class="dw-exp">
+      <h2>🏛️ Avansert: presentere en historisk person</h2>
+      <p>For 9.–10. trinn. Dere kan allerede stillaset fra 8. trinn — nå flytter vi presentasjonen inn i <b>fortiden</b>. Tre ting endrer seg:</p>
+      <ol>
+        <li><b>Präteritum</b> i stedet for presens: <span class="dw-de">Er wurde 1879 geboren. Er lebte in Ulm.</span></li>
+        <li><b>Årstall og datoer</b> kommer først i setningen — da bytter verb og subjekt plass: <span class="dw-de">1905 veröffentlichte er …</span></li>
+        <li><b>Mer innhold:</b> yrke, fødested, viktige år, hva personen er kjent for, og din egen mening.</li>
+      </ol>
+      <div class="sx-tools" style="margin-top:10px">
+        <span>Hopp til:</span>
+        <button data-jump="av-plan">Oppbygging</button>
+        <button data-jump="av-verb">Verb</button>
+        <button data-jump="av-dato">Årstall og rekkefølge</button>
+        <button data-jump="av-ex">Eksempler</button>
+        <button data-jump="av-bygg">Bygg</button>
+        <button data-jump="av-ovel">Øv</button>
+      </div>
+    </div>
+
+    <h2 class="dw-sec-title" id="av-plan">Oppbygging: fem trinn</h2>
+    <div class="dw-steps">
+      <div class="dw-step"><b><span class="dw-num">1</span>Einleitung</b><span class="dw-de">Heute stelle ich euch … vor.</span><br>Hvem er personen?</div>
+      <div class="dw-step"><b><span class="dw-num">2</span>Person</b><span class="dw-de">… war Physiker. Er wurde am … in … geboren.</span><br>Yrke, fødsel, oppvekst.</div>
+      <div class="dw-step"><b><span class="dw-num">3</span>Leben</b><span class="dw-de">1905 veröffentlichte er … 1921 bekam er …</span><br>Viktige år i kronologisk rekkefølge.</div>
+      <div class="dw-step"><b><span class="dw-num">4</span>Ende</b><span class="dw-de">Er starb am … in …</span><br>Død – eller «lebt heute in …».</div>
+      <div class="dw-step"><b><span class="dw-num">5</span>Fazit</b><span class="dw-de">Ich finde ihn sehr interessant.</span><br>Din mening. <span class="dw-de">Danke fürs Zuhören!</span></div>
+    </div>
+
+    <h2 class="dw-sec-title" id="av-verb">Verbene i Präteritum (er/sie-form)</h2>
+    <div class="dw-exp">
+      <p>Når vi forteller om historie, bruker vi <b>Präteritum</b> (preteritum). Ved er/sie er det enkelt: <b>svake verb</b> får <b>-te</b> (<i>leben → lebte</i>), <b>sterke verb</b> endrer vokal og får ingen ending (<i>gehen → ging</i>). <span class="dw-no">I tale bruker tyskere ofte Perfekt, men om historiske personer er Präteritum helt naturlig. Perfekt øver du <a href="../../grammatikk/verb/perfekt/">her</a>, og Präteritum <a href="../../grammatikk/verb/praeteritum/">her</a>.</span></p>
+      <div class="dw-tbl-wrap"><table class="dw-t">
+        <thead><tr><th>Infinitiv</th><th>er / sie …</th><th>Eksempel</th><th>Norsk</th></tr></thead>
+        <tbody>
+          <tr class="dw-grp"><td colspan="4">Hjelpeverb (lær disse først)</td></tr>
+          <tr><td>sein</td><td class="dw-f">war</td><td>Er war Maler.</td><td class="dw-no">være</td></tr>
+          <tr><td>haben</td><td class="dw-f">hatte</td><td>Sie hatte viele Ideen.</td><td class="dw-no">ha</td></tr>
+          <tr><td>werden</td><td class="dw-f">wurde</td><td>Er wurde 1879 geboren. / Sie wurde Professorin.</td><td class="dw-no">bli</td></tr>
+          <tr class="dw-grp"><td colspan="4">Svake verb: stamme + -te</td></tr>
+          <tr><td>leben</td><td class="dw-f">lebte</td><td>Sie lebte in Paris.</td><td class="dw-no">leve / bo</td></tr>
+          <tr><td>wohnen</td><td class="dw-f">wohnte</td><td>Er wohnte in Wien.</td><td class="dw-no">bo</td></tr>
+          <tr><td>arbeiten</td><td class="dw-f">arbeitete</td><td>Sie arbeitete in einem Labor.</td><td class="dw-no">arbeide</td></tr>
+          <tr><td>studieren</td><td class="dw-f">studierte</td><td>Er studierte Physik.</td><td class="dw-no">studere</td></tr>
+          <tr><td>heiraten</td><td class="dw-f">heiratete</td><td>Sie heiratete Pierre.</td><td class="dw-no">gifte seg med</td></tr>
+          <tr><td>gründen</td><td class="dw-f">gründete</td><td>Er gründete eine Firma.</td><td class="dw-no">grunnlegge</td></tr>
+          <tr><td>entdecken</td><td class="dw-f">entdeckte</td><td>Sie entdeckte das Radium.</td><td class="dw-no">oppdage</td></tr>
+          <tr><td>reisen</td><td class="dw-f">reiste</td><td>Er reiste nach Amerika.</td><td class="dw-no">reise</td></tr>
+          <tr><td>malen</td><td class="dw-f">malte</td><td>Er malte viele Bilder.</td><td class="dw-no">male</td></tr>
+          <tr><td>komponieren</td><td class="dw-f">komponierte</td><td>Er komponierte Opern.</td><td class="dw-no">komponere</td></tr>
+          <tr><td>veröffentlichen</td><td class="dw-f">veröffentlichte</td><td>Sie veröffentlichte ein Buch.</td><td class="dw-no">publisere</td></tr>
+          <tr><td>erreichen</td><td class="dw-f">erreichte</td><td>Er erreichte sein Ziel.</td><td class="dw-no">nå</td></tr>
+          <tr><td>kaufen</td><td class="dw-f">kaufte</td><td>Er kaufte ein Haus.</td><td class="dw-no">kjøpe</td></tr>
+          <tr class="dw-grp"><td colspan="4">Sterke verb: vokalskifte, ingen ending</td></tr>
+          <tr><td>gehen</td><td class="dw-f">ging</td><td>Er ging zur Schule.</td><td class="dw-no">gå</td></tr>
+          <tr><td>kommen</td><td class="dw-f">kam</td><td>Sie kam 1891 nach Paris.</td><td class="dw-no">komme</td></tr>
+          <tr><td>ziehen</td><td class="dw-f">zog</td><td>Er zog nach Berlin.</td><td class="dw-no">flytte</td></tr>
+          <tr><td>schreiben</td><td class="dw-f">schrieb</td><td>Sie schrieb viele Briefe.</td><td class="dw-no">skrive</td></tr>
+          <tr><td>bekommen</td><td class="dw-f">bekam</td><td>Er bekam den Nobelpreis.</td><td class="dw-no">få</td></tr>
+          <tr><td>gewinnen</td><td class="dw-f">gewann</td><td>Sie gewann einen Preis.</td><td class="dw-no">vinne</td></tr>
+          <tr><td>finden</td><td class="dw-f">fand</td><td>Er fand eine Lösung.</td><td class="dw-no">finne</td></tr>
+          <tr><td>beginnen</td><td class="dw-f">begann</td><td>Er begann ein Studium.</td><td class="dw-no">begynne</td></tr>
+          <tr><td>verlassen</td><td class="dw-f">verließ</td><td>Er verließ Deutschland.</td><td class="dw-no">forlate</td></tr>
+          <tr><td>sterben</td><td class="dw-f">starb</td><td>Sie starb 1934.</td><td class="dw-no">dø</td></tr>
+          <tr><td>fahren</td><td class="dw-f">fuhr</td><td>Er fuhr nach Oslo.</td><td class="dw-no">kjøre / reise</td></tr>
+          <tr><td>bleiben</td><td class="dw-f">blieb</td><td>Sie blieb in Paris.</td><td class="dw-no">bli (værende)</td></tr>
+          <tr class="dw-grp"><td colspan="4">Blandet</td></tr>
+          <tr><td>kennen</td><td class="dw-f">kannte</td><td>Er kannte viele Künstler.</td><td class="dw-no">kjenne</td></tr>
+          <tr><td>bringen</td><td class="dw-f">brachte</td><td>Das brachte ihm Ruhm.</td><td class="dw-no">bringe</td></tr>
+        </tbody></table></div>
+      <div class="dw-tip"><b>Tips:</b> <span class="dw-de">wurde … geboren</span> er en fast frase («ble født») — den lærer du utenat. «Er starb» (døde) bruker du på samme måte om døden.</div>
+    </div>
+
+    <h2 class="dw-sec-title" id="av-dato">Årstall, datoer og rekkefølge</h2>
+    <div class="dw-exp">
+      <div class="dw-tbl-wrap"><table class="dw-t">
+        <thead><tr><th>Slik sier du det</th><th>Eksempel</th><th>Norsk</th></tr></thead>
+        <tbody>
+          <tr><td class="dw-f">am 14. März 1879</td><td>Er wurde am 14. März 1879 geboren.</td><td class="dw-no">den 14. mars 1879</td></tr>
+          <tr><td class="dw-f">1905 (uten «im Jahr»)</td><td>1905 veröffentlichte er …</td><td class="dw-no">i 1905</td></tr>
+          <tr><td class="dw-f">im Jahr 1921</td><td>Im Jahr 1921 bekam er …</td><td class="dw-no">i året 1921</td></tr>
+          <tr><td class="dw-f">mit 17 Jahren</td><td>Mit 17 Jahren ging er nach Zürich.</td><td class="dw-no">som 17-åring</td></tr>
+          <tr><td class="dw-f">später / danach</td><td>Später heiratete sie Pierre.</td><td class="dw-no">senere / etterpå</td></tr>
+          <tr><td class="dw-f">zuerst / dann / schließlich</td><td>Zuerst studierte er, dann arbeitete er …</td><td class="dw-no">først / så / til slutt</td></tr>
+          <tr><td class="dw-f">im selben Jahr</td><td>Im selben Jahr zog er nach Berlin.</td><td class="dw-no">samme år</td></tr>
+        </tbody></table></div>
+      <div class="dw-tip dw-warn"><b>Viktigst: verbet står på plass 2.</b> Står årstallet (eller «später», «danach») først, kommer <b>verbet rett etter</b>, og så subjektet:<br>
+        <span class="dw-de">Er veröffentlichte 1905 seine Theorie.</span> = <span class="dw-de">1905 veröffentlichte er seine Theorie.</span><br>
+        <span class="dw-no">Aldri «1905 er veröffentlichte …».</span></div>
+      <h3 style="margin-top:14px">🔢 Årstall – hvordan sier du dem?</h3>
+      <div class="bd-f" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <input type="number" id="yr-in" min="1100" max="2099" value="1879" style="width:110px;font-size:1.1rem;padding:7px 10px;border:2px solid #d9d3c4;border-radius:10px;font-family:inherit" aria-label="Årstall">
+        <span id="yr-out" class="dw-de" style="font-size:1.05rem"></span>
+        <button class="say" id="yr-say" aria-label="Les opp">🔊</button>
+      </div>
+      <p class="dw-no" style="margin-top:6px">1100–1999: «hundert»-tallet (18|79 = achtzehnhundert|neunundsiebzig). Fra 2000: zweitausend…</p>
+    </div>
+
+    <div class="dw-exp">
+      <h3>Nyttige uttrykk</h3>
+      <div class="dw-tbl-wrap"><table class="dw-t">
+        <thead><tr><th>Når?</th><th>Tysk</th><th>Norsk</th></tr></thead>
+        <tbody>
+          <tr><td>Innledning</td><td class="dw-f">Heute stelle ich euch … vor.</td><td class="dw-no">I dag presenterer jeg … for dere.</td></tr>
+          <tr><td>Innledning</td><td class="dw-f">… ist berühmt für …</td><td class="dw-no">… er berømt for …</td></tr>
+          <tr><td>Yrke</td><td class="dw-f">Er war Maler. / Sie war Physikerin.</td><td class="dw-no">Han var maler. / Hun var fysiker.</td></tr>
+          <tr><td>Overgang</td><td class="dw-f">Danach … · Später … · Im selben Jahr …</td><td class="dw-no">Etterpå … · Senere … · Samme år …</td></tr>
+          <tr><td>Betydning</td><td class="dw-f">Er/Sie hat die Welt verändert.</td><td class="dw-no">Han/hun har forandret verden.</td></tr>
+          <tr><td>Mening</td><td class="dw-f">Ich finde ihn/sie sehr interessant.</td><td class="dw-no">Jeg synes han/hun er veldig interessant.</td></tr>
+          <tr><td>Mening</td><td class="dw-f">Meiner Meinung nach war er/sie sehr wichtig.</td><td class="dw-no">Etter min mening var han/hun veldig viktig.</td></tr>
+          <tr><td>Slutt</td><td class="dw-f">Danke fürs Zuhören!</td><td class="dw-no">Takk for oppmerksomheten!</td></tr>
+        </tbody></table></div>
+    </div>
+
+    <h2 class="dw-sec-title" id="av-ex">Eksempler</h2>
+    <div class="dw-exp"><p>Fire ferdige presentasjoner. Les dem høyt, last dem inn i byggeren og endre dem — eller bruk dem som mal for din egen person.</p></div>
+    <div id="av-examples"></div>
+
+    <h2 class="dw-sec-title" id="av-bygg">Bygg din presentasjon</h2>
+    <div class="dw-exp bd-f">
+      <p>Velg en person (eller skriv inn din egen). Teksten settes sammen med Präteritum og riktig rekkefølge. Du skriver selv de tyske endene i «Livet»-radene.</p>
+      <div class="ex-load"><span class="bd-lab" style="margin:0">Last inn eksempel:</span>
+        <button class="btn" data-load="einstein">Einstein</button><button class="btn" data-load="curie">Curie</button><button class="btn" data-load="munch">Munch</button><button class="btn" data-load="nansen">Nansen</button>
+        <button class="btn" id="a-clear">🗑️ Tøm</button></div>
+      <div class="bd-grid" id="ad-form">
+        <div class="bd-sec">Person</div>
+        <div class="bd-f"><label for="a-name">Navn</label><input type="text" id="a-name" autocomplete="off" placeholder="f.eks. Albert Einstein"></div>
+        <div class="bd-f"><label for="a-sex">Mann eller kvinne?</label><select id="a-sex"><option value="m">Mann → er</option><option value="f">Kvinne → sie</option></select></div>
+        <div class="bd-f"><label for="a-job1">Yrke</label><select id="a-job1"></select></div>
+        <div class="bd-f"><label for="a-job2">Yrke 2 (valgfritt)</label><select id="a-job2"></select></div>
+        <div class="bd-sec">Født</div>
+        <div class="bd-f"><label>Dag og måned (valgfritt)</label><div class="bd-row2"><select id="a-bd"></select><select id="a-bm"></select></div></div>
+        <div class="bd-f"><label for="a-by">År</label><input type="number" id="a-by" min="1000" max="2020" inputmode="numeric" placeholder="1879"></div>
+        <div class="bd-f"><label for="a-bort">Fødested</label><input type="text" id="a-bort" autocomplete="off" placeholder="f.eks. Ulm"></div>
+        <div class="bd-sec">Livet (inntil 4 viktige år)</div>
+        <div class="bd-f bd-wide" id="a-evs">
+          <div class="ev-row" style="font-size:.74rem;font-weight:800;color:var(--dw-muted)"><span>År</span><span>Verb (Präteritum)</span><span>Resten av setningen (på tysk)</span></div>
+        </div>
+        <div class="bd-sec">Død (eller lever fortsatt)</div>
+        <div class="bd-f bd-wide"><label style="display:flex;gap:8px;align-items:center;font-size:.92rem;color:var(--dw-text)"><input type="checkbox" id="a-alive" style="width:auto"> Personen lever fortsatt</label></div>
+        <div class="bd-f"><label>Dag og måned (valgfritt)</label><div class="bd-row2"><select id="a-dd"></select><select id="a-dm"></select></div></div>
+        <div class="bd-f"><label for="a-dy">År</label><input type="number" id="a-dy" min="1000" max="2030" inputmode="numeric" placeholder="1955"></div>
+        <div class="bd-f"><label for="a-dort">Sted</label><input type="text" id="a-dort" autocomplete="off" placeholder="f.eks. Princeton"></div>
+        <div class="bd-sec">Kjent for, og din mening</div>
+        <div class="bd-f bd-wide"><label for="a-fam">Er/Sie ist berühmt für … (valgfritt)</label><input type="text" id="a-fam" autocomplete="off" placeholder="f.eks. seine Relativitätstheorie"></div>
+        <div class="bd-f bd-wide"><label for="a-close">Avslutning</label><select id="a-close"></select></div>
+      </div>
+    </div>
+    <div class="bd-out" id="a-out" aria-live="polite"></div>
+    <div class="bd-meta"><span id="a-count"></span></div>
+    <div class="bd-act">
+      <button class="btn prim need-say" id="a-say">🔊 Les opp</button>
+      <button class="btn" id="a-stop">⏹ Stopp</button>
+      <button class="btn gold" id="a-cover">🙈 Dekk til og øv</button>
+      <button class="btn" id="a-copy">📋 Kopier teksten</button>
+      <button class="btn" id="a-print">🖨️ Skriv ut</button>
+    </div>
+    <div class="dw-tip dw-blue"><b>Sjekk selv:</b> Står verbene i Präteritum? Er verbet på plass 2 når en setning begynner med et årstall? Stemmer fakta med et pålitelig oppslagsverk?</div>
+
+    <h2 class="dw-sec-title" id="av-ovel">Øvelser: Präteritum og rekkefølge</h2>
+    <div class="qz-pills" id="qz2-pills"></div>
+    <div id="qz2-host"></div>
+
+    <div class="dw-tabnext"><button data-go="ovelser">← Øvelser</button><button data-go="start">Til start →</button></div>
+  </section>
+
+  <p class="dw-see-also">Se også: <a href="../">🗣️ Sprechen</a> · <a href="../../grammatikk/verb/praesens-regelmaessig/">Presens (regelrette og sterke verb)</a> · <a href="../../grammatikk/verb/perfekt/">Perfekt</a> · <a href="../../grammatikk/verb/praeteritum/">Präteritum</a> · <a href="../../grammatikk/zahlen/">Zahlen</a> · <a href="../../schreiben/bilder-beschreiben/#sprechen">🖼️ Bilder beschreiben</a></p>
+</div>
+
+<div id="print-sheet" aria-hidden="true"></div>
+<script>
+(function(){
+'use strict';
+var D=document, $=function(s,r){return (r||D).querySelector(s);}, $$=function(s,r){return Array.prototype.slice.call((r||D).querySelectorAll(s));};
+D.documentElement.classList.add('dw-js');
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+/* ================= DATA ================= */
+var MONTHS=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+var MONTHS_NO=['januar','februar','mars','april','mai','juni','juli','august','september','oktober','november','desember'];
+var COUNTRIES=['Norwegen','Schweden','Dänemark','Finnland','Island','Deutschland','Österreich','Polen','Spanien','Italien','Frankreich','England','Portugal','Griechenland','Litauen','Lettland','Estland','Ungarn','Rumänien','Bulgarien','Kroatien','Serbien','Albanien','Kosovo','Russland','Syrien','Irak','Iran','Libanon','Afghanistan','Pakistan','Indien','China','Japan','Vietnam','Thailand','Philippinen','Eritrea','Somalia','Marokko','Ägypten','Kenia','Nigeria','Ghana','Brasilien','Kolumbien','Chile','Peru','Kanada','Australien'];
+var CITIES=['Oslo','Bergen','Trondheim','Stavanger','Tromsø','Kristiansand','Drammen','Fredrikstad','Sandnes','Bodø','Ålesund','Hamar','Lillehammer','Tønsberg','Sarpsborg','Moss','Skien','Haugesund','Molde','Berlin','Hamburg','München','Köln','Wien','Zürich'];
+var LANGS=[['Norwegisch','norsk'],['Englisch','engelsk'],['Deutsch','tysk'],['Spanisch','spansk'],['Französisch','fransk'],['Schwedisch','svensk'],['Dänisch','dansk'],['Polnisch','polsk'],['Russisch','russisk'],['Arabisch','arabisk'],['Samisch','samisk']];
+var TRAITS=[['nett','grei'],['lustig','morsom'],['sportlich','sporty'],['freundlich','vennlig'],['ehrlich','ærlig'],['kreativ','kreativ'],['hilfsbereit','hjelpsom'],['ruhig','rolig'],['laut','høylytt'],['klug','smart'],['fleißig','flittig'],['musikalisch','musikalsk'],['mutig','modig'],['schüchtern','sjenert'],['geduldig','tålmodig'],['neugierig','nysgjerrig'],['cool','kul'],['lieb','snill']];
+var MAGS=[['Pizza','pizza'],['Pasta','pasta'],['Schokolade','sjokolade'],['Eis','is'],['Pommes','pommes frites'],['Sushi','sushi'],['Tacos','tacos'],['Musik','musikk'],['Tiere','dyr'],['Katzen','katter'],['Hunde','hunder'],['Pferde','hester'],['Sport','sport'],['Filme','filmer'],['Fußball','fotball']];
+var ADVS=[['oft','ofte'],['manchmal','noen ganger'],['immer','alltid'],['jeden Tag','hver dag'],['am Wochenende','i helgene']];
+/* nøkkel, wir-verb, resten, er/sie-form, norsk */
+var ACT=[
+ ['Fußball spielen','spielen','Fußball','spielt','spille fotball'],
+ ['Handball spielen','spielen','Handball','spielt','spille håndball'],
+ ['Basketball spielen','spielen','Basketball','spielt','spille basket'],
+ ['Gitarre spielen','spielen','Gitarre','spielt','spille gitar'],
+ ['Klavier spielen','spielen','Klavier','spielt','spille piano'],
+ ['Videospiele spielen','spielen','Videospiele','spielt','spille dataspill'],
+ ['Karten spielen','spielen','Karten','spielt','spille kort'],
+ ['Musik hören','hören','Musik','hört','høre på musikk'],
+ ['Filme sehen','sehen','Filme','sieht','se filmer'],
+ ['Serien schauen','schauen','Serien','schaut','se serier'],
+ ['Bücher lesen','lesen','Bücher','liest','lese bøker'],
+ ['Fahrrad fahren','fahren','Fahrrad','fährt','sykle'],
+ ['Ski fahren','fahren','Ski','fährt','gå på ski'],
+ ['schwimmen gehen','gehen','schwimmen','geht','gå og svømme'],
+ ['spazieren gehen','gehen','spazieren','geht','gå tur'],
+ ['wandern gehen','gehen','wandern','geht','gå på fjelltur'],
+ ['einkaufen gehen','gehen','einkaufen','geht','gå og handle'],
+ ['ins Kino gehen','gehen','ins Kino','geht','gå på kino'],
+ ['tanzen','tanzen','','tanzt','danse'],
+ ['singen','singen','','singt','synge'],
+ ['zeichnen','zeichnen','','zeichnet','tegne'],
+ ['kochen','kochen','','kocht','lage mat'],
+ ['backen','backen','','bäckt','bake'],
+ ['Pizza essen','essen','Pizza','isst','spise pizza'],
+ ['Eis essen','essen','Eis','isst','spise is'],
+ ['Hausaufgaben machen','machen','Hausaufgaben','macht','gjøre lekser'],
+ ['Sport machen','machen','Sport','macht','drive med sport'],
+ ['Fotos machen','machen','Fotos','macht','ta bilder'],
+ ['Quatsch machen','machen','Quatsch','macht','tøyse'],
+ ['Freunde treffen','treffen','Freunde','trifft','treffe venner'],
+ ['laufen','laufen','','läuft','løpe'],
+ ['reisen','reisen','','reist','reise']
+];
+var JOBS=[['Physiker','Physikerin'],['Chemiker','Chemikerin'],['Mathematiker','Mathematikerin'],['Astronom','Astronomin'],['Maler','Malerin'],['Komponist','Komponistin'],['Musiker','Musikerin'],['Sänger','Sängerin'],['Schauspieler','Schauspielerin'],['Regisseur','Regisseurin'],['Schriftsteller','Schriftstellerin'],['Dichter','Dichterin'],['Erfinder','Erfinderin'],['Forscher','Forscherin'],['Polarforscher','Polarforscherin'],['Entdecker','Entdeckerin'],['Politiker','Politikerin'],['Diplomat','Diplomatin'],['Präsident','Präsidentin'],['König','Königin'],['Kaiser','Kaiserin'],['Wissenschaftler','Wissenschaftlerin'],['Philosoph','Philosophin'],['Architekt','Architektin'],['Künstler','Künstlerin'],['Sportler','Sportlerin'],['Arzt','Ärztin'],['Lehrer','Lehrerin'],['Ingenieur','Ingenieurin'],['Unternehmer','Unternehmerin'],['Aktivist','Aktivistin'],['Autor','Autorin']];
+var EVV=['arbeitete','begann','bekam','durchquerte','entdeckte','erfand','erreichte','gewann','gründete','heiratete','kam','kaufte','komponierte','lebte','malte','reiste','schrieb','studierte','veröffentlichte','verließ','wurde','zog'];
+var CLOSES=['Ich finde {acc} sehr interessant.','{Er} hat die Welt verändert.','Für mich ist {er} ein Vorbild.','Meiner Meinung nach war {er} sehr wichtig.'];
+var PRESETS={
+ einstein:{name:'Albert Einstein',sex:'m',job1:0,job2:'',bd:14,bm:3,by:1879,bort:'Ulm',alive:false,dd:18,dm:4,dy:1955,dort:'Princeton',fam:'seine Relativitätstheorie',close:1,
+  ev:[{y:1905,v:'veröffentlichte',r:'seine Relativitätstheorie'},{y:1921,v:'bekam',r:'den Nobelpreis für Physik'},{y:1933,v:'zog',r:'in die USA'},{y:'',v:'',r:''}]},
+ curie:{name:'Marie Curie',sex:'f',job1:0,job2:1,bd:7,bm:11,by:1867,bort:'Warschau',alive:false,dd:4,dm:7,dy:1934,dort:'Passy',fam:'ihre Forschung über Radioaktivität',close:3,
+  ev:[{y:1891,v:'zog',r:'nach Paris'},{y:1895,v:'heiratete',r:'Pierre Curie'},{y:1903,v:'bekam',r:'den Nobelpreis für Physik'},{y:1911,v:'bekam',r:'den Nobelpreis für Chemie'}]},
+ munch:{name:'Edvard Munch',sex:'m',job1:4,job2:'',bd:12,bm:12,by:1863,bort:'Løten',alive:false,dd:23,dm:1,dy:1944,dort:'Oslo',fam:'sein Bild «Der Schrei»',close:0,
+  ev:[{y:1893,v:'malte',r:'das Bild «Der Schrei»'},{y:1916,v:'kaufte',r:'das Landgut Ekely bei Oslo'},{y:'',v:'',r:''},{y:'',v:'',r:''}]},
+ nansen:{name:'Fridtjof Nansen',sex:'m',job1:14,job2:17,bd:10,bm:10,by:1861,bort:'Oslo',alive:false,dd:13,dm:5,dy:1930,dort:'Lysaker',fam:'den Nansen-Pass für Flüchtlinge',close:2,
+  ev:[{y:1888,v:'durchquerte',r:'Grönland auf Skiern'},{y:1893,v:'begann',r:'eine Expedition mit dem Schiff «Fram»'},{y:1922,v:'bekam',r:'den Friedensnobelpreis'},{y:'',v:'',r:''}]}
+};
+
+/* ================= TALL ================= */
+var U=['null','ein','zwei','drei','vier','fünf','sechs','sieben','acht','neun','zehn','elf','zwölf','dreizehn','vierzehn','fünfzehn','sechzehn','siebzehn','achtzehn','neunzehn'];
+var T=['','','zwanzig','dreißig','vierzig','fünfzig','sechzig','siebzig','achtzig','neunzig'];
+function n2w(n){n=+n;if(n<20)return U[n];var t=Math.floor(n/10),u=n%10;return u?(U[u]+'und'+T[t]):T[t];}
+function ordDat(n){n=+n;var sp={1:'ersten',3:'dritten',7:'siebten',8:'achten'};if(sp[n])return sp[n];return n<20?n2w(n)+'ten':n2w(n)+'sten';}
+function yearWords(y){y=+y;var e=function(r){return r===1?'eins':n2w(r);};
+  if(y>=1100&&y<2000){var h=Math.floor(y/100),r=y%100;return n2w(h)+'hundert'+(r?e(r):'');}
+  if(y>=2000&&y<2100){var r2=y%100;return 'zweitausend'+(r2?e(r2):'');}
+  return String(y);}
+function join(a){if(a.length<2)return a.join('');return a.slice(0,-1).join(', ')+' und '+a[a.length-1];}
+
+/* ================= TALE ================= */
+var synth=window.speechSynthesis, voice=null;
+if(!synth||!window.SpeechSynthesisUtterance){D.documentElement.classList.add('dw-nosay');synth=null;}
+function pickVoice(){if(!synth)return;var v=synth.getVoices();voice=null;for(var i=0;i<v.length;i++){if(/^de[-_]DE/i.test(v[i].lang)){voice=v[i];break;}}if(!voice)for(var j=0;j<v.length;j++){if(/^de/i.test(v[j].lang)){voice=v[j];break;}}}
+if(synth){pickVoice();synth.onvoiceschanged=pickVoice;}
+function say(x){if(!synth)return;synth.cancel();(Array.isArray(x)?x:[x]).forEach(function(t){t=String(t).replace(/…/g,'').trim();if(!t)return;var u=new SpeechSynthesisUtterance(t);u.lang='de-DE';if(voice)u.voice=voice;u.rate=.9;synth.speak(u);});}
+function stopSay(){if(synth)synth.cancel();}
+D.addEventListener('click',function(e){var b=e.target.closest('[data-say]');if(b){say(b.getAttribute('data-say'));}});
+
+/* ================= FANER ================= */
+var tabBtns=$$('#dw-tabs button'), panels=$$('.dw-tabpanel');
+function showTab(id,scroll){
+  if(!id||!$('#'+id)||panels.every(function(p){return p.id!==id;}))id='start';
+  panels.forEach(function(p){p.hidden=(p.id!==id);});
+  tabBtns.forEach(function(b){b.setAttribute('aria-selected',b.getAttribute('data-tab')===id?'true':'false');});
+  try{history.replaceState(null,'','#'+id);}catch(e){}
+  if(scroll){var t=$('#dw-tabs');if(t)window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-70,behavior:'smooth'});}
+}
+tabBtns.forEach(function(b){b.addEventListener('click',function(){showTab(b.getAttribute('data-tab'),false);});});
+D.addEventListener('click',function(e){
+  var g=e.target.closest('[data-go]');if(g){showTab(g.getAttribute('data-go'),true);return;}
+  var j=e.target.closest('[data-jump]');if(j){var el=$('#'+j.getAttribute('data-jump'));if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+});
+window.addEventListener('hashchange',function(){showTab(location.hash.slice(1),false);});
+
+/* ================= STILLAS ================= */
+$$('#sx-tools button').forEach(function(b){b.addEventListener('click',function(){
+  $('#sx').className='sx-'+b.getAttribute('data-sx');
+  $$('#sx-tools button').forEach(function(x){x.classList.toggle('on',x===b);});
+});});
+
+/* ================= ORDBANK ================= */
+function wbSec(title,note,items){
+  var h='<div class="dw-exp wb-sec"><h3>'+title+'</h3>'+(note?'<p class="n">'+note+'</p>':'')+'<div class="wb-list">';
+  items.forEach(function(it){h+='<button class="wb-w" data-say="'+esc(it[2]||it[0])+'"><b>'+esc(it[0])+'</b>'+(it[1]?'<span>'+esc(it[1])+'</span>':'')+'</button>';});
+  return h+'</div></div>';
+}
+(function(){
+  var h='';
+  h+=wbSec('🌍 Land – «Er/Sie kommt aus …»','Alle uten artikkel.',COUNTRIES.map(function(c){return [c];}));
+  h+=wbSec('🏙️ By – «Er/Sie wohnt in …»','',CITIES.map(function(c){return [c];}));
+  h+=wbSec('🗣️ Språk – «Er/Sie spricht …»','',LANGS);
+  h+=wbSec('😊 Egenskaper – «Er/Sie ist …»','Adjektivet endres ikke etter «ist».',TRAITS);
+  h+=wbSec('⚽ Hobbyer – «wir …» og «er/sie … gern …»','Under hvert ord ser du det norske uttrykket.',ACT.map(function(a){return [a[0],a[4],a[0]];}));
+  h+=wbSec('🍕 Liker – «Er/Sie mag …»','',MAGS);
+  h+=wbSec('⏰ Hvor ofte?','',ADVS);
+  h+=wbSec('📅 Måneder – «am 5. Mai»','',MONTHS.map(function(m,i){return [m,MONTHS_NO[i]];}));
+  $('#wb').innerHTML=h;
+  var t='<tbody>';
+  for(var r=0;r<8;r++){t+='<tr>';for(var c=0;c<4;c++){var n=r+1+c*8;if(n>31){t+='<td></td><td></td>';continue;}t+='<td class="dw-f">'+n+'.</td><td data-say="am '+ordDat(n)+'" style="cursor:pointer">am '+ordDat(n)+'</td>';}t+='</tr>';}
+  $('#ordtab').innerHTML=t+'</tbody>';
+  $('#dl-city').innerHTML=CITIES.map(function(c){return '<option value="'+esc(c)+'">';}).join('');
+  $('#dl-country').innerHTML=COUNTRIES.map(function(c){return '<option value="'+esc(c)+'">';}).join('');
+})();
+
+/* ================= LAGRING ================= */
+var KEY='dw-vorstellen-v1', STORE={s1:{},s2:{}};
+try{var raw=localStorage.getItem(KEY);if(raw)STORE=JSON.parse(raw)||STORE;}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(STORE));}catch(e){}}
+
+/* ================= CHIPS ================= */
+function mkChips(host,items,max,cb){
+  var sel=[];
+  items.forEach(function(it){var b=D.createElement('button');b.type='button';b.className='chip';b.textContent=it.label;b.setAttribute('data-k',it.key);b.title=it.title||'';host.appendChild(b);});
+  host.addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;var k=b.getAttribute('data-k'),i=sel.indexOf(k);
+    if(i>=0){sel.splice(i,1);}else{if(max&&sel.length>=max){b.classList.add('shake');setTimeout(function(){b.classList.remove('shake');},320);return;}sel.push(k);}
+    paint();cb();});
+  function paint(){$$('.chip',host).forEach(function(b){b.classList.toggle('on',sel.indexOf(b.getAttribute('data-k'))>=0);});}
+  return {get:function(){return sel.slice();},set:function(a){sel=(a||[]).slice();paint();}};
+}
+
+/* ================= BYGGER 1 (venn) ================= */
+var S1d={ich:'',name:'',sex:'m',age:'',city:'',country:'',bd:'',bm:'',sib:'',years:'',adv:'oft',words:true};
+var ids1=['ich','name','sex','age','city','country','bd','bm','sib','years','adv'];
+(function(){ // dag/måned
+  var d='<option value="">Dag</option>';for(var i=1;i<=31;i++)d+='<option value="'+i+'">'+i+'.</option>';
+  var m='<option value="">Måned</option>';MONTHS.forEach(function(x,i){m+='<option value="'+(i+1)+'">'+x+'</option>';});
+  $('#b-bd').innerHTML=d;$('#b-bm').innerHTML=m;
+})();
+var ch={};
+ch.lang=mkChips($('#c-lang'),LANGS.map(function(l){return {key:l[0],label:l[0],title:l[1]};}),0,upd1);
+ch.trait=mkChips($('#c-trait'),TRAITS.map(function(l){return {key:l[0],label:l[0],title:l[1]};}),3,upd1);
+ch.hobby=mkChips($('#c-hobby'),ACT.map(function(a){return {key:a[0],label:a[0],title:a[4]};}),3,upd1);
+ch.mag=mkChips($('#c-mag'),MAGS.map(function(l){return {key:l[0],label:l[0],title:l[1]};}),3,upd1);
+ch.wir=mkChips($('#c-wir'),ACT.map(function(a){return {key:a[0],label:a[0],title:a[4]};}),3,upd1);
+function actOf(k){for(var i=0;i<ACT.length;i++)if(ACT[i][0]===k)return ACT[i];return null;}
+function readS1(){
+  var S={};ids1.forEach(function(k){S[k]=$('#b-'+k).value;});
+  S.words=$('#b-words').checked;
+  ['lang','trait','hobby','mag','wir'].forEach(function(k){S[k]=ch[k].get();});
+  return S;
+}
+function buildL1(S){
+  var m=S.sex!=='f',Er=m?'Er':'Sie',W=!!S.words,f=0;
+  var nm=(S.name||'').trim(),ich=(S.ich||'').trim(),city=(S.city||'').trim(),country=(S.country||'').trim();
+  var g1=['Hallo!'];if(ich){g1.push('Ich heiße '+ich+'.');f++;}
+  g1.push(m?'Das ist mein bester Freund.':'Das ist meine beste Freundin.');
+  if(nm)f++;g1.push(Er+' heißt '+(nm||'…')+'.');
+  var g2=[];
+  var age=parseInt(S.age,10);if(age>0){g2.push(Er+' ist '+(W?n2w(age):age)+(age===1?' Jahr':' Jahre')+' alt.');f++;}
+  if(city){g2.push(Er+' wohnt in '+city+'.');f++;}
+  if(country){g2.push(Er+' kommt aus '+country+'.');f++;}
+  var bd=parseInt(S.bd,10),bm=parseInt(S.bm,10);
+  if(bd&&bm){g2.push(Er+' hat am '+(W?ordDat(bd):bd+'.')+' '+MONTHS[bm-1]+' Geburtstag.');f++;}
+  if(S.sib){g2.push(Er+' hat '+(S.sib==='keine'?'keine':S.sib)+' Geschwister.');f++;}
+  if(S.lang.length){g2.push(Er+' spricht '+join(S.lang)+'.');f++;}
+  var g3=[];
+  if(S.trait.length){g3.push(Er+' ist '+join(S.trait)+'.');f++;}
+  if(S.hobby.length){var ph=S.hobby.map(function(k){var a=actOf(k);return a[3]+' gern'+(a[2]?' '+a[2]:'');});g3.push(Er+' '+join(ph)+'.');f++;}
+  if(S.mag.length){g3.push(Er+' mag '+join(S.mag)+'.');f++;}
+  var g4=[];
+  var yr=parseInt(S.years,10);if(yr>0){g4.push('Wir kennen uns schon '+(W?n2w(yr):yr)+(yr===1?' Jahr':' Jahre')+'.');f++;}
+  if(S.wir.length){f++;S.wir.forEach(function(k,i){var a=actOf(k);
+    if(i===0)g4.push((nm||'…')+' und ich '+a[1]+' '+S.adv+(a[2]?' '+a[2]:'')+'.');
+    else g4.push('Wir '+a[1]+' auch'+(a[2]?' '+a[2]:'')+'.');});}
+  var g5=['Wir haben viel Spaß zusammen.','Danke fürs Zuhören!'];
+  return {groups:[g1,g2,g3,g4,g5].filter(function(g){return g.length;}),filled:f,total:13};
+}
+function renderOut(out,groups){
+  out.innerHTML=groups.map(function(g){return '<p>'+esc(g.join(' ')).replace(/…/g,'<span class="ph">…</span>')+'</p>';}).join('');
+}
+function plain(groups){return groups.map(function(g){return g.join(' ');});}
+var cur1=[];
+function upd1(){
+  var S=readS1();STORE.s1=S;save();
+  var r=buildL1(S);cur1=r.groups;renderOut($('#b-out'),r.groups);
+  $('#bd-info').textContent=r.filled+' av '+r.total+' deler fylt ut';
+  $('#bd-bar').style.width=Math.round(r.filled/r.total*100)+'%';
+  var txt=plain(r.groups).join(' ').replace(/…/g,'');var w=txt.split(/\s+/).filter(Boolean).length;
+  $('#bd-count').textContent='Ca. '+w+' ord · ca. '+Math.max(10,Math.round(w/2))+' sekunder å si';
+}
+function setS1(S){
+  ids1.forEach(function(k){$('#b-'+k).value=(S[k]!==undefined?S[k]:S1d[k]);});
+  $('#b-words').checked=(S.words!==undefined?S.words:true);
+  ['lang','trait','hobby','mag','wir'].forEach(function(k){ch[k].set(S[k]||[]);});
+}
+ids1.forEach(function(k){var el=$('#b-'+k);el.addEventListener('input',upd1);el.addEventListener('change',upd1);});
+$('#b-words').addEventListener('change',upd1);
+
+/* felles knapper */
+function copyText(t,btn){
+  function done(){var o=btn.textContent;btn.textContent='✓ Kopiert!';setTimeout(function(){btn.textContent=o;},1500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){fb();});}else fb();
+  function fb(){var ta=D.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';D.body.appendChild(ta);ta.select();try{D.execCommand('copy');done();}catch(e){}D.body.removeChild(ta);}
+}
+function doPrint(title,groups){
+  $('#print-sheet').innerHTML='<h1>'+esc(title)+'</h1>'+groups.map(function(g){return '<p>'+esc(g.join(' '))+'</p>';}).join('');
+  D.body.classList.add('dw-printing');
+  function off(){D.body.classList.remove('dw-printing');window.removeEventListener('afterprint',off);}
+  window.addEventListener('afterprint',off);
+  setTimeout(function(){window.print();setTimeout(off,1500);},60);
+}
+function wire(prefix,getGroups,title){
+  $('#'+prefix+'-say').addEventListener('click',function(){say(getGroups().reduce(function(a,g){return a.concat(g);},[]));});
+  $('#'+prefix+'-stop').addEventListener('click',stopSay);
+  var out=prefix==='b'?$('#b-out'):$('#a-out'), cb=$('#'+prefix+'-cover');
+  cb.addEventListener('click',function(){var c=out.classList.toggle('cover');cb.textContent=c?'👀 Vis teksten':'🙈 Dekk til og øv';});
+  out.addEventListener('click',function(){if(out.classList.contains('cover')){out.classList.remove('cover');cb.textContent='🙈 Dekk til og øv';}});
+  $('#'+prefix+'-copy').addEventListener('click',function(){copyText(plain(getGroups()).join('\n\n').replace(/…/g,'___'),this);});
+  $('#'+prefix+'-print').addEventListener('click',function(){doPrint(title,getGroups());});
+}
+wire('b',function(){return cur1;},'Meine Präsentation');
+$('#b-clear').addEventListener('click',function(){if(confirm('Tømme alle feltene?')){setS1({});upd1();}});
+
+/* ================= BYGGER 2 (historisk) ================= */
+(function(){
+  var d='<option value="">Dag</option>';for(var i=1;i<=31;i++)d+='<option value="'+i+'">'+i+'.</option>';
+  var m='<option value="">Måned</option>';MONTHS.forEach(function(x,i){m+='<option value="'+(i+1)+'">'+x+'</option>';});
+  ['a-bd','a-dd'].forEach(function(id){$('#'+id).innerHTML=d;});['a-bm','a-dm'].forEach(function(id){$('#'+id).innerHTML=m;});
+  var j='<option value="">Velg yrke</option>';JOBS.forEach(function(x,i){j+='<option value="'+i+'">'+x[0]+' / '+x[1]+'</option>';});
+  $('#a-job1').innerHTML=j;$('#a-job2').innerHTML=j.replace('Velg yrke','(intet)');
+  $('#a-close').innerHTML=CLOSES.map(function(c,i){return '<option value="'+i+'">'+c.replace('{acc}','ihn/sie').replace('{Er}','Er/Sie').replace('{er}','er/sie')+'</option>';}).join('');
+  var ev='';for(var k=0;k<4;k++){ev+='<div class="ev-row"><input type="number" class="ev-y" min="1000" max="2030" inputmode="numeric" placeholder="1905" aria-label="År"><select class="ev-v" aria-label="Verb"><option value="">(verb)</option>'+EVV.map(function(v){return '<option>'+v+'</option>';}).join('')+'</select><input type="text" class="ev-r" autocomplete="off" placeholder="seine Relativitätstheorie" aria-label="Resten av setningen"></div>';}
+  $('#a-evs').insertAdjacentHTML('beforeend',ev);
+})();
+function readS2(){
+  var S={name:$('#a-name').value,sex:$('#a-sex').value,job1:$('#a-job1').value,job2:$('#a-job2').value,
+    bd:$('#a-bd').value,bm:$('#a-bm').value,by:$('#a-by').value,bort:$('#a-bort').value,
+    alive:$('#a-alive').checked,dd:$('#a-dd').value,dm:$('#a-dm').value,dy:$('#a-dy').value,dort:$('#a-dort').value,
+    fam:$('#a-fam').value,close:$('#a-close').value,ev:[]};
+  $$('#a-evs .ev-row').slice(1).forEach(function(r){S.ev.push({y:$('.ev-y',r).value,v:$('.ev-v',r).value,r:$('.ev-r',r).value});});
+  return S;
+}
+function setS2(S){
+  S=S||{};
+  $('#a-name').value=S.name||'';$('#a-sex').value=S.sex||'m';$('#a-job1').value=(S.job1===undefined?'':S.job1);$('#a-job2').value=(S.job2===undefined?'':S.job2);
+  $('#a-bd').value=S.bd||'';$('#a-bm').value=S.bm||'';$('#a-by').value=S.by||'';$('#a-bort').value=S.bort||'';
+  $('#a-alive').checked=!!S.alive;$('#a-dd').value=S.dd||'';$('#a-dm').value=S.dm||'';$('#a-dy').value=S.dy||'';$('#a-dort').value=S.dort||'';
+  $('#a-fam').value=S.fam||'';$('#a-close').value=(S.close===undefined?0:S.close);
+  $$('#a-evs .ev-row').slice(1).forEach(function(r,i){var e=(S.ev||[])[i]||{};$('.ev-y',r).value=e.y||'';$('.ev-v',r).value=e.v||'';$('.ev-r',r).value=e.r||'';});
+}
+function dateDe(d,m,y){d=parseInt(d,10);m=parseInt(m,10);y=parseInt(y,10);
+  if(d&&m&&y)return 'am '+d+'. '+MONTHS[m-1]+' '+y;
+  if(d&&m)return 'am '+d+'. '+MONTHS[m-1];
+  if(y)return 'im Jahr '+y;return '';}
+function buildL2(S){
+  var m=S.sex!=='f',Er=m?'Er':'Sie',er=m?'er':'sie',acc=m?'ihn':'sie';
+  var nm=(S.name||'').trim()||'…';
+  var g1=['Heute stelle ich euch '+nm+' vor.'];
+  var g2=[];var jobs=[];
+  [S.job1,S.job2].forEach(function(j){if(j!==''&&j!==undefined&&JOBS[j])jobs.push(JOBS[j][m?0:1]);});
+  var hasJob=jobs.length>0;
+  if(hasJob)g2.push(nm+' war '+jobs.join(' und ')+'.');
+  var place=(S.bort||'').trim();
+  var bdate=dateDe(S.bd,S.bm,S.by).replace(/^im Jahr /,'');
+  if(bdate||place){g2.push((hasJob?Er:nm)+' wurde '+(bdate?bdate+' ':'')+(place?'in '+place+' ':'')+'geboren.');}
+  var g3=[];
+  S.ev.filter(function(e){return parseInt(e.y,10)>0&&e.v&&(e.r||'').trim();}).sort(function(a,b){return a.y-b.y;}).forEach(function(e){
+    var r=e.r.trim();if(!/[.!?]$/.test(r))r+='.';g3.push(e.y+' '+e.v+' '+er+' '+r);});
+  var g4=[];var dp=(S.dort||'').trim();
+  if(S.alive){if(dp)g4.push(Er+' lebt heute in '+dp+'.');}
+  else{var dd=dateDe(S.dd,S.dm,S.dy).replace(/^im Jahr /,'');if(dd||dp)g4.push(Er+' starb '+(dd?dd+' ':'')+(dp?'in '+dp:'')+'.');}
+  g4=g4.map(function(s){return s.replace(/ \.$/,'.');});
+  var fam=(S.fam||'').trim().replace(/[.!?]+$/,'');if(fam)g4.push(Er+' ist berühmt für '+fam+'.');
+  var g5=[CLOSES[S.close||0].replace('{acc}',acc).replace('{Er}',Er).replace('{er}',er),'Danke fürs Zuhören!'];
+  return [g1,g2,g3,g4,g5].filter(function(g){return g.length;});
+}
+var cur2=[];
+function upd2(){
+  var S=readS2();STORE.s2=S;save();cur2=buildL2(S);renderOut($('#a-out'),cur2);
+  var w=plain(cur2).join(' ').replace(/…/g,'').split(/\s+/).filter(Boolean).length;
+  $('#a-count').textContent='Ca. '+w+' ord · ca. '+Math.max(10,Math.round(w/2))+' sekunder å si';
+}
+$$('#ad-form input,#ad-form select').forEach(function(el){el.addEventListener('input',upd2);el.addEventListener('change',upd2);});
+wire('a',function(){return cur2;},'Präsentation');
+D.addEventListener('click',function(e){var b=e.target.closest('[data-load]');if(b){var p=PRESETS[b.getAttribute('data-load')];if(p){setS2(JSON.parse(JSON.stringify(p)));upd2();var el=$('#av-bygg');if(el)el.scrollIntoView({behavior:'smooth'});}}});
+$('#a-clear').addEventListener('click',function(){setS2({});upd2();});
+
+/* eksempler */
+(function(){
+  var h='';
+  Object.keys(PRESETS).forEach(function(k){
+    var p=PRESETS[k],gr=buildL2(p);
+    h+='<div class="dw-exp"><h3>'+esc(p.name)+'</h3><div class="bd-out" style="margin:8px 0;box-shadow:none;font-size:1rem">'+gr.map(function(g){return '<p>'+esc(g.join(' '))+'</p>';}).join('')+'</div>'+
+      '<div class="bd-act"><button class="btn prim need-say" data-say="'+esc(plain(gr).join(' '))+'">🔊 Les opp</button><button class="btn" data-load="'+k+'">✏️ Last inn i byggeren</button></div></div>';
+  });
+  $('#av-examples').innerHTML=h;
+})();
+
+/* årstall */
+function updYr(){var y=parseInt($('#yr-in').value,10);var w=(y>=1100&&y<2100)?yearWords(y):'(skriv et årstall mellom 1100 og 2099)';$('#yr-out').textContent=w;$('#yr-say').setAttribute('data-say',(y>=1100&&y<2100)?w:'');}
+$('#yr-in').addEventListener('input',updYr);updYr();
+
+/* ================= ØVELSER ================= */
+function norm(s){return String(s).trim().toLowerCase().replace(/ß/g,'ss').replace(/[.!?]+$/,'').replace(/\s+/g,' ');}
+function mc(t,a){var o=Array.prototype.slice.call(arguments,2);return {t:t,a:a,o:o};}
+function gap(t,h,a){return {t:t,h:h,a:a};}
+var MC1=[
+ mc('Das ist Lena. ___ wohnt in Bergen.','Sie','Er','Sie'),mc('Das ist Jonas. ___ kommt aus Norwegen.','Er','Er','Sie'),
+ mc('Das ist Emma. ___ spielt gern Gitarre.','Sie','Er','Sie'),mc('Das ist Noah. ___ spielt gern Fußball.','Er','Er','Sie'),
+ mc('Das ist Mia. ___ ist nett und lustig.','Sie','Er','Sie'),mc('Das ist Ole. ___ hat zwei Geschwister.','Er','Er','Sie'),
+ mc('Das ist Ida. ___ spricht Norwegisch und Englisch.','Sie','Er','Sie'),mc('Das ist Magnus. ___ mag Pizza.','Er','Er','Sie'),
+ mc('Das ist Sara. ___ hat am fünften Mai Geburtstag.','Sie','Er','Sie'),mc('Das ist Ingrid. ___ ist sportlich.','Sie','Er','Sie'),
+ mc('Das ist Oskar. ___ wohnt in Oslo.','Er','Er','Sie'),mc('Das ist Henrik. ___ ist vierzehn Jahre alt.','Er','Er','Sie'),
+ mc('Das ist Anna. Das ist ___.','meine beste Freundin','mein bester Freund','meine beste Freundin'),
+ mc('Das ist Max. Das ist ___.','mein bester Freund','mein bester Freund','meine beste Freundin'),
+ mc('Das ist Julia. Das ist ___.','meine beste Freundin','mein bester Freund','meine beste Freundin'),
+ mc('Das ist Tim. Das ist ___.','mein bester Freund','mein bester Freund','meine beste Freundin'),
+ mc('Er wohnt ___ Bergen.','in','in','aus','von'),mc('Sie kommt ___ Polen.','aus','in','aus','von'),
+ mc('Er kommt ___ Schweden.','aus','in','aus','von'),mc('Sie wohnt ___ Berlin.','in','in','aus','von'),
+ mc('Sie ___ in Oslo. (wohnen)','wohnt','wohne','wohnt','wohnen'),mc('Wir ___ oft Fußball. (spielen)','spielen','spielt','spielen','spiele'),
+ mc('Er ___ gern Musik. (hören)','hört','hören','hört','hörst'),mc('Sie ___ vierzehn Jahre alt. (sein)','ist','bist','ist','sind')
+];
+var GAP2=[
+ gap('Er ___ in Oslo.','wohnen','wohnt'),gap('Sie ___ aus Polen.','kommen','kommt'),gap('Er ___ Jonas.','heißen','heißt'),
+ gap('Sie ___ vierzehn Jahre alt.','sein','ist'),gap('Er ___ zwei Geschwister.','haben','hat'),gap('Sie ___ gern Gitarre.','spielen','spielt'),
+ gap('Er ___ gern Musik.','hören','hört'),gap('Sie ___ gern Pizza.','essen','isst'),gap('Er ___ gern Bücher.','lesen','liest'),
+ gap('Sie ___ gern Fahrrad.','fahren','fährt'),gap('Er ___ gern Filme.','sehen','sieht'),gap('Sie ___ Norwegisch und Englisch.','sprechen','spricht'),
+ gap('Er ___ gern schwimmen.','gehen','geht'),gap('Sie ___ gern.','tanzen','tanzt'),gap('Er ___ gern.','zeichnen','zeichnet'),
+ gap('Sie ___ viel.','arbeiten','arbeitet'),gap('Er ___ gern Freunde.','treffen','trifft'),gap('Sie ___ sehr schnell.','laufen','läuft'),
+ gap('Er ___ gern lange.','schlafen','schläft'),gap('Er ___ gern Spaghetti.','kochen','kocht'),gap('Sie ___ gern Fotos.','machen','macht'),
+ gap('Er ___ gern Deutsch.','lernen','lernt'),gap('Sie ___ gern Serien.','schauen','schaut'),gap('Er ___ gern Lieder.','singen','singt'),
+ gap('Sie ___ Lena.','heißen','heißt')
+];
+var GAP3=[
+ gap('Max und ich ___ oft Fußball.','spielen','spielen'),gap('Max ___ gern Fußball.','spielen','spielt'),
+ gap('Lena und ich ___ oft schwimmen.','gehen','gehen'),gap('Lena ___ gern schwimmen.','gehen','geht'),
+ gap('Wir ___ uns schon drei Jahre.','kennen','kennen'),gap('Er ___ mich schon lange.','kennen','kennt'),
+ gap('Ole und ich ___ am Wochenende Musik.','hören','hören'),gap('Ole ___ gern Musik.','hören','hört'),
+ gap('Ida und ich ___ oft Pizza.','essen','essen'),gap('Ida ___ gern Pizza.','essen','isst'),
+ gap('Wir ___ viel Spaß.','haben','haben'),gap('Sie ___ viel Spaß.','haben','hat'),
+ gap('Noah und ich ___ jeden Tag zusammen.','lernen','lernen'),gap('Noah ___ jeden Tag Deutsch.','lernen','lernt'),
+ gap('Emma und ich ___ manchmal Filme.','sehen','sehen'),gap('Emma ___ gern Filme.','sehen','sieht'),
+ gap('Jonas und ich ___ oft Rad.','fahren','fahren'),gap('Jonas ___ oft Rad.','fahren','fährt'),
+ gap('Mia und ich ___ immer zusammen.','lachen','lachen'),gap('Mia ___ immer.','lachen','lacht')
+];
+function ord(no,w,alt){return {no:no,w:w,alt:alt||[]};}
+var ORD1=[
+ ord('Han heter Jonas.','Er heißt Jonas'),ord('Han bor i Berlin.','Er wohnt in Berlin'),ord('Hun kommer fra Polen.','Sie kommt aus Polen'),
+ ord('Hun er fjorten år gammel.','Sie ist vierzehn Jahre alt'),ord('Vi har kjent hverandre i tre år.','Wir kennen uns schon drei Jahre'),
+ ord('Anna og jeg spiller ofte fotball.','Anna und ich spielen oft Fußball'),ord('Han spiller gjerne gitar.','Er spielt gern Gitarre'),
+ ord('Hun har to søsken.','Sie hat zwei Geschwister'),ord('Han snakker norsk og engelsk.','Er spricht Norwegisch und Englisch'),
+ ord('Dette er min beste venninne.','Das ist meine beste Freundin'),ord('Hun liker pizza og musikk.','Sie mag Pizza und Musik'),
+ ord('Han har bursdag den femte mai.','Er hat am fünften Mai Geburtstag'),ord('Hun er grei og morsom.','Sie ist nett und lustig'),
+ ord('Max og jeg går ofte og svømmer.','Max und ich gehen oft schwimmen')
+];
+var GAP5=[
+ gap('Einstein ___ Physiker.','sein','war'),gap('Er ___ 1879 in Ulm geboren.','werden','wurde'),
+ gap('1905 ___ er seine Relativitätstheorie. (veröffentlichen)','veröffentlichen','veröffentlichte'),gap('Marie Curie ___ das Radium. (entdecken)','entdecken','entdeckte'),
+ gap('Sie ___ zweimal den Nobelpreis. (bekommen)','bekommen','bekam'),gap('Munch ___ das Bild «Der Schrei». (malen)','malen','malte'),
+ gap('Er ___ 1944 in Oslo. (sterben)','sterben','starb'),gap('Nansen ___ Grönland auf Skiern. (durchqueren)','durchqueren','durchquerte'),
+ gap('Sie ___ nach Paris. (ziehen)','ziehen','zog'),gap('Er ___ in Oslo zur Schule. (gehen)','gehen','ging'),
+ gap('Sie ___ 1895 Pierre Curie. (heiraten)','heiraten','heiratete'),gap('Er ___ 1933 in die USA. (kommen)','kommen','kam'),
+ gap('Sie ___ viele Ideen. (haben)','haben','hatte'),gap('Sie ___ in Paris. (arbeiten)','arbeiten','arbeitete'),
+ gap('Er ___ viele Bücher. (schreiben)','schreiben','schrieb'),gap('Sie ___ in Paris. (leben)','leben','lebte'),
+ gap('Er ___ eine Expedition. (beginnen)','beginnen','begann'),gap('Sie ___ viel. (reisen)','reisen','reiste'),
+ gap('Er ___ Maler. (sein)','sein','war'),gap('Sie ___ Professorin. (werden)','werden','wurde')
+];
+var ORD6=[
+ ord('Han publiserte relativitetsteorien i 1905.','1905 veröffentlichte er seine Relativitätstheorie',['Er veröffentlichte 1905 seine Relativitätstheorie']),
+ ord('Marie Curie ble født i Warszawa i 1867.','Marie Curie wurde 1867 in Warschau geboren',['1867 wurde Marie Curie in Warschau geboren']),
+ ord('Han døde i Oslo i 1944.','Er starb 1944 in Oslo',['1944 starb er in Oslo']),
+ ord('Hun flyttet til Paris i 1891.','Sie zog 1891 nach Paris',['1891 zog sie nach Paris']),
+ ord('Han var maler.','Er war Maler'),
+ ord('Nansen fikk fredsprisen i 1922.','Nansen bekam 1922 den Friedensnobelpreis',['1922 bekam Nansen den Friedensnobelpreis']),
+ ord('Senere giftet hun seg med Pierre Curie.','Später heiratete sie Pierre Curie',['Sie heiratete später Pierre Curie']),
+ ord('I 1911 fikk hun Nobelprisen i kjemi.','Im Jahr 1911 bekam sie den Nobelpreis für Chemie',['Sie bekam im Jahr 1911 den Nobelpreis für Chemie']),
+ ord('Han malte mange bilder.','Er malte viele Bilder')
+];
+
+function qzSet(pillsEl,hostEl,defs){
+  defs.forEach(function(d,i){var b=D.createElement('button');b.type='button';b.textContent=d.label;b.setAttribute('role','tab');b.setAttribute('aria-selected',i===0?'true':'false');
+    b.addEventListener('click',function(){$$('button',pillsEl).forEach(function(x){x.setAttribute('aria-selected',x===b?'true':'false');});runQuiz(hostEl,d);});pillsEl.appendChild(b);});
+  runQuiz(hostEl,defs[0]);
+}
+function runQuiz(host,d){
+  var list=shuffle(d.items.slice()).slice(0,d.n||10),i=0,score=0,wrong=[];
+  host.innerHTML='';var card=D.createElement('div');card.className='qz-card';host.appendChild(card);
+  function top(){return '<div class="qz-top"><span>'+esc(d.label)+'</span><span>Oppgave '+(i+1)+' av '+list.length+' · '+score+' riktige</span></div><div class="qz-bar"><i style="width:'+Math.round(i/list.length*100)+'%"></i></div><p class="qz-intro">'+d.intro+'</p>';}
+  function next(){i++;if(i>=list.length)finish();else draw();}
+  function fbShow(ok,html){var f=$('.qz-fb',card);f.className='qz-fb show '+(ok?'ok':'bad');f.innerHTML=html;}
+  function draw(){
+    var it=list[i];
+    if(d.type==='gap'){
+      card.innerHTML=top()+'<div class="qz-s"></div><div class="qz-hint">Verb: <b>'+esc(it.h)+'</b></div><div class="qz-fb"></div><button class="btn prim" type="button" id="qz-go">Sjekk</button>';
+      var p=it.t.split('___');$('.qz-s',card).innerHTML=esc(p[0])+'<input class="qz-in" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" aria-label="Svar">'+esc(p[1]||'');
+      var inp=$('.qz-in',card),go=$('#qz-go',card),checked=false;inp.focus();
+      function check(){
+        if(checked){next();return;}
+        if(!inp.value.trim())return;
+        checked=true;var answers=[].concat(it.a).map(norm),ok=answers.indexOf(norm(inp.value))>=0,full=it.t.replace('___',[].concat(it.a)[0]);
+        inp.classList.add(ok?'ok':'bad');inp.readOnly=true;
+        if(ok)score++;else wrong.push(full);
+        fbShow(ok,(ok?'✓ Richtig! ':'Fasit: <b>'+esc([].concat(it.a)[0])+'</b> — ')+esc(full)+' <button type="button" class="say" data-say="'+esc(full)+'" aria-label="Les opp">🔊</button>');
+        go.textContent=(i+1>=list.length)?'Se resultatet':'Neste →';go.focus();
+      }
+      go.addEventListener('click',check);inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();check();}});
+    }else if(d.type==='mc'){
+      var opts=shuffle(it.o.slice());
+      card.innerHTML=top()+'<div class="qz-s">'+esc(it.t).replace('___','<span style="border-bottom:3px solid var(--dw-accent);padding:0 1.2em"></span>')+'</div><div class="qz-ch"></div><div class="qz-fb"></div><button class="btn prim" type="button" id="qz-go" style="display:none">Neste →</button>';
+      var chs=$('.qz-ch',card),done=false;
+      opts.forEach(function(o){var b=D.createElement('button');b.type='button';b.textContent=o;b.addEventListener('click',function(){
+        if(done)return;done=true;var ok=(o===it.a);
+        $$('button',chs).forEach(function(x){x.disabled=true;if(x.textContent===it.a)x.classList.add('ok');});if(!ok)b.classList.add('bad');
+        var full=it.t.replace('___',it.a);if(ok)score++;else wrong.push(full);
+        fbShow(ok,(ok?'✓ Richtig! ':'Fasit: <b>'+esc(it.a)+'</b> — ')+esc(full)+' <button type="button" class="say" data-say="'+esc(full)+'" aria-label="Les opp">🔊</button>');
+        var g=$('#qz-go',card);g.style.display='';g.textContent=(i+1>=list.length)?'Se resultatet':'Neste →';g.focus();
+      });chs.appendChild(b);});
+      $('#qz-go',card).addEventListener('click',next);
+    }else{ // order
+      var toks=it.w.split(' '),pool=toks.map(function(t,k){return {t:t,k:k};}),tries=0;
+      do{shuffle(pool);tries++;}while(pool.map(function(x){return x.k;}).join()===toks.map(function(_,k){return k;}).join()&&tries<10);
+      var picked=[];
+      card.innerHTML=top()+'<div class="qz-s" style="font-size:1.1rem">🇳🇴 '+esc(it.no)+'</div><div class="qz-hint">Trykk på ordene i riktig rekkefølge.</div><div class="qz-tiles qz-ans" id="qz-ans" aria-label="Din setning"></div><div class="qz-tiles" id="qz-pool"></div><div class="qz-fb"></div><button class="btn prim" type="button" id="qz-go">Sjekk</button> <button class="btn" type="button" id="qz-reset">Nullstill</button>';
+      var ans=$('#qz-ans',card),pl=$('#qz-pool',card),go=$('#qz-go',card),locked=false;
+      function paint(){
+        ans.innerHTML='';pl.innerHTML='';
+        picked.forEach(function(k,pos){var b=D.createElement('button');b.type='button';b.className='tile';b.textContent=toks[k];b.addEventListener('click',function(){if(locked)return;picked.splice(pos,1);paint();});ans.appendChild(b);});
+        pool.forEach(function(x){var b=D.createElement('button');b.type='button';b.className='tile'+(picked.indexOf(x.k)>=0?' used':'');b.textContent=x.t;b.addEventListener('click',function(){if(locked||picked.indexOf(x.k)>=0)return;picked.push(x.k);paint();});pl.appendChild(b);});
+      }
+      paint();
+      $('#qz-reset',card).addEventListener('click',function(){if(locked)return;picked=[];paint();});
+      go.addEventListener('click',function(){
+        if(locked){next();return;}
+        if(picked.length<toks.length){fbShow(false,'Bruk alle ordene først.');return;}
+        locked=true;var got=norm(picked.map(function(k){return toks[k];}).join(' ')),good=[it.w].concat(it.alt).map(norm),ok=good.indexOf(got)>=0;
+        if(ok)score++;else wrong.push(it.w+'.');
+        fbShow(ok,(ok?'✓ Richtig! ':'Fasit: <b>')+ (ok?'':'')+esc(it.w)+(ok?'':'</b>')+'. <button type="button" class="say" data-say="'+esc(it.w)+'" aria-label="Les opp">🔊</button>'+(it.alt.length&&!ok?'<br>Også mulig: '+esc(it.alt[0]):''));
+        go.textContent=(i+1>=list.length)?'Se resultatet':'Neste →';
+      });
+    }
+  }
+  function finish(){
+    var pct=Math.round(score/list.length*100);
+    card.innerHTML='<div class="qz-res"><div>Ferdig!</div><div class="qz-score">'+score+' / '+list.length+'</div><p>'+(pct>=90?'Fantastisk! 🌟':pct>=70?'Veldig bra! 👍':pct>=50?'Godt på vei — prøv en ny runde.':'Øv litt mer — se på stillaset og prøv igjen.')+'</p>'+
+      (wrong.length?'<div class="qz-rev"><b>Dette bør du se på igjen:</b><ul>'+wrong.map(function(w){return '<li>'+esc(w)+'</li>';}).join('')+'</ul></div>':'')+
+      '<button class="btn prim" type="button" id="qz-again">🔄 Ny runde</button></div>';
+    $('#qz-again',card).addEventListener('click',function(){runQuiz(host,d);});
+  }
+  draw();
+}
+qzSet($('#qz1-pills'),$('#qz1-host'),[
+ {label:'Er eller sie? Freund/in? Ordstilling',type:'mc',items:MC1,n:10,intro:'Velg riktig ord for å fullføre setningen.'},
+ {label:'Verbform: er / sie',type:'gap',items:GAP2,n:10,intro:'Skriv riktig form av verbet (han/hun-formen).'},
+ {label:'Wir eller er/sie?',type:'gap',items:GAP3,n:10,intro:'Skriv riktig form: «wir» / «… und ich» → grunnformen, «han/hun» → -t.'},
+ {label:'Ordne ordene',type:'order',items:ORD1,n:8,intro:'Sett ordene i riktig rekkefølge. Husk: verbet står på plass 2.'}
+]);
+qzSet($('#qz2-pills'),$('#qz2-host'),[
+ {label:'Präteritum: fyll inn verbet',type:'gap',items:GAP5,n:10,intro:'Skriv Präteritum-formen (er/sie).'},
+ {label:'Ordne ordene: årstall først',type:'order',items:ORD6,n:6,intro:'Sett ordene sammen til en setning. Står årstallet først, kommer verbet rett etter.'}
+]);
+
+/* ================= START ================= */
+setS1(STORE.s1||{});upd1();
+setS2(STORE.s2&&STORE.s2.ev?STORE.s2:PRESETS.einstein);upd2();
+showTab(location.hash.slice(1)||'start',false);
+})();
+</script>
+</body>
+</html>
