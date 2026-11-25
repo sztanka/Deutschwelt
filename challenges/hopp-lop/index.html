@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Challenges: «Hopp-løp» (challenges/hopp-lop/)
+  Brettspill (Eckdame / Halma-aktig): få alle ni brikkene over i motstanderens hjørne ved å gå og hoppe. Alle trekk må «kjøpes» med et riktig svar. Alle mot datamaskinen, eller lag mot lag.
+  Filer: index.html (skjermer) · rules.js (regler, kjører hos verten) · board.js (brett og visning). Felles: ../brettspill/core.js (spillmotor, spillere, oppgaver), ../brettspill/ui.js (rom, lobby, oppgavekort, resultater), ../brettspill/shared.css.
+         Gjenbruker ../aergere-dich-nicht/engine.js + data.js (oppgaver), ../stigespill/engine.js (verbretting) og ../stigespill/net.js (PeerJS). Se README.md.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hopp-løp · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../brettspill/shared.css">
+<style>
+
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link dw-nav-active" href="../">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../lernreise/">🧭 Lernreise</a>
+      <a class="dw-nav-link" href="../../lernpfad/">🛤️ Lernpfad</a>
+      <a class="dw-nav-link" href="../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+
+  <div id="hdr">
+    <div class="dw-crumb"><a href="../">🏆 Challenges</a> <span>›</span> <span>Hopp-løp</span></div>
+    <div class="dw-header">
+      <h1>🦘 Hopp-løp (Eckdame)</h1>
+      <p>Et kappløp over brettet: Få alle ni brikkene dine inn i motstanderens hjørne – ved å gå og hoppe over brikker. Svar riktig for å få flytte!</p>
+    </div>
+  </div>
+
+  <!-- ================= HJEM ================= -->
+  <section id="scr-home">
+    <div class="home-grid">
+      <div class="card" id="host-card">
+        <h2>🎓 Jeg er vert (lærer)</h2>
+        <p>Opprett et spillrom. Du får en <b>romkode</b> på fire tegn som elevene skriver inn på sine egne maskiner. Du velger oppgavetyper, ord, tider og nivå, og kan selv følge med – eller spille.</p>
+        <p class="muted">Du kan også legge til spillere på <b>samme maskin</b> (smartboard eller en gruppe rundt én PC). Hvert rom har plass til <b>8 spillere</b>: alle mot datamaskinen, eller <b>lag mot lag</b> (hvit mot svart).</p>
+        <button class="btn prim big" id="h-create">Opprett spillrom</button>
+        <div id="resume-host" style="margin-top:12px"></div>
+        <div class="tip warn" id="h-nopeer" hidden>Nettverksbiblioteket kunne ikke lastes. Sjekk internettforbindelsen og last siden på nytt.</div>
+      </div>
+      <div class="card" id="join-card">
+        <h2>🎮 Jeg skal være med</h2>
+        <label class="lab" for="j-code">Romkode (fire tegn)</label>
+        <input type="text" id="j-code" class="codein" maxlength="4" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ABCD">
+        <label class="lab" for="j-name">Navnet ditt</label>
+        <input type="text" id="j-name" maxlength="14" autocomplete="off" placeholder="f.eks. Mia" style="width:100%;max-width:300px">
+        <label class="lab">Velg figur</label>
+        <div class="icopick" id="j-icons"></div>
+        <div class="row"><button class="btn prim" id="j-go">Bli med</button><span id="j-err" style="color:var(--dw-bad);font-weight:700;font-size:.88rem"></span></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h2>Slik spiller du</h2>
+      <ol class="rules">
+        <li><b>Brettet:</b> Hvit og svart har ni brikker hver, samlet i en trekant i hvert sitt hjørne (det <span style="color:#4f86b8;font-weight:800">blå</span> hjørnet nede til venstre og det <span style="color:#b86a4f;font-weight:800">røde</span> oppe til høyre). Alle trekk går skrått på de mørke rutene.</li>
+        <li><b>Målet:</b> Få alle ni brikkene dine inn i <b>motstanderens startområde</b> – det diagonalt motsatte hjørnet. Den som er først, vinner.</li>
+        <li><b>Gå:</b> Du flytter én brikke per tur, ett skritt skrått <b>framover eller sidelengs</b> til en tom rute. <b>Aldri bakover.</b></li>
+        <li><b>Hoppe:</b> Står en motstanderbrikke rett foran deg (skrått framover eller sidelengs) og ruta bak er tom, kan du hoppe over den. Står du så foran en ny brikke med tom rute bak, kan du <b>hoppe videre</b> – så mange ganger du vil. Det er ingen hoppetvang, og ingen brikker slås. Egne brikker kan du aldri hoppe over.</li>
+        <li><b>For å flytte</b> må du svare riktig på en oppgave: oversett et ord, velg artikkel (<i>der, die, das</i>), pronomen/eiendomsord eller bøy et verb. Svarer du feil, mister laget turen. Er motstanderen datamaskinen, flytter den likevel!</li>
+        <li>Blokkerer motstanderen ett eller to av målfeltene dine med en brikke som aldri flytter seg, vinner du når resten av området er fylt.</li>
+      </ol>
+      <p class="muted">Tips: Bygg «stiger» med brikkene dine, så motstanderens brikker kan hoppe over dem også – eller hold deg unna og ta hopp som kommer til deg. Etter et hopp kan du velge «Stopp her» eller hoppe videre.</p>
+    </div>
+  </section>
+
+  <!-- ================= LOBBY ================= -->
+  <section id="scr-lobby" hidden>
+    <div class="gbar"><span class="pill" id="l-status">…</span><span class="grow"></span><button class="btn sm" id="l-leave">Forlat rommet</button></div>
+    <div class="lobby-grid">
+      <div>
+        <div class="codebox">
+          <small>Romkode</small>
+          <div class="code" id="l-code">----</div>
+          <small id="l-linkline">Elevene går til denne siden og velger «Jeg skal være med»</small>
+          <div style="margin-top:10px"><button class="btn sm gold" id="l-copy">📋 Kopier lenke</button></div>
+        </div>
+        <div class="card">
+          <h3>Spillere (<span id="l-count">0</span> av 8)</h3>
+          <ul class="plist" id="plist"></ul>
+          <p class="muted" style="margin-top:8px" id="l-colnote"></p>
+          <div id="addlocal" hidden style="margin-top:14px;border-top:1px dashed #d9d3c4;padding-top:12px">
+            <label class="lab" style="margin-top:0">➕ Legg til spiller på denne maskinen</label>
+            <div class="row"><input type="text" id="al-name" maxlength="14" placeholder="Navn" style="flex:1;min-width:120px"><button class="btn sm prim" id="al-go">Legg til</button></div>
+            <div class="icopick" id="al-icons" style="margin-top:8px"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card" id="settings-card" hidden>
+          <h3>Innstillinger</h3>
+          <label class="lab">Oppgavetyper (velg én eller flere – oppgavene blandes)</label>
+          <div class="chips" id="s-tasks"></div>
+          <div class="subcard" id="sub-words">
+            <h4>Ord og artikler</h4>
+            <label class="lab">Temaer</label>
+            <div class="chips" id="s-themes"></div>
+          </div>
+          <div class="subcard" id="sub-trans">
+            <h4>Oversettelse og pronomen</h4>
+            <label class="lab">Retning</label>
+            <div class="seg" id="s-dir"><button data-v="no-de">Norsk → tysk</button><button data-v="de-no">Tysk → norsk</button><button data-v="begge">Begge</button></div>
+            <label class="lab">Svarform</label>
+            <div class="seg" id="s-mode"><button data-v="velg">Flervalg</button><button data-v="skriv">Skriv selv</button><button data-v="mix">Blandet</button></div>
+            <div class="chips" style="margin-top:8px"><button class="chip" id="s-reqart">Krev artikkel når jeg skriver tyske substantiv</button></div>
+          </div>
+          <div class="subcard" id="sub-verbs">
+            <h4>Verbbøying</h4>
+            <label class="lab">Verbgrupper</label>
+            <div class="chips" id="s-sets"></div>
+            <label class="lab">Tider</label>
+            <div class="chips" id="s-tenses"></div>
+          </div>
+          <label class="lab">Nivå (gjelder ord, pronomen og verb)</label>
+          <div class="seg" id="s-level"><button data-v="A1">A1 (enklest)</button><button data-v="A2">A2</button><button data-v="B1">B1 (alle)</button></div>
+          <div id="s-extra"></div>
+          <label class="lab">Tid til å svare</label>
+          <div class="seg" id="s-time"><button data-v="0">Ingen</button><button data-v="20">20 s</button><button data-v="30">30 s</button><button data-v="45">45 s</button><button data-v="60">60 s</button></div>
+          <label class="lab">Spilletid (spillet avsluttes etter siste tur når tiden er ute)</label>
+          <div class="seg" id="s-minutes"><button data-v="0">Ingen grense</button><button data-v="10">10 min</button><button data-v="15">15 min</button><button data-v="20">20 min</button><button data-v="30">30 min</button></div>
+          <label class="lab">Hjelp</label>
+          <div class="chips"><button class="chip" id="s-help">Vis norsk betydning (verb og artikkel-oppgaver)</button></div>
+          <div class="poolinfo" id="s-pool"></div>
+          <div style="margin-top:16px"><button class="btn prim big" id="b-start">▶ Start spillet</button> <span id="s-err" style="color:var(--dw-bad);font-weight:700;font-size:.88rem"></span></div>
+        </div>
+        <div class="card" id="summary-card" hidden>
+          <h3>Venter på at læreren starter …</h3>
+          <div id="s-summary" class="muted"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SPILL ================= -->
+  <section id="scr-game" hidden>
+    <div class="gbar">
+      <span class="pill">Rom <b id="g-code">----</b></span>
+      <span class="pill" id="g-status">…</span>
+      <span class="pill" id="g-role"></span>
+      <span class="pill clock" id="g-clock" hidden>⏱ <b id="g-clockv">0:00</b></span>
+      <span class="grow"></span>
+      <button class="btn sm" id="g-sound" title="Lyd av/på">🔊</button>
+      <button class="btn sm" id="g-skip" hidden>⏭ Hopp over tur</button>
+      <button class="btn sm" id="g-end" hidden>🏁 Avslutt spillet</button>
+      <button class="btn sm" id="g-leave">Forlat</button>
+    </div>
+    <div class="gmain">
+      <div class="boardwrap"><div class="boardcol">
+        <div class="bd grid" id="bd" aria-label="Spillebrett"></div>
+        <div class="legend"><span>⚪ Hvit starter i det blå hjørnet (nede til venstre) · ⚫ svart i det røde (oppe til høyre) · hopp over brikker, ingen slås</span></div>
+        <div id="bd-legend" style="width:100%"></div>
+      </div></div>
+      <div class="side">
+        <div class="card" id="c-turn"></div>
+        <div class="card prompt" id="c-prompt" hidden></div>
+        <div class="card" id="c-players"><h3 style="margin-bottom:8px">Spillere</h3><div class="pl" id="pl"></div></div>
+        <div class="card" id="c-log"><h3 style="margin-bottom:8px">Siste svar</h3><div class="log" id="log"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SLUTT ================= -->
+  <section id="scr-end" hidden>
+    <div class="gbar"><span class="pill">Rom <b id="e-code">----</b></span><span class="grow"></span><button class="btn sm" id="e-leave">Forlat</button></div>
+    <div class="card">
+      <h2 id="e-title">🏆 Resultat</h2>
+      <div class="podium" id="e-podium"></div>
+    </div>
+    <div class="card"><h3>Oversikt</h3><div style="overflow-x:auto"><table class="rk" id="e-table"></table></div></div>
+    <div class="card"><h3>Oppgaver som var vanskelige</h3><p class="muted">Sortert etter hvor mange feil som ble gjort. Dette er gode ord å repetere sammen.</p><div class="hard" id="e-hard"></div></div>
+    <div class="row no-print">
+      <button class="btn gold" id="e-copy">📋 Kopier resultatet</button>
+      <button class="btn" id="e-print">🖨️ Skriv ut</button>
+      <button class="btn prim" id="e-again" hidden>🔄 Nytt spill (samme rom)</button>
+      <span class="muted" id="e-wait" hidden>Venter på at læreren starter et nytt spill …</span>
+    </div>
+  </section>
+
+  <p class="muted" style="margin-top:26px">Se også: <a href="../" style="color:var(--dw-primary-light);font-weight:700">Challenges</a> · <a href="../stigespill/" style="color:var(--dw-primary-light);font-weight:700">Verb-Stigespill</a> · <a href="../aergere-dich-nicht/" style="color:var(--dw-primary-light);font-weight:700">Ärgere dich nicht</a> · <a href="../dame/" style="color:var(--dw-primary-light);font-weight:700">Dame</a> · <a href="../muehle/" style="color:var(--dw-primary-light);font-weight:700">Mølle</a> · <a href="../wolf-und-schafe/" style="color:var(--dw-primary-light);font-weight:700">Ulv og sauer</a></p>
+</div>
+
+<div class="confetti" id="confetti"></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>window.DW_PEER_PREFIX='dwhopp-';</script>
+<script src="../../assets/peerjs.min.js"></script>
+<script src="../../verben/verben_data.js"></script>
+<script src="../stigespill/engine.js"></script>
+<script src="../aergere-dich-nicht/data.js"></script>
+<script src="../aergere-dich-nicht/engine.js"></script>
+<script src="../stigespill/net.js"></script>
+<script src="../brettspill/core.js"></script>
+<script src="../brettspill/ui.js"></script>
+<script src="../brettspill/two.js"></script><script src="../brettspill/grid.js"></script><script src="rules.js"></script>
+<script src="board.js"></script>
+</body>
+</html>

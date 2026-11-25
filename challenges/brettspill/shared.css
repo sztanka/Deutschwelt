@@ -216,3 +216,20 @@
   .evlist .ic{font-size:1.1rem;margin-right:4px;}
   @media(max-width:900px){ .bd{width:100%;} }
   @media(max-width:520px){ .tierbtns button .ti2{font-size:1.4rem;} .tierbtns button{font-size:.85rem;} }
+
+/* ---------- 8 × 8-brett med brikker (Dame, Hopp-løp): grid.js ---------- */
+.bd.grid{width:min(100%,calc(100vh - 170px));min-width:300px;aspect-ratio:1 / 1;--ts:9.4cqw;background:#f0e6c8;}
+.grid .wcells{position:absolute;inset:0;display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(8,1fr);}
+.grid .wc{position:relative;}
+.grid .wc.dk{background:#6b8e4e;} .grid .wc.lt{background:#f0e6c8;}
+.grid .wc.camp0{background:#4f86b8;} .grid .wc.camp1{background:#b86a4f;}
+.grid .co{position:absolute;font-style:normal;font-size:2.1cqw;font-weight:800;opacity:.75;line-height:1;}
+.grid .wc.dk .co{color:#e9f2dd;} .grid .wc.lt .co{color:#6b8e4e;}
+.grid .co.l{left:.6cqw;top:.4cqw;} .grid .co.b{right:.7cqw;bottom:.4cqw;}
+.btok.dp0{background:radial-gradient(circle at 35% 30%,#fff,#e4e4e4 70%);border-color:#a8adb3;}
+.btok.dp1{background:radial-gradient(circle at 35% 30%,#666,#1f1f1f 72%);border-color:#000;}
+.btok .crown{font-size:.95em;color:#d9a91c;text-shadow:0 0 .2em rgba(0,0,0,.6);line-height:1;}
+.btok.dp0 .crown{color:#b8860b;}
+.btok{transition:left .45s ease,top .45s ease,opacity .25s,transform .25s;}
+@media(max-width:900px){ .bd.grid{width:100%;} }
+@media(max-width:600px){ .plist li{flex-wrap:wrap;} .plist .pn small{display:block;} }

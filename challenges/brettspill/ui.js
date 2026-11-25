@@ -36,7 +36,7 @@
     function findP(v, id) { for (var i = 0; i < v.players.length; i++) if (v.players[i].id === id) return v.players[i]; return null; }
     function iControl(v, pid) { var p = findP(v, pid); if (!p) return false; return S.mode === 'host' ? !!p.local : pid === S.myPid; }
     function curP(v) { return v && v.players[v.turn] || null; }
-    function pcolor(p, idx) { var s = p && p.seat != null && p.seat >= 0 ? p.seat : (idx || 0); return COLORS[s % COLORS.length].col; }
+    function pcolor(p, idx) { if (cfg.pcolor) return cfg.pcolor(p, idx); var s = p && p.seat != null && p.seat >= 0 ? p.seat : (idx || 0); return COLORS[s % COLORS.length].col; }
     function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
     function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { } }
     function lsDel(k) { try { localStorage.removeItem(k); } catch (e) { } }
@@ -288,7 +288,7 @@
       if (ph === 'play' && prev && prev.phase === 'play') {
         for (var i = 0; i < evs.length; i++) await playEvent(evs[i], s);
       } else if (ph === 'end') {
-        if (evs.some(function (x) { return x.k === 'end'; }) && s.winner) { Snd.win(); confetti(); }
+        if (evs.some(function (x) { return x.k === 'end'; }) && s.winner && findP(s, s.winner)) { Snd.win(); confetti(); }
       }
       S.view = s; cfg.board.setDisp(s); renderAll(s);
     }
@@ -296,7 +296,8 @@
       switch (e.k) {
         case 'roll': Snd.roll(); setDieRolling(true); await sleep(850); setDieRolling(false); setDie(e.die); await sleep(300); break;
         case 'result': if (e.ok) Snd.ok(); else Snd.bad(); await sleep(350); break;
-        case 'win': Snd.win(); confetti(); await sleep(500); break;
+        case 'win': if (findP(s, e.pid)) { Snd.win(); confetti(); await sleep(500); } break;
+        case 'lose': Snd.down(); await sleep(400); break;
         case 'turn': case 'start': case 'end': break;
         default: if (cfg.board.event) await cfg.board.event(e, s, ui);
       }
@@ -511,7 +512,7 @@
       var pl = $('#pl'); pl.innerHTML = '';
       v.players.forEach(function (x, xi) {
         var d = document.createElement('div'); d.className = 'p' + (p && x.id === p.id && v.phase === 'play' ? ' cur' : ''); d.style.setProperty('--pc', pcolor(x, xi));
-        d.innerHTML = '<span class="pc2"></span><span class="pi" style="border-color:' + pcolor(x, xi) + '">' + x.icon + '</span><span class="pn">' + esc(x.name) + (!x.conn && !x.local ? ' <small class="muted">(borte)</small>' : '') + '</span><span class="st">' + (cfg.playerStat ? cfg.playerStat(x, v) + ' · ' : '') + '<b class="g">' + x.right + '✓</b> <b class="r">' + x.wrong + '✗</b></span>';
+        d.innerHTML = '<span class="pc2"></span><span class="pi" style="border-color:' + pcolor(x, xi) + '">' + x.icon + '</span><span class="pn">' + esc(x.name) + (!x.conn && !x.local ? ' <small class="muted">(borte)</small>' : '') + '</span><span class="st">' + (cfg.playerStat ? (cfg.playerStat(x, v) ? cfg.playerStat(x, v) + ' · ' : '') : '') + '<b class="g">' + x.right + '✓</b> <b class="r">' + x.wrong + '✗</b></span>';
         pl.appendChild(d);
       });
       $('#log').innerHTML = v.log.slice(-10).reverse().map(function (l) { return '<div class="' + esc(l.c) + '">' + esc(l.t) + '</div>'; }).join('');
@@ -565,7 +566,7 @@
         var L2 = v.last || {};
         var res = '<div class="res ok"><b class="big">✓ Riktig!</b> <span class="sol">' + esc((t.pr ? t.pr + ' ' : '') + (L2.sol || '')) + '</span></div>';
         if (control && p) {
-          card.innerHTML = head + res + '<div class="muted" style="margin-top:8px"><b>' + esc(cfg.pickHead || 'Velg trekk') + '</b> (klikk på brettet eller her):</div><div class="pbtns">' + c.moves.map(function (m) { return '<button type="button" data-id="' + m.id + '" style="--pc:' + pcolor(p) + '">' + esc(cfg.pickText(v, p, m, ui)) + '</button>'; }).join('') + '</div>';
+          card.innerHTML = head + res + '<div class="muted" style="margin-top:8px"><b>' + esc(typeof cfg.pickHead === 'function' ? cfg.pickHead(v, p, c) : (cfg.pickHead || 'Velg trekk')) + '</b> (klikk på brettet eller her):</div><div class="pbtns">' + c.moves.map(function (m) { return '<button type="button" data-id="' + m.id + '" style="--pc:' + pcolor(p) + '">' + esc(cfg.pickText(v, p, m, ui)) + '</button>'; }).join('') + '</div>';
           $$('.pbtns button', card).forEach(function (b) { b.addEventListener('click', function () { act('pick', parseInt(b.getAttribute('data-id'), 10)); }); });
         } else card.innerHTML = head + res + '<div class="muted" style="margin-top:8px">' + (who ? who.icon + ' ' + esc(who.name) : '') + ' velger trekk …</div>';
       } else {

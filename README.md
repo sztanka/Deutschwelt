@@ -692,13 +692,23 @@ deutschwelt-site/
 │   ├── aergere-dich-nicht/
 │   │   └── index.html (+ engine.js, app.js, data.js, trykk/index.html) → «Ärgere dich nicht» — Ludo med tyskoppgaver (PeerJS-spillrom) + utskriftsversjon
 │   ├── brettspill/
-│   │   └── core.js, ui.js, shared.css → felles kjerne for Gåsespillet, Hesteveddeløpet og Ulv og sauer (spillrom, oppgaver, retting, resultater)
+│   │   └── core.js, ui.js, shared.css (+ two.js, grid.js) → felles kjerne for alle brettspillene (spillrom, oppgaver, retting, resultater; two.js = to-sidige spill, grid.js = rutebrett)
 │   ├── gaensespiel/
 │   │   └── index.html (+ rules.js, board.js) → «Gåsespillet» — spiral med 63 felt og hendelsesfelt (PeerJS-spillrom)
 │   ├── pferderennen/
 │   │   └── index.html (+ rules.js, board.js) → «Hesteveddeløpet» — oval bane, velg tempo (lett/vanlig/vanskelig = 2/3/5 felt)
 │   ├── wolf-und-schafe/
 │   │   └── index.html (+ rules.js, board.js) → «Ulv og sauer» — 4 sauer mot ulv på 8×8, ulven er datamaskinen (3 nivåer) eller en spiller
+│   ├── dame/
+│   │   └── index.html (+ rules.js, board.js) → «Dame» — 8×8, tvungen slag, flygende dronninger; datamaskin (3 nivåer) eller lag mot lag
+│   ├── muehle/
+│   │   └── index.html (+ rules.js, board.js) → «Mølle (Mühle)» — 24 punkter, sette/flytte/hoppe, møller fjerner brikker
+│   ├── hopp-lop/
+│   │   └── index.html (+ rules.js, board.js) → «Hopp-løp (Eckdame)» — hjørne til hjørne, kjedehopp over motstanderen
+│   ├── ludo-lag/
+│   │   └── index.html (+ rules.js, board.js) → «Ludo lagspill» — 2–4 lag, flere spillere per lag
+│   ├── brettspill-trykk/
+│   │   └── index.html → utskrift (brett, regler, kort, fasit) for Gåsespillet, Hesteveddeløpet og Ulv og sauer
 │   ├── stigespill/
 │   │   └── index.html (+ engine.js, net.js, app.js) → «Verb-Stigespill» — flerspiller-stigespill (PeerJS), bøy verb etter terningen
 │   ├── escape-room/
@@ -2753,4 +2763,25 @@ Tre brettspill hentet fra «Spielesammlung 100» (Schmidt Spiele). De deler én 
 
 **Ulv og sauer:** 8 × 8, mørke ruter. Fire sauer går skrått oppover, ulven skrått i alle retninger, ingen slag. Sauene vinner når ulven er innestengt; ulven vinner når den er forbi alle sauene (rad ≥ bakerste sau) eller sauene ikke kan flytte. Sauespillerne spiller på lag og bytter på å ta turen. Alle trekk krever riktig svar; er ulven datamaskinen, flytter den likevel etter hver sau-tur (også etter feil svar). Datamaskin-ulven bruker minimax med dybde 1 (snill, litt tilfeldig), 3 (vanlig) eller 5 (lur). Ulven kan også være en spiller (🐺-knapp ved navnet i lobbyen); da veksler turen mellom en sau-spiller og ulven. Sauene kan vinne med perfekt spill fra alle fire startposisjoner (utregnet), så spillet er rettferdig. Opptil 8 spillere.
 
-**Kjente begrensninger:** som Stigespillet (vertens fane må forbli åpen; strenge skolenett kan blokkere WebRTC). Ingen utskriftsversjon ennå for disse tre.
+**Kjente begrensninger:** som Stigespillet (vertens fane må forbli åpen; strenge skolenett kan blokkere WebRTC). Utskriftsversjon finnes nå, se under.
+
+## Runde 2: Dame, Mølle, Hopp-løp, Ludo lagspill og utskrift (`challenges/dame/`, `muehle/`, `hopp-lop/`, `ludo-lag/`, `brettspill-trykk/`) (25. november)
+Alle fire nye spill bruker samme spillrom som Gås/Hest/Ulv (vert oppretter rom, elevene går inn med kode; PeerJS-prefiks `dwdame-`, `dwmuehle-`, `dwhopp-`, `dwludolag-`). Hvert trekk «kjøpes» med et riktig svar; feil svar = tapt tur.
+
+**Felles tillegg i `challenges/brettspill/`:**
+- `two.js` (`window.DWTwo.make(def)`): bygger regelpakken for spill med to sider (Dame, Mølle, Hopp-løp). Innstillinger: `opp` = `ai` (alle spillere mot datamaskinen, nivå 1–3) eller `player` (lag mot lag, ⚪/⚫-chip i lobbyen, verten kan flytte folk mellom lagene). Enkle trekk utføres automatisk, ellers velger spilleren (`pick`). Kjedeslag/-hopp og fjerning etter mølle er «fortsettelsestrekk» (`st.chain`).
+- `grid.js` (`window.DWGrid.make(...)`): rutebrett 8×8 med klikk på brikke → klikk på mål. Brukes av Dame og Hopp-løp (Ulv og sauer har fortsatt egen kode).
+- `core.js`: `H.stop()` (uavgjort), `G.over`, og `pick` kan returnere ny `pick` (kjede). `ui.js`: `pickHead`, `cfg.pcolor`, hendelsen `lose`.
+
+**Dame:** 8×8 på mørke ruter, vanlige brikker flytter/slår kun framover, slag er tvunget og kjeder må fullføres, dronninger flyr, forfremmelse på siste rad. Uavgjort ved 40 rolige trekk eller 400 trekk. Datamaskinen: minimax med alfa-beta (dybde 1/3/5).
+
+**Mølle:** 24 punkter, 9 brikker hver (3 ringer, 16 møller). Først sette, så flytte; med 3 brikker igjen får man hoppe. Mølle = fjern en motstanderbrikke (ikke i mølle, med mindre alle står i mølle). Taper med færre enn 3 brikker eller blokkert. Datamaskinen: dybde 1/2/3. Spiller-mot-spiller med tilfeldig spill ender ofte uavgjort (rolig-teller).
+
+**Hopp-løp (Eckdame):** leir = mørke ruter med «fremgang» ≤ 4 (9 ruter hver, hjørne mot hjørne). Trekk: ett skritt eller hopp over en motstanderbrikke (valgfritt kjedehopp, «Stopp her»-valg). Seier: alle 9 i målleiren, eller målleiren full (egne + motstanderens = 9) med minst 7 egne. Uavgjort etter 300 trekk. Datamaskinen: grådig / 2-lags. **NB:** vinnerregelen er vår tolkning av Eckdame på 8×8.
+
+**Ludo lagspill:** 2–4 lag (bruker Ludo-brettet), 1–4 brikker per lag, start med 6 eller ett. Hver spiller tilhører ett lag; lagkameratene bytter på å kaste og svare. 6 = ekstra kast for samme spiller. Første lag med alle brikker i mål vinner. Lag settes i lobbyen (fargechip).
+
+**Utskrift (`brettspill-trykk/`):** velg Gås, Hest eller Ulv (`?spill=gans|hest|ulv`, `?sett=12345` for fast settnummer). SVG-brett, regler på norsk, oppgavekort (12 per A4; hest = tre bunker Trav/Galopp/Full fart med fargestripe og prefiks T/G/F), fasit og utklippsbrikker til Ulv og sauer. Farger eller svart-hvitt. Bruker `DWLudo.makeTasks`, så oppgavene er de samme som i det digitale spillet.
+
+**Testing:** noder-simuleringer av alle regelpakker, Playwright-UI-test (24 trekk uten feil), flerspillertest med vert + to gjester via lokal PeerServer (synk: true, errors: []), mobilsjekk 390 px.
+**Kjente begrensninger:** vertens fane må være åpen; strenge skolenett kan blokkere WebRTC; PeerJS-skyen er ikke testet fra utviklingsmiljøet (kun lokal PeerServer).

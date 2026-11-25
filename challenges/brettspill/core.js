@@ -38,7 +38,7 @@
     var MAXP = R.maxPlayers || 4;
     var G = {
       code: opts.code || '', seq: 0, phase: 'lobby', stage: 'idle', settings: null, players: [], turn: 0, cur: null, last: null, log: [], events: [],
-      winner: null, summary: null, deadline: 0, resultUntil: 0, pickUntil: 0, goneSince: 0, nextPid: 1, tokens: {}, errors: [], round: 0, endAt: 0, extra: false, tid: 0, X: null
+      winner: null, over: false, summary: null, deadline: 0, resultUntil: 0, pickUntil: 0, goneSince: 0, nextPid: 1, tokens: {}, errors: [], round: 0, endAt: 0, extra: false, tid: 0, X: null
     };
     var d0 = L.defaults(), base = {};
     TASK_KEYS.forEach(function (k) { base[k] = cpy(d0[k]); });
@@ -68,6 +68,7 @@
     function usable(p) { return p && !p.gone && (p.conn || p.local); }
     var H = {
       G: G, rnd: rnd, rint: rint, ev: ev, log: addLog, pl: pl, cur: curP,
+      stop: function () { G.over = true; },
       win: function (p) { if (!p.finished) { p.finished = true; if (!G.winner) G.winner = p.id; ev({ k: 'win', pid: p.id }); } }
     };
     function cleanName(n, idx) { n = String(n || '').replace(/[<>&"]/g, '').replace(/\s+/g, ' ').trim().slice(0, 14); return n || ('Spiller ' + (idx + 1)); }
@@ -125,7 +126,7 @@
       var bad2 = R.check ? R.check(H) : ''; if (bad2) return { ok: false, msg: bad2 };
       G.players = act; reseat();
       G.players.forEach(function (p) { p.right = p.wrong = p.best = p.streak = 0; p.finished = false; p.skip = 0; if (R.initPlayer) R.initPlayer(p); });
-      G.phase = 'play'; G.stage = 'roll'; G.turn = 0; G.cur = null; G.last = null; G.winner = null; G.summary = null; G.errors = []; G.log = []; G.extra = false; G.tid = 0;
+      G.phase = 'play'; G.stage = 'roll'; G.turn = 0; G.cur = null; G.last = null; G.winner = null; G.over = false; G.summary = null; G.errors = []; G.log = []; G.extra = false; G.tid = 0;
       G.endAt = G.settings.minutes ? now + G.settings.minutes * 60000 : 0;
       G.events = [{ k: 'start' }]; G.X = {};
       if (R.start) R.start(H);
@@ -167,8 +168,8 @@
         addLog(p.name + ': ' + c.label + ' ✓', 'ok');
         var r = R.onCorrect(H, p, c) || {};
         (r.events || []).forEach(ev); Object.assign(info, r.last || {});
-        G.extra = !!r.extra && !G.winner; info.again = G.extra;
-        if (r.pick && r.pick.length && !G.winner) { G.cur.moves = r.pick; G.stage = 'pick'; G.pickUntil = now + PICK_MS; info.picking = true; }
+        G.extra = !!r.extra && !G.winner && !G.over; info.again = G.extra;
+        if (r.pick && r.pick.length && !G.winner && !G.over) { G.cur.moves = r.pick; G.stage = 'pick'; G.pickUntil = now + PICK_MS; info.picking = true; }
         else { G.stage = 'result'; G.resultUntil = now + RESULT_OK + (r.ms || 0); }
       } else {
         p.wrong++; p.streak = 0; G.extra = false;
@@ -188,14 +189,18 @@
       if (!mv) return { ok: false };
       G.events = [];
       var r = R.pick(H, p, G.cur, mv) || {};
-      (r.events || []).forEach(ev); Object.assign(G.last, r.last || {}); G.last.picking = false;
-      if (r.extra !== undefined) G.extra = !!r.extra && !G.winner;
+      (r.events || []).forEach(ev); Object.assign(G.last, r.last || {});
+      if (r.pick && r.pick.length && !G.winner && !G.over) {   // flertrinns-trekk (kjedehopp, fjerne stein): nytt valg uten nytt spørsmål
+        G.cur.moves = r.pick; G.pickUntil = now + PICK_MS; G.last.picking = true; bump(); return { ok: true };
+      }
+      G.last.picking = false;
+      if (r.extra !== undefined) G.extra = !!r.extra && !G.winner && !G.over;
       G.last.again = G.extra;
       G.stage = 'result'; G.pickUntil = 0; G.resultUntil = now + 1600 + (r.ms || 0);
       bump(); return { ok: true };
     };
     function advance(now) {
-      if (G.winner) { finish('win'); return; }
+      if (G.winner || G.over) { finish(G.winner ? 'win' : 'draw'); return; }
       if (G.endAt && now >= G.endAt && !G.extra) { finish('time'); return; }
       if (!G.players.length) { G.stage = 'idle'; return; }
       var n = G.players.length, idx = G.turn, i, cp = curP();
@@ -223,7 +228,7 @@
       G.errors.forEach(function (e) { var k = e.key; (agg[k] = agg[k] || { key: k, kind: e.kind, label: e.label, ctx: e.ctx, count: 0, items: [] }); agg[k].count++; agg[k].items.push({ name: e.name, given: e.given, sol: e.sol, person: e.person }); });
       var hard = Object.keys(agg).map(function (k) { return agg[k]; }).sort(function (a, b) { return b.count - a.count; });
       G.summary = { why: why, rank: rank, hard: hard, errors: G.errors.slice(), note: R.endNote ? R.endNote(H, why) : '' };
-      addLog(why === 'win' ? '🏆 ' + (pl(G.winner) ? pl(G.winner).name : '') + ' vant!' : why === 'time' ? 'Tiden er ute – spillet er avsluttet.' : 'Spillet ble avsluttet.', 'sys');
+      addLog(why === 'win' ? '🏆 ' + (pl(G.winner) ? pl(G.winner).name : '') + ' vant!' : why === 'time' ? 'Tiden er ute – spillet er avsluttet.' : why === 'draw' ? 'Uavgjort – spillet er over.' : 'Spillet ble avsluttet.', 'sys');
       bump();
     }
     api.tick = function (now) {
@@ -246,7 +251,7 @@
     };
     api.endGame = function () { if (G.phase === 'play') { finish('ended'); return true; } return false; };
     api.toLobby = function () {
-      G.phase = 'lobby'; G.stage = 'idle'; G.cur = null; G.last = null; G.winner = null; G.summary = null; G.errors = []; G.events = []; G.log = []; G.round++; G.extra = false; G.X = null;
+      G.phase = 'lobby'; G.stage = 'idle'; G.cur = null; G.last = null; G.winner = null; G.over = false; G.summary = null; G.errors = []; G.events = []; G.log = []; G.round++; G.extra = false; G.X = null;
       G.players = G.players.filter(function (p) { return (p.local || p.conn) && !p.gone; });
       reseat();
       G.players.forEach(function (p) { p.right = p.wrong = p.best = p.streak = 0; p.finished = false; p.skip = 0; if (R.initPlayer) R.initPlayer(p); });
