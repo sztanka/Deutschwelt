@@ -6,7 +6,7 @@
    For testing kan  ?peer=localhost:9000  brukes i adressen (lokal peerjs-server). */
 (function () {
   'use strict';
-  var PREFIX = 'dwstige-';
+  var PREFIX = window.DW_PEER_PREFIX || 'dwstige-';  // andre spill (f.eks. «Ärgere dich nicht») setter window.DW_PEER_PREFIX før denne filen lastes, så romkodene ikke kolliderer
   var ALPHA = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
   function baseOptions() {

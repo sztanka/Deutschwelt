@@ -689,6 +689,8 @@ deutschwelt-site/
 │   │   └── index.html                → «Tägliche Herausforderung»: dagens tre oppgaver + tilfeldig trekk (107 oppgaver med lenker, filter på type/nivå)
 │   ├── wortschatz-jagd/
 │   │   └── index.html                → «Wortschatz-Jagd»: Memory tysk/norsk (6/8/12 par, 6 kategorier, dagens brett, stokk om)
+│   ├── aergere-dich-nicht/
+│   │   └── index.html (+ engine.js, app.js, data.js, trykk/index.html) → «Ärgere dich nicht» — Ludo med tyskoppgaver (PeerJS-spillrom) + utskriftsversjon
 │   ├── stigespill/
 │   │   └── index.html (+ engine.js, net.js, app.js) → «Verb-Stigespill» — flerspiller-stigespill (PeerJS), bøy verb etter terningen
 │   ├── escape-room/
@@ -2718,3 +2720,16 @@ Digitalt stigespill der terningen både bestemmer hvor langt man går og hvilken
 **Regler:** riktig svar = står; står man ved foten av en stige går man opp, lander man øverst på en sklie glir man ned. Feil svar eller tidsavbrudd = tilbake til ruten man kom fra, med fasit. Først i mål med riktig svar vinner. Rettingen ignorerer store/små bokstaver og ledende pronomen, godtar ae/oe/ue/ss for ä/ö/ü/ß, og godtar alternative former (sammle/sammele, du aßt/aßest).
 
 **Utvide:** brettgenerering, verbutvalg (`kindOf`, `pool`) og retting (`grade`) ligger i `engine.js`; figurer i `ICONS`. Begrensning: testet mot lokal PeerServer, ikke mot PeerJS' skytjeneste fra sandkassen.
+
+## Ärgere dich nicht (`challenges/aergere-dich-nicht/`) (25. november)
+Ludo («Mensch ärgere dich nicht») med tyskoppgaver for 1–4 spillere. Samme rom-/nettverkskonsept som Verb-Stigespill (vert oppretter rom, elevene går inn med fire-tegns kode, vert kan også ha lokale spillere på samme maskin eller bare observere).
+
+**Filer:** `index.html` (utseende + skjermer), `engine.js` (regler, oppgavegenerering, retting – kjører hos verten, `window.DWLudo`, testbar i Node), `app.js` (brett, brikker, animasjon, lobby), `data.js` (ordlister + substantiv til eiendomsord), `trykk/index.html` (utskrift). Gjenbruker `../stigespill/engine.js` (verbvalg og retting av verbbøying), `../stigespill/net.js` (PeerJS; romkoden bruker prefikset `dwludo-` via `window.DW_PEER_PREFIX`, så Stigespill- og Ludo-rom ikke kolliderer) og `assets/peerjs.min.js`. Egen server/TURN og `?peer=localhost:9000` virker som i Stigespillet.
+
+**Regler:** kast → oppgave → riktig svar flytter en brikke (spilleren velger brikke hvis flere kan flyttes, ellers automatisk) → feil svar = ingen flytting. 40 ruter rundt, 4 hjem-felt per farge (må stoppe på ledig felt), utslåing sender brikken til start-boksen, 6-er gir ekstra tur (kun etter riktig svar), kan ikke lande på egen brikke. Start: «rask» (én brikke ute, resten krever 6; har man ingen brikke ute kommer en ut med hvilket som helst tall) eller «klassisk» (6 for å komme ut, 3 forsøk når alle står i boksen). Seter: 2 spillere = rød + grønn (mot hverandre), ellers rød, blå, grønn, gul. Vinner: først med alle brikker i hjem-feltene. Spilletid-grense avslutter etter siste tur; da rangeres på brikker hjemme, deretter fremgang.
+
+**Oppgavetyper (vert velger flere, blandes):** Oversettelse (norsk→tysk, tysk→norsk, begge; flervalg/skriv selv/blandet; valgfritt krav om artikkel), Artikler (der/die/das-knapper), Pronomen og eiendomsord (nivåstyrt: A1 nominativ + eiendomsord nominativ; A2 + akkusativ; B1 + dativ), Verbbøying (terningen bestemmer personen, som i Stigespillet). Ord fra Wortschatz-Jagd-listene (temaer: mat/dyr/natur, skole/hverdag/reise, allmenne ord, byer/land); nivå filtrerer på ordlengde (A1 ≤7, A2 ≤10 bokstaver). Fasiten (`priv`) sendes aldri til gjestene før oppgaven er besvart. Retting: ignorerer store/små bokstaver, godtar ae/oe/ue/ss for ä/ö/ü/ß og ae/o/a for æ/ø/å, valgfri artikkel i svaret, alternative norske betydninger.
+
+**Utvide:** nye ord i `data.js` (`words.<tema>` = `[tysk, der|die|das|pl|prop|adj|adv|v|…, norsk]`; `poss` = `[substantiv, m|f|n, p|t, kan stå etter «in»]`), nye setningsrammer for pronomen i `AKK_FR`/`DAT_FR` i `engine.js`, nye oppgavetyper som en `mkXxx`-funksjon i `createGame` som returnerer `{pub, priv, key, label, ctx}`.
+
+**Utskrift (`trykk/`):** brett som SVG (farger eller svart-hvitt), regelark, oppgavekort (12 per A4, 12–48 kort, samme valg som digitalt) og fasit. Settnummer gir samme kort og fasit (`trykk/?sett=12345`).
