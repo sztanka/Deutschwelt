@@ -691,6 +691,14 @@ deutschwelt-site/
 │   │   └── index.html                → «Wortschatz-Jagd»: Memory tysk/norsk (6/8/12 par, 6 kategorier, dagens brett, stokk om)
 │   ├── aergere-dich-nicht/
 │   │   └── index.html (+ engine.js, app.js, data.js, trykk/index.html) → «Ärgere dich nicht» — Ludo med tyskoppgaver (PeerJS-spillrom) + utskriftsversjon
+│   ├── brettspill/
+│   │   └── core.js, ui.js, shared.css → felles kjerne for Gåsespillet, Hesteveddeløpet og Ulv og sauer (spillrom, oppgaver, retting, resultater)
+│   ├── gaensespiel/
+│   │   └── index.html (+ rules.js, board.js) → «Gåsespillet» — spiral med 63 felt og hendelsesfelt (PeerJS-spillrom)
+│   ├── pferderennen/
+│   │   └── index.html (+ rules.js, board.js) → «Hesteveddeløpet» — oval bane, velg tempo (lett/vanlig/vanskelig = 2/3/5 felt)
+│   ├── wolf-und-schafe/
+│   │   └── index.html (+ rules.js, board.js) → «Ulv og sauer» — 4 sauer mot ulv på 8×8, ulven er datamaskinen (3 nivåer) eller en spiller
 │   ├── stigespill/
 │   │   └── index.html (+ engine.js, net.js, app.js) → «Verb-Stigespill» — flerspiller-stigespill (PeerJS), bøy verb etter terningen
 │   ├── escape-room/
@@ -2733,3 +2741,16 @@ Ludo («Mensch ärgere dich nicht») med tyskoppgaver for 1–4 spillere. Samme 
 **Utvide:** nye ord i `data.js` (`words.<tema>` = `[tysk, der|die|das|pl|prop|adj|adv|v|…, norsk]`; `poss` = `[substantiv, m|f|n, p|t, kan stå etter «in»]`), nye setningsrammer for pronomen i `AKK_FR`/`DAT_FR` i `engine.js`, nye oppgavetyper som en `mkXxx`-funksjon i `createGame` som returnerer `{pub, priv, key, label, ctx}`.
 
 **Utskrift (`trykk/`):** brett som SVG (farger eller svart-hvitt), regelark, oppgavekort (12 per A4, 12–48 kort, samme valg som digitalt) og fasit. Settnummer gir samme kort og fasit (`trykk/?sett=12345`).
+
+## Brettspill fra Spielesammlung: Gåsespillet, Hesteveddeløpet, Ulv og sauer (`challenges/gaensespiel/`, `pferderennen/`, `wolf-und-schafe/`) (25. november)
+Tre brettspill hentet fra «Spielesammlung 100» (Schmidt Spiele). De deler én felles kjerne i `challenges/brettspill/`, og hvert spill har bare egne regler (`rules.js`) og eget brett (`board.js`). Rommene fungerer som i Stigespillet og Ludo: vert oppretter rom, elevene går inn med fire-tegns kode, verten kan ha lokale spillere eller bare observere, «Hopp over tur» og «Avslutt spillet» finnes, og «Fortsett rommet» henter igjen rommet fra `localStorage`. Romkodeprefiks: `dwgans-`, `dwpferd-`, `dwulv-` (satt med `window.DW_PEER_PREFIX` før `net.js`).
+
+**Felles kjerne:** `core.js` (`window.DWBoard`) tar seg av spillere, tur, tidsgrense per svar, spilletid, retting og resultatliste; den bruker `DWLudo` (`../aergere-dich-nicht/engine.js`) som oppgavegenerator, så alle oppgavetyper og innstillinger er de samme som i Ludo: oversettelse, artikler, pronomen og eiendomsord, verbbøying; temaer, nivå, retning, svarform, norsk hjelp. `ui.js` (`DWBoardUI.run(cfg)`) tegner hjem/lobby/spill/resultat; `shared.css` er felles utseende. Et nytt spill = ny mappe med `rules.js` (regelpakke, se kommentaren øverst i `core.js`), `board.js` (kaller `DWBoardUI.run({...})`) og `index.html` laget av samme mal. Spillmeldinger: `{t:'go',v}`, `{t:'answer',text}`, `{t:'pick',id}`. Fasiten sendes aldri til gjestene før oppgaven er besvart.
+
+**Gåsespillet:** spiral på 9 × 7 ruter = felt 1–63, spillerne starter i en stripe over brettet. Terningen bestemmer antall felt (og personen ved verboppgaver); riktig svar = brikken flytter, feil = blir stående. Hendelsesfelt står på tysk med norsk hjelp under: gås (13 felt: 5, 9, 14 … 59 – gå like langt en gang til), 3 Bocksprung, 6 Brücke (→12), 15 Vogelkäfig (→11), 19 Hotel (1 runde over), 26 Würfelfeld (ekstra kast ved 3 eller 6), 31 Brunnen (sitter fast til 6, eller til en annen kommer), 39 Treppe (→33), 42 Labyrinth (→30), 52 Gefängnis (2 runder over), 58 Grab (→1), 63 mål (nås eller passeres). 1–6 spillere.
+
+**Hesteveddeløpet:** oval bane, 60 felt, hver spiller har egen bane. Spilleren velger tempo: Trav (lett oppgave: A1 + flervalg, 2 felt), Galopp (vanlig, 3 felt), Full fart (vanskelig: B1 + skriv selv, 5 felt). Spesialfelt: 10 hinder (−3), 20 hopp (+3), 30 grøft (ekstra tur), 40 styrt (1 runde over), 50 sluttspurt (+5). Mål ved 60 trenger ikke treffes nøyaktig. 1–6 spillere. Gradene er egne oppgavegeneratorer (`R.tiers` i regelpakken); har gradens nivå for få ord/verb, brukes de vanlige valgene.
+
+**Ulv og sauer:** 8 × 8, mørke ruter. Fire sauer går skrått oppover, ulven skrått i alle retninger, ingen slag. Sauene vinner når ulven er innestengt; ulven vinner når den er forbi alle sauene (rad ≥ bakerste sau) eller sauene ikke kan flytte. Sauespillerne spiller på lag og bytter på å ta turen. Alle trekk krever riktig svar; er ulven datamaskinen, flytter den likevel etter hver sau-tur (også etter feil svar). Datamaskin-ulven bruker minimax med dybde 1 (snill, litt tilfeldig), 3 (vanlig) eller 5 (lur). Ulven kan også være en spiller (🐺-knapp ved navnet i lobbyen); da veksler turen mellom en sau-spiller og ulven. Sauene kan vinne med perfekt spill fra alle fire startposisjoner (utregnet), så spillet er rettferdig. Opptil 8 spillere.
+
+**Kjente begrensninger:** som Stigespillet (vertens fane må forbli åpen; strenge skolenett kan blokkere WebRTC). Ingen utskriftsversjon ennå for disse tre.
