@@ -689,6 +689,8 @@ deutschwelt-site/
 │   │   └── index.html                → «Tägliche Herausforderung»: dagens tre oppgaver + tilfeldig trekk (107 oppgaver med lenker, filter på type/nivå)
 │   ├── wortschatz-jagd/
 │   │   └── index.html                → «Wortschatz-Jagd»: Memory tysk/norsk (6/8/12 par, 6 kategorier, dagens brett, stokk om)
+│   ├── stigespill/
+│   │   └── index.html (+ engine.js, net.js, app.js) → «Verb-Stigespill» — flerspiller-stigespill (PeerJS), bøy verb etter terningen
 │   ├── escape-room/
 │   │   └── index.html                → "Der verschlossene Klassenraum" — fire gåter gir en kode
 │   ├── kommissar-lupe/
@@ -2703,3 +2705,16 @@ Ny side `sprechen/vorstellen/index.html` (alt i én fil: CSS + JS), kort i `spre
 - **Avansert:** oppbygging i 5 trinn, Präteritum-tabell (hjelpeverb, svake, sterke, blandede), datoer/årstall (årstall-leser), V2-regel med årstall først, nyttige uttrykk, 4 ferdige eksempler (Einstein, Curie, Munch, Nansen — genereres av samme bygger), egen bygger for historiske personer (yrke m/f, fødsel, inntil 4 hendelser, død, «berühmt für», avslutning) og to øvelsessett (Präteritum, ordstilling med årstall først).
 - **Legge til innhold:** nederst i `<script>`: ordlister (`COUNTRIES`, `CITIES`, `LANGS`, `TRAITS`, `MAGS`, `ACT` = `[nøkkel, wir-verb, rest, er/sie-form, norsk]`), `JOBS` (`[mann, kvinne]`), `EVV` (verb i Präteritum), `CLOSES`, `PRESETS` (eksempelpersoner) og øvelsene `MC1`, `GAP2`, `GAP3`, `ORD1`, `GAP5`, `ORD6` (`gap(setning med ___, verb, svar)`, `mc(setning, riktig, …alternativer)`, `ord(norsk, tysk uten punktum, [alternative rekkefølger])`).
 - Opplesing bruker nettleserens tyske stemme (Web Speech API); finnes den ikke, skjules 🔊-knappene.
+
+## Verb-Stigespill (`challenges/stigespill/`) (25. november)
+Digitalt stigespill der terningen både bestemmer hvor langt man går og hvilken person (1 ich, 2 du, 3 er/sie/es, 4 wir, 5 ihr, 6 sie/Sie) man skal bøye ruten sitt verb for. Flere elever spiller på samme brett fra hver sin maskin, eller en gruppe deler én maskin.
+
+**Filer:** `index.html` (CSS + skjermer), `engine.js` (ren spillogikk, UMD `DWStige`, kan kjøres i Node), `net.js` (nettverk, `DWNet.Host/Guest`), `app.js` (UI, animasjon, lyd), `assets/peerjs.min.js` (PeerJS 1.5.4). Verbene hentes fra `verben/verben_data.js`.
+
+**Rom og nettverk:** Verten trykker «Opprett spillrom» og får en kode på fire tegn (`ABCDEFGHJKLMNPQRSTUVWXYZ23456789`). Gjester skriver koden, navn og figur, eller åpner lenken `…/stigespill/?kode=ABCD`. Peer-id er `dwstige-<KODE>`; spilldata går direkte mellom nettlesere (WebRTC), bare tilkoblingen går via PeerJS' gratis signalserver. Verten kjører hele spillet (`engine.js`), gjestene sender bare `{t:'roll'}` og `{t:'answer',text}` og får tilstand tilbake. Verten må la fanen stå åpen. Hjerteslag hvert 5. sekund; en frakoblet spiller hoppes over etter 9 s, gjester kobler seg til igjen automatisk (økt i `sessionStorage`, `dw-stige-guest`). Vertens rom lagres i `localStorage` (`dw-stige-host`) og tilbys som «Fortsett rommet». Egen server/TURN (skolenett som blokkerer WebRTC): sett `window.DW_PEER_OPTIONS = {host, port, secure, path, config:{iceServers:[…]}}` før `net.js`. Test mot lokal server: `?peer=localhost:9000`.
+
+**Innstillinger (vert):** verbgrupper (svake, sterke, modalverb, hjelpeverb sein/haben/werden/wissen, atskillelige, refleksive), nivå A1/A2/B1, tider (Presens, Präteritum, Perfekt, blandet), brettstørrelse (30/42/54 ruter), svartid (ingen/20/30/45/60 s), norsk hjelp. Verten kan spille selv, legge til lokale spillere på samme maskin, eller bare følge med (lærervisning med «Hopp over tur» og «Avslutt spillet»).
+
+**Regler:** riktig svar = står; står man ved foten av en stige går man opp, lander man øverst på en sklie glir man ned. Feil svar eller tidsavbrudd = tilbake til ruten man kom fra, med fasit. Først i mål med riktig svar vinner. Rettingen ignorerer store/små bokstaver og ledende pronomen, godtar ae/oe/ue/ss for ä/ö/ü/ß, og godtar alternative former (sammle/sammele, du aßt/aßest).
+
+**Utvide:** brettgenerering, verbutvalg (`kindOf`, `pool`) og retting (`grade`) ligger i `engine.js`; figurer i `ICONS`. Begrensning: testet mot lokal PeerServer, ikke mot PeerJS' skytjeneste fra sandkassen.

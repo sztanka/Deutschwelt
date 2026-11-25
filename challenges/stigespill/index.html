@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Challenges: «Verb-Stigespill» (challenges/stigespill/)
+  Flerspiller stigespill for verbbøying. Verten (læreren) oppretter et rom og får en kode; elevene går inn med koden og spiller på samme brett.
+  Filer: index.html (utseende + skjermer) · app.js (brett, terning, animasjon, lobby, skjermer) · engine.js (spillregler, kjører hos verten) · net.js (PeerJS-nettverk)
+  Bibliotek: ../../assets/peerjs.min.js (PeerJS 1.5.4, MIT). Verbdata: ../../verben/verben_data.js. Se README.md («Verb-Stigespill»).
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verb-Stigespill · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dw-primary:#161616;--dw-primary-light:#9c1329;--dw-accent:#d9a91c;--dw-good:#2e7d32;--dw-bad:#c62828;
+    --dw-bg:#f7f5f0;--dw-card:#ffffff;--dw-text:#232323;--dw-muted:#6b6b6b;--dw-radius:16px;
+    --c0:#e53935;--c1:#1e88e5;--c2:#43a047;--c3:#fb8c00;--c4:#8e24aa;--c5:#00acc1;--c6:#6d4c41;--c7:#d81b60;--c8:#3949ab;--c9:#7cb342;
+  }
+  *{box-sizing:border-box;}
+  [hidden]{display:none !important;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);}
+  .dw-wrap{max-width:980px;margin:0 auto;padding:0 16px 60px;}
+  body.in-game .dw-wrap{max-width:1180px;}
+  .dw-header{background:linear-gradient(120deg,var(--dw-primary) 0%,var(--dw-primary-light) 55%,var(--dw-accent) 100%);color:#fff;border-radius:var(--dw-radius);padding:28px 24px;text-align:center;margin-bottom:14px;}
+  .dw-header h1{margin:0 0 6px;font-size:1.75rem;font-family:"Baloo 2",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .dw-header p{margin:0;opacity:.95;}
+  .dw-crumb{font-size:.85rem;margin:14px 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .dw-crumb a{color:var(--dw-primary);text-decoration:none;font-weight:600;}
+  .dw-crumb a:hover{text-decoration:underline;}
+  .card{background:var(--dw-card);border:1px solid #ece8df;border-radius:var(--dw-radius);padding:18px 22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;line-height:1.55;font-size:.95rem;}
+  .card h2{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.25rem;color:var(--dw-primary);}
+  .card h3{margin:0 0 8px;font-family:"Baloo 2",-apple-system,sans-serif;font-size:1.05rem;color:var(--dw-primary-light);}
+  .card p{margin:0 0 10px;} .card p:last-child{margin-bottom:0;}
+  .muted{color:var(--dw-muted);font-size:.86rem;}
+  .btn{font-family:inherit;font-size:.95rem;font-weight:800;padding:10px 20px;border-radius:999px;border:2px solid #d9d3c4;background:#fff;color:var(--dw-text);cursor:pointer;}
+  .btn:hover:not(:disabled){border-color:var(--dw-primary-light);}
+  .btn:disabled{opacity:.5;cursor:default;}
+  .btn.prim{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .btn.prim:hover:not(:disabled){background:var(--dw-primary-light);border-color:var(--dw-primary-light);}
+  .btn.gold{background:var(--dw-accent);border-color:var(--dw-accent);color:#1a1a1a;}
+  .btn.sm{font-size:.8rem;padding:6px 13px;}
+  .btn.big{font-size:1.1rem;padding:13px 28px;}
+  .btn:focus-visible,.chip:focus-visible,.ico:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--dw-accent);outline-offset:2px;}
+  input[type=text],select{font-family:inherit;font-size:1rem;padding:9px 12px;border:2px solid #d9d3c4;border-radius:10px;background:#fff;color:var(--dw-text);}
+  input[type=text]:focus{outline:none;border-color:var(--dw-primary-light);box-shadow:0 0 0 3px rgba(156,19,41,.15);}
+  label.lab{display:block;font-size:.8rem;font-weight:800;color:var(--dw-muted);margin:10px 0 4px;}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+  .chip{font-family:inherit;font-size:.86rem;font-weight:700;padding:6px 13px;border-radius:999px;border:2px solid #d9d3c4;background:#fff;color:var(--dw-text);cursor:pointer;}
+  .chip:hover{border-color:var(--dw-primary-light);}
+  .chip.on{background:var(--dw-primary);border-color:var(--dw-primary);color:#fff;}
+  .chip small{opacity:.75;font-weight:600;}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;}
+  .tip{background:#fff9ec;border:1px solid #f0dca8;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.9rem;line-height:1.55;}
+  .tip.warn{background:#fdecee;border-color:#f2c0c7;}
+  .tip.blue{background:#f3f6fb;border-color:#d7e1f0;}
+
+  /* hjem */
+  .home-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .home-grid .card{margin:0;}
+  .icopick{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 6px;}
+  .ico{font-size:1.5rem;width:46px;height:46px;border-radius:12px;border:2px solid #e4dfd2;background:#fff;cursor:pointer;line-height:1;}
+  .ico:hover{border-color:var(--dw-primary-light);}
+  .ico.on{border-color:var(--dw-primary);background:#fff3cf;box-shadow:0 0 0 3px rgba(217,169,28,.35);}
+  .ico:disabled{opacity:.3;cursor:default;}
+  .codein{font-size:1.6rem;font-weight:800;letter-spacing:.35em;text-transform:uppercase;text-align:center;width:9em;max-width:100%;}
+  .rules{margin:0;padding-left:20px;} .rules li{margin-bottom:5px;}
+  .dice-legend{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:10px 0;}
+  .dice-legend div{background:#fbfaf6;border:1px solid #ece8df;border-radius:10px;text-align:center;padding:6px 2px;font-size:.78rem;line-height:1.3;}
+  .dice-legend b{display:block;font-size:1.1rem;}
+
+  /* lobby */
+  .lobby-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:16px;align-items:start;}
+  .lobby-grid .card{margin:0 0 16px;}
+  .codebox{text-align:center;background:linear-gradient(120deg,#161616,#9c1329);color:#fff;border-radius:var(--dw-radius);padding:18px 14px;margin-bottom:16px;}
+  .codebox .code{font-family:"Baloo 2",sans-serif;font-size:3.4rem;font-weight:800;letter-spacing:.22em;line-height:1.1;margin-left:.22em;}
+  .codebox small{opacity:.9;display:block;font-size:.84rem;}
+  .plist{list-style:none;margin:0;padding:0;display:grid;gap:8px;}
+  .plist li{display:flex;align-items:center;gap:10px;background:#fbfaf6;border:1px solid #ece8df;border-radius:12px;padding:8px 12px;}
+  .plist .pi{font-size:1.6rem;width:38px;height:38px;display:inline-grid;place-items:center;border-radius:50%;background:#fff;border:3px solid var(--pc,#ccc);}
+  .plist .pn{font-weight:800;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .plist .pn small{font-weight:600;color:var(--dw-muted);margin-left:6px;}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#bbb;} .dot.on{background:#2e7d32;} .dot.off{background:#c62828;}
+  .xbtn{border:none;background:none;cursor:pointer;font-size:1.1rem;color:var(--dw-muted);padding:4px 8px;border-radius:8px;} .xbtn:hover{background:#fdecee;color:var(--dw-bad);}
+  .setgrid{display:grid;gap:4px;}
+  .seg{display:inline-flex;border:2px solid #d9d3c4;border-radius:999px;overflow:hidden;background:#fff;}
+  .seg button{font-family:inherit;font-weight:800;font-size:.85rem;border:none;background:none;padding:7px 16px;cursor:pointer;color:var(--dw-text);}
+  .seg button.on{background:var(--dw-primary);color:#fff;}
+  .poolinfo{font-size:.85rem;font-weight:700;color:var(--dw-muted);margin-top:8px;}
+  .poolinfo.bad{color:var(--dw-bad);}
+
+  /* spill */
+  .gbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0;font-size:.85rem;}
+  .gbar .grow{flex:1;}
+  .pill{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px solid #e4dfd2;border-radius:999px;padding:5px 12px;font-weight:800;font-size:.8rem;}
+  .pill.ok{border-color:#a5d6a7;background:#eef7ee;} .pill.down{border-color:#f2c0c7;background:#fdecee;}
+  .gmain{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:18px;align-items:start;}
+  .side{display:grid;gap:12px;align-content:start;}
+  .side .card{margin:0;padding:14px 16px;}
+  .turn{font-family:"Baloo 2",sans-serif;font-size:1.25rem;font-weight:800;display:flex;align-items:center;gap:10px;}
+  .turn .ti{font-size:1.9rem;}
+  .turn.me{color:var(--dw-primary-light);}
+  .yourturn{animation:pulse 1.2s infinite;}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(217,169,28,.0);}50%{box-shadow:0 0 0 8px rgba(217,169,28,.35);}}
+  .diebox{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .die{width:72px;height:72px;background:#fff;border:3px solid var(--dw-primary);border-radius:16px;display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);padding:9px;gap:3px;box-shadow:0 4px 0 rgba(0,0,0,.18);flex:none;}
+  .die i{border-radius:50%;background:transparent;display:grid;place-items:center;font-style:normal;font-weight:800;color:#bbb;} .die i.p{background:var(--dw-primary);} .die i.q{grid-area:2/2;font-size:1.6rem;}
+  .die.rolling{animation:shake .35s infinite;}
+  @keyframes shake{0%{transform:rotate(0) translateY(0);}25%{transform:rotate(-12deg) translateY(-6px);}50%{transform:rotate(9deg) translateY(0);}75%{transform:rotate(-7deg) translateY(-4px);}100%{transform:rotate(0) translateY(0);}}
+  .diemeta{flex:1;min-width:150px;font-size:.9rem;}
+  .diemeta b{font-size:1.1rem;}
+  .prompt .vb{font-family:"Baloo 2",sans-serif;font-size:2rem;font-weight:800;color:var(--dw-primary);line-height:1.1;}
+  .prompt .no{font-size:.95rem;color:var(--dw-muted);margin:2px 0 8px;font-style:italic;}
+  .tag{display:inline-block;font-size:.72rem;font-weight:800;border-radius:999px;padding:2px 10px;color:#fff;}
+  .tag.praesens{background:#1e88e5;} .tag.praeteritum{background:#fb8c00;} .tag.perfekt{background:#43a047;}
+  .ans{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0 6px;}
+  .ans .pr{font-size:1.25rem;font-weight:800;color:var(--dw-primary-light);white-space:nowrap;}
+  .ans input{flex:1;min-width:130px;font-size:1.2rem;font-weight:700;border-width:3px;}
+  .keys{display:flex;gap:6px;align-items:center;font-size:.78rem;color:var(--dw-muted);margin-top:6px;flex-wrap:wrap;}
+  .keys button{font-family:inherit;font-weight:800;font-size:1rem;width:36px;height:34px;border:2px solid #d9d3c4;border-radius:8px;background:#fff;cursor:pointer;}
+  .keys button:hover{border-color:var(--dw-primary-light);}
+  .hint{font-size:.82rem;color:#7a5a00;background:#fff9ec;border-radius:8px;padding:5px 9px;margin-top:6px;}
+  .tbar{height:8px;background:#ece8df;border-radius:999px;overflow:hidden;margin:8px 0 0;} .tbar i{display:block;height:100%;width:100%;background:var(--dw-good);transition:width .25s linear,background .3s;}
+  .res{border-radius:12px;padding:12px 14px;font-size:.98rem;line-height:1.5;}
+  .res.ok{background:#eef7ee;color:#1f5d23;} .res.bad{background:#fdecee;color:#8c1d1d;}
+  .res b.big{font-size:1.15rem;}
+  .res .sol{font-size:1.2rem;font-weight:800;}
+  .pl{display:grid;gap:6px;}
+  .pl .p{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:10px;background:#fbfaf6;border:1.5px solid #ece8df;font-size:.88rem;}
+  .pl .p.cur{background:#fff3cf;border-color:var(--dw-accent);}
+  .pl .p .pi{font-size:1.25rem;width:30px;height:30px;display:inline-grid;place-items:center;border-radius:50%;background:#fff;border:3px solid var(--pc);flex:none;}
+  .pl .p .pn{font-weight:800;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .pl .p .st{font-size:.78rem;color:var(--dw-muted);white-space:nowrap;}
+  .pl .p .st b.g{color:var(--dw-good);} .pl .p .st b.r{color:var(--dw-bad);}
+  .log{font-size:.8rem;line-height:1.45;max-height:180px;overflow:auto;display:grid;gap:3px;}
+  .log div{padding:3px 8px;border-radius:7px;background:#fbfaf6;}
+  .log .ok{background:#eef7ee;} .log .bad{background:#fdecee;} .log .sys{color:var(--dw-muted);font-style:italic;background:none;}
+  .gctl{display:flex;gap:8px;flex-wrap:wrap;}
+
+  /* brett */
+  .boardwrap{display:flex;justify-content:center;}
+  .board{position:relative;width:min(100%,calc((100vh - 150px) * 6 / var(--rows,7)));min-width:300px;aspect-ratio:6 / var(--rows,7);container-type:inline-size;background:#fff;border:3px solid var(--dw-primary);border-radius:14px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.14);user-select:none;}
+  .cells{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(var(--rows,7),1fr);}
+  .cell{position:relative;border:1px solid rgba(0,0,0,.14);padding:.6cqw 1cqw;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;min-width:0;}
+  .cell .n{font-size:2.5cqw;font-weight:800;color:#777;line-height:1;}
+  .cell .v{font-size:2.45cqw;font-weight:800;color:#222;line-height:1.1;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-shadow:0 0 2px #fff,0 0 3px #fff,0 0 4px #fff;}
+  .cell .t{position:absolute;right:.9cqw;top:.8cqw;width:2cqw;height:2cqw;border-radius:50%;}
+  .cell .t.praesens{background:#1e88e5;} .cell .t.praeteritum{background:#fb8c00;} .cell .t.perfekt{background:#43a047;}
+  .cell.c0{background:#fffdf7;} .cell.c1{background:#f4f8ff;}
+  .cell.start,.cell.goal{background:#fff3cf;} .cell.start .v,.cell.goal .v{font-size:3cqw;}
+  .cell.jf-ladder{background:#eaf5e6;} .cell.jf-slide{background:#fdeceb;}
+  .cell.hot{outline:3px solid var(--dw-accent);outline-offset:-3px;background:#fff3cf !important;}
+  .jumps{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;}
+  .cell .n,.cell .v,.cell .t{position:relative;z-index:2;} .cell .t{position:absolute;}
+  .toks{position:absolute;inset:0;pointer-events:none;}
+  .tok{position:absolute;width:7.6cqw;height:7.6cqw;margin:-3.8cqw 0 0 -3.8cqw;font-size:5.3cqw;line-height:1;display:grid;place-items:center;background:#fff;border:.6cqw solid var(--pc);border-radius:50%;box-shadow:0 2px 5px rgba(0,0,0,.35);transition:left .17s ease,top .17s ease;z-index:3;}
+  .tok.cur{animation:bob .9s infinite;z-index:4;}
+  .tok.slow{transition:left .7s ease-in-out,top .7s ease-in-out;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-1.2cqw);}}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;font-size:.78rem;color:var(--dw-muted);margin-top:8px;}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:-1px;}
+
+  /* slutt */
+  .podium{display:flex;gap:12px;justify-content:center;align-items:flex-end;margin:14px 0 6px;flex-wrap:wrap;}
+  .podium .pp{text-align:center;background:#fff;border:2px solid #ece8df;border-radius:14px;padding:12px 18px;min-width:120px;}
+  .podium .pp.first{border-color:var(--dw-accent);background:#fff9ec;transform:scale(1.08);}
+  .podium .pp .big{font-size:2.4rem;line-height:1;}
+  table.rk{border-collapse:collapse;width:100%;font-size:.92rem;}
+  .rk th,.rk td{padding:7px 10px;border-bottom:1px solid #ece8df;text-align:left;} .rk th{font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;color:var(--dw-muted);}
+  .hard{display:grid;gap:8px;}
+  .hard .h{border:1px solid #ece8df;border-radius:12px;padding:8px 12px;background:#fbfaf6;font-size:.88rem;}
+  .hard .h b{font-size:1rem;color:var(--dw-primary);}
+  .confetti{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden;}
+  .confetti i{position:absolute;top:-20px;width:10px;height:14px;opacity:.9;animation:fall linear forwards;}
+  @keyframes fall{to{transform:translateY(110vh) rotate(720deg);}}
+  .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#161616;color:#fff;padding:10px 20px;border-radius:999px;font-weight:700;font-size:.9rem;z-index:60;box-shadow:0 4px 16px rgba(0,0,0,.3);max-width:90vw;text-align:center;}
+
+  @media(max-width:900px){
+    .gmain{display:flex;flex-direction:column;gap:12px;}
+    .gmain .side{display:contents;}
+    #c-turn{order:1;} #c-prompt{order:2;} .boardwrap{order:3;} #c-players{order:4;} #c-log{order:5;}
+    body.in-game .dw-nav-links{display:none;}
+    .board{width:100%;}
+    .lobby-grid,.home-grid{grid-template-columns:1fr;}
+  }
+  @media(max-width:520px){
+    .rk th,.rk td{padding:6px 5px;font-size:.8rem;}
+    .dw-header h1{font-size:1.45rem;}
+    .codebox .code{font-size:2.6rem;}
+    .prompt .vb{font-size:1.7rem;}
+    .dice-legend{grid-template-columns:repeat(3,1fr);}
+  }
+  @media print{ .dw-nav-bar,.gbar,.no-print{display:none !important;} body{background:#fff;} .card{box-shadow:none;} }
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link dw-nav-active" href="../">🏆 Challenges</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../lernreise/">🧭 Lernreise</a>
+      <a class="dw-nav-link" href="../../lernpfad/">🛤️ Lernpfad</a>
+      <a class="dw-nav-link" href="../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+
+<div class="dw-wrap">
+
+  <div id="hdr">
+    <div class="dw-crumb"><a href="../">🏆 Challenges</a> <span>›</span> <span>Verb-Stigespill</span></div>
+    <div class="dw-header">
+      <h1>🎲 Verb-Stigespill</h1>
+      <p>Spill sammen på samme brett: kast terningen, bøy verbet og klatre mot mål</p>
+    </div>
+  </div>
+
+  <!-- ================= HJEM ================= -->
+  <section id="scr-home">
+    <div class="home-grid">
+      <div class="card" id="host-card">
+        <h2>🎓 Jeg er vert (lærer)</h2>
+        <p>Opprett et spillrom. Du får en <b>romkode</b> på fire tegn som elevene skriver inn på sine egne maskiner. Du velger verb, tider og nivå, og kan selv følge med – eller spille.</p>
+        <p class="muted">Du kan også legge til spillere på <b>samme maskin</b> (smartboard eller en gruppe rundt én PC) – da trenger ingen å skrive inn koden.</p>
+        <button class="btn prim big" id="h-create">Opprett spillrom</button>
+        <div id="resume-host" style="margin-top:12px"></div>
+        <div class="tip warn" id="h-nopeer" hidden>Nettverksbiblioteket kunne ikke lastes. Sjekk internettforbindelsen og last siden på nytt.</div>
+      </div>
+      <div class="card" id="join-card">
+        <h2>🎮 Jeg skal være med</h2>
+        <label class="lab" for="j-code">Romkode (fire tegn)</label>
+        <input type="text" id="j-code" class="codein" maxlength="4" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ABCD">
+        <label class="lab" for="j-name">Navnet ditt</label>
+        <input type="text" id="j-name" maxlength="14" autocomplete="off" placeholder="f.eks. Mia" style="width:100%;max-width:300px">
+        <label class="lab">Velg figur</label>
+        <div class="icopick" id="j-icons"></div>
+        <div class="row"><button class="btn prim" id="j-go">Bli med</button><span id="j-err" style="color:var(--dw-bad);font-weight:700;font-size:.88rem"></span></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h2>Slik spiller du</h2>
+      <ol class="rules">
+        <li><b>Kast terningen</b> når det er din tur. Brikken din går like mange ruter fram.</li>
+        <li>Ruten har et <b>verb</b> og en <b>tid</b> (Presens, Präteritum eller Perfekt). <b>Tallet på terningen bestemmer personen</b> du skal bøye for:</li>
+      </ol>
+      <div class="dice-legend">
+        <div><b>⚀ 1</b>ich</div><div><b>⚁ 2</b>du</div><div><b>⚂ 3</b>er / sie / es</div><div><b>⚃ 4</b>wir</div><div><b>⚄ 5</b>ihr</div><div><b>⚅ 6</b>sie / Sie</div>
+      </div>
+      <ol class="rules" start="3">
+        <li><b>Riktig bøyning:</b> du blir stående. Står du ved foten av en <b>stige 🪜</b>, klatrer du opp – men lander du øverst på en <b>sklie 🛝</b>, glir du ned.</li>
+        <li><b>Feil bøyning:</b> du går tilbake til ruten du kom fra, og får se fasit.</li>
+        <li>Den som først kommer til <b>MÅL 🏁</b> med et riktig svar, vinner. Til slutt får dere en oversikt over hvilke verb som var vanskelige.</li>
+      </ol>
+      <p class="muted">Tips: Skriv bare verbformen (f.eks. <i>gingen</i>, <i>hat gelernt</i>, <i>stehe auf</i>). Bruk knappene under svarfeltet for ä, ö, ü og ß.</p>
+    </div>
+  </section>
+
+  <!-- ================= LOBBY ================= -->
+  <section id="scr-lobby" hidden>
+    <div class="gbar"><span class="pill" id="l-status">…</span><span class="grow"></span><button class="btn sm" id="l-leave">Forlat rommet</button></div>
+    <div class="lobby-grid">
+      <div>
+        <div class="codebox">
+          <small>Romkode</small>
+          <div class="code" id="l-code">----</div>
+          <small id="l-linkline">Elevene går til denne siden og velger «Jeg skal være med»</small>
+          <div style="margin-top:10px"><button class="btn sm gold" id="l-copy">📋 Kopier lenke</button></div>
+        </div>
+        <div class="card">
+          <h3>Spillere (<span id="l-count">0</span>)</h3>
+          <ul class="plist" id="plist"></ul>
+          <div id="addlocal" hidden style="margin-top:14px;border-top:1px dashed #d9d3c4;padding-top:12px">
+            <label class="lab" style="margin-top:0">➕ Legg til spiller på denne maskinen</label>
+            <div class="row"><input type="text" id="al-name" maxlength="14" placeholder="Navn" style="flex:1;min-width:120px"><button class="btn sm prim" id="al-go">Legg til</button></div>
+            <div class="icopick" id="al-icons" style="margin-top:8px"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card" id="settings-card" hidden>
+          <h3>Innstillinger</h3>
+          <label class="lab">Verbgrupper (velg én eller flere)</label>
+          <div class="chips" id="s-sets"></div>
+          <label class="lab">Nivå</label>
+          <div class="seg" id="s-level"><button data-v="A1">A1 (enklest)</button><button data-v="A2">A2</button><button data-v="B1">B1 (alle)</button></div>
+          <label class="lab">Tider (velg én eller flere – rutene får en blanding)</label>
+          <div class="chips" id="s-tenses"></div>
+          <label class="lab">Brettets størrelse</label>
+          <div class="seg" id="s-size"><button data-v="kort">Kort (30 ruter)</button><button data-v="middels">Middels (42)</button><button data-v="lang">Langt (54)</button></div>
+          <label class="lab">Tid til å svare</label>
+          <div class="seg" id="s-time"><button data-v="0">Ingen</button><button data-v="20">20 s</button><button data-v="30">30 s</button><button data-v="45">45 s</button><button data-v="60">60 s</button></div>
+          <label class="lab">Hjelp</label>
+          <div class="chips"><button class="chip" id="s-help">Vis norsk betydning av verbet</button></div>
+          <div class="poolinfo" id="s-pool"></div>
+          <div style="margin-top:16px"><button class="btn prim big" id="b-start">▶ Start spillet</button> <span id="s-err" style="color:var(--dw-bad);font-weight:700;font-size:.88rem"></span></div>
+        </div>
+        <div class="card" id="summary-card" hidden>
+          <h3>Venter på at læreren starter …</h3>
+          <div id="s-summary" class="muted"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SPILL ================= -->
+  <section id="scr-game" hidden>
+    <div class="gbar">
+      <span class="pill">Rom <b id="g-code">----</b></span>
+      <span class="pill" id="g-status">…</span>
+      <span class="pill" id="g-role"></span>
+      <span class="grow"></span>
+      <button class="btn sm" id="g-sound" title="Lyd av/på">🔊</button>
+      <button class="btn sm" id="g-skip" hidden>⏭ Hopp over tur</button>
+      <button class="btn sm" id="g-end" hidden>🏁 Avslutt spillet</button>
+      <button class="btn sm" id="g-leave">Forlat</button>
+    </div>
+    <div class="gmain">
+      <div class="boardwrap"><div style="width:100%;display:flex;flex-direction:column;align-items:center">
+        <div class="board" id="board" aria-label="Spillebrett"><div class="cells" id="cells"></div><svg class="jumps" id="jumps" preserveAspectRatio="none"></svg><div class="toks" id="toks"></div></div>
+        <div class="legend"><span><i style="background:#1e88e5"></i>Presens</span><span><i style="background:#fb8c00"></i>Präteritum</span><span><i style="background:#43a047"></i>Perfekt</span><span>🪜 stige opp</span><span>🛝 sklie ned</span></div>
+      </div></div>
+      <div class="side">
+        <div class="card" id="c-turn"></div>
+        <div class="card prompt" id="c-prompt" hidden></div>
+        <div class="card" id="c-players"><h3 style="margin-bottom:8px">Spillere</h3><div class="pl" id="pl"></div></div>
+        <div class="card" id="c-log"><h3 style="margin-bottom:8px">Siste svar</h3><div class="log" id="log"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SLUTT ================= -->
+  <section id="scr-end" hidden>
+    <div class="gbar"><span class="pill">Rom <b id="e-code">----</b></span><span class="grow"></span><button class="btn sm" id="e-leave">Forlat</button></div>
+    <div class="card">
+      <h2 id="e-title">🏆 Resultat</h2>
+      <div class="podium" id="e-podium"></div>
+    </div>
+    <div class="card"><h3>Oversikt</h3><div style="overflow-x:auto"><table class="rk" id="e-table"></table></div></div>
+    <div class="card"><h3>Verb som var vanskelige</h3><p class="muted">Sortert etter hvor mange feil som ble gjort. Dette er gode verb å repetere sammen.</p><div class="hard" id="e-hard"></div></div>
+    <div class="row no-print">
+      <button class="btn gold" id="e-copy">📋 Kopier resultatet</button>
+      <button class="btn" id="e-print">🖨️ Skriv ut</button>
+      <button class="btn prim" id="e-again" hidden>🔄 Nytt spill (samme rom)</button>
+      <span class="muted" id="e-wait" hidden>Venter på at læreren starter et nytt spill …</span>
+    </div>
+  </section>
+
+  <p class="muted" style="margin-top:26px">Se også: <a href="../" style="color:var(--dw-primary-light);font-weight:700">Challenges</a> · <a href="../../verben/" style="color:var(--dw-primary-light);font-weight:700">Verb-Konjugator</a> · <a href="../../grammatikk/verb/praesens-regelmaessig/" style="color:var(--dw-primary-light);font-weight:700">Presens</a> · <a href="../../grammatikk/verb/praeteritum/" style="color:var(--dw-primary-light);font-weight:700">Präteritum</a> · <a href="../../grammatikk/verb/perfekt/" style="color:var(--dw-primary-light);font-weight:700">Perfekt</a></p>
+</div>
+
+<div class="confetti" id="confetti"></div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="../../assets/peerjs.min.js"></script>
+<script src="../../verben/verben_data.js"></script>
+<script src="engine.js"></script>
+<script src="net.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
