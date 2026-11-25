@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Spiele: «Quiz-Arena» (spiele/quiz/)
+  Læreren lager/velger spørsmålssett (grammatikk, ord, muntlige temaer) og åpner et rom. Elevene går inn med kode og spiller Schatzsuche, Rennen eller Burgverteidigung. Rapport til slutt.
+  Filer: engine.js (spillmotor hos læreren) · bank.js (ferdige sett + omforming av ordoppgaver) · app.js (skjermer, nett, editor). Bruker ../../challenges/stigespill/net.js (PeerJS).
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz-Arena · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../challenges/brettspill/shared.css">
+<style>
+  .setcard{background:#fbfaf6;border:1px solid #ece8df;border-radius:12px;padding:10px 14px;margin-bottom:8px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;} .setcard .sc-main{flex:1;min-width:200px;}
+  h3.cat{margin:14px 0 6px;font-family:"Baloo 2",sans-serif;color:var(--dw-primary-light);}
+  .tabs{display:flex;gap:6px;margin:0 0 12px;flex-wrap:wrap;} .tab{font-family:inherit;font-weight:800;font-size:.9rem;border:2px solid #d9d3c4;background:#fff;border-radius:999px;padding:7px 16px;cursor:pointer;} .tab.on{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  input.wide{width:100%;} input.sm{font-size:.85rem;padding:6px 10px;margin-top:6px;}
+  .edq{background:#fbfaf6;border:1px solid #ece8df;border-radius:12px;padding:10px 12px;margin-bottom:10px;} .edq-h{display:flex;align-items:center;gap:8px;margin-bottom:6px;} .grow{flex:1;}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0 2px;} .opt{display:flex;align-items:center;gap:6px;} .opt input[type=text]{flex:1;min-width:0;font-size:.9rem;padding:7px 10px;} .opt input[type=radio]{width:20px;height:20px;accent-color:#2e7d32;}
+  textarea{width:100%;font-family:inherit;font-size:.9rem;padding:9px 12px;border:2px solid #d9d3c4;border-radius:10px;min-height:90px;}
+  select{font-family:inherit;font-weight:700;}
+  .bar{height:14px;background:#e8e3d6;border-radius:999px;overflow:hidden;} .bar i{display:block;height:100%;background:#43a047;transition:width .4s;} .bar.mb i{background:#c62828;}
+  .castle{display:grid;grid-template-columns:1fr 1fr;gap:16px;text-align:center;margin:6px 0 14px;} .cs-ic{font-size:4rem;line-height:1.1;} .cs-ic.mon{animation:bob .9s infinite;} @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+  .lanes{display:grid;gap:4px;margin:6px 0;} .lane{display:grid;grid-template-columns:90px 1fr 54px;gap:8px;align-items:center;font-size:.8rem;} .lane.me{font-weight:800;background:#fff3cf;border-radius:8px;} .lane .ln{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;} .lane .lp{text-align:right;font-weight:800;}
+  .trk{position:relative;height:30px;background:repeating-linear-gradient(90deg,#f1ecdd 0 10px,#e8e3d3 10px 20px);border-radius:8px;} .trk .fl{position:absolute;right:4px;top:3px;font-size:1.2rem;} .runner{position:absolute;top:1px;font-size:1.4rem;transition:left .5s;}
+  table.rk2{border-collapse:collapse;width:100%;font-size:.88rem;} table.rk2 th,table.rk2 td{border-bottom:1px solid #ece8df;padding:5px 8px;text-align:left;} table.rk2 tr.off{opacity:.5;} table.rk2 th{font-size:.78rem;color:#6b6b6b;}
+  .pcb{display:inline-block;width:70px;height:8px;border-radius:99px;background:linear-gradient(90deg,#43a047 calc(var(--p)*1%),#e8e3d6 0);vertical-align:middle;}
+  .qbox{padding:4px 2px;} .qnum{font-size:.8rem;font-weight:800;color:#6b6b6b;} .qtext{font-family:"Baloo 2",sans-serif;font-size:1.6rem;margin:6px 0;color:var(--dw-primary);line-height:1.25;} .qn{margin-bottom:10px;}
+  .tbar{height:10px;background:#e8e3d6;border-radius:99px;overflow:hidden;margin:6px 0;} .tbar i{display:block;height:100%;background:#43a047;transition:width .25s linear;}
+  .optg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;} .optg.two{grid-template-columns:1fr 1fr;}
+  .opt-b{font-family:inherit;font-weight:800;font-size:1.1rem;color:#fff;background:var(--oc);border:none;border-radius:14px;padding:18px 12px;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.2);min-height:70px;word-break:break-word;} .opt-b:hover:not(:disabled){filter:brightness(1.1);} .opt-b:disabled{cursor:default;} .opt-b.chosen{outline:4px solid #232323;}
+  .opt-b.done{opacity:.35;} .opt-b.done.right{opacity:1;outline:4px solid #2e7d32;} .opt-b.done.wrong{opacity:.9;outline:4px solid #c62828;}
+  .chests{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:8px 0;} .chest{font-size:3rem;border:3px solid #d9a91c;background:#fff6d9;border-radius:16px;padding:12px 4px;cursor:pointer;font-family:inherit;text-align:center;} button.chest:hover{transform:scale(1.05);} .chest.open{cursor:default;opacity:.55;} .chest.open.pick{opacity:1;border-color:#2e7d32;} .chest small{display:block;font-size:.72rem;font-weight:800;}
+  .keys{margin-top:8px;display:flex;gap:6px;} .kb{font-family:inherit;font-weight:800;font-size:1.1rem;width:40px;height:38px;border:2px solid #d9d3c4;border-radius:8px;background:#fff;cursor:pointer;}
+  .br{display:grid;grid-template-columns:28px 1fr auto;gap:6px;padding:4px 8px;border-radius:8px;font-size:.85rem;} .br.me{background:#fff3cf;font-weight:800;}
+  .stats3,.stat3row{display:flex;gap:10px;flex-wrap:wrap;} .stat3{background:#fbfaf6;border:1px solid #ece8df;border-radius:12px;padding:10px 16px;text-align:center;} .stat3 b{display:block;font-size:1.6rem;font-family:"Baloo 2",sans-serif;color:var(--dw-primary);} .stat3 span{font-size:.75rem;color:#6b6b6b;font-weight:700;}
+  .topbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px;} .bigscore{font-family:"Baloo 2",sans-serif;font-size:1.4rem;font-weight:800;}
+  .gsplit{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:16px;align-items:start;} @media(max-width:900px){.gsplit{grid-template-columns:1fr;}}
+  .hbig{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:1.6rem;letter-spacing:.2em;background:var(--dw-primary);color:#fff;border-radius:12px;padding:2px 14px;}
+  #toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#232323;color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;z-index:99;max-width:90vw;text-align:center;}
+  .gen-grid label.lab{margin-top:12px;}
+  @media print{.no-print,.dw-nav-bar,.gbar{display:none !important;} body{background:#fff;}}
+  @media(max-width:520px){.optg{grid-template-columns:1fr;} .lane{grid-template-columns:64px 1fr 44px;} .opts{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link dw-nav-active" href="../../spiele/">🎲 Spiele</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../lernreise/">🧭 Lernreise</a>
+      <a class="dw-nav-link" href="../../lernpfad/">🛤️ Lernpfad</a>
+      <a class="dw-nav-link" href="../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+  <div class="dw-crumb"><a href="../">🎲 Spiele</a> <span>›</span> <span>Quiz-Arena</span></div>
+  <div class="dw-header"><h1>🎮 Quiz-Arena</h1><p>Læreren velger eller lager et spørsmålssett – elevene spiller sammen i eget tempo</p></div>
+
+  <section id="scr-home">
+    <div class="home-grid">
+      <div class="card">
+        <h2>🎓 Jeg er lærer</h2>
+        <p>Velg et ferdig sett (grammatikk, muntlige temaer), lag ord- og verbtrening fra ordlistene, eller skriv egne spørsmål. Så åpner du et rom og elevene går inn med en kode.</p>
+        <button class="btn prim big" id="h-sets">Velg eller lag spørsmålssett</button>
+        <div class="tip warn" id="h-nopeer" hidden style="margin-top:12px">Nettverksbiblioteket kunne ikke lastes. Sjekk nettforbindelsen og last siden på nytt.</div>
+      </div>
+      <div class="card">
+        <h2>🎮 Jeg skal være med</h2>
+        <label class="lab" for="j-code">Romkode (fire tegn)</label>
+        <input type="text" id="j-code" class="codein" maxlength="4" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ABCD">
+        <label class="lab" for="j-name">Navnet ditt</label>
+        <input type="text" id="j-name" maxlength="14" autocomplete="off" placeholder="f.eks. Mia" style="width:100%;max-width:300px">
+        <label class="lab">Velg figur</label><div class="icopick" id="j-icons"></div>
+        <div class="row"><button class="btn prim" id="j-go">Bli med</button><span id="j-err" style="color:var(--dw-bad);font-weight:700;font-size:.88rem"></span></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h2>Tre spillmoduser</h2>
+      <ol class="rules">
+        <li><b>💰 Schatzsuche:</b> riktig svar gir tre kister å velge mellom: mynter, tyver, storm og dobbelt opp. Flest mynter vinner.</li>
+        <li><b>🏁 Rennen:</b> hvert riktige svar flytter deg ett felt (to ved tre på rad). Først i mål vinner.</li>
+        <li><b>🏰 Burgverteidigung:</b> hele klassen samarbeider. Riktige svar skader monstrene som angriper borgen i bølger.</li>
+      </ol>
+      <p class="muted">Alle spiller i eget tempo, og spørsmålene kommer i ulik rekkefølge. Læreren ser live hvem som har det vanskelig og får en rapport med vanskeligste spørsmål, nøyaktighet per elev og CSV-eksport.</p>
+    </div>
+  </section>
+
+  <section id="scr-sets" hidden>
+    <div class="gbar"><button class="btn sm" id="sets-back">← Tilbake</button><span class="grow"></span></div>
+    <div class="card">
+      <div class="tabs" id="sets-tabs"><button class="tab on" data-v="mine">📁 Mine sett</button><button class="tab" data-v="bank">📚 Ferdige sett</button><button class="tab" data-v="gen">⚙️ Lag fra ordlister</button></div>
+      <div id="sets-mine"><div class="row" style="margin-bottom:10px"><button class="btn prim" id="mine-new">➕ Nytt sett</button><button class="btn" id="mine-import">⬆ Importer fil</button><input type="file" id="file-in" accept=".json,application/json" hidden></div><div id="mine-list"></div><p class="muted">Settene lagres i denne nettleseren. Bruk «Eksport» for å ta sikkerhetskopi eller dele et sett med en kollega (som kan importere filen).</p></div>
+      <div id="sets-bank" hidden><div id="bank-list"></div></div>
+      <div id="sets-gen" hidden class="gen-grid">
+        <p class="muted">Lag et sett automatisk fra ordlistene og verblistene på nettstedet. Du kan redigere settet etterpå.</p>
+        <label class="lab">Oppgavetyper</label><div class="chips" id="g-tasks"></div>
+        <div id="g-words"><label class="lab">Ord-temaer</label><div class="chips" id="g-themes"></div></div>
+        <div id="g-trans"><label class="lab">Retning</label><div class="seg" id="g-dir"><button data-v="no-de">Norsk → tysk</button><button data-v="de-no">Tysk → norsk</button><button data-v="begge">Begge</button></div><label class="lab">Svarform</label><div class="seg" id="g-mode"><button data-v="velg">Flervalg</button><button data-v="skriv">Skriv selv</button><button data-v="mix">Blandet</button></div></div>
+        <div id="g-verbs"><label class="lab">Verbgrupper</label><div class="chips" id="g-sets"></div><label class="lab">Tider</label><div class="chips" id="g-tenses"></div></div>
+        <label class="lab">Nivå</label><div class="seg" id="g-level"><button data-v="A1">A1</button><button data-v="A2">A2</button><button data-v="B1">B1</button></div><label class="lab">Antall spørsmål</label><div class="seg" id="g-n"><button data-v="10">10</button><button data-v="20">20</button><button data-v="30">30</button><button data-v="40">40</button></div>
+        <div style="margin-top:16px"><button class="btn prim big" id="g-make">Lag sett</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="scr-edit" hidden>
+    <div class="card">
+      <h2>✏️ Rediger sett</h2>
+      <label class="lab" for="ed-title">Tittel</label><input type="text" id="ed-title" class="wide" maxlength="80">
+      <div style="margin-top:14px" id="ed-list"></div>
+      <div class="row" id="ed-add" style="margin:10px 0"><button class="btn sm" data-v="mc">➕ Flervalg</button><button class="btn sm" data-v="tf">➕ Wahr / Falsch</button><button class="btn sm" data-v="type">➕ Skriv svaret</button><span class="muted" id="ed-count"></span></div>
+      <details class="tips" style="margin:12px 0"><summary><b>Lim inn mange spørsmål på en gang</b></summary>
+        <p class="muted" style="margin:6px 0">En linje per spørsmål, felt skilt med semikolon. <b>Flervalg:</b> <code>Spørsmål ; riktig svar ; feil ; feil ; feil</code> (riktig svar først). <b>Wahr/Falsch:</b> <code>Spørsmål ; Wahr</code>. <b>Skriv svaret:</b> <code>T: Spørsmål ; godkjent svar ; annet godkjent svar</code>.</p>
+        <textarea id="ed-bulk" placeholder="Wie heißt du? ; Ich heiße Mia. ; Ich bin Mia. ; Ich heißt Mia.&#10;Der Hund ist ein Tier. ; Wahr&#10;T: Skriv på tysk: bror ; Bruder ; der Bruder"></textarea>
+        <div style="margin-top:6px"><button class="btn sm" id="ed-paste">Legg til</button></div></details>
+      <div class="row"><button class="btn prim big" id="ed-save">💾 Lagre</button><button class="btn" id="ed-cancel">Avbryt</button></div>
+    </div>
+  </section>
+
+  <section id="scr-lobby" hidden>
+    <div class="gbar"><span class="pill stat" id="l-status">…</span><span class="grow"></span><button class="btn sm" id="l-leave">Forlat</button></div>
+    <div class="lobby-grid">
+      <div>
+        <div class="codebox" id="l-codebox"><small>Romkode</small><div class="code" id="l-code">----</div><small>Elevene går til denne siden og velger «Jeg skal være med»</small><div style="margin-top:10px"><button class="btn sm gold" id="l-copy">📋 Kopier lenke</button></div></div>
+        <div class="card"><h3>Spillere (<span id="l-count">0</span>)</h3><ul class="plist" id="plist"></ul></div>
+      </div>
+      <div>
+        <div class="card" id="l-hostonly">
+          <h3 id="l-title">Innstillinger</h3>
+          <label class="lab">Spillmodus</label><div class="seg" id="s-mode"><button data-v="gold">💰 Schatzsuche</button><button data-v="race">🏁 Rennen</button><button data-v="castle">🏰 Burgverteidigung</button></div>
+          <p class="muted" id="s-modedesc" style="margin-top:6px"></p>
+          <label class="lab">Rekkefølge</label><div class="seg" id="s-order"><button data-v="random">Tilfeldig</button><button data-v="seq">Som i settet</button></div>
+          <label class="lab">Tid per spørsmål</label><div class="seg" id="s-time"><button data-v="0">Ingen</button><button data-v="10">10 s</button><button data-v="20">20 s</button><button data-v="30">30 s</button><button data-v="45">45 s</button></div>
+          <div id="r-dur"><label class="lab">Spilletid</label><div class="seg" id="s-dur"><button data-v="3">3 min</button><button data-v="5">5 min</button><button data-v="8">8 min</button><button data-v="12">12 min</button><button data-v="15">15 min</button><button data-v="0">Ingen grense</button></div></div>
+          <div id="r-goal"><label class="lab">Antall felt til mål</label><div class="seg" id="s-goal"><button data-v="10">10</button><button data-v="15">15</button><button data-v="20">20</button><button data-v="30">30</button></div></div>
+          <div id="r-castle"><label class="lab">Antall monstre (bølger)</label><div class="seg" id="s-waves"><button data-v="4">4</button><button data-v="6">6</button><button data-v="8">8</button></div><label class="lab">Vanskelighet</label><div class="seg" id="s-diff"><button data-v="lett">Lett</button><button data-v="normal">Normal</button><button data-v="vanskelig">Vanskelig</button></div></div>
+          <div style="margin-top:16px"><button class="btn prim big" id="b-start">▶ Start spillet</button> <span id="s-err" style="color:var(--dw-bad);font-weight:700;font-size:.88rem"></span></div>
+        </div>
+        <div class="card" id="l-guestwait" hidden><h3>Venter på at læreren starter …</h3><div id="l-summary" class="muted"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="scr-host" hidden>
+    <div class="gbar"><span class="pill">Rom <b id="h-code">----</b></span><span class="pill stat">🟢</span><span class="pill" id="h-clock" hidden></span><span class="pill" id="h-count"></span><span class="grow"></span><button class="btn sm" id="h-end">🏁 Avslutt spillet</button><button class="btn sm" id="h-leave">Forlat</button></div>
+    <div class="card"><h2 id="h-title" style="margin-bottom:6px"></h2><div id="h-mode"></div></div>
+    <div class="gsplit">
+      <div class="card"><h3>Stilling</h3><div style="overflow-x:auto"><table class="rk2" id="h-table"></table></div></div>
+      <div class="card"><h3>Hendelser</h3><div class="log" id="h-feed" style="max-height:340px"></div></div>
+    </div>
+  </section>
+
+  <section id="scr-play" hidden>
+    <div class="gbar"><span class="pill stat">🟢</span><span class="pill" id="p-clock" hidden></span><span class="grow"></span><button class="btn sm" id="p-leave">Forlat</button></div>
+    <div class="topbar"><span class="bigscore" id="p-name"></span><span class="pill" id="p-score"></span><span class="pill" id="p-rank"></span></div>
+    <div class="gsplit">
+      <div><div class="card" id="p-mode-wrap" style="padding:10px 16px"><div id="p-mode"></div></div><div class="card" id="p-q"></div></div>
+      <div><div class="card" id="p-board"></div><div class="card"><h3>Hendelser</h3><div class="log" id="p-feed" style="max-height:200px"></div></div></div>
+    </div>
+  </section>
+
+  <section id="scr-end" hidden>
+    <div class="gbar no-print"><span class="pill">Rom <b id="e-code">----</b></span><span class="grow"></span><button class="btn sm" id="e-leave">Forlat</button></div>
+    <div id="e-host" hidden>
+      <div class="card"><h2 id="e-htitle"></h2><p class="muted" id="e-hsub"></p>
+        <div class="row no-print"><button class="btn gold" id="e-csv">⬇ Last ned CSV</button><button class="btn" id="e-copy">📋 Kopier resultatliste</button><button class="btn" id="e-print">🖨️ Skriv ut</button><button class="btn prim" id="e-again">🔄 Nytt spill (samme sett)</button></div></div>
+      <div class="card"><h3>Elever</h3><div style="overflow-x:auto"><table class="rk2" id="e-ptable"></table></div><div id="e-help" style="margin-top:10px"></div></div>
+      <div class="card"><h3>Spørsmål (vanskeligste først)</h3><div style="overflow-x:auto"><table class="rk2" id="e-qtable"></table></div></div>
+    </div>
+    <div id="e-guest" hidden>
+      <div class="card"><h2 id="e-gtitle"></h2><div class="stat3row" id="e-gstats" style="margin:10px 0"></div></div>
+      <div class="card" id="e-gboard"></div>
+      <p class="muted">Venter på at læreren starter et nytt spill …</p>
+    </div>
+  </section>
+  <div id="toast" hidden></div>
+</div>
+<script>window.DW_PEER_PREFIX='dwquiz-';</script>
+<script src="../../assets/peerjs.min.js"></script>
+<script src="../../verben/verben_data.js"></script>
+<script src="../../challenges/stigespill/engine.js"></script>
+<script src="../../challenges/aergere-dich-nicht/data.js"></script>
+<script src="../../challenges/aergere-dich-nicht/engine.js"></script>
+<script src="../../challenges/stigespill/net.js"></script>
+<script src="engine.js"></script>
+<script src="bank.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

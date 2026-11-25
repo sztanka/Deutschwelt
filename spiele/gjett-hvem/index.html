@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<!--
+  DEUTSCHWELT — Spiele: «Wer ist es?» (Gjett hvem) (spiele/gjett-hvem/)
+  Finn den hemmelige personen med ja/nein-spørsmål på tysk. Moduser: duell (2 spillere), klasse mot læreren, solo mot datamaskinen.
+  Filer: data.js (personer og spørsmål) · engine.js (spillmotor hos verten) · art.js (ansikter) · app.js (skjermer og nett). Bruker ../../challenges/stigespill/net.js (PeerJS).
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wer ist es? · Deutschwelt</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../challenges/brettspill/shared.css">
+<style>
+  .sp-sub{color:#6b6b6b;font-size:.88rem;}
+  .pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+  .wbd{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;}
+  .wc{position:relative;border:3px solid #e4dfd2;border-radius:14px;background:#fff;padding:4px;cursor:pointer;font-family:inherit;text-align:center;transition:transform .12s,filter .25s,opacity .25s,border-color .15s;min-width:0;}
+  .wc:hover{border-color:var(--dw-primary-light);transform:translateY(-2px);}
+  .wc .art{border-radius:10px;overflow:hidden;line-height:0;}
+  .wc .art svg{width:100%;height:auto;display:block;}
+  .wc .nm{font-weight:800;font-size:.82rem;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#232323;}
+  .wc.dim{opacity:.28;filter:grayscale(1);}
+  .wc.dim::after{content:"✕";position:absolute;inset:0;display:grid;place-items:center;font-size:3rem;font-weight:800;color:#c62828;opacity:.8;}
+  .wc.mine{border-color:var(--dw-accent);box-shadow:0 0 0 3px rgba(217,169,28,.45);}
+  .wc.mine::before{content:"⭐";position:absolute;right:2px;top:0;font-size:1.1rem;z-index:2;}
+  .wc.sel,.wc.cand{border-color:var(--dw-primary-light);box-shadow:0 0 0 4px rgba(156,19,41,.3);}
+  .wc.reveal{border-color:#2e7d32;box-shadow:0 0 0 4px rgba(46,125,50,.45);opacity:1;filter:none;}
+  .wbd.guessing .wc{animation:wig .9s infinite;}
+  @keyframes wig{0%,100%{transform:rotate(0);}50%{transform:rotate(-1.2deg);}}
+  .wc .art.bio{aspect-ratio:100/112;background:#fbf6ea;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:4px 2px;line-height:1.15;}
+  .wc .av{font-size:2.1rem;line-height:1;} .av.big{font-size:3.4rem;}
+  .wc .bl{display:flex;flex-direction:column;font-size:.62rem;color:#333;text-align:center;font-weight:600;line-height:1.25;width:100%;}
+  .wc .bl span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .mini{width:96px;} .mini .art{border-radius:12px;overflow:hidden;line-height:0;border:3px solid var(--dw-accent);background:#fbf6ea;display:grid;place-items:center;aspect-ratio:100/112;} .mini .art svg{width:100%;height:auto;} .mini .nm{text-align:center;font-weight:800;font-size:.85rem;margin-top:2px;}
+  .selbox{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:8px 0;}
+  .qbig{font-family:"Baloo 2",sans-serif;font-size:1.35rem;font-weight:800;color:var(--dw-primary);line-height:1.25;margin:4px 0 6px;} .qbig.sm{font-size:1.05rem;}
+  .qprev{background:#fbfaf6;border:1.5px dashed #d9d3c4;border-radius:12px;padding:8px 12px;margin:10px 0;min-height:48px;}
+  .tabs{display:flex;gap:6px;margin:6px 0 8px;} .tab{font-family:inherit;font-weight:800;font-size:.85rem;border:2px solid #d9d3c4;background:#fff;border-radius:999px;padding:5px 13px;cursor:pointer;} .tab.on{background:var(--dw-primary);color:#fff;border-color:var(--dw-primary);}
+  .vals{margin-top:8px;} .chip.val{font-size:.82rem;}
+  .tagx{display:inline-block;background:#f3f6fb;border:1px solid #d7e1f0;border-radius:999px;padding:1px 9px;font-weight:700;font-size:.8rem;}
+  .tips{margin-top:10px;font-size:.84rem;} .tips summary{cursor:pointer;font-weight:800;color:var(--dw-primary-light);} .tips div{margin-top:4px;line-height:1.5;}
+  .ansbtns{display:grid;gap:8px;margin:8px 0;} .ansbtns .btn{text-align:left;border-radius:14px;font-size:1rem;} .ansy{border-color:#a5d6a7 !important;background:#eef7ee !important;} .ansn{border-color:#f2c0c7 !important;background:#fdecee !important;}
+  #toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#232323;color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;z-index:99;max-width:90vw;text-align:center;}
+    .wbd.bio{grid-template-columns:repeat(4,minmax(0,1fr));}
+  .wbd.bio .wc{display:flex;flex-direction:column;} .wbd.bio .wc .art{flex:1;}
+  .wbd.bio .wc .art.bio{aspect-ratio:auto;padding:8px 4px 6px;gap:4px;}
+  .wbd.bio .wc .bl{font-size:.74rem;gap:1px;} .wbd.bio .wc .bl span{white-space:normal;overflow:visible;}
+  .wbd.bio .wc .av{font-size:2.6rem;}
+  @media(max-width:900px){.wbd{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;} .wbd.bio{grid-template-columns:repeat(3,minmax(0,1fr));}}
+  @media(max-width:480px){.wbd{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;} .wc .nm{font-size:.7rem;} .wbd.bio{grid-template-columns:repeat(2,minmax(0,1fr));} .wc.dim::after{font-size:2rem;}}
+</style>
+</head>
+<body>
+
+<div class="dw-nav-bar">
+  <nav class="dw-nav">
+    <a class="dw-nav-logo" href="../../">🇩🇪 Deutschwelt</a>
+    <div class="dw-nav-links">
+      <a class="dw-nav-link" href="../../">🏠 Forside</a>
+      <a class="dw-nav-link" href="../../grammatikk/">🧩 Grammatik</a>
+      <a class="dw-nav-link" href="../../staedte/">🏙️ Städte</a>
+      <a class="dw-nav-link" href="../../geschichte/">🕰️ Geschichte</a>
+      <a class="dw-nav-link" href="../../lesen/">📖 Lesen</a>
+      <a class="dw-nav-link" href="../../hoeren/">🎧 Hören</a>
+      <a class="dw-nav-link" href="../../schreiben/">✍️ Schreiben</a>
+      <a class="dw-nav-link" href="../../reise/">🗺️ Reise</a>
+      <a class="dw-nav-link" href="../../challenges/">🏆 Challenges</a>
+      <a class="dw-nav-link dw-nav-active" href="../../spiele/">🎲 Spiele</a>
+      <a class="dw-nav-link" href="../../filme-serien/">🎬 Filme &amp; Serien</a>
+      <a class="dw-nav-link" href="../../musik/">🎵 Musik</a>
+      <a class="dw-nav-link" href="../../laender/">🌍 Länder</a>
+      <a class="dw-nav-link" href="../../normen/hoeflichkeit/">🎩 Normen &amp; Regeln</a>
+      <a class="dw-nav-link" href="../../leben/">📱 Deutsch im echten Leben</a>
+      <a class="dw-nav-link" href="../../sprechen/">🗣️ Sprechen</a>
+      <a class="dw-nav-link" href="../../wichtige-themen/">⭐ Wichtige Themen</a>
+      <a class="dw-nav-link" href="../../fortgeschritten/">🎓 9.–10. trinn</a>
+      <a class="dw-nav-link" href="../../lernreise/">🧭 Lernreise</a>
+      <a class="dw-nav-link" href="../../lernpfad/">🛤️ Lernpfad</a>
+      <a class="dw-nav-link" href="../../ordbok/">📔 Ordbok</a>
+      <a class="dw-nav-link" href="../../verben/">🔄 Verben</a>
+      <a class="dw-nav-link" href="../../grammatikk/zahlen/">🔢 Zahlen</a>
+      <a class="dw-nav-link" href="../../aehnliche-woerter/">🪄 Snakker du nysk?</a>
+    </div>
+  </nav>
+</div>
+
+<div class="dw-wrap">
+  <div id="hdr">
+    <div class="dw-crumb"><a href="../">🎲 Spiele</a> <span>›</span> <span>Wer ist es?</span></div>
+    <div class="dw-header"><h1>🕵️ Wer ist es?</h1><p>Finn den hemmelige personen med ja/nein-spørsmål på tysk – øv på spørsmål, svarsetninger og personbeskrivelse</p></div>
+  </div>
+
+  <section id="scr-home">
+    <div class="home-grid">
+      <div class="card">
+        <h2>🎓 Vert / alene</h2>
+        <label class="lab" for="h-name">Navn</label>
+        <input type="text" id="h-name" maxlength="14" placeholder="Lærer eller elev" style="width:100%;max-width:300px">
+        <label class="lab">Velg figur</label><div class="icopick" id="h-icons"></div>
+        <div class="row" style="margin-top:12px"><button class="btn prim big" id="h-create">Opprett spillrom</button><button class="btn big" id="h-solo">Spill alene</button></div>
+        <p class="muted" style="margin-top:10px">Et rom kan brukes til en <b>duell</b> mellom to elever, eller som <b>klasse mot læreren</b> (alle på hver sin maskin, eller på en felles skjerm). «Spill alene» er mot datamaskinen.</p>
+        <div class="tip warn" id="h-nopeer" hidden>Nettverksbiblioteket kunne ikke lastes. «Spill alene» fungerer likevel.</div>
+      </div>
+      <div class="card">
+        <h2>🎮 Jeg skal være med</h2>
+        <label class="lab" for="j-code">Romkode (fire tegn)</label>
+        <input type="text" id="j-code" class="codein" maxlength="4" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ABCD">
+        <label class="lab" for="j-name">Navnet ditt</label>
+        <input type="text" id="j-name" maxlength="14" autocomplete="off" placeholder="f.eks. Mia" style="width:100%;max-width:300px">
+        <label class="lab">Velg figur</label><div class="icopick" id="j-icons"></div>
+        <div class="row"><button class="btn prim" id="j-go">Bli med</button><span id="j-err" style="color:var(--dw-bad);font-weight:700;font-size:.88rem"></span></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h2>Slik spiller du</h2>
+      <ol class="rules">
+        <li><b>Brettet:</b> 24 personer. Én av dem er hemmelig. Du kan velge mellom <b>utseende</b> (hår, øyne, briller …) og <b>personbeskrivelse</b> (alder, by, yrke, hobby og kjæledyr – her må du lese kortene!).</li>
+        <li><b>Spørsmål:</b> Bygg et ja/nein-spørsmål på tysk med knappene (f.eks. <i>Hat die Person blonde Haare?</i>), eller skriv selv. Du får norsk hjelp og tips til hvordan setningen bygges.</li>
+        <li><b>Svar:</b> Den som svarer, velger setningen som stemmer: <i>Ja, sie hat blonde Haare.</i> eller <i>Nein, sie hat keine blonden Haare.</i> Svarer du feil, blir svaret rettet automatisk.</li>
+        <li><b>Dimme:</b> Klikk på personer som ikke passer lenger, så de blir grå. Knappen «Dimm de som ikke passer» gjør jobben for deg.</li>
+        <li><b>Gjette:</b> Er du sikker, trykker du «Gjett personen». I <b>duell</b> vinner den som først finner motstanderens person. I <b>klasse</b> har klassen noen liv og et maks antall spørsmål.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="scr-lobby" hidden>
+    <div class="gbar"><span class="pill" id="l-status">…</span><span class="grow"></span><button class="btn sm" id="l-leave">Forlat</button></div>
+    <div class="lobby-grid">
+      <div>
+        <div class="codebox" id="l-codebox"><small>Romkode</small><div class="code" id="l-code">----</div><small>Elevene går til denne siden og velger «Jeg skal være med»</small><div style="margin-top:10px"><button class="btn sm gold" id="l-copy">📋 Kopier lenke</button></div></div>
+        <div class="card" id="l-players-card"><h3>Spillere (<span id="l-count">0</span>)</h3><ul class="plist" id="plist"></ul>
+          <label class="lab">Din figur</label><div class="icopick" id="l-icons"></div></div>
+      </div>
+      <div>
+        <div class="card" id="l-hostonly">
+          <h3>Innstillinger</h3>
+          <p class="muted" id="l-hint"></p>
+          <div id="row-mode"><label class="lab">Spillmodus</label><div class="seg" id="s-mode"><button data-v="duell">🕵️ Duell (2 spillere)</button><button data-v="klasse">👥 Klasse mot læreren</button></div></div>
+          <label class="lab">Brett</label><div class="seg" id="s-set"><button data-v="look">😀 Utseende</button><button data-v="bio">📇 Personbeskrivelse</button></div>
+          <label class="lab">Nivå (hvilke spørsmålstyper som er med)</label><div class="seg" id="s-level"><button data-v="A1">A1 (enklest)</button><button data-v="A2">A2</button><button data-v="B1">B1 (alle + und/oder)</button></div>
+          <label class="lab">Hjelp til å dimme</label><div class="seg" id="s-dim"><button data-v="av">Av</button><button data-v="knapp">Knapp</button><button data-v="auto">Automatisk</button></div>
+          <div id="r-self"><label class="lab">Vert</label><div class="chips"><button class="chip on" id="s-self">Jeg spiller selv</button></div></div>
+          <div id="r-guess"><label class="lab">Feil gjetning</label><div class="seg" id="s-guess"><button data-v="turn">Mister bare turen</button><button data-v="lose">Taper (klassisk)</button></div></div>
+          <div id="r-auto"><label class="lab">Hvem svarer?</label><div class="seg" id="s-auto"><button data-v="false">Læreren svarer</button><button data-v="true">Automatisk</button></div></div>
+          <div id="r-maxq"><label class="lab">Maks antall spørsmål</label><div class="seg" id="s-maxq"><button data-v="10">10</button><button data-v="15">15</button><button data-v="20">20</button><button data-v="30">30</button></div></div>
+          <div id="r-lives"><label class="lab">Liv (feil gjetninger)</label><div class="seg" id="s-lives"><button data-v="2">2</button><button data-v="3">3</button><button data-v="5">5</button></div></div>
+          <div style="margin-top:16px"><button class="btn prim big" id="b-start">▶ Start spillet</button> <span id="s-err" style="color:var(--dw-bad);font-weight:700;font-size:.88rem"></span></div>
+        </div>
+        <div class="card" id="l-guestwait" hidden><h3>Venter på at spillet starter …</h3><div id="l-summary" class="muted"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="scr-game" hidden>
+    <div class="gbar"><span class="pill" id="g-codepill">Rom <b id="g-code">----</b></span><span class="pill" id="g-status">…</span><span class="pill" id="g-role"></span><span class="grow"></span><button class="btn sm" id="g-skip" hidden>⏭ Hopp over tur</button><button class="btn sm" id="g-end" hidden>🏁 Avslutt</button><button class="btn sm" id="g-leave">Forlat</button></div>
+    <div class="gmain">
+      <div><div class="wbd" id="bd" aria-label="Personer"></div><div class="legend"><span id="boardnote"></span></div></div>
+      <div class="side">
+        <div class="card" id="c-turn"></div>
+        <div class="card prompt" id="c-prompt" hidden></div>
+        <div class="card" id="c-players"><h3 style="margin-bottom:8px">Spillere</h3><div class="pl" id="pl"></div></div>
+        <div class="card" id="c-log"><h3 style="margin-bottom:8px">Samtalen</h3><div class="log" id="log"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="scr-end" hidden>
+    <div class="gbar"><span class="pill">Rom <b id="e-code">----</b></span><span class="grow"></span><button class="btn sm" id="e-leave">Forlat</button></div>
+    <div class="card"><h2 id="e-title">Resultat</h2><p class="muted" id="e-sub"></p><div class="selbox" id="e-reveal" style="gap:24px"></div>
+      <div class="row"><button class="btn prim" id="e-again">🔄 Nytt spill (samme rom)</button><span class="muted" id="e-wait" hidden>Venter på at verten starter et nytt spill …</span></div></div>
+  </section>
+  <div id="toast" hidden></div>
+</div>
+<script>window.DW_PEER_PREFIX='dwwer-';</script>
+<script src="../../assets/peerjs.min.js"></script>
+<script src="../../challenges/stigespill/net.js"></script>
+<script src="data.js"></script>
+<script src="engine.js"></script>
+<script src="art.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
